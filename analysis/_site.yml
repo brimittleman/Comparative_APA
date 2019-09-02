@@ -1,7 +1,7 @@
-name: "Comparative_APA"
+name: Comparative_APA
 output_dir: ../docs
 navbar:
-  title: "Comparative_APA"
+  title: Comparative_APA
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/brimittleman/Comparative_APA
 output:
   workflowr::wflow_html:
     toc: yes
