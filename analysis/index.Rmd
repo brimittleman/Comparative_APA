@@ -8,4 +8,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+I am interesting in understanding differential APA between human and chimpanzees. I used 3' Seq to identify PAS for total and nuclear frations of LCL in both species. 

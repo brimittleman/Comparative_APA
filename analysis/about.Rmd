@@ -7,4 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+I am a graduate student in the Gilad lab at University of Chicago. 
+
+I am interesting in understanding differential APA between human and chimpanzees. I used 3' Seq to identify PAS for total and nuclear frations of LCL in both species. 
+
