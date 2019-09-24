@@ -9,3 +9,8 @@ editor_options:
 ---
 
 I am interesting in understanding differential APA between human and chimpanzees. I used 3' Seq to identify PAS for total and nuclear frations of LCL in both species. 
+
+
+
+
+* [Prepare annotation files for mapping ](annotationInfo.html)  

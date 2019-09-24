@@ -1,0 +1,65 @@
+---
+title: "Annotation files for Snake"
+author: "Briana Mittleman"
+date: "9/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am putting together the necessary annotations for the snakefiles for the human and chimp data. 
+
+Chimp fastq: /project2/gilad/briana/genome_anotation_data/Chimp_genome
+chimp anno: /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno
+gene 2 txn: /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_txn2genename
+
+human fastq: /project2/gilad/briana/genome_anotation_data/hg38
+human anno: /project2/gilad/briana/genome_anotation_data/hg38/refseq_anno
+gene 2 txn: /project2/gilad/briana/genome_anotation_data/hg38/refseq_anno/hg38_ncbiRefseq_txn2genename
+
+For annotations: 
+
+Concatenate, change to gene names. I can use something similar to
+/project2/gilad/briana/genome_anotation_data/RefSeq_annotations/formatFullAnno.py
+
+
+remove top line, Concatinate and sort: 
+```{bash, eval=F}
+#human
+ sed 1d hg38_ncbiRefseq_intron.dms > hg38_ncbiRefseq_intron.bed
+ cat *.bed > hg38_ncbiRefseq_Allannotation.bed
+sort -k1,1 -k2,2n hg38_ncbiRefseq_Allannotation.bed > hg38_ncbiRefseq_Allannotation.sort.bed
+
+#chimp
+sed 1d pantro6_ncbiRefseq_downstream.dms > pantro6_ncbiRefseq_downstream.bed
+cat *.bed > pantro6_ncbiRefseq_Allannotation.bed
+sort -k1,1 -k2,2n pantro6_ncbiRefseq_Allannotation.bed > pantro6_ncbiRefseq_Allannotation.sort.bed
+  
+```
+
+```{bash,eval=F}
+python formatpantro6Anno.py 
+python formathg38Anno.py 
+
+```
+
+Generate genome index for STAR  
+
+```{bash,eval=F}
+sbatch buildStarIndex.sh
+```
+
+Liftover the PAS from the first apaQTL project.  
+
+```{bash,eval=F}
+sed -e 's/^/chr/' /project2/gilad/briana/apaQTL/data/PAS/APAPAS_GeneLocAnno.5perc.sort.bed  > ../data/liftover_files/APAPAS_withCHR_GeneLocAnno.5perc.sort.bed 
+
+sbatch liftPAS19to38.sh
+#4 do not lift over
+sbatch revLiftPAShg38to19.sh
+#all reverse lift
+```
+
+
