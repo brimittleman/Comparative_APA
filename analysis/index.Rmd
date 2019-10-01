@@ -14,3 +14,5 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 
 * [Prepare annotation files for mapping ](annotationInfo.html)  
+
+* [Mapping statistics and plots](mapStats.html)
