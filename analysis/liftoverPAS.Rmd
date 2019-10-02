@@ -140,4 +140,84 @@ ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="ident
 
 I need to now make sure they lifted to the same location. To do this I will overlap the reciprocal lifted PAS with the original files.  
 
+I subset the original files by the pas that have an exact match in the reverse map. I can do this by pas name- start:end  
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_lifted
+python filterPostLift.py ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed ../data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed ../data/cleanPeaks_lifted/Human_PASregions.bed
+
+python filterPostLift.py ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed  ../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed ../data/cleanPeaks_lifted/Chimp_PASregions.bed
+```
+
+
+Results: 
+
+```{r}
+Human_recLift=read.table("../data/cleanPeaks_lifted/Human_PASregions.bed",stringsAsFactors = F, col.names = c("chr", "start","end", "name", "score", "strand")) 
+Chimp_recLift=read.table("../data/cleanPeaks_lifted/Chimp_PASregions.bed",stringsAsFactors = F,col.names = c("chr", "start","end", "name", "score", "strand"))
+
+originalH=unliftedH + liftedH
+originalC=unliftedC + liftedC
+
+#human
+nrow(Human_recLift)/originalH
+
+
+#chimp 
+nrow(Chimp_recLift)/originalC
+```
+
+
+96% reciprocally lifted over. 
+
+lift the chimp ones back to human
+
+```{bash,eval=F}
+sbatch recLiftchim2human.sh
+```
+
+
+Join the results: If they are discovered in both say so. 
+
+```{r}
+Chimp_recLift_hcoord=read.table("../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.bed",stringsAsFactors = F,col.names = c("chr", "start","end", "name", "score", "strand"))
+
+Inboth=Human_recLift %>% inner_join(Chimp_recLift_hcoord, by=c("chr", "start", "end")) %>% mutate(discover="Both", newName=paste(name.x,discover,sep=":"),meanscore=((score.x+score.y)/2)) %>% select(chr, start,end, newName, meanscore, strand.x) %>% dplyr::rename("score"=meanscore, "strand"=strand.x)
+
+HumanOnly= Human_recLift %>% anti_join(Chimp_recLift_hcoord, by=c("chr", "start", "end"))  %>% mutate(discover="Human",newName=paste(name,discover,sep=":")) %>% select(chr, start,end, newName, score, strand)
+ChimpOnly=Chimp_recLift_hcoord %>% anti_join(Human_recLift, by=c("chr", "start", "end")) %>% mutate(discover="Chimp",newName=paste(name,discover,sep=":")) %>% select(chr, start,end, newName, score, strand)
+
+
+
+```
+
+
+Graph this:
+
+```{r}
+
+set=c("Both", "Human", "Chimp")
+Number=c(nrow(Inboth), nrow(HumanOnly),nrow(ChimpOnly))
+pasdiscnum=as.data.frame(cbind(set, Number))
+pasdiscnum$Number=as.numeric(as.character(pasdiscnum$Number))
+
+pasdiscnum= pasdiscnum %>% mutate(prop=Number/sum(Number))
+ggplot(pasdiscnum, aes(x=set, y=Number, fill=set)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2")+ labs(y="Number of PAS", x="Discovery Set")
+ggplot(pasdiscnum, aes(x=set, y=prop, fill=set)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2") + labs(y="Proportion of PAS", x="Discovery Set")
+
+```
+
+
+Are higher scores discovered in both? 
+
+```{r}
+AllPAS=rbind(Inboth,HumanOnly ,ChimpOnly) %>% separate(newName,into=c("name", "discover"))
+```
+
+
+```{r}
+ggplot(AllPAS, aes(x=discover, y=log10(score), fill=discover)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(y="log10(Mean Read count)", title="PAS mean reads by Species of discovery")
+```
+
+
 
