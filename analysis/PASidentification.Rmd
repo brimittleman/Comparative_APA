@@ -1,0 +1,29 @@
+---
+title: "PAS pipeline"
+author: "Briana Mittleman"
+date: "10/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I use 3 snakefiles to get from fastq to an inclusive set of PAS in each speices. By inclusive set I mean the peak location must be non 0 in 90% of the samples and have an average read count of at least 2.  These PAS have been cleaned for MP using the 15bp filter I
+
+
+```{bash,eval=F}
+#read mapping and cleaning
+sbatch snakemake_human.batch
+sbatch snakemake_chimp.batch
+
+#PAS calling
+sbatch snakemakePASchimp.batch
+sbatch snakemakePAShuman.batch
+
+#pas filter/clean
+sbatch snakemakefiltPAS_human.sh
+sbatch snakemakefiltPAS_chimp.sh
+
+```
+

@@ -1,0 +1,12 @@
+---
+title: "Liftover PAS"
+author: "Briana Mittleman"
+date: "10/1/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Next step will be to prepare these for liftover. I will get the PAS as the furthest downstream base. I will liftover the regions 100bp upstream and 100bp downstream of the PAS.
