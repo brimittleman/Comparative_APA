@@ -9,4 +9,135 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r}
+library(tidyverse)
+
+```
+
 Next step will be to prepare these for liftover. I will get the PAS as the furthest downstream base. I will liftover the regions 100bp upstream and 100bp downstream of the PAS.
+
+
+As of now the PAS are still on the opposite strand. 
+
+Pos strand: pas is the end
+  - start_new= end-100
+  - end_new=end + 100
+  
+neg strand: pas is the start
+  - start_new= start-100
+  - end_new= start + 100
+
+human: /project2/gilad/briana/Comparative_APA/Human/data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed
+chimp: /project2/gilad/briana/Comparative_APA/Chimp/data/cleanPeaks/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed
+
+Output:
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_byspecies/
+
+python preparePAS4lift.py ../Human/data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+
+python preparePAS4lift.py ../Chimp/data/cleanPeaks/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+
+
+
+```
+
+
+Chain files from:
+http://hgdownload.soe.ucsc.edu/downloads.html#chimp dowload to ../data/chainFiles/
+
+
+Liftover pipeline:
+
+start with human- lift to chimp and back
+start with chimp- lift to human and back 
+
+```{bash,eval=F}
+mkdir ../data/primaryLift
+mkdir ../data/reverseLift
+
+sbatch primaryLift.sh
+```
+
+
+Results from primary lift:  
+
+```{r}
+unliftedH=read.table("../data/primaryLift/human_APApeaks_primarylift2Chimp_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+unliftedC=read.table("../data/primaryLift/chimp_APApeaks_primarylift2Human_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+
+liftedH=read.table("../data/primaryLift/human_APApeaks_primarylift2Chimp.bed",stringsAsFactors = F) %>% nrow()
+liftedC=read.table("../data/primaryLift/chimp_APApeaks_primarylift2Human.bed",stringsAsFactors = F) %>% nrow()
+
+primaryUnC=c("Chimp","Unlifted", unliftedC)
+primaryUnH=c("Human","Unlifted", unliftedH)
+
+primaryLH=c("Human","Lifted", liftedH)
+primaryLC=c("Chimp","Lifted", liftedC)
+
+header=c("species", "liftStat", "PAS")
+primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
+colnames(primaryDF)=header
+
+
+primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
+
+
+
+primaryDF= primaryDF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+
+```
+
+
+
+```{r}
+ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+```
+
+```{r}
+ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+```
+
+
+Reverse lift:  
+
+```{r}
+re_unliftedH=read.table("../data/reverseLift/human_APApeaks_primarylift2Human_rev2Human_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+re_unliftedC=read.table("../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+
+re_liftedH=read.table("../data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed",stringsAsFactors = F) %>% nrow()
+re_liftedC=read.table("../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed",stringsAsFactors = F) %>% nrow()
+
+re_UnC=c("Chimp","Unlifted", re_unliftedC)
+re_UnH=c("Human","Unlifted", re_unliftedH)
+
+re_LH=c("Human","Lifted", re_liftedH)
+re_LC=c("Chimp","Lifted", re_liftedC)
+
+header=c("species", "liftStat", "PAS")
+re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
+colnames(re_DF)=header
+
+
+re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
+
+
+
+re_DF= re_DF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+
+```
+
+
+```{r}
+ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results")
+```
+
+```{r}
+ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Reverse Liftover Results")
+```
+
+I need to now make sure they lifted to the same location. To do this I will overlap the reciprocal lifted PAS with the original files.  
+
+
