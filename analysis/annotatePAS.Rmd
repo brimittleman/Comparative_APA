@@ -55,5 +55,30 @@ sbatch quantLiftedPAS.sh
 
 ```
 
+Fix header:  
+
+```{bash,eval=F}
+python fixFChead_bothfrac.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc
+
+
+python fixFChead_bothfrac.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc
+
+#make file ID
+
+python makeFileID.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt
+
+python makeFileID.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt
+```
 
 Make phenotypes from these: 
+```{bash,eval=F}
+mkdir ../Human/phenotype/
+mkdir ../Chimp/phenotype/
+python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+
+python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt
+```
+
+
+**Problem: called twice when the PAS is called in both species. but is off. I need a way to deal with pas called in either fractio but are only 1 or 2 basepairs off. **
+
