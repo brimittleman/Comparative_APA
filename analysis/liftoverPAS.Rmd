@@ -220,4 +220,16 @@ ggplot(AllPAS, aes(x=discover, y=log10(score), fill=discover)) + geom_boxplot() 
 ```
 
 
+Write these out. I want to have the PAS and the 100 bases upstream of the PAS only.
+```{r}
+AllPAS_together=as.data.frame(rbind(Inboth,HumanOnly ,ChimpOnly))  %>% select(chr, start,end, newName, score, strand)
+```
+
+```{r}
+write.table(AllPAS_together, "../data/cleanPeaks_lifted/AllPAS_postLift.bed", quote = F, col.names = F, row.names = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/AllPAS_postLift.bed > ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed
+```
 

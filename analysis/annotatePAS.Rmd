@@ -1,0 +1,59 @@
+---
+title: "Annotate and assess peak usage"
+author: "Briana Mittleman"
+date: "10/3/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will annotate the PAS that passed [the liftover](liftoverPAS.html). These PAS are in 
+../data/cleanPeaks_lifted
+
+
+Map PAS to these annoations:
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_anno
+bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+```
+
+Chose annotation if PAS in multiple and create bed. I will have to lift this back to chimp then make saf files for both to do the feature count  
+
+
+
+```{bash,eval=F}
+python chooseAnno2Bed.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed 
+```
+
+
+Lift this so I have it with chimp coordinates:  
+
+```{bash,eval=F}
+sbatch LiftOrthoPAS2chimp.sh
+```
+
+
+bed 2 SAF
+
+```{bash,eval=F}
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.SAF
+
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.SAF
+```
+
+Use feature counts to quantify:  
+
+
+```{bash,eval=F}
+mkdir  ../Human/data/CleanLiftedPeaks_FC/
+mkdir ../Chimp/data/CleanLiftedPeaks_FC/
+
+sbatch quantLiftedPAS.sh 
+
+```
+
+
+Make phenotypes from these: 

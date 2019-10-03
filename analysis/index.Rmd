@@ -18,3 +18,5 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Mapping statistics and plots](mapStats.html)
 
 * [Liftover PAS](liftoverPAS.html)
+
+* [Annotated PAS and make APA phenotype](annotatePAS.html)
