@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-24
+<strong>Last updated:</strong> 2019-10-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,21 +434,25 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2fe9d6cca95411e4ce8b2cfd67d80c7b22c418dtargetblanka2fe9d6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d" target="_blank">a2fe9d6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreecc84535feae47289c3feaa6a2ec071fc7faa50bctargetblankcc84535a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/cc84535feae47289c3feaa6a2ec071fc7faa50bc" target="_blank">cc84535</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2fe9d6cca95411e4ce8b2cfd67d80c7b22c418dtargetblanka2fe9d6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreecc84535feae47289c3feaa6a2ec071fc7faa50bctargetblankcc84535a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    code/_STARtmp/
+    Ignored:    code/chimp_log/
+    Ignored:    code/human_log/
+    Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
 Untracked files:
+    Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  code/._Config_chimp.yaml
@@ -456,21 +460,41 @@ Untracked files:
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._bed215upbed.py
     Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
+    Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._filterPASforMP.py
+    Untracked:  code/._filterPostLift.py
+    Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
     Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._maphg19.sh
+    Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._preparePAS4lift.py
+    Untracked:  code/._primaryLift.sh
+    Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
+    Untracked:  code/._reverseLift.sh
     Untracked:  code/._snakemake.batch
     Untracked:  code/._snakemakePAS.batch
+    Untracked:  code/._snakemakePASchimp.batch
+    Untracked:  code/._snakemakePAShuman.batch
+    Untracked:  code/._snakemake_chimp.batch
+    Untracked:  code/._snakemake_human.batch
     Untracked:  code/._snakemakefiltPAS.batch
+    Untracked:  code/._snakemakefiltPAS_chimp
+    Untracked:  code/._snakemakefiltPAS_chimp.sh
+    Untracked:  code/._snakemakefiltPAS_human.sh
     Untracked:  code/._submit-snakemake-chimp.sh
     Untracked:  code/._submit-snakemake-human.sh
     Untracked:  code/._submit-snakemakePAS-chimp.sh
     Untracked:  code/._submit-snakemakePAS-human.sh
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_human.yaml
     Untracked:  code/Log.out
@@ -481,47 +505,100 @@ Untracked files:
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
     Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/apaQTLsnake.err
+    Untracked:  code/apaQTLsnake.out
+    Untracked:  code/apaQTLsnakePAS.err
+    Untracked:  code/apaQTLsnakePAS.out
+    Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/bed215upbed.py
     Untracked:  code/bed2saf.py
     Untracked:  code/bg_to_cov.py
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
     Untracked:  code/convertNumeric.py
+    Untracked:  code/extraSnakefiltpas
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
     Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterPASforMP.py
+    Untracked:  code/filterPostLift.py
     Untracked:  code/filterSAFforMP_gen.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixFChead.py
+    Untracked:  code/fixUTRexonanno.py
     Untracked:  code/formathg38Anno.py
-    Untracked:  code/formatpantro6Anno.py
     Untracked:  code/generateStarIndex.err
     Untracked:  code/generateStarIndex.out
     Untracked:  code/liftPAS19to38.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
     Untracked:  code/makePheno.py
+    Untracked:  code/maphg19.err
+    Untracked:  code/maphg19.out
+    Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_sub.err
+    Untracked:  code/maphg19_sub.out
+    Untracked:  code/maphg19_subjunc.sh
     Untracked:  code/namePeaks.py
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/preparePAS4lift.py
+    Untracked:  code/primaryLift.err
+    Untracked:  code/primaryLift.out
+    Untracked:  code/primaryLift.sh
+    Untracked:  code/recChimpback2Human.err
+    Untracked:  code/recChimpback2Human.out
+    Untracked:  code/recLiftchim2human.sh
+    Untracked:  code/revLift.err
+    Untracked:  code/revLift.out
     Untracked:  code/revLiftPAShg38to19.sh
+    Untracked:  code/reverseLift.sh
+    Untracked:  code/slurm-62824013.out
+    Untracked:  code/slurm-62825841.out
+    Untracked:  code/slurm-62826116.out
+    Untracked:  code/snakePASChimp.err
+    Untracked:  code/snakePASChimp.out
+    Untracked:  code/snakePAShuman.out
     Untracked:  code/snakemake.batch
     Untracked:  code/snakemakePAS.batch
+    Untracked:  code/snakemakePASFiltChimp.err
+    Untracked:  code/snakemakePASFiltChimp.out
+    Untracked:  code/snakemakePASFiltHuman.err
+    Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePASchimp.batch
+    Untracked:  code/snakemakePAShuman.batch
+    Untracked:  code/snakemake_chimp.batch
+    Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
+    Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/submit-snakemake-chimp.sh
     Untracked:  code/submit-snakemake-human.sh
     Untracked:  code/submit-snakemakePAS-chimp.sh
     Untracked:  code/submit-snakemakePAS-human.sh
     Untracked:  code/submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/submit-snakemakefiltPAS-human.sh
+    Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
+    Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/chainFiles/
+    Untracked:  data/cleanPeaks_byspecies/
+    Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/liftover_files/
+    Untracked:  data/metadata_HCpanel.txt
+    Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/primaryLift/
+    Untracked:  data/reverseLift/
 
 </code></pre>
 <p>
@@ -565,6 +642,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cc84535feae47289c3feaa6a2ec071fc7faa50bc/analysis/annotationInfo.Rmd" target="_blank">cc84535</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-03
+</td>
+<td>
+fix anno refseq
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/annotationInfo.html" target="_blank">7a9cf74</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-09-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/annotationInfo.Rmd" target="_blank">a2fe9d6</a>
 </td>
 <td>
@@ -584,25 +695,22 @@ add annotation prep anaylsis
 </div>
 </div>
 </div>
-<p>I am putting together the necessary annotations for the snakefiles for the human and chimp data.</p>
-<p>Chimp fastq: /project2/gilad/briana/genome_anotation_data/Chimp_genome chimp anno: /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno gene 2 txn: /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_txn2genename</p>
-<p>human fastq: /project2/gilad/briana/genome_anotation_data/hg38 human anno: /project2/gilad/briana/genome_anotation_data/hg38/refseq_anno gene 2 txn: /project2/gilad/briana/genome_anotation_data/hg38/refseq_anno/hg38_ncbiRefseq_txn2genename</p>
+<p>I am putting together the necessary annotations</p>
+<p>human fastq: /project2/gilad/briana/genome_anotation_data/hg38_try2 human anno: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno gene 2 txn: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno</p>
+<p>/hg38_ncbiRefseq_txn2genename</p>
 <p>For annotations:</p>
 <p>Concatenate, change to gene names. I can use something similar to /project2/gilad/briana/genome_anotation_data/RefSeq_annotations/formatFullAnno.py</p>
 <p>remove top line, Concatinate and sort:</p>
 <pre class="bash"><code>#human
- sed 1d hg38_ncbiRefseq_intron.dms &gt; hg38_ncbiRefseq_intron.bed
- cat *.bed &gt; hg38_ncbiRefseq_Allannotation.bed
+sed 1d hg38_ncbiRefseq_intron.dms &gt; hg38_ncbiRefseq_intron.bed
+cat *.bed &gt; hg38_ncbiRefseq_Allannotation.bed
 sort -k1,1 -k2,2n hg38_ncbiRefseq_Allannotation.bed &gt; hg38_ncbiRefseq_Allannotation.sort.bed
-
-#chimp
-sed 1d pantro6_ncbiRefseq_downstream.dms &gt; pantro6_ncbiRefseq_downstream.bed
-cat *.bed &gt; pantro6_ncbiRefseq_Allannotation.bed
-sort -k1,1 -k2,2n pantro6_ncbiRefseq_Allannotation.bed &gt; pantro6_ncbiRefseq_Allannotation.sort.bed
-  </code></pre>
-<pre class="bash"><code>python formatpantro6Anno.py 
-python formathg38Anno.py 
 </code></pre>
+<pre class="bash"><code>
+python formathg38Anno.py 
+
+
+#results : /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed</code></pre>
 <p>Generate genome index for STAR</p>
 <pre class="bash"><code>sbatch buildStarIndex.sh</code></pre>
 <p>Liftover the PAS from the first apaQTL project.</p>
