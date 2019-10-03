@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee3f0cdffde5f9e8344479c42d2e16e725e73b22etargetblanke3f0cdfa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/e3f0cdffde5f9e8344479c42d2e16e725e73b22e" target="_blank">e3f0cdf</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8033ddba95086c84f49c9eb70f36a77f92cdeef0targetblank8033ddba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8033ddba95086c84f49c9eb70f36a77f92cdeef0" target="_blank">8033ddb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee3f0cdffde5f9e8344479c42d2e16e725e73b22etargetblanke3f0cdfa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8033ddba95086c84f49c9eb70f36a77f92cdeef0targetblank8033ddba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,6 +539,7 @@ Untracked files:
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixFChead.py
+    Untracked:  code/fixFChead_bothfrac.py
     Untracked:  code/fixUTRexonanno.py
     Untracked:  code/formathg38Anno.py
     Untracked:  code/generateStarIndex.err
@@ -653,6 +654,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8033ddba95086c84f49c9eb70f36a77f92cdeef0/analysis/annotatePAS.Rmd" target="_blank">8033ddb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-03
+</td>
+<td>
+get to pheno to find prob
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e0ac227e5aa1b09a1da0fa75aaab25b9f0eb749a/docs/annotatePAS.html" target="_blank">e0ac227</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/annotatePAS.Rmd" target="_blank">e3f0cdf</a>
 </td>
 <td>
@@ -690,7 +725,24 @@ mkdir ../Chimp/data/CleanLiftedPeaks_FC/
 
 sbatch quantLiftedPAS.sh 
 </code></pre>
+<p>Fix header:</p>
+<pre class="bash"><code>python fixFChead_bothfrac.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc
+
+
+python fixFChead_bothfrac.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc
+
+#make file ID
+
+python makeFileID.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt
+
+python makeFileID.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt</code></pre>
 <p>Make phenotypes from these:</p>
+<pre class="bash"><code>mkdir ../Human/phenotype/
+mkdir ../Chimp/phenotype/
+python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+
+python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt</code></pre>
+<p><strong>Problem: called twice when the PAS is called in both species. but is off. I need a way to deal with pas called in either fractio but are only 1 or 2 basepairs off. </strong></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
