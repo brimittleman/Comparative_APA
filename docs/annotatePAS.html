@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Liftover PAS</title>
+<title>Annotate and assess peak usage</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Liftover PAS</h1>
+<h1 class="title toc-ignore">Annotate and assess peak usage</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>10/1/2019</em></h4>
+<h4 class="date"><em>10/3/2019</em></h4>
 
 </div>
 
@@ -653,7 +653,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/liftoverPAS.Rmd" target="_blank">e3f0cdf</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/annotatePAS.Rmd" target="_blank">e3f0cdf</a>
 </td>
 <td>
 brimittleman
@@ -665,108 +665,6 @@ brimittleman
 add annotation analysis
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5fbf02b3f6d5b3dfacc5c41da0eab4f3a6957470/docs/liftoverPAS.html" target="_blank">5fbf02b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c6c5e22d04bca5d2c198b89992f8b34a20936c0/analysis/liftoverPAS.Rmd" target="_blank">1c6c5e2</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-add results for full set
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8dd5eec80ef8565f68f5a1167f991fd7ca0f30f4/docs/liftoverPAS.html" target="_blank">8dd5eec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/558afe66bf06be62a1813e96a4beb1b031262f7e/analysis/liftoverPAS.Rmd" target="_blank">558afe6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-add liftover res
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b5edd8e21fc0cf262cf1332d74ffc1917c2ff7f7/docs/liftoverPAS.html" target="_blank">b5edd8e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5a215119477fca80ff396449a2cbbbff36db2d1/analysis/liftoverPAS.Rmd" target="_blank">b5a2151</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-add analysis for liftover
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -774,395 +672,25 @@ add analysis for liftover
 </div>
 </div>
 </div>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-✔ tidyr   0.8.3       ✔ stringr 1.3.1  
-✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>Next step will be to prepare these for liftover. I will get the PAS as the furthest downstream base. I will liftover the regions 100bp upstream and 100bp downstream of the PAS.</p>
-<p>As of now the PAS are still on the opposite strand.</p>
-<p>Pos strand: pas is the end - start_new= end-100 - end_new=end + 100</p>
-<p>neg strand: pas is the start - start_new= start-100 - end_new= start + 100</p>
-<p>human: /project2/gilad/briana/Comparative_APA/Human/data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed chimp: /project2/gilad/briana/Comparative_APA/Chimp/data/cleanPeaks/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed</p>
-<p>Output:</p>
-<pre class="bash"><code>mkdir ../data/cleanPeaks_byspecies/
+<p>I will annotate the PAS that passed <a href="liftoverPAS.html">the liftover</a>. These PAS are in ../data/cleanPeaks_lifted</p>
+<p>Map PAS to these annoations:</p>
+<pre class="bash"><code>mkdir ../data/cleanPeaks_anno
+bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct &gt; ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed </code></pre>
+<p>Chose annotation if PAS in multiple and create bed. I will have to lift this back to chimp then make saf files for both to do the feature count</p>
+<pre class="bash"><code>python chooseAnno2Bed.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed </code></pre>
+<p>Lift this so I have it with chimp coordinates:</p>
+<pre class="bash"><code>sbatch LiftOrthoPAS2chimp.sh</code></pre>
+<p>bed 2 SAF</p>
+<pre class="bash"><code>python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.SAF
 
-python preparePAS4lift.py ../Human/data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.SAF</code></pre>
+<p>Use feature counts to quantify:</p>
+<pre class="bash"><code>mkdir  ../Human/data/CleanLiftedPeaks_FC/
+mkdir ../Chimp/data/CleanLiftedPeaks_FC/
 
-python preparePAS4lift.py ../Chimp/data/cleanPeaks/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+sbatch quantLiftedPAS.sh 
 </code></pre>
-<p>Chain files from: <a href="http://hgdownload.soe.ucsc.edu/downloads.html#chimp" class="uri">http://hgdownload.soe.ucsc.edu/downloads.html#chimp</a> dowload to ../data/chainFiles/</p>
-<p>Liftover pipeline:</p>
-<p>start with human- lift to chimp and back start with chimp- lift to human and back</p>
-<pre class="bash"><code>mkdir ../data/primaryLift
-mkdir ../data/reverseLift
-
-sbatch primaryLift.sh</code></pre>
-<p>Results from primary lift:</p>
-<pre class="r"><code>unliftedH=read.table(&quot;../data/primaryLift/human_APApeaks_primarylift2Chimp_UNLIFTED.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-unliftedC=read.table(&quot;../data/primaryLift/chimp_APApeaks_primarylift2Human_UNLIFTED.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-liftedH=read.table(&quot;../data/primaryLift/human_APApeaks_primarylift2Chimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-liftedC=read.table(&quot;../data/primaryLift/chimp_APApeaks_primarylift2Human.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-primaryUnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, unliftedC)
-primaryUnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, unliftedH)
-
-primaryLH=c(&quot;Human&quot;,&quot;Lifted&quot;, liftedH)
-primaryLC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, liftedC)
-
-header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
-primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
-colnames(primaryDF)=header
-
-
-primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
-
-
-
-primaryDF= primaryDF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8dd5eec80ef8565f68f5a1167f991fd7ca0f30f4/docs/figure/liftoverPAS.Rmd/unnamed-chunk-5-1.png" target="_blank">8dd5eec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8dd5eec80ef8565f68f5a1167f991fd7ca0f30f4/docs/figure/liftoverPAS.Rmd/unnamed-chunk-6-1.png" target="_blank">8dd5eec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Reverse lift:</p>
-<pre class="r"><code>re_unliftedH=read.table(&quot;../data/reverseLift/human_APApeaks_primarylift2Human_rev2Human_UNLIFTED.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-re_unliftedC=read.table(&quot;../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp_UNLIFTED.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-re_liftedH=read.table(&quot;../data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-re_liftedC=read.table(&quot;../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-re_UnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, re_unliftedC)
-re_UnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, re_unliftedH)
-
-re_LH=c(&quot;Human&quot;,&quot;Lifted&quot;, re_liftedH)
-re_LC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, re_liftedC)
-
-header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
-re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
-colnames(re_DF)=header
-
-
-re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
-
-
-
-re_DF= re_DF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Reverse Liftover Results&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8dd5eec80ef8565f68f5a1167f991fd7ca0f30f4/docs/figure/liftoverPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">8dd5eec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Reverse Liftover Results&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8dd5eec80ef8565f68f5a1167f991fd7ca0f30f4/docs/figure/liftoverPAS.Rmd/unnamed-chunk-9-1.png" target="_blank">8dd5eec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>I need to now make sure they lifted to the same location. To do this I will overlap the reciprocal lifted PAS with the original files.</p>
-<p>I subset the original files by the pas that have an exact match in the reverse map. I can do this by pas name- start:end</p>
-<pre class="bash"><code>mkdir ../data/cleanPeaks_lifted
-python filterPostLift.py ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed ../data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed ../data/cleanPeaks_lifted/Human_PASregions.bed
-
-python filterPostLift.py ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed  ../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed ../data/cleanPeaks_lifted/Chimp_PASregions.bed</code></pre>
-<p>Results:</p>
-<pre class="r"><code>Human_recLift=read.table(&quot;../data/cleanPeaks_lifted/Human_PASregions.bed&quot;,stringsAsFactors = F, col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;score&quot;, &quot;strand&quot;)) 
-Chimp_recLift=read.table(&quot;../data/cleanPeaks_lifted/Chimp_PASregions.bed&quot;,stringsAsFactors = F,col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;score&quot;, &quot;strand&quot;))
-
-originalH=unliftedH + liftedH
-originalC=unliftedC + liftedC
-
-#human
-nrow(Human_recLift)/originalH</code></pre>
-<pre><code>[1] 0.9640866</code></pre>
-<pre class="r"><code>#chimp 
-nrow(Chimp_recLift)/originalC</code></pre>
-<pre><code>[1] 0.9655327</code></pre>
-<p>96% reciprocally lifted over.</p>
-<p>lift the chimp ones back to human</p>
-<pre class="bash"><code>sbatch recLiftchim2human.sh</code></pre>
-<p>Join the results: If they are discovered in both say so.</p>
-<pre class="r"><code>Chimp_recLift_hcoord=read.table(&quot;../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.bed&quot;,stringsAsFactors = F,col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;score&quot;, &quot;strand&quot;))
-
-Inboth=Human_recLift %&gt;% inner_join(Chimp_recLift_hcoord, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;)) %&gt;% mutate(discover=&quot;Both&quot;, newName=paste(name.x,discover,sep=&quot;:&quot;),meanscore=((score.x+score.y)/2)) %&gt;% select(chr, start,end, newName, meanscore, strand.x) %&gt;% dplyr::rename(&quot;score&quot;=meanscore, &quot;strand&quot;=strand.x)
-
-HumanOnly= Human_recLift %&gt;% anti_join(Chimp_recLift_hcoord, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))  %&gt;% mutate(discover=&quot;Human&quot;,newName=paste(name,discover,sep=&quot;:&quot;)) %&gt;% select(chr, start,end, newName, score, strand)
-ChimpOnly=Chimp_recLift_hcoord %&gt;% anti_join(Human_recLift, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;)) %&gt;% mutate(discover=&quot;Chimp&quot;,newName=paste(name,discover,sep=&quot;:&quot;)) %&gt;% select(chr, start,end, newName, score, strand)</code></pre>
-<p>Graph this:</p>
-<pre class="r"><code>set=c(&quot;Both&quot;, &quot;Human&quot;, &quot;Chimp&quot;)
-Number=c(nrow(Inboth), nrow(HumanOnly),nrow(ChimpOnly))
-pasdiscnum=as.data.frame(cbind(set, Number))
-pasdiscnum$Number=as.numeric(as.character(pasdiscnum$Number))
-
-pasdiscnum= pasdiscnum %&gt;% mutate(prop=Number/sum(Number))
-ggplot(pasdiscnum, aes(x=set, y=Number, fill=set)) + geom_bar(stat=&quot;identity&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&quot;Number of PAS&quot;, x=&quot;Discovery Set&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5fbf02b3f6d5b3dfacc5c41da0eab4f3a6957470/docs/figure/liftoverPAS.Rmd/unnamed-chunk-14-1.png" target="_blank">5fbf02b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(pasdiscnum, aes(x=set, y=prop, fill=set)) + geom_bar(stat=&quot;identity&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Proportion of PAS&quot;, x=&quot;Discovery Set&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
-Past versions of unnamed-chunk-14-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5fbf02b3f6d5b3dfacc5c41da0eab4f3a6957470/docs/figure/liftoverPAS.Rmd/unnamed-chunk-14-2.png" target="_blank">5fbf02b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Are higher scores discovered in both?</p>
-<pre class="r"><code>AllPAS=rbind(Inboth,HumanOnly ,ChimpOnly) %&gt;% separate(newName,into=c(&quot;name&quot;, &quot;discover&quot;))</code></pre>
-<pre class="r"><code>ggplot(AllPAS, aes(x=discover, y=log10(score), fill=discover)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;log10(Mean Read count)&quot;, title=&quot;PAS mean reads by Species of discovery&quot;)</code></pre>
-<p><img src="figure/liftoverPAS.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5fbf02b3f6d5b3dfacc5c41da0eab4f3a6957470/docs/figure/liftoverPAS.Rmd/unnamed-chunk-16-1.png" target="_blank">5fbf02b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Write these out. I want to have the PAS and the 100 bases upstream of the PAS only.</p>
-<pre class="r"><code>AllPAS_together=as.data.frame(rbind(Inboth,HumanOnly ,ChimpOnly))  %&gt;% select(chr, start,end, newName, score, strand)</code></pre>
-<pre class="r"><code>write.table(AllPAS_together, &quot;../data/cleanPeaks_lifted/AllPAS_postLift.bed&quot;, quote = F, col.names = F, row.names = F, sep=&quot;\t&quot;)</code></pre>
-<pre class="bash"><code>sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/AllPAS_postLift.bed &gt; ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed</code></pre>
+<p>Make phenotypes from these:</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1189,29 +717,12 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
-[1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
-[5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
-[9] tidyverse_1.2.1
-
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2         RColorBrewer_1.1-2 cellranger_1.1.0  
- [4] pillar_1.3.1       compiler_3.5.1     git2r_0.25.2      
- [7] plyr_1.8.4         workflowr_1.4.0    tools_3.5.1       
-[10] digest_0.6.18      lubridate_1.7.4    jsonlite_1.6      
-[13] evaluate_0.12      nlme_3.1-137       gtable_0.2.0      
-[16] lattice_0.20-38    pkgconfig_2.0.2    rlang_0.4.0       
-[19] cli_1.1.0          rstudioapi_0.10    yaml_2.2.0        
-[22] haven_1.1.2        withr_2.1.2        xml2_1.2.0        
-[25] httr_1.3.1         knitr_1.20         hms_0.4.2         
-[28] generics_0.0.2     fs_1.3.1           rprojroot_1.3-2   
-[31] grid_3.5.1         tidyselect_0.2.5   glue_1.3.0        
-[34] R6_2.3.0           readxl_1.1.0       rmarkdown_1.10    
-[37] modelr_0.1.2       magrittr_1.5       whisker_0.3-2     
-[40] backports_1.1.2    scales_1.0.0       htmltools_0.3.6   
-[43] rvest_0.3.2        assertthat_0.2.0   colorspace_1.3-2  
-[46] labeling_0.3       stringi_1.2.4      lazyeval_0.2.1    
-[49] munsell_0.5.0      broom_0.5.1        crayon_1.3.4      </code></pre>
+ [1] workflowr_1.4.0 Rcpp_1.0.2      digest_0.6.18   rprojroot_1.3-2
+ [5] backports_1.1.2 git2r_0.25.2    magrittr_1.5    evaluate_0.12  
+ [9] stringi_1.2.4   fs_1.3.1        whisker_0.3-2   rmarkdown_1.10 
+[13] tools_3.5.1     stringr_1.3.1   glue_1.3.0      yaml_2.2.0     
+[17] compiler_3.5.1  htmltools_0.3.6 knitr_1.20     </code></pre>
 </div>
 
 
