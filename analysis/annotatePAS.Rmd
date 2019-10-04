@@ -80,5 +80,19 @@ python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed
 ```
 
 
-**Problem: called twice when the PAS is called in both species. but is off. I need a way to deal with pas called in either fractio but are only 1 or 2 basepairs off. **
+
+Convert these to numeric:  
+
+```{bash,eval=F}
+Rscript pheno2countonly.R -I ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+
+Rscript pheno2countonly.R -I ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt -O ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt
+
+
+python convertNumeric.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+
+python convertNumeric.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt
+```
+
+
 
