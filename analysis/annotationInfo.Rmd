@@ -59,6 +59,10 @@ sbatch liftPAS19to38.sh
 #4 do not lift over
 sbatch revLiftPAShg38to19.sh
 #all reverse lift
+
+
+
+sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.bed > ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed 
 ```
 
 

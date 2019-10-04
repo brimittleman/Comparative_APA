@@ -20,3 +20,5 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Liftover PAS](liftoverPAS.html)
 
 * [Annotated PAS and make APA phenotype](annotatePAS.html)
+
+* [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)

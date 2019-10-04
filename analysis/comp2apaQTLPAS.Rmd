@@ -1,0 +1,62 @@
+---
+title: "Comparison to PAS from apaQTL project"
+author: "Briana Mittleman"
+date: "10/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(reshape2)
+```
+
+In this analysis I will compare the PAS found at 5% in the human data in this project with the apaQTL project.  
+
+Take the 5 perc PAS from the annotatePAS analysis and filter those with scores > .05 i human.
+```{r}
+compAPAPAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", header =   T, stringsAsFactors = F)  %>%  filter(Human>=0.05)
+```
+
+
+I can write this bed out and use bedtools intersect. 
+
+```{bash,eval=F}
+mkdir ../data/CompapaQTLpas
+```
+
+
+```{r}
+write.table(compAPAPAS,"../data/CompapaQTLpas/CompAPA_PAS_5percHuman.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/CompapaQTLpas/CompAPA_PAS_5percHuman.bed > ../data/CompapaQTLpas/CompAPA_PAS_5percHuman.sort.bed
+
+sbatch overlapapaQTLPAS.sh
+```
+
+
+Compare the ones with overlaps to those without:
+
+```{r}
+wOverlap=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="yes")
+noOverlap=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
+
+AllwOinfo=as.data.frame(rbind(wOverlap, noOverlap))
+
+```
+
+
+```{r}
+ggplot(AllwOinfo, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")
+```
+This is a bit strange. I would expect more overlap. Maybe these are low expressed genes. 
