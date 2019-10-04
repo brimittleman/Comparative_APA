@@ -204,6 +204,12 @@ I can filter the phenotypes and PAS with this list.
 
 ```{r}
 ggplot(BothMean_5_out, aes(x=disc, fill=disc))+  geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+
+
+BothMean_5_outmean= BothMean_5_out %>% mutate(meanUsage=(Human+Chimp)/2)
+ggplot(BothMean_5M, aes(x=disc, by= Species, fill=Species, y=MeanUsage)) + geom_boxplot() + scale_y_log10()+ scale_fill_brewer(palette = "Dark2")
+
+
 ```
 
 
