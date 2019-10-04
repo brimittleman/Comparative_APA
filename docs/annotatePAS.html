@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeca39a2a30194f17396d11506c635b7e5c0f3425atargetblankca39a2aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ca39a2a30194f17396d11506c635b7e5c0f3425a" target="_blank">ca39a2a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed7ac7884a0af35cdbc1772fe0d6549a50cc52e5ctargetblankd7ac788a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d7ac7884a0af35cdbc1772fe0d6549a50cc52e5c" target="_blank">d7ac788</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeca39a2a30194f17396d11506c635b7e5c0f3425atargetblankca39a2aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed7ac7884a0af35cdbc1772fe0d6549a50cc52e5ctargetblankd7ac788a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -606,6 +606,8 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/Peaks_5perc/
+    Untracked:  data/Pheno_5perc/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -653,6 +655,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d7ac7884a0af35cdbc1772fe0d6549a50cc52e5c/analysis/annotatePAS.Rmd" target="_blank">d7ac788</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+<td>
+subset 5 perc pas and pheno
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/fafaf615a1661854a461c0381a44ba6c9ef348a5/docs/annotatePAS.html" target="_blank">fafaf61</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -745,6 +781,21 @@ add annotation analysis
 </div>
 </div>
 </div>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    smiths</code></pre>
 <p>I will annotate the PAS that passed <a href="liftoverPAS.html">the liftover</a>. These PAS are in ../data/cleanPeaks_lifted</p>
 <p>Map PAS to these annoations:</p>
 <pre class="bash"><code>mkdir ../data/cleanPeaks_anno
@@ -789,6 +840,65 @@ Rscript pheno2countonly.R -I ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_
 python convertNumeric.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
 
 python convertNumeric.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt</code></pre>
+<p>Plot usages to see if 5% is a good cutoff for this analysis as well.</p>
+<pre class="r"><code>HumanAnno=read.table(&quot;../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table(&quot;../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))</code></pre>
+<pre class="r"><code>ChimpAnno=read.table(&quot;../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndH=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table(&quot;../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt&quot;, col.names = IndH)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))</code></pre>
+<p>Mean both:</p>
+<pre class="r"><code>BothMean=ChimpMean %&gt;% full_join(HumanMean, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; )) 
+
+BothMeanM=melt(BothMean,id.vars =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ),variable.name = &quot;Species&quot;, value.name = &quot;MeanUsage&quot; ) %&gt;% filter(loc !=&quot;008559&quot;)</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>ggplot(BothMeanM, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothMeanM, aes(x=MeanUsage,by=Species,col=Species)) + stat_ecdf(geom = &quot;point&quot;, alpha=.25)  + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Cumulative Distribution plot for PAS Usage&quot;, x=&quot;Mean Usage- both fractions&quot;, y=&quot;F(Mean Usage)&quot;) </code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is good. Globally the usages are similar across species.</p>
+<pre class="r"><code>ggplot(BothMeanM, aes(x=log10(MeanUsage + .00001),by=Species,fill=Species)) + geom_histogram(alpha=.5, bins=30,position=&quot;dodge&quot;)  + scale_fill_brewer(palette = &quot;Dark2&quot;) + geom_vline(xintercept = log10(0.05))</code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Looks like 5% in either species is a good set.</p>
+<p>Filter to PAS with 5% usage</p>
+<p>BothMean mean in human or chimp &gt; 0.5</p>
+<pre class="r"><code>BothMean_5= BothMean %&gt;% filter(Chimp &gt;=0.05 | Human &gt;= 0.05)  </code></pre>
+<pre class="r"><code>BothMean_5M=melt(BothMean_5,id.vars =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ),variable.name = &quot;Species&quot;, value.name = &quot;MeanUsage&quot; ) %&gt;% filter(loc !=&quot;008559&quot;)
+
+ggplot(BothMean_5M, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothMean_5M, aes(x=MeanUsage,by=Species,col=Species)) + stat_ecdf(geom = &quot;point&quot;, alpha=.25)  + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Cumulative Distribution plot for PAS Usage at 5%&quot;, x=&quot;Mean Usage- both fractions&quot;, y=&quot;F(Mean Usage)&quot;) </code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothMean_5M, aes(x=MeanUsage,by=Species,fill=Species)) + geom_histogram(alpha=.5, bins=30, position = &quot;dodge&quot;)  + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Write this out this way and as a bed files with human and chimp scores:</p>
+<pre class="bash"><code>mkdir ../data/Peaks_5perc
+mkdir ../data/Pheno_5perc</code></pre>
+<pre class="r"><code>BothMean_5_out=BothMean_5 %&gt;% select(PAS,disc, Chimp, Human)
+write.table(BothMean_5_out, &quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt&quot;, row.names = F, col.names = T, quote = F)
+#write bed with human coord for igv
+BothMean_5_bed=BothMean_5 %&gt;% select(chr, start, end, PAS, Human, strand)
+write.table(BothMean_5_bed, &quot;../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed&quot;, row.names = F, col.names = T, quote = F)</code></pre>
+<p>I can filter the phenotypes and PAS with this list.</p>
+<pre class="r"><code>ggplot(BothMean_5_out, aes(x=disc, fill=disc))+  geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/annotatePAS.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ChimpUsage_anno_5perc= ChimpUsage_anno %&gt;% filter(PAS %in% BothMean_5$PAS)
+
+write.table(ChimpUsage_anno_5perc, &quot;../data/Pheno_5perc/Chimp_Pheno_5perc.txt&quot;, row.names = F, col.names = T, quote = F)
+
+HumaUsage_anno_5perc= HumanUsage_anno %&gt;% filter(PAS %in% BothMean_5$PAS)
+
+write.table(HumaUsage_anno_5perc, &quot;../data/Pheno_5perc/Human_Pheno_5perc.txt&quot;, row.names = F, col.names = T, quote = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -815,12 +925,29 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+ [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1
+
 loaded via a namespace (and not attached):
- [1] workflowr_1.4.0 Rcpp_1.0.2      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.2 git2r_0.25.2    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.3.1        whisker_0.3-2   rmarkdown_1.10 
-[13] tools_3.5.1     stringr_1.3.1   glue_1.3.0      yaml_2.2.0     
-[17] compiler_3.5.1  htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] Rcpp_1.0.2         RColorBrewer_1.1-2 cellranger_1.1.0  
+ [4] pillar_1.3.1       compiler_3.5.1     git2r_0.25.2      
+ [7] plyr_1.8.4         workflowr_1.4.0    tools_3.5.1       
+[10] digest_0.6.18      lubridate_1.7.4    jsonlite_1.6      
+[13] evaluate_0.12      nlme_3.1-137       gtable_0.2.0      
+[16] lattice_0.20-38    pkgconfig_2.0.2    rlang_0.4.0       
+[19] cli_1.1.0          rstudioapi_0.10    yaml_2.2.0        
+[22] haven_1.1.2        withr_2.1.2        xml2_1.2.0        
+[25] httr_1.3.1         knitr_1.20         hms_0.4.2         
+[28] generics_0.0.2     fs_1.3.1           rprojroot_1.3-2   
+[31] grid_3.5.1         tidyselect_0.2.5   glue_1.3.0        
+[34] R6_2.3.0           readxl_1.1.0       rmarkdown_1.10    
+[37] modelr_0.1.2       magrittr_1.5       whisker_0.3-2     
+[40] backports_1.1.2    scales_1.0.0       htmltools_0.3.6   
+[43] rvest_0.3.2        assertthat_0.2.0   colorspace_1.3-2  
+[46] labeling_0.3       stringi_1.2.4      lazyeval_0.2.1    
+[49] munsell_0.5.0      broom_0.5.1        crayon_1.3.4      </code></pre>
 </div>
 
 
