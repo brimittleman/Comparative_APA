@@ -179,57 +179,73 @@ sbatch recLiftchim2human.sh
 
 Join the results: If they are discovered in both say so. 
 
-```{r}
-Chimp_recLift_hcoord=read.table("../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.bed",stringsAsFactors = F,col.names = c("chr", "start","end", "name", "score", "strand"))
+I need to intersect these with bedtools to know when a PAS is 
 
-Inboth=Human_recLift %>% inner_join(Chimp_recLift_hcoord, by=c("chr", "start", "end")) %>% mutate(discover="Both", newName=paste(name.x,discover,sep=":"),meanscore=((score.x+score.y)/2)) %>% select(chr, start,end, newName, meanscore, strand.x) %>% dplyr::rename("score"=meanscore, "strand"=strand.x)
-
-HumanOnly= Human_recLift %>% anti_join(Chimp_recLift_hcoord, by=c("chr", "start", "end"))  %>% mutate(discover="Human",newName=paste(name,discover,sep=":")) %>% select(chr, start,end, newName, score, strand)
-ChimpOnly=Chimp_recLift_hcoord %>% anti_join(Human_recLift, by=c("chr", "start", "end")) %>% mutate(discover="Chimp",newName=paste(name,discover,sep=":")) %>% select(chr, start,end, newName, score, strand)
-
-
-
-```
-
-
-Graph this:
-
-```{r}
-
-set=c("Both", "Human", "Chimp")
-Number=c(nrow(Inboth), nrow(HumanOnly),nrow(ChimpOnly))
-pasdiscnum=as.data.frame(cbind(set, Number))
-pasdiscnum$Number=as.numeric(as.character(pasdiscnum$Number))
-
-pasdiscnum= pasdiscnum %>% mutate(prop=Number/sum(Number))
-ggplot(pasdiscnum, aes(x=set, y=Number, fill=set)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2")+ labs(y="Number of PAS", x="Discovery Set")
-ggplot(pasdiscnum, aes(x=set, y=prop, fill=set)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2") + labs(y="Proportion of PAS", x="Discovery Set")
-
-```
-
-
-Are higher scores discovered in both? 
-
-```{r}
-AllPAS=rbind(Inboth,HumanOnly ,ChimpOnly) %>% separate(newName,into=c("name", "discover"))
-```
-
-
-```{r}
-ggplot(AllPAS, aes(x=discover, y=log10(score), fill=discover)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(y="log10(Mean Read count)", title="PAS mean reads by Species of discovery")
-```
-
-
-Write these out. I want to have the PAS and the 100 bases upstream of the PAS only.
-```{r}
-AllPAS_together=as.data.frame(rbind(Inboth,HumanOnly ,ChimpOnly))  %>% select(chr, start,end, newName, score, strand)
-```
-
-```{r}
-write.table(AllPAS_together, "../data/cleanPeaks_lifted/AllPAS_postLift.bed", quote = F, col.names = F, row.names = F, sep="\t")
-```
 
 ```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.bed > ../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.sort.bed
+
+
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/Human_PASregions.bed > ../data/cleanPeaks_lifted/Human_PASregions.sort.bed
+```
+
+I used 75% overlap for the observed in both. I had it report number of basepair overlap so i can evaluate this. If it is bimodal i will change this.  (i chose 75% because its 50bp or within 1 read.)
+```{r}
+OverlapBoth_Test=read.table("../data/cleanPeaks_lifted/PASregions_identifiedbothTEST.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F)
+
+ggplot(OverlapBoth_Test, aes(x=overlap)) + geom_histogram(bins=30) + scale_y_log10() + geom_vline(xintercept = 125)
+
+125/200
+```
+I will go with 62.5% overlap. I can prepare the files to make a full set. 
+
+```{r}
+
+
+OverlapBoth=read.table("../data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"), Bothname=paste(Hname, Cname, sep=":"))
+
+overlap2= OverlapBoth %>% group_by(name) %>% filter(n()>1) %>%  mutate(id = row_number()) %>% filter(id==2)
+
+OverlapBoth_format=read.table("../data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"),Bothname=paste(Hname, Cname, sep=":")) %>% filter(!Bothname %in% overlap2$Bothname) %>% select(Hchr,Hstart,Hend,name,meanScore,Hstrand) 
+
+
+
+HumanSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedHuman.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Human", Hname, sep=":")) %>% select(Hchr, Hstart,Hend, name, meanScore, Hstrand) 
+
+
+ChimpSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedChimp.txt", col.names = c("Hchr", "Hstart","Hend", "Cname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Chimp", Cname, sep=":")) %>% select(Hchr, Hstart,Hend, name, meanScore, Hstrand)
+
+
+
+```
+Join all of these and plot characteristics 
+```{r}
+AllPAS=as.data.frame(rbind(OverlapBoth_format,HumanSpec,ChimpSpec)) %>% separate(name, into=c("discovery", "PAS"))
+
+
+ggplot(AllPAS, aes(x=discovery, fill=discovery)) + geom_bar(stat="count")+ scale_fill_brewer(palette = "Dark2")
+
+ggplot(AllPAS, aes(x=discovery, fill=discovery)) +  geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+```
+
+Plot the difference in scores for both and discovered in 1 or other:
+
+```{r}
+ggplot(AllPAS, aes(x=discovery, fill=discovery, y=meanScore)) + geom_boxplot() + scale_y_log10()+ scale_fill_brewer(palette = "Dark2")
+```
+
+This is expected. Those found in both will be used more often. I expect many of those only discovered in 1 will drop out at the 5% cutoff.  
+
+```{r}
+AllPAS_use=as.data.frame(rbind(OverlapBoth_format,HumanSpec,ChimpSpec))
+
+write.table(AllPAS_use,  "../data/cleanPeaks_lifted/AllPAS_postLift.bed", col.names = F, row.names = F, quote = F, sep = "\t") 
+
+
+
+```
+sort these: 
+```{bash, eval=F}
 sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/AllPAS_postLift.bed > ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed
 ```
 
