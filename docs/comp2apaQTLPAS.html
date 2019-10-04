@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Annotation files for Snake</title>
+<title>Comparison to PAS from apaQTL project</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Annotation files for Snake</h1>
+<h1 class="title toc-ignore">Comparison to PAS from apaQTL project</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>9/23/2019</em></h4>
+<h4 class="date"><em>10/4/2019</em></h4>
 
 </div>
 
@@ -622,7 +622,6 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
-    Untracked:  docs/figure/comp2apaQTLPAS.Rmd/
 
 </code></pre>
 <p>
@@ -666,7 +665,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/annotationInfo.Rmd" target="_blank">920abac</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/comp2apaQTLPAS.Rmd" target="_blank">920abac</a>
 </td>
 <td>
 brimittleman
@@ -678,74 +677,6 @@ brimittleman
 add comaprison to old PAS
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7ec7862e42853a7723d9414108a26b5a6c11f1a2/docs/annotationInfo.html" target="_blank">7ec7862</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/cc84535feae47289c3feaa6a2ec071fc7faa50bc/analysis/annotationInfo.Rmd" target="_blank">cc84535</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-fix anno refseq
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/annotationInfo.html" target="_blank">7a9cf74</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/annotationInfo.Rmd" target="_blank">a2fe9d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-add annotation prep anaylsis
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -753,35 +684,39 @@ add annotation prep anaylsis
 </div>
 </div>
 </div>
-<p>I am putting together the necessary annotations</p>
-<p>human fastq: /project2/gilad/briana/genome_anotation_data/hg38_try2 human anno: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno gene 2 txn: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno</p>
-<p>/hg38_ncbiRefseq_txn2genename</p>
-<p>For annotations:</p>
-<p>Concatenate, change to gene names. I can use something similar to /project2/gilad/briana/genome_anotation_data/RefSeq_annotations/formatFullAnno.py</p>
-<p>remove top line, Concatinate and sort:</p>
-<pre class="bash"><code>#human
-sed 1d hg38_ncbiRefseq_intron.dms &gt; hg38_ncbiRefseq_intron.bed
-cat *.bed &gt; hg38_ncbiRefseq_Allannotation.bed
-sort -k1,1 -k2,2n hg38_ncbiRefseq_Allannotation.bed &gt; hg38_ncbiRefseq_Allannotation.sort.bed
-</code></pre>
-<pre class="bash"><code>
-python formathg38Anno.py 
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
+    smiths</code></pre>
+<p>In this analysis I will compare the PAS found at 5% in the human data in this project with the apaQTL project.</p>
+<p>Take the 5 perc PAS from the annotatePAS analysis and filter those with scores &gt; .05 i human.</p>
+<pre class="r"><code>compAPAPAS=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed&quot;, header =   T, stringsAsFactors = F)  %&gt;%  filter(Human&gt;=0.05)</code></pre>
+<p>I can write this bed out and use bedtools intersect.</p>
+<pre class="bash"><code>mkdir ../data/CompapaQTLpas</code></pre>
+<pre class="r"><code>write.table(compAPAPAS,&quot;../data/CompapaQTLpas/CompAPA_PAS_5percHuman.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+<pre class="bash"><code>sort -k1,1 -k2,2n ../data/CompapaQTLpas/CompAPA_PAS_5percHuman.bed &gt; ../data/CompapaQTLpas/CompAPA_PAS_5percHuman.sort.bed
 
-#results : /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed</code></pre>
-<p>Generate genome index for STAR</p>
-<pre class="bash"><code>sbatch buildStarIndex.sh</code></pre>
-<p>Liftover the PAS from the first apaQTL project.</p>
-<pre class="bash"><code>sed -e &#39;s/^/chr/&#39; /project2/gilad/briana/apaQTL/data/PAS/APAPAS_GeneLocAnno.5perc.sort.bed  &gt; ../data/liftover_files/APAPAS_withCHR_GeneLocAnno.5perc.sort.bed 
+sbatch overlapapaQTLPAS.sh</code></pre>
+<p>Compare the ones with overlaps to those without:</p>
+<pre class="r"><code>wOverlap=read.table(&quot;../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.bed&quot;, col.names = colnames(compAPAPAS)) %&gt;% mutate(overlap=&quot;yes&quot;)
+noOverlap=read.table(&quot;../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap.bed&quot;, col.names = colnames(compAPAPAS)) %&gt;% mutate(overlap=&quot;no&quot;)
 
-sbatch liftPAS19to38.sh
-#4 do not lift over
-sbatch revLiftPAShg38to19.sh
-#all reverse lift
-
-
-
-sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.bed &gt; ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed </code></pre>
+AllwOinfo=as.data.frame(rbind(wOverlap, noOverlap))</code></pre>
+<pre class="r"><code>ggplot(AllwOinfo, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> This is a bit strange. I would expect more overlap. Maybe these are low expressed genes.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -808,12 +743,29 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+ [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1
+
 loaded via a namespace (and not attached):
- [1] workflowr_1.4.0 Rcpp_1.0.2      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.2 git2r_0.25.2    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.3.1        whisker_0.3-2   rmarkdown_1.10 
-[13] tools_3.5.1     stringr_1.3.1   glue_1.3.0      yaml_2.2.0     
-[17] compiler_3.5.1  htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] Rcpp_1.0.2         RColorBrewer_1.1-2 cellranger_1.1.0  
+ [4] pillar_1.3.1       compiler_3.5.1     git2r_0.25.2      
+ [7] plyr_1.8.4         workflowr_1.4.0    tools_3.5.1       
+[10] digest_0.6.18      lubridate_1.7.4    jsonlite_1.6      
+[13] evaluate_0.12      nlme_3.1-137       gtable_0.2.0      
+[16] lattice_0.20-38    pkgconfig_2.0.2    rlang_0.4.0       
+[19] cli_1.1.0          rstudioapi_0.10    yaml_2.2.0        
+[22] haven_1.1.2        withr_2.1.2        xml2_1.2.0        
+[25] httr_1.3.1         knitr_1.20         hms_0.4.2         
+[28] generics_0.0.2     fs_1.3.1           rprojroot_1.3-2   
+[31] grid_3.5.1         tidyselect_0.2.5   glue_1.3.0        
+[34] R6_2.3.0           readxl_1.1.0       rmarkdown_1.10    
+[37] modelr_0.1.2       magrittr_1.5       whisker_0.3-2     
+[40] backports_1.1.2    scales_1.0.0       htmltools_0.3.6   
+[43] rvest_0.3.2        assertthat_0.2.0   colorspace_1.3-2  
+[46] labeling_0.3       stringi_1.2.4      lazyeval_0.2.1    
+[49] munsell_0.5.0      broom_0.5.1        crayon_1.3.4      </code></pre>
 </div>
 
 
