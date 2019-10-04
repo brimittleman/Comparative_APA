@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-03
+<strong>Last updated:</strong> 2019-10-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8033ddba95086c84f49c9eb70f36a77f92cdeef0targetblank8033ddba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8033ddba95086c84f49c9eb70f36a77f92cdeef0" target="_blank">8033ddb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeca39a2a30194f17396d11506c635b7e5c0f3425atargetblankca39a2aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ca39a2a30194f17396d11506c635b7e5c0f3425a" target="_blank">ca39a2a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8033ddba95086c84f49c9eb70f36a77f92cdeef0targetblank8033ddba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeca39a2a30194f17396d11506c635b7e5c0f3425atargetblankca39a2aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -472,6 +472,7 @@ Untracked files:
     Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
@@ -544,6 +545,7 @@ Untracked files:
     Untracked:  code/formathg38Anno.py
     Untracked:  code/generateStarIndex.err
     Untracked:  code/generateStarIndex.out
+    Untracked:  code/intersectLiftedPAS.sh
     Untracked:  code/liftPAS19to38.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
@@ -558,6 +560,8 @@ Untracked files:
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
     Untracked:  code/namePeaks.py
+    Untracked:  code/overlapPAS.err
+    Untracked:  code/overlapPAS.out
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/preparePAS4lift.py
@@ -654,6 +658,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ca39a2a30194f17396d11506c635b7e5c0f3425a/analysis/annotatePAS.Rmd" target="_blank">ca39a2a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+<td>
+finish annoatation and quantification
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4f7e30daf763f4d5c313c3b1811a5b6c8d26bb4d/docs/annotatePAS.html" target="_blank">4f7e30d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8033ddba95086c84f49c9eb70f36a77f92cdeef0/analysis/annotatePAS.Rmd" target="_blank">8033ddb</a>
 </td>
 <td>
@@ -742,7 +780,15 @@ mkdir ../Chimp/phenotype/
 python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
 
 python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt</code></pre>
-<p><strong>Problem: called twice when the PAS is called in both species. but is off. I need a way to deal with pas called in either fractio but are only 1 or 2 basepairs off. </strong></p>
+<p>Convert these to numeric:</p>
+<pre class="bash"><code>Rscript pheno2countonly.R -I ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+
+Rscript pheno2countonly.R -I ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt -O ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt
+
+
+python convertNumeric.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+
+python convertNumeric.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
