@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeda85ad8c1c69856141190009e20c4ef98ed07b76targetblankda85ad8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/da85ad8c1c69856141190009e20c4ef98ed07b76" target="_blank">da85ad8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8466418b6d4c0ffcd929c72be17919cd9a9e15fatargetblank8466418a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8466418b6d4c0ffcd929c72be17919cd9a9e15fa" target="_blank">8466418</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeda85ad8c1c69856141190009e20c4ef98ed07b76targetblankda85ad8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8466418b6d4c0ffcd929c72be17919cd9a9e15fatargetblank8466418a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -638,6 +638,7 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  docs/figure/Human_TvN.Rmd/
 
 </code></pre>
 <p>
@@ -681,6 +682,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8466418b6d4c0ffcd929c72be17919cd9a9e15fa/analysis/Chimp_TvN.Rmd" target="_blank">8466418</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-07
+</td>
+<td>
+add human and chimp tvN res
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c3aa529bce951a381624b7854c6e7522f3c14bff/docs/Chimp_TvN.html" target="_blank">c3aa529</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da85ad8c1c69856141190009e20c4ef98ed07b76/analysis/Chimp_TvN.Rmd" target="_blank">da85ad8</a>
 </td>
 <td>
@@ -700,6 +735,21 @@ add code to prepare human and chimp TvN
 </div>
 </div>
 </div>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    smiths</code></pre>
 <p>In this anaylsis I will complete the Chimp total vs nuclear analysis. This analysis is similar to the analysis in the <a href="https://brimittleman.github.io/apaQTL/DiffIsoAnalysis.html">apaQTL project</a></p>
 <p>I need the human 5% both fraction feature counts.</p>
 <p>Thee feature counts are in ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc. I need to subset these for those in the annotations. Keep the PAS in this file: ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed. I will do this with a python script.</p>
@@ -733,6 +783,73 @@ python subset_diffisopheno_Chimp_tvN.py 22</code></pre>
 <pre class="bash"><code>python makeSamplyGroupsChimp_TvN.py</code></pre>
 <p>Run Leafcutter:</p>
 <pre class="bash"><code>sbatch runChimpDiffIso.sh</code></pre>
+<p>Concatinate results:</p>
+<pre class="bash"><code>awk &#39;{if(NR&gt;1)print}&#39; ../Chimp/data/DiffIso_Chimp/TN_diff_isoform_chr*.txt_effect_sizes.txt &gt; ../Chimp/data/DiffIso_Chimp/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk &#39;{if(NR&gt;1)print}&#39; ../Chimp/data/DiffIso_Chimp/TN_diff_isoform_chr*.txt_cluster_significance.txt &gt; ../Chimp/data/DiffIso_Chimp/TN_diff_isoform_allChrom.txt_significance.txt
+</code></pre>
+<p>Significant clusters:</p>
+<pre class="r"><code>sig=read.table(&quot;../Chimp/data/DiffIso_Chimp/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))</code></pre>
+<pre class="r"><code>qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Chimp: Leafcutter differencial isoform analysis between fractions&quot;)
+abline(0,1)</code></pre>
+<p><img src="figure/Chimp_TvN.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>tested_genes=nrow(sig)
+tested_genes</code></pre>
+<pre><code>[1] 7571</code></pre>
+<pre class="r"><code>sig_genes=sig %&gt;% filter(p.adjust&lt;.05)
+number_sig_genes=nrow(sig_genes)
+number_sig_genes</code></pre>
+<pre><code>[1] 2528</code></pre>
+<p>Effect Sizes</p>
+<pre class="r"><code>effectsize=read.table(&quot;../Chimp/data/DiffIso_Chimp/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;intron&#39;,  &#39;logef&#39; ,&#39;Nuclear&#39;, &#39;Total&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(intron != &quot;intron&quot;)
+
+effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
+effectsize$logef=as.numeric(as.character(effectsize$logef))</code></pre>
+<pre class="r"><code>plot(sort(effectsize$deltaPAU),main=&quot;Chimp: Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
+<p><img src="figure/Chimp_TvN.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>effectsize_deltaPAU= effectsize %&gt;% filter(abs(deltaPAU) &gt; .2) 
+nrow(effectsize_deltaPAU)</code></pre>
+<pre><code>[1] 1153</code></pre>
+<pre class="r"><code>effectSize_highdiffGenes=effectsize_deltaPAU %&gt;% separate(intron, into=c(&quot;chrom&quot;, &quot;start&quot;, &quot;end&quot;, &quot;GeneName&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(GeneName) %&gt;% unique()</code></pre>
+<pre class="r"><code>effectsize_deltaPAU_Genes= effectsize_deltaPAU %&gt;% separate(intron, into=c(&quot;chrom&quot;, &quot;start&quot;, &quot;end&quot;,&quot;gene&quot;),sep=&quot;:&quot;) %&gt;% group_by(gene) %&gt;% summarise(nperGene=n()) 
+
+nrow(effectsize_deltaPAU_Genes)</code></pre>
+<pre><code>[1] 976</code></pre>
+<p>Pull in the PAS to see where these PAS are located.</p>
+<pre class="r"><code>PAS=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt&quot;, stringsAsFactors = F, header = T) %&gt;% filter(loc !=&quot;008559&quot;)
+
+PAS$start=as.character(PAS$start)
+PAS$end=as.character(PAS$end)</code></pre>
+<p>Increased usage in nuclear:</p>
+<pre class="r"><code>effectsize_deltaPAU_nuclear= effectsize_deltaPAU %&gt;% filter(deltaPAU &lt; -0.2) %&gt;% separate(intron,into=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;), sep=&quot;:&quot; )%&gt;% inner_join(PAS, by=c(&quot;gene&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
+<pre class="r"><code>ggplot(effectsize_deltaPAU_nuclear,aes(x=loc,fill=loc)) + geom_histogram(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +labs(title=&quot;Human: Location of PAS used more in Nuclear&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/Chimp_TvN.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Increased usage in total:</p>
+<pre class="r"><code>effectsize_deltaPAU_total= effectsize_deltaPAU %&gt;% filter(deltaPAU &gt; 0.2)  %&gt;% separate(intron,into=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;), sep=&quot;:&quot; )%&gt;% inner_join(PAS, by=c(&quot;gene&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
+<pre class="r"><code>ggplot(effectsize_deltaPAU_total,aes(x=loc,fill=loc)) + geom_histogram(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +labs(title=&quot;Human: Location of PAS used more in Total&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/Chimp_TvN.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is in line with expectation. Now I can compare this to the number of discovered PAS by plotting the proportion of PAS used more in each fraction by location.</p>
+<pre class="r"><code>PAS_loc =PAS%&gt;% group_by(loc) %&gt;% summarise(nloc=n())</code></pre>
+<pre class="r"><code>effectsize_deltaPAU_nuclear_loc=effectsize_deltaPAU_nuclear %&gt;% group_by(loc) %&gt;% summarise(nlocNuclear=n()) 
+
+effectsize_deltaPAU_total_loc=effectsize_deltaPAU_total %&gt;% group_by(loc) %&gt;% summarise(nloctotal=n()) 
+
+effectsize_deltaPAUProp_tot=effectsize_deltaPAU_total_loc %&gt;% inner_join(PAS_loc, by=&quot;loc&quot;) %&gt;% mutate(Proportion_tot=nloctotal/nloc)
+
+effectsize_deltaPAUProp_nuc=effectsize_deltaPAU_nuclear_loc %&gt;% inner_join(PAS_loc, by=&quot;loc&quot;) %&gt;% mutate(Proportion_nuc=nlocNuclear/nloc)
+
+
+effectsize_deltaPAUProp_both= effectsize_deltaPAUProp_nuc %&gt;% inner_join(effectsize_deltaPAUProp_tot, by=c(&quot;loc&quot;,&quot;nloc&quot;)) %&gt;% dplyr::rename(Nuclear=Proportion_nuc, Total=Proportion_tot) %&gt;% select(loc, Nuclear, Total) 
+effectsize_deltaPAUProp_both_melt= effectsize_deltaPAUProp_both %&gt;% melt(id.vars=&quot;loc&quot;, variable.name=&quot;Fraction&quot;, value.name = &quot;Proportion&quot;) 
+effectsize_deltaPAUProp_both_melt$Fraction=as.character(effectsize_deltaPAUProp_both_melt$Fraction)</code></pre>
+<p>Plot this:</p>
+<pre class="r"><code>ggplot(effectsize_deltaPAUProp_both_melt, aes(x=loc, y=Proportion, by=Fraction, fill=Fraction)) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Chimp: Proportion of PAS differential used by location&quot;,x=&quot;&quot;) +scale_x_discrete(labels = c(&#39;Coding&#39;,&#39;5kb downstream&#39;,&#39;Intronic&#39;,&quot;3&#39; UTR&quot;, &quot;5&#39; UTR&quot;)) </code></pre>
+<p><img src="figure/Chimp_TvN.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -759,12 +876,29 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+ [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1
+
 loaded via a namespace (and not attached):
- [1] workflowr_1.4.0 Rcpp_1.0.2      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.2 git2r_0.25.2    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.3.1        whisker_0.3-2   rmarkdown_1.10 
-[13] tools_3.5.1     stringr_1.3.1   glue_1.3.0      yaml_2.2.0     
-[17] compiler_3.5.1  htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] Rcpp_1.0.2         RColorBrewer_1.1-2 cellranger_1.1.0  
+ [4] pillar_1.3.1       compiler_3.5.1     git2r_0.25.2      
+ [7] plyr_1.8.4         workflowr_1.4.0    tools_3.5.1       
+[10] digest_0.6.18      lubridate_1.7.4    jsonlite_1.6      
+[13] evaluate_0.12      nlme_3.1-137       gtable_0.2.0      
+[16] lattice_0.20-38    pkgconfig_2.0.2    rlang_0.4.0       
+[19] cli_1.1.0          rstudioapi_0.10    yaml_2.2.0        
+[22] haven_1.1.2        withr_2.1.2        xml2_1.2.0        
+[25] httr_1.3.1         knitr_1.20         hms_0.4.2         
+[28] generics_0.0.2     fs_1.3.1           rprojroot_1.3-2   
+[31] grid_3.5.1         tidyselect_0.2.5   glue_1.3.0        
+[34] R6_2.3.0           readxl_1.1.0       rmarkdown_1.10    
+[37] modelr_0.1.2       magrittr_1.5       whisker_0.3-2     
+[40] backports_1.1.2    scales_1.0.0       htmltools_0.3.6   
+[43] rvest_0.3.2        assertthat_0.2.0   colorspace_1.3-2  
+[46] labeling_0.3       stringi_1.2.4      lazyeval_0.2.1    
+[49] munsell_0.5.0      broom_0.5.1        crayon_1.3.4      </code></pre>
 </div>
 
 
