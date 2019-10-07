@@ -1,5 +1,5 @@
 ---
-title: "Human Total vs Nuclear"
+title: "Chimp Total vs Nuclear"
 author: "Briana Mittleman"
 date: "10/7/2019"
 output: html_document
