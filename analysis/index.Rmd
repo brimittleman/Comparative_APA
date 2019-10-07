@@ -22,3 +22,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Annotated PAS and make APA phenotype](annotatePAS.html)
 
 * [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)
+
+
+Differential Isoform Analysis:
+
+* [Human Total vs Nuclear Analysis](Human_TvN.html)  
+
+* [Chimp Total vs Nuclear Analysis](Chimp_TvN.html)  
+

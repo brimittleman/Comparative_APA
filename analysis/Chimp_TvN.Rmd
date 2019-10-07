@@ -1,0 +1,65 @@
+---
+title: "Human Total vs Nuclear"
+author: "Briana Mittleman"
+date: "10/7/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this anaylsis I will complete the Chimp total vs nuclear analysis. This analysis is similar to the analysis in the [apaQTL project](https://brimittleman.github.io/apaQTL/DiffIsoAnalysis.html)
+
+I need the human 5% both fraction feature counts. 
+
+Thee feature counts are in  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc. I need to subset these for those in the annotations.  Keep the PAS in this file: ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed. I will do this with a python script.  
+
+```{bash,eval=F}
+mkdir ../Chimp/data/CleanLiftedPeaks4LC/
+python prepareCleanLiftedFC_5perc4LC.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed ../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc
+```
+
+
+This will only look at PAS on chromosomes 1-22 no extra haplotpyes. 
+
+```{bash,eval=F}
+mkdir ../Chimp/data/DiffIso_Chimp/
+
+python subset_diffisopheno_Chimp_tvN.py 1
+python subset_diffisopheno_Chimp_tvN.py 2
+python subset_diffisopheno_Chimp_tvN.py 3
+python subset_diffisopheno_Chimp_tvN.py 4
+python subset_diffisopheno_Chimp_tvN.py 5
+python subset_diffisopheno_Chimp_tvN.py 6
+python subset_diffisopheno_Chimp_tvN.py 7
+python subset_diffisopheno_Chimp_tvN.py 8
+python subset_diffisopheno_Chimp_tvN.py 9
+python subset_diffisopheno_Chimp_tvN.py 10
+python subset_diffisopheno_Chimp_tvN.py 11
+python subset_diffisopheno_Chimp_tvN.py 12
+python subset_diffisopheno_Chimp_tvN.py 13
+python subset_diffisopheno_Chimp_tvN.py 14
+python subset_diffisopheno_Chimp_tvN.py 15
+python subset_diffisopheno_Chimp_tvN.py 16
+python subset_diffisopheno_Chimp_tvN.py 18
+python subset_diffisopheno_Chimp_tvN.py 19
+python subset_diffisopheno_Chimp_tvN.py 20
+python subset_diffisopheno_Chimp_tvN.py 21
+python subset_diffisopheno_Chimp_tvN.py 22
+```
+
+
+Make sample groups: 
+
+```{bash,eval=F}
+python makeSamplyGroupsChimp_TvN.py
+```
+
+
+Run Leafcutter:
+
+```{bash,eval=F}
+sbatch runChimpDiffIso.sh
+```
+
