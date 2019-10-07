@@ -9,6 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyverse)
+library(reshape2)
+```
+
 In this anaylsis I will complete the Human total vs nuclear analysis. This analysis is similar to the analysis in the [apaQTL project](https://brimittleman.github.io/apaQTL/DiffIsoAnalysis.html)
 
 I need the human 5% both fraction feature counts. 
@@ -64,5 +69,127 @@ source  activate leafcutter)
 sbatch runHumanDiffIso.sh
 ```
 
+Concatinate results:  
 
+```{bash,eval=F}
+awk '{if(NR>1)print}' ../Human/data/DiffIso_Human/TN_diff_isoform_chr*.txt_effect_sizes.txt > ../Human/data/DiffIso_Human/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk '{if(NR>1)print}' ../Human/data/DiffIso_Human/TN_diff_isoform_chr*.txt_cluster_significance.txt > ../Human/data/DiffIso_Human/TN_diff_isoform_allChrom.txt_significance.txt
+
+```
+
+
+Significant clusters:  
+
+```{r}
+sig=read.table("../Human/data/DiffIso_Human/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+```
+
+```{r}
+qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Human: Leafcutter differencial isoform analysis between fractions")
+abline(0,1)
+```
+```{r}
+tested_genes=nrow(sig)
+tested_genes
+```
+
+```{r}
+sig_genes=sig %>% filter(p.adjust<.05)
+number_sig_genes=nrow(sig_genes)
+number_sig_genes
+```
+
+Effect Sizes  
+
+```{r}
+effectsize=read.table("../Human/data/DiffIso_Human/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Nuclear', 'Total','deltaPAU')) %>% filter(intron != "intron")
+
+effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
+effectsize$logef=as.numeric(as.character(effectsize$logef))
+```
+
+
+```{r}
+plot(sort(effectsize$deltaPAU),main="Human: Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
+```
+```{r}
+effectsize_deltaPAU= effectsize %>% filter(abs(deltaPAU) > .2) 
+nrow(effectsize_deltaPAU)
+```
+
+```{r}
+effectSize_highdiffGenes=effectsize_deltaPAU %>% separate(intron, into=c("chrom", "start", "end", "GeneName"), sep=":") %>% dplyr::select(GeneName) %>% unique()
+
+
+```
+
+```{r}
+effectsize_deltaPAU_Genes= effectsize_deltaPAU %>% separate(intron, into=c("chrom", "start", "end","gene"),sep=":") %>% group_by(gene) %>% summarise(nperGene=n()) 
+
+nrow(effectsize_deltaPAU_Genes)
+```
+
+Pull in the PAS to see where these PAS are located.  
+
+```{r}
+PAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt", stringsAsFactors = F, header = T) %>% filter(loc !="008559")
+
+PAS$start=as.character(PAS$start)
+PAS$end=as.character(PAS$end)
+```
+
+
+Increased usage in nuclear:
+
+```{r}
+effectsize_deltaPAU_nuclear= effectsize_deltaPAU %>% filter(deltaPAU < -0.2) %>% separate(intron,into=c("chr", "start", "end", "gene"), sep=":" )%>% inner_join(PAS, by=c("gene", "chr","start", "end"))
+
+```
+
+```{r}
+ggplot(effectsize_deltaPAU_nuclear,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Human: Location of PAS used more in Nuclear")
+```
+
+
+Increased usage in total:  
+
+```{r}
+effectsize_deltaPAU_total= effectsize_deltaPAU %>% filter(deltaPAU > 0.2)  %>% separate(intron,into=c("chr", "start", "end", "gene"), sep=":" )%>% inner_join(PAS, by=c("gene", "chr","start", "end"))
+```
+
+```{r}
+ggplot(effectsize_deltaPAU_total,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Human: Location of PAS used more in Total")
+```
+
+
+
+This is in line with expectation. Now I can compare this to the number of discovered PAS by plotting the proportion of PAS used more in each fraction by location. 
+
+```{r}
+PAS_loc =PAS%>% group_by(loc) %>% summarise(nloc=n())
+```
+
+```{r}
+effectsize_deltaPAU_nuclear_loc=effectsize_deltaPAU_nuclear %>% group_by(loc) %>% summarise(nlocNuclear=n()) 
+
+effectsize_deltaPAU_total_loc=effectsize_deltaPAU_total %>% group_by(loc) %>% summarise(nloctotal=n()) 
+
+effectsize_deltaPAUProp_tot=effectsize_deltaPAU_total_loc %>% inner_join(PAS_loc, by="loc") %>% mutate(Proportion_tot=nloctotal/nloc)
+
+effectsize_deltaPAUProp_nuc=effectsize_deltaPAU_nuclear_loc %>% inner_join(PAS_loc, by="loc") %>% mutate(Proportion_nuc=nlocNuclear/nloc)
+
+
+effectsize_deltaPAUProp_both= effectsize_deltaPAUProp_nuc %>% inner_join(effectsize_deltaPAUProp_tot, by=c("loc","nloc")) %>% dplyr::rename(Nuclear=Proportion_nuc, Total=Proportion_tot) %>% select(loc, Nuclear, Total) 
+effectsize_deltaPAUProp_both_melt= effectsize_deltaPAUProp_both %>% melt(id.vars="loc", variable.name="Fraction", value.name = "Proportion") 
+effectsize_deltaPAUProp_both_melt$Fraction=as.character(effectsize_deltaPAUProp_both_melt$Fraction)
+```
+
+Plot this:  
+```{r}
+ggplot(effectsize_deltaPAUProp_both_melt, aes(x=loc, y=Proportion, by=Fraction, fill=Fraction)) + geom_bar(stat="identity", position="dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Human: Proportion of PAS differential used by location",x="") +scale_x_discrete(labels = c('Coding','5kb downstream','Intronic',"3' UTR", "5' UTR")) 
+```
 

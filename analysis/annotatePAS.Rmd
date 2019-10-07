@@ -192,7 +192,7 @@ mkdir ../data/Pheno_5perc
 ```
 
 ```{r}
-BothMean_5_out=BothMean_5 %>% select(PAS,disc, Chimp, Human)
+BothMean_5_out=BothMean_5 %>% select(PAS,disc, gene, loc,chr, start, end,Chimp, Human)
 write.table(BothMean_5_out, "../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt", row.names = F, col.names = T, quote = F)
 #write bed with human coord for igv
 BothMean_5_bed=BothMean_5 %>% select(chr, start, end, PAS, Human, strand)
