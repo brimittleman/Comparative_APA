@@ -150,7 +150,7 @@ effectsize_deltaPAU_nuclear= effectsize_deltaPAU %>% filter(deltaPAU < -0.2) %>%
 ```
 
 ```{r}
-ggplot(effectsize_deltaPAU_nuclear,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Human: Location of PAS used more in Nuclear")
+ggplot(effectsize_deltaPAU_nuclear,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Chimp: Location of PAS used more in Nuclear")
 ```
 
 
@@ -161,7 +161,7 @@ effectsize_deltaPAU_total= effectsize_deltaPAU %>% filter(deltaPAU > 0.2)  %>% s
 ```
 
 ```{r}
-ggplot(effectsize_deltaPAU_total,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Human: Location of PAS used more in Total")
+ggplot(effectsize_deltaPAU_total,aes(x=loc,fill=loc)) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") +labs(title="Chimp: Location of PAS used more in Total")
 ```
 
 
