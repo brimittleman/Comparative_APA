@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Briana Mittleman" />
 
 
-<title>Home</title>
+<title>Normalize Phenotypes Total</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -169,6 +173,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -217,7 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Normalize Phenotypes Total</h1>
+<h4 class="author"><em>Briana Mittleman</em></h4>
+<h4 class="date"><em>10/9/2019</em></h4>
 
 </div>
 
@@ -245,7 +346,7 @@ div.section {
 <strong>Last updated:</strong> 2019-10-09
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -267,6 +368,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190902code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190902)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190902code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190902)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -492,6 +653,7 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  docs/figure/NormalizePheno_nuclear.Rmd/
 
 </code></pre>
 <p>
@@ -535,7 +697,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1f063297413d5951470981d2eb95540825326ce0/analysis/index.Rmd" target="_blank">1f06329</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/1f063297413d5951470981d2eb95540825326ce0/analysis/NormalizePheno_total.Rmd" target="_blank">1f06329</a>
 </td>
 <td>
 brimittleman
@@ -547,329 +709,6 @@ brimittleman
 add PCA by total and nuclear
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d0c98c261010b35d00259c9ca5488e2e46448332/docs/index.html" target="_blank">d0c98c2</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/14a3f665ce75def8370c8c6129603a205c5648d0/analysis/index.Rmd" target="_blank">14a3f66</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-add pca and human v chimp in nuc analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c3aa529bce951a381624b7854c6e7522f3c14bff/docs/index.html" target="_blank">c3aa529</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/da85ad8c1c69856141190009e20c4ef98ed07b76/analysis/index.Rmd" target="_blank">da85ad8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-add code to prepare human and chimp TvN
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/index.html" target="_blank">4ea2576</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/index.Rmd" target="_blank">920abac</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-add comaprison to old PAS
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e0ac227e5aa1b09a1da0fa75aaab25b9f0eb749a/docs/index.html" target="_blank">e0ac227</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/index.Rmd" target="_blank">e3f0cdf</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-add annotation analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b5edd8e21fc0cf262cf1332d74ffc1917c2ff7f7/docs/index.html" target="_blank">b5edd8e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5a215119477fca80ff396449a2cbbbff36db2d1/analysis/index.Rmd" target="_blank">b5a2151</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-add analysis for liftover
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0e8aa0da4367a78c4c39a2d082b6d235b78237e8/docs/index.html" target="_blank">0e8aa0d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7d81da82a31dd6f9169c49f13873a66afba68755/analysis/index.Rmd" target="_blank">7d81da8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-add map stats to site
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/index.html" target="_blank">7a9cf74</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/index.Rmd" target="_blank">a2fe9d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-add annotation prep anaylsis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/03cb9ab5e687900eff39dc89fbad5178e6a10a6c/docs/index.html" target="_blank">03cb9ab</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/88ed6b434a8626d6210e8921e2154078dca095d6/docs/index.html" target="_blank">88ed6b4</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b6db8f3924282d211181aeaf4baa6851908f18aa/analysis/index.Rmd" target="_blank">b6db8f3</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-add project info to about and index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d03d7b001d5748f6f9162210b368fab2dac90662/docs/index.html" target="_blank">d03d7b0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f914d4920107a1b4c48c590209133aa9ac5817de/analysis/index.Rmd" target="_blank">f914d49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -877,25 +716,171 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>I am interesting in understanding differential APA between human and chimpanzees. I used 3’ Seq to identify PAS for total and nuclear frations of LCL in both species.</p>
-<ul>
-<li><p><a href="annotationInfo.html">Prepare annotation files for mapping</a></p></li>
-<li><p><a href="mapStats.html">Mapping statistics and plots</a></p></li>
-<li><p><a href="liftoverPAS.html">Liftover PAS</a></p></li>
-<li><p><a href="annotatePAS.html">Annotated PAS and make APA phenotype</a></p></li>
-<li><p><a href="comp2apaQTLPAS.html">Compare identified PAS with apaQTL PAS</a></p></li>
-<li><p><a href="NromalizePhenos.html">PCA plot to look at variation in data</a></p>
-<ul>
-<li><p><a href="NormalizePheno_total.html">Total Fraction</a></p></li>
-<li><p><a href="NormalizePheno_nuclear.html">Nuclear Fraction</a></p></li>
-</ul></li>
-</ul>
-<p>Differential Isoform Analysis:</p>
-<ul>
-<li><p><a href="Human_TvN.html">Human Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Chimp_TvN.html">Chimp Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p></li>
-</ul>
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
+✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
+✔ readr   1.3.1       ✔ stringr 1.3.1  
+✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ tidyr::extract()   masks magrittr::extract()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::lag()       masks stats::lag()
+✖ purrr::set_names() masks magrittr::set_names()</code></pre>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    smiths</code></pre>
+<pre class="r"><code>humanPheno=read.table(&quot;../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt&quot;,stringsAsFactors = F, header = T)
+chimpPheno=read.table(&quot;../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt&quot;,stringsAsFactors = F, header = T)
+
+
+allPhenoT=humanPheno %&gt;% full_join(chimpPheno,by=&quot;chrom&quot;) %&gt;% select(-contains(&quot;_N&quot;))</code></pre>
+<pre class="bash"><code>mkdir ../data/Pheno_5perc_total</code></pre>
+<pre class="r"><code>write.table(allPhenoT, &quot;../data/Pheno_5perc_total/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
+<pre class="bash"><code>
+gzip ../data/Pheno_5perc_total/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt
+
+#conda deactivate 
+conda deactivate 
+conda deactivate 
+#python 2
+source ~/activate_anaconda_python2.sh 
+#go to directory ../data/Pheno_5perc_total/
+python ../../code/prepare_phenotype_table.py ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt.gz
+cat ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt.gz.phen_chr* &gt; ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt.gz.phen_AllChrom</code></pre>
+<p>Use these normalized phenotypes for the PCA</p>
+<pre class="r"><code>metaDataT=read.table(&quot;../data/metadata_HCpanel.txt&quot;, header = T, stringsAsFactors = F) %&gt;% filter(Fraction==&quot;Total&quot;)</code></pre>
+<pre class="r"><code>normPheno=read.table(&quot;../data/Pheno_5perc_total/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Total.txt.gz.phen_AllChrom&quot;, col.names = c(&#39;Chr&#39;, &#39;start&#39;,    &#39;end&#39;,  &#39;ID&#39;,   &#39;18498_T&#39;,      &#39;18499_T&#39;,      &#39;18502_T&#39;,      &#39;18504_T&#39;,  &#39;18510_T&#39;,  &#39;18523_T&#39;,  &#39;18358_T&#39;,&#39;3622_T&#39;,     &#39;3659_T&#39;,   &#39;4973_T&#39;,   &#39;pt30_T&#39;,       &#39;pt91_T&#39;))
+
+normPheno_matrix=as.matrix(normPheno %&gt;% select(-Chr, -start, -end, -ID))</code></pre>
+<p>Run PCA:</p>
+<pre class="r"><code>pca_Pheno=prcomp(normPheno_matrix, center=T,scale=T)
+pca_df=as.data.frame(pca_Pheno$rotation) %&gt;% rownames_to_column(var=&quot;ID&quot;)</code></pre>
+<pre class="r"><code>eigs &lt;- pca_Pheno$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)</code></pre>
+<p><img src="figure/NormalizePheno_total.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top2PC=pca_df %&gt;% select(ID, PC1, PC2) %&gt;% inner_join(metaDataT, by=&quot;ID&quot;)
+
+
+ggplot(top2PC,aes(x=PC1, y=PC2, col=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )</code></pre>
+<p><img src="figure/NormalizePheno_total.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>covariate_pc_pve_heatmap &lt;- function(pc_df, covariate_df, title) {
+  # Load in data
+  pcs &lt;- pc_df
+  #pcs=pca_df
+
+  covs &lt;- covariate_df
+  #covs= metaData_sm
+
+
+  # Remove unimportant columns
+  pcs &lt;- as.matrix(pcs[,2:dim(pcs)[[2]]])
+  covs &lt;- data.frame(as.matrix(covs[,1:dim(covs)[[2]]]))
+
+  # Initialize PVE heatmap
+  pve_map &lt;- matrix(0, dim(covs)[2], dim(pcs)[2])
+  colnames(pve_map) &lt;- colnames(pcs)
+  rownames(pve_map) &lt;- colnames(covs)
+
+  # Loop through each PC, COV Pair and take correlation
+  num_pcs &lt;- dim(pcs)[2]
+  num_covs &lt;- dim(covs)[2]
+  for (num_pc in 1:num_pcs) {
+    for (num_cov in 1:num_covs) {
+      pc_vec &lt;- pcs[,num_pc]
+      cov_vec &lt;- covs[,num_cov]
+      lin_model &lt;- lm(pc_vec ~ cov_vec)
+      pve_map[num_cov, num_pc] &lt;- summary(lin_model)$adj.r.squared
+      if (pve_map[num_cov, num_pc] &lt;0){pve_map[num_cov, num_pc]=0}
+    }
+  }
+  pve_map
+  ord &lt;- hclust( dist(scale(pve_map), method = &quot;euclidean&quot;), method = &quot;ward.D&quot; )$order
+
+  melted_mat &lt;- melt(pve_map)
+  colnames(melted_mat) &lt;- c(&quot;Covariate&quot;, &quot;PC&quot;,&quot;PVE&quot;)
+
+  #  Use factors to represent covariate and pc name
+  melted_mat$Covariate &lt;- factor(melted_mat$Covariate, levels = rownames(pve_map)[ord])
+  melted_mat$PC &lt;- factor(melted_mat$PC)
+  if (dim(pcs)[2] == 10) {
+    levels(melted_mat$PC) &lt;- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[3:10],levels(melted_mat$PC)[2])
+  }
+  if (dim(pcs)[2] == 21) {
+    levels(melted_mat$PC) &lt;- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[12],levels(melted_mat$PC)[15:21],levels(melted_mat$PC)[2:11], levels(melted_mat$PC)[13:14])
+  }
+
+  #  PLOT!
+  heatmap &lt;- ggplot(data=melted_mat, aes(x=Covariate, y=PC)) + geom_tile(aes(fill=PVE)) + scale_fill_gradient2(midpoint=-.05, guide=&quot;colorbar&quot;)
+  heatmap &lt;- heatmap + theme(text = element_text(size=14), panel.background = element_blank(), axis.text.x = element_text(angle = 90, vjust=.5))
+  heatmap &lt;- heatmap + labs(y=&quot;latent factor&quot;, title=title)
+
+  # Save File
+  return(heatmap)
+}</code></pre>
+<pre class="r"><code>metaData_sm= metaDataT %&gt;% select(-ID,-Line,-FQlines,-Reads,-Mapped_wMP,-Mapped_Clean,-PerMap,-PerMapClean,-Fraction,-Cq, -Rerun, -Library_concentration)
+covariate_pc_pve_heatmap(pca_df,metaData_sm, title=&quot;PCs&quot;)</code></pre>
+<p><img src="figure/NormalizePheno_total.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(metaDataT, aes(x=Species, y=Concentration, fill=Species)) + geom_boxplot() + stat_compare_means(method = &quot;t.test&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/NormalizePheno_total.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] tidyverse_1.2.1 ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1  
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         rlang_0.4.0        pillar_1.3.1      
+[10] glue_1.3.0         withr_2.1.2        RColorBrewer_1.1-2
+[13] modelr_0.1.2       readxl_1.1.0       plyr_1.8.4        
+[16] munsell_0.5.0      gtable_0.2.0       workflowr_1.4.0   
+[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
+[22] labeling_0.3       knitr_1.20         broom_0.5.1       
+[25] Rcpp_1.0.2         scales_1.0.0       backports_1.1.2   
+[28] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[31] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[34] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[37] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[40] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[43] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[46] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[49] git2r_0.25.2       compiler_3.5.1    </code></pre>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -911,6 +896,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
