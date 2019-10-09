@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-04
+<strong>Last updated:</strong> 2019-10-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree920abac02a19940bb87f056a3a06dcb35cd5016dtargetblank920abaca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/920abac02a19940bb87f056a3a06dcb35cd5016d" target="_blank">920abac</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6targetblank190a655a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6" target="_blank">190a655</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree920abac02a19940bb87f056a3a06dcb35cd5016dtargetblank920abaca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6targetblank190a655a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -449,6 +449,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
+    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
 Untracked files:
@@ -467,6 +468,7 @@ Untracked files:
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
     Untracked:  code/._fixUTRexonanno.py
@@ -474,14 +476,19 @@ Untracked files:
     Untracked:  code/._formatpantro6Anno.py
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDifffIso.sh
     Untracked:  code/._snakemake.batch
     Untracked:  code/._snakemakePAS.batch
     Untracked:  code/._snakemakePASchimp.batch
@@ -498,6 +505,7 @@ Untracked files:
     Untracked:  code/._submit-snakemakePAS-human.sh
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_human.yaml
@@ -532,6 +540,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/filter5perc.R
+    Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
     Untracked:  code/filterMissprimingInNuc10_gen.py
@@ -556,6 +565,8 @@ Untracked files:
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
     Untracked:  code/makePheno.py
+    Untracked:  code/makeSamplyGroupsChimp_TvN.py
+    Untracked:  code/makeSamplyGroupsHuman_TvN.py
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
@@ -568,7 +579,9 @@ Untracked files:
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/preparePAS4lift.py
+    Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
     Untracked:  code/primaryLift.out
     Untracked:  code/primaryLift.sh
@@ -582,6 +595,15 @@ Untracked files:
     Untracked:  code/revLift.out
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
+    Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/run_Chimpleafcutter_ds.err
+    Untracked:  code/run_Chimpleafcutter_ds.out
+    Untracked:  code/run_Humanleafcutter_ds.err
+    Untracked:  code/run_Humanleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_ds.err
+    Untracked:  code/run_Nuclearleafcutter_ds.out
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
@@ -607,10 +629,17 @@ Untracked files:
     Untracked:  code/submit-snakemakePAS-human.sh
     Untracked:  code/submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/submit-snakemakefiltPAS-human.sh
+    Untracked:  code/subset_diffisopheno.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
     Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/chainFiles/
@@ -665,6 +694,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6/analysis/comp2apaQTLPAS.Rmd" target="_blank">190a655</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-09
+</td>
+<td>
+small changes 9.9
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/comp2apaQTLPAS.html" target="_blank">4ea2576</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/comp2apaQTLPAS.Rmd" target="_blank">920abac</a>
 </td>
 <td>
@@ -685,12 +748,12 @@ add comaprison to old PAS
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -700,8 +763,10 @@ Attaching package: &#39;reshape2&#39;</code></pre>
 
     smiths</code></pre>
 <p>In this analysis I will compare the PAS found at 5% in the human data in this project with the apaQTL project.</p>
-<p>Take the 5 perc PAS from the annotatePAS analysis and filter those with scores &gt; .05 i human.</p>
-<pre class="r"><code>compAPAPAS=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed&quot;, header =   T, stringsAsFactors = F)  %&gt;%  filter(Human&gt;=0.05)</code></pre>
+<p>Take the 5 perc PAS from the annotatePAS analysis and filter those with scores &gt; .05 in human. I also want to remove PAS not in chr 1-22.</p>
+<pre class="r"><code>chroms=c(&#39;chr10&#39;, &#39;chr11&#39;, &#39;chr12&#39;, &#39;chr13&#39;, &#39;chr14&#39;, &#39;chr15&#39;, &#39;chr16&#39;, &#39;chr17&#39;, &#39;chr18&#39;, &#39;chr19&#39;, &#39;chr1&#39;, &#39;chr2&#39;, &#39;chr20&#39;, &#39;chr21&#39;, &#39;chr22&#39;, &#39;chr3&#39;, &#39;chr4&#39;, &#39;chr5&#39;, &#39;chr6&#39;, &#39;chr7&#39;,&#39;chr8&#39;, &#39;chr9&#39;)
+
+compAPAPAS=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed&quot;, header =   T, stringsAsFactors = F)  %&gt;%  filter(Human&gt;=0.05, chr %in% chroms) </code></pre>
 <p>I can write this bed out and use bedtools intersect.</p>
 <pre class="bash"><code>mkdir ../data/CompapaQTLpas</code></pre>
 <pre class="r"><code>write.table(compAPAPAS,&quot;../data/CompapaQTLpas/CompAPA_PAS_5percHuman.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
@@ -715,8 +780,83 @@ noOverlap=read.table(&quot;../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.N
 AllwOinfo=as.data.frame(rbind(wOverlap, noOverlap))</code></pre>
 <pre class="r"><code>ggplot(AllwOinfo, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-7-1.png" target="_blank">4ea2576</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> This is a bit strange. I would expect more overlap. Maybe these are low expressed genes.</p>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">4ea2576</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This is a bit strange. I would expect more overlap. Maybe these are low expressed genes.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

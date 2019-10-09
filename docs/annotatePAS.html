@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-07
+<strong>Last updated:</strong> 2019-10-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8466418b6d4c0ffcd929c72be17919cd9a9e15fatargetblank8466418a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8466418b6d4c0ffcd929c72be17919cd9a9e15fa" target="_blank">8466418</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6targetblank190a655a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6" target="_blank">190a655</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8466418b6d4c0ffcd929c72be17919cd9a9e15fatargetblank8466418a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6targetblank190a655a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -449,6 +449,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
+    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
 Untracked files:
@@ -467,6 +468,7 @@ Untracked files:
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
     Untracked:  code/._fixUTRexonanno.py
@@ -486,6 +488,7 @@ Untracked files:
     Untracked:  code/._reverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
     Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDifffIso.sh
     Untracked:  code/._snakemake.batch
     Untracked:  code/._snakemakePAS.batch
     Untracked:  code/._snakemakePASchimp.batch
@@ -502,6 +505,7 @@ Untracked files:
     Untracked:  code/._submit-snakemakePAS-human.sh
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_human.yaml
@@ -536,6 +540,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/filter5perc.R
+    Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
     Untracked:  code/filterMissprimingInNuc10_gen.py
@@ -576,6 +581,7 @@ Untracked files:
     Untracked:  code/pheno2countonly.R
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/preparePAS4lift.py
+    Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
     Untracked:  code/primaryLift.out
     Untracked:  code/primaryLift.sh
@@ -591,10 +597,13 @@ Untracked files:
     Untracked:  code/reverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Humanleafcutter_ds.err
     Untracked:  code/run_Humanleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_ds.err
+    Untracked:  code/run_Nuclearleafcutter_ds.out
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
@@ -623,10 +632,14 @@ Untracked files:
     Untracked:  code/subset_diffisopheno.py
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
     Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/chainFiles/
@@ -676,6 +689,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/190a65522ef85f0ff23e1e3bb1e564e2c8dad5c6/analysis/annotatePAS.Rmd" target="_blank">190a655</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-09
+</td>
+<td>
+small changes 9.9
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/62b52858e9126962a155603ccdea553c7a096c92/docs/annotatePAS.html" target="_blank">62b5285</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1180,6 +1227,10 @@ brimittleman
 mkdir ../data/Pheno_5perc</code></pre>
 <pre class="r"><code>BothMean_5_out=BothMean_5 %&gt;% select(PAS,disc, gene, loc,chr, start, end,Chimp, Human)
 write.table(BothMean_5_out, &quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt&quot;, row.names = F, col.names = T, quote = F)
+
+BothMean_5_out_noUN=BothMean_5 %&gt;% select(PAS,disc, gene, loc,chr, start, end,Chimp, Human) %&gt;% filter(!grepl(&quot;Un&quot;,chr))
+
+write.table(BothMean_5_out_noUN, &quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt&quot;, row.names = F, col.names = T, quote = F)
 #write bed with human coord for igv
 BothMean_5_bed=BothMean_5 %&gt;% select(chr, start, end, PAS, Human, strand)
 write.table(BothMean_5_bed, &quot;../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed&quot;, row.names = F, col.names = T, quote = F)</code></pre>
