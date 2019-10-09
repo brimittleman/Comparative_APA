@@ -23,10 +23,16 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)
 
+* [PCA plot](NromalizePhenos.html)
+
 
 Differential Isoform Analysis:
 
 * [Human Total vs Nuclear Analysis](Human_TvN.html)  
 
 * [Chimp Total vs Nuclear Analysis](Chimp_TvN.html)  
+
+* [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
+
+
 

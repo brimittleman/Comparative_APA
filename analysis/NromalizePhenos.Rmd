@@ -1,0 +1,177 @@
+---
+title: "Normalize Usage Phenotype"
+author: "Briana Mittleman"
+date: "10/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to normalize the phenotypes with the leafcutter scripts. This can be used to perform a PCA and assess the data quality. I will include, total nuclear human and chimp.  
+
+```{r}
+library(tidyverse)
+library(reshape2)
+```
+
+These are the inclusive phenotypes. I will need to subset of the 5% pas.  
+../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt
+
+
+The 5% pas are in ../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt
+
+I will make a python script that will do this. I
+
+
+```{bash,eval=F}
+python filter5percPAS.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt
+
+python filter5percPAS.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt
+```
+
+
+Join these to normalize the phenotypes together:  
+
+```{r}
+humanPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt",stringsAsFactors = F, header = T)
+chimpPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt",stringsAsFactors = F, header = T)
+
+
+allPheno=humanPheno %>% full_join(chimpPheno,by="chrom")
+
+
+write.table(allPheno, "../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt", col.names = T, row.names = F, quote = F)
+```
+
+
+
+
+
+
+
+
+
+
+```{bash,eval=F}
+gzip ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt
+
+#conda deactivate 
+conda deactivate 
+conda deactivate 
+#python 2
+source ~/activate_anaconda_python2.sh 
+#go to directory ../data/Pheno_5perc/
+python ../../code/prepare_phenotype_table.py ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz
+cat ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_chr* > ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom
+
+```
+
+Use these normalized phenotypes for the PCA 
+
+```{r}
+metaData=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors = F)
+```
+
+
+```{r}
+normPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom", col.names = c('Chr',	'start',	'end',	'ID',	'18498_N',	'18498_T',	'18499_N',	'18499_T',	'18502_N',	'18502_T',	'18504_N',	'18504_T',	'18510_N',	'18510_T',	'18523_N',	'18523_T',	'18358_N',	'18358_T',	'3622_N',	'3622_T',	'3659_N',	'3659_T',	'4973_N',	'4973_T',	'pt30_N',	'pt30_T',	'pt91_N',	'pt91_T'))
+
+normPheno_matrix=as.matrix(normPheno %>% select(-Chr, -start, -end, -ID))
+```
+Run PCA:  
+
+```{r}
+pca_Pheno=prcomp(normPheno_matrix, center=T,scale=T)
+pca_df=as.data.frame(pca_Pheno$rotation) %>% rownames_to_column(var="ID")
+
+```
+
+```{r}
+eigs <- pca_Pheno$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)
+```
+
+
+Plot color as species and shape as total v nuclear 
+
+```{r}
+top2PC=pca_df %>% select(ID, PC1, PC2) %>% inner_join(metaData, by="ID")
+
+
+ggplot(top2PC,aes(x=PC1, y=PC2, col=Species, shape=Fraction)) + geom_point(size=3)
+```
+```{r}
+covariate_pc_pve_heatmap <- function(pc_df, covariate_df, title) {
+  # Load in data
+  #pcs <- pc_df
+  pcs=pca_df
+  
+  #covs <- covariate_df
+  covs= metaData_sm
+
+
+  # Remove unimportant columns
+  pcs <- as.matrix(pcs[,2:dim(pcs)[[2]]])
+  covs <- data.frame(as.matrix(covs[,1:dim(covs)[[2]]]))
+
+  # Initialize PVE heatmap
+  pve_map <- matrix(0, dim(covs)[2], dim(pcs)[2])
+  colnames(pve_map) <- colnames(pcs)
+  rownames(pve_map) <- colnames(covs)
+
+  # Loop through each PC, COV Pair and take correlation
+  num_pcs <- dim(pcs)[2]
+  num_covs <- dim(covs)[2]
+  for (num_pc in 1:num_pcs) {
+    for (num_cov in 1:num_covs) {
+      pc_vec <- pcs[,num_pc]
+      cov_vec <- covs[,num_cov]
+      lin_model <- lm(pc_vec ~ cov_vec)
+      pve_map[num_cov, num_pc] <- summary(lin_model)$adj.r.squared
+      if (pve_map[num_cov, num_pc] <0){pve_map[num_cov, num_pc]=0}
+    }
+  }
+  pve_map
+  ord <- hclust( dist(scale(pve_map), method = "euclidean"), method = "ward.D" )$order
+
+  melted_mat <- melt(pve_map)
+  colnames(melted_mat) <- c("Covariate", "PC","PVE")
+
+  #  Use factors to represent covariate and pc name
+  melted_mat$Covariate <- factor(melted_mat$Covariate, levels = rownames(pve_map)[ord])
+  melted_mat$PC <- factor(melted_mat$PC)
+  if (dim(pcs)[2] == 10) {
+    levels(melted_mat$PC) <- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[3:10],levels(melted_mat$PC)[2])
+  }
+  if (dim(pcs)[2] == 21) {
+    levels(melted_mat$PC) <- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[12],levels(melted_mat$PC)[15:21],levels(melted_mat$PC)[2:11], levels(melted_mat$PC)[13:14])
+  }
+
+  #  PLOT!
+  heatmap <- ggplot(data=melted_mat, aes(x=Covariate, y=PC)) + geom_tile(aes(fill=PVE)) + scale_fill_gradient2(midpoint=-.05, guide="colorbar")
+  heatmap <- heatmap + theme(text = element_text(size=14), panel.background = element_blank(), axis.text.x = element_text(angle = 90, vjust=.5))
+  heatmap <- heatmap + labs(y="latent factor", title=title)
+
+  # Save File
+  return(heatmap)
+}
+
+
+```
+
+
+```{r}
+
+metaData_sm= metaData %>% select(-ID,-FQlines,-Reads,-Mapped_wMP,-Mapped_Clean,-PerMap,-PerMapClean)
+covariate_pc_pve_heatmap(pca_df,metaData_sm, title="PCs")
+```
+
+
+I need to seperate this by nuclear and total before running this.  
+
+
