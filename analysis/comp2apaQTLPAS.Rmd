@@ -17,9 +17,14 @@ library(reshape2)
 
 In this analysis I will compare the PAS found at 5% in the human data in this project with the apaQTL project.  
 
-Take the 5 perc PAS from the annotatePAS analysis and filter those with scores > .05 i human.
+Take the 5 perc PAS from the annotatePAS analysis and filter those with scores > .05 in human. I also want to remove PAS not in chr 1-22.  
+
+
 ```{r}
-compAPAPAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", header =   T, stringsAsFactors = F)  %>%  filter(Human>=0.05)
+chroms=c('chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr1', 'chr2', 'chr20', 'chr21', 'chr22', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7','chr8', 'chr9')
+
+compAPAPAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", header =   T, stringsAsFactors = F)  %>%  filter(Human>=0.05, chr %in% chroms) 
+
 ```
 
 

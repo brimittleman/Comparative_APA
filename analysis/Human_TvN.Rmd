@@ -193,3 +193,5 @@ Plot this:
 ggplot(effectsize_deltaPAUProp_both_melt, aes(x=loc, y=Proportion, by=Fraction, fill=Fraction)) + geom_bar(stat="identity", position="dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Human: Proportion of PAS differential used by location",x="") +scale_x_discrete(labels = c('Coding','5kb downstream','Intronic',"3' UTR", "5' UTR")) 
 ```
 
+
+]
