@@ -1,0 +1,22 @@
+---
+title: "Verify Bam ID"
+author: "Briana Mittleman"
+date: "10/10/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{bash,eval=F}
+mkdir ../Human/data/verifyBam
+```
+
+VCF: /project2/gilad/reem/vcf_fromjohn/sortedsnps.hg38liftover.exons.vcf.gz  
+
+
+```{bash,eval=F}
+sbatch wrap_verifyBam.sh 
+```
+

@@ -1,0 +1,68 @@
+---
+title: "NonNormalizedPheno_Total"
+author: "Briana Mittleman"
+date: "10/10/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggpubr)
+library(tidyverse)
+library(reshape2)
+```
+
+
+```{r}
+
+fiveper=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt",stringsAsFactors = F, header = T)
+
+HumanAnno=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+
+ChimpAnno=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+
+
+
+allPhenoT=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% select(-contains("_N")) %>% filter(PAS %in% fiveper$PAS) %>% select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
+
+allPhenoT_matrix=as.matrix(allPhenoT)
+```
+
+
+Use these normalized phenotypes for the PCA 
+
+```{r}
+metaDataT=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors = F) %>% filter(Fraction=="Total")
+
+pca_Pheno=prcomp(allPhenoT_matrix, center=T,scale=T)
+pca_df=as.data.frame(pca_Pheno$rotation) %>% rownames_to_column(var="ID")
+
+```
+
+```{r}
+eigs <- pca_Pheno$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)
+```
+
+

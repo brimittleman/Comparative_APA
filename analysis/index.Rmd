@@ -26,9 +26,12 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [PCA plot to look at variation in data](NromalizePhenos.html)
 
       * [Total Fraction](NormalizePheno_total.html)  
+      
+      * [Total Fraction- Prenormalized](NonNormPheno_total.html)
         
       * [Nuclear Fraction](NormalizePheno_nuclear.html)  
-
+      
+* [Verify sample identity](verifyBAM.Rmd)
 
 Differential Isoform Analysis:
 
