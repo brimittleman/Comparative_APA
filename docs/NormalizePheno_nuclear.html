@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-09
+<strong>Last updated:</strong> 2019-10-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1f063297413d5951470981d2eb95540825326ce0targetblank1f06329a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1f063297413d5951470981d2eb95540825326ce0" target="_blank">1f06329</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9855436bff28c99c34754fa2f6373620256997fctargetblank9855436a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9855436bff28c99c34754fa2f6373620256997fc" target="_blank">9855436</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1f063297413d5951470981d2eb95540825326ce0targetblank1f06329a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9855436bff28c99c34754fa2f6373620256997fctargetblank9855436a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -696,6 +696,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9855436bff28c99c34754fa2f6373620256997fc/analysis/NormalizePheno_nuclear.Rmd" target="_blank">9855436</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-10
+</td>
+<td>
+fix code for pve
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/NormalizePheno_nuclear.html" target="_blank">b8ccfdb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/1f063297413d5951470981d2eb95540825326ce0/analysis/NormalizePheno_nuclear.Rmd" target="_blank">1f06329</a>
 </td>
 <td>
@@ -766,69 +800,159 @@ proportion = eigs/sum(eigs)
 
 plot(proportion)</code></pre>
 <p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>top2PC=pca_df %&gt;% select(ID, PC1, PC2) %&gt;% inner_join(metaDataN, by=&quot;ID&quot;)
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-9-1.png" target="_blank">b8ccfdb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>top5PC=pca_df %&gt;% select(ID, PC1, PC2, PC3, PC4, PC5) %&gt;% inner_join(metaDataN, by=&quot;ID&quot;)
 
 
-ggplot(top2PC,aes(x=PC1, y=PC2, col=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )</code></pre>
+ggplot(top5PC,aes(x=PC1, y=PC2, col=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )</code></pre>
 <p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>covariate_pc_pve_heatmap &lt;- function(pc_df, covariate_df, title) {
-  # Load in data
-  #pcs &lt;- pc_df
-  pcs=pca_df
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-10-1.png" target="_blank">b8ccfdb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(top5PC,aes(x=PC1, y=PC2, col=Concentration, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))</code></pre>
+<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>top5PC$Cycles=as.factor(top5PC$Cycles)
+ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Library_concentration), position = position_nudge(y = 0.03))</code></pre>
+<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Correlation between experimental factors and pcs:</p>
+<p>PC1</p>
+<pre class="r"><code>Cycles1=summary(lm(top5PC$PC1 ~ top5PC$Cycles))$adj.r.squared
+Species1=summary(lm(top5PC$PC1 ~ top5PC$Species))$adj.r.squared
+Concentration1=summary(lm(top5PC$PC1 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration1=summary(lm(top5PC$PC1 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean1=summary(lm(top5PC$PC1 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio1=summary(lm(top5PC$PC1 ~ top5PC$Ratio))$adj.r.squared
 
-  #covs &lt;- covariate_df
-  covs= metaData_sm
 
 
-  # Remove unimportant columns
-  pcs &lt;- as.matrix(pcs[,2:dim(pcs)[[2]]])
-  covs &lt;- data.frame(as.matrix(covs[,1:dim(covs)[[2]]]))
+PC1Fac=c(Species1, Concentration1, Ratio1,Cycles1,Library_concentration1, PerMapClean1)</code></pre>
+<p>PC2</p>
+<pre class="r"><code>Cycles2=summary(lm(top5PC$PC2 ~ top5PC$Cycles))$adj.r.squared
+Species2=summary(lm(top5PC$PC2 ~ top5PC$Species))$adj.r.squared
+Concentration2=summary(lm(top5PC$PC2 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration2=summary(lm(top5PC$PC2 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean2=summary(lm(top5PC$PC2 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio2=summary(lm(top5PC$PC2 ~ top5PC$Ratio))$adj.r.squared
 
-  # Initialize PVE heatmap
-  pve_map &lt;- matrix(0, dim(covs)[2], dim(pcs)[2])
-  colnames(pve_map) &lt;- colnames(pcs)
-  rownames(pve_map) &lt;- colnames(covs)
 
-  # Loop through each PC, COV Pair and take correlation
-  num_pcs &lt;- dim(pcs)[2]
-  num_covs &lt;- dim(covs)[2]
-  for (num_pc in 1:num_pcs) {
-    for (num_cov in 1:num_covs) {
-      pc_vec &lt;- pcs[,num_pc]
-      cov_vec &lt;- covs[,num_cov]
-      lin_model &lt;- lm(pc_vec ~ cov_vec)
-      pve_map[num_cov, num_pc] &lt;- summary(lin_model)$adj.r.squared
-      if (pve_map[num_cov, num_pc] &lt;0){pve_map[num_cov, num_pc]=0}
-    }
-  }
-  pve_map
-  ord &lt;- hclust( dist(scale(pve_map), method = &quot;euclidean&quot;), method = &quot;ward.D&quot; )$order
 
-  melted_mat &lt;- melt(pve_map)
-  colnames(melted_mat) &lt;- c(&quot;Covariate&quot;, &quot;PC&quot;,&quot;PVE&quot;)
+PC2Fac=c(Species2, Concentration2, Ratio2,Cycles2,Library_concentration2, PerMapClean2)</code></pre>
+<p>PC3</p>
+<pre class="r"><code>Cycles3=summary(lm(top5PC$PC3 ~ top5PC$Cycles))$adj.r.squared
+Species3=summary(lm(top5PC$PC3 ~ top5PC$Species))$adj.r.squared
+Concentration3=summary(lm(top5PC$PC3 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration3=summary(lm(top5PC$PC3 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean3=summary(lm(top5PC$PC3 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio3=summary(lm(top5PC$PC3 ~ top5PC$Ratio))$adj.r.squared
 
-  #  Use factors to represent covariate and pc name
-  melted_mat$Covariate &lt;- factor(melted_mat$Covariate, levels = rownames(pve_map)[ord])
-  melted_mat$PC &lt;- factor(melted_mat$PC)
-  if (dim(pcs)[2] == 10) {
-    levels(melted_mat$PC) &lt;- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[3:10],levels(melted_mat$PC)[2])
-  }
-  if (dim(pcs)[2] == 21) {
-    levels(melted_mat$PC) &lt;- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[12],levels(melted_mat$PC)[15:21],levels(melted_mat$PC)[2:11], levels(melted_mat$PC)[13:14])
-  }
 
-  #  PLOT!
-  heatmap &lt;- ggplot(data=melted_mat, aes(x=Covariate, y=PC)) + geom_tile(aes(fill=PVE)) + scale_fill_gradient2(midpoint=-.05, guide=&quot;colorbar&quot;)
-  heatmap &lt;- heatmap + theme(text = element_text(size=14), panel.background = element_blank(), axis.text.x = element_text(angle = 90, vjust=.5))
-  heatmap &lt;- heatmap + labs(y=&quot;latent factor&quot;, title=title)
 
-  # Save File
-  return(heatmap)
-}</code></pre>
-<pre class="r"><code>metaData_sm= metaDataN %&gt;% select(-ID,-Line,-FQlines,-Reads,-Mapped_wMP,-Mapped_Clean,-PerMap,-PerMapClean,-Fraction,-Rerun,-Cq)
-#covariate_pc_pve_heatmap(pca_df,metaData_sm, title=&quot;PCs&quot;)</code></pre>
-<pre class="r"><code>ggplot(metaDataN, aes(x=Species, y=Concentration, fill=Species)) + geom_boxplot() + stat_compare_means(method = &quot;t.test&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+PC3Fac=c(Species3, Concentration3, Ratio3,Cycles3,Library_concentration3, PerMapClean3)</code></pre>
+<p>PC4</p>
+<pre class="r"><code>Cycles4=summary(lm(top5PC$PC4 ~ top5PC$Cycles))$adj.r.squared
+Species4=summary(lm(top5PC$PC4 ~ top5PC$Species))$adj.r.squared
+Concentration4=summary(lm(top5PC$PC4 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration4=summary(lm(top5PC$PC4 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean4=summary(lm(top5PC$PC4 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio4=summary(lm(top5PC$PC4 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC4Fac=c(Species4, Concentration4, Ratio4,Cycles4,Library_concentration4, PerMapClean4)</code></pre>
+<p>PC5</p>
+<pre class="r"><code>Cycles5=summary(lm(top5PC$PC5 ~ top5PC$Cycles))$adj.r.squared
+Species5=summary(lm(top5PC$PC5 ~ top5PC$Species))$adj.r.squared
+Concentration5=summary(lm(top5PC$PC5 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration5=summary(lm(top5PC$PC5 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean5=summary(lm(top5PC$PC5 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio5=summary(lm(top5PC$PC5 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC5Fac=c(Species5, Concentration5, Ratio5,Cycles5,Library_concentration5, PerMapClean5)</code></pre>
+<p>Make DF and plot:</p>
+<pre class="r"><code>Exp=c(&#39;Species&#39;, &#39;Concentration&#39;, &#39;Ratio&#39;, &#39;Cycles&#39;,&#39;Library_concentration&#39;, &#39;PerMapClean&#39;)
+
+pcandEx=as.data.frame(cbind(Experiment=Exp,pc1=PC1Fac, pc2=PC2Fac,  pc3=PC3Fac,  pc4=PC4Fac,  pc5=PC5Fac))
+
+pcandExM=melt(pcandEx, id.var=&quot;Experiment&quot;,variable.name = &quot;PC&quot;, value.name = &quot;PVE&quot;)</code></pre>
+<pre><code>Warning: attributes are not identical across measure variables; they will
+be dropped</code></pre>
+<pre class="r"><code>pcandExM$PVE=as.numeric(pcandExM$PVE)</code></pre>
+<pre class="r"><code>ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile()+  labs(title=&quot;Proportion of variation explained in PCs by Experimental Faction \n Nuclear&quot;, y=&quot;&quot;) </code></pre>
+<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(top5PC,aes(x=Species,y=Concentration)) + geom_boxplot(alpha=.5)+ geom_jitter(aes(col=Cycles)) + stat_compare_means(method=&quot;t.test&quot;)  + labs(title=&quot;Nuclear Fraction&quot;) + scale_fill_distiller(palette = &quot;Blues&quot;, direction=1)</code></pre>
+<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
