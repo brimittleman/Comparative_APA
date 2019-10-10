@@ -14,6 +14,7 @@ I want to normalize the phenotypes with the leafcutter scripts. This can be used
 ```{r}
 library(tidyverse)
 library(reshape2)
+library(ggpubr)
 ```
 
 These are the inclusive phenotypes. I will need to subset of the 5% pas.  
@@ -100,78 +101,110 @@ plot(proportion)
 Plot color as species and shape as total v nuclear 
 
 ```{r}
-top2PC=pca_df %>% select(ID, PC1, PC2) %>% inner_join(metaData, by="ID")
+top5PC=pca_df %>% select(ID, PC1, PC2, PC3, PC4, PC5) %>%  inner_join(metaData, by="ID")
+top5PC$Cycles=as.factor(top5PC$Cycles)
 
-
-ggplot(top2PC,aes(x=PC1, y=PC2, col=Species, shape=Fraction)) + geom_point(size=3)
+ggplot(top5PC,aes(x=PC1, y=PC2, col=Species, shape=Fraction)) + geom_point(size=3)
 ```
-```{r}
-covariate_pc_pve_heatmap <- function(pc_df, covariate_df, title) {
-  # Load in data
-  #pcs <- pc_df
-  pcs=pca_df
-  
-  #covs <- covariate_df
-  covs= metaData_sm
 
-
-  # Remove unimportant columns
-  pcs <- as.matrix(pcs[,2:dim(pcs)[[2]]])
-  covs <- data.frame(as.matrix(covs[,1:dim(covs)[[2]]]))
-
-  # Initialize PVE heatmap
-  pve_map <- matrix(0, dim(covs)[2], dim(pcs)[2])
-  colnames(pve_map) <- colnames(pcs)
-  rownames(pve_map) <- colnames(covs)
-
-  # Loop through each PC, COV Pair and take correlation
-  num_pcs <- dim(pcs)[2]
-  num_covs <- dim(covs)[2]
-  for (num_pc in 1:num_pcs) {
-    for (num_cov in 1:num_covs) {
-      pc_vec <- pcs[,num_pc]
-      cov_vec <- covs[,num_cov]
-      lin_model <- lm(pc_vec ~ cov_vec)
-      pve_map[num_cov, num_pc] <- summary(lin_model)$adj.r.squared
-      if (pve_map[num_cov, num_pc] <0){pve_map[num_cov, num_pc]=0}
-    }
-  }
-  pve_map
-  ord <- hclust( dist(scale(pve_map), method = "euclidean"), method = "ward.D" )$order
-
-  melted_mat <- melt(pve_map)
-  colnames(melted_mat) <- c("Covariate", "PC","PVE")
-
-  #  Use factors to represent covariate and pc name
-  melted_mat$Covariate <- factor(melted_mat$Covariate, levels = rownames(pve_map)[ord])
-  melted_mat$PC <- factor(melted_mat$PC)
-  if (dim(pcs)[2] == 10) {
-    levels(melted_mat$PC) <- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[3:10],levels(melted_mat$PC)[2])
-  }
-  if (dim(pcs)[2] == 21) {
-    levels(melted_mat$PC) <- c(levels(melted_mat$PC)[1],levels(melted_mat$PC)[12],levels(melted_mat$PC)[15:21],levels(melted_mat$PC)[2:11], levels(melted_mat$PC)[13:14])
-  }
-
-  #  PLOT!
-  heatmap <- ggplot(data=melted_mat, aes(x=Covariate, y=PC)) + geom_tile(aes(fill=PVE)) + scale_fill_gradient2(midpoint=-.05, guide="colorbar")
-  heatmap <- heatmap + theme(text = element_text(size=14), panel.background = element_blank(), axis.text.x = element_text(angle = 90, vjust=.5))
-  heatmap <- heatmap + labs(y="latent factor", title=title)
-
-  # Save File
-  return(heatmap)
-}
-
-
-```
 
 
 ```{r}
-
-metaData_sm= metaData %>% select(-ID,-FQlines,-Reads,-Mapped_wMP,-Mapped_Clean,-PerMap,-PerMapClean)
-covariate_pc_pve_heatmap(pca_df,metaData_sm, title="PCs")
+ggplot(top5PC,aes(x=PC1, y=PC2, shape=Species,col=Cycles)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )
 ```
 
 
-I need to seperate this by nuclear and total before running this.  
 
+
+PC1
+```{r}
+Fraction1=summary(lm(top5PC$PC1 ~ top5PC$Fraction))$adj.r.squared
+Cycles1=summary(lm(top5PC$PC1 ~ top5PC$Cycles))$adj.r.squared
+Species1=summary(lm(top5PC$PC1 ~ top5PC$Species))$adj.r.squared
+Concentration1=summary(lm(top5PC$PC1 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration1=summary(lm(top5PC$PC1 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean1=summary(lm(top5PC$PC1 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio1=summary(lm(top5PC$PC1 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC1Fac=c(Fraction1, Species1, Concentration1, Ratio1,Cycles1,Library_concentration1, PerMapClean1)
+```
+
+PC2
+```{r}
+Fraction2=summary(lm(top5PC$PC2 ~ top5PC$Fraction))$adj.r.squared
+Cycles2=summary(lm(top5PC$PC2 ~ top5PC$Cycles))$adj.r.squared
+Species2=summary(lm(top5PC$PC2 ~ top5PC$Species))$adj.r.squared
+Concentration2=summary(lm(top5PC$PC2 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration2=summary(lm(top5PC$PC2 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean2=summary(lm(top5PC$PC2 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio2=summary(lm(top5PC$PC2 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC2Fac=c(Fraction2, Species2, Concentration2, Ratio2,Cycles2,Library_concentration2, PerMapClean2)
+```
+
+PC3
+```{r}
+Fraction3=summary(lm(top5PC$PC3 ~ top5PC$Fraction))$adj.r.squared
+Cycles3=summary(lm(top5PC$PC3 ~ top5PC$Cycles))$adj.r.squared
+Species3=summary(lm(top5PC$PC3 ~ top5PC$Species))$adj.r.squared
+Concentration3=summary(lm(top5PC$PC3 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration3=summary(lm(top5PC$PC3 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean3=summary(lm(top5PC$PC3 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio3=summary(lm(top5PC$PC3 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC3Fac=c(Fraction3, Species3, Concentration3, Ratio3,Cycles3,Library_concentration3, PerMapClean3)
+```
+
+
+PC4
+```{r}
+Fraction4=summary(lm(top5PC$PC4 ~ top5PC$Fraction))$adj.r.squared
+Cycles4=summary(lm(top5PC$PC4 ~ top5PC$Cycles))$adj.r.squared
+Species4=summary(lm(top5PC$PC4 ~ top5PC$Species))$adj.r.squared
+Concentration4=summary(lm(top5PC$PC4 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration4=summary(lm(top5PC$PC4 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean4=summary(lm(top5PC$PC4 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio4=summary(lm(top5PC$PC4 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC4Fac=c(Fraction4,Species4, Concentration4, Ratio4,Cycles4,Library_concentration4, PerMapClean4)
+```
+
+PC5
+```{r}
+Fraction5=summary(lm(top5PC$PC5 ~ top5PC$Fraction))$adj.r.squared
+Cycles5=summary(lm(top5PC$PC5 ~ top5PC$Cycles))$adj.r.squared
+Species5=summary(lm(top5PC$PC5 ~ top5PC$Species))$adj.r.squared
+Concentration5=summary(lm(top5PC$PC5 ~ top5PC$Concentration))$adj.r.squared
+Library_concentration5=summary(lm(top5PC$PC5 ~ top5PC$Library_concentration))$adj.r.squared
+PerMapClean5=summary(lm(top5PC$PC5 ~ top5PC$PerMapClean))$adj.r.squared
+Ratio5=summary(lm(top5PC$PC5 ~ top5PC$Ratio))$adj.r.squared
+
+
+
+PC5Fac=c(Fraction5,Species5, Concentration5, Ratio5,Cycles5,Library_concentration5, PerMapClean5)
+```
+
+Make DF and plot: 
+
+```{r}
+Exp=c("Fraction",'Species', 'Concentration', 'Ratio', 'Cycles','Library_concentration', 'PerMapClean')
+
+pcandEx=as.data.frame(cbind(Experiment=Exp,pc1=PC1Fac, pc2=PC2Fac,  pc3=PC3Fac,  pc4=PC4Fac,  pc5=PC5Fac))
+
+pcandExM=melt(pcandEx, id.var="Experiment",variable.name = "PC", value.name = "PVE")
+pcandExM$PVE=as.numeric(pcandExM$PVE)
+
+```
+
+```{r}
+ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile() + labs(title="Proportion of variation explained in PCs by Experimental Faction", y="")+ scale_fill_distiller(palette = "Blues", direction=1)
+```
 
