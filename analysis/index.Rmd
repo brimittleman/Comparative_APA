@@ -31,6 +31,8 @@ I am interesting in understanding differential APA between human and chimpanzees
         
       * [Nuclear Fraction](NormalizePheno_nuclear.html)  
       
+* [Correlation between individuals](CorrbetweenInd.html)
+      
 * [Verify sample identity](verifyBAM.Rmd)
 
 Differential Isoform Analysis:
