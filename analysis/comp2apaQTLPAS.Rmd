@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+library(ggpubr)
 library(tidyverse)
 library(reshape2)
 ```
@@ -64,4 +65,24 @@ ggplot(AllwOinfo, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum
 ```{r}
 ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")
 ```
-This is a bit strange. I would expect more overlap. Maybe these are low expressed genes. 
+
+
+Look at actual counts to see if this is a noise problem:
+
+
+
+```{r}
+humanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",header = T, stringsAsFactors = F) %>% select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene"))
+
+humanCounts_mean=rowMeans(humanCounts[,8:19])
+
+HumanMeanAnno= as.data.frame(cbind(PAS=humanCounts$PAS, meanCount=humanCounts_mean)) %>% inner_join(AllwOinfo, by= "PAS")
+
+HumanMeanAnno$overlap=as.factor(HumanMeanAnno$overlap)
+HumanMeanAnno$meanCount=as.integer(as.character(HumanMeanAnno$meanCount))
+```
+
+```{r}
+ggplot(HumanMeanAnno, aes(x=overlap, y=log10(meanCount +1),fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")+ stat_compare_means(method="t.test") + labs(title="HC PAS counts by overlap with apaQTL PAS")
+```
+
