@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-07
+<strong>Last updated:</strong> 2019-10-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5759e7ef4b7e4bce2078ef707676a0f24486665etargetblank5759e7ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/5759e7ef4b7e4bce2078ef707676a0f24486665e" target="_blank">5759e7e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree25a8b1e42180e62d71b4ff4dd0400102843f1cectargetblank25a8b1ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/25a8b1e42180e62d71b4ff4dd0400102843f1cec" target="_blank">25a8b1e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5759e7ef4b7e4bce2078ef707676a0f24486665etargetblank5759e7ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree25a8b1e42180e62d71b4ff4dd0400102843f1cectargetblank25a8b1ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -449,12 +449,14 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
+    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/assessReadQual.Rmd
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._LiftOrthoPAS2chimp.sh
@@ -467,6 +469,7 @@ Untracked files:
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
     Untracked:  code/._fixUTRexonanno.py
@@ -486,6 +489,8 @@ Untracked files:
     Untracked:  code/._reverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
     Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._run_verifyBam.sh
     Untracked:  code/._snakemake.batch
     Untracked:  code/._snakemakePAS.batch
     Untracked:  code/._snakemakePASchimp.batch
@@ -502,6 +507,9 @@ Untracked files:
     Untracked:  code/._submit-snakemakePAS-human.sh
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_human.yaml
@@ -536,6 +544,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/filter5perc.R
+    Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
     Untracked:  code/filterMissprimingInNuc10_gen.py
@@ -576,6 +585,7 @@ Untracked files:
     Untracked:  code/pheno2countonly.R
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/preparePAS4lift.py
+    Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
     Untracked:  code/primaryLift.out
     Untracked:  code/primaryLift.sh
@@ -591,10 +601,16 @@ Untracked files:
     Untracked:  code/reverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Humanleafcutter_ds.err
     Untracked:  code/run_Humanleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_ds.err
+    Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_verifyBam.sh
+    Untracked:  code/run_verifybam.err
+    Untracked:  code/run_verifybam.out
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
@@ -623,12 +639,26 @@ Untracked files:
     Untracked:  code/subset_diffisopheno.py
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifybam4973.err
+    Untracked:  code/verifybam4973.out
+    Untracked:  code/wrap_verifyBam.sh
+    Untracked:  code/wrap_verifybam.err
+    Untracked:  code/wrap_verifybam.out
     Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/MapStats/
+    Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_nuclear/
+    Untracked:  data/Pheno_5perc_total/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -638,6 +668,8 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  data/~$metadata_HCpanel.xlsx
+    Untracked:  docs/figure/PASnumperSpecies.Rmd/
 
 </code></pre>
 <p>
@@ -676,6 +708,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/450725639479850e4449609128e0a91f71ae2ddb/docs/Chimp_TvN.html" target="_blank">4507256</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
