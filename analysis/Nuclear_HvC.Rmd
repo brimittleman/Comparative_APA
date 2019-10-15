@@ -164,3 +164,22 @@ effectsize_anno=effectsize_sep %>% inner_join(PASinfo, by=c("chr", "start", "end
 ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()
 ```
 
+Volcano plot: 
+
+I need the effect sizes and the significance. 
+
+```{r}
+sig_geneP=sig %>% separate(cluster,into = c("chr", "gene"), sep=":") %>% select(gene, p.adjust)
+
+effectsize_wES=effectsize_sep %>% full_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(deltaPAU > 0.2, "Human", ifelse(deltaPAU < -0.2, "Chimp", "Neither")))
+```
+
+This is the significance for the gene. 
+
+
+```{r}
+ggplot(effectsize_wES,aes(x=deltaPAU, y=-log10(p.adjust),col=Species)) + geom_point()
+```
+Not the best way to visualize this because every PAS per gene is assigned the same pvalue. 
+
+
