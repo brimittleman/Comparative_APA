@@ -134,7 +134,7 @@ number_sig_genes
 Effect Sizes  
 
 ```{r}
-effectsize=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Nuclear', 'Total','deltaPAU')) %>% filter(intron != "intron")
+effectsize=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron")
 
 effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
 effectsize$logef=as.numeric(as.character(effectsize$logef))
@@ -143,5 +143,24 @@ effectsize$logef=as.numeric(as.character(effectsize$logef))
 
 ```{r}
 plot(sort(effectsize$deltaPAU),main="Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
+```
+
+Are those discovered used more in chimp those discovered in chimp?
+
+```{r}
+PASinfo=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt",header = T, stringsAsFactors = F)
+```
+
+Join this with the effect sizes.  
+
+```{r}
+effectsize_sep=effectsize %>% separate(intron, into=c("chr", "start", "end", "gene"),sep=":")
+effectsize_sep$start=as.integer(effectsize_sep$start)
+effectsize_sep$end=as.integer(effectsize_sep$end)
+effectsize_anno=effectsize_sep %>% inner_join(PASinfo, by=c("chr", "start", "end","gene"))
+
+```
+```{r}
+ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()
 ```
 

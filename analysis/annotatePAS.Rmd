@@ -116,9 +116,9 @@ HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
 
 ```{r}
 ChimpAnno=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
-IndH=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
-ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndH)
+ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
 
 ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
 

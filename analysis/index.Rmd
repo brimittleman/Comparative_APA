@@ -12,6 +12,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 
 
+Preparation and QC:  
 
 * [Prepare annotation files for mapping ](annotationInfo.html)  
 
@@ -34,6 +35,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Correlation between individuals](CorrbetweenInd.html)
       
 * [Verify sample identity](verifyBAM.Rmd)
+
+Catalog PAS:
+
+* [Number of PAS in each species](PASnumperSpecies.html)  
+
 
 Differential Isoform Analysis:
 

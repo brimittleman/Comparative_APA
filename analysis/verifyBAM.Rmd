@@ -27,3 +27,4 @@ Run with 4973:
  sbatch verifyBam4973.sh 
 ```
 
+Probably not a human sample (not a switch)
