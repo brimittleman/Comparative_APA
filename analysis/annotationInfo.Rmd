@@ -65,4 +65,21 @@ sbatch revLiftPAShg38to19.sh
 sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.bed > ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed 
 ```
 
+Full transcript annotations:  
+
+Download transcript bed file from online 
+/project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.bed
+/project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.bed
+
+
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.bed > /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.sort.bed
+
+sort -k1,1 -k2,2n /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.bed >/project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.sort.bed
+
+
+
+```
+
 

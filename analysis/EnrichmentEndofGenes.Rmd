@@ -1,0 +1,38 @@
+---
+title: "Enrichment at End of Genes "
+author: "Briana Mittleman"
+date: "10/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+I created merged Bam files in the snakefiles. I will create bigwigs with all of these.  
+
+
+* ../Human/data/mergedbyFracBam/human_Nuclear.SamplesMerged.sort.bam 
+
+* ../Human/data/mergedbyFracBam/human_Total.SamplesMerged.sort.bam
+
+* ../Chimp/data/mergedbyFracBam/chimp_Nuclear.SamplesMerged.sort.bam
+
+* ../Chimp/data/mergedbyFracBam/chimp_Total.SamplesMerged.sort.bam
+```{bash,eval=F}
+mkdir ../Chimp/data/mergedbw_byFrac/
+mkdir  ../Human/data/mergedbw_byFrac/
+
+sbatch mergedBam2BW.sh
+```
+
+
+
+```{bash,eval=F}
+mkdir ../data/DTmatrix/
+mkdir ../output/dtPlots/
+sbatch transcriptDTplotsNuclear.sh
+```
+
+

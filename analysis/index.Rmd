@@ -36,6 +36,8 @@ Preparation and QC:
       
 * [Verify sample identity](verifyBAM.Rmd)
 
+* [3' Seq enrichement along gene bodies](EnrichmentEndofGenes.html)
+
 Catalog PAS:
 
 * [Number of PAS in each species](PASnumperSpecies.html)  
