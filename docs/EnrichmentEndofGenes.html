@@ -11,8 +11,9 @@
 
 <meta name="author" content="Briana Mittleman" />
 
+<meta name="date" content="2019-10-16" />
 
-<title>Annotation files for Snake</title>
+<title>Enrichment at End of Genes</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +317,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Annotation files for Snake</h1>
+<h1 class="title toc-ignore">Enrichment at End of Genes</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>9/23/2019</em></h4>
+<h4 class="date"><em>10/16/2019</em></h4>
 
 </div>
 
@@ -736,7 +737,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a255e22b9d32ad80884501ae03a7c4e162fdbba5/analysis/annotationInfo.Rmd" target="_blank">a255e22</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a255e22b9d32ad80884501ae03a7c4e162fdbba5/analysis/EnrichmentEndofGenes.Rmd" target="_blank">a255e22</a>
 </td>
 <td>
 brimittleman
@@ -748,108 +749,6 @@ brimittleman
 add code and annotations for dt plots
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/annotationInfo.html" target="_blank">4ea2576</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/annotationInfo.Rmd" target="_blank">920abac</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-add comaprison to old PAS
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7ec7862e42853a7723d9414108a26b5a6c11f1a2/docs/annotationInfo.html" target="_blank">7ec7862</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/cc84535feae47289c3feaa6a2ec071fc7faa50bc/analysis/annotationInfo.Rmd" target="_blank">cc84535</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-fix anno refseq
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/annotationInfo.html" target="_blank">7a9cf74</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/annotationInfo.Rmd" target="_blank">a2fe9d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-add annotation prep anaylsis
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -857,41 +756,20 @@ add annotation prep anaylsis
 </div>
 </div>
 </div>
-<p>I am putting together the necessary annotations</p>
-<p>human fastq: /project2/gilad/briana/genome_anotation_data/hg38_try2 human anno: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno gene 2 txn: /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno</p>
-<p>/hg38_ncbiRefseq_txn2genename</p>
-<p>For annotations:</p>
-<p>Concatenate, change to gene names. I can use something similar to /project2/gilad/briana/genome_anotation_data/RefSeq_annotations/formatFullAnno.py</p>
-<p>remove top line, Concatinate and sort:</p>
-<pre class="bash"><code>#human
-sed 1d hg38_ncbiRefseq_intron.dms &gt; hg38_ncbiRefseq_intron.bed
-cat *.bed &gt; hg38_ncbiRefseq_Allannotation.bed
-sort -k1,1 -k2,2n hg38_ncbiRefseq_Allannotation.bed &gt; hg38_ncbiRefseq_Allannotation.sort.bed
-</code></pre>
-<pre class="bash"><code>
-python formathg38Anno.py 
+<p>I created merged Bam files in the snakefiles. I will create bigwigs with all of these.</p>
+<ul>
+<li><p>../Human/data/mergedbyFracBam/human_Nuclear.SamplesMerged.sort.bam</p></li>
+<li><p>../Human/data/mergedbyFracBam/human_Total.SamplesMerged.sort.bam</p></li>
+<li><p>../Chimp/data/mergedbyFracBam/chimp_Nuclear.SamplesMerged.sort.bam</p></li>
+<li><p>../Chimp/data/mergedbyFracBam/chimp_Total.SamplesMerged.sort.bam</p></li>
+</ul>
+<pre class="bash"><code>mkdir ../Chimp/data/mergedbw_byFrac/
+mkdir  ../Human/data/mergedbw_byFrac/
 
-
-#results : /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed</code></pre>
-<p>Generate genome index for STAR</p>
-<pre class="bash"><code>sbatch buildStarIndex.sh</code></pre>
-<p>Liftover the PAS from the first apaQTL project.</p>
-<pre class="bash"><code>sed -e &#39;s/^/chr/&#39; /project2/gilad/briana/apaQTL/data/PAS/APAPAS_GeneLocAnno.5perc.sort.bed  &gt; ../data/liftover_files/APAPAS_withCHR_GeneLocAnno.5perc.sort.bed 
-
-sbatch liftPAS19to38.sh
-#4 do not lift over
-sbatch revLiftPAShg38to19.sh
-#all reverse lift
-
-
-
-sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.bed &gt; ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed </code></pre>
-<p>Full transcript annotations:</p>
-<p>Download transcript bed file from online /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.bed /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.bed</p>
-<pre class="bash"><code>sort -k1,1 -k2,2n /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.bed &gt; /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.sort.bed
-
-sort -k1,1 -k2,2n /project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.bed &gt;/project2/gilad/briana/genome_anotation_data/Chimp_refseqAnno/pantro6_ncbiRefseq_transcripts.sort.bed
-</code></pre>
+sbatch mergedBam2BW.sh</code></pre>
+<pre class="bash"><code>mkdir ../data/DTmatrix/
+mkdir ../output/dtPlots/
+sbatch transcriptDTplotsNuclear.sh</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
