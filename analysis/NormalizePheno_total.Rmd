@@ -97,7 +97,8 @@ ggplot(top5PC,aes(x=PC1, y=PC2, col=Concentration, shape=Species)) + geom_point(
 ```{r}
 
 top5PC$Cycles=as.factor(top5PC$Cycles)
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Library_concentration), position = position_nudge(y = 0.03))
+ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))
+
 ```
 
 Correlation between experimental factors and pcs:

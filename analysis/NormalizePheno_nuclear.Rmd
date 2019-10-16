@@ -96,7 +96,7 @@ ggplot(top5PC,aes(x=PC1, y=PC2, col=Concentration, shape=Species)) + geom_point(
 ```{r}
 
 top5PC$Cycles=as.factor(top5PC$Cycles)
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Library_concentration), position = position_nudge(y = 0.03))
+ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))
 ```
 
 Correlation between experimental factors and pcs:
@@ -187,13 +187,13 @@ pcandExM$PVE=as.numeric(pcandExM$PVE)
 ```
 
 ```{r}
-ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile()+  labs(title="Proportion of variation explained in PCs by Experimental Faction \n Nuclear", y="") 
+ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile()+  labs(title="Proportion of variation explained in PCs by Experimental Faction \n Nuclear", y="") + scale_fill_distiller(palette = "Blues", direction=1)
 ```
 
 
 
 ```{r}
-ggplot(top5PC,aes(x=Species,y=Concentration)) + geom_boxplot(alpha=.5)+ geom_jitter(aes(col=Cycles)) + stat_compare_means(method="t.test")  + labs(title="Nuclear Fraction") + scale_fill_distiller(palette = "Blues", direction=1)
+ggplot(top5PC,aes(x=Species,y=Concentration)) + geom_boxplot(alpha=.5)+ geom_jitter(aes(col=Cycles)) + stat_compare_means(method="t.test")  + labs(title="Nuclear Fraction") 
 
 ```
 
