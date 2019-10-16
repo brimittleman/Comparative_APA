@@ -166,20 +166,47 @@ ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()
 
 Volcano plot: 
 
-I need the effect sizes and the significance. 
+I need the effect sizes and the significance. I need to plot only the top PAS per cluster.  
 
 ```{r}
 sig_geneP=sig %>% separate(cluster,into = c("chr", "gene"), sep=":") %>% select(gene, p.adjust)
 
-effectsize_wES=effectsize_sep %>% full_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(deltaPAU > 0.2, "Human", ifelse(deltaPAU < -0.2, "Chimp", "Neither")))
+effectsizeTop=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min)>Max, Min, Max))
+
+#exclude when the max=min 
+effectsizeTopFilt=effectsizeTop %>% filter(abs(Min) != Max)
+
+effectsize_wES=effectsizeTopFilt %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
 ```
 
 This is the significance for the gene. 
 
 
 ```{r}
-ggplot(effectsize_wES,aes(x=deltaPAU, y=-log10(p.adjust),col=Species)) + geom_point()
-```
+ggplot(effectsize_wES,aes(x=TopdPAU, y=-log10(p.adjust))) +geom_point(aes(col=Species),alpha=.5) + labs(title="Top PAS per gene \nExclude 2 PAS genes")+ geom_text(data=subset(effectsize_wES, -log10(p.adjust) >20 & abs(TopdPAU)>.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))
+``` 
 Not the best way to visualize this because every PAS per gene is assigned the same pvalue. 
 
 
+Try this including the matching one. I will make 2 plots. One with human dominant, one with chimp dominant. 
+
+```{r}
+effectsizeTopHuman=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min) > Max, Min, ifelse(abs(Min)==Max, Min, Max)),TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_human=effectsizeTopHuman %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+
+effectsizeTopChimp=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Max)>=abs(Min), Max, Min), TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_chimp=effectsizeTopChimp %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+```
+
+
+```{r}
+ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5) + labs(title="Top PAS per gene \nHuman dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_human,-log10(p.adjust) >20 & abs(TopdPAU)>.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))
+
+```
+```{r}
+ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title="Top PAS per gene \nChimp dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) >20 & abs(TopdPAU)>.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) 
+
+```
+This suggest there are dominant PAS on the chimp side and the PAS usage is more spread out in the humans. 
