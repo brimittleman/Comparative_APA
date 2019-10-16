@@ -115,7 +115,7 @@ sig$p.adjust=as.numeric(as.character(sig$p.adjust))
 
 
 ```{r}
-qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Chimp: Leafcutter differencial isoform analysis between fractions")
+qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter differencial isoform analysis between Species")
 abline(0,1)
 ```
 
