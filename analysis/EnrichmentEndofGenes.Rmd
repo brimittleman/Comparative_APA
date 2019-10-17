@@ -33,6 +33,8 @@ sbatch mergedBam2BW.sh
 mkdir ../data/DTmatrix/
 mkdir ../output/dtPlots/
 sbatch transcriptDTplotsNuclear.sh
+
+sbatch transcriptDTplotsTotal.sh
 ```
 
 
