@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea255e22b9d32ad80884501ae03a7c4e162fdbba5targetblanka255e22a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a255e22b9d32ad80884501ae03a7c4e162fdbba5" target="_blank">a255e22</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec7e86acba8f4ee342e9388103868d5f588067d24targetblankc7e86aca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c7e86acba8f4ee342e9388103868d5f588067d24" target="_blank">c7e86ac</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea255e22b9d32ad80884501ae03a7c4e162fdbba5targetblanka255e22a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec7e86acba8f4ee342e9388103868d5f588067d24targetblankc7e86aca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -528,6 +528,8 @@ Untracked files:
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
+    Untracked:  code/TotalTranscriptDTplot.err
+    Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
     Untracked:  code/apaQTLsnake.err
     Untracked:  code/apaQTLsnake.out
@@ -654,6 +656,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/transcriptDTplotsNuclear.sh
+    Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifybam4973.err
     Untracked:  code/verifybam4973.out
@@ -737,6 +740,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c7e86acba8f4ee342e9388103868d5f588067d24/analysis/EnrichmentEndofGenes.Rmd" target="_blank">c7e86ac</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+add code for total
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/066d419290a2f4c3eef8bdf538216f3d348572fb/docs/EnrichmentEndofGenes.html" target="_blank">066d419</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a255e22b9d32ad80884501ae03a7c4e162fdbba5/analysis/EnrichmentEndofGenes.Rmd" target="_blank">a255e22</a>
 </td>
 <td>
@@ -769,7 +806,9 @@ mkdir  ../Human/data/mergedbw_byFrac/
 sbatch mergedBam2BW.sh</code></pre>
 <pre class="bash"><code>mkdir ../data/DTmatrix/
 mkdir ../output/dtPlots/
-sbatch transcriptDTplotsNuclear.sh</code></pre>
+sbatch transcriptDTplotsNuclear.sh
+
+sbatch transcriptDTplotsTotal.sh</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
