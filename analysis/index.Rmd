@@ -51,5 +51,10 @@ Differential Isoform Analysis:
 
 * [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
 
+Quantify Phenotypes with RNA:   
+
+* [Differnetial Splicing](diffSplicing.html)  
+
+* [Differential Expression](diffExpression.html)
 
 

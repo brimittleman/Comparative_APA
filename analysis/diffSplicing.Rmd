@@ -1,0 +1,38 @@
+---
+title: "Differential Splicing"
+author: "Briana Mittleman"
+date: "11/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to use the RNA seq I collected to also perform a differential splicing analysis with leafcutter. I will follow the pipeline found at http://davidaknowles.github.io/leafcutter/articles/Usage.html. For a first pass I will use the bam files from the snakemake and differential expression analysis pipeline.  
+
+I will get clusters in both species then perform reciprocal liftover. I can use a liftover pipeline similar to the one I used for the differnetial PAS analysis. 
+
+
+Pipeline from example on leafcutter github.
+
+```{bash,eval=F }
+if [ -e test_juncfiles.txt ]; then rm test_juncfiles.txt; fi
+
+for bamfile in `ls run/geuvadis/*chr1.bam`; do
+    echo Converting $bamfile to $bamfile.junc
+    samtools index $bamfile
+    regtools junctions extract -a 8 -m 50 -M 500000 $bamfile -o $bamfile.junc
+    echo $bamfile.junc >> test_juncfiles.txt
+done
+
+python ../clustering/leafcutter_cluster_regtools.py -j test_juncfiles.txt -m 50 -o testYRIvsEU -l 500000
+```
+
+At this point I will be able to liftover the junctions. I can use the human corrdinates for the differential splicing step.  
+
+```{bash,eval=F}
+../scripts/leafcutter_ds.R --num_threads 4 ../example_data/testYRIvsEU_perind_numers.counts.gz example_geuvadis/groups_file.txt
+
+```
+

@@ -1,0 +1,18 @@
+---
+title: "Differential Expression"
+author: "Briana Mittleman"
+date: "11/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this analysis I do preprocessing with the Snakemake pipeline. The snakemake will map the RNA seq and quantify orthologous exons.  
+
+From FastQC:
+
+* Does not look like there is adapter contamination
+
+* No reads tagged as bad quality  
