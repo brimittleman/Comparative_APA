@@ -11,6 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(workflowr)
 library(tidyverse)
+library("scales")
+library("gplots")
+library("edgeR")
+library("RColorBrewer")
 library(reshape2)
 ```
 
@@ -28,6 +32,8 @@ Assess mapping:
 
 ```{r}
 metaData=read.table("../data/RNASEQ_metadata.txt", header = T, stringsAsFactors = F)
+metaData$Species=as.factor(metaData$Species)
+metaData$Collection=as.factor(metaData$Collection)
 ```
 
 ```{r}
@@ -58,4 +64,241 @@ ggplot(readInfo,aes(x=Category, y=Number, by=Species, fill=Species)) + geom_boxp
 ggplot(readProp,aes(x=Category, y=Proportion, by=Species, fill=Species)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(title="Map Proportion by Species", y="Proportion", x="") + scale_x_discrete( breaks=c("Aunmapped","MappedNotOrtho","percentOrtho"),labels=c("Unmapped", "Not in OrthoExon", "Assigned to OrthoExon"))
 
 ```
+
+##Diffferential Expression
+
+Code originally from Lauren Blake 
+(http://lauren-blake.github.io/Reg_Evo_Primates/analysis/Normalization_plots.html)
+
+###Raw Counts  
+
+Fix header for fc files:
+
+```{bash,eval=F}
+python fixExonFC.py /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc
+
+python fixExonFC.py /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc
+```
+
+
+```{r}
+HumanCounts=read.table("../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% select(-Chr,-Start,-End,-Strand, -Length)
+
+ChimpCounts=read.table("../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% select(-Chr,-Start,-End,-Strand, -Length)
+
+
+counts_genes=HumanCounts %>% inner_join(ChimpCounts,by="Geneid") %>% column_to_rownames(var="Geneid")
+
+head(counts_genes)
+```
+
+
+```{r}
+
+# Load colors 
+
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(metaData$Species,metaData$Line, sep=" ")
+```
+
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+
+
+```{r}
+# Clustering (original code from Julien Roux)
+cors <- cor(counts_genes, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+```{r}
+
+select <- counts_genes
+summary(apply(select, 1, var) == 0) 
+```
+```{r}
+# Perform PCA
+
+pca_genes <- prcomp(t(counts_genes), scale = F)
+scores <- pca_genes$x
+
+
+#Make PCA plots with the factors colored by species
+
+### PCs 1 and 2 Raw Data
+for (n in 1:1){
+  col.v <- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+```{r}
+### PCs 3 and 4 Raw Data
+
+for (n in 3:3){
+  col.v <- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
+Plot density for raw data:  
+
+```{r}
+density_plot_18504 <- ggplot(counts_genes, aes(x = NA18504)) + geom_density() + labs(title = "Density plot of raw gene counts of NA18504") + labs(x = "Raw counts for each gene")
+
+density_plot_18504
+```
+
+Convert to log2
+
+```{r}
+log_counts_genes <- as.data.frame(log2(counts_genes))
+head(log_counts_genes)
+```
+
+```{r}
+density_plot_18504 <- ggplot(log_counts_genes, aes(x = 18504)) + geom_density()
+
+density_plot_18504 + labs(title = "Density plot of log2 counts of 18504") + labs(x = "Log2 counts for each gene") + geom_vline(xintercept = 1) 
+```
+```{r}
+plotDensities(log_counts_genes, col=pal[as.numeric(metaData$Species)], legend="topright")
+```
+
+Convert to CPM  
+
+```{r}
+cpm <- cpm(counts_genes, log=TRUE)
+head(cpm)
+```
+```{r}
+
+plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend="topright")
+```
+###Log2 CPM
+TMM/log2(CPM)
+
+```{r}
+## Create edgeR object (dge) to calculate TMM normalization  
+dge_original <- DGEList(counts=as.matrix(counts_genes), genes=rownames(counts_genes), group = as.character(t(labels)))
+dge_original <- calcNormFactors(dge_original)
+
+tmm_cpm <- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm)
+```
+```{r}
+# Plot library size
+
+boxplot_library_size <- ggplot(dge_original$samples, aes(x=metaData$Species, y = dge_original$samples$lib.size, fill = metaData$Species)) + geom_boxplot()
+ 
+boxplot_library_size + labs(title = "Library size by Species") + labs(y = "Library size") + labs(x = "Species") + guides(fill=guide_legend(title="Species"))
+```
+
+```{r}
+plotDensities(tmm_cpm, col=pal[as.numeric(metaData$Species)], legend="topright")
+```
+
+###Filter low expressed gene  
+
+Filter based on log2 cpm  
+
+filter log2(cpm >1) in at least 10 of the samples  (2/3)
+
+
+```{r}
+#filter counts
+keep.exprs=rowSums(tmm_cpm>1) >8
+
+counts_filtered= counts_genes[keep.exprs,]
+
+
+
+
+plotDensities(counts_filtered, col=pal[as.numeric(metaData$Species)], legend="topright")
+```
+
+
+
+```{r}
+labels <- paste(metaData$Species, metaData$Line, sep=" ")
+dge_in_cutoff <- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
+dge_in_cutoff <- calcNormFactors(dge_in_cutoff)
+
+cpm_in_cutoff <- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm_in_cutoff)
+```
+
+```{r}
+hist(cpm_in_cutoff, xlab = "Log2(CPM)", main = "Log2(CPM) values for genes meeting the filtering criteria", breaks = 100 )
+```
+
+
+Voom transformation:
+
+```{r}
+Species <- factor(metaData$Species)
+design <- model.matrix(~ 0 + Species)
+colnames(design) <- gsub("Species", "", dput(colnames(design)))
+
+```
+
+```{r}
+# Voom with individual as a random variable
+
+cpm.voom<- voom(counts_filtered, design, normalize.method="quantile", plot=T)
+```
+
+
+```{r}
+boxplot(cpm.voom$E, col = pal[as.numeric(metaData$Species)],las=2)
+```
+```{r}
+plotDensities(cpm.voom, col =  pal[as.numeric(metaData$Species)], legend = "topleft") 
+```
+Looks like i still have a skew on the lower side of the distribution.  
+
+```{r}
+# PCA 
+
+pca_genes <- prcomp(t(cpm.voom$E), scale = F)
+scores <- pca_genes$x
+
+for (n in 1:2){
+  col.v <- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
+
+```{r}
+#Clustering (original code from Julien Roux)
+cors <- cor(cpm.voom$E, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Species))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples.  4973 and 18498 are the samples that looked funny on the original 3' data. This may be a sample swap at the RNA stage.  These samples were in the same extraction batch. It could have happened then. I will look into this more.  
+
 
