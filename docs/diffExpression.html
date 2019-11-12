@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree53642f7eb7e8f6fd4482d52d48eed01ad4d0ecabtargetblank53642f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/53642f7eb7e8f6fd4482d52d48eed01ad4d0ecab" target="_blank">53642f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1ce84338f987358b4f90c0bc1e81f99f8f3089d5targetblank1ce8433a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1ce84338f987358b4f90c0bc1e81f99f8f3089d5" target="_blank">1ce8433</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree53642f7eb7e8f6fd4482d52d48eed01ad4d0ecabtargetblank53642f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1ce84338f987358b4f90c0bc1e81f99f8f3089d5targetblank1ce8433a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -448,8 +448,10 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
+    Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
@@ -471,10 +473,12 @@ Untracked files:
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
+    Untracked:  code/._converBam2Junc.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._fixExonFC.py
     Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
@@ -488,6 +492,7 @@ Untracked files:
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
+    Untracked:  code/._quantJunc.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
@@ -538,6 +543,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/bam2junc.err
+    Untracked:  code/bam2junc.out
     Untracked:  code/bed215upbed.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
@@ -552,6 +559,7 @@ Untracked files:
     Untracked:  code/cluster.json
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/converBam2Junc.sh
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
@@ -565,6 +573,7 @@ Untracked files:
     Untracked:  code/filterSAFforMP_gen.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
+    Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
     Untracked:  code/fixUTRexonanno.py
@@ -608,6 +617,7 @@ Untracked files:
     Untracked:  code/primaryLift.err
     Untracked:  code/primaryLift.out
     Untracked:  code/primaryLift.sh
+    Untracked:  code/quantJunc.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
@@ -696,7 +706,6 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/RNASEQ_metadata.txt
-    Untracked:  data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Untracked:  data/RNASEQ_metadata.xlsx
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
@@ -717,6 +726,7 @@ Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/diffSplicing.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -756,6 +766,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/1ce84338f987358b4f90c0bc1e81f99f8f3089d5/analysis/diffExpression.Rmd" target="_blank">1ce8433</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+<td>
+start normalization
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/diffExpression.html" target="_blank">2c02d70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -818,15 +862,33 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.4.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(reshape2)</code></pre>
+<pre class="r"><code>library(&quot;scales&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    discard</code></pre>
+<pre><code>The following object is masked from &#39;package:readr&#39;:
+
+    col_factor</code></pre>
+<pre class="r"><code>library(&quot;gplots&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    lowess</code></pre>
+<pre class="r"><code>library(&quot;edgeR&quot;)</code></pre>
+<pre><code>Loading required package: limma</code></pre>
+<pre class="r"><code>library(&quot;RColorBrewer&quot;)
+library(reshape2)</code></pre>
 <pre><code>
 Attaching package: &#39;reshape2&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:tidyr&#39;:
@@ -839,22 +901,415 @@ Attaching package: &#39;reshape2&#39;</code></pre>
 <li><p>No reads tagged as bad quality</p></li>
 </ul>
 <p>Assess mapping:</p>
-<pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata.txt&quot;, header = T, stringsAsFactors = F)</code></pre>
+<pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata.txt&quot;, header = T, stringsAsFactors = F)
+metaData$Species=as.factor(metaData$Species)
+metaData$Collection=as.factor(metaData$Collection)</code></pre>
 <pre class="r"><code>readInfo=metaData %&gt;% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %&gt;% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Number&quot;, -Line, -Species)
 
 
 ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;,name = &quot;Type&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read statistics&quot;) </code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-3-1.png" target="_blank">2c02d70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Proportion of reads.</p>
 <pre class="r"><code>readProp=metaData %&gt;% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %&gt;% select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Proportion&quot;, -Line, -Species)
 
 ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read proportions&quot;) </code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-4-1.png" target="_blank">2c02d70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>By species:</p>
 <pre class="r"><code>ggplot(readInfo,aes(x=Category, y=Number, by=Species, fill=Species)) + geom_boxplot() +scale_x_discrete( breaks=c(&quot;AAUnMapped&quot;,&quot;ABNotOrtho&quot;,&quot;AssignedOrtho&quot;),labels=c(&quot;Unmapped&quot;, &quot;Not in OrthoExon&quot;, &quot;Assigned to OrthoExon&quot;)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Mapped reads by Species&quot;, y=&quot;Reads&quot;, x=&quot;&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-5-1.png" target="_blank">2c02d70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(readProp,aes(x=Category, y=Proportion, by=Species, fill=Species)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Map Proportion by Species&quot;, y=&quot;Proportion&quot;, x=&quot;&quot;) + scale_x_discrete( breaks=c(&quot;Aunmapped&quot;,&quot;MappedNotOrtho&quot;,&quot;percentOrtho&quot;),labels=c(&quot;Unmapped&quot;, &quot;Not in OrthoExon&quot;, &quot;Assigned to OrthoExon&quot;))</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-6-1.png" target="_blank">2c02d70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="diffferential-expression" class="section level2">
+<h2>Diffferential Expression</h2>
+<p>Code originally from Lauren Blake (<a href="http://lauren-blake.github.io/Reg_Evo_Primates/analysis/Normalization_plots.html" class="uri">http://lauren-blake.github.io/Reg_Evo_Primates/analysis/Normalization_plots.html</a>)</p>
+<div id="raw-counts" class="section level3">
+<h3>Raw Counts</h3>
+<p>Fix header for fc files:</p>
+<pre class="bash"><code>python fixExonFC.py /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc
+
+python fixExonFC.py /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc</code></pre>
+<pre class="r"><code>HumanCounts=read.table(&quot;../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length)
+
+ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length)
+
+
+counts_genes=HumanCounts %&gt;% inner_join(ChimpCounts,by=&quot;Geneid&quot;) %&gt;% column_to_rownames(var=&quot;Geneid&quot;)
+
+head(counts_genes)</code></pre>
+<pre><code>                NA18504 NA18510 NA18523 NA18498 NA18499 NA18502 NAPT30
+ENSG00000188976      24      50      31      69      34      58      2
+ENSG00000188157     106      65     106      12     128      39      5
+ENSG00000273443      40      43      54      26      48      11     21
+ENSG00000217801      60      36     164      62      61      19     34
+ENSG00000237330       0       1       0       0       1       1      0
+ENSG00000223823       0       0       0       0       0       0      0
+                NAPT91 NA3622 NA3659 NA4973 NA18358
+ENSG00000188976      1      1      1      0       0
+ENSG00000188157      7      7      9     34       6
+ENSG00000273443      2      3     78     59      18
+ENSG00000217801      8     19    139     68      31
+ENSG00000237330      0      0      2      1       0
+ENSG00000223823      0      0      0      0       0</code></pre>
+<pre class="r"><code># Load colors 
+
+colors &lt;- colorRampPalette(c(brewer.pal(9, &quot;Blues&quot;)[1],brewer.pal(9, &quot;Blues&quot;)[9]))(100)
+
+pal &lt;- c(brewer.pal(9, &quot;Set1&quot;), brewer.pal(8, &quot;Set2&quot;), brewer.pal(12, &quot;Set3&quot;))
+labels &lt;- paste(metaData$Species,metaData$Line, sep=&quot; &quot;)</code></pre>
+<pre class="r"><code>#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores &lt;- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
+  xmin &lt;- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin &lt;- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax &lt;- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste(&quot;PC&quot;, n, &quot;: &quot;, round(summary(pca)$importance[2,n],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), ylab=paste(&quot;PC&quot;, m, &quot;: &quot;, round(summary(pca)$importance[2,m],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type=&quot;n&quot;)
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}</code></pre>
+<pre class="r"><code># Clustering (original code from Julien Roux)
+cors &lt;- cor(counts_genes, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+
+
+heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>select &lt;- counts_genes
+summary(apply(select, 1, var) == 0) </code></pre>
+<pre><code>   Mode   FALSE    TRUE 
+logical   32975   11150 </code></pre>
+<pre class="r"><code># Perform PCA
+
+pca_genes &lt;- prcomp(t(counts_genes), scale = F)
+scores &lt;- pca_genes$x
+
+
+#Make PCA plots with the factors colored by species
+
+### PCs 1 and 2 Raw Data
+for (n in 1:1){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>### PCs 3 and 4 Raw Data
+
+for (n in 3:3){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot density for raw data:</p>
+<pre class="r"><code>density_plot_18504 &lt;- ggplot(counts_genes, aes(x = NA18504)) + geom_density() + labs(title = &quot;Density plot of raw gene counts of NA18504&quot;) + labs(x = &quot;Raw counts for each gene&quot;)
+
+density_plot_18504</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Convert to log2</p>
+<pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(counts_genes))
+head(log_counts_genes)</code></pre>
+<pre><code>                 NA18504  NA18510  NA18523  NA18498  NA18499  NA18502
+ENSG00000188976 4.584963 5.643856 4.954196 6.108524 5.087463 5.857981
+ENSG00000188157 6.727920 6.022368 6.727920 3.584963 7.000000 5.285402
+ENSG00000273443 5.321928 5.426265 5.754888 4.700440 5.584963 3.459432
+ENSG00000217801 5.906891 5.169925 7.357552 5.954196 5.930737 4.247928
+ENSG00000237330     -Inf 0.000000     -Inf     -Inf 0.000000 0.000000
+ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf
+                  NAPT30   NAPT91   NA3622   NA3659   NA4973  NA18358
+ENSG00000188976 1.000000 0.000000 0.000000 0.000000     -Inf     -Inf
+ENSG00000188157 2.321928 2.807355 2.807355 3.169925 5.087463 2.584963
+ENSG00000273443 4.392317 1.000000 1.584963 6.285402 5.882643 4.169925
+ENSG00000217801 5.087463 3.000000 4.247928 7.118941 6.087463 4.954196
+ENSG00000237330     -Inf     -Inf     -Inf 1.000000 0.000000     -Inf
+ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf</code></pre>
+<pre class="r"><code>density_plot_18504 &lt;- ggplot(log_counts_genes, aes(x = 18504)) + geom_density()
+
+density_plot_18504 + labs(title = &quot;Density plot of log2 counts of 18504&quot;) + labs(x = &quot;Log2 counts for each gene&quot;) + geom_vline(xintercept = 1) </code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(log_counts_genes, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Convert to CPM</p>
+<pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
+head(cpm)</code></pre>
+<pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
+ENSG00000188976  0.9947425  1.625971  1.213485  1.9873949  1.075299
+ENSG00000188157  3.0661207  1.990970  2.931252 -0.3353280  2.923740
+ENSG00000273443  1.6951397  1.417837  1.980752  0.6524534  1.547681
+ENSG00000217801  2.2614645  1.174529  3.552519  1.8381797  1.880283
+ENSG00000237330 -3.0036033 -2.442815 -3.003603 -3.0036033 -2.450115
+ENSG00000223823 -3.0036033 -3.003603 -3.003603 -3.0036033 -3.003603
+                   NA18502     NAPT30     NAPT91     NA3622     NA3659
+ENSG00000188976  1.8489000 -2.0183629 -2.3993239 -2.4294571 -2.4761762
+ENSG00000188157  1.3004469 -1.2173800 -0.7890014 -0.8590437 -0.6897168
+ENSG00000273443 -0.3506575  0.4928914 -1.9747241 -1.7012034  2.1431252
+ENSG00000217801  0.3378719  1.1383145 -0.6357420  0.3591647  2.9586805
+ENSG00000237330 -2.4371643 -3.0036033 -3.0036033 -3.0036033 -2.0907904
+ENSG00000223823 -3.0036033 -3.0036033 -3.0036033 -3.0036033 -3.0036033
+                   NA4973    NA18358
+ENSG00000188976 -3.003603 -3.0036033
+ENSG00000188157  1.082327 -0.8045812
+ENSG00000273443  1.841053  0.5540567
+ENSG00000217801  2.039212  1.2860108
+ENSG00000237330 -2.447731 -3.0036033
+ENSG00000223823 -3.003603 -3.0036033</code></pre>
+<pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /> ###Log2 CPM TMM/log2(CPM)</p>
+<pre class="r"><code>## Create edgeR object (dge) to calculate TMM normalization  
+dge_original &lt;- DGEList(counts=as.matrix(counts_genes), genes=rownames(counts_genes), group = as.character(t(labels)))
+dge_original &lt;- calcNormFactors(dge_original)
+
+tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm)</code></pre>
+<pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
+ENSG00000188976  0.9947425  1.625971  1.213485  1.9873949  1.075299
+ENSG00000188157  3.0661207  1.990970  2.931252 -0.3353280  2.923740
+ENSG00000273443  1.6951397  1.417837  1.980752  0.6524534  1.547681
+ENSG00000217801  2.2614645  1.174529  3.552519  1.8381797  1.880283
+ENSG00000237330 -3.0036033 -2.442815 -3.003603 -3.0036033 -2.450115
+ENSG00000223823 -3.0036033 -3.003603 -3.003603 -3.0036033 -3.003603
+                   NA18502     NAPT30     NAPT91     NA3622     NA3659
+ENSG00000188976  1.8489000 -2.0183629 -2.3993239 -2.4294571 -2.4761762
+ENSG00000188157  1.3004469 -1.2173800 -0.7890014 -0.8590437 -0.6897168
+ENSG00000273443 -0.3506575  0.4928914 -1.9747241 -1.7012034  2.1431252
+ENSG00000217801  0.3378719  1.1383145 -0.6357420  0.3591647  2.9586805
+ENSG00000237330 -2.4371643 -3.0036033 -3.0036033 -3.0036033 -2.0907904
+ENSG00000223823 -3.0036033 -3.0036033 -3.0036033 -3.0036033 -3.0036033
+                   NA4973    NA18358
+ENSG00000188976 -3.003603 -3.0036033
+ENSG00000188157  1.082327 -0.8045812
+ENSG00000273443  1.841053  0.5540567
+ENSG00000217801  2.039212  1.2860108
+ENSG00000237330 -2.447731 -3.0036033
+ENSG00000223823 -3.003603 -3.0036033</code></pre>
+<pre class="r"><code># Plot library size
+
+boxplot_library_size &lt;- ggplot(dge_original$samples, aes(x=metaData$Species, y = dge_original$samples$lib.size, fill = metaData$Species)) + geom_boxplot()
+ 
+boxplot_library_size + labs(title = &quot;Library size by Species&quot;) + labs(y = &quot;Library size&quot;) + labs(x = &quot;Species&quot;) + guides(fill=guide_legend(title=&quot;Species&quot;))</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(tmm_cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="filter-low-expressed-gene" class="section level3">
+<h3>Filter low expressed gene</h3>
+<p>Filter based on log2 cpm</p>
+<p>filter log2(cpm &gt;1) in at least 10 of the samples (2/3)</p>
+<pre class="r"><code>#filter counts
+keep.exprs=rowSums(tmm_cpm&gt;1) &gt;8
+
+counts_filtered= counts_genes[keep.exprs,]
+
+
+
+
+plotDensities(counts_filtered, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>labels &lt;- paste(metaData$Species, metaData$Line, sep=&quot; &quot;)
+dge_in_cutoff &lt;- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
+dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
+
+cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm_in_cutoff)</code></pre>
+<pre><code>                 NA18504    NA18510  NA18523  NA18498  NA18499   NA18502
+ENSG00000217801 2.243163  1.0859263 3.672233 1.802011 1.859359 0.2120175
+ENSG00000186891 5.022046  5.0400892 4.902343 6.682104 5.710517 3.3639006
+ENSG00000186827 3.102236  4.6574228 1.712312 1.802011 3.968056 1.9042287
+ENSG00000078808 6.868747  7.0337697 7.475369 7.036034 6.625443 6.7359729
+ENSG00000176022 4.762642  4.6839390 4.801525 5.267970 4.613121 4.7028975
+ENSG00000184163 1.427504 -0.1617807 1.712312 1.404540 1.062680 0.3544851
+                   NAPT30     NAPT91    NA3622   NA3659   NA4973  NA18358
+ENSG00000217801 1.1675009 -0.7849597 0.2795297 3.003758 2.101032 1.307542
+ENSG00000186891 4.6403916  3.1655019 4.7307807 6.452972 6.478017 6.488794
+ENSG00000186827 0.2591792  2.0129015 3.1544019 0.651737 5.254278 2.181924
+ENSG00000078808 6.6946199  6.7706146 6.7797936 6.789003 7.211007 7.067711
+ENSG00000176022 4.8386000  5.5562504 4.8490853 5.281245 4.790317 5.568370
+ENSG00000184163 2.8929268  2.2016666 1.4133401 1.771404 1.743030 3.229013</code></pre>
+<pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Voom transformation:</p>
+<pre class="r"><code>Species &lt;- factor(metaData$Species)
+design &lt;- model.matrix(~ 0 + Species)
+colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
+<pre><code>c(&quot;SpeciesChimp&quot;, &quot;SpeciesHuman&quot;)</code></pre>
+<pre class="r"><code># Voom with individual as a random variable
+
+cpm.voom&lt;- voom(counts_filtered, design, normalize.method=&quot;quantile&quot;, plot=T)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>boxplot(cpm.voom$E, col = pal[as.numeric(metaData$Species)],las=2)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(cpm.voom, col =  pal[as.numeric(metaData$Species)], legend = &quot;topleft&quot;) </code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /> Looks like i still have a skew on the lower side of the distribution.</p>
+<pre class="r"><code># PCA 
+
+pca_genes &lt;- prcomp(t(cpm.voom$E), scale = F)
+scores &lt;- pca_genes$x
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Clustering (original code from Julien Roux)
+cors &lt;- cor(cpm.voom$E, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+
+
+heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Species))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /> This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples. 4973 and 18498 are the samples that looked funny on the original 3’ data. This may be a sample swap at the RNA stage. These samples were in the same extraction batch. It could have happened then. I will look into this more.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -882,28 +1337,34 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
- [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
- [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.4.0
+ [1] reshape2_1.4.3     RColorBrewer_1.1-2 edgeR_3.24.0      
+ [4] limma_3.38.2       gplots_3.0.1       scales_1.0.0      
+ [7] forcats_0.3.0      stringr_1.3.1      dplyr_0.8.0.1     
+[10] purrr_0.3.2        readr_1.3.1        tidyr_0.8.3       
+[13] tibble_2.1.1       ggplot2_3.1.1      tidyverse_1.2.1   
+[16] workflowr_1.4.0   
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2         RColorBrewer_1.1-2 cellranger_1.1.0  
- [4] pillar_1.3.1       compiler_3.5.1     git2r_0.25.2      
- [7] plyr_1.8.4         tools_3.5.1        digest_0.6.18     
-[10] lubridate_1.7.4    jsonlite_1.6       evaluate_0.12     
-[13] nlme_3.1-137       gtable_0.2.0       lattice_0.20-38   
-[16] pkgconfig_2.0.2    rlang_0.4.0        cli_1.1.0         
-[19] rstudioapi_0.10    yaml_2.2.0         haven_1.1.2       
-[22] withr_2.1.2        xml2_1.2.0         httr_1.3.1        
-[25] knitr_1.20         hms_0.4.2          generics_0.0.2    
-[28] fs_1.3.1           rprojroot_1.3-2    grid_3.5.1        
-[31] tidyselect_0.2.5   glue_1.3.0         R6_2.3.0          
-[34] readxl_1.1.0       rmarkdown_1.10     modelr_0.1.2      
-[37] magrittr_1.5       whisker_0.3-2      backports_1.1.2   
-[40] scales_1.0.0       htmltools_0.3.6    rvest_0.3.2       
-[43] assertthat_0.2.0   colorspace_1.3-2   labeling_0.3      
-[46] stringi_1.2.4      lazyeval_0.2.1     munsell_0.5.0     
-[49] broom_0.5.1        crayon_1.3.4      </code></pre>
+ [1] gtools_3.8.1       locfit_1.5-9.1     tidyselect_0.2.5  
+ [4] haven_1.1.2        lattice_0.20-38    colorspace_1.3-2  
+ [7] generics_0.0.2     htmltools_0.3.6    yaml_2.2.0        
+[10] rlang_0.4.0        pillar_1.3.1       glue_1.3.0        
+[13] withr_2.1.2        modelr_0.1.2       readxl_1.1.0      
+[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[19] cellranger_1.1.0   rvest_0.3.2        caTools_1.17.1.1  
+[22] evaluate_0.12      labeling_0.3       knitr_1.20        
+[25] broom_0.5.1        Rcpp_1.0.2         KernSmooth_2.23-15
+[28] backports_1.1.2    gdata_2.18.0       jsonlite_1.6      
+[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[37] cli_1.1.0          tools_3.5.1        bitops_1.0-6      
+[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[52] nlme_3.1-137       git2r_0.25.2       compiler_3.5.1    </code></pre>
+</div>
+</div>
 </div>
 
 
