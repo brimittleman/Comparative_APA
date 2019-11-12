@@ -8,6 +8,12 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r}
+library(workflowr)
+library(tidyverse)
+library(reshape2)
+```
+
 
 For this analysis I do preprocessing with the Snakemake pipeline. The snakemake will map the RNA seq and quantify orthologous exons.  
 
@@ -16,3 +22,40 @@ From FastQC:
 * Does not look like there is adapter contamination
 
 * No reads tagged as bad quality  
+
+
+Assess mapping:
+
+```{r}
+metaData=read.table("../data/RNASEQ_metadata.txt", header = T, stringsAsFactors = F)
+```
+
+```{r}
+readInfo=metaData %>% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %>% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %>%  gather(key="Category", value="Number", -Line, -Species)
+
+
+ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2",name = "Type", labels = c("Unmapped", "Mapped not ortho", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y="Reads", title="Human and chimp read statistics") 
+
+```
+
+Proportion of reads.  
+```{r}
+readProp=metaData %>% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %>% select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %>%  gather(key="Category", value="Proportion", -Line, -Species)
+
+ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2", name="", labels = c("Unmapped", "Mapped not ortho", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y="Reads", title="Human and chimp read proportions") 
+
+
+```
+
+By species:
+
+```{r}
+ggplot(readInfo,aes(x=Category, y=Number, by=Species, fill=Species)) + geom_boxplot() +scale_x_discrete( breaks=c("AAUnMapped","ABNotOrtho","AssignedOrtho"),labels=c("Unmapped", "Not in OrthoExon", "Assigned to OrthoExon")) + scale_fill_brewer(palette = "Dark2") + labs(title="Mapped reads by Species", y="Reads", x="")
+```
+
+```{r}
+
+ggplot(readProp,aes(x=Category, y=Proportion, by=Species, fill=Species)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(title="Map Proportion by Species", y="Proportion", x="") + scale_x_discrete( breaks=c("Aunmapped","MappedNotOrtho","percentOrtho"),labels=c("Unmapped", "Not in OrthoExon", "Assigned to OrthoExon"))
+
+```
+
