@@ -208,6 +208,19 @@ dge_original <- calcNormFactors(dge_original)
 tmm_cpm <- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)
 ```
+
+
+
+```{r}
+pca_genes <- prcomp(t(tmm_cpm), scale = F)
+scores <- pca_genes$x
+
+for (n in 1:2){
+  col.v <- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
 ```{r}
 # Plot library size
 
