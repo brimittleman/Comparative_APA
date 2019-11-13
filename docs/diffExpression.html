@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-12
+<strong>Last updated:</strong> 2019-11-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -354,7 +354,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree98d7f9b4fad5f7c7ecb00e033457b366eb8b45c6targetblank98d7f9ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/98d7f9b4fad5f7c7ecb00e033457b366eb8b45c6" target="_blank">98d7f9b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea52c26d482d38b7ac3773c8d98f88a1cc94511f3targetblanka52c26da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a52c26d482d38b7ac3773c8d98f88a1cc94511f3" target="_blank">a52c26d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree98d7f9b4fad5f7c7ecb00e033457b366eb8b45c6targetblank98d7f9ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea52c26d482d38b7ac3773c8d98f88a1cc94511f3targetblanka52c26da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -620,6 +620,8 @@ Untracked files:
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quatJunc.err
+    Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
     Untracked:  code/recChimpback2Human.out
     Untracked:  code/recLiftchim2human.sh
@@ -717,7 +719,6 @@ Untracked files:
     Untracked:  data/reverseLift/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
-    Untracked:  docs/figure/assessReadQual.Rmd/
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
 
@@ -765,6 +766,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a52c26d482d38b7ac3773c8d98f88a1cc94511f3/analysis/diffExpression.Rmd" target="_blank">a52c26d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-13
+</td>
+<td>
+look at pca and tech factors
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/diffExpression.html" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -892,15 +927,15 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.4.0
+<pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1586,6 +1621,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1600,6 +1646,43 @@ brimittleman
 </div>
 </div>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-2">
+Past versions of unnamed-chunk-22-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Plot library size
 
 boxplot_library_size &lt;- ggplot(dge_original$samples, aes(x=metaData$Species, y = dge_original$samples$lib.size, fill = metaData$Species)) + geom_boxplot()
@@ -1628,6 +1711,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">32b435b</a>
@@ -1669,6 +1763,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1697,6 +1802,43 @@ counts_filtered= counts_genes[keep.exprs,]
 
 plotDensities(counts_filtered, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>labels &lt;- paste(metaData$Species, metaData$Line, sep=&quot; &quot;)
 dge_in_cutoff &lt;- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
 dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
@@ -1719,6 +1861,43 @@ ENSG00000176022 4.8386000  5.5562504 4.8490853 5.281245 4.790317 5.568370
 ENSG00000184163 2.8929268  2.2016666 1.4133401 1.771404 1.743030 3.229013</code></pre>
 <pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Voom transformation:</p>
 <pre class="r"><code>Species &lt;- factor(metaData$Species)
 design &lt;- model.matrix(~ 0 + Species)
@@ -1750,6 +1929,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">32b435b</a>
@@ -1791,6 +1981,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1830,6 +2031,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1849,10 +2061,11 @@ brimittleman
 pca_genes &lt;- prcomp(t(cpm.voom$E), scale = F)
 scores &lt;- pca_genes$x
 
-for (n in 1:2){
-  col.v &lt;- pal[as.integer(metaData$Species)]
-  plot_scores(pca_genes, scores, n, n+1, col.v)
-}</code></pre>
+
+eigsGene &lt;- pca_genes$sdev^2
+proportionG = eigsGene/sum(eigsGene)
+
+plot(proportionG)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
@@ -1878,6 +2091,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1891,13 +2115,164 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-2">
+Past versions of unnamed-chunk-32-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-32-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#Clustering (original code from Julien Roux)
 cors &lt;- cor(cpm.voom$E, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
 
 
 heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Species))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
-<p><img src="figure/diffExpression.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /> This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples. 4973 and 18498 are the samples that looked funny on the original 3’ data. This may be a sample swap at the RNA stage. These samples were in the same extraction batch. It could have happened then. I will look into this more.</p>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">da4bab0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples. 4973 and 18498 are the samples that looked funny on the original 3’ data. This may be a sample swap at the RNA stage. These samples were in the same extraction batch. It could have happened then. I will look into this more.</p>
+<p>One thing I can do is look at the correlation between the PCs and other factors in the data.</p>
+<pre class="r"><code># PCA 
+
+pca_genes &lt;- prcomp(t(cpm.voom$E), scale = F)
+scores &lt;- pca_genes$x
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Collection)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$Extraction=as.factor(metaData$Extraction)
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Extraction)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /> It does not look like batch (who collected or extraction date batch)</p>
+<pre class="r"><code>cols = brewer.pal(9, &quot;Blues&quot;)
+palC = colorRampPalette(cols)
+
+
+metaData$UndilutedAverageorder = findInterval(metaData$UndilutedAverage, sort(metaData$UndilutedAverage))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$UndilutedAverageorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$BioAConcorder = findInterval(metaData$BioAConc, sort(metaData$BioAConc))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$BioAConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$RinConcorder = findInterval(metaData$Rin, sort(metaData$Rin))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$RinConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The samples do not cluster by collection concentration, RNA rin score or RNA concentration.</p>
+<pre class="r"><code>metaData$AssignedOrthoorder = findInterval(metaData$AssignedOrtho, sort(metaData$AssignedOrtho))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$AssignedOrthoorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpression.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /> They also do not cluster by number of reads mapping to ortho exons.</p>
+<p>I should look at the correlation between PCs and these factors.</p>
+<p>Try to run the pca the opposite way:</p>
+<pre class="r"><code>pca_line=prcomp(cpm.voom$E, center=T,scale=T)
+
+pca_line_df=as.data.frame(pca_line$rotation) %&gt;% rownames_to_column(var=&quot;Line&quot;) %&gt;% select(1:11)
+
+
+eigs &lt;- pca_line$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData_order=metaData %&gt;% arrange(Line)
+PCA_order=pca_line_df %&gt;% arrange(Line)
+Pc1Spec &lt;- summary(lm(PCA_order$PC1 ~ metaData_order$Species))$adj.r.squared
+Pc2Spec &lt;- summary(lm(PCA_order$PC2 ~ metaData_order$Species))$adj.r.squared
+Pc3Spec &lt;- summary(lm(PCA_order$PC3 ~ metaData_order$Species))$adj.r.squared
+Pc1Spec</code></pre>
+<pre><code>[1] -0.09882106</code></pre>
+<pre class="r"><code>Pc2Spec</code></pre>
+<pre><code>[1] 0.6285914</code></pre>
+<pre class="r"><code>Pc3Spec</code></pre>
+<pre><code>[1] -0.0714836</code></pre>
+<p>Expand this to full heatmap.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1930,27 +2305,28 @@ other attached packages:
  [7] forcats_0.3.0      stringr_1.3.1      dplyr_0.8.0.1     
 [10] purrr_0.3.2        readr_1.3.1        tidyr_0.8.3       
 [13] tibble_2.1.1       ggplot2_3.1.1      tidyverse_1.2.1   
-[16] workflowr_1.4.0   
+[16] workflowr_1.5.0   
 
 loaded via a namespace (and not attached):
  [1] gtools_3.8.1       locfit_1.5-9.1     tidyselect_0.2.5  
  [4] haven_1.1.2        lattice_0.20-38    colorspace_1.3-2  
  [7] generics_0.0.2     htmltools_0.3.6    yaml_2.2.0        
-[10] rlang_0.4.0        pillar_1.3.1       glue_1.3.0        
-[13] withr_2.1.2        modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        caTools_1.17.1.1  
-[22] evaluate_0.12      labeling_0.3       knitr_1.20        
-[25] broom_0.5.1        Rcpp_1.0.2         KernSmooth_2.23-15
-[28] backports_1.1.2    gdata_2.18.0       jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        bitops_1.0-6      
-[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
-[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
-[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
-[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
-[52] nlme_3.1-137       git2r_0.25.2       compiler_3.5.1    </code></pre>
+[10] rlang_0.4.0        later_0.7.5        pillar_1.3.1      
+[13] glue_1.3.0         withr_2.1.2        modelr_0.1.2      
+[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
+[19] gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
+[22] caTools_1.17.1.1   evaluate_0.12      labeling_0.3      
+[25] knitr_1.20         httpuv_1.4.5       broom_0.5.1       
+[28] Rcpp_1.0.2         KernSmooth_2.23-15 promises_1.0.1    
+[31] backports_1.1.2    gdata_2.18.0       jsonlite_1.6      
+[34] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[37] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[40] bitops_1.0-6       cli_1.1.0          tools_3.5.1       
+[43] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[46] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[49] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[52] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[55] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 </div>
 </div>
