@@ -419,5 +419,14 @@ Pc2Spec
 Pc3Spec
 ```
 
-Expand this to full heatmap.  
+Expand this to full heatmap. 
 
+plotpca  
+
+```{r}
+col.v <- pal[as.integer(metaData$Species)]
+plot_scores(pca_line, scores, n, n+1,cols = col.v )
+```
+
+
+Question: what is the difference between these PCAs???
