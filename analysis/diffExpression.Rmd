@@ -298,6 +298,13 @@ Looks like i still have a skew on the lower side of the distribution.
 pca_genes <- prcomp(t(cpm.voom$E), scale = F)
 scores <- pca_genes$x
 
+
+eigsGene <- pca_genes$sdev^2
+proportionG = eigsGene/sum(eigsGene)
+
+plot(proportionG)
+
+
 for (n in 1:2){
   col.v <- pal[as.integer(metaData$Species)]
   plot_scores(pca_genes, scores, n, n+1, col.v)
@@ -314,4 +321,103 @@ heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', 
 ```
 This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples.  4973 and 18498 are the samples that looked funny on the original 3' data. This may be a sample swap at the RNA stage.  These samples were in the same extraction batch. It could have happened then. I will look into this more.  
 
+One thing I can do is look at the correlation between the PCs and other factors in the data.   
+
+```{r}
+# PCA 
+
+pca_genes <- prcomp(t(cpm.voom$E), scale = F)
+scores <- pca_genes$x
+
+for (n in 1:2){
+  col.v <- pal[as.integer(metaData$Collection)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
+
+```{r}
+metaData$Extraction=as.factor(metaData$Extraction)
+
+for (n in 1:2){
+  col.v <- pal[as.integer(metaData$Extraction)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+It does not look like batch (who collected or extraction date batch)
+
+
+```{r}
+cols = brewer.pal(9, "Blues")
+palC = colorRampPalette(cols)
+
+
+metaData$UndilutedAverageorder = findInterval(metaData$UndilutedAverage, sort(metaData$UndilutedAverage))
+for (n in 1:2){
+  col.v <- palC(nrow(metaData))[metaData$UndilutedAverageorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+
+```
+```{r}
+metaData$BioAConcorder = findInterval(metaData$BioAConc, sort(metaData$BioAConc))
+for (n in 1:2){
+  col.v <- palC(nrow(metaData))[metaData$BioAConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+```{r}
+metaData$RinConcorder = findInterval(metaData$Rin, sort(metaData$Rin))
+for (n in 1:2){
+  col.v <- palC(nrow(metaData))[metaData$RinConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
+
+The samples do not cluster by collection concentration, RNA rin score or RNA concentration.
+
+
+```{r}
+metaData$AssignedOrthoorder = findInterval(metaData$AssignedOrtho, sort(metaData$AssignedOrtho))
+for (n in 1:2){
+  col.v <- palC(nrow(metaData))[metaData$AssignedOrthoorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+They also do not cluster by number of reads mapping to ortho exons.   
+
+
+I should look at the correlation between PCs and these factors. 
+
+Try to run the pca the opposite way: 
+
+
+```{r}
+pca_line=prcomp(cpm.voom$E, center=T,scale=T)
+
+pca_line_df=as.data.frame(pca_line$rotation) %>% rownames_to_column(var="Line") %>% select(1:11)
+
+
+eigs <- pca_line$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)
+
+
+```
+
+
+```{r}
+metaData_order=metaData %>% arrange(Line)
+PCA_order=pca_line_df %>% arrange(Line)
+Pc1Spec <- summary(lm(PCA_order$PC1 ~ metaData_order$Species))$adj.r.squared
+Pc2Spec <- summary(lm(PCA_order$PC2 ~ metaData_order$Species))$adj.r.squared
+Pc3Spec <- summary(lm(PCA_order$PC3 ~ metaData_order$Species))$adj.r.squared
+Pc1Spec
+Pc2Spec
+Pc3Spec
+```
+
+Expand this to full heatmap.  
 
