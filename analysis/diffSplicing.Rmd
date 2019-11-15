@@ -9,6 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r}
+library(tidyverse)
+library(reshape2)
+```
+
 I want to use the RNA seq I collected to also perform a differential splicing analysis with leafcutter. I will follow the pipeline found at http://davidaknowles.github.io/leafcutter/articles/Usage.html. For a first pass I will use the bam files from the snakemake and differential expression analysis pipeline.  
 
 I will get clusters in both species then perform reciprocal liftover. I can use a liftover pipeline similar to the one I used for the differnetial PAS analysis. 
@@ -17,7 +23,7 @@ I will get clusters in both species then perform reciprocal liftover. I can use 
 Pipeline from example on leafcutter github.
 
 ```{bash,eval=F }
-if [ -e test_juncfiles.txt ]; then rm test_juncfiles.txt; fi
+
 
 for bamfile in `ls run/geuvadis/*chr1.bam`; do
     echo Converting $bamfile to $bamfile.junc
@@ -35,4 +41,138 @@ At this point I will be able to liftover the junctions. I can use the human corr
 ../scripts/leafcutter_ds.R --num_threads 4 ../example_data/testYRIvsEU_perind_numers.counts.gz example_geuvadis/groups_file.txt
 
 ```
+
+I now have my RNA seq for each species. I can write a script that runs the junctions for each species.  
+
+
+```{bash,eval=F}
+sbatch converBam2Junc.sh
+```
+
+```{bash,eval=F}
+sbatch quantJunc.sh
+```
+
+
+Now I need to do reciprocal liftover with the clusters.  
+
+* /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/
+* /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/
+
+Chain files are in /data/chainFiles/
+ * panTro5ToHg38.over.chain  
+ * hg38ToPanTro5.over.chain  
+ 
+ I first need to make bedfiles with these clusters.  
+ 
+ The clusters all have _NA I dont this this is correct.  
+ 
+ 
+```{bash,eval=F}
+
+gunzip ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts.gz
+
+gunzip ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts.gz
+
+
+python cluster2bed.py ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts ../Human/data/RNAseq/DiffSplice/humanJunc.bed
+
+python cluster2bed.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed
+
+
+sbatch clusterLiftprimary.sh
+```
+ 
+ 
+ Evaluate results:
+ 
+ (this code is from the lift for the PAS)
+```{r}
+unliftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_unlifted.bed",stringsAsFactors = F) %>% nrow()
+unliftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_unlifted.bed",stringsAsFactors = F) %>% nrow()
+
+liftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F) %>% nrow()
+liftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F) %>% nrow()
+
+primaryUnC=c("Chimp","Unlifted", unliftedC)
+primaryUnH=c("Human","Unlifted", unliftedH)
+
+primaryLH=c("Human","Lifted", liftedH)
+primaryLC=c("Chimp","Lifted", liftedC)
+
+header=c("species", "liftStat", "PAS")
+primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
+colnames(primaryDF)=header
+
+
+primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
+
+
+
+primaryDF= primaryDF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+```
+
+
+```{r}
+ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+
+ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+```
+
+Look at the lifted: 
+
+```{r}
+OriginalHuman=read.table("../Human/data/RNAseq/DiffSplice/humanJunc.bed",stringsAsFactors = F) 
+liftedHuman=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F) 
+
+OriginalChimp=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed",stringsAsFactors = F)
+liftedChimp=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F)
+```
+
+Reverse lift: 
+```{r}
+re_unliftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human_unlifted.bed",stringsAsFactors = F) %>% nrow()
+re_unliftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp_unlifted.bed",stringsAsFactors = F) %>% nrow()
+
+re_liftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed",stringsAsFactors = F) %>% nrow()
+re_liftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed",stringsAsFactors = F) %>% nrow()
+
+re_UnC=c("Chimp","Unlifted", re_unliftedC)
+re_UnH=c("Human","Unlifted", re_unliftedH)
+
+re_LH=c("Human","Lifted", re_liftedH)
+re_LC=c("Chimp","Lifted", re_liftedC)
+
+header=c("species", "liftStat", "PAS")
+re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
+colnames(re_DF)=header
+
+
+re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
+
+
+
+re_DF= re_DF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+```
+
+
+```{r}
+ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results")
+ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Reverse Liftover Results")
+```
+
+How many lifted both ways?
+```{r}
+#human
+re_liftedH/nrow(OriginalHuman)
+#chimp
+re_liftedC/nrow(OriginalChimp)
+```
+
+
+
+The next step will be to find the corresponding clusters. This is important because I will need to get the quantifications for the same introns and clusters. To do this I will need to write code that looks for the intron location from the primary lift in the reverse lift. 
+
+For now I will only look at those introns identified in both species. I need to do this because I need junctions we have quantifications for in both species.  
+
 
