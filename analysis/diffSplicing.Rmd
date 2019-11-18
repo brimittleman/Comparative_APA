@@ -251,18 +251,21 @@ FilteredChimpCluster= ChimpCluster %>% inner_join(AllClustersNames, by="ChimpNam
 HumanCluster=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_perind_numers.counts.gz") %>% rownames_to_column(var="HumanName")
 FilteredClusterBoth=HumanCluster %>% inner_join(FilteredChimpCluster, by="HumanName") %>% select(-ChimpName) 
 
+FilteredClusterBothfixed=FilteredClusterBoth[!duplicated(FilteredClusterBoth$HumanName),]
+
+
 
 
 
 
 #create group file- this should have the name of the bams and the group
-Bams=as.data.frame(colnames(FilteredClusterBoth)) %>% mutate(Species=ifelse(grepl("H",colnames(FilteredClusterBoth)), "Human", "Chimp")) %>% slice(2:n())
+Bams=as.data.frame(colnames(FilteredClusterBothfixed)) %>% mutate(Species=ifelse(grepl("H",colnames(FilteredClusterBothfixed)), "Human", "Chimp")) %>% slice(2:n())
 
 #mkdir ../data/DiffSplice 
 write.table(Bams, "../data/DiffSplice/groups_file.txt", col.names = F, row.names = F, quote = F, sep="\t" )
 
 
-write.table(FilteredClusterBoth, "../data/DiffSplice/BothSpec_perind.counts", col.names = T, row.names = F, quote = F, sep="\t" )
+write.table(FilteredClusterBothfixed, "../data/DiffSplice/BothSpec_perind.counts", col.names = T, row.names = F, quote = F, sep="\t" )
 
 
 ```
@@ -287,7 +290,41 @@ Run leafcutter with python 2
 
 ```{bash,eval=F}
 sbatch DiffSplice.sh
+
 ```
 
+Look at results: 
 
-**Error: duplicate 'row.names' are not allowed**
+```{r}
+sig=read.table("../data/DiffSplice/leafcutter_ds_cluster_significance.txt",sep="\t" ,header =T,stringsAsFactors = F) %>% filter(status=="Success") 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+
+
+qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter Differential Splicing")
+abline(0,1)
+
+```
+Use the leafcutter tool to visualize  
+
+```{bash,eval=F}
+sbatch DiffSplicePlots.sh
+```
+
+try with gencode exons:  
+
+```{bash,eval=F}
+sbatch DiffSplice_gencode.sh
+sbatch DiffSplicePlots_gencode.sh
+```
+
+```{r}
+sig_gencode=read.table("../data/DiffSplice/Gencode__cluster_significance.txt",sep="\t" ,header =T,stringsAsFactors = F) %>% filter(status=="Success") 
+
+sig_gencode$p.adjust=as.numeric(as.character(sig_gencode$p.adjust))
+
+
+qqplot(-log10(runif(nrow(sig_gencode))), -log10(sig_gencode$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter Differential Splicing Gencode exons")
+abline(0,1)
+```
+
