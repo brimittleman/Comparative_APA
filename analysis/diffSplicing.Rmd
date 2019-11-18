@@ -80,7 +80,14 @@ python cluster2bed.py ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts ..
 python cluster2bed.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed
 
 
+#I need to name the clusters before I can do the lift. (this is like the naming in apa 1-n(clusters))
+python nameClusters.py ../Human/data/RNAseq/DiffSplice/humanJunc.bed ../Human/data/RNAseq/DiffSplice/humanJuncNamed.bed
+
+python nameClusters.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed ../Chimp/data/RNAseq/DiffSplice/chimpJuncNamed.bed
+
 sbatch clusterLiftprimary.sh
+
+sbatch clusterLiftReverse.sh
 ```
  
  
@@ -175,4 +182,112 @@ The next step will be to find the corresponding clusters. This is important beca
 
 For now I will only look at those introns identified in both species. I need to do this because I need junctions we have quantifications for in both species.  
 
+I can make files with the human and chimp coordintats for the clusters that lift both ways. I will have to number each cluster 
 
+
+Human cluser: 
+```{r}
+
+humanRevlift=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed",stringsAsFactors = F,col.names = c("Hchr","Hstart", "Hend", "cluster", "score", "strand")) %>% select(-strand)
+
+#number clusters
+humanRevlift %>% select(cluster) %>% unique() %>% nrow()
+
+humanRevlift$score=as.character(humanRevlift$score)
+humanRevlift= humanRevlift %>%  mutate(Name=paste("Human", score, sep="_")) %>% select(-score)
+
+
+humanInChimp=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F,col.names = c("Cchr","Cstart", "Cend", "cluster", "score", "strand"))%>% select(-strand)
+humanInChimp$score=as.character(humanInChimp$score)
+humanInChimp= humanInChimp %>%  mutate(Name=paste("Human", score, sep="_")) %>% select(-score)
+
+
+humanliftedBoth=humanRevlift %>% inner_join(humanInChimp, by=c("cluster", "Name"))
+```
+
+Chimp clusters: 
+
+```{r}
+chimpRevLift=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed",stringsAsFactors = F,col.names = c("Cchr","Cstart", "Cend", "cluster", "score", "strand")) %>% select(-strand)
+chimpRevLift$score=as.character(chimpRevLift$score)
+chimpRevLift= chimpRevLift %>%  mutate(Name=paste("Chimp", score, sep="_")) %>% select(-score)
+chimpRevLift %>% select(cluster) %>% unique() %>% nrow()
+
+
+chimpInHuman=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F,col.names = c("Hchr","Hstart", "Hend", "cluster", "score", "strand"))%>% select(-strand) 
+chimpInHuman$score=as.character(chimpInHuman$score)
+chimpInHuman= chimpInHuman %>%  mutate(Name=paste("Chimp", score, sep="_")) %>% select(-score)
+
+chimpliftedBoth=chimpRevLift %>% inner_join(chimpInHuman, by=c("cluster", "Name"))
+```
+
+
+Try to join these by the human and chimp coordinates  
+
+```{r}
+AllClusters=chimpliftedBoth %>% inner_join(humanliftedBoth, by=c("Cchr", "Cstart","Cend", "Hchr", "Hstart", "Hend")) %>% mutate(ChimpName=paste(Cchr,Cstart,Cend, cluster.x, sep=":" ),HumanName=paste(Hchr,Hstart,Hend, cluster.y, sep=":" ) )
+
+nrow(AllClusters)
+
+AllClusters %>% select(cluster.x) %>% unique() %>% nrow()
+AllClusters %>% select(cluster.y) %>% unique() %>% nrow()
+```
+This means there are ~7k isoforms from about 3k genes.  This is from the ~5k clusters I had before. I can move on with these using the human names. 
+
+I will have to go back and figure out how to call clusters for more genes.  
+
+I need to reformat these back into the counts format. 
+
+```{r}
+#chr1:17055:17233:clu_1
+
+AllClustersNames=AllClusters %>% select(HumanName, ChimpName)
+
+ChimpCluster=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind_numers.counts.gz") %>% rownames_to_column(var="ChimpName")
+FilteredChimpCluster= ChimpCluster %>% inner_join(AllClustersNames, by="ChimpName")
+
+#map human onto these
+
+HumanCluster=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_perind_numers.counts.gz") %>% rownames_to_column(var="HumanName")
+FilteredClusterBoth=HumanCluster %>% inner_join(FilteredChimpCluster, by="HumanName") %>% select(-ChimpName) 
+
+
+
+
+
+#create group file- this should have the name of the bams and the group
+Bams=as.data.frame(colnames(FilteredClusterBoth)) %>% mutate(Species=ifelse(grepl("H",colnames(FilteredClusterBoth)), "Human", "Chimp")) %>% slice(2:n())
+
+#mkdir ../data/DiffSplice 
+write.table(Bams, "../data/DiffSplice/groups_file.txt", col.names = F, row.names = F, quote = F, sep="\t" )
+
+
+write.table(FilteredClusterBoth, "../data/DiffSplice/BothSpec_perind.counts", col.names = T, row.names = F, quote = F, sep="\t" )
+
+
+```
+
+Remove the first name in header and zip the file: 
+
+**(manually)**
+```{bash,eval=F}
+vi ../data/DiffSplice/BothSpec_perind.counts
+
+gzip ../data/DiffSplice/BothSpec_perind.counts
+```
+
+I will run the differential splicing analysis with the human exon file for now. Download the NCBI refseq exons from the table browser.  I also downloaded the names with the common names so I can fix the exon file. 
+
+```{bash,eval=F}
+python processhg38exons.py
+gzip ../data/DiffSplice/hg38_ncbiRefseq_exonsfixed
+```
+
+Run leafcutter with python 2 
+
+```{bash,eval=F}
+sbatch DiffSplice.sh
+```
+
+
+**Error: duplicate 'row.names' are not allowed**
