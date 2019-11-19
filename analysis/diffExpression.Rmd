@@ -14,6 +14,9 @@ library(tidyverse)
 library("scales")
 library("gplots")
 library("edgeR")
+library("R.utils")
+library("limma")
+library("VennDiagram")
 library("RColorBrewer")
 library(reshape2)
 ```
@@ -430,3 +433,47 @@ plot_scores(pca_line, scores, n, n+1,cols = col.v )
 
 
 Question: what is the difference between these PCAs???
+
+
+##Test for DE
+
+
+```{r}
+fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
+head(coef(fit.cpm.voom))
+```
+
+```{r}
+contr <- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
+contr
+```
+
+
+```{r}
+tmp <- contrasts.fit(fit.cpm.voom, contr)
+tmp <- eBayes(tmp)
+top.table <- topTable(tmp, sort.by = "P", n = Inf)
+head(top.table, 20)
+
+```
+
+```{r}
+length(which(top.table$adj.P.Val < 0.05))
+```
+
+Make a table to plot:  
+
+-log10(bh adjusted pval) vs logFC (log3 fold change)
+```{r}
+top.table=top.table %>% mutate(Species=ifelse(logFC > 1 & adj.P.Val<.05, "Chimp", ifelse(logFC < -1 & adj.P.Val< .05, "Human", "Neither")))
+  
+  
+
+ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)
+```
+
+
+questions:
+* Correlation in fit to use design rather than contrast matrix.
+* direction of effect size 
+* what is eBayes step?
