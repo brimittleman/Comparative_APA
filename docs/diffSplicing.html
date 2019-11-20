@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-18
+<strong>Last updated:</strong> 2019-11-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3c2512b5d4004c0afbfd8199fcc96d47e1c54116targetblank3c2512ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3c2512b5d4004c0afbfd8199fcc96d47e1c54116" target="_blank">3c2512b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d6e7d59520fc06aa62bc4b88a0bd5ace38432batargetblank6d6e7d5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6d6e7d59520fc06aa62bc4b88a0bd5ace38432ba" target="_blank">6d6e7d5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3c2512b5d4004c0afbfd8199fcc96d47e1c54116targetblank3c2512ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d6e7d59520fc06aa62bc4b88a0bd5ace38432batargetblank6d6e7d5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,6 +452,7 @@ Ignored files:
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
+    Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
@@ -467,9 +468,11 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
+    Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._SortIndexBadSamples.sh
     Untracked:  code/._bed215upbed.py
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
@@ -492,6 +495,7 @@ Untracked files:
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._mergedBam2BW.sh
@@ -529,6 +533,7 @@ Untracked files:
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._verifyBam4973inHuman.sh
     Untracked:  code/._wrap_chimpverifybam.sh
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/.snakemake/
@@ -552,12 +557,18 @@ Untracked files:
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
     Untracked:  code/Log.out
+    Untracked:  code/MapBadSamples.err
+    Untracked:  code/MapBadSamples.out
+    Untracked:  code/MapBadSamples.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
+    Untracked:  code/SortIndexBadSamples.err
+    Untracked:  code/SortIndexBadSamples.out
+    Untracked:  code/SortIndexBadSamples.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
@@ -620,6 +631,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
@@ -709,8 +721,11 @@ Untracked files:
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
     Untracked:  code/verifybam4973.out
+    Untracked:  code/verifybam4973HumanMap.err
+    Untracked:  code/verifybam4973HumanMap.out
     Untracked:  code/wrap_Chimpverifybam.err
     Untracked:  code/wrap_Chimpverifybam.out
     Untracked:  code/wrap_chimpverifybam.sh
@@ -721,6 +736,9 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
     Untracked:  data/._RNASEQ_metadata.xlsx
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
+    Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
@@ -739,6 +757,9 @@ Untracked files:
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata.xlsx
+    Untracked:  data/RNASEQ_metadata_2Removed.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -755,8 +776,11 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
+    Modified:   analysis/InvestigateBadSamples.Rmd
+    Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -796,6 +820,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6d6e7d59520fc06aa62bc4b88a0bd5ace38432ba/analysis/diffSplicing.Rmd" target="_blank">6d6e7d5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+fix label
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9b73cfffda5d3f6f6ca6d601049568822b016daa/docs/diffSplicing.html" target="_blank">9b73cff</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -923,12 +981,12 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1008,7 +1066,7 @@ primaryDF$PAS=as.numeric(as.character(primaryDF$PAS))
 
 
 primaryDF= primaryDF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;)</code></pre>
+<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;, y=&quot;Clusters&quot;)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1115,7 +1173,7 @@ re_DF$PAS=as.numeric(as.character(re_DF$PAS))
 
 
 re_DF= re_DF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Reverse Liftover Results&quot;)</code></pre>
+<pre class="r"><code>ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Reverse Liftover Results&quot;, y=&quot;Clusters&quot;)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -1288,7 +1346,45 @@ sig$p.adjust=as.numeric(as.character(sig$p.adjust))
 
 qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing&quot;)
 abline(0,1)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /> Use the leafcutter tool to visualize</p>
+<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9b73cfffda5d3f6f6ca6d601049568822b016daa/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">9b73cff</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Use the leafcutter tool to visualize</p>
 <pre class="bash"><code>sbatch DiffSplicePlots.sh</code></pre>
 <p>try with gencode exons:</p>
 <pre class="bash"><code>sbatch DiffSplice_gencode.sh
@@ -1301,6 +1397,43 @@ sig_gencode$p.adjust=as.numeric(as.character(sig_gencode$p.adjust))
 qqplot(-log10(runif(nrow(sig_gencode))), -log10(sig_gencode$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing Gencode exons&quot;)
 abline(0,1)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9b73cfffda5d3f6f6ca6d601049568822b016daa/docs/figure/diffSplicing.Rmd/unnamed-chunk-23-1.png" target="_blank">9b73cff</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
