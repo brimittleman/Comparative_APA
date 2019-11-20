@@ -57,7 +57,13 @@ Quantify Phenotypes with RNA:
 
 * [Differential Expression](diffExpression.html)
 
-* [Differential Expression without bad samples](diffExpressionRemove2.Rmd)  
+* [Differential Expression without bad samples](diffExpressionRemove2.html)  
 
+
+Extra QC and Analysis   
+
+* [Investigate bad RNA seq samples](InvestigateBadSamples.html)  
+
+* [Map RNA to hg19](MapRNAhg19.html)
 
 

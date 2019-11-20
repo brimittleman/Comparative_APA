@@ -1,0 +1,18 @@
+---
+title: "Map to hg19"
+author: "Briana Mittleman"
+date: "11/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I have high levels of multi mapping in these samples. I want to test if this is the case in hg19 as well. I can try with 1 or 2 samples.
+
+```{bash,eval=F}
+mkdir ../Human/data/RNAseq/bam_hg19
+sbatch mapRNAseqhg19.sh  
+```
+

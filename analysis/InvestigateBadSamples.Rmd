@@ -1,0 +1,22 @@
+---
+title: "Investigate bad samples"
+author: "Briana Mittleman"
+date: "11/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+I have two samples that are not making a lot of sense. They cluster in the raw data by speices but in the normalized data they switch sides. Also removing these samples greatly improves the DE analysis. I want to make sure these are not switched samples. To test this I will map 4973 to the human genome and 18498 to the chimp genome. I can run verify bam id to see if 4973 maps well to a human.  
+
+```{bash,eval=F}
+mkdir ../data/TwoBadSampleAnalysis
+sbatch MapBadSamples.sh
+sbatch SortIndexBadSamples.sh
+sbatch verifyBam4974inHuman.sh
+
+```
+
