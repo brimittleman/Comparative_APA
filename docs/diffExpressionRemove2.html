@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Briana Mittleman" />
+
+<meta name="date" content="2019-11-19" />
+
+<title>Differential Expression Remove Bad Individuals</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Comparative_APA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/brimittleman/Comparative_APA">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Differential Expression Remove Bad Individuals</h1>
+<h4 class="author"><em>Briana Mittleman</em></h4>
+<h4 class="date"><em>11/19/2019</em></h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-11-19
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190902code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190902)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190902code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190902)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb85b26c94005e7cad373dc524afb78f7f2ad8fbtargetblankdb85b26a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/db85b26c94005e7cad373dc524afb78f7f2ad8fb" target="_blank">db85b26</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb85b26c94005e7cad373dc524afb78f7f2ad8fbtargetblankdb85b26a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    code/chimp_log/
+    Ignored:    code/human_log/
+    Ignored:    data/.DS_Store
+    Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
+    Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
+    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
+    Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
+
+Untracked files:
+    Untracked:  ._.DS_Store
+    Untracked:  Chimp/
+    Untracked:  Human/
+    Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  code/._Config_chimp.yaml
+    Untracked:  code/._Config_human.yaml
+    Untracked:  code/._DiffSplice.sh
+    Untracked:  code/._DiffSplicePlots.sh
+    Untracked:  code/._DiffSplicePlots_gencode.sh
+    Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._LiftOrthoPAS2chimp.sh
+    Untracked:  code/._Snakefile
+    Untracked:  code/._SnakefilePAS
+    Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._bed215upbed.py
+    Untracked:  code/._bed2SAF_gen.py
+    Untracked:  code/._buildIndecpantro5
+    Untracked:  code/._buildIndecpantro5.sh
+    Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._cleanbed2saf.py
+    Untracked:  code/._cluster.json
+    Untracked:  code/._cluster2bed.py
+    Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._filter5percPAS.py
+    Untracked:  code/._filterPASforMP.py
+    Untracked:  code/._filterPostLift.py
+    Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixUTRexonanno.py
+    Untracked:  code/._formathg38Anno.py
+    Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._intersectLiftedPAS.sh
+    Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/._maphg19.sh
+    Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mergedBam2BW.sh
+    Untracked:  code/._nameClusters.py
+    Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/._preparePAS4lift.py
+    Untracked:  code/._primaryLift.sh
+    Untracked:  code/._processhg38exons.py
+    Untracked:  code/._quantJunc.sh
+    Untracked:  code/._recLiftchim2human.sh
+    Untracked:  code/._revLiftPAShg38to19.sh
+    Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._run_chimpverifybam.sh
+    Untracked:  code/._run_verifyBam.sh
+    Untracked:  code/._snakemake.batch
+    Untracked:  code/._snakemakePAS.batch
+    Untracked:  code/._snakemakePASchimp.batch
+    Untracked:  code/._snakemakePAShuman.batch
+    Untracked:  code/._snakemake_chimp.batch
+    Untracked:  code/._snakemake_human.batch
+    Untracked:  code/._snakemakefiltPAS.batch
+    Untracked:  code/._snakemakefiltPAS_chimp
+    Untracked:  code/._snakemakefiltPAS_chimp.sh
+    Untracked:  code/._snakemakefiltPAS_human.sh
+    Untracked:  code/._submit-snakemake-chimp.sh
+    Untracked:  code/._submit-snakemake-human.sh
+    Untracked:  code/._submit-snakemakePAS-chimp.sh
+    Untracked:  code/._submit-snakemakePAS-human.sh
+    Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
+    Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._transcriptDTplotsNuclear.sh
+    Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._wrap_chimpverifybam.sh
+    Untracked:  code/._wrap_verifyBam.sh
+    Untracked:  code/.snakemake/
+    Untracked:  code/Config_chimp.yaml
+    Untracked:  code/Config_human.yaml
+    Untracked:  code/DiffSplice.err
+    Untracked:  code/DiffSplice.out
+    Untracked:  code/DiffSplice.sh
+    Untracked:  code/DiffSplicePlots.err
+    Untracked:  code/DiffSplicePlots.out
+    Untracked:  code/DiffSplicePlots.sh
+    Untracked:  code/DiffSplicePlots_gencode.sh
+    Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/GencodeDiffSplice.err
+    Untracked:  code/GencodeDiffSplice.out
+    Untracked:  code/LiftClustersFirst.err
+    Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersSecond.err
+    Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftOrthoPAS2chimp.sh
+    Untracked:  code/LiftorthoPAS.err
+    Untracked:  code/LiftorthoPASt.out
+    Untracked:  code/Log.out
+    Untracked:  code/Rev_liftoverPAShg19to38.err
+    Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/SAF215upbed_gen.py
+    Untracked:  code/Snakefile
+    Untracked:  code/SnakefilePAS
+    Untracked:  code/SnakefilePASfilt
+    Untracked:  code/TotalTranscriptDTplot.err
+    Untracked:  code/TotalTranscriptDTplot.out
+    Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/apaQTLsnake.err
+    Untracked:  code/apaQTLsnake.out
+    Untracked:  code/apaQTLsnakePAS.err
+    Untracked:  code/apaQTLsnakePAS.out
+    Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/bam2junc.err
+    Untracked:  code/bam2junc.out
+    Untracked:  code/bed215upbed.py
+    Untracked:  code/bed2SAF_gen.py
+    Untracked:  code/bed2saf.py
+    Untracked:  code/bg_to_cov.py
+    Untracked:  code/buildIndecpantro5
+    Untracked:  code/buildIndecpantro5.sh
+    Untracked:  code/buildStarIndex.sh
+    Untracked:  code/callPeaksYL.py
+    Untracked:  code/chooseAnno2Bed.py
+    Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/cleanbed2saf.py
+    Untracked:  code/cluster.json
+    Untracked:  code/cluster2bed.py
+    Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterPAS.json
+    Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/converBam2Junc.sh
+    Untracked:  code/convertNumeric.py
+    Untracked:  code/environment.yaml
+    Untracked:  code/extraSnakefiltpas
+    Untracked:  code/filter5perc.R
+    Untracked:  code/filter5percPAS.py
+    Untracked:  code/filter5percPheno.py
+    Untracked:  code/filterBamforMP.pysam2_gen.py
+    Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterPASforMP.py
+    Untracked:  code/filterPostLift.py
+    Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSortBedbyCleanedBed_gen.R
+    Untracked:  code/filterpeaks.py
+    Untracked:  code/fixExonFC.py
+    Untracked:  code/fixFChead.py
+    Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixUTRexonanno.py
+    Untracked:  code/formathg38Anno.py
+    Untracked:  code/generateStarIndex.err
+    Untracked:  code/generateStarIndex.out
+    Untracked:  code/generateStarIndexHuman.err
+    Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/intersectAnno.err
+    Untracked:  code/intersectAnno.out
+    Untracked:  code/intersectLiftedPAS.sh
+    Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftoverPAShg19to38.err
+    Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/log/
+    Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeFileID.py
+    Untracked:  code/makePheno.py
+    Untracked:  code/makeSamplyGroupsChimp_TvN.py
+    Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/maphg19.err
+    Untracked:  code/maphg19.out
+    Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_sub.err
+    Untracked:  code/maphg19_sub.out
+    Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/mergedBam2BW.sh
+    Untracked:  code/mergedbam2bw.err
+    Untracked:  code/mergedbam2bw.out
+    Untracked:  code/nameClusters.py
+    Untracked:  code/namePeaks.py
+    Untracked:  code/nuclearTranscriptDTplot.err
+    Untracked:  code/nuclearTranscriptDTplot.out
+    Untracked:  code/overlapPAS.err
+    Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapapaQTLPAS.sh
+    Untracked:  code/peak2PAS.py
+    Untracked:  code/pheno2countonly.R
+    Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/preparePAS4lift.py
+    Untracked:  code/prepare_phenotype_table.py
+    Untracked:  code/primaryLift.err
+    Untracked:  code/primaryLift.out
+    Untracked:  code/primaryLift.sh
+    Untracked:  code/processhg38exons.py
+    Untracked:  code/quantJunc.sh
+    Untracked:  code/quantLiftedPAS.err
+    Untracked:  code/quantLiftedPAS.out
+    Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quatJunc.err
+    Untracked:  code/quatJunc.out
+    Untracked:  code/recChimpback2Human.err
+    Untracked:  code/recChimpback2Human.out
+    Untracked:  code/recLiftchim2human.sh
+    Untracked:  code/revLift.err
+    Untracked:  code/revLift.out
+    Untracked:  code/revLiftPAShg38to19.sh
+    Untracked:  code/reverseLift.sh
+    Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/run_Chimpleafcutter_ds.err
+    Untracked:  code/run_Chimpleafcutter_ds.out
+    Untracked:  code/run_Chimpverifybam.err
+    Untracked:  code/run_Chimpverifybam.out
+    Untracked:  code/run_Humanleafcutter_ds.err
+    Untracked:  code/run_Humanleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_ds.err
+    Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_chimpverifybam.sh
+    Untracked:  code/run_verifyBam.sh
+    Untracked:  code/run_verifybam.err
+    Untracked:  code/run_verifybam.out
+    Untracked:  code/slurm-62824013.out
+    Untracked:  code/slurm-62825841.out
+    Untracked:  code/slurm-62826116.out
+    Untracked:  code/snakePASChimp.err
+    Untracked:  code/snakePASChimp.out
+    Untracked:  code/snakePAShuman.out
+    Untracked:  code/snakemake.batch
+    Untracked:  code/snakemakeChimp.err
+    Untracked:  code/snakemakeChimp.out
+    Untracked:  code/snakemakeHuman.err
+    Untracked:  code/snakemakeHuman.out
+    Untracked:  code/snakemakePAS.batch
+    Untracked:  code/snakemakePASFiltChimp.err
+    Untracked:  code/snakemakePASFiltChimp.out
+    Untracked:  code/snakemakePASFiltHuman.err
+    Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePASchimp.batch
+    Untracked:  code/snakemakePAShuman.batch
+    Untracked:  code/snakemake_chimp.batch
+    Untracked:  code/snakemake_human.batch
+    Untracked:  code/snakemakefiltPAS.batch
+    Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.sh
+    Untracked:  code/submit-snakemake-chimp.sh
+    Untracked:  code/submit-snakemake-human.sh
+    Untracked:  code/submit-snakemakePAS-chimp.sh
+    Untracked:  code/submit-snakemakePAS-human.sh
+    Untracked:  code/submit-snakemakefiltPAS-chimp.sh
+    Untracked:  code/submit-snakemakefiltPAS-human.sh
+    Untracked:  code/subset_diffisopheno.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/transcriptDTplotsNuclear.sh
+    Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifybam4973.err
+    Untracked:  code/verifybam4973.out
+    Untracked:  code/wrap_Chimpverifybam.err
+    Untracked:  code/wrap_Chimpverifybam.out
+    Untracked:  code/wrap_chimpverifybam.sh
+    Untracked:  code/wrap_verifyBam.sh
+    Untracked:  code/wrap_verifybam.err
+    Untracked:  code/wrap_verifybam.out
+    Untracked:  data/._.DS_Store
+    Untracked:  data/._RNASEQ_metadata.txt
+    Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
+    Untracked:  data/._RNASEQ_metadata.xlsx
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
+    Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
+    Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
+    Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/._~$RNASEQ_metadata.xlsx
+    Untracked:  data/._~$metadata_HCpanel.xlsx
+    Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DTmatrix/
+    Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffSplice/
+    Untracked:  data/MapStats/
+    Untracked:  data/NuclearHvC/
+    Untracked:  data/Peaks_5perc/
+    Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_nuclear/
+    Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/RNASEQ_metadata.txt
+    Untracked:  data/RNASEQ_metadata.xlsx
+    Untracked:  data/RNASEQ_metadata_2Removed.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/chainFiles/
+    Untracked:  data/cleanPeaks_anno/
+    Untracked:  data/cleanPeaks_byspecies/
+    Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/liftover_files/
+    Untracked:  data/metadata_HCpanel.txt
+    Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/primaryLift/
+    Untracked:  data/reverseLift/
+    Untracked:  data/~$RNASEQ_metadata.xlsx
+    Untracked:  data/~$metadata_HCpanel.xlsx
+    Untracked:  output/dtPlots/
+    Untracked:  projectNotes.Rmd
+
+Unstaged changes:
+    Modified:   analysis/CorrbetweenInd.Rmd
+    Modified:   analysis/PASnumperSpecies.Rmd
+    Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/diffExpression.Rmd
+    Modified:   analysis/verifyBAM.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/db85b26c94005e7cad373dc524afb78f7f2ad8fb/analysis/diffExpressionRemove2.Rmd" target="_blank">db85b26</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+add remove 2 analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>This is exactly the diffExpression analysis but I will remove 2 individuals that may be hurting the analysis.</p>
+<p>These are:</p>
+<ul>
+<li>Chimp 4973</li>
+<li>Human 18498</li>
+</ul>
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.5.0
+Run ?workflowr for help getting started</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(&quot;scales&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    discard</code></pre>
+<pre><code>The following object is masked from &#39;package:readr&#39;:
+
+    col_factor</code></pre>
+<pre class="r"><code>library(&quot;gplots&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    lowess</code></pre>
+<pre class="r"><code>library(&quot;edgeR&quot;)</code></pre>
+<pre><code>Loading required package: limma</code></pre>
+<pre class="r"><code>library(&quot;R.utils&quot;)</code></pre>
+<pre><code>Loading required package: R.oo</code></pre>
+<pre><code>Loading required package: R.methodsS3</code></pre>
+<pre><code>R.methodsS3 v1.7.1 (2016-02-15) successfully loaded. See ?R.methodsS3 for help.</code></pre>
+<pre><code>R.oo v1.22.0 (2018-04-21) successfully loaded. See ?R.oo for help.</code></pre>
+<pre><code>
+Attaching package: &#39;R.oo&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:methods&#39;:
+
+    getClasses, getMethods</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    attach, detach, gc, load, save</code></pre>
+<pre><code>R.utils v2.7.0 successfully loaded. See ?R.utils for help.</code></pre>
+<pre><code>
+Attaching package: &#39;R.utils&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    extract</code></pre>
+<pre><code>The following object is masked from &#39;package:utils&#39;:
+
+    timestamp</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    cat, commandArgs, getOption, inherits, isOpen, parse, warnings</code></pre>
+<pre class="r"><code>library(&quot;limma&quot;)
+library(&quot;VennDiagram&quot;)</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Loading required package: futile.logger</code></pre>
+<pre class="r"><code>library(&quot;RColorBrewer&quot;)
+library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    smiths</code></pre>
+<p>For this analysis I do preprocessing with the Snakemake pipeline. The snakemake will map the RNA seq and quantify orthologous exons.</p>
+<p>From FastQC:</p>
+<ul>
+<li><p>Does not look like there is adapter contamination</p></li>
+<li><p>No reads tagged as bad quality</p></li>
+</ul>
+<p>Assess mapping:</p>
+<pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata_2Removed.txt&quot;, header = T, stringsAsFactors = F)
+metaData$Species=as.factor(metaData$Species)
+metaData$Collection=as.factor(metaData$Collection)</code></pre>
+<pre class="r"><code>readInfo=metaData %&gt;% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %&gt;% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Number&quot;, -Line, -Species)
+
+
+ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;,name = &quot;Type&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read statistics&quot;) </code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Proportion of reads.</p>
+<pre class="r"><code>readProp=metaData %&gt;% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %&gt;% select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Proportion&quot;, -Line, -Species)
+
+ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read proportions&quot;) </code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>By species:</p>
+<pre class="r"><code>ggplot(readInfo,aes(x=Category, y=Number, by=Species, fill=Species)) + geom_boxplot() +scale_x_discrete( breaks=c(&quot;AAUnMapped&quot;,&quot;ABNotOrtho&quot;,&quot;AssignedOrtho&quot;),labels=c(&quot;Unmapped&quot;, &quot;Not in OrthoExon&quot;, &quot;Assigned to OrthoExon&quot;)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Mapped reads by Species&quot;, y=&quot;Reads&quot;, x=&quot;&quot;)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(readProp,aes(x=Category, y=Proportion, by=Species, fill=Species)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Map Proportion by Species&quot;, y=&quot;Proportion&quot;, x=&quot;&quot;) + scale_x_discrete( breaks=c(&quot;Aunmapped&quot;,&quot;MappedNotOrtho&quot;,&quot;percentOrtho&quot;),labels=c(&quot;Unmapped&quot;, &quot;Not in OrthoExon&quot;, &quot;Assigned to OrthoExon&quot;))</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="diffferential-expression" class="section level2">
+<h2>Diffferential Expression</h2>
+<p>Code originally from Lauren Blake (<a href="http://lauren-blake.github.io/Reg_Evo_Primates/analysis/Normalization_plots.html" class="uri">http://lauren-blake.github.io/Reg_Evo_Primates/analysis/Normalization_plots.html</a>)</p>
+<div id="raw-counts" class="section level3">
+<h3>Raw Counts</h3>
+<pre class="r"><code>HumanCounts=read.table(&quot;../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length, -NA18498)
+
+ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length, -NA4973)
+
+
+counts_genes=HumanCounts %&gt;% inner_join(ChimpCounts,by=&quot;Geneid&quot;) %&gt;% column_to_rownames(var=&quot;Geneid&quot;)
+
+head(counts_genes)</code></pre>
+<pre><code>                NA18504 NA18510 NA18523 NA18499 NA18502 NAPT30 NAPT91
+ENSG00000188976      24      50      31      34      58      2      1
+ENSG00000188157     106      65     106     128      39      5      7
+ENSG00000273443      40      43      54      48      11     21      2
+ENSG00000217801      60      36     164      61      19     34      8
+ENSG00000237330       0       1       0       1       1      0      0
+ENSG00000223823       0       0       0       0       0      0      0
+                NA3622 NA3659 NA18358
+ENSG00000188976      1      1       0
+ENSG00000188157      7      8       6
+ENSG00000273443      3     78      16
+ENSG00000217801     19    139      31
+ENSG00000237330      0      2       0
+ENSG00000223823      0      0       0</code></pre>
+<pre class="r"><code># Load colors 
+
+colors &lt;- colorRampPalette(c(brewer.pal(9, &quot;Blues&quot;)[1],brewer.pal(9, &quot;Blues&quot;)[9]))(100)
+
+pal &lt;- c(brewer.pal(9, &quot;Set1&quot;), brewer.pal(8, &quot;Set2&quot;), brewer.pal(12, &quot;Set3&quot;))
+labels &lt;- paste(metaData$Species,metaData$Line, sep=&quot; &quot;)</code></pre>
+<pre class="r"><code>#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores &lt;- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
+  xmin &lt;- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin &lt;- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax &lt;- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste(&quot;PC&quot;, n, &quot;: &quot;, round(summary(pca)$importance[2,n],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), ylab=paste(&quot;PC&quot;, m, &quot;: &quot;, round(summary(pca)$importance[2,m],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type=&quot;n&quot;)
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}</code></pre>
+<pre class="r"><code># Clustering (original code from Julien Roux)
+cors &lt;- cor(counts_genes, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+
+
+heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>select &lt;- counts_genes
+summary(apply(select, 1, var) == 0) </code></pre>
+<pre><code>   Mode   FALSE    TRUE 
+logical   31883   12242 </code></pre>
+<pre class="r"><code># Perform PCA
+
+pca_genes &lt;- prcomp(t(counts_genes), scale = F)
+scores &lt;- pca_genes$x
+
+
+#Make PCA plots with the factors colored by species
+
+### PCs 1 and 2 Raw Data
+for (n in 1:1){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>### PCs 3 and 4 Raw Data
+
+for (n in 3:3){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot density for raw data:</p>
+<pre class="r"><code>density_plot_18504 &lt;- ggplot(counts_genes, aes(x = NA18504)) + geom_density() + labs(title = &quot;Density plot of raw gene counts of NA18504&quot;) + labs(x = &quot;Raw counts for each gene&quot;)
+
+density_plot_18504</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Convert to log2</p>
+<pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(counts_genes))
+head(log_counts_genes)</code></pre>
+<pre><code>                 NA18504  NA18510  NA18523  NA18499  NA18502   NAPT30
+ENSG00000188976 4.584963 5.643856 4.954196 5.087463 5.857981 1.000000
+ENSG00000188157 6.727920 6.022368 6.727920 7.000000 5.285402 2.321928
+ENSG00000273443 5.321928 5.426265 5.754888 5.584963 3.459432 4.392317
+ENSG00000217801 5.906891 5.169925 7.357552 5.930737 4.247928 5.087463
+ENSG00000237330     -Inf 0.000000     -Inf 0.000000 0.000000     -Inf
+ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf
+                  NAPT91   NA3622   NA3659  NA18358
+ENSG00000188976 0.000000 0.000000 0.000000     -Inf
+ENSG00000188157 2.807355 2.807355 3.000000 2.584963
+ENSG00000273443 1.000000 1.584963 6.285402 4.000000
+ENSG00000217801 3.000000 4.247928 7.118941 4.954196
+ENSG00000237330     -Inf     -Inf 1.000000     -Inf
+ENSG00000223823     -Inf     -Inf     -Inf     -Inf</code></pre>
+<pre class="r"><code>density_plot_18504 &lt;- ggplot(log_counts_genes, aes(x = 18504)) + geom_density()
+
+density_plot_18504 + labs(title = &quot;Density plot of log2 counts of 18504&quot;) + labs(x = &quot;Log2 counts for each gene&quot;) + geom_vline(xintercept = 1) </code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(log_counts_genes, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Convert to CPM</p>
+<pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
+head(cpm)</code></pre>
+<pre><code>                   NA18504   NA18510   NA18523   NA18499    NA18502
+ENSG00000188976  0.9894703  1.620342  1.209959  1.068977  1.8425919
+ENSG00000188157  3.0594442  1.985078  2.926705  2.916115  1.2946137
+ENSG00000273443  1.6891590  1.412390  1.976621  1.540857 -0.3532791
+ENSG00000217801  2.2551156  1.169332  3.547816  1.873190  0.3334631
+ENSG00000237330 -2.9815417 -2.429988 -2.981542 -2.437603 -2.4245831
+ENSG00000223823 -2.9815417 -2.981542 -2.981542 -2.981542 -2.9815417
+                   NAPT30     NAPT91     NA3622     NA3659    NA18358
+ENSG00000188976 -2.008556 -2.3855698 -2.4153553 -2.4615104 -2.9815417
+ENSG00000188157 -1.212936 -0.7860576 -0.8558140 -0.8206567 -0.8020982
+ENSG00000273443  0.492301 -1.9650589 -1.6935886  2.1415838  0.3987400
+ENSG00000217801  1.136923 -0.6333308  0.3592322  2.9568407  1.2842881
+ENSG00000237330 -2.981542 -2.9815417 -2.9815417 -2.0800683 -2.9815417
+ENSG00000223823 -2.981542 -2.9815417 -2.9815417 -2.9815417 -2.9815417</code></pre>
+<pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /> ###Log2 CPM TMM/log2(CPM)</p>
+<pre class="r"><code>## Create edgeR object (dge) to calculate TMM normalization  
+dge_original &lt;- DGEList(counts=as.matrix(counts_genes), genes=rownames(counts_genes), group = as.character(t(labels)))
+dge_original &lt;- calcNormFactors(dge_original)
+
+tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm)</code></pre>
+<pre><code>                   NA18504   NA18510   NA18523   NA18499    NA18502
+ENSG00000188976  0.9894703  1.620342  1.209959  1.068977  1.8425919
+ENSG00000188157  3.0594442  1.985078  2.926705  2.916115  1.2946137
+ENSG00000273443  1.6891590  1.412390  1.976621  1.540857 -0.3532791
+ENSG00000217801  2.2551156  1.169332  3.547816  1.873190  0.3334631
+ENSG00000237330 -2.9815417 -2.429988 -2.981542 -2.437603 -2.4245831
+ENSG00000223823 -2.9815417 -2.981542 -2.981542 -2.981542 -2.9815417
+                   NAPT30     NAPT91     NA3622     NA3659    NA18358
+ENSG00000188976 -2.008556 -2.3855698 -2.4153553 -2.4615104 -2.9815417
+ENSG00000188157 -1.212936 -0.7860576 -0.8558140 -0.8206567 -0.8020982
+ENSG00000273443  0.492301 -1.9650589 -1.6935886  2.1415838  0.3987400
+ENSG00000217801  1.136923 -0.6333308  0.3592322  2.9568407  1.2842881
+ENSG00000237330 -2.981542 -2.9815417 -2.9815417 -2.0800683 -2.9815417
+ENSG00000223823 -2.981542 -2.9815417 -2.9815417 -2.9815417 -2.9815417</code></pre>
+<pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
+scores &lt;- pca_genes$x
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plot library size
+
+boxplot_library_size &lt;- ggplot(dge_original$samples, aes(x=metaData$Species, y = dge_original$samples$lib.size, fill = metaData$Species)) + geom_boxplot()
+ 
+boxplot_library_size + labs(title = &quot;Library size by Species&quot;) + labs(y = &quot;Library size&quot;) + labs(x = &quot;Species&quot;) + guides(fill=guide_legend(title=&quot;Species&quot;))</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(tmm_cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="filter-low-expressed-gene" class="section level3">
+<h3>Filter low expressed gene</h3>
+<p>Filter based on log2 cpm</p>
+<p>filter log2(cpm &gt;1) in at least 10 of the samples (2/3)</p>
+<pre class="r"><code>#filter counts
+keep.exprs=rowSums(tmm_cpm&gt;1) &gt;8
+
+counts_filtered= counts_genes[keep.exprs,]
+
+
+
+
+plotDensities(counts_filtered, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>labels &lt;- paste(metaData$Species, metaData$Line, sep=&quot; &quot;)
+dge_in_cutoff &lt;- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
+dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
+
+cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm_in_cutoff)</code></pre>
+<pre><code>                 NA18504  NA18510  NA18523  NA18499  NA18502   NAPT30
+ENSG00000186891 5.019760 5.041382 4.900641 5.711124 3.366537 4.651440
+ENSG00000078808 6.869945 7.037620 7.477403 6.629313 6.741815 6.705657
+ENSG00000176022 4.763855 4.687804 4.803574 4.617006 4.705504 4.849646
+ENSG00000160087 4.849052 5.381048 5.119697 4.965717 5.086619 5.207984
+ENSG00000131584 6.069280 4.920816 4.539908 4.737501 5.356339 5.133882
+ENSG00000169972 3.357225 3.394890 3.555318 3.773273 3.315091 3.621735
+                  NAPT91   NA3622   NA3659  NA18358
+ENSG00000186891 3.175319 4.739154 6.460823 6.498061
+ENSG00000078808 6.781323 6.788155 6.796852 7.076976
+ENSG00000176022 5.566032 4.857458 5.289102 5.577640
+ENSG00000160087 5.451318 5.542696 5.337421 5.414395
+ENSG00000131584 5.709962 5.380906 5.258878 5.565531
+ENSG00000169972 3.552346 4.077282 3.072501 3.321316</code></pre>
+<pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Voom transformation:</p>
+<pre class="r"><code>Species &lt;- factor(metaData$Species)
+design &lt;- model.matrix(~ 0 + Species)
+head(design)</code></pre>
+<pre><code>  SpeciesChimp SpeciesHuman
+1            1            0
+2            1            0
+3            1            0
+4            1            0
+5            1            0
+6            0            1</code></pre>
+<pre class="r"><code>colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
+<pre><code>c(&quot;SpeciesChimp&quot;, &quot;SpeciesHuman&quot;)</code></pre>
+<p>Voom creates a random effect.</p>
+<pre class="r"><code># Voom with individual as a random variable
+
+cpm.voom&lt;- voom(counts_filtered, design, normalize.method=&quot;quantile&quot;, plot=T)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>boxplot(cpm.voom$E, col = pal[as.numeric(metaData$Species)],las=2)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plotDensities(cpm.voom, col =  pal[as.numeric(metaData$Species)], legend = &quot;topleft&quot;) </code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /> Looks like i still have a skew on the lower side of the distribution.</p>
+<pre class="r"><code># PCA 
+
+pca_genes &lt;- prcomp(t(cpm.voom$E), scale = T)
+scores &lt;- pca_genes$x
+
+
+eigsGene &lt;- pca_genes$sdev^2
+proportionG = eigsGene/sum(eigsGene)
+
+plot(proportionG)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-31-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Clustering (original code from Julien Roux)
+cors &lt;- cor(cpm.voom$E, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+
+
+heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Species))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /> This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples. 4973 and 18498 are the samples that looked funny on the original 3’ data. This may be a sample swap at the RNA stage. These samples were in the same extraction batch. It could have happened then. I will look into this more.</p>
+<p>One thing I can do is look at the correlation between the PCs and other factors in the data.</p>
+<pre class="r"><code># PCA 
+
+pca_genes &lt;- prcomp(t(cpm.voom$E), scale = F)
+scores &lt;- pca_genes$x
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Collection)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$Extraction=as.factor(metaData$Extraction)
+
+for (n in 1:2){
+  col.v &lt;- pal[as.integer(metaData$Extraction)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /> It does not look like batch (who collected or extraction date batch)</p>
+<pre class="r"><code>cols = brewer.pal(9, &quot;Blues&quot;)
+palC = colorRampPalette(cols)
+
+
+metaData$UndilutedAverageorder = findInterval(metaData$UndilutedAverage, sort(metaData$UndilutedAverage))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$UndilutedAverageorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$BioAConcorder = findInterval(metaData$BioAConc, sort(metaData$BioAConc))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$BioAConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData$RinConcorder = findInterval(metaData$Rin, sort(metaData$Rin))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$RinConcorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The samples do not cluster by collection concentration, RNA rin score or RNA concentration.</p>
+<pre class="r"><code>metaData$AssignedOrthoorder = findInterval(metaData$AssignedOrtho, sort(metaData$AssignedOrtho))
+for (n in 1:2){
+  col.v &lt;- palC(nrow(metaData))[metaData$AssignedOrthoorder]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /> They also do not cluster by number of reads mapping to ortho exons.</p>
+<p>I should look at the correlation between PCs and these factors.</p>
+<p>Try to run the pca the opposite way:</p>
+<pre class="r"><code>pca_line=prcomp(cpm.voom$E, center=T,scale=T)
+
+pca_line_df=as.data.frame(pca_line$rotation) %&gt;% rownames_to_column(var=&quot;Line&quot;) %&gt;% select(1:11)
+
+
+eigs &lt;- pca_line$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>metaData_order=metaData %&gt;% arrange(Line)
+PCA_order=pca_line_df %&gt;% arrange(Line)
+Pc1Spec &lt;- summary(lm(PCA_order$PC1 ~ metaData_order$Species))$adj.r.squared
+Pc2Spec &lt;- summary(lm(PCA_order$PC2 ~ metaData_order$Species))$adj.r.squared
+Pc3Spec &lt;- summary(lm(PCA_order$PC3 ~ metaData_order$Species))$adj.r.squared
+Pc1Spec</code></pre>
+<pre><code>[1] -0.1137969</code></pre>
+<pre class="r"><code>Pc2Spec</code></pre>
+<pre><code>[1] 0.9783785</code></pre>
+<pre class="r"><code>Pc3Spec</code></pre>
+<pre><code>[1] -0.1240532</code></pre>
+<p>Expand this to full heatmap.</p>
+<p>plotpca</p>
+<pre class="r"><code>col.v &lt;- pal[as.integer(metaData$Species)]
+plot_scores(pca_line, scores, n, n+1,cols = col.v )</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Question: what is the difference between these PCAs???</p>
+</div>
+</div>
+<div id="test-for-de" class="section level2">
+<h2>Test for DE</h2>
+<pre class="r"><code>fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
+head(coef(fit.cpm.voom))</code></pre>
+<pre><code>                   Chimp    Human
+ENSG00000186891 4.795816 5.095375
+ENSG00000078808 6.947449 6.828201
+ENSG00000176022 4.693342 5.230150
+ENSG00000160087 5.073666 5.402331
+ENSG00000131584 5.103075 5.410320
+ENSG00000169972 3.468275 3.544200</code></pre>
+<pre class="r"><code>contr &lt;- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
+contr</code></pre>
+<pre><code>       Contrasts
+Levels  Chimp - Human
+  Chimp             1
+  Human            -1</code></pre>
+<pre class="r"><code>tmp &lt;- contrasts.fit(fit.cpm.voom, contr)
+tmp &lt;- eBayes(tmp)
+top.table &lt;- topTable(tmp, sort.by = &quot;P&quot;, n = Inf)
+head(top.table, 20)</code></pre>
+<pre><code>                    logFC  AveExpr         t      P.Value    adj.P.Val
+ENSG00000105372  4.885120 8.015919  49.50888 1.051297e-13 4.138512e-10
+ENSG00000204463 -6.291373 5.272106 -49.50052 1.053142e-13 4.138512e-10
+ENSG00000205531 -5.980720 5.127592 -47.39996 1.651394e-13 4.138512e-10
+ENSG00000145741  6.272278 5.704197  47.26164 1.702216e-13 4.138512e-10
+ENSG00000133112  6.037437 8.611334  45.96615 2.270894e-13 4.416889e-10
+ENSG00000142937  5.708662 8.279388  44.22833 3.386317e-13 5.488655e-10
+ENSG00000142541  6.366791 6.767260  39.58302 1.069006e-12 1.485155e-09
+ENSG00000100316  6.010986 8.347096  37.36455 1.941895e-12 2.360616e-09
+ENSG00000147604 -6.194041 5.570670 -34.97357 3.847768e-12 4.157728e-09
+ENSG00000071082  5.845714 6.590811  31.97632 9.707041e-12 9.440097e-09
+ENSG00000183020 -4.817991 4.189720 -30.95079 1.358744e-11 1.201253e-08
+ENSG00000186298  3.182017 6.870342  30.14030 1.786324e-11 1.447667e-08
+ENSG00000198242  4.240871 5.024421  25.20195 1.125488e-10 8.042832e-08
+ENSG00000165672  2.443572 5.535737  25.13245 1.157837e-10 8.042832e-08
+ENSG00000153395 -4.940243 5.261343 -24.69814 1.384552e-10 8.829558e-08
+ENSG00000116478  3.404755 5.871950  24.58273 1.452678e-10 8.829558e-08
+ENSG00000089009  2.275400 7.530109  24.11044 1.772287e-10 1.013852e-07
+ENSG00000171863  3.179473 6.726062  22.92492 2.969928e-10 1.554700e-07
+ENSG00000105640 -2.873676 8.228281 -22.87459 3.037460e-10 1.554700e-07
+ENSG00000198034  6.351635 7.259074  22.55804 3.502709e-10 1.689663e-07
+                       B
+ENSG00000105372 21.10198
+ENSG00000204463 19.68397
+ENSG00000205531 19.45798
+ENSG00000145741 19.60711
+ENSG00000133112 20.53890
+ENSG00000142937 20.21086
+ENSG00000142541 18.80122
+ENSG00000100316 18.80876
+ENSG00000147604 17.57624
+ENSG00000071082 17.14047
+ENSG00000183020 16.48622
+ENSG00000186298 16.88711
+ENSG00000198242 14.96025
+ENSG00000165672 15.09170
+ENSG00000153395 14.76334
+ENSG00000116478 14.86424
+ENSG00000089009 14.74940
+ENSG00000171863 14.23110
+ENSG00000105640 14.21959
+ENSG00000198034 14.02234</code></pre>
+<pre class="r"><code>length(which(top.table$adj.P.Val &lt; 0.05))</code></pre>
+<pre><code>[1] 3200</code></pre>
+<p>Make a table to plot:</p>
+<p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
+<pre class="r"><code>top.table=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
+  
+  
+
+ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
+<p><img src="figure/diffExpressionRemove2.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(decideTests(tmp))</code></pre>
+<pre><code>       Chimp - Human
+Down            1584
+NotSig          6525
+Up              1616</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] reshape2_1.4.3      RColorBrewer_1.1-2  VennDiagram_1.6.20 
+ [4] futile.logger_1.4.3 R.utils_2.7.0       R.oo_1.22.0        
+ [7] R.methodsS3_1.7.1   edgeR_3.24.0        limma_3.38.2       
+[10] gplots_3.0.1        scales_1.0.0        forcats_0.3.0      
+[13] stringr_1.3.1       dplyr_0.8.0.1       purrr_0.3.2        
+[16] readr_1.3.1         tidyr_0.8.3         tibble_2.1.1       
+[19] ggplot2_3.1.1       tidyverse_1.2.1     workflowr_1.5.0    
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.2           locfit_1.5-9.1       lubridate_1.7.4     
+ [4] lattice_0.20-38      gtools_3.8.1         assertthat_0.2.0    
+ [7] rprojroot_1.3-2      digest_0.6.18        R6_2.3.0            
+[10] cellranger_1.1.0     plyr_1.8.4           futile.options_1.0.1
+[13] backports_1.1.2      evaluate_0.12        httr_1.3.1          
+[16] pillar_1.3.1         rlang_0.4.0          lazyeval_0.2.1      
+[19] readxl_1.1.0         rstudioapi_0.10      gdata_2.18.0        
+[22] whisker_0.3-2        rmarkdown_1.10       labeling_0.3        
+[25] munsell_0.5.0        broom_0.5.1          compiler_3.5.1      
+[28] httpuv_1.4.5         modelr_0.1.2         pkgconfig_2.0.2     
+[31] htmltools_0.3.6      tidyselect_0.2.5     crayon_1.3.4        
+[34] withr_2.1.2          later_0.7.5          bitops_1.0-6        
+[37] nlme_3.1-137         jsonlite_1.6         gtable_0.2.0        
+[40] formatR_1.5          git2r_0.26.1         magrittr_1.5        
+[43] KernSmooth_2.23-15   cli_1.1.0            stringi_1.2.4       
+[46] fs_1.3.1             promises_1.0.1       xml2_1.2.0          
+[49] generics_0.0.2       lambda.r_1.2.3       tools_3.5.1         
+[52] glue_1.3.0           hms_0.4.2            yaml_2.2.0          
+[55] colorspace_1.3-2     caTools_1.17.1.1     rvest_0.3.2         
+[58] knitr_1.20           haven_1.1.2         </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
