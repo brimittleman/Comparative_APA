@@ -121,7 +121,7 @@ primaryDF= primaryDF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup
 
 
 ```{r}
-ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results", y="Clusters")
 
 ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
 ```
@@ -164,7 +164,7 @@ re_DF= re_DF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% m
 
 
 ```{r}
-ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results")
+ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results", y="Clusters")
 ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Reverse Liftover Results")
 ```
 
