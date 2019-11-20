@@ -16,3 +16,11 @@ mkdir ../Human/data/RNAseq/bam_hg19
 sbatch mapRNAseqhg19.sh  
 ```
 
+18504
+hg19: multi map= 15.24 (83% map) 
+hg38:  multi map= 21.39% (77.52% map)
+
+
+18510-
+hg19: multimap = 14.46% (83.97% map)
+hg38: multimap= 21.39% (77.52% map)
