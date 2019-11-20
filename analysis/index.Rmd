@@ -57,4 +57,7 @@ Quantify Phenotypes with RNA:
 
 * [Differential Expression](diffExpression.html)
 
+* [Differential Expression without bad samples](diffExpressionRemove2.Rmd)  
+
+
 
