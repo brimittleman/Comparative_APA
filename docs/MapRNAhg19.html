@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7c206f8564758f532df70a03de7ba08ae322a15ctargetblank7c206f8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7c206f8564758f532df70a03de7ba08ae322a15c" target="_blank">7c206f8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec5953c365ec674029ef4ed4ce9c3d0cb6e55ef95targetblankc5953c3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c5953c365ec674029ef4ed4ce9c3d0cb6e55ef95" target="_blank">c5953c3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7c206f8564758f532df70a03de7ba08ae322a15ctargetblank7c206f8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec5953c365ec674029ef4ed4ce9c3d0cb6e55ef95targetblankc5953c3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -819,6 +819,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c5953c365ec674029ef4ed4ce9c3d0cb6e55ef95/analysis/MapRNAhg19.Rmd" target="_blank">c5953c3</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+add results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/40db68c19e220862b8f27ddadb157ad7f9f17bd8/docs/MapRNAhg19.html" target="_blank">40db68c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7c206f8564758f532df70a03de7ba08ae322a15c/analysis/MapRNAhg19.Rmd" target="_blank">7c206f8</a>
 </td>
 <td>
@@ -841,6 +875,8 @@ add extra QC anaylsis
 <p>I have high levels of multi mapping in these samples. I want to test if this is the case in hg19 as well. I can try with 1 or 2 samples.</p>
 <pre class="bash"><code>mkdir ../Human/data/RNAseq/bam_hg19
 sbatch mapRNAseqhg19.sh  </code></pre>
+<p>18504 hg19: multi map= 15.24 (83% map) hg38: multi map= 21.39% (77.52% map)</p>
+<p>18510- hg19: multimap = 14.46% (83.97% map) hg38: multimap= 21.39% (77.52% map)</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
