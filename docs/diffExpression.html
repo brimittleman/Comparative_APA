@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-19
+<strong>Last updated:</strong> 2019-11-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8dc9ea04e9dff2e6f3a8b21635fc376bda525643targetblank8dc9ea0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8dc9ea04e9dff2e6f3a8b21635fc376bda525643" target="_blank">8dc9ea0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb0484cd40c289dd68fa26af2233ceedca2bb366targetblankdb0484ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/db0484cd40c289dd68fa26af2233ceedca2bb366" target="_blank">db0484c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8dc9ea04e9dff2e6f3a8b21635fc376bda525643targetblank8dc9ea0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb0484cd40c289dd68fa26af2233ceedca2bb366targetblankdb0484ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,6 +452,7 @@ Ignored files:
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
+    Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
@@ -467,9 +468,11 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
+    Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._SortIndexBadSamples.sh
     Untracked:  code/._bed215upbed.py
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
@@ -492,6 +495,7 @@ Untracked files:
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._mergedBam2BW.sh
@@ -529,6 +533,7 @@ Untracked files:
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._verifyBam4973inHuman.sh
     Untracked:  code/._wrap_chimpverifybam.sh
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/.snakemake/
@@ -552,12 +557,18 @@ Untracked files:
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
     Untracked:  code/Log.out
+    Untracked:  code/MapBadSamples.err
+    Untracked:  code/MapBadSamples.out
+    Untracked:  code/MapBadSamples.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
+    Untracked:  code/SortIndexBadSamples.err
+    Untracked:  code/SortIndexBadSamples.out
+    Untracked:  code/SortIndexBadSamples.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
@@ -620,6 +631,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
@@ -709,8 +721,11 @@ Untracked files:
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
     Untracked:  code/verifybam4973.out
+    Untracked:  code/verifybam4973HumanMap.err
+    Untracked:  code/verifybam4973HumanMap.out
     Untracked:  code/wrap_Chimpverifybam.err
     Untracked:  code/wrap_Chimpverifybam.out
     Untracked:  code/wrap_chimpverifybam.sh
@@ -721,6 +736,9 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
     Untracked:  data/._RNASEQ_metadata.xlsx
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
+    Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
@@ -739,6 +757,9 @@ Untracked files:
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata.xlsx
+    Untracked:  data/RNASEQ_metadata_2Removed.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -755,8 +776,11 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
+    Modified:   analysis/InvestigateBadSamples.Rmd
+    Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/diffSplicing.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -796,6 +820,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/db0484cd40c289dd68fa26af2233ceedca2bb366/analysis/diffExpression.Rmd" target="_blank">db0484c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+<td>
+add PC corr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/712106e4da840ad1830200ef7681d8ea47fcf9e3/docs/diffExpression.html" target="_blank">712106e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1028,12 +1086,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1310,8 +1368,8 @@ ENSG00000237330       0       1       0       0       1       1      0
 ENSG00000223823       0       0       0       0       0       0      0
                 NAPT91 NA3622 NA3659 NA4973 NA18358
 ENSG00000188976      1      1      1      0       0
-ENSG00000188157      7      7      9     34       6
-ENSG00000273443      2      3     78     59      18
+ENSG00000188157      7      7      8     27       6
+ENSG00000273443      2      3     78     59      16
 ENSG00000217801      8     19    139     68      31
 ENSG00000237330      0      0      2      1       0
 ENSG00000223823      0      0      0      0       0</code></pre>
@@ -1387,7 +1445,7 @@ brimittleman
 <pre class="r"><code>select &lt;- counts_genes
 summary(apply(select, 1, var) == 0) </code></pre>
 <pre><code>   Mode   FALSE    TRUE 
-logical   32975   11150 </code></pre>
+logical   32864   11261 </code></pre>
 <pre class="r"><code># Perform PCA
 
 pca_genes &lt;- prcomp(t(counts_genes), scale = F)
@@ -1537,8 +1595,8 @@ ENSG00000237330     -Inf 0.000000     -Inf     -Inf 0.000000 0.000000
 ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf
                   NAPT30   NAPT91   NA3622   NA3659   NA4973  NA18358
 ENSG00000188976 1.000000 0.000000 0.000000 0.000000     -Inf     -Inf
-ENSG00000188157 2.321928 2.807355 2.807355 3.169925 5.087463 2.584963
-ENSG00000273443 4.392317 1.000000 1.584963 6.285402 5.882643 4.169925
+ENSG00000188157 2.321928 2.807355 2.807355 3.000000 4.754888 2.584963
+ENSG00000273443 4.392317 1.000000 1.584963 6.285402 5.882643 4.000000
 ENSG00000217801 5.087463 3.000000 4.247928 7.118941 6.087463 4.954196
 ENSG00000237330     -Inf     -Inf     -Inf 1.000000 0.000000     -Inf
 ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf</code></pre>
@@ -1626,26 +1684,26 @@ brimittleman
 <pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
 head(cpm)</code></pre>
 <pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
-ENSG00000188976  0.9947425  1.625971  1.213485  1.9873949  1.075299
-ENSG00000188157  3.0661207  1.990970  2.931252 -0.3353280  2.923740
-ENSG00000273443  1.6951397  1.417837  1.980752  0.6524534  1.547681
-ENSG00000217801  2.2614645  1.174529  3.552519  1.8381797  1.880283
-ENSG00000237330 -3.0036033 -2.442815 -3.003603 -3.0036033 -2.450115
-ENSG00000223823 -3.0036033 -3.003603 -3.003603 -3.0036033 -3.003603
+ENSG00000188976  0.9877925  1.619259  1.208519  1.9826994  1.067390
+ENSG00000188157  3.0590448  1.984237  2.926267 -0.3399951  2.915674
+ENSG00000273443  1.6881262  1.411139  1.975775  0.6477686  1.539712
+ENSG00000217801  2.2544180  1.167851  3.547531  1.8334849  1.872281
+ENSG00000237330 -3.0080795 -2.448042 -3.008080 -3.0080795 -2.455753
+ENSG00000223823 -3.0080795 -3.008080 -3.008080 -3.0080795 -3.008080
                    NA18502     NAPT30     NAPT91     NA3622     NA3659
-ENSG00000188976  1.8489000 -2.0183629 -2.3993239 -2.4294571 -2.4761762
-ENSG00000188157  1.3004469 -1.2173800 -0.7890014 -0.8590437 -0.6897168
-ENSG00000273443 -0.3506575  0.4928914 -1.9747241 -1.7012034  2.1431252
-ENSG00000217801  0.3378719  1.1383145 -0.6357420  0.3591647  2.9586805
-ENSG00000237330 -2.4371643 -3.0036033 -3.0036033 -3.0036033 -2.0907904
-ENSG00000223823 -3.0036033 -3.0036033 -3.0036033 -3.0036033 -3.0036033
-                   NA4973    NA18358
-ENSG00000188976 -3.003603 -3.0036033
-ENSG00000188157  1.082327 -0.8045812
-ENSG00000273443  1.841053  0.5540567
-ENSG00000217801  2.039212  1.2860108
-ENSG00000237330 -2.447731 -3.0036033
-ENSG00000223823 -3.003603 -3.0036033</code></pre>
+ENSG00000188976  1.8416633 -2.0220152 -2.4030724 -2.4332254 -2.4799651
+ENSG00000188157  1.2932560 -1.2206741 -0.7918098 -0.8618518 -0.8265488
+ENSG00000273443 -0.3575383  0.4899323 -1.9781161 -1.7043978  2.1408291
+ENSG00000217801  0.3308185  1.1354086 -0.6385042  0.3566344  2.9564118
+ENSG00000237330 -2.4425685 -3.0080795 -3.0080795 -3.0080795 -2.0942143
+ENSG00000223823 -3.0080795 -3.0080795 -3.0080795 -3.0080795 -3.0080795
+                    NA4973    NA18358
+ENSG00000188976 -3.0080795 -3.0080795
+ENSG00000188157  0.7692807 -0.8079148
+ENSG00000273443  1.8388114  0.3962125
+ENSG00000217801  2.0369808  1.2829205
+ENSG00000237330 -2.4514663 -3.0080795
+ENSG00000223823 -3.0080795 -3.0080795</code></pre>
 <pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1696,26 +1754,26 @@ dge_original &lt;- calcNormFactors(dge_original)
 tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)</code></pre>
 <pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
-ENSG00000188976  0.9947425  1.625971  1.213485  1.9873949  1.075299
-ENSG00000188157  3.0661207  1.990970  2.931252 -0.3353280  2.923740
-ENSG00000273443  1.6951397  1.417837  1.980752  0.6524534  1.547681
-ENSG00000217801  2.2614645  1.174529  3.552519  1.8381797  1.880283
-ENSG00000237330 -3.0036033 -2.442815 -3.003603 -3.0036033 -2.450115
-ENSG00000223823 -3.0036033 -3.003603 -3.003603 -3.0036033 -3.003603
+ENSG00000188976  0.9877925  1.619259  1.208519  1.9826994  1.067390
+ENSG00000188157  3.0590448  1.984237  2.926267 -0.3399951  2.915674
+ENSG00000273443  1.6881262  1.411139  1.975775  0.6477686  1.539712
+ENSG00000217801  2.2544180  1.167851  3.547531  1.8334849  1.872281
+ENSG00000237330 -3.0080795 -2.448042 -3.008080 -3.0080795 -2.455753
+ENSG00000223823 -3.0080795 -3.008080 -3.008080 -3.0080795 -3.008080
                    NA18502     NAPT30     NAPT91     NA3622     NA3659
-ENSG00000188976  1.8489000 -2.0183629 -2.3993239 -2.4294571 -2.4761762
-ENSG00000188157  1.3004469 -1.2173800 -0.7890014 -0.8590437 -0.6897168
-ENSG00000273443 -0.3506575  0.4928914 -1.9747241 -1.7012034  2.1431252
-ENSG00000217801  0.3378719  1.1383145 -0.6357420  0.3591647  2.9586805
-ENSG00000237330 -2.4371643 -3.0036033 -3.0036033 -3.0036033 -2.0907904
-ENSG00000223823 -3.0036033 -3.0036033 -3.0036033 -3.0036033 -3.0036033
-                   NA4973    NA18358
-ENSG00000188976 -3.003603 -3.0036033
-ENSG00000188157  1.082327 -0.8045812
-ENSG00000273443  1.841053  0.5540567
-ENSG00000217801  2.039212  1.2860108
-ENSG00000237330 -2.447731 -3.0036033
-ENSG00000223823 -3.003603 -3.0036033</code></pre>
+ENSG00000188976  1.8416633 -2.0220152 -2.4030724 -2.4332254 -2.4799651
+ENSG00000188157  1.2932560 -1.2206741 -0.7918098 -0.8618518 -0.8265488
+ENSG00000273443 -0.3575383  0.4899323 -1.9781161 -1.7043978  2.1408291
+ENSG00000217801  0.3308185  1.1354086 -0.6385042  0.3566344  2.9564118
+ENSG00000237330 -2.4425685 -3.0080795 -3.0080795 -3.0080795 -2.0942143
+ENSG00000223823 -3.0080795 -3.0080795 -3.0080795 -3.0080795 -3.0080795
+                    NA4973    NA18358
+ENSG00000188976 -3.0080795 -3.0080795
+ENSG00000188157  0.7692807 -0.8079148
+ENSG00000273443  1.8388114  0.3962125
+ENSG00000217801  2.0369808  1.2829205
+ENSG00000237330 -2.4514663 -3.0080795
+ENSG00000223823 -3.0080795 -3.0080795</code></pre>
 <pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
 scores &lt;- pca_genes$x
 
@@ -1973,19 +2031,19 @@ dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
 cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)</code></pre>
 <pre><code>                 NA18504    NA18510  NA18523  NA18498  NA18499   NA18502
-ENSG00000217801 2.243163  1.0859263 3.672233 1.802011 1.859359 0.2120175
-ENSG00000186891 5.022046  5.0400892 4.902343 6.682104 5.710517 3.3639006
-ENSG00000186827 3.102236  4.6574228 1.712312 1.802011 3.968056 1.9042287
-ENSG00000078808 6.868747  7.0337697 7.475369 7.036034 6.625443 6.7359729
-ENSG00000176022 4.762642  4.6839390 4.801525 5.267970 4.613121 4.7028975
-ENSG00000184163 1.427504 -0.1617807 1.712312 1.404540 1.062680 0.3544851
-                   NAPT30     NAPT91    NA3622   NA3659   NA4973  NA18358
-ENSG00000217801 1.1675009 -0.7849597 0.2795297 3.003758 2.101032 1.307542
-ENSG00000186891 4.6403916  3.1655019 4.7307807 6.452972 6.478017 6.488794
-ENSG00000186827 0.2591792  2.0129015 3.1544019 0.651737 5.254278 2.181924
-ENSG00000078808 6.6946199  6.7706146 6.7797936 6.789003 7.211007 7.067711
-ENSG00000176022 4.8386000  5.5562504 4.8490853 5.281245 4.790317 5.568370
-ENSG00000184163 2.8929268  2.2016666 1.4133401 1.771404 1.743030 3.229013</code></pre>
+ENSG00000217801 2.248146  1.0811901 3.657635 1.792969 1.843394 0.2076129
+ENSG00000186891 5.023562  5.0327842 4.883988 6.663573 5.691238 3.3594991
+ENSG00000186827 3.107235  4.6526859 1.697751 1.815945 3.957501 1.8998264
+ENSG00000078808 6.873762  7.0290328 7.460760 7.026971 6.609430 6.7348224
+ENSG00000176022 4.767653  4.6792021 4.786920 5.258909 4.597113 4.6984962
+ENSG00000184163 1.432462 -0.1665159 1.627720 1.395504 1.046753 0.3500809
+                  NAPT30     NAPT91   NA3622   NA3659   NA4973  NA18358
+ENSG00000217801 1.164822 -0.7903107 0.279009 3.001252 2.105148 1.303916
+ENSG00000186891 4.637726  3.1601319 4.730313 6.450470 6.482165 6.485174
+ENSG00000186827 0.256488  2.0075331 3.153929 0.649213 5.258424 2.178300
+ENSG00000078808 6.691955  6.7661750 6.779328 6.786500 7.215767 7.064091
+ENSG00000176022 4.835934  5.5508794 4.848618 5.278743 4.794461 5.564750
+ENSG00000184163 2.902942  2.1962979 1.412850 1.768892 1.691914 3.225391</code></pre>
 <pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2028,8 +2086,17 @@ brimittleman
 <p>Voom transformation:</p>
 <pre class="r"><code>Species &lt;- factor(metaData$Species)
 design &lt;- model.matrix(~ 0 + Species)
-colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
+head(design)</code></pre>
+<pre><code>  SpeciesChimp SpeciesHuman
+1            1            0
+2            1            0
+3            1            0
+4            1            0
+5            1            0
+6            1            0</code></pre>
+<pre class="r"><code>colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
 <pre><code>c(&quot;SpeciesChimp&quot;, &quot;SpeciesHuman&quot;)</code></pre>
+<p>Voom creates a random effect.</p>
 <pre class="r"><code># Voom with individual as a random variable
 
 cpm.voom&lt;- voom(counts_filtered, design, normalize.method=&quot;quantile&quot;, plot=T)</code></pre>
@@ -2185,7 +2252,7 @@ brimittleman
 <p>Looks like i still have a skew on the lower side of the distribution.</p>
 <pre class="r"><code># PCA 
 
-pca_genes &lt;- prcomp(t(cpm.voom$E), scale = F)
+pca_genes &lt;- prcomp(t(cpm.voom$E), scale = T)
 scores &lt;- pca_genes$x
 
 
@@ -2887,17 +2954,42 @@ brimittleman
 </div>
 </div>
 <p>They also do not cluster by number of reads mapping to ortho exons.</p>
-<p>I should look at the correlation between PCs and these factors.</p>
-<p>Try to run the pca the opposite way:</p>
-<pre class="r"><code>pca_line=prcomp(cpm.voom$E, center=T,scale=T)
+<p>PCA heatmap: Code from Michelle Ward:</p>
+<pre class="r"><code>x.pca &lt;- pca_genes
 
-pca_line_df=as.data.frame(pca_line$rotation) %&gt;% rownames_to_column(var=&quot;Line&quot;) %&gt;% select(1:11)
+tech_factors &lt;- metaData
+tech_factors_sum &lt;- tech_factors[,c(2:14)] %&gt;% select(-CollectionDate)
 
+p_comps &lt;- 1:6
+pc_cov_cor &lt;- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                     dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+for (pc in p_comps) {
+  for (covariate in 1:ncol(tech_factors_sum)) {
+    lm_result &lt;- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate])
+    r2 &lt;- summary(lm_result)$r.squared
+    pc_cov_cor[covariate, pc] &lt;- r2
+  }
+}
 
-eigs &lt;- pca_line$sdev^2
-proportion = eigs/sum(eigs)
+pc_cov_pval &lt;- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                      dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
 
-plot(proportion)</code></pre>
+for (pc in p_comps) {
+  for (covariate_2 in 1:ncol(tech_factors_sum)) {
+    lm_result_2 &lt;- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate_2])
+    pval &lt;- anova(lm_result_2)$&#39;Pr(&gt;F)&#39;[1]
+    pc_cov_pval[covariate_2, pc] &lt;- pval
+  }
+}
+
+PCs &lt;- c(&quot;PC1&quot;, &quot;PC2&quot;, &quot;PC3&quot;, &quot;PC4&quot;, &quot;PC5&quot;, &quot;PC6&quot;)
+Tech_fac &lt;- colnames(tech_factors_sum)
+#Tech_fac &lt;- c(&quot;Species&quot;,   &quot;Individual&quot;, &quot;O2.&quot;,  &quot;Condition&quot; , &quot;Sex&quot;, &quot;RIN&quot; , &quot;CO2&quot;, &quot;Purity_high&quot;, &quot;Purity_med&quot; ,
+              #&quot;Expt_Batch&quot;, &quot;RNA_Batch&quot;, &quot;Library_Batch&quot;, &quot;Seq_pool&quot;, &quot;Episomal_integration&quot; )
+
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, &quot;Greens&quot;), trace=&quot;none&quot;,
+          Rowv=FALSE, Colv=FALSE, key=T, main=&quot;Cor. PCs &amp; tech factors&quot;, dendrogram=&quot;none&quot;,
+          key.title=NA, cexRow=0.9, cexCol=0.9)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
@@ -2936,60 +3028,11 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>metaData_order=metaData %&gt;% arrange(Line)
-PCA_order=pca_line_df %&gt;% arrange(Line)
-Pc1Spec &lt;- summary(lm(PCA_order$PC1 ~ metaData_order$Species))$adj.r.squared
-Pc2Spec &lt;- summary(lm(PCA_order$PC2 ~ metaData_order$Species))$adj.r.squared
-Pc3Spec &lt;- summary(lm(PCA_order$PC3 ~ metaData_order$Species))$adj.r.squared
-Pc1Spec</code></pre>
-<pre><code>[1] -0.09882106</code></pre>
-<pre class="r"><code>Pc2Spec</code></pre>
-<pre><code>[1] 0.6285914</code></pre>
-<pre class="r"><code>Pc3Spec</code></pre>
-<pre><code>[1] -0.0714836</code></pre>
-<p>Expand this to full heatmap.</p>
-<p>plotpca</p>
-<pre class="r"><code>col.v &lt;- pal[as.integer(metaData$Species)]
-plot_scores(pca_line, scores, n, n+1,cols = col.v )</code></pre>
-<p><img src="figure/diffExpression.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-42-1">
-Past versions of unnamed-chunk-42-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-42-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/586c9ec7b8c1284a07aa1aa07ddc60afaabb5417/docs/figure/diffExpression.Rmd/unnamed-chunk-42-1.png" target="_blank">586c9ec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Question: what is the difference between these PCAs???</p>
+<pre class="r"><code>log10_pc_cov_pval &lt;- -log(pc_cov_pval)
+heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, &quot;Greens&quot;), trace=&quot;none&quot;,
+          Rowv=FALSE, Colv=FALSE, key=T, main=&quot;-log10 pval of cor. PCs &amp; tech factors&quot;, dendrogram=&quot;none&quot;,
+          key.title=NA, cexRow=0.9, cexCol=0.9)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="test-for-de" class="section level2">
@@ -2997,12 +3040,12 @@ brimittleman
 <pre class="r"><code>fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))</code></pre>
 <pre><code>                    Chimp    Human
-ENSG00000217801 1.8279432 1.036511
-ENSG00000186891 5.1376261 5.323165
-ENSG00000186827 2.9202688 2.087920
-ENSG00000078808 6.9537242 6.888134
-ENSG00000176022 4.8037366 5.135675
-ENSG00000184163 0.8890838 2.137235</code></pre>
+ENSG00000217801 1.8176205 1.053311
+ENSG00000186891 5.1291883 5.317657
+ENSG00000186827 2.9252639 2.080906
+ENSG00000078808 6.9485052 6.883254
+ENSG00000176022 4.7991489 5.131756
+ENSG00000184163 0.8725114 2.121651</code></pre>
 <pre class="r"><code>contr &lt;- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
 contr</code></pre>
 <pre><code>       Contrasts
@@ -3014,49 +3057,49 @@ tmp &lt;- eBayes(tmp)
 top.table &lt;- topTable(tmp, sort.by = &quot;P&quot;, n = Inf)
 head(top.table, 20)</code></pre>
 <pre><code>                    logFC  AveExpr         t      P.Value    adj.P.Val
-ENSG00000205531 -5.819357 5.139544 -44.25425 6.089973e-15 6.346969e-11
-ENSG00000133112  6.018504 8.506818  35.64582 8.557712e-14 4.459423e-10
-ENSG00000186298  3.191561 6.859973  33.90987 1.572843e-13 5.464058e-10
-ENSG00000105372  4.883933 7.896658  31.39032 4.026508e-13 1.049107e-09
-ENSG00000142937  5.614701 8.118075  28.45776 1.325801e-12 2.512813e-09
-ENSG00000145741  6.027666 5.473322  28.25392 1.446640e-12 2.512813e-09
-ENSG00000071082  5.675970 6.562725  26.36491 3.346564e-12 4.592447e-09
-ENSG00000147604 -5.542900 5.366460 -26.25190 3.525194e-12 4.592447e-09
-ENSG00000100316  5.828531 8.135325  24.86943 6.781717e-12 7.853228e-09
-ENSG00000105640 -3.044768 7.979343 -24.60233 7.726670e-12 8.052735e-09
-ENSG00000241923 -4.510084 4.471011 -23.63435 1.254257e-11 1.188351e-08
-ENSG00000116478  3.311599 5.893512  23.45951 1.371727e-11 1.191345e-08
-ENSG00000154978 -3.442110 4.679744 -21.82502 3.271982e-11 2.623123e-08
-ENSG00000131475  3.190471 3.629705  20.73502 6.051777e-11 4.505115e-08
-ENSG00000136021  3.603012 4.547463  19.95803 9.561314e-11 6.354146e-08
-ENSG00000110619 -5.057447 5.041488 -19.92461 9.754974e-11 6.354146e-08
-ENSG00000169926 -5.924003 5.807146 -19.55633 1.219259e-10 7.474777e-08
-ENSG00000167716 -4.593573 3.460662 -18.86442 1.874262e-10 1.085198e-07
-ENSG00000142541  5.961327 6.514903  18.60668 2.208198e-10 1.211255e-07
-ENSG00000198034  6.509858 6.822576  18.34063 2.621306e-10 1.318193e-07
+ENSG00000205531 -5.906048 5.110707 -42.42147 1.003413e-14 6.098694e-11
+ENSG00000204463 -6.197073 5.328838 -41.83367 1.190221e-14 6.098694e-11
+ENSG00000133112  6.023976 8.508367  37.04918 5.253426e-14 1.794570e-10
+ENSG00000186298  3.188104 6.854108  33.66982 1.687825e-13 4.324209e-10
+ENSG00000105372  4.894937 7.897387  31.55050 3.726742e-13 7.638331e-10
+ENSG00000142937  5.663078 8.145949  30.69857 5.200238e-13 8.882006e-10
+ENSG00000145741  6.238790 5.598248  28.94136 1.064803e-12 1.558871e-09
+ENSG00000147604 -5.969523 5.605022 -28.56893 1.246222e-12 1.596410e-09
+ENSG00000071082  5.667843 6.554807  26.24239 3.491956e-12 3.874800e-09
+ENSG00000100316  5.948079 8.194419  26.07064 3.781030e-12 3.874800e-09
+ENSG00000072864 -6.601953 4.740080 -24.35154 8.629478e-12 8.039536e-09
+ENSG00000142541  6.210689 6.651181  23.67698 1.211455e-11 1.034583e-08
+ENSG00000116478  3.311414 5.888231  23.30107 1.469479e-11 1.158402e-08
+ENSG00000131475  3.194285 3.623143  20.35316 7.473461e-11 5.341737e-08
+ENSG00000105640 -2.988556 8.173442 -20.27660 7.818702e-11 5.341737e-08
+ENSG00000136021  3.428259 4.629566  20.00332 9.198528e-11 5.891657e-08
+ENSG00000169926 -5.926609 5.806506 -19.38256 1.341196e-10 8.085047e-08
+ENSG00000198034  6.187416 7.128275  19.23026 1.473766e-10 8.390641e-08
+ENSG00000154978 -2.562136 5.114129 -19.00708 1.694215e-10 9.016813e-08
+ENSG00000171863  3.241360 6.619888  18.94677 1.759721e-10 9.016813e-08
                        B
-ENSG00000205531 21.90975
-ENSG00000133112 21.64946
-ENSG00000186298 21.15993
-ENSG00000105372 20.34409
-ENSG00000142937 19.26260
-ENSG00000145741 18.45658
-ENSG00000071082 18.14390
-ENSG00000147604 17.81716
-ENSG00000100316 17.75523
-ENSG00000105640 17.68417
-ENSG00000241923 16.68684
-ENSG00000116478 17.01625
-ENSG00000154978 16.01425
-ENSG00000131475 15.26285
-ENSG00000136021 15.01712
-ENSG00000110619 14.97583
-ENSG00000169926 14.81376
-ENSG00000167716 14.17244
-ENSG00000142541 14.32459
-ENSG00000198034 14.16312</code></pre>
+ENSG00000205531 21.38525
+ENSG00000204463 21.34027
+ENSG00000133112 22.07762
+ENSG00000186298 21.10822
+ENSG00000105372 20.42489
+ENSG00000142937 20.10921
+ENSG00000145741 18.59467
+ENSG00000147604 18.55697
+ENSG00000071082 18.09236
+ENSG00000100316 18.30545
+ENSG00000072864 16.62325
+ENSG00000142541 16.96488
+ENSG00000116478 16.94969
+ENSG00000131475 15.01223
+ENSG00000105640 15.42738
+ENSG00000136021 15.04792
+ENSG00000169926 14.70272
+ENSG00000198034 14.74804
+ENSG00000154978 14.60662
+ENSG00000171863 14.61913</code></pre>
 <pre class="r"><code>length(which(top.table$adj.P.Val &lt; 0.05))</code></pre>
-<pre><code>[1] 499</code></pre>
+<pre><code>[1] 449</code></pre>
 <p>Make a table to plot:</p>
 <p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
 <pre class="r"><code>top.table=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
@@ -3064,8 +3107,14 @@ ENSG00000198034 14.16312</code></pre>
   
 
 ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
-<p><img src="figure/diffExpression.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(decideTests(tmp))</code></pre>
+<pre><code>       Chimp - Human
+Down             191
+NotSig          9799
+Up               258</code></pre>
 <p>questions: * Correlation in fit to use design rather than contrast matrix. * direction of effect size * what is eBayes step?</p>
+<p>Rerun without bad samples.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
