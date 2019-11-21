@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-19
+<strong>Last updated:</strong> 2019-11-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7c206f8564758f532df70a03de7ba08ae322a15ctargetblank7c206f8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7c206f8564758f532df70a03de7ba08ae322a15c" target="_blank">7c206f8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9fbd1fe61d1a16783614fab355cc522bf11cb279targetblank9fbd1fea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9fbd1fe61d1a16783614fab355cc522bf11cb279" target="_blank">9fbd1fe</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7c206f8564758f532df70a03de7ba08ae322a15ctargetblank7c206f8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9fbd1fe61d1a16783614fab355cc522bf11cb279targetblank9fbd1fea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,12 +461,14 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/multiMap.Rmd
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._DiffSplice_removebad.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._Snakefile
@@ -482,8 +484,11 @@ Untracked files:
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
     Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftReverse_removebad.sh
     Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._clusterLiftprimary_removebad.sh
     Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
@@ -506,6 +511,7 @@ Untracked files:
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
     Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_removeBad.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
@@ -547,12 +553,19 @@ Untracked files:
     Untracked:  code/DiffSplicePlots.sh
     Untracked:  code/DiffSplicePlots_gencode.sh
     Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/DiffSplice_removebad.err
+    Untracked:  code/DiffSplice_removebad.out
+    Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersFirst_remove.err
+    Untracked:  code/LiftClustersFirst_remove.out
     Untracked:  code/LiftClustersSecond.err
     Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftClustersSecond_remove.err
+    Untracked:  code/LiftClustersSecond_remove.out
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
@@ -566,6 +579,8 @@ Untracked files:
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
+    Untracked:  code/SortIndexBadSamples.err
+    Untracked:  code/SortIndexBadSamples.out
     Untracked:  code/SortIndexBadSamples.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
@@ -577,6 +592,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAShuman.err
     Untracked:  code/bam2junc.err
     Untracked:  code/bam2junc.out
+    Untracked:  code/bam2junc_remove.err
+    Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
@@ -591,10 +608,13 @@ Untracked files:
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
     Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftReverse_removebad.sh
     Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
     Untracked:  code/converBam2Junc.sh
+    Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
@@ -656,6 +676,7 @@ Untracked files:
     Untracked:  code/primaryLift.sh
     Untracked:  code/processhg38exons.py
     Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_removeBad.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
@@ -722,6 +743,8 @@ Untracked files:
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
     Untracked:  code/verifybam4973.out
+    Untracked:  code/verifybam4973HumanMap.err
+    Untracked:  code/verifybam4973HumanMap.out
     Untracked:  code/wrap_Chimpverifybam.err
     Untracked:  code/wrap_Chimpverifybam.out
     Untracked:  code/wrap_chimpverifybam.sh
@@ -745,6 +768,11 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_cluster_significance.txt
+    Untracked:  data/DiffSplice_effect_sizes.txt
+    Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DiffSplice_removeBad_cluster_significance.txt
+    Untracked:  data/DiffSplice_removeBad_effect_sizes.txt
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
@@ -772,9 +800,10 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
+    Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffExpression.Rmd
+    Modified:   analysis/diffSplicing.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -819,6 +848,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9fbd1fe61d1a16783614fab355cc522bf11cb279/analysis/InvestigateBadSamples.Rmd" target="_blank">9fbd1fe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+<td>
+figure out sample swap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/40db68c19e220862b8f27ddadb157ad7f9f17bd8/docs/InvestigateBadSamples.html" target="_blank">40db68c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7c206f8564758f532df70a03de7ba08ae322a15c/analysis/InvestigateBadSamples.Rmd" target="_blank">7c206f8</a>
 </td>
 <td>
@@ -842,8 +905,13 @@ add extra QC anaylsis
 <pre class="bash"><code>mkdir ../data/TwoBadSampleAnalysis
 sbatch MapBadSamples.sh
 sbatch SortIndexBadSamples.sh
-sbatch verifyBam4974inHuman.sh
+sbatch verifyBam4973inHuman.sh
 </code></pre>
+<p>4973 verifies as 18498….</p>
+<p>Look at rate of mismatch per base.</p>
+<p>18498: human: 0.87% chimp: 0.14%</p>
+<p>4973: human: 0.16% chimp:0.84%</p>
+<p>This is a sample swap. FIX AND RERUN!</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree17d5d33beaa8e717b613ff408d8948415d559837targetblank17d5d33a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/17d5d33beaa8e717b613ff408d8948415d559837" target="_blank">17d5d33</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9fbd1fe61d1a16783614fab355cc522bf11cb279targetblank9fbd1fea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9fbd1fe61d1a16783614fab355cc522bf11cb279" target="_blank">9fbd1fe</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree17d5d33beaa8e717b613ff408d8948415d559837targetblank17d5d33a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9fbd1fe61d1a16783614fab355cc522bf11cb279targetblank9fbd1fea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -299,6 +299,7 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/multiMap.Rmd
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._DiffSplice.sh
@@ -637,7 +638,6 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
-    Modified:   analysis/InvestigateBadSamples.Rmd
     Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -681,6 +681,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9fbd1fe61d1a16783614fab355cc522bf11cb279/analysis/index.Rmd" target="_blank">9fbd1fe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+<td>
+figure out sample swap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2e33ce93a1227b8cb84cacd5b3d914dcab1fc71c/docs/index.html" target="_blank">2e33ce9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1330,19 +1364,18 @@ Start workflowr project.
 </ul>
 <p>Quantify Phenotypes with RNA:</p>
 <ul>
-<li><a href="diffSplicing.html">Differnetial Splicing</a>
-<ul>
-<li><a href="diffSplicing_removeBad.html">Differential splicing without bad samples</a></li>
-</ul></li>
-<li><p><a href="diffExpression.html">Differential Expression</a></p>
-<ul>
-<li><a href="diffExpressionRemove2.html">Differential Expression without bad samples</a></li>
-</ul></li>
+<li><p><a href="diffSplicing.html">Differnetial Splicing</a></p></li>
+<li><p><a href="diffExpression.html">Differential Expression</a></p></li>
 </ul>
 <p>Extra QC and Analysis</p>
 <ul>
-<li><p><a href="InvestigateBadSamples.html">Investigate bad RNA seq samples</a></p></li>
-<li><p><a href="MapRNAhg19.html">Map RNA to hg19</a></p></li>
+<li><a href="InvestigateBadSamples.html">Investigate bad RNA seq samples</a>
+<ul>
+<li><a href="diffSplicing_removeBad.html">Differential splicing without bad samples</a><br />
+</li>
+<li><a href="diffExpressionRemove2.html">Differential Expression without bad samples</a></li>
+</ul></li>
+<li><a href="MapRNAhg19.html">Map RNA to hg19</a></li>
 </ul>
 
 
