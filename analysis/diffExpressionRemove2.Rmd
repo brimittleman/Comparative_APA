@@ -390,51 +390,54 @@ for (n in 1:2){
   plot_scores(pca_genes, scores, n, n+1, col.v)
 }
 ```
-They also do not cluster by number of reads mapping to ortho exons.   
 
-
-I should look at the correlation between PCs and these factors. 
-
-Try to run the pca the opposite way: 
-
+PCA heatmap:
+Code from Michelle Ward:
 
 ```{r}
-pca_line=prcomp(cpm.voom$E, center=T,scale=T)
+x.pca <- pca_genes
 
-pca_line_df=as.data.frame(pca_line$rotation) %>% rownames_to_column(var="Line") %>% select(1:11)
+tech_factors <- metaData
+tech_factors_sum <- tech_factors[,c(2:14)] %>% select(-CollectionDate)
 
+p_comps <- 1:6
+pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                     dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+for (pc in p_comps) {
+  for (covariate in 1:ncol(tech_factors_sum)) {
+    lm_result <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate])
+    r2 <- summary(lm_result)$r.squared
+    pc_cov_cor[covariate, pc] <- r2
+  }
+}
 
-eigs <- pca_line$sdev^2
-proportion = eigs/sum(eigs)
+pc_cov_pval <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                      dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
 
-plot(proportion)
+for (pc in p_comps) {
+  for (covariate_2 in 1:ncol(tech_factors_sum)) {
+    lm_result_2 <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate_2])
+    pval <- anova(lm_result_2)$'Pr(>F)'[1]
+    pc_cov_pval[covariate_2, pc] <- pval
+  }
+}
 
+PCs <- c("PC1", "PC2", "PC3", "PC4", "PC5", "PC6")
+Tech_fac <- colnames(tech_factors_sum)
+#Tech_fac <- c("Species",   "Individual", "O2.",  "Condition" , "Sex", "RIN" , "CO2", "Purity_high", "Purity_med" ,
+              #"Expt_Batch", "RNA_Batch", "Library_Batch", "Seq_pool", "Episomal_integration" )
 
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
+
+log10_pc_cov_pval <- -log(pc_cov_pval)
+heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="-log10 pval of cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
 ```
 
 
-```{r}
-metaData_order=metaData %>% arrange(Line)
-PCA_order=pca_line_df %>% arrange(Line)
-Pc1Spec <- summary(lm(PCA_order$PC1 ~ metaData_order$Species))$adj.r.squared
-Pc2Spec <- summary(lm(PCA_order$PC2 ~ metaData_order$Species))$adj.r.squared
-Pc3Spec <- summary(lm(PCA_order$PC3 ~ metaData_order$Species))$adj.r.squared
-Pc1Spec
-Pc2Spec
-Pc3Spec
-```
-
-Expand this to full heatmap. 
-
-plotpca  
-
-```{r}
-col.v <- pal[as.integer(metaData$Species)]
-plot_scores(pca_line, scores, n, n+1,cols = col.v )
-```
-
-
-Question: what is the difference between these PCAs???
 
 
 ##Test for DE
@@ -477,7 +480,6 @@ ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Speci
 ```{r}
 summary(decideTests(tmp))
 ```
-
 
 
 
