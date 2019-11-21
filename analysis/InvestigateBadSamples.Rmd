@@ -16,7 +16,24 @@ I have two samples that are not making a lot of sense. They cluster in the raw d
 mkdir ../data/TwoBadSampleAnalysis
 sbatch MapBadSamples.sh
 sbatch SortIndexBadSamples.sh
-sbatch verifyBam4974inHuman.sh
+sbatch verifyBam4973inHuman.sh
 
 ```
 
+
+4973 verifies as 18498....
+
+
+Look at rate of mismatch per base.
+
+18498:
+human: 0.87%
+chimp: 0.14%
+
+
+4973:
+human: 0.16%
+chimp:0.84%
+
+
+This is a sample swap. FIX AND RERUN! 
