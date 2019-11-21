@@ -53,11 +53,12 @@ Differential Isoform Analysis:
 
 Quantify Phenotypes with RNA:   
 
-* [Differnetial Splicing](diffSplicing.html)  
+* [Differnetial Splicing](diffSplicing.html) 
+     * [Differential splicing without bad samples](diffSplicing_removeBad.html)
 
 * [Differential Expression](diffExpression.html)
 
-* [Differential Expression without bad samples](diffExpressionRemove2.html)  
+     * [Differential Expression without bad samples](diffExpressionRemove2.html)  
 
 
 Extra QC and Analysis   
