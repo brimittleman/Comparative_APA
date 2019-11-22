@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-20
+<strong>Last updated:</strong> 2019-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb0484cd40c289dd68fa26af2233ceedca2bb366targetblankdb0484ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/db0484cd40c289dd68fa26af2233ceedca2bb366" target="_blank">db0484c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef13781ed19dd79593159c103b6225811b4db2f2btargetblankf13781ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f13781ed19dd79593159c103b6225811b4db2f2b" target="_blank">f13781e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb0484cd40c289dd68fa26af2233ceedca2bb366targetblankdb0484ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef13781ed19dd79593159c103b6225811b4db2f2btargetblankf13781ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,6 +451,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
@@ -461,12 +462,14 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/multiMap.Rmd
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._DiffSplice_removebad.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._Snakefile
@@ -482,8 +485,11 @@ Untracked files:
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
     Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftReverse_removebad.sh
     Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._clusterLiftprimary_removebad.sh
     Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterPASforMP.py
@@ -506,6 +512,7 @@ Untracked files:
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
     Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_removeBad.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
@@ -547,12 +554,19 @@ Untracked files:
     Untracked:  code/DiffSplicePlots.sh
     Untracked:  code/DiffSplicePlots_gencode.sh
     Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/DiffSplice_removebad.err
+    Untracked:  code/DiffSplice_removebad.out
+    Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersFirst_remove.err
+    Untracked:  code/LiftClustersFirst_remove.out
     Untracked:  code/LiftClustersSecond.err
     Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftClustersSecond_remove.err
+    Untracked:  code/LiftClustersSecond_remove.out
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
@@ -579,6 +593,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAShuman.err
     Untracked:  code/bam2junc.err
     Untracked:  code/bam2junc.out
+    Untracked:  code/bam2junc_remove.err
+    Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
@@ -593,10 +609,13 @@ Untracked files:
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
     Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftReverse_removebad.sh
     Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
     Untracked:  code/converBam2Junc.sh
+    Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
@@ -658,6 +677,7 @@ Untracked files:
     Untracked:  code/primaryLift.sh
     Untracked:  code/processhg38exons.py
     Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_removeBad.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
@@ -734,6 +754,7 @@ Untracked files:
     Untracked:  code/wrap_verifybam.out
     Untracked:  data/._.DS_Store
     Untracked:  data/._RNASEQ_metadata.txt
+    Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
     Untracked:  data/._RNASEQ_metadata.xlsx
     Untracked:  data/._RNASEQ_metadata_2Removed.txt
@@ -749,6 +770,11 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_cluster_significance.txt
+    Untracked:  data/DiffSplice_effect_sizes.txt
+    Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DiffSplice_removeBad_cluster_significance.txt
+    Untracked:  data/DiffSplice_removeBad_effect_sizes.txt
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
@@ -776,7 +802,6 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
-    Modified:   analysis/InvestigateBadSamples.Rmd
     Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -820,6 +845,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f13781ed19dd79593159c103b6225811b4db2f2b/analysis/diffExpression.Rmd" target="_blank">f13781e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+<td>
+fixed mapping and indivs
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/diffExpression.html" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1086,12 +1145,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1359,19 +1418,19 @@ ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fix
 counts_genes=HumanCounts %&gt;% inner_join(ChimpCounts,by=&quot;Geneid&quot;) %&gt;% column_to_rownames(var=&quot;Geneid&quot;)
 
 head(counts_genes)</code></pre>
-<pre><code>                NA18504 NA18510 NA18523 NA18498 NA18499 NA18502 NAPT30
-ENSG00000188976      24      50      31      69      34      58      2
-ENSG00000188157     106      65     106      12     128      39      5
-ENSG00000273443      40      43      54      26      48      11     21
-ENSG00000217801      60      36     164      62      61      19     34
-ENSG00000237330       0       1       0       0       1       1      0
+<pre><code>                NA18498 NA18504 NA18510 NA18523 NA18499 NA18502 NA4973
+ENSG00000188976      48      24      50      31      34      58      2
+ENSG00000188157     148     106      59     106     128      39      6
+ENSG00000273443      69      40      43      54      48      11     24
+ENSG00000217801      77      60      36     164      61      19     62
+ENSG00000237330       1       0       1       0       1       1      0
 ENSG00000223823       0       0       0       0       0       0      0
-                NAPT91 NA3622 NA3659 NA4973 NA18358
-ENSG00000188976      1      1      1      0       0
-ENSG00000188157      7      7      8     27       6
-ENSG00000273443      2      3     78     59      16
-ENSG00000217801      8     19    139     68      31
-ENSG00000237330      0      0      2      1       0
+                NAPT30 NAPT91 NA3622 NA3659 NA18358
+ENSG00000188976      2      1      1      1       0
+ENSG00000188157      5      7      7      8       6
+ENSG00000273443     21      2      3     78      16
+ENSG00000217801     34      8     19    139      31
+ENSG00000237330      0      0      0      2       0
 ENSG00000223823      0      0      0      0       0</code></pre>
 <pre class="r"><code># Load colors 
 
@@ -1429,6 +1488,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1445,7 +1515,7 @@ brimittleman
 <pre class="r"><code>select &lt;- counts_genes
 summary(apply(select, 1, var) == 0) </code></pre>
 <pre><code>   Mode   FALSE    TRUE 
-logical   32864   11261 </code></pre>
+logical   32602   11523 </code></pre>
 <pre class="r"><code># Perform PCA
 
 pca_genes &lt;- prcomp(t(counts_genes), scale = F)
@@ -1482,6 +1552,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">32b435b</a>
@@ -1528,6 +1609,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1570,6 +1662,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1586,19 +1689,19 @@ brimittleman
 <p>Convert to log2</p>
 <pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(counts_genes))
 head(log_counts_genes)</code></pre>
-<pre><code>                 NA18504  NA18510  NA18523  NA18498  NA18499  NA18502
-ENSG00000188976 4.584963 5.643856 4.954196 6.108524 5.087463 5.857981
-ENSG00000188157 6.727920 6.022368 6.727920 3.584963 7.000000 5.285402
-ENSG00000273443 5.321928 5.426265 5.754888 4.700440 5.584963 3.459432
-ENSG00000217801 5.906891 5.169925 7.357552 5.954196 5.930737 4.247928
-ENSG00000237330     -Inf 0.000000     -Inf     -Inf 0.000000 0.000000
+<pre><code>                 NA18498  NA18504  NA18510  NA18523  NA18499  NA18502
+ENSG00000188976 5.584963 4.584963 5.643856 4.954196 5.087463 5.857981
+ENSG00000188157 7.209453 6.727920 5.882643 6.727920 7.000000 5.285402
+ENSG00000273443 6.108524 5.321928 5.426265 5.754888 5.584963 3.459432
+ENSG00000217801 6.266787 5.906891 5.169925 7.357552 5.930737 4.247928
+ENSG00000237330 0.000000     -Inf 0.000000     -Inf 0.000000 0.000000
 ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf
-                  NAPT30   NAPT91   NA3622   NA3659   NA4973  NA18358
-ENSG00000188976 1.000000 0.000000 0.000000 0.000000     -Inf     -Inf
-ENSG00000188157 2.321928 2.807355 2.807355 3.000000 4.754888 2.584963
-ENSG00000273443 4.392317 1.000000 1.584963 6.285402 5.882643 4.000000
-ENSG00000217801 5.087463 3.000000 4.247928 7.118941 6.087463 4.954196
-ENSG00000237330     -Inf     -Inf     -Inf 1.000000 0.000000     -Inf
+                  NA4973   NAPT30   NAPT91   NA3622   NA3659  NA18358
+ENSG00000188976 1.000000 1.000000 0.000000 0.000000 0.000000     -Inf
+ENSG00000188157 2.584963 2.321928 2.807355 2.807355 3.000000 2.584963
+ENSG00000273443 4.584963 4.392317 1.000000 1.584963 6.285402 4.000000
+ENSG00000217801 5.954196 5.087463 3.000000 4.247928 7.118941 4.954196
+ENSG00000237330     -Inf     -Inf     -Inf     -Inf 1.000000     -Inf
 ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf</code></pre>
 <pre class="r"><code>density_plot_18504 &lt;- ggplot(log_counts_genes, aes(x = 18504)) + geom_density()
 
@@ -1667,6 +1770,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1683,27 +1797,27 @@ brimittleman
 <p>Convert to CPM</p>
 <pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
 head(cpm)</code></pre>
-<pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
-ENSG00000188976  0.9877925  1.619259  1.208519  1.9826994  1.067390
-ENSG00000188157  3.0590448  1.984237  2.926267 -0.3399951  2.915674
-ENSG00000273443  1.6881262  1.411139  1.975775  0.6477686  1.539712
-ENSG00000217801  2.2544180  1.167851  3.547531  1.8334849  1.872281
-ENSG00000237330 -3.0080795 -2.448042 -3.008080 -3.0080795 -2.455753
-ENSG00000223823 -3.0080795 -3.008080 -3.008080 -3.0080795 -3.008080
-                   NA18502     NAPT30     NAPT91     NA3622     NA3659
-ENSG00000188976  1.8416633 -2.0220152 -2.4030724 -2.4332254 -2.4799651
-ENSG00000188157  1.2932560 -1.2206741 -0.7918098 -0.8618518 -0.8265488
-ENSG00000273443 -0.3575383  0.4899323 -1.9781161 -1.7043978  2.1408291
-ENSG00000217801  0.3308185  1.1354086 -0.6385042  0.3566344  2.9564118
-ENSG00000237330 -2.4425685 -3.0080795 -3.0080795 -3.0080795 -2.0942143
-ENSG00000223823 -3.0080795 -3.0080795 -3.0080795 -3.0080795 -3.0080795
-                    NA4973    NA18358
-ENSG00000188976 -3.0080795 -3.0080795
-ENSG00000188157  0.7692807 -0.8079148
-ENSG00000273443  1.8388114  0.3962125
-ENSG00000217801  2.0369808  1.2829205
-ENSG00000237330 -2.4514663 -3.0080795
-ENSG00000223823 -3.0080795 -3.0080795</code></pre>
+<pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
+ENSG00000188976  1.588860  0.9875607  1.619314  1.208048  1.067299
+ENSG00000188157  3.172608  3.0589988  1.849193  2.925931  2.915757
+ENSG00000273443  2.094212  1.6879881  1.411168  1.975384  1.539689
+ENSG00000217801  2.248116  2.2543286  1.167845  3.547215  1.872294
+ENSG00000237330 -2.441797 -3.0119624 -2.450603 -3.011962 -2.458352
+ENSG00000223823 -3.011962 -3.0119624 -3.011962 -3.011962 -3.011962
+                   NA18502     NA4973     NAPT30     NAPT91     NA3622
+ENSG00000188976  1.8417566 -2.1228041 -2.0245721 -2.4061474 -2.4360717
+ENSG00000188157  1.2932833 -1.1815912 -1.2226553 -0.7938422 -0.8632943
+ENSG00000273443 -0.3579576  0.4766994  0.4884893 -1.9807956 -1.7064048
+ENSG00000217801  0.3306479  1.7649286  1.1340509 -0.6404855  0.3555977
+ENSG00000237330 -2.4451144 -3.0119624 -3.0119624 -3.0119624 -3.0119624
+ENSG00000223823 -3.0119624 -3.0119624 -3.0119624 -3.0119624 -3.0119624
+                    NA3659    NA18358
+ENSG00000188976 -2.4830271 -3.0119624
+ENSG00000188157 -0.8283452 -0.8093695
+ENSG00000273443  2.1395468  0.3951397
+ENSG00000217801  2.9551621  1.2819822
+ENSG00000237330 -2.0968409 -3.0119624
+ENSG00000223823 -3.0119624 -3.0119624</code></pre>
 <pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1730,6 +1844,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1753,27 +1878,27 @@ dge_original &lt;- calcNormFactors(dge_original)
 
 tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)</code></pre>
-<pre><code>                   NA18504   NA18510   NA18523    NA18498   NA18499
-ENSG00000188976  0.9877925  1.619259  1.208519  1.9826994  1.067390
-ENSG00000188157  3.0590448  1.984237  2.926267 -0.3399951  2.915674
-ENSG00000273443  1.6881262  1.411139  1.975775  0.6477686  1.539712
-ENSG00000217801  2.2544180  1.167851  3.547531  1.8334849  1.872281
-ENSG00000237330 -3.0080795 -2.448042 -3.008080 -3.0080795 -2.455753
-ENSG00000223823 -3.0080795 -3.008080 -3.008080 -3.0080795 -3.008080
-                   NA18502     NAPT30     NAPT91     NA3622     NA3659
-ENSG00000188976  1.8416633 -2.0220152 -2.4030724 -2.4332254 -2.4799651
-ENSG00000188157  1.2932560 -1.2206741 -0.7918098 -0.8618518 -0.8265488
-ENSG00000273443 -0.3575383  0.4899323 -1.9781161 -1.7043978  2.1408291
-ENSG00000217801  0.3308185  1.1354086 -0.6385042  0.3566344  2.9564118
-ENSG00000237330 -2.4425685 -3.0080795 -3.0080795 -3.0080795 -2.0942143
-ENSG00000223823 -3.0080795 -3.0080795 -3.0080795 -3.0080795 -3.0080795
-                    NA4973    NA18358
-ENSG00000188976 -3.0080795 -3.0080795
-ENSG00000188157  0.7692807 -0.8079148
-ENSG00000273443  1.8388114  0.3962125
-ENSG00000217801  2.0369808  1.2829205
-ENSG00000237330 -2.4514663 -3.0080795
-ENSG00000223823 -3.0080795 -3.0080795</code></pre>
+<pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
+ENSG00000188976  1.588860  0.9875607  1.619314  1.208048  1.067299
+ENSG00000188157  3.172608  3.0589988  1.849193  2.925931  2.915757
+ENSG00000273443  2.094212  1.6879881  1.411168  1.975384  1.539689
+ENSG00000217801  2.248116  2.2543286  1.167845  3.547215  1.872294
+ENSG00000237330 -2.441797 -3.0119624 -2.450603 -3.011962 -2.458352
+ENSG00000223823 -3.011962 -3.0119624 -3.011962 -3.011962 -3.011962
+                   NA18502     NA4973     NAPT30     NAPT91     NA3622
+ENSG00000188976  1.8417566 -2.1228041 -2.0245721 -2.4061474 -2.4360717
+ENSG00000188157  1.2932833 -1.1815912 -1.2226553 -0.7938422 -0.8632943
+ENSG00000273443 -0.3579576  0.4766994  0.4884893 -1.9807956 -1.7064048
+ENSG00000217801  0.3306479  1.7649286  1.1340509 -0.6404855  0.3555977
+ENSG00000237330 -2.4451144 -3.0119624 -3.0119624 -3.0119624 -3.0119624
+ENSG00000223823 -3.0119624 -3.0119624 -3.0119624 -3.0119624 -3.0119624
+                    NA3659    NA18358
+ENSG00000188976 -2.4830271 -3.0119624
+ENSG00000188157 -0.8283452 -0.8093695
+ENSG00000273443  2.1395468  0.3951397
+ENSG00000217801  2.9551621  1.2819822
+ENSG00000237330 -2.0968409 -3.0119624
+ENSG00000223823 -3.0119624 -3.0119624</code></pre>
 <pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
 scores &lt;- pca_genes$x
 
@@ -1804,6 +1929,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">da4bab0</a>
@@ -1855,6 +1991,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">da4bab0</a>
 </td>
 <td>
@@ -1896,6 +2043,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">da4bab0</a>
@@ -1946,6 +2104,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">da4bab0</a>
@@ -2011,6 +2180,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">da4bab0</a>
 </td>
 <td>
@@ -2030,20 +2210,20 @@ dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
 
 cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)</code></pre>
-<pre><code>                 NA18504    NA18510  NA18523  NA18498  NA18499   NA18502
-ENSG00000217801 2.248146  1.0811901 3.657635 1.792969 1.843394 0.2076129
-ENSG00000186891 5.023562  5.0327842 4.883988 6.663573 5.691238 3.3594991
-ENSG00000186827 3.107235  4.6526859 1.697751 1.815945 3.957501 1.8998264
-ENSG00000078808 6.873762  7.0290328 7.460760 7.026971 6.609430 6.7348224
-ENSG00000176022 4.767653  4.6792021 4.786920 5.258909 4.597113 4.6984962
-ENSG00000184163 1.432462 -0.1665159 1.627720 1.395504 1.046753 0.3500809
-                  NAPT30     NAPT91   NA3622   NA3659   NA4973  NA18358
-ENSG00000217801 1.164822 -0.7903107 0.279009 3.001252 2.105148 1.303916
-ENSG00000186891 4.637726  3.1601319 4.730313 6.450470 6.482165 6.485174
-ENSG00000186827 0.256488  2.0075331 3.153929 0.649213 5.258424 2.178300
-ENSG00000078808 6.691955  6.7661750 6.779328 6.786500 7.215767 7.064091
-ENSG00000176022 4.835934  5.5508794 4.848618 5.278743 4.794461 5.564750
-ENSG00000184163 2.902942  2.1962979 1.412850 1.768892 1.691914 3.225391</code></pre>
+<pre><code>                 NA18498  NA18504    NA18510  NA18523  NA18499   NA18502
+ENSG00000217801 2.256718 2.234174  1.0782676 3.660677 1.851409 0.2045780
+ENSG00000186891 6.449880 5.009564  5.0298795 4.887036 5.699309 3.3564937
+ENSG00000186827 5.245424 3.093249  4.6497808 1.700761 3.965562 1.8968145
+ENSG00000078808 7.201366 6.859761  7.0261290 7.463811 6.617502 6.7318204
+ENSG00000176022 4.796475 4.753656  4.6762970 4.789968 4.605179 4.6954931
+ENSG00000184163 1.692704 1.418512 -0.1694645 1.630729 1.054723 0.3470491
+                  NA4973    NAPT30     NAPT91   NA3622    NA3659  NA18358
+ENSG00000217801 1.778595 1.1604206 -0.7907848 0.275830 2.9986515 1.300800
+ENSG00000186891 6.668817 4.6333309  3.1597896 4.727162 6.4478748 6.482073
+ENSG00000186827 1.778595 0.2520802  2.0071797 3.150776 0.6465898 2.175191
+ENSG00000078808 7.024203 6.6875607  6.7658411 6.776178 6.7839057 7.060989
+ENSG00000176022 5.263240 4.8315395  5.5505445 4.845467 5.2761471 5.561648
+ENSG00000184163 1.381145 2.8985450  2.1959470 1.409687 1.7662843 3.222286</code></pre>
 <pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2068,6 +2248,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">da4bab0</a>
@@ -2125,6 +2316,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">da4bab0</a>
 </td>
 <td>
@@ -2175,6 +2377,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">da4bab0</a>
 </td>
 <td>
@@ -2223,6 +2436,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">da4bab0</a>
@@ -2283,6 +2507,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">a22bae9</a>
@@ -2349,6 +2584,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2398,6 +2644,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2441,6 +2698,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/da4bab0392dd2dfde2662808e3b0ed34bf1eb6bb/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">da4bab0</a>
 </td>
 <td>
@@ -2454,7 +2722,6 @@ brimittleman
 </table>
 </div>
 </div>
-<p>This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples. 4973 and 18498 are the samples that looked funny on the original 3’ data. This may be a sample swap at the RNA stage. These samples were in the same extraction batch. It could have happened then. I will look into this more.</p>
 <p>One thing I can do is look at the correlation between the PCs and other factors in the data.</p>
 <pre class="r"><code># PCA 
 
@@ -2488,6 +2755,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">a22bae9</a>
@@ -2526,6 +2804,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">a22bae9</a>
@@ -2572,6 +2861,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2608,6 +2908,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">a22bae9</a>
@@ -2658,6 +2969,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2694,6 +3016,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">a22bae9</a>
@@ -2739,6 +3072,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2775,6 +3119,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">a22bae9</a>
@@ -2820,6 +3175,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2856,6 +3222,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">a22bae9</a>
@@ -2902,6 +3279,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2940,6 +3328,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -2958,7 +3357,7 @@ brimittleman
 <pre class="r"><code>x.pca &lt;- pca_genes
 
 tech_factors &lt;- metaData
-tech_factors_sum &lt;- tech_factors[,c(2:14)] %&gt;% select(-CollectionDate)
+tech_factors_sum &lt;- tech_factors[,c(2:15)] %&gt;% select(-CollectionDate)
 
 p_comps &lt;- 1:6
 pc_cov_cor &lt;- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
@@ -3015,6 +3414,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a22bae9a92a789e6e45945b8a77c4565ebbf4ba9/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">a22bae9</a>
 </td>
 <td>
@@ -3033,6 +3443,43 @@ heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, &quot;Gr
           Rowv=FALSE, Colv=FALSE, key=T, main=&quot;-log10 pval of cor. PCs &amp; tech factors&quot;, dendrogram=&quot;none&quot;,
           key.title=NA, cexRow=0.9, cexCol=0.9)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-2">
+Past versions of unnamed-chunk-40-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-40-2.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="test-for-de" class="section level2">
@@ -3040,12 +3487,12 @@ heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, &quot;Gr
 <pre class="r"><code>fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))</code></pre>
 <pre><code>                    Chimp    Human
-ENSG00000217801 1.8176205 1.053311
-ENSG00000186891 5.1291883 5.317657
-ENSG00000186827 2.9252639 2.080906
-ENSG00000078808 6.9485052 6.883254
-ENSG00000176022 4.7991489 5.131756
-ENSG00000184163 0.8725114 2.121651</code></pre>
+ENSG00000217801 1.8239316 1.096239
+ENSG00000186891 5.0834054 5.358053
+ENSG00000186827 3.4807377 1.529885
+ENSG00000078808 6.9813425 6.845201
+ENSG00000176022 4.7020373 5.221061
+ENSG00000184163 0.8723989 2.120493</code></pre>
 <pre class="r"><code>contr &lt;- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
 contr</code></pre>
 <pre><code>       Contrasts
@@ -3057,49 +3504,49 @@ tmp &lt;- eBayes(tmp)
 top.table &lt;- topTable(tmp, sort.by = &quot;P&quot;, n = Inf)
 head(top.table, 20)</code></pre>
 <pre><code>                    logFC  AveExpr         t      P.Value    adj.P.Val
-ENSG00000205531 -5.906048 5.110707 -42.42147 1.003413e-14 6.098694e-11
-ENSG00000204463 -6.197073 5.328838 -41.83367 1.190221e-14 6.098694e-11
-ENSG00000133112  6.023976 8.508367  37.04918 5.253426e-14 1.794570e-10
-ENSG00000186298  3.188104 6.854108  33.66982 1.687825e-13 4.324209e-10
-ENSG00000105372  4.894937 7.897387  31.55050 3.726742e-13 7.638331e-10
-ENSG00000142937  5.663078 8.145949  30.69857 5.200238e-13 8.882006e-10
-ENSG00000145741  6.238790 5.598248  28.94136 1.064803e-12 1.558871e-09
-ENSG00000147604 -5.969523 5.605022 -28.56893 1.246222e-12 1.596410e-09
-ENSG00000071082  5.667843 6.554807  26.24239 3.491956e-12 3.874800e-09
-ENSG00000100316  5.948079 8.194419  26.07064 3.781030e-12 3.874800e-09
-ENSG00000072864 -6.601953 4.740080 -24.35154 8.629478e-12 8.039536e-09
-ENSG00000142541  6.210689 6.651181  23.67698 1.211455e-11 1.034583e-08
-ENSG00000116478  3.311414 5.888231  23.30107 1.469479e-11 1.158402e-08
-ENSG00000131475  3.194285 3.623143  20.35316 7.473461e-11 5.341737e-08
-ENSG00000105640 -2.988556 8.173442 -20.27660 7.818702e-11 5.341737e-08
-ENSG00000136021  3.428259 4.629566  20.00332 9.198528e-11 5.891657e-08
-ENSG00000169926 -5.926609 5.806506 -19.38256 1.341196e-10 8.085047e-08
-ENSG00000198034  6.187416 7.128275  19.23026 1.473766e-10 8.390641e-08
-ENSG00000154978 -2.562136 5.114129 -19.00708 1.694215e-10 9.016813e-08
-ENSG00000171863  3.241360 6.619888  18.94677 1.759721e-10 9.016813e-08
+ENSG00000133112  6.030511 8.579411  53.42599 6.164514e-16 3.580859e-12
+ENSG00000204463 -6.206595 5.290833 -51.12264 1.057583e-15 3.580859e-12
+ENSG00000205531 -5.979561 5.093742 -50.01988 1.381262e-15 3.580859e-12
+ENSG00000105372  4.911162 7.958402  49.97123 1.397818e-15 3.580859e-12
+ENSG00000142937  5.675106 8.225847  46.54479 3.334322e-15 6.833359e-12
+ENSG00000145741  4.945035 6.308921  43.30669 8.053676e-15 1.375434e-11
+ENSG00000142541  6.131464 6.808892  40.44806 1.855178e-14 2.715716e-11
+ENSG00000100316  5.939257 8.286283  39.35669 2.590875e-14 3.318587e-11
+ENSG00000072864 -6.885850 4.647008 -37.94264 4.049551e-14 4.610639e-11
+ENSG00000183020 -4.840796 4.195607 -31.83651 3.433979e-13 3.518798e-10
+ENSG00000071082  5.702735 6.557358  29.78317 7.720885e-13 7.192356e-10
+ENSG00000147604 -6.188588 5.465040 -27.93667 1.678431e-12 1.433240e-09
+ENSG00000116478  3.371012 5.843517  27.59385 1.949359e-12 1.536545e-09
+ENSG00000186298  3.080919 6.879067  27.07869 2.449289e-12 1.792705e-09
+ENSG00000198242  4.185597 4.987658  25.28558 5.610300e-12 3.832583e-09
+ENSG00000105640 -2.839830 8.171195 -24.34695 8.858449e-12 5.573342e-09
+ENSG00000197958  4.358474 7.193875  24.26064 9.246297e-12 5.573342e-09
+ENSG00000198918 -5.743655 5.418473 -23.86031 1.130114e-11 6.433487e-09
+ENSG00000198034  6.255369 7.138553  23.22182 1.567032e-11 8.451252e-09
+ENSG00000167193 -4.241868 4.135580 -22.96405 1.792463e-11 9.183685e-09
                        B
-ENSG00000205531 21.38525
-ENSG00000204463 21.34027
-ENSG00000133112 22.07762
-ENSG00000186298 21.10822
-ENSG00000105372 20.42489
-ENSG00000142937 20.10921
-ENSG00000145741 18.59467
-ENSG00000147604 18.55697
-ENSG00000071082 18.09236
-ENSG00000100316 18.30545
-ENSG00000072864 16.62325
-ENSG00000142541 16.96488
-ENSG00000116478 16.94969
-ENSG00000131475 15.01223
-ENSG00000105640 15.42738
-ENSG00000136021 15.04792
-ENSG00000169926 14.70272
-ENSG00000198034 14.74804
-ENSG00000154978 14.60662
-ENSG00000171863 14.61913</code></pre>
+ENSG00000133112 26.01294
+ENSG00000204463 23.68152
+ENSG00000205531 23.48417
+ENSG00000105372 25.41614
+ENSG00000142937 24.69753
+ENSG00000145741 23.50158
+ENSG00000142541 22.79732
+ENSG00000100316 22.98735
+ENSG00000072864 20.88166
+ENSG00000183020 19.75642
+ENSG00000071082 19.71471
+ENSG00000147604 18.70807
+ENSG00000116478 18.98168
+ENSG00000186298 18.84917
+ENSG00000198242 17.80741
+ENSG00000105640 17.59757
+ENSG00000197958 17.54457
+ENSG00000198918 17.10523
+ENSG00000198034 16.98239
+ENSG00000167193 16.59832</code></pre>
 <pre class="r"><code>length(which(top.table$adj.P.Val &lt; 0.05))</code></pre>
-<pre><code>[1] 449</code></pre>
+<pre><code>[1] 3761</code></pre>
 <p>Make a table to plot:</p>
 <p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
 <pre class="r"><code>top.table=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
@@ -3108,13 +3555,48 @@ ENSG00000171863 14.61913</code></pre>
 
 ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-45-1">
+Past versions of unnamed-chunk-45-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-45-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">25971ed</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>summary(decideTests(tmp))</code></pre>
 <pre><code>       Chimp - Human
-Down             191
-NotSig          9799
-Up               258</code></pre>
-<p>questions: * Correlation in fit to use design rather than contrast matrix. * direction of effect size * what is eBayes step?</p>
-<p>Rerun without bad samples.</p>
+Down            1881
+NotSig          6486
+Up              1880</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
