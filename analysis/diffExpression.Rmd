@@ -324,7 +324,7 @@ cors <- cor(cpm.voom$E, method="spearman", use="pairwise.complete.obs")
 
 heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Species))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
 ```
-This is wierd. Normalization moves 2 samples to opposite species clusters but the samples that separate in the correlation are not those samples.  4973 and 18498 are the samples that looked funny on the original 3' data. This may be a sample swap at the RNA stage.  These samples were in the same extraction batch. It could have happened then. I will look into this more.  
+
 
 One thing I can do is look at the correlation between the PCs and other factors in the data.   
 
@@ -400,7 +400,7 @@ Code from Michelle Ward:
 x.pca <- pca_genes
 
 tech_factors <- metaData
-tech_factors_sum <- tech_factors[,c(2:14)] %>% select(-CollectionDate)
+tech_factors_sum <- tech_factors[,c(2:15)] %>% select(-CollectionDate)
 
 p_comps <- 1:6
 pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
@@ -483,14 +483,6 @@ ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Speci
 ```{r}
 summary(decideTests(tmp))
 ```
-
-questions:
-* Correlation in fit to use design rather than contrast matrix.
-* direction of effect size 
-* what is eBayes step?
-
-
-Rerun without bad samples.  
 
 
 
