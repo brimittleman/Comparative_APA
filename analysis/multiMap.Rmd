@@ -1,0 +1,121 @@
+---
+title: "Evaluate multi-mapping"
+author: "Briana Mittleman"
+date: "11/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will evaluate how many reads map to multiple places and see if I need to put a quality filter on multimapped reads. To do this I will look at the cigar strings and pull out the multimap numbers and quality scores. I should be able to do this with pysam.
+
+
+```{r}
+library(tidyverse)
+```
+
+From Star documentation:  
+
+MAPQ Scores:
+255 = Uniquely mapping
+3 = Maps to 2 locations in the target
+2 = Maps to 3 locations in the target
+1 = Maps to 4-9 locations in the target
+0 = Maps to 10 or more locations in the target
+
+
+For multi-mappers, all alignments except one are marked with 0x100 (secondary alignment) in
+the FLAG (column 2 of the SAM). The unmarked alignment is selected from the best ones (i.e.
+highest scoring). This default behavior can be changed with --outSAMprimaryFlag AllBestScore
+option, that will output all alignments with the best score as primary alignments (i.e. 0x100 bit in
+the FLAG unset).
+
+Get the secondry score, MAPQ, and number of hits for each read.  
+
+```{bash,eval=F}
+
+sbatch getRNAseqMapStats.sh
+#I need to use python to evaluate this because its a huge number of lines. First I will just make a dictionary with the number of reads mapping to the location from 1-10. (NH:i:6). This is column 3 of the output. 
+
+python numMultimap.py /project2/gilad/briana/Comparative_APA/data/MapStats/Human_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Human_groupedMultstat.txt
+
+python numMultimap.py /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_groupedMultstat.txt
+```
+
+Results for number of reads mapping to N locations.
+```{r}
+HumanMM= read.table("../data/MapStats/Human_groupedMultstat.txt", header = F, col.names = c("HI", "HumanCount"), stringsAsFactors = F)
+ChimpMM=read.table("../data/MapStats/Chimp_groupedMultstat.txt",header = F, col.names = c("HI", "ChimpCount"),stringsAsFactors = F)
+
+bothMM=HumanMM %>% inner_join(ChimpMM ,by="HI") %>% gather("species", "Count", HumanCount:ChimpCount) %>% separate(HI, into=c("N", "i", "num"),sep=":") 
+
+bothMM$num=as.integer(as.character(bothMM$num))
+ggplot(bothMM, aes(x=num, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Number of loacations read maps to", y="Reads", title="Multimapping statistics for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+Remap for only reads with more than 1 location  
+
+```{r}
+bothMM_minus1= bothMM %>% filter(num>1) 
+
+ggplot(bothMM_minus1, aes(x=num, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Number of loacations read maps to", y="Reads", title="Multimapping statistics for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+This shows that reads that map to more than one location usually map to 2 locations. I next want to look at the scores for the best hits. This is the MAPQ score. this is the second column of the stats files.  
+
+```{bash,eval=F}
+
+python GetMAPQscore.py /project2/gilad/briana/Comparative_APA/data/MapStats/Human_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Human_MAPQscore.txt
+
+python GetMAPQscore.py /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_MAPQscore.txt
+```
+
+Results for scores:
+
+```{r}
+Humanmapq= read.table("../data/MapStats/Human_MAPQscore.txt", header = F, col.names = c("mapq", "HumanCount"), stringsAsFactors = F)
+Chimpmapq=read.table("../data/MapStats/Chimp_MAPQscore.txt",header = F, col.names = c("mapq", "ChimpCount"),stringsAsFactors = F)
+
+bothmapq=Humanmapq %>% inner_join(Chimpmapq ,by="mapq") %>% gather("species", "Count", HumanCount:ChimpCount)
+
+ggplot(bothmapq, aes(x=mapq, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Mapq score", y="Reads", title="MapQ for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+filter out 255:
+
+```{r}
+bothmapq_lower=bothmapq %>% filter(mapq <10)
+ggplot(bothmapq_lower, aes(x=mapq, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Mapq score", y="Reads", title="MapQ for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+Do for secondary the score are 0, 16, and 1616. I should look into this more.
+
+```{bash,eval=F}
+
+python GetSecondaryMap.py /project2/gilad/briana/Comparative_APA/data/MapStats/Human_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Human_Secondaryscore.txt
+
+python GetSecondaryMap.py /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Chimp_Secondaryscore.txt
+```
+Results:
+
+
+```{r}
+Humansec= read.table("../data/MapStats/Human_Secondaryscore.txt", header = F, col.names = c("secondary", "HumanCount"), stringsAsFactors = F)
+Chimpsec=read.table("../data/MapStats/Chimp_Secondaryscore.txt",header = F, col.names = c("secondary", "ChimpCount"),stringsAsFactors = F)
+
+bothsec=Humansec %>% inner_join(Chimpsec ,by="secondary") %>% gather("species", "Count", HumanCount:ChimpCount)
+
+ggplot(bothsec, aes(x=secondary, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Secondary score", y="Reads", title="Seqcondary for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+Look at just 0 and 16 
+
+```{r}
+bothsec_small= bothsec %>% filter(secondary<100)
+
+ggplot(bothsec_small, aes(x=secondary, y=Count, fill=species,by=species)) + geom_bar(position = "dodge",stat="identity") + labs(x="Secondary score", y="Reads", title="Secondary for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+

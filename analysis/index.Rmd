@@ -67,4 +67,6 @@ Extra QC and Analysis
 
 * [Map RNA to hg19](MapRNAhg19.html)
 
+* [Evaluate multimapping criteria](multiMap.html)
+
 
