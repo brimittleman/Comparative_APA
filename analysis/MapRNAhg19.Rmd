@@ -9,6 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyverse)
+```
+
+
 I have high levels of multi mapping in these samples. I want to test if this is the case in hg19 as well. I can try with 1 or 2 samples.
 
 ```{bash,eval=F}
@@ -23,4 +28,58 @@ hg38:  multi map= 21.39% (77.52% map)
 
 18510-
 hg19: multimap = 14.46% (83.97% map)
-hg38: multimap= 21.39% (77.52% map)
+hg38: multimap= 20.49% (78.37%% map)
+
+
+redo this with the new multimap criteria:  
+
+```{bash,eval=F}
+sbatch mapRNAseqhg19_newPipeline.sh  
+```
+
+
+New pipeline: 
+
+18504
+hg19: too many loci= 0.37%, multiple loci- 14.93% (83.19%) 
+hg38: too many loci= 0.65%, multiple loci- 20.75% (77.50%)
+
+
+18510-
+hg19: too many loci= 0.34%, multiple loci- 14.17% (83.93%) 
+hg38: too many loci= 0.60%, multiple loci- 19.89% (78.35%)
+
+
+With the hg19 samples make the multimapping graphs.  
+
+```{bash,eval=F}
+sbatch hg19MapStats.sh
+
+python numMultimap.py /project2/gilad/briana/Comparative_APA/data/MapStats/Human_hg19_RNAseq_mapstats.txt /project2/gilad/briana/Comparative_APA/data/MapStats/Humanhg19_groupedMultstat.txt
+
+```
+
+
+```{r}
+HumanHG19= read.table("../data/MapStats/Humanhg19_groupedMultstat.txt", header = F, col.names = c("HI", "Hg19Count"), stringsAsFactors = F) %>% separate(HI, into=c("N", "i", "num"),sep=":") 
+HumanHG19$num=as.integer(as.character(HumanHG19$num))
+ggplot(HumanHG19, aes(x=num, y=Hg19Count)) + geom_bar(stat="identity") + labs(x="Number of loacations read maps to", y="Reads", title="Multimapping statistics for hg19 RNA seq") 
+```
+
+Add the hg38 human chimp.  
+
+
+```{r}
+HumanMM= read.table("../data/MapStats/Human_groupedMultstat.txt", header = F, col.names = c("HI", "Human"), stringsAsFactors = F)
+ChimpMM=read.table("../data/MapStats/Chimp_groupedMultstat.txt",header = F, col.names = c("HI", "Chimp"),stringsAsFactors = F)
+HumanHG19_2= read.table("../data/MapStats/Humanhg19_groupedMultstat.txt", header = F, col.names = c("HI", "Hg19"), stringsAsFactors = F)
+
+
+allMM=HumanMM %>% inner_join(ChimpMM ,by="HI") %>% inner_join(HumanHG19_2, by="HI")%>% gather("species", "Count", Human:Hg19) %>% separate(HI, into=c("N", "i", "num"),sep=":")  %>% group_by(species) %>% mutate(fullCount=sum(Count), prop=Count/fullCount)
+
+allMM$num=as.integer(as.character(allMM$num))
+ggplot(allMM, aes(x=num, y=prop, fill=species,by=species)) + geom_bar(position = "dodge" ,stat="identity") + labs(x="Number of loacations read maps to", y="Reads", title="Multimapping statistics for RNA seq") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+
