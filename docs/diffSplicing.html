@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-20
+<strong>Last updated:</strong> 2019-12-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d6e7d59520fc06aa62bc4b88a0bd5ace38432batargetblank6d6e7d5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6d6e7d59520fc06aa62bc4b88a0bd5ace38432ba" target="_blank">6d6e7d5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb5df813a453dec3873b6f1d3b733f37a11f9bf33targetblankb5df813a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b5df813a453dec3873b6f1d3b733f37a11f9bf33" target="_blank">b5df813</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d6e7d59520fc06aa62bc4b88a0bd5ace38432batargetblank6d6e7d5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb5df813a453dec3873b6f1d3b733f37a11f9bf33targetblankb5df813a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,6 +451,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
@@ -467,8 +468,14 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._GetMAPQscore.py
+    Untracked:  code/._GetSecondaryMap.py
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MergeClusters.sh
+    Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -482,34 +489,50 @@ Untracked files:
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
     Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftReverse_removebad.sh
     Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._clusterLiftprimary_removebad.sh
     Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
+    Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixLeafCluster.py
+    Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._getRNAseqMapStats.sh
+    Untracked:  code/._hg19MapStats.sh
     Untracked:  code/._intersectLiftedPAS.sh
+    Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
+    Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
+    Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
     Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_TEST.sh
+    Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
@@ -547,12 +570,23 @@ Untracked files:
     Untracked:  code/DiffSplicePlots.sh
     Untracked:  code/DiffSplicePlots_gencode.sh
     Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/DiffSplice_removebad.err
+    Untracked:  code/DiffSplice_removebad.out
+    Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
+    Untracked:  code/GetMAPQscore.py
+    Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/JunctionLift.err
+    Untracked:  code/JunctionLift.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersFirst_remove.err
+    Untracked:  code/LiftClustersFirst_remove.out
     Untracked:  code/LiftClustersSecond.err
     Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftClustersSecond_remove.err
+    Untracked:  code/LiftClustersSecond_remove.out
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
@@ -560,8 +594,19 @@ Untracked files:
     Untracked:  code/MapBadSamples.err
     Untracked:  code/MapBadSamples.out
     Untracked:  code/MapBadSamples.sh
+    Untracked:  code/MapStats.err
+    Untracked:  code/MapStats.out
+    Untracked:  code/MergeClusters.err
+    Untracked:  code/MergeClusters.out
+    Untracked:  code/MergeClusters.sh
+    Untracked:  code/QuantMergeClusters
+    Untracked:  code/QuantMergeClusters.out
+    Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/RunFixCluster.err
+    Untracked:  code/RunFixCluster.out
+    Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
@@ -579,6 +624,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAShuman.err
     Untracked:  code/bam2junc.err
     Untracked:  code/bam2junc.out
+    Untracked:  code/bam2junc_remove.err
+    Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
@@ -593,10 +640,13 @@ Untracked files:
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
     Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftReverse_removebad.sh
     Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
     Untracked:  code/converBam2Junc.sh
+    Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
@@ -604,7 +654,10 @@ Untracked files:
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
+    Untracked:  code/filterJuncChroms.err
+    Untracked:  code/filterJuncChroms.out
     Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
     Untracked:  code/filterSAFforMP_gen.py
@@ -613,15 +666,24 @@ Untracked files:
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixLeafCluster.py
+    Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
     Untracked:  code/formathg38Anno.py
     Untracked:  code/generateStarIndex.err
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getRNAseqMapStats.sh
+    Untracked:  code/hg19MapStats.err
+    Untracked:  code/hg19MapStats.out
+    Untracked:  code/hg19MapStats.sh
+    Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectLiftedPAS.sh
+    Untracked:  code/leafcutter_merge_regtools_redo.py
+    Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
@@ -632,12 +694,16 @@ Untracked files:
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
     Untracked:  code/mapRNAseqhg19.sh
+    Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_new.err
+    Untracked:  code/maphg19_new.out
     Untracked:  code/maphg19_sub.err
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -645,6 +711,7 @@ Untracked files:
     Untracked:  code/namePeaks.py
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
+    Untracked:  code/numMultimap.py
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
@@ -658,6 +725,8 @@ Untracked files:
     Untracked:  code/primaryLift.sh
     Untracked:  code/processhg38exons.py
     Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_TEST.sh
+    Untracked:  code/quantJunc_removeBad.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
@@ -671,6 +740,7 @@ Untracked files:
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
@@ -718,6 +788,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/test
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
@@ -734,6 +805,7 @@ Untracked files:
     Untracked:  code/wrap_verifybam.out
     Untracked:  data/._.DS_Store
     Untracked:  data/._RNASEQ_metadata.txt
+    Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
     Untracked:  data/._RNASEQ_metadata.xlsx
     Untracked:  data/._RNASEQ_metadata_2Removed.txt
@@ -749,6 +821,8 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_liftedJunc/
+    Untracked:  data/DiffSplice_removeBad/
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
@@ -776,11 +850,9 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
-    Modified:   analysis/InvestigateBadSamples.Rmd
-    Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffExpression.Rmd
+    Modified:   analysis/multiMap.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -820,6 +892,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b5df813a453dec3873b6f1d3b733f37a11f9bf33/analysis/diffSplicing.Rmd" target="_blank">b5df813</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-02
+</td>
+<td>
+initial results no overlap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/12a7fcb76908724d03437cc9f6d610841717b769/docs/diffSplicing.html" target="_blank">12a7fcb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -981,12 +1087,12 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1013,7 +1119,52 @@ python ../clustering/leafcutter_cluster_regtools.py -j test_juncfiles.txt -m 50 
 </code></pre>
 <p>I now have my RNA seq for each species. I can write a script that runs the junctions for each species.</p>
 <pre class="bash"><code>sbatch converBam2Junc.sh</code></pre>
-<pre class="bash"><code>sbatch quantJunc.sh</code></pre>
+<p>Create a script that only keeps the number chromosomes (2A and 2B for chimp). This means I will not have any of the chimp contigs.</p>
+<p>I should lift first then filter</p>
+<pre class="bash"><code>
+mkdir ../data/DiffSplice_liftedJunc
+sbatch liftJunctionFiles.sh
+</code></pre>
+<p><strong>liftover changes the junction files..</strong></p>
+<p>For the humans I can simply filter the original junctions that pass the reciprocal liftover. For the chimps I need to figure out why the junctions change with liftover.</p>
+<p>Junction file format from regtools: bed12 format: - chrom - start - end - junction name - score- number of reads supporing junction - strand - thick start (same as chrom start) - thick end (same as chrom end) - itemRgb - default 255,0,0 - block cound- number blocks, defauld 2 - block size - comma- separated list of block sizes, number of items in list corresponds to blockCount - block start- comma separated list of block starts, all block star positions should be calculated relative to chromStrat and the number of items in the list shoudl correspond to blockCount</p>
+<p>I need to write a script that fixes the lifted files. I need to make column 9 255,0,0 and remove the commas from the last 2 columns.</p>
+<p>I can impliment the fix in the filter file.</p>
+<pre class="bash"><code>sbatch runFilterNumChroms.sh</code></pre>
+<p>Make clusters:</p>
+<pre class="r"><code>juncfiles=read.table(&quot;../data/DiffSplice_liftedJunc/BothSpec_juncfiles.txt&quot;, header = F)
+humanFiles=juncfiles %&gt;% slice(1:6)
+write.table(humanFiles, &quot;../data/DiffSplice_liftedJunc/Human_juncfiles.txt&quot;, quote = F, col.names = F, row.names = F)
+chimpFiles=juncfiles %&gt;% slice(7:12)
+write.table(chimpFiles, &quot;../data/DiffSplice_liftedJunc/Chimp_juncfiles.txt&quot;, quote = F, col.names = F, row.names = F)</code></pre>
+<pre class="bash"><code>sbatch quantJunc.sh
+</code></pre>
+<p>Now I can merge all of the culsters with: /project2/yangili1/yangili/leafcutter_scripts/merge_leafcutter_clusters.py</p>
+<pre class="bash"><code>sbatch MergeClusters.sh
+sbatch QuantMergedClusters.sh</code></pre>
+<p>Make the sample list:</p>
+<pre class="r"><code>combinedCounts=read.table(&quot;../data/DiffSplice_liftedJunc/MergeCombined_perind_numers.counts&quot;, header=T)
+x=colnames(combinedCounts)
+#YG-BM-S8-18499H-Total_S8_R1_001-sort.bam
+indiv=as.data.frame(x)  %&gt;%  separate(x, into=c(&quot;yg&quot;, &quot;bm&quot;,&quot;lane&quot;, &quot;sample&quot;, &quot;total&quot;,  &quot;sort&quot;, &quot;bam&quot;), sep=&quot;[.]&quot;) %&gt;% mutate(sample=paste(yg, &quot;-&quot;, bm, &quot;-&quot;, lane, &quot;-&quot;, sample, &quot;-&quot;, total, &quot;-&quot;, sort, &quot;.&quot;, bam, sep=&quot;&quot;)) %&gt;% select(sample) %&gt;%  mutate(Species=ifelse(grepl(&quot;H&quot;,sample), &quot;Human&quot;, &quot;Chimp&quot;))
+
+
+write.table(indiv, &quot;../data/DiffSplice_liftedJunc/groups_file.txt&quot;, quote = F, col.names = F, row.names = F, sep = &quot;\t&quot;)</code></pre>
+<p>fix to -Total instead of .Total</p>
+<pre class="bash"><code>sbatch DiffSplice.sh</code></pre>
+<pre class="r"><code>counts=read.table(&#39;../data/DiffSplice_liftedJunc/MergeCombined_perind_numers.counts&#39;, header=T, check.names = F)
+meta=read.table(&quot;../data/DiffSplice_liftedJunc/groups_file.txt&quot;, header=F, stringsAsFactors = F)
+colnames(meta)[1:2]=c(&quot;sample&quot;,&quot;group&quot;)
+counts=counts[,meta$sample]
+#rownames(counts)</code></pre>
+<p>Error: cluster needs to be clu_###_sign ‘’’chr1:46368431:46369161:clu_386:+’’’</p>
+<p>I am going to write a python work around to change the cluster format. This will take the unziped version of the counts file. When I run it, I can unzip and zip the results in the bash script.</p>
+<p>There are either not enough samples or min coverage problems. Let me compare these to the numbers.</p>
+<pre class="r"><code>results=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt&quot;,stringsAsFactors = F, header = T, sep=&quot;\t&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;clus&quot;),sep=&quot;:&quot;)
+
+counts=read.table(&quot;../data/DiffSplice_liftedJunc/MergeCombined_perind.counts.fixed.gz&quot;, header = T)</code></pre>
+<p>Problem is the recluster and quantify has all human and all chimp. I dont have any clusters with counts for both species…</p>
+<p>##Old pipeline</p>
 <p>Now I need to do reciprocal liftover with the clusters.</p>
 <ul>
 <li>/project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/</li>
@@ -1024,416 +1175,192 @@ python ../clustering/leafcutter_cluster_regtools.py -j test_juncfiles.txt -m 50 
 <p>I first need to make bedfiles with these clusters.</p>
 <p>The clusters all have _NA I dont this this is correct.</p>
 <pre class="bash"><code>
-gunzip ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts.gz
+&lt;!-- gunzip ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts.gz --&gt;
 
-gunzip ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts.gz
-
-
-python cluster2bed.py ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts ../Human/data/RNAseq/DiffSplice/humanJunc.bed
-
-python cluster2bed.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed
+&lt;!-- gunzip ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts.gz --&gt;
 
 
-#I need to name the clusters before I can do the lift. (this is like the naming in apa 1-n(clusters))
-python nameClusters.py ../Human/data/RNAseq/DiffSplice/humanJunc.bed ../Human/data/RNAseq/DiffSplice/humanJuncNamed.bed
+&lt;!-- python cluster2bed.py ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts ../Human/data/RNAseq/DiffSplice/humanJunc.bed --&gt;
 
-python nameClusters.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed ../Chimp/data/RNAseq/DiffSplice/chimpJuncNamed.bed
+&lt;!-- python cluster2bed.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed --&gt;
 
-sbatch clusterLiftprimary.sh
 
-sbatch clusterLiftReverse.sh</code></pre>
+&lt;!-- #I need to name the clusters before I can do the lift. (this is like the naming in apa 1-n(clusters)) --&gt;
+&lt;!-- python nameClusters.py ../Human/data/RNAseq/DiffSplice/humanJunc.bed ../Human/data/RNAseq/DiffSplice/humanJuncNamed.bed --&gt;
+
+&lt;!-- python nameClusters.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed ../Chimp/data/RNAseq/DiffSplice/chimpJuncNamed.bed --&gt;
+
+&lt;!-- sbatch clusterLiftprimary.sh --&gt;
+
+&lt;!-- sbatch clusterLiftReverse.sh --&gt;</code></pre>
 <p>Evaluate results:</p>
 <p>(this code is from the lift for the PAS)</p>
-<pre class="r"><code>unliftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-unliftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-liftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-liftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-primaryUnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, unliftedC)
-primaryUnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, unliftedH)
-
-primaryLH=c(&quot;Human&quot;,&quot;Lifted&quot;, liftedH)
-primaryLC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, liftedC)
-
-header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
-primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
-colnames(primaryDF)=header
-
-
-primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
-
-
-
-primaryDF= primaryDF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;, y=&quot;Clusters&quot;)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/106f3c17b5d185e35bc8f6e64bea5e57547006e4/docs/figure/diffSplicing.Rmd/unnamed-chunk-8-1.png" target="_blank">106f3c1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/106f3c17b5d185e35bc8f6e64bea5e57547006e4/docs/figure/diffSplicing.Rmd/unnamed-chunk-8-2.png" target="_blank">106f3c1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code># unliftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# unliftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# 
+# liftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# liftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# 
+# primaryUnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, unliftedC)
+# primaryUnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, unliftedH)
+# 
+# primaryLH=c(&quot;Human&quot;,&quot;Lifted&quot;, liftedH)
+# primaryLC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, liftedC)
+# 
+# header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
+# primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
+# colnames(primaryDF)=header
+# 
+# 
+# primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
+# 
+# 
+# 
+# primaryDF= primaryDF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
+<pre class="r"><code># ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;, y=&quot;Isoforms&quot;)
+# 
+# ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Primary Liftover Results&quot;)</code></pre>
 <p>Look at the lifted:</p>
-<pre class="r"><code>OriginalHuman=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc.bed&quot;,stringsAsFactors = F) 
-liftedHuman=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F) 
-
-OriginalChimp=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed&quot;,stringsAsFactors = F)
-liftedChimp=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F)</code></pre>
+<pre class="r"><code># OriginalHuman=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc.bed&quot;,stringsAsFactors = F) 
+# liftedHuman=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F) 
+# 
+# OriginalChimp=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed&quot;,stringsAsFactors = F)
+# liftedChimp=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F)</code></pre>
 <p>Reverse lift:</p>
-<pre class="r"><code>re_unliftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-re_unliftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-re_liftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-re_liftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
-
-re_UnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, re_unliftedC)
-re_UnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, re_unliftedH)
-
-re_LH=c(&quot;Human&quot;,&quot;Lifted&quot;, re_liftedH)
-re_LC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, re_liftedC)
-
-header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
-re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
-colnames(re_DF)=header
-
-
-re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
-
-
-
-re_DF= re_DF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
-<pre class="r"><code>ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Reverse Liftover Results&quot;, y=&quot;Clusters&quot;)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/106f3c17b5d185e35bc8f6e64bea5e57547006e4/docs/figure/diffSplicing.Rmd/unnamed-chunk-11-1.png" target="_blank">106f3c1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Reverse Liftover Results&quot;)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
-Past versions of unnamed-chunk-11-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/106f3c17b5d185e35bc8f6e64bea5e57547006e4/docs/figure/diffSplicing.Rmd/unnamed-chunk-11-2.png" target="_blank">106f3c1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code># re_unliftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# re_unliftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp_unlifted.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# 
+# re_liftedH=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# re_liftedC=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed&quot;,stringsAsFactors = F) %&gt;% nrow()
+# 
+# re_UnC=c(&quot;Chimp&quot;,&quot;Unlifted&quot;, re_unliftedC)
+# re_UnH=c(&quot;Human&quot;,&quot;Unlifted&quot;, re_unliftedH)
+# 
+# re_LH=c(&quot;Human&quot;,&quot;Lifted&quot;, re_liftedH)
+# re_LC=c(&quot;Chimp&quot;,&quot;Lifted&quot;, re_liftedC)
+# 
+# header=c(&quot;species&quot;, &quot;liftStat&quot;, &quot;PAS&quot;)
+# re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
+# colnames(re_DF)=header
+# 
+# 
+# re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
+# 
+# 
+# 
+# re_DF= re_DF %&gt;% group_by(species) %&gt;% mutate(nPAS=sum(PAS)) %&gt;% ungroup() %&gt;% mutate(proportion=PAS/nPAS)</code></pre>
+<pre class="r"><code># ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Reverse Liftover Results&quot;, y=&quot;Isoforms&quot;)
+# ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Reverse Liftover Results&quot;)</code></pre>
 <p>How many lifted both ways?</p>
-<pre class="r"><code>#human
-re_liftedH/nrow(OriginalHuman)</code></pre>
-<pre><code>[1] 0.9200983</code></pre>
-<pre class="r"><code>#chimp
-re_liftedC/nrow(OriginalChimp)</code></pre>
-<pre><code>[1] 0.9193779</code></pre>
+<pre class="r"><code># #human
+# re_liftedH/nrow(OriginalHuman)
+# #chimp
+# re_liftedC/nrow(OriginalChimp)</code></pre>
 <p>The next step will be to find the corresponding clusters. This is important because I will need to get the quantifications for the same introns and clusters. To do this I will need to write code that looks for the intron location from the primary lift in the reverse lift.</p>
 <p>For now I will only look at those introns identified in both species. I need to do this because I need junctions we have quantifications for in both species.</p>
 <p>I can make files with the human and chimp coordintats for the clusters that lift both ways. I will have to number each cluster</p>
 <p>Human cluser:</p>
-<pre class="r"><code>humanRevlift=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Hchr&quot;,&quot;Hstart&quot;, &quot;Hend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% select(-strand)
-
-#number clusters
-humanRevlift %&gt;% select(cluster) %&gt;% unique() %&gt;% nrow()</code></pre>
-<pre><code>[1] 5085</code></pre>
-<pre class="r"><code>humanRevlift$score=as.character(humanRevlift$score)
-humanRevlift= humanRevlift %&gt;%  mutate(Name=paste(&quot;Human&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
-
-
-humanInChimp=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Cchr&quot;,&quot;Cstart&quot;, &quot;Cend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;))%&gt;% select(-strand)
-humanInChimp$score=as.character(humanInChimp$score)
-humanInChimp= humanInChimp %&gt;%  mutate(Name=paste(&quot;Human&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
-
-
-humanliftedBoth=humanRevlift %&gt;% inner_join(humanInChimp, by=c(&quot;cluster&quot;, &quot;Name&quot;))</code></pre>
+<pre class="r"><code># 
+# humanRevlift=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Hchr&quot;,&quot;Hstart&quot;, &quot;Hend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% select(-strand)
+# 
+# #number clusters
+# humanRevlift %&gt;% select(cluster) %&gt;% unique() %&gt;% nrow()
+# 
+# humanRevlift$score=as.character(humanRevlift$score)
+# humanRevlift= humanRevlift %&gt;%  mutate(Name=paste(&quot;Human&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
+# 
+# 
+# humanInChimp=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Cchr&quot;,&quot;Cstart&quot;, &quot;Cend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;))%&gt;% select(-strand)
+# humanInChimp$score=as.character(humanInChimp$score)
+# humanInChimp= humanInChimp %&gt;%  mutate(Name=paste(&quot;Human&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
+# 
+# 
+# humanliftedBoth=humanRevlift %&gt;% inner_join(humanInChimp, by=c(&quot;cluster&quot;, &quot;Name&quot;))</code></pre>
 <p>Chimp clusters:</p>
-<pre class="r"><code>chimpRevLift=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Cchr&quot;,&quot;Cstart&quot;, &quot;Cend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% select(-strand)
-chimpRevLift$score=as.character(chimpRevLift$score)
-chimpRevLift= chimpRevLift %&gt;%  mutate(Name=paste(&quot;Chimp&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
-chimpRevLift %&gt;% select(cluster) %&gt;% unique() %&gt;% nrow()</code></pre>
-<pre><code>[1] 4886</code></pre>
-<pre class="r"><code>chimpInHuman=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Hchr&quot;,&quot;Hstart&quot;, &quot;Hend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;))%&gt;% select(-strand) 
-chimpInHuman$score=as.character(chimpInHuman$score)
-chimpInHuman= chimpInHuman %&gt;%  mutate(Name=paste(&quot;Chimp&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
-
-chimpliftedBoth=chimpRevLift %&gt;% inner_join(chimpInHuman, by=c(&quot;cluster&quot;, &quot;Name&quot;))</code></pre>
+<pre class="r"><code># chimpRevLift=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Cchr&quot;,&quot;Cstart&quot;, &quot;Cend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% select(-strand)
+# chimpRevLift$score=as.character(chimpRevLift$score)
+# chimpRevLift= chimpRevLift %&gt;%  mutate(Name=paste(&quot;Chimp&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
+# chimpRevLift %&gt;% select(cluster) %&gt;% unique() %&gt;% nrow()
+# 
+# 
+# chimpInHuman=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed&quot;,stringsAsFactors = F,col.names = c(&quot;Hchr&quot;,&quot;Hstart&quot;, &quot;Hend&quot;, &quot;cluster&quot;, &quot;score&quot;, &quot;strand&quot;))%&gt;% select(-strand) 
+# chimpInHuman$score=as.character(chimpInHuman$score)
+# chimpInHuman= chimpInHuman %&gt;%  mutate(Name=paste(&quot;Chimp&quot;, score, sep=&quot;_&quot;)) %&gt;% select(-score)
+# 
+# chimpliftedBoth=chimpRevLift %&gt;% inner_join(chimpInHuman, by=c(&quot;cluster&quot;, &quot;Name&quot;))</code></pre>
 <p>Try to join these by the human and chimp coordinates</p>
-<pre class="r"><code>AllClusters=chimpliftedBoth %&gt;% inner_join(humanliftedBoth, by=c(&quot;Cchr&quot;, &quot;Cstart&quot;,&quot;Cend&quot;, &quot;Hchr&quot;, &quot;Hstart&quot;, &quot;Hend&quot;)) %&gt;% mutate(ChimpName=paste(Cchr,Cstart,Cend, cluster.x, sep=&quot;:&quot; ),HumanName=paste(Hchr,Hstart,Hend, cluster.y, sep=&quot;:&quot; ) )
-
-nrow(AllClusters)</code></pre>
-<pre><code>[1] 7080</code></pre>
-<pre class="r"><code>AllClusters %&gt;% select(cluster.x) %&gt;% unique() %&gt;% nrow()</code></pre>
-<pre><code>[1] 2967</code></pre>
-<pre class="r"><code>AllClusters %&gt;% select(cluster.y) %&gt;% unique() %&gt;% nrow()</code></pre>
-<pre><code>[1] 2968</code></pre>
+<pre class="r"><code># AllClusters=chimpliftedBoth %&gt;% inner_join(humanliftedBoth, by=c(&quot;Cchr&quot;, &quot;Cstart&quot;,&quot;Cend&quot;, &quot;Hchr&quot;, &quot;Hstart&quot;, &quot;Hend&quot;)) %&gt;% mutate(ChimpName=paste(Cchr,Cstart,Cend, cluster.x, sep=&quot;:&quot; ),HumanName=paste(Hchr,Hstart,Hend, cluster.y, sep=&quot;:&quot; ) )
+# 
+# nrow(AllClusters)
+# 
+# AllClusters %&gt;% select(cluster.x) %&gt;% unique() %&gt;% nrow()
+# AllClusters %&gt;% select(cluster.y) %&gt;% unique() %&gt;% nrow()</code></pre>
 <p>This means there are ~7k isoforms from about 3k genes. This is from the ~5k clusters I had before. I can move on with these using the human names.</p>
 <p>I will have to go back and figure out how to call clusters for more genes.</p>
 <p>I need to reformat these back into the counts format.</p>
-<pre class="r"><code>#chr1:17055:17233:clu_1
-
-AllClustersNames=AllClusters %&gt;% select(HumanName, ChimpName)
-
-ChimpCluster=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind_numers.counts.gz&quot;) %&gt;% rownames_to_column(var=&quot;ChimpName&quot;)
-FilteredChimpCluster= ChimpCluster %&gt;% inner_join(AllClustersNames, by=&quot;ChimpName&quot;)
-
-#map human onto these
-
-HumanCluster=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_perind_numers.counts.gz&quot;) %&gt;% rownames_to_column(var=&quot;HumanName&quot;)
-FilteredClusterBoth=HumanCluster %&gt;% inner_join(FilteredChimpCluster, by=&quot;HumanName&quot;) %&gt;% select(-ChimpName) 
-
-FilteredClusterBothfixed=FilteredClusterBoth[!duplicated(FilteredClusterBoth$HumanName),]
-
-
-
-
-
-
-#create group file- this should have the name of the bams and the group
-Bams=as.data.frame(colnames(FilteredClusterBothfixed)) %&gt;% mutate(Species=ifelse(grepl(&quot;H&quot;,colnames(FilteredClusterBothfixed)), &quot;Human&quot;, &quot;Chimp&quot;)) %&gt;% slice(2:n())
-
-#mkdir ../data/DiffSplice 
-write.table(Bams, &quot;../data/DiffSplice/groups_file.txt&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot; )
-
-
-write.table(FilteredClusterBothfixed, &quot;../data/DiffSplice/BothSpec_perind.counts&quot;, col.names = T, row.names = F, quote = F, sep=&quot;\t&quot; )</code></pre>
+<pre class="r"><code># #chr1:17055:17233:clu_1
+# 
+# AllClustersNames=AllClusters %&gt;% select(HumanName, ChimpName)
+# 
+# ChimpCluster=read.table(&quot;../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind_numers.counts.gz&quot;) %&gt;% rownames_to_column(var=&quot;ChimpName&quot;)
+# FilteredChimpCluster= ChimpCluster %&gt;% inner_join(AllClustersNames, by=&quot;ChimpName&quot;)
+# 
+# #map human onto these
+# 
+# HumanCluster=read.table(&quot;../Human/data/RNAseq/DiffSplice/humanJunc_perind_numers.counts.gz&quot;) %&gt;% rownames_to_column(var=&quot;HumanName&quot;)
+# FilteredClusterBoth=HumanCluster %&gt;% inner_join(FilteredChimpCluster, by=&quot;HumanName&quot;) %&gt;% select(-ChimpName) 
+# 
+# FilteredClusterBothfixed=FilteredClusterBoth[!duplicated(FilteredClusterBoth$HumanName),]
+# 
+# 
+# 
+# 
+# 
+# 
+# #create group file- this should have the name of the bams and the group
+# Bams=as.data.frame(colnames(FilteredClusterBothfixed)) %&gt;% mutate(Species=ifelse(grepl(&quot;H&quot;,colnames(FilteredClusterBothfixed)), &quot;Human&quot;, &quot;Chimp&quot;)) %&gt;% slice(2:n())
+# 
+# #mkdir ../data/DiffSplice 
+# write.table(Bams, &quot;../data/DiffSplice/groups_file.txt&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot; )
+# 
+# 
+# write.table(FilteredClusterBothfixed, &quot;../data/DiffSplice/BothSpec_perind.counts&quot;, col.names = T, row.names = F, quote = F, sep=&quot;\t&quot; )
+# </code></pre>
 <p>Remove the first name in header and zip the file:</p>
 <p><strong>(manually)</strong></p>
-<pre class="bash"><code>vi ../data/DiffSplice/BothSpec_perind.counts
+<pre class="bash"><code>&lt;!-- vi ../data/DiffSplice/BothSpec_perind.counts --&gt;
 
-gzip ../data/DiffSplice/BothSpec_perind.counts</code></pre>
+&lt;!-- gzip ../data/DiffSplice/BothSpec_perind.counts --&gt;</code></pre>
 <p>I will run the differential splicing analysis with the human exon file for now. Download the NCBI refseq exons from the table browser. I also downloaded the names with the common names so I can fix the exon file.</p>
-<pre class="bash"><code>python processhg38exons.py
-gzip ../data/DiffSplice/hg38_ncbiRefseq_exonsfixed</code></pre>
+<pre class="bash"><code>&lt;!-- python processhg38exons.py --&gt;
+&lt;!-- gzip ../data/DiffSplice/hg38_ncbiRefseq_exonsfixed --&gt;</code></pre>
 <p>Run leafcutter with python 2</p>
-<pre class="bash"><code>sbatch DiffSplice.sh
+<pre class="bash"><code>&lt;!-- sbatch DiffSplice.sh --&gt;
 </code></pre>
 <p>Look at results:</p>
-<pre class="r"><code>sig=read.table(&quot;../data/DiffSplice/leafcutter_ds_cluster_significance.txt&quot;,sep=&quot;\t&quot; ,header =T,stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
-
-sig$p.adjust=as.numeric(as.character(sig$p.adjust))
-
-
-qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing&quot;)
-abline(0,1)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9b73cfffda5d3f6f6ca6d601049568822b016daa/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">9b73cff</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code># sig=read.table(&quot;../data/DiffSplice/leafcutter_ds_cluster_significance.txt&quot;,sep=&quot;\t&quot; ,header =T,stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
+# 
+# sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+# 
+# 
+# qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing&quot;)
+# abline(0,1)
+# 
+# sig %&gt;% filter(p.adjust &lt; .05 ) %&gt;% nrow()</code></pre>
 <p>Use the leafcutter tool to visualize</p>
-<pre class="bash"><code>sbatch DiffSplicePlots.sh</code></pre>
+<pre class="bash"><code>&lt;!-- sbatch DiffSplicePlots.sh --&gt;</code></pre>
 <p>try with gencode exons:</p>
-<pre class="bash"><code>sbatch DiffSplice_gencode.sh
-sbatch DiffSplicePlots_gencode.sh</code></pre>
-<pre class="r"><code>sig_gencode=read.table(&quot;../data/DiffSplice/Gencode__cluster_significance.txt&quot;,sep=&quot;\t&quot; ,header =T,stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
-
-sig_gencode$p.adjust=as.numeric(as.character(sig_gencode$p.adjust))
-
-
-qqplot(-log10(runif(nrow(sig_gencode))), -log10(sig_gencode$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing Gencode exons&quot;)
-abline(0,1)</code></pre>
-<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
-Past versions of unnamed-chunk-23-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-23-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9b73cfffda5d3f6f6ca6d601049568822b016daa/docs/figure/diffSplicing.Rmd/unnamed-chunk-23-1.png" target="_blank">9b73cff</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="bash"><code>&lt;!-- sbatch DiffSplice_gencode.sh --&gt;
+&lt;!-- sbatch DiffSplicePlots_gencode.sh --&gt;</code></pre>
+<pre class="r"><code># sig_gencode=read.table(&quot;../data/DiffSplice/Gencode__cluster_significance.txt&quot;,sep=&quot;\t&quot; ,header =T,stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
+# 
+# sig_gencode$p.adjust=as.numeric(as.character(sig_gencode$p.adjust))
+# 
+# 
+# qqplot(-log10(runif(nrow(sig_gencode))), -log10(sig_gencode$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter Differential Splicing Gencode exons&quot;)
+# abline(0,1)
+# 
+# sig_gencode %&gt;% filter(p.adjust &lt; .05 ) %&gt;% nrow()</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1466,24 +1393,19 @@ other attached packages:
  [9] ggplot2_3.1.1   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
-[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
-[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] workflowr_1.5.0    cellranger_1.1.0   rvest_0.3.2       
-[22] evaluate_0.12      labeling_0.3       knitr_1.20        
-[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
-[28] promises_1.0.1     scales_1.0.0       backports_1.1.2   
-[31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
-[34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
-[37] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
-[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
-[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
-[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
-[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
-[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
+ [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     workflowr_1.5.0 
+ [9] tools_3.5.1      digest_0.6.18    lubridate_1.7.4  jsonlite_1.6    
+[13] evaluate_0.12    nlme_3.1-137     gtable_0.2.0     lattice_0.20-38 
+[17] pkgconfig_2.0.2  rlang_0.4.0      cli_1.1.0        rstudioapi_0.10 
+[21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
+[25] httr_1.3.1       knitr_1.20       hms_0.4.2        generics_0.0.2  
+[29] fs_1.3.1         rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5
+[33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
+[37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    backports_1.1.2 
+[41] scales_1.0.0     promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
+[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4   
+[49] lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
 </div>
 
 
