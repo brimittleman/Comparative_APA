@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-22
+<strong>Last updated:</strong> 2019-12-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef13781ed19dd79593159c103b6225811b4db2f2btargetblankf13781ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f13781ed19dd79593159c103b6225811b4db2f2b" target="_blank">f13781e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/558b39f968809f66fe79c9aba058a81102f0924f" target="_blank">558b39f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef13781ed19dd79593159c103b6225811b4db2f2btargetblankf13781ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,6 +451,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
     Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
@@ -462,16 +463,21 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
-    Untracked:  analysis/multiMap.Rmd
     Untracked:  code/._Config_chimp.yaml
+    Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._GetMAPQscore.py
+    Untracked:  code/._GetSecondaryMap.py
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MergeClusters.sh
+    Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -481,6 +487,7 @@ Untracked files:
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
     Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -492,31 +499,44 @@ Untracked files:
     Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
+    Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixLeafCluster.py
+    Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._getRNAseqMapStats.sh
+    Untracked:  code/._hg19MapStats.sh
+    Untracked:  code/._humanChromorder.sh
     Untracked:  code/._intersectLiftedPAS.sh
+    Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
+    Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
+    Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
     Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_TEST.sh
     Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
@@ -543,8 +563,10 @@ Untracked files:
     Untracked:  code/._verifyBam4973inHuman.sh
     Untracked:  code/._wrap_chimpverifybam.sh
     Untracked:  code/._wrap_verifyBam.sh
+    Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
+    Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
@@ -559,6 +581,12 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
+    Untracked:  code/GetMAPQscore.py
+    Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/HchromOrder.err
+    Untracked:  code/HchromOrder.out
+    Untracked:  code/JunctionLift.err
+    Untracked:  code/JunctionLift.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
     Untracked:  code/LiftClustersFirst_remove.err
@@ -574,8 +602,20 @@ Untracked files:
     Untracked:  code/MapBadSamples.err
     Untracked:  code/MapBadSamples.out
     Untracked:  code/MapBadSamples.sh
+    Untracked:  code/MapStats.err
+    Untracked:  code/MapStats.out
+    Untracked:  code/MergeClusters.err
+    Untracked:  code/MergeClusters.out
+    Untracked:  code/MergeClusters.sh
+    Untracked:  code/QuantMergeClusters
+    Untracked:  code/QuantMergeClusters.err
+    Untracked:  code/QuantMergeClusters.out
+    Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/RunFixCluster.err
+    Untracked:  code/RunFixCluster.out
+    Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
@@ -603,8 +643,11 @@ Untracked files:
     Untracked:  code/buildIndecpantro5.sh
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
+    Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chromOrder.err
+    Untracked:  code/chromOrder.out
     Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
@@ -614,6 +657,7 @@ Untracked files:
     Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/comands2Mege.sh
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
@@ -623,7 +667,10 @@ Untracked files:
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
+    Untracked:  code/filterJuncChroms.err
+    Untracked:  code/filterJuncChroms.out
     Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
     Untracked:  code/filterSAFforMP_gen.py
@@ -632,15 +679,25 @@ Untracked files:
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixLeafCluster.py
+    Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
     Untracked:  code/formathg38Anno.py
     Untracked:  code/generateStarIndex.err
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getRNAseqMapStats.sh
+    Untracked:  code/hg19MapStats.err
+    Untracked:  code/hg19MapStats.out
+    Untracked:  code/hg19MapStats.sh
+    Untracked:  code/humanChromorder.sh
+    Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectLiftedPAS.sh
+    Untracked:  code/leafcutter_merge_regtools_redo.py
+    Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
@@ -651,12 +708,17 @@ Untracked files:
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
     Untracked:  code/mapRNAseqhg19.sh
+    Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_new.err
+    Untracked:  code/maphg19_new.out
     Untracked:  code/maphg19_sub.err
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/merge.err
+    Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -664,6 +726,7 @@ Untracked files:
     Untracked:  code/namePeaks.py
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
+    Untracked:  code/numMultimap.py
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
@@ -677,6 +740,7 @@ Untracked files:
     Untracked:  code/primaryLift.sh
     Untracked:  code/processhg38exons.py
     Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_TEST.sh
     Untracked:  code/quantJunc_removeBad.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
@@ -691,6 +755,7 @@ Untracked files:
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
@@ -708,6 +773,9 @@ Untracked files:
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
+    Untracked:  code/slurm-64108209.out
+    Untracked:  code/slurm-64108521.out
+    Untracked:  code/slurm-64108557.out
     Untracked:  code/snakePASChimp.err
     Untracked:  code/snakePASChimp.out
     Untracked:  code/snakePAShuman.out
@@ -738,6 +806,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/test
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
@@ -752,7 +821,11 @@ Untracked files:
     Untracked:  code/wrap_verifyBam.sh
     Untracked:  code/wrap_verifybam.err
     Untracked:  code/wrap_verifybam.out
+    Untracked:  code/writeMergecode.py
     Untracked:  data/._.DS_Store
+    Untracked:  data/._HC_filenames.txt
+    Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
+    Untracked:  data/._HC_filenames.xlsx
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
@@ -768,13 +841,13 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DTmatrix/
+    Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
-    Untracked:  data/DiffSplice_cluster_significance.txt
-    Untracked:  data/DiffSplice_effect_sizes.txt
+    Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
-    Untracked:  data/DiffSplice_removeBad_cluster_significance.txt
-    Untracked:  data/DiffSplice_removeBad_effect_sizes.txt
+    Untracked:  data/HC_filenames.txt
+    Untracked:  data/HC_filenames.xlsx
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
@@ -802,10 +875,10 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
-    Modified:   analysis/MapRNAhg19.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffSplicing.Rmd
+    Modified:   analysis/mapStats.Rmd
+    Modified:   analysis/multiMap.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
@@ -845,6 +918,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/558b39f968809f66fe79c9aba058a81102f0924f/analysis/diffExpression.Rmd" target="_blank">558b39f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-04
+</td>
+<td>
+add current error for splice and write out DE genes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/diffExpression.html" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1145,12 +1252,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1245,6 +1352,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-3-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-3-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1298,6 +1416,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-4-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/32b435b21c8a27e87202aac699cc14406bcd9dfe/docs/figure/diffExpression.Rmd/unnamed-chunk-4-1.png" target="_blank">32b435b</a>
 </td>
 <td>
@@ -1349,6 +1478,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-5-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-5-1.png" target="_blank">2c02d70</a>
 </td>
 <td>
@@ -1386,6 +1526,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-6-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/2c02d708bc6461ce14bf5d1f4fcad67e7df2bc2d/docs/figure/diffExpression.Rmd/unnamed-chunk-6-1.png" target="_blank">2c02d70</a>
@@ -1488,6 +1639,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -1554,6 +1716,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -1609,6 +1782,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -1660,6 +1844,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">25971ed</a>
@@ -1770,6 +1965,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -1842,6 +2048,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">25971ed</a>
@@ -1931,6 +2148,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -1991,6 +2219,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2043,6 +2282,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">25971ed</a>
@@ -2104,6 +2354,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">25971ed</a>
@@ -2180,6 +2441,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2250,6 +2522,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2316,6 +2599,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2377,6 +2671,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2436,6 +2741,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">25971ed</a>
@@ -2507,6 +2823,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">25971ed</a>
@@ -2584,6 +2911,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2644,6 +2982,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2696,6 +3045,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">25971ed</a>
@@ -2757,6 +3117,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2804,6 +3175,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">25971ed</a>
@@ -2861,6 +3243,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -2908,6 +3301,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">25971ed</a>
@@ -2969,6 +3373,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3016,6 +3431,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">25971ed</a>
@@ -3072,6 +3498,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3119,6 +3556,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">25971ed</a>
@@ -3175,6 +3623,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3222,6 +3681,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">25971ed</a>
@@ -3279,6 +3749,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3326,6 +3807,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">25971ed</a>
@@ -3414,6 +3906,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3465,6 +3968,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-40-2.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-40-2.png" target="_blank">25971ed</a>
@@ -3579,6 +4093,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">8fca47f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">25971ed</a>
 </td>
 <td>
@@ -3597,6 +4122,10 @@ brimittleman
 Down            1881
 NotSig          6486
 Up              1880</code></pre>
+<pre class="r"><code>deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val &lt; 0.05,]))
+#mkdir ../data/DiffExpression
+
+write.table(deGenes,&quot;../data/DiffExpression/DE_genes.txt&quot;, col.names = F, row.names = F, quote = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

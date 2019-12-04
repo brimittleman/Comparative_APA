@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-02
+<strong>Last updated:</strong> 2019-12-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb5df813a453dec3873b6f1d3b733f37a11f9bf33targetblankb5df813a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b5df813a453dec3873b6f1d3b733f37a11f9bf33" target="_blank">b5df813</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/558b39f968809f66fe79c9aba058a81102f0924f" target="_blank">558b39f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb5df813a453dec3873b6f1d3b733f37a11f9bf33targetblankb5df813a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,6 +451,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
     Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
@@ -463,6 +464,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  code/._Config_chimp.yaml
+    Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
@@ -485,6 +487,7 @@ Untracked files:
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
     Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -507,6 +510,7 @@ Untracked files:
     Untracked:  code/._formatpantro6Anno.py
     Untracked:  code/._getRNAseqMapStats.sh
     Untracked:  code/._hg19MapStats.sh
+    Untracked:  code/._humanChromorder.sh
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
@@ -559,8 +563,10 @@ Untracked files:
     Untracked:  code/._verifyBam4973inHuman.sh
     Untracked:  code/._wrap_chimpverifybam.sh
     Untracked:  code/._wrap_verifyBam.sh
+    Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
     Untracked:  code/Config_chimp.yaml
+    Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
@@ -577,6 +583,8 @@ Untracked files:
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/HchromOrder.err
+    Untracked:  code/HchromOrder.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
     Untracked:  code/LiftClustersFirst.err
@@ -600,6 +608,7 @@ Untracked files:
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
     Untracked:  code/QuantMergeClusters
+    Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
     Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
@@ -634,8 +643,11 @@ Untracked files:
     Untracked:  code/buildIndecpantro5.sh
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
+    Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chromOrder.err
+    Untracked:  code/chromOrder.out
     Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
@@ -645,6 +657,7 @@ Untracked files:
     Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/comands2Mege.sh
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
@@ -678,6 +691,7 @@ Untracked files:
     Untracked:  code/hg19MapStats.err
     Untracked:  code/hg19MapStats.out
     Untracked:  code/hg19MapStats.sh
+    Untracked:  code/humanChromorder.sh
     Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
@@ -703,6 +717,7 @@ Untracked files:
     Untracked:  code/maphg19_sub.err
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/merge.err
     Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
@@ -758,6 +773,9 @@ Untracked files:
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
+    Untracked:  code/slurm-64108209.out
+    Untracked:  code/slurm-64108521.out
+    Untracked:  code/slurm-64108557.out
     Untracked:  code/snakePASChimp.err
     Untracked:  code/snakePASChimp.out
     Untracked:  code/snakePAShuman.out
@@ -803,7 +821,11 @@ Untracked files:
     Untracked:  code/wrap_verifyBam.sh
     Untracked:  code/wrap_verifybam.err
     Untracked:  code/wrap_verifybam.out
+    Untracked:  code/writeMergecode.py
     Untracked:  data/._.DS_Store
+    Untracked:  data/._HC_filenames.txt
+    Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
+    Untracked:  data/._HC_filenames.xlsx
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
@@ -819,10 +841,13 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DTmatrix/
+    Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/HC_filenames.txt
+    Untracked:  data/HC_filenames.xlsx
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/Peaks_5perc/
@@ -852,6 +877,7 @@ Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/mapStats.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
@@ -892,6 +918,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/558b39f968809f66fe79c9aba058a81102f0924f/analysis/diffSplicing.Rmd" target="_blank">558b39f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-04
+</td>
+<td>
+add current error for splice and write out DE genes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2fbf2d4e555c2aba2ffd4e7fd2e6a12aebce07e3/docs/diffSplicing.html" target="_blank">2fbf2d4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1087,12 +1147,12 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1159,6 +1219,8 @@ counts=counts[,meta$sample]
 #rownames(counts)</code></pre>
 <p>Error: cluster needs to be clu_###_sign ‘’’chr1:46368431:46369161:clu_386:+’’’</p>
 <p>I am going to write a python work around to change the cluster format. This will take the unziped version of the counts file. When I run it, I can unzip and zip the results in the bash script.</p>
+<pre class="bash"><code>
+sbatch runFixLeafCluster.sh</code></pre>
 <p>There are either not enough samples or min coverage problems. Let me compare these to the numbers.</p>
 <pre class="r"><code>results=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt&quot;,stringsAsFactors = F, header = T, sep=&quot;\t&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;clus&quot;),sep=&quot;:&quot;)
 
