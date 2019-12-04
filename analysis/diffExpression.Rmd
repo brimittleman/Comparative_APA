@@ -485,4 +485,10 @@ summary(decideTests(tmp))
 ```
 
 
+```{r}
+deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val < 0.05,]))
+#mkdir ../data/DiffExpression
+
+write.table(deGenes,"../data/DiffExpression/DE_genes.txt", col.names = F, row.names = F, quote = F)
+```
 

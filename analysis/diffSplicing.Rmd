@@ -151,6 +151,12 @@ counts=counts[,meta$sample]
  I am going to write a python work around to change the cluster format. This will take the unziped version of the counts file. When I run it, I can unzip and zip the results in the bash script.  
  
  
+```{bash,eval=F}
+
+sbatch runFixLeafCluster.sh
+```
+ 
+ 
 There are either not enough samples or min coverage problems.  Let me compare these to the numbers.  
 ```{r}
 results=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":")
