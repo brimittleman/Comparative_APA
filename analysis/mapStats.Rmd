@@ -18,7 +18,7 @@ library(reshape2)
 ```
 
 ```{r}
-metadata=read.table("../data/metadata_HCpanel.txt", stringsAsFactors = F, header = T)
+metadata=read.table("../data/metadata_HCpanel.txt", stringsAsFactors = F, header = T, sep="\t")
 ```
 
 
@@ -29,39 +29,7 @@ ggplot(metadata, aes(x=Line, y=PerMap, fill=Species,by=Species)) + geom_bar(posi
 ggplot(metadata, aes(x=Line, y=PerMapClean, fill=Species,by=Species)) + geom_bar(position = "dodge", stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map percent", title="Post cleaning")
 ```
 
-These are really low. I will try mapping some of the human lines to hg19 to compare to the apaQTL project.  
-
-```{bash,eval=F}
-mkdir ../Human/data/bam_hg19
-mkdir ../Human/data/sort_hg19
-sbatch maphg19.sh 
-```
+This is weird. It doesn't look like the mismapping filter worked.  
 
 
-
-Try with subread.  (is it a star problem as well)  
-
-
-```{bash,eval=F}
-mkdir  ../Human/data/bam_hg19_sub
-mkdir ../Human/data/sort_hg19_sub
-sbatch maphg19_subjunc.sh
-```
-
-I ended up doing this with hg38  
-
-
-```{r}
-hg19Res=read.table("../Human/data/Comphg19_hg38.txt", header = T, stringsAsFactors = F)%>% select(Line, Fraction, PerMap, HG19_mapper, subread_perc) 
-hg19Res$Line=as.factor(hg19Res$Line)
-
-
-hg19Res_m= melt(hg19Res, id.vars = c("Line", "Fraction"))
-
-
-ggplot(hg19Res_m, aes(x=Line, y=value, fill=variable)) + geom_bar(position = "dodge", stat="identity") +facet_grid(~Fraction)
-
-```
-
-Seems like the 38 genomes isnt as good in either.
 
