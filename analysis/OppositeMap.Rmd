@@ -1,0 +1,65 @@
+---
+title: "Opposite Map to test misprimming"
+author: "Briana Mittleman"
+date: "12/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+I saw a wierd result where it looks like there is not misspriming in the chimps. To figure out whats going on i can try to map the chimps to the human pipeline. This will show me if it is the chimp genome files causing this. 
+I can use the snakefile with the opposite config. 
+
+
+I can start a new directory for simplicity.  
+
+In my gilad directory
+```{bash,eval=F}
+mkdir CompAPAOpp
+mkdir CompAPAOpp/Human
+mkdir CompAPAOpp/Human/data/
+mkdir CompAPAOpp/Human/data/fastq
+mkdir CompAPAOpp/Chimp
+mkdir CompAPAOpp/Chimp/data/
+mkdir CompAPAOpp/Chimp/data/fastq
+mkdir CompAPAOpp/code
+```
+
+Copy over files:
+
+Snakefile
+submit files
+config files 
+cluster file
+batch files  
+
+Remove RNA seq rules and clean bam rules.
+
+Change the project files in the config. This will use the human samples for the chimp configuration and vice versa.  
+
+```{bash,eval=F}
+sbatch snakemake_chimp.batch
+sbatch snakemake_human.batch
+
+```
+
+
+```{r}
+oppMapStats=read.table("../data/OppositeSpeciesMap.txt",stringsAsFactors = F, header = T)
+
+
+```
+
+```{r}
+ggplot(oppMapStats, aes(x=ID, fill=Species, y=perc_clean)) + geom_bar(stat = "identity") +theme(axis.text.x = element_text(angle = 90))
+```
+
+It is the genome not the libraries.  
+

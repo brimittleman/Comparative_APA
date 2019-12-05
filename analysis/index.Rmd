@@ -69,4 +69,5 @@ Extra QC and Analysis
 
 * [Evaluate multimapping criteria](multiMap.html)
 
+* [Map to opposite Genomes](OppositeMap.html)
 
