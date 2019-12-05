@@ -71,3 +71,4 @@ Extra QC and Analysis
 
 * [Map to opposite Genomes](OppositeMap.html)
 
+* [Evaluate Pantro 5 problems](investigatePantro5.html)

@@ -1,0 +1,50 @@
+---
+title: "Inverstigate Pantro5 misprimming"
+author: "Briana Mittleman"
+date: "12/5/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+I see that there is a problem with the Pantro5 genomes where the reads don't get flagged for misspriming. 
+
+This may be due to the number of Ns in the chimp genome. I will look at the number of N's in the bedtools nuc results for the human and chimp reads. The metric will be number of N's/number of reads in the library.  
+
+I will write a python script for this. It will take in a bedtools nuc result file and give back a number, the number of reads, and the name of the library. I can then run this on all files in bash to make a results file.  The script can take any letter so I can look at the numbers of T's as a comparason.  
+
+```{bash,eval=F}
+mkdir ../data/EvalPantro5
+sbatch runCountNucleotides.sh
+```
+
+Evaluate the results:
+
+```{r}
+countRes=read.table("../data/EvalPantro5/CountsforNucleotides.txt", stringsAsFactors = F, header = F, col.names = c("library", "Nucleotide", "numLetter","NumReads")) %>% separate(library, into=c("species", "com", "individual", "fraction")) %>% mutate(NormN=numLetter/(NumReads*10), Fraction=ifelse(fraction=="N", "Nuclear", "Total")) 
+
+countRes_N= countRes %>% filter(Nucleotide=="N")
+countRes_T= countRes %>% filter(Nucleotide=="T")
+
+
+ggplot(countRes_N, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat="identity") + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title="N nucleotides per base",y="N nucleotide per base")
+
+ggplot(countRes_N, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat="identity") + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title="N nucleotides per base",y="N nucleotide per base") +scale_y_log10()
+
+
+
+
+```
+
+```{r}
+
+ggplot(countRes_T, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat="identity") + facet_grid(~Fraction) + theme(axis.text.x = element_text(angle = 90)) + labs(title="T nucleotides per base", y="T nucleotide per base")
+```
+
