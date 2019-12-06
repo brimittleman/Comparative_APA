@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-04
+<strong>Last updated:</strong> 2019-12-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/558b39f968809f66fe79c9aba058a81102f0924f" target="_blank">558b39f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d93e4db82595f31cd804eefcbda551dcd2d1e4ctargetblank6d93e4da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6d93e4db82595f31cd804eefcbda551dcd2d1e4c" target="_blank">6d93e4d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree558b39f968809f66fe79c9aba058a81102f0924ftargetblank558b39fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d93e4db82595f31cd804eefcbda551dcd2d1e4ctargetblank6d93e4da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,10 +451,13 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/DiffSplice_liftedJunc/
     Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
+    Ignored:    data/OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf/
     Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
     Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
+    Ignored:    data/RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2/
     Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
     Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
 
@@ -466,6 +469,7 @@ Untracked files:
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
+    Untracked:  code/._CountNucleotides.py
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
@@ -475,7 +479,6 @@ Untracked files:
     Untracked:  code/._GetSecondaryMap.py
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
-    Untracked:  code/._MergeClusters.sh
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
@@ -536,6 +539,7 @@ Untracked files:
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runCountNucleotides.sh
     Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
@@ -568,6 +572,7 @@ Untracked files:
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
+    Untracked:  code/CountNucleotides.py
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -604,8 +609,6 @@ Untracked files:
     Untracked:  code/MapBadSamples.sh
     Untracked:  code/MapStats.err
     Untracked:  code/MapStats.out
-    Untracked:  code/MergeClusters.err
-    Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -693,6 +696,7 @@ Untracked files:
     Untracked:  code/hg19MapStats.sh
     Untracked:  code/humanChromorder.sh
     Untracked:  code/humanFiles
+    Untracked:  code/humanJunc_pooled
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectLiftedPAS.sh
@@ -755,6 +759,9 @@ Untracked files:
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runCountNucleotides.err
+    Untracked:  code/runCountNucleotides.out
+    Untracked:  code/runCountNucleotides.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
@@ -826,6 +833,9 @@ Untracked files:
     Untracked:  data/._HC_filenames.txt
     Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
     Untracked:  data/._HC_filenames.xlsx
+    Untracked:  data/._OppositeSpeciesMap.txt
+    Untracked:  data/._OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf
+    Untracked:  data/._OppositeSpeciesMap.xlsx
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
@@ -833,6 +843,9 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_2Removed.txt
     Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
     Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/._RNASEQ_metadata_stranded.txt
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
+    Untracked:  data/._RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
@@ -844,12 +857,14 @@ Untracked files:
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
-    Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
+    Untracked:  data/OppositeSpeciesMap.txt
+    Untracked:  data/OppositeSpeciesMap.xlsx
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -858,6 +873,8 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata.xlsx
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/RNASEQ_metadata_stranded.txt
+    Untracked:  data/RNASEQ_metadata_stranded.xlsx
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
@@ -876,8 +893,10 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
+    Modified:   analysis/annotatePAS.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/mapStats.Rmd
+    Modified:   analysis/diffSplicing.Rmd
+    Modified:   analysis/liftoverPAS.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/verifyBAM.Rmd
 
@@ -918,6 +937,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6d93e4db82595f31cd804eefcbda551dcd2d1e4c/analysis/diffExpression.Rmd" target="_blank">6d93e4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+<td>
+update stranded
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a288a295a5cad89304519012c5b2e74dbe60dbb6/docs/diffExpression.html" target="_blank">a288a29</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1252,12 +1305,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1320,7 +1373,7 @@ Attaching package: &#39;reshape2&#39;</code></pre>
 <li><p>No reads tagged as bad quality</p></li>
 </ul>
 <p>Assess mapping:</p>
-<pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata.txt&quot;, header = T, stringsAsFactors = F)
+<pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata_stranded.txt&quot;, header = T, stringsAsFactors = F)
 metaData$Species=as.factor(metaData$Species)
 metaData$Collection=as.factor(metaData$Collection)</code></pre>
 <pre class="r"><code>readInfo=metaData %&gt;% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %&gt;% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Number&quot;, -Line, -Species)
@@ -1677,7 +1730,7 @@ brimittleman
 <pre class="r"><code>select &lt;- counts_genes
 summary(apply(select, 1, var) == 0) </code></pre>
 <pre><code>   Mode   FALSE    TRUE 
-logical   32602   11523 </code></pre>
+logical   32592   11533 </code></pre>
 <pre class="r"><code># Perform PCA
 
 pca_genes &lt;- prcomp(t(counts_genes), scale = F)
@@ -2004,26 +2057,26 @@ brimittleman
 <pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
 head(cpm)</code></pre>
 <pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
-ENSG00000188976  1.588860  0.9875607  1.619314  1.208048  1.067299
-ENSG00000188157  3.172608  3.0589988  1.849193  2.925931  2.915757
-ENSG00000273443  2.094212  1.6879881  1.411168  1.975384  1.539689
-ENSG00000217801  2.248116  2.2543286  1.167845  3.547215  1.872294
-ENSG00000237330 -2.441797 -3.0119624 -2.450603 -3.011962 -2.458352
-ENSG00000223823 -3.011962 -3.0119624 -3.011962 -3.011962 -3.011962
+ENSG00000188976  1.588820  0.9875278  1.619299  1.208070  1.067263
+ENSG00000188157  3.172567  3.0589636  1.849178  2.925953  2.915718
+ENSG00000273443  2.094172  1.6879541  1.411153  1.975405  1.539652
+ENSG00000217801  2.248076  2.2542940  1.167830  3.547237  1.872256
+ENSG00000237330 -2.441803 -3.0119508 -2.450600 -3.011951 -2.458357
+ENSG00000223823 -3.011951 -3.0119508 -3.011951 -3.011951 -3.011951
                    NA18502     NA4973     NAPT30     NAPT91     NA3622
-ENSG00000188976  1.8417566 -2.1228041 -2.0245721 -2.4061474 -2.4360717
-ENSG00000188157  1.2932833 -1.1815912 -1.2226553 -0.7938422 -0.8632943
-ENSG00000273443 -0.3579576  0.4766994  0.4884893 -1.9807956 -1.7064048
-ENSG00000217801  0.3306479  1.7649286  1.1340509 -0.6404855  0.3555977
-ENSG00000237330 -2.4451144 -3.0119624 -3.0119624 -3.0119624 -3.0119624
-ENSG00000223823 -3.0119624 -3.0119624 -3.0119624 -3.0119624 -3.0119624
-                    NA3659    NA18358
-ENSG00000188976 -2.4830271 -3.0119624
-ENSG00000188157 -0.8283452 -0.8093695
-ENSG00000273443  2.1395468  0.3951397
-ENSG00000217801  2.9551621  1.2819822
-ENSG00000237330 -2.0968409 -3.0119624
-ENSG00000223823 -3.0119624 -3.0119624</code></pre>
+ENSG00000188976  1.8417218 -2.1227985 -2.0245732 -2.4061117 -2.4360702
+ENSG00000188157  1.2932493 -1.1815889 -1.2226619 -0.7937756 -0.8633065
+ENSG00000273443 -0.3579863  0.4766993  0.4884775 -1.9807482 -1.7064115
+ENSG00000217801  0.3306162  1.7649277  1.1340383 -0.6404174  0.3555815
+ENSG00000237330 -2.4451184 -3.0119508 -3.0119508 -3.0119508 -3.0119508
+ENSG00000223823 -3.0119508 -3.0119508 -3.0119508 -3.0119508 -3.0119508
+                   NA3659    NA18358
+ENSG00000188976 -2.483011 -3.0119508
+ENSG00000188157 -0.828322 -0.8091641
+ENSG00000273443  2.139573  0.3953756
+ENSG00000217801  2.955188  1.2822287
+ENSG00000237330 -2.096822 -3.0119508
+ENSG00000223823 -3.011951 -3.0119508</code></pre>
 <pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2096,26 +2149,26 @@ dge_original &lt;- calcNormFactors(dge_original)
 tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)</code></pre>
 <pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
-ENSG00000188976  1.588860  0.9875607  1.619314  1.208048  1.067299
-ENSG00000188157  3.172608  3.0589988  1.849193  2.925931  2.915757
-ENSG00000273443  2.094212  1.6879881  1.411168  1.975384  1.539689
-ENSG00000217801  2.248116  2.2543286  1.167845  3.547215  1.872294
-ENSG00000237330 -2.441797 -3.0119624 -2.450603 -3.011962 -2.458352
-ENSG00000223823 -3.011962 -3.0119624 -3.011962 -3.011962 -3.011962
+ENSG00000188976  1.588820  0.9875278  1.619299  1.208070  1.067263
+ENSG00000188157  3.172567  3.0589636  1.849178  2.925953  2.915718
+ENSG00000273443  2.094172  1.6879541  1.411153  1.975405  1.539652
+ENSG00000217801  2.248076  2.2542940  1.167830  3.547237  1.872256
+ENSG00000237330 -2.441803 -3.0119508 -2.450600 -3.011951 -2.458357
+ENSG00000223823 -3.011951 -3.0119508 -3.011951 -3.011951 -3.011951
                    NA18502     NA4973     NAPT30     NAPT91     NA3622
-ENSG00000188976  1.8417566 -2.1228041 -2.0245721 -2.4061474 -2.4360717
-ENSG00000188157  1.2932833 -1.1815912 -1.2226553 -0.7938422 -0.8632943
-ENSG00000273443 -0.3579576  0.4766994  0.4884893 -1.9807956 -1.7064048
-ENSG00000217801  0.3306479  1.7649286  1.1340509 -0.6404855  0.3555977
-ENSG00000237330 -2.4451144 -3.0119624 -3.0119624 -3.0119624 -3.0119624
-ENSG00000223823 -3.0119624 -3.0119624 -3.0119624 -3.0119624 -3.0119624
-                    NA3659    NA18358
-ENSG00000188976 -2.4830271 -3.0119624
-ENSG00000188157 -0.8283452 -0.8093695
-ENSG00000273443  2.1395468  0.3951397
-ENSG00000217801  2.9551621  1.2819822
-ENSG00000237330 -2.0968409 -3.0119624
-ENSG00000223823 -3.0119624 -3.0119624</code></pre>
+ENSG00000188976  1.8417218 -2.1227985 -2.0245732 -2.4061117 -2.4360702
+ENSG00000188157  1.2932493 -1.1815889 -1.2226619 -0.7937756 -0.8633065
+ENSG00000273443 -0.3579863  0.4766993  0.4884775 -1.9807482 -1.7064115
+ENSG00000217801  0.3306162  1.7649277  1.1340383 -0.6404174  0.3555815
+ENSG00000237330 -2.4451184 -3.0119508 -3.0119508 -3.0119508 -3.0119508
+ENSG00000223823 -3.0119508 -3.0119508 -3.0119508 -3.0119508 -3.0119508
+                   NA3659    NA18358
+ENSG00000188976 -2.483011 -3.0119508
+ENSG00000188157 -0.828322 -0.8091641
+ENSG00000273443  2.139573  0.3953756
+ENSG00000217801  2.955188  1.2822287
+ENSG00000237330 -2.096822 -3.0119508
+ENSG00000223823 -3.011951 -3.0119508</code></pre>
 <pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
 scores &lt;- pca_genes$x
 
@@ -2483,19 +2536,19 @@ dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
 cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)</code></pre>
 <pre><code>                 NA18498  NA18504    NA18510  NA18523  NA18499   NA18502
-ENSG00000217801 2.256718 2.234174  1.0782676 3.660677 1.851409 0.2045780
-ENSG00000186891 6.449880 5.009564  5.0298795 4.887036 5.699309 3.3564937
-ENSG00000186827 5.245424 3.093249  4.6497808 1.700761 3.965562 1.8968145
-ENSG00000078808 7.201366 6.859761  7.0261290 7.463811 6.617502 6.7318204
-ENSG00000176022 4.796475 4.753656  4.6762970 4.789968 4.605179 4.6954931
-ENSG00000184163 1.692704 1.418512 -0.1694645 1.630729 1.054723 0.3470491
-                  NA4973    NAPT30     NAPT91   NA3622    NA3659  NA18358
-ENSG00000217801 1.778595 1.1604206 -0.7907848 0.275830 2.9986515 1.300800
-ENSG00000186891 6.668817 4.6333309  3.1597896 4.727162 6.4478748 6.482073
-ENSG00000186827 1.778595 0.2520802  2.0071797 3.150776 0.6465898 2.175191
-ENSG00000078808 7.024203 6.6875607  6.7658411 6.776178 6.7839057 7.060989
-ENSG00000176022 5.263240 4.8315395  5.5505445 4.845467 5.2761471 5.561648
-ENSG00000184163 1.381145 2.8985450  2.1959470 1.409687 1.7662843 3.222286</code></pre>
+ENSG00000217801 2.256506 2.234115  1.0781627 3.660723 1.851408 0.2044122
+ENSG00000186891 6.449667 5.009505  5.0323421 4.887082 5.704206 3.3563261
+ENSG00000186827 5.245211 3.093190  4.6496753 1.700807 3.965561 1.8966473
+ENSG00000078808 7.201153 6.859702  7.0260235 7.463228 6.617502 6.7324642
+ENSG00000176022 4.796263 4.753597  4.6761916 4.790014 4.605178 4.6953254
+ENSG00000184163 1.692492 1.418453 -0.1695685 1.630775 1.054722 0.3468831
+                  NA4973    NAPT30    NAPT91    NA3622   NA3659  NA18358
+ENSG00000217801 1.778862 1.1607241 -0.791047 0.2757475 2.998563 1.300872
+ENSG00000186891 6.669085 4.6336365  3.159521 4.7270793 6.447786 6.482146
+ENSG00000186827 1.778862 0.2523816  2.006912 3.1506928 0.646502 2.175264
+ENSG00000078808 7.024471 6.6878664  6.765572 6.7760951 6.783817 7.061063
+ENSG00000176022 5.263508 4.8384442  5.550276 4.8453842 5.276059 5.561721
+ENSG00000184163 1.381411 2.8988501  2.195679 1.4096039 1.766196 3.222359</code></pre>
 <pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -4001,12 +4054,12 @@ brimittleman
 <pre class="r"><code>fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))</code></pre>
 <pre><code>                    Chimp    Human
-ENSG00000217801 1.8239316 1.096239
-ENSG00000186891 5.0834054 5.358053
-ENSG00000186827 3.4807377 1.529885
-ENSG00000078808 6.9813425 6.845201
-ENSG00000176022 4.7020373 5.221061
-ENSG00000184163 0.8723989 2.120493</code></pre>
+ENSG00000217801 1.8181277 1.090565
+ENSG00000186891 5.0847804 5.358102
+ENSG00000186827 3.4803867 1.530705
+ENSG00000078808 6.9813729 6.845371
+ENSG00000176022 4.7019733 5.222465
+ENSG00000184163 0.8714861 2.121312</code></pre>
 <pre class="r"><code>contr &lt;- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
 contr</code></pre>
 <pre><code>       Contrasts
@@ -4018,49 +4071,49 @@ tmp &lt;- eBayes(tmp)
 top.table &lt;- topTable(tmp, sort.by = &quot;P&quot;, n = Inf)
 head(top.table, 20)</code></pre>
 <pre><code>                    logFC  AveExpr         t      P.Value    adj.P.Val
-ENSG00000133112  6.030511 8.579411  53.42599 6.164514e-16 3.580859e-12
-ENSG00000204463 -6.206595 5.290833 -51.12264 1.057583e-15 3.580859e-12
-ENSG00000205531 -5.979561 5.093742 -50.01988 1.381262e-15 3.580859e-12
-ENSG00000105372  4.911162 7.958402  49.97123 1.397818e-15 3.580859e-12
-ENSG00000142937  5.675106 8.225847  46.54479 3.334322e-15 6.833359e-12
-ENSG00000145741  4.945035 6.308921  43.30669 8.053676e-15 1.375434e-11
-ENSG00000142541  6.131464 6.808892  40.44806 1.855178e-14 2.715716e-11
-ENSG00000100316  5.939257 8.286283  39.35669 2.590875e-14 3.318587e-11
-ENSG00000072864 -6.885850 4.647008 -37.94264 4.049551e-14 4.610639e-11
-ENSG00000183020 -4.840796 4.195607 -31.83651 3.433979e-13 3.518798e-10
-ENSG00000071082  5.702735 6.557358  29.78317 7.720885e-13 7.192356e-10
-ENSG00000147604 -6.188588 5.465040 -27.93667 1.678431e-12 1.433240e-09
-ENSG00000116478  3.371012 5.843517  27.59385 1.949359e-12 1.536545e-09
-ENSG00000186298  3.080919 6.879067  27.07869 2.449289e-12 1.792705e-09
-ENSG00000198242  4.185597 4.987658  25.28558 5.610300e-12 3.832583e-09
-ENSG00000105640 -2.839830 8.171195 -24.34695 8.858449e-12 5.573342e-09
-ENSG00000197958  4.358474 7.193875  24.26064 9.246297e-12 5.573342e-09
-ENSG00000198918 -5.743655 5.418473 -23.86031 1.130114e-11 6.433487e-09
-ENSG00000198034  6.255369 7.138553  23.22182 1.567032e-11 8.451252e-09
-ENSG00000167193 -4.241868 4.135580 -22.96405 1.792463e-11 9.183685e-09
+ENSG00000133112  6.030526 8.579365  53.43162 6.149849e-16 4.099890e-12
+ENSG00000204463 -6.207223 5.290526 -51.05863 1.072784e-15 4.099890e-12
+ENSG00000205531 -5.980793 5.093652 -49.92171 1.413391e-15 4.099890e-12
+ENSG00000105372  4.929862 7.949106  49.41909 1.599801e-15 4.099890e-12
+ENSG00000142937  5.675315 8.225710  46.60155 3.281606e-15 6.727948e-12
+ENSG00000145741  4.945314 6.308328  43.27471 8.118680e-15 1.387077e-11
+ENSG00000142541  6.136435 6.806316  40.37221 1.896383e-14 2.777117e-11
+ENSG00000100316  5.939356 8.286237  39.35544 2.589428e-14 3.318029e-11
+ENSG00000072864 -6.888911 4.645283 -37.85395 4.162991e-14 4.741646e-11
+ENSG00000183020 -4.839255 4.196150 -31.80094 3.478039e-13 3.565338e-10
+ENSG00000071082  5.701659 6.557932  29.78081 7.722054e-13 7.196252e-10
+ENSG00000147604 -6.185695 5.466412 -27.74841 1.820354e-12 1.555037e-09
+ENSG00000116478  3.371308 5.843304  27.55764 1.979085e-12 1.560584e-09
+ENSG00000186298  3.080858 6.879040  27.10999 2.413402e-12 1.767127e-09
+ENSG00000198242  4.180714 4.991847  25.31780 5.520552e-12 3.772745e-09
+ENSG00000105640 -2.840101 8.171072 -24.34587 8.856795e-12 5.619929e-09
+ENSG00000197958  4.359628 7.193296  24.24324 9.319949e-12 5.619929e-09
+ENSG00000198918 -5.732348 5.424144 -23.80278 1.162663e-11 6.621363e-09
+ENSG00000198034  6.255072 7.138676  23.21900 1.568224e-11 8.460982e-09
+ENSG00000167193 -4.243003 4.135098 -22.95159 1.802961e-11 9.241077e-09
                        B
-ENSG00000133112 26.01294
-ENSG00000204463 23.68152
-ENSG00000205531 23.48417
-ENSG00000105372 25.41614
-ENSG00000142937 24.69753
-ENSG00000145741 23.50158
-ENSG00000142541 22.79732
-ENSG00000100316 22.98735
-ENSG00000072864 20.88166
-ENSG00000183020 19.75642
-ENSG00000071082 19.71471
-ENSG00000147604 18.70807
-ENSG00000116478 18.98168
-ENSG00000186298 18.84917
-ENSG00000198242 17.80741
-ENSG00000105640 17.59757
-ENSG00000197958 17.54457
-ENSG00000198918 17.10523
-ENSG00000198034 16.98239
-ENSG00000167193 16.59832</code></pre>
+ENSG00000133112 26.01466
+ENSG00000204463 23.65724
+ENSG00000205531 23.45459
+ENSG00000105372 25.30811
+ENSG00000142937 24.71006
+ENSG00000145741 23.49375
+ENSG00000142541 22.77665
+ENSG00000100316 22.98772
+ENSG00000072864 20.84202
+ENSG00000183020 19.73654
+ENSG00000071082 19.71403
+ENSG00000147604 18.63627
+ENSG00000116478 18.96720
+ENSG00000186298 18.86337
+ENSG00000198242 17.82095
+ENSG00000105640 17.59772
+ENSG00000197958 17.53671
+ENSG00000198918 17.07923
+ENSG00000198034 16.98147
+ENSG00000167193 16.58857</code></pre>
 <pre class="r"><code>length(which(top.table$adj.P.Val &lt; 0.05))</code></pre>
-<pre><code>[1] 3761</code></pre>
+<pre><code>[1] 3764</code></pre>
 <p>Make a table to plot:</p>
 <p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
 <pre class="r"><code>top.table=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
@@ -4119,9 +4172,9 @@ brimittleman
 </div>
 <pre class="r"><code>summary(decideTests(tmp))</code></pre>
 <pre><code>       Chimp - Human
-Down            1881
-NotSig          6486
-Up              1880</code></pre>
+Down            1883
+NotSig          6487
+Up              1881</code></pre>
 <pre class="r"><code>deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val &lt; 0.05,]))
 #mkdir ../data/DiffExpression
 
