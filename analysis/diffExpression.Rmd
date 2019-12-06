@@ -35,7 +35,7 @@ From FastQC:
 Assess mapping:
 
 ```{r}
-metaData=read.table("../data/RNASEQ_metadata.txt", header = T, stringsAsFactors = F)
+metaData=read.table("../data/RNASEQ_metadata_stranded.txt", header = T, stringsAsFactors = F)
 metaData$Species=as.factor(metaData$Species)
 metaData$Collection=as.factor(metaData$Collection)
 ```
