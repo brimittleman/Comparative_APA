@@ -102,7 +102,6 @@ write.table(chimpFiles, "../data/DiffSplice_liftedJunc/Chimp_juncfiles.txt", quo
 
 ```{bash,eval=F}
 sbatch quantJunc.sh
-
 ```
 
 
@@ -112,6 +111,7 @@ Now I can merge all of the culsters with: /project2/yangili1/yangili/leafcutter_
 ```{bash,eval=F}
 sbatch MergeClusters.sh
 sbatch QuantMergedClusters.sh
+gunzip ../data/DiffSplice_liftedJunc/MergeCombined_perind_numers.counts.gz
 ```
 
 Make the sample list:
@@ -128,11 +128,6 @@ write.table(indiv, "../data/DiffSplice_liftedJunc/groups_file.txt", quote = F, c
 
 fix to -Total instead of .Total
 
-```{bash,eval=F}
-sbatch DiffSplice.sh
-```
-
-
 
  
 ```{r}
@@ -143,326 +138,52 @@ counts=counts[,meta$sample]
 #rownames(counts)
 ```
 
- 
- Error: cluster needs to be clu_###_sign
- '''chr1:46368431:46369161:clu_386:+'''
- 
+```{bash,eval=F}
+gzip ../data/DiffSplice_liftedJunc/MergeCombined_perind_numers.counts
+```
+
  
  I am going to write a python work around to change the cluster format. This will take the unziped version of the counts file. When I run it, I can unzip and zip the results in the bash script.  
  
  
 ```{bash,eval=F}
 
-sbatch runFixLeafCluster.sh
+sbatch RunFixLeafCluster.sh
+
+sbatch DiffSplice.sh
+
+
+
 ```
  
  
 There are either not enough samples or min coverage problems.  Let me compare these to the numbers.  
 ```{r}
-results=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":")
+results=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":") %>% filter(status=="Success") 
+results$p.adjust=as.numeric(as.character(results$p.adjust))
 
-counts=read.table("../data/DiffSplice_liftedJunc/MergeCombined_perind.counts.fixed.gz", header = T)
-```
-
-
-Problem is the recluster and quantify has all human and all chimp. I dont have any clusters with counts for both species... 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- ##Old pipeline
- 
- Now I need to do reciprocal liftover with the clusters.  
-
-* /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/
-* /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/
-
-Chain files are in /data/chainFiles/
- * panTro5ToHg38.over.chain  
- * hg38ToPanTro5.over.chain  
- 
- I first need to make bedfiles with these clusters.  
- 
- The clusters all have _NA I dont this this is correct.  
- 
- 
- 
-```{bash,eval=F}
-
-<!-- gunzip ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts.gz -->
-
-<!-- gunzip ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts.gz -->
+results %>% filter(p.adjust < .05 ) %>% nrow()
 
 
-<!-- python cluster2bed.py ../Human/data/RNAseq/DiffSplice/humanJunc_perind.counts ../Human/data/RNAseq/DiffSplice/humanJunc.bed -->
-
-<!-- python cluster2bed.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind.counts ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed -->
-
-
-<!-- #I need to name the clusters before I can do the lift. (this is like the naming in apa 1-n(clusters)) -->
-<!-- python nameClusters.py ../Human/data/RNAseq/DiffSplice/humanJunc.bed ../Human/data/RNAseq/DiffSplice/humanJuncNamed.bed -->
-
-<!-- python nameClusters.py ../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed ../Chimp/data/RNAseq/DiffSplice/chimpJuncNamed.bed -->
-
-<!-- sbatch clusterLiftprimary.sh -->
-
-<!-- sbatch clusterLiftReverse.sh -->
-```
- 
- 
- Evaluate results:
- 
- (this code is from the lift for the PAS)
-```{r}
-# unliftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_unlifted.bed",stringsAsFactors = F) %>% nrow()
-# unliftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_unlifted.bed",stringsAsFactors = F) %>% nrow()
-# 
-# liftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F) %>% nrow()
-# liftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F) %>% nrow()
-# 
-# primaryUnC=c("Chimp","Unlifted", unliftedC)
-# primaryUnH=c("Human","Unlifted", unliftedH)
-# 
-# primaryLH=c("Human","Lifted", liftedH)
-# primaryLC=c("Chimp","Lifted", liftedC)
-# 
-# header=c("species", "liftStat", "PAS")
-# primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
-# colnames(primaryDF)=header
-# 
-# 
-# primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
-# 
-# 
-# 
-# primaryDF= primaryDF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+results_sig= results %>% filter(p.adjust < .05 )
 ```
 
 
 ```{r}
-# ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results", y="Isoforms")
-# 
-# ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+qqplot(-log10(runif(nrow(results))), -log10(results$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Human Chimp differential splicing")
+abline(0,1)
 ```
-
-
-
-Look at the lifted: 
-
 ```{r}
-# OriginalHuman=read.table("../Human/data/RNAseq/DiffSplice/humanJunc.bed",stringsAsFactors = F) 
-# liftedHuman=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F) 
-# 
-# OriginalChimp=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc.bed",stringsAsFactors = F)
-# liftedChimp=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F)
-```
-
-Reverse lift: 
-```{r}
-# re_unliftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human_unlifted.bed",stringsAsFactors = F) %>% nrow()
-# re_unliftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp_unlifted.bed",stringsAsFactors = F) %>% nrow()
-# 
-# re_liftedH=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed",stringsAsFactors = F) %>% nrow()
-# re_liftedC=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed",stringsAsFactors = F) %>% nrow()
-# 
-# re_UnC=c("Chimp","Unlifted", re_unliftedC)
-# re_UnH=c("Human","Unlifted", re_unliftedH)
-# 
-# re_LH=c("Human","Lifted", re_liftedH)
-# re_LC=c("Chimp","Lifted", re_liftedC)
-# 
-# header=c("species", "liftStat", "PAS")
-# re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
-# colnames(re_DF)=header
-# 
-# 
-# re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
-# 
-# 
-# 
-# re_DF= re_DF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+effectsize=read.table("../data/DiffSplice_liftedJunc/MergedRes_effect_sizes.txt", stringsAsFactors = F,header=T)
+plot(sort(effectsize$deltapsi), ,main="Human vs Chimp Effect sizes", ylab="Delta PSI", xlab="PAS Index")
 ```
 
 
-```{r}
-# ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results", y="Isoforms")
-# ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Reverse Liftover Results")
-```
-
-How many lifted both ways?
-```{r}
-# #human
-# re_liftedH/nrow(OriginalHuman)
-# #chimp
-# re_liftedC/nrow(OriginalChimp)
-```
-
-
-
-The next step will be to find the corresponding clusters. This is important because I will need to get the quantifications for the same introns and clusters. To do this I will need to write code that looks for the intron location from the primary lift in the reverse lift. 
-
-For now I will only look at those introns identified in both species. I need to do this because I need junctions we have quantifications for in both species.  
-
-I can make files with the human and chimp coordintats for the clusters that lift both ways. I will have to number each cluster 
-
-
-Human cluser: 
-```{r}
-# 
-# humanRevlift=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp_B2Human.bed",stringsAsFactors = F,col.names = c("Hchr","Hstart", "Hend", "cluster", "score", "strand")) %>% select(-strand)
-# 
-# #number clusters
-# humanRevlift %>% select(cluster) %>% unique() %>% nrow()
-# 
-# humanRevlift$score=as.character(humanRevlift$score)
-# humanRevlift= humanRevlift %>%  mutate(Name=paste("Human", score, sep="_")) %>% select(-score)
-# 
-# 
-# humanInChimp=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_inChimp.bed",stringsAsFactors = F,col.names = c("Cchr","Cstart", "Cend", "cluster", "score", "strand"))%>% select(-strand)
-# humanInChimp$score=as.character(humanInChimp$score)
-# humanInChimp= humanInChimp %>%  mutate(Name=paste("Human", score, sep="_")) %>% select(-score)
-# 
-# 
-# humanliftedBoth=humanRevlift %>% inner_join(humanInChimp, by=c("cluster", "Name"))
-```
-
-Chimp clusters: 
-
-```{r}
-# chimpRevLift=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman_B2Chimp.bed",stringsAsFactors = F,col.names = c("Cchr","Cstart", "Cend", "cluster", "score", "strand")) %>% select(-strand)
-# chimpRevLift$score=as.character(chimpRevLift$score)
-# chimpRevLift= chimpRevLift %>%  mutate(Name=paste("Chimp", score, sep="_")) %>% select(-score)
-# chimpRevLift %>% select(cluster) %>% unique() %>% nrow()
-# 
-# 
-# chimpInHuman=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_inHuman.bed",stringsAsFactors = F,col.names = c("Hchr","Hstart", "Hend", "cluster", "score", "strand"))%>% select(-strand) 
-# chimpInHuman$score=as.character(chimpInHuman$score)
-# chimpInHuman= chimpInHuman %>%  mutate(Name=paste("Chimp", score, sep="_")) %>% select(-score)
-# 
-# chimpliftedBoth=chimpRevLift %>% inner_join(chimpInHuman, by=c("cluster", "Name"))
-```
-
-
-Try to join these by the human and chimp coordinates  
-
-```{r}
-# AllClusters=chimpliftedBoth %>% inner_join(humanliftedBoth, by=c("Cchr", "Cstart","Cend", "Hchr", "Hstart", "Hend")) %>% mutate(ChimpName=paste(Cchr,Cstart,Cend, cluster.x, sep=":" ),HumanName=paste(Hchr,Hstart,Hend, cluster.y, sep=":" ) )
-# 
-# nrow(AllClusters)
-# 
-# AllClusters %>% select(cluster.x) %>% unique() %>% nrow()
-# AllClusters %>% select(cluster.y) %>% unique() %>% nrow()
-```
-This means there are ~7k isoforms from about 3k genes.  This is from the ~5k clusters I had before. I can move on with these using the human names. 
-
-I will have to go back and figure out how to call clusters for more genes.  
-
-I need to reformat these back into the counts format. 
-
-```{r}
-# #chr1:17055:17233:clu_1
-# 
-# AllClustersNames=AllClusters %>% select(HumanName, ChimpName)
-# 
-# ChimpCluster=read.table("../Chimp/data/RNAseq/DiffSplice/chimpJunc_perind_numers.counts.gz") %>% rownames_to_column(var="ChimpName")
-# FilteredChimpCluster= ChimpCluster %>% inner_join(AllClustersNames, by="ChimpName")
-# 
-# #map human onto these
-# 
-# HumanCluster=read.table("../Human/data/RNAseq/DiffSplice/humanJunc_perind_numers.counts.gz") %>% rownames_to_column(var="HumanName")
-# FilteredClusterBoth=HumanCluster %>% inner_join(FilteredChimpCluster, by="HumanName") %>% select(-ChimpName) 
-# 
-# FilteredClusterBothfixed=FilteredClusterBoth[!duplicated(FilteredClusterBoth$HumanName),]
-# 
-# 
-# 
-# 
-# 
-# 
-# #create group file- this should have the name of the bams and the group
-# Bams=as.data.frame(colnames(FilteredClusterBothfixed)) %>% mutate(Species=ifelse(grepl("H",colnames(FilteredClusterBothfixed)), "Human", "Chimp")) %>% slice(2:n())
-# 
-# #mkdir ../data/DiffSplice 
-# write.table(Bams, "../data/DiffSplice/groups_file.txt", col.names = F, row.names = F, quote = F, sep="\t" )
-# 
-# 
-# write.table(FilteredClusterBothfixed, "../data/DiffSplice/BothSpec_perind.counts", col.names = T, row.names = F, quote = F, sep="\t" )
-# 
-
-```
-
-Remove the first name in header and zip the file: 
-
-**(manually)**
-```{bash,eval=F}
-<!-- vi ../data/DiffSplice/BothSpec_perind.counts -->
-
-<!-- gzip ../data/DiffSplice/BothSpec_perind.counts -->
-```
-
-I will run the differential splicing analysis with the human exon file for now. Download the NCBI refseq exons from the table browser.  I also downloaded the names with the common names so I can fix the exon file. 
-
-```{bash,eval=F}
-<!-- python processhg38exons.py -->
-<!-- gzip ../data/DiffSplice/hg38_ncbiRefseq_exonsfixed -->
-```
-
-Run leafcutter with python 2 
-
-```{bash,eval=F}
-<!-- sbatch DiffSplice.sh -->
-
-```
-
-Look at results: 
-
-```{r}
-# sig=read.table("../data/DiffSplice/leafcutter_ds_cluster_significance.txt",sep="\t" ,header =T,stringsAsFactors = F) %>% filter(status=="Success") 
-# 
-# sig$p.adjust=as.numeric(as.character(sig$p.adjust))
-# 
-# 
-# qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter Differential Splicing")
-# abline(0,1)
-# 
-# sig %>% filter(p.adjust < .05 ) %>% nrow()
-
-
-```
 Use the leafcutter tool to visualize  
 
 ```{bash,eval=F}
-<!-- sbatch DiffSplicePlots.sh -->
+sbatch DiffSplicePlots.sh 
 ```
 
-try with gencode exons:  
 
-```{bash,eval=F}
-<!-- sbatch DiffSplice_gencode.sh -->
-<!-- sbatch DiffSplicePlots_gencode.sh -->
-```
-
-```{r}
-# sig_gencode=read.table("../data/DiffSplice/Gencode__cluster_significance.txt",sep="\t" ,header =T,stringsAsFactors = F) %>% filter(status=="Success") 
-# 
-# sig_gencode$p.adjust=as.numeric(as.character(sig_gencode$p.adjust))
-# 
-# 
-# qqplot(-log10(runif(nrow(sig_gencode))), -log10(sig_gencode$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter Differential Splicing Gencode exons")
-# abline(0,1)
-# 
-# sig_gencode %>% filter(p.adjust < .05 ) %>% nrow()
-
-```
 
