@@ -175,7 +175,7 @@ abline(0,1)
 ```
 ```{r}
 effectsize=read.table("../data/DiffSplice_liftedJunc/MergedRes_effect_sizes.txt", stringsAsFactors = F,header=T)
-plot(sort(effectsize$deltapsi), ,main="Human vs Chimp Effect sizes", ylab="Delta PSI", xlab="PAS Index")
+plot(sort(effectsize$deltapsi), ,main="Human vs Chimp Effect sizes", ylab="Delta PSI", xlab="Cluster Index")
 ```
 
 
