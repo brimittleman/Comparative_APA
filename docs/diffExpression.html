@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-06
+<strong>Last updated:</strong> 2019-12-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d93e4db82595f31cd804eefcbda551dcd2d1e4ctargetblank6d93e4da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6d93e4db82595f31cd804eefcbda551dcd2d1e4c" target="_blank">6d93e4d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f04a8042f4b698ab19e130b931b5aa8075a125a4" target="_blank">f04a804</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6d93e4db82595f31cd804eefcbda551dcd2d1e4ctargetblank6d93e4da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,7 +451,6 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
-    Ignored:    data/DiffSplice_liftedJunc/
     Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
     Ignored:    data/OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf/
     Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
@@ -609,6 +608,8 @@ Untracked files:
     Untracked:  code/MapBadSamples.sh
     Untracked:  code/MapStats.err
     Untracked:  code/MapStats.out
+    Untracked:  code/MergeClusters.err
+    Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -696,7 +697,6 @@ Untracked files:
     Untracked:  code/hg19MapStats.sh
     Untracked:  code/humanChromorder.sh
     Untracked:  code/humanFiles
-    Untracked:  code/humanJunc_pooled
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectLiftedPAS.sh
@@ -839,7 +839,6 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata.txt
     Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
     Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
-    Untracked:  data/._RNASEQ_metadata.xlsx
     Untracked:  data/._RNASEQ_metadata_2Removed.txt
     Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
     Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
@@ -852,11 +851,13 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
+    Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
@@ -870,7 +871,6 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/RNASEQ_metadata.txt
-    Untracked:  data/RNASEQ_metadata.xlsx
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/RNASEQ_metadata_stranded.txt
@@ -887,6 +887,7 @@ Untracked files:
     Untracked:  data/reverseLift/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
+    Untracked:  data/.xlsx
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
 
@@ -937,6 +938,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f04a8042f4b698ab19e130b931b5aa8075a125a4/analysis/diffExpression.Rmd" target="_blank">f04a804</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-08
+</td>
+<td>
+add DE vs DS analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/diffExpression.html" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1305,12 +1340,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1405,6 +1440,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-3-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-3-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1469,6 +1515,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-4-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-4-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1531,6 +1588,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-5-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-5-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1579,6 +1647,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-6-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-6-1.png" target="_blank">8fca47f</a>
@@ -1692,6 +1771,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-11-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1769,6 +1859,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-13-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1835,6 +1936,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-14-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -1897,6 +2009,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-15-1.png" target="_blank">8fca47f</a>
@@ -2018,6 +2141,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-18-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2101,6 +2235,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-20-1.png" target="_blank">8fca47f</a>
@@ -2201,6 +2346,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-22-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2272,6 +2428,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-22-2.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2335,6 +2502,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-23-1.png" target="_blank">8fca47f</a>
@@ -2407,6 +2585,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-24-1.png" target="_blank">8fca47f</a>
@@ -2494,6 +2683,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-25-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2575,6 +2775,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-27-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2652,6 +2863,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-29-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2724,6 +2946,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-30-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -2794,6 +3027,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-31-1.png" target="_blank">8fca47f</a>
@@ -2876,6 +3120,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-1.png" target="_blank">8fca47f</a>
@@ -2964,6 +3219,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-2.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3035,6 +3301,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-32-3.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3098,6 +3375,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-33-1.png" target="_blank">8fca47f</a>
@@ -3170,6 +3458,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-34-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3228,6 +3527,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-34-2.png" target="_blank">8fca47f</a>
@@ -3296,6 +3606,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-35-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3354,6 +3675,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-35-2.png" target="_blank">8fca47f</a>
@@ -3426,6 +3758,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-36-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3484,6 +3827,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-36-2.png" target="_blank">8fca47f</a>
@@ -3551,6 +3905,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-37-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3609,6 +3974,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-37-2.png" target="_blank">8fca47f</a>
@@ -3676,6 +4052,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-38-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3734,6 +4121,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-38-2.png" target="_blank">8fca47f</a>
@@ -3802,6 +4200,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-39-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -3860,6 +4269,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-39-2.png" target="_blank">8fca47f</a>
@@ -3959,6 +4379,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-40-1.png" target="_blank">8fca47f</a>
 </td>
 <td>
@@ -4021,6 +4452,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-40-2.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-40-2.png" target="_blank">8fca47f</a>
@@ -4116,11 +4558,11 @@ ENSG00000167193 16.58857</code></pre>
 <pre><code>[1] 3764</code></pre>
 <p>Make a table to plot:</p>
 <p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
-<pre class="r"><code>top.table=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
+<pre class="r"><code>top.table2=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
   
   
 
-ggplot(top.table, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
+ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-45-1">
@@ -4144,6 +4586,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">2c9b5b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">8fca47f</a>
