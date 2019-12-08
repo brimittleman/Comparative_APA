@@ -1,0 +1,64 @@
+---
+title: "Compare DE and DS genes"
+author: "Briana Mittleman"
+date: "12/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(VennDiagram)
+library(tidyverse)
+```
+
+I want to see if differentially expressed genes are the same genes that are differentially spliced. The differentially spliced genes are in.  
+
+/project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/orderedGeneListFixed.txt
+
+I fixed the list by getting rid of the commas between genes in the same clusters and making them one gene per line. 
+
+```{r}
+DSgenes=read.table("../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt",stringsAsFactors = F, col.names = "DS")
+```
+
+
+The differentially expressed genes are in:
+
+/project2/gilad/briana/Comparative_APA/data/DiffExpression/DE_genes.txt
+
+I need to convert these from ENSG to gene name.  
+
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+
+
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% select(Gene.name)
+```
+
+
+```{r}
+overlap <- intersect(DEgenes$Gene.name, DSgenes$DS) 
+DE.unique <- setdiff(DEgenes$Gene.name, DSgenes$DS) # n 1st NOT 2nd
+DS.unique <- setdiff(DSgenes$DS, DEgenes$Gene.name)
+full.list <- unique(c(DEgenes$Gene.name,DSgenes$DS))
+```
+
+Plot: 
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(DEgenes$Gene.name),
+                           area2 = length(DSgenes$DS),
+                           cross.area = length(overlap),
+                           c("DE", "DS"), scaled = TRUE,
+                           fill = c("green", "blue"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+

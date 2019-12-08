@@ -57,6 +57,7 @@ Quantify Phenotypes with RNA:
 
 * [Differential Expression](diffExpression.html)
 
+* [Compare genes with DE and DS](DEvDS.html)
 
 
 Extra QC and Analysis   
