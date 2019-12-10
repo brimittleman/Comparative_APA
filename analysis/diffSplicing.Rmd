@@ -186,4 +186,47 @@ sbatch DiffSplicePlots.sh
 ```
 
 
+prepare genes: 
+```{r}
+genes=results_sig %>% arrange(p.adjust) %>% dplyr::select(genes) %>% unique()
+nrow(genes)
+write.table(genes, "../data/DiffSplice_liftedJunc/orderedGenelist.txt", col.names = F, row.names = F, quote = F)
 
+```
+
+
+Build leafviz  
+
+```{bash,eval=F}
+sbatch prepareeafvizAnno.sh
+sbatch buildLeafviz.sh
+#with leafcutter annotation (https://github.com/davidaknowles/leafcutter/blob/master/leafviz/download_human_annotation_codes.sh)
+sbatch buildLeafviz_leadAnno.sh
+#classify clusters 
+sbatch ClassifyLeafviz.sh
+```
+
+Run this from leafviz on my own computer,  
+
+Convert juntions to bed to look at in IGV:
+
+```{bash,eval=F}
+sbatch ConvertJunc2Bed.sh
+```
+
+Lift chimp bams to look at in IGV as well.
+
+Pantro5- hg38.  
+
+```{bash,eval=F}
+mkdir ../Chimp/data/RNAseq/Sort_hg38
+sbatch CrossMapChimpRNA.sh 
+```
+
+
+Interesting spots:
+- WSH3p= alt start
+-RPL22 (NM_000983.3)
+-RPL38
+- chr3:129171277-129171446, NM_001127192.1, CNBP
+-chr20:46394503-46406548 - ELMO2, NM_001318253.1
