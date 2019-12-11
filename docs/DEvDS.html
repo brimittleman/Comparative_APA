@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6b8b23ccd79b505da5c693e52243f1929eda8722targetblank6b8b23ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6b8b23ccd79b505da5c693e52243f1929eda8722" target="_blank">6b8b23c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree76142dede3b39f33d13bb4ab41bf35163a059850targetblank76142dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/76142dede3b39f33d13bb4ab41bf35163a059850" target="_blank">76142de</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6b8b23ccd79b505da5c693e52243f1929eda8722targetblank6b8b23ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree76142dede3b39f33d13bb4ab41bf35163a059850targetblank76142dea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -479,9 +479,11 @@ Untracked files:
     Untracked:  code/._DiffSplice_removebad.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
@@ -543,6 +545,7 @@ Untracked files:
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runCheckReverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
     Untracked:  code/._runCountNucleotides.sh
     Untracked:  code/._runFilterNumChroms.sh
@@ -596,6 +599,8 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/FilterReverseLift.err
+    Untracked:  code/FilterReverseLift.out
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
@@ -604,6 +609,8 @@ Untracked files:
     Untracked:  code/HchromOrder.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
+    Untracked:  code/JunctionLiftFinalChimp.err
+    Untracked:  code/JunctionLiftFinalChimp.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
     Untracked:  code/LiftClustersFirst_remove.err
@@ -612,6 +619,7 @@ Untracked files:
     Untracked:  code/LiftClustersSecond.out
     Untracked:  code/LiftClustersSecond_remove.err
     Untracked:  code/LiftClustersSecond_remove.out
+    Untracked:  code/LiftFinalChimpJunc2Human.sh
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
@@ -630,6 +638,7 @@ Untracked files:
     Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/ReverseLiftFilter.R
     Untracked:  code/RunFixCluster.err
     Untracked:  code/RunFixCluster.out
     Untracked:  code/RunFixLeafCluster.sh
@@ -782,6 +791,7 @@ Untracked files:
     Untracked:  code/revLift.out
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
+    Untracked:  code/runCheckReverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
     Untracked:  code/runCountNucleotides.err
     Untracked:  code/runCountNucleotides.out
@@ -977,6 +987,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d7f04d9a8a4e05027dccd5a920f2fee83b4c6738/docs/DEvDS.html" target="_blank">d7f04d9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -1094,6 +1121,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d7f04d9a8a4e05027dccd5a920f2fee83b4c6738/docs/figure/DEvDS.Rmd/unnamed-chunk-5-1.png" target="_blank">d7f04d9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/figure/DEvDS.Rmd/unnamed-chunk-5-1.png" target="_blank">3ee8382</a>
