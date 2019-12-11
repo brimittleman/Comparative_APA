@@ -193,6 +193,11 @@ nrow(genes)
 write.table(genes, "../data/DiffSplice_liftedJunc/orderedGenelist.txt", col.names = F, row.names = F, quote = F)
 
 ```
+Fixlist: 
+
+```{bash,eval=F}
+tr , '\n' < ../data/DiffSplice_liftedJunc/orderedGenelist.txt > ../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt
+```
 
 
 Build leafviz  

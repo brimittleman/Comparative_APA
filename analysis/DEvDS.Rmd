@@ -36,7 +36,7 @@ I need to convert these from ENSG to gene name.
 nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
 
 
-DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% select(Gene.name)
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name)
 ```
 
 
