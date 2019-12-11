@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-08
+<strong>Last updated:</strong> 2019-12-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f04a8042f4b698ab19e130b931b5aa8075a125a4" target="_blank">f04a804</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6b8b23ccd79b505da5c693e52243f1929eda8722targetblank6b8b23ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6b8b23ccd79b505da5c693e52243f1929eda8722" target="_blank">6b8b23c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6b8b23ccd79b505da5c693e52243f1929eda8722targetblank6b8b23ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,6 +451,7 @@ Ignored files:
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
     Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
+    Ignored:    data/MapPantro6_meta.txt.sb-a5794dd2-Cskmlm/
     Ignored:    data/OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf/
     Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
     Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
@@ -464,10 +465,13 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
+    Untracked:  code/._ConvertJunc2Bed.sh
     Untracked:  code/._CountNucleotides.py
+    Untracked:  code/._CrossMapChimpRNA.sh
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
@@ -487,6 +491,8 @@ Untracked files:
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
+    Untracked:  code/._buildLeafviz.sh
+    Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._cleanbed2saf.py
@@ -526,6 +532,7 @@ Untracked files:
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
@@ -567,10 +574,17 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
+    Untracked:  code/ConvertJunc2Bed.err
+    Untracked:  code/ConvertJunc2Bed.out
+    Untracked:  code/ConvertJunc2Bed.sh
     Untracked:  code/CountNucleotides.py
+    Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossmapChimpRNA.err
+    Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -644,6 +658,12 @@ Untracked files:
     Untracked:  code/bg_to_cov.py
     Untracked:  code/buildIndecpantro5
     Untracked:  code/buildIndecpantro5.sh
+    Untracked:  code/buildLeafviz.err
+    Untracked:  code/buildLeafviz.out
+    Untracked:  code/buildLeafviz.sh
+    Untracked:  code/buildLeafviz_leadAnno.sh
+    Untracked:  code/buildLeafviz_leafanno.err
+    Untracked:  code/buildLeafviz_leafanno.out
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
     Untracked:  code/chimpChromprder.sh
@@ -651,6 +671,8 @@ Untracked files:
     Untracked:  code/chooseAnno2SAF.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
+    Untracked:  code/classifyLeafviz.err
+    Untracked:  code/classifyLeafviz.out
     Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
@@ -735,7 +757,10 @@ Untracked files:
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/prepareAnnoLeafviz.err
+    Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/prepareLeafvizAnno.sh
     Untracked:  code/preparePAS4lift.py
     Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
@@ -761,6 +786,9 @@ Untracked files:
     Untracked:  code/runCountNucleotides.err
     Untracked:  code/runCountNucleotides.out
     Untracked:  code/runCountNucleotides.sh
+    Untracked:  code/runCountNucleotidesPantro6.err
+    Untracked:  code/runCountNucleotidesPantro6.out
+    Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
@@ -832,6 +860,9 @@ Untracked files:
     Untracked:  data/._HC_filenames.txt
     Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
     Untracked:  data/._HC_filenames.xlsx
+    Untracked:  data/._MapPantro6_meta.txt
+    Untracked:  data/._MapPantro6_meta.txt.sb-a5794dd2-Cskmlm
+    Untracked:  data/._MapPantro6_meta.xlsx
     Untracked:  data/._OppositeSpeciesMap.txt
     Untracked:  data/._OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf
     Untracked:  data/._OppositeSpeciesMap.xlsx
@@ -849,6 +880,7 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
+    Untracked:  data/._~$RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
@@ -861,6 +893,8 @@ Untracked files:
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/MapPantro6_meta.txt
+    Untracked:  data/MapPantro6_meta.xlsx
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/OppositeSpeciesMap.txt
@@ -879,12 +913,14 @@ Untracked files:
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/~$RNASEQ_metadata.xlsx
+    Untracked:  data/~$RNASEQ_metadata_stranded.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/dtPlots/
@@ -892,10 +928,12 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/CorrbetweenInd.Rmd
+    Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PASnumperSpecies.Rmd
     Modified:   analysis/annotatePAS.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffSplicing.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/liftoverPAS.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/verifyBAM.Rmd
@@ -942,6 +980,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6b8b23ccd79b505da5c693e52243f1929eda8722/analysis/DEvDS.Rmd" target="_blank">6b8b23c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+<td>
+fix redundancy in splicing genes
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/DEvDS.html" target="_blank">3ee8382</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f04a8042f4b698ab19e130b931b5aa8075a125a4/analysis/DEvDS.Rmd" target="_blank">f04a804</a>
 </td>
 <td>
@@ -965,12 +1037,12 @@ add DE vs DS analysis
 <pre><code>Loading required package: grid</code></pre>
 <pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>I want to see if differentially expressed genes are the same genes that are differentially spliced. The differentially spliced genes are in.</p>
@@ -983,7 +1055,7 @@ add DE vs DS analysis
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
 
 
-DEgenes=read.table(&quot;../data/DiffExpression/DE_genes.txt&quot;, header = F,col.names = c(&quot;Gene_stable_ID&quot;),stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% select(Gene.name)</code></pre>
+DEgenes=read.table(&quot;../data/DiffExpression/DE_genes.txt&quot;, header = F,col.names = c(&quot;Gene_stable_ID&quot;),stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name)</code></pre>
 <pre class="r"><code>overlap &lt;- intersect(DEgenes$Gene.name, DSgenes$DS) 
 DE.unique &lt;- setdiff(DEgenes$Gene.name, DSgenes$DS) # n 1st NOT 2nd
 DS.unique &lt;- setdiff(DSgenes$DS, DEgenes$Gene.name)
@@ -1000,6 +1072,43 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(DEgenes$Gene.name),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/DEvDS.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/figure/DEvDS.Rmd/unnamed-chunk-5-1.png" target="_blank">3ee8382</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
