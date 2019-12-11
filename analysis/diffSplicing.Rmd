@@ -63,24 +63,94 @@ sbatch liftJunctionFiles.sh
 ```
 
 
-**liftover changes the junction files..**
 
-For the humans I can simply filter the original junctions that pass the reciprocal liftover. For the chimps I need to figure out why the junctions change with liftover.  
+Assess the number that liftover: Resiprocal must map back to the same spot.  
 
-Junction file format from regtools:
-bed12 format:
-- chrom
-- start
-- end
-- junction name
-- score- number of reads supporing junction
-- strand
-- thick start (same as chrom start)
-- thick end (same as chrom end)
-- itemRgb - default 255,0,0
-- block cound- number blocks, defauld 2
-- block size - comma- separated list of block sizes, number of items in list corresponds to blockCount
-- block start- comma separated list of block starts, all block star positions should be calculated relative to chromStrat and the number of items in the list shoudl correspond to blockCount
+First I will look at how many pass the original lift.  
+
+```{bash,eval=F}
+#Original:
+touch /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+for i in $(ls /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/sort/*.bam.junc)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "original" "Human" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+#reverse
+for i in $(ls /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/sort/*.bam.junc.2Chimp)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "ForwardLift" "Human" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+#chimp files
+#original
+
+for i in $(ls /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/sort/*.bam.junc)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "original" "Chimp" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+#reverse
+for i in $(ls /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/sort/*.bam.junc.2Human)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "ForwardLift" "Chimp" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+
+
+
+```
+
+Next I need to make sure everything lifts back to the same place.  
+
+I will write an R script that takes both files and inner joins to the same locations. I need the original and the final lift.  
+
+```{bash,eval=F}
+sbatch runCheckReverseLift.sh
+```
+
+Evaluate results:
+
+```{bash,eval=F}
+
+for i in $(ls /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/sort/*.SamePlace)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "SamePlace" "Human" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+
+for i in $(ls /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/sort/*.SamePlace)
+do
+describer=$(echo ${i} cut -d/ -f 9 | cut -d- -f 4)
+number=$(wc -l < $i)
+echo -e "\t" ${describer} ${number} "SamePlace" "Chimp" >>  /project2/gilad/briana/Comparative_APA/data/DiffSplice_liftedJunc/JuncNums.txt
+done
+
+
+
+```
+
+
+
+```{r}
+liftStats=read.table("../data/DiffSplice_liftedJunc/JuncNums.txt", col.names = c("line", "Njunc","File", "Species"),stringsAsFactors = F)
+#spread by line
+liftStatsSpread= liftStats %>% spread(key="File", value="Njunc") %>% mutate(PercLift=ForwardLift/original, PercSame=SamePlace/original)
+
+ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercSame)) + geom_bar(stat="identity")+geom_text(aes(label=round(PercSame,3)), vjust=1.6, color="black") + labs(title="Proportion of Junctions Passing reciprocal liftover")
+```
+
+Lift the passing chimps to human:  
+
+```{bash,eval=F}
+sbatch LiftFinalChimpJunc2Human.sh
+```
+
 
 I need to write a script that fixes the lifted files. I need to make column 9 255,0,0 and remove the commas from the last 2 columns. 
 
@@ -120,7 +190,7 @@ Make the sample list:
 combinedCounts=read.table("../data/DiffSplice_liftedJunc/MergeCombined_perind_numers.counts", header=T)
 x=colnames(combinedCounts)
 #YG-BM-S8-18499H-Total_S8_R1_001-sort.bam
-indiv=as.data.frame(x)  %>%  separate(x, into=c("yg", "bm","lane", "sample", "total",  "sort", "bam"), sep="[.]") %>% mutate(sample=paste(yg, "-", bm, "-", lane, "-", sample, "-", total, "-", sort, ".", bam, sep="")) %>% select(sample) %>%  mutate(Species=ifelse(grepl("H",sample), "Human", "Chimp"))
+indiv=as.data.frame(x)  %>%  separate(x, into=c("yg", "bm","lane", "sample", "total",  "sort", "bam"), sep="[.]") %>% mutate(sample=paste(yg, "-", bm, "-", lane, "-", sample, "-", total, "-", sort, ".", bam, sep="")) %>% dplyr::select(sample) %>%  mutate(Species=ifelse(grepl("H",sample), "Human", "Chimp"))
 
 
 write.table(indiv, "../data/DiffSplice_liftedJunc/groups_file.txt", quote = F, col.names = F, row.names = F, sep = "\t")
@@ -235,3 +305,4 @@ Interesting spots:
 -RPL38
 - chr3:129171277-129171446, NM_001127192.1, CNBP
 -chr20:46394503-46406548 - ELMO2, NM_001318253.1
+- chimp extra exon chr10:79814716-79826198
