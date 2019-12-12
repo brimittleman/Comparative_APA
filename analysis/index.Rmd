@@ -56,8 +56,9 @@ Quantify Phenotypes with RNA:
 * [Differnetial Splicing](diffSplicing.html) 
 
 * [Differential Expression](diffExpression.html)
+  
+  * [Metadata by species](MetabySpecies.html)
 
-* [Compare genes with DE and DS](DEvDS.html)
 
 
 Extra QC and Analysis   

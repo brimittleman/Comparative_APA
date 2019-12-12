@@ -1,0 +1,48 @@
+---
+title: "Metadata segregate by species?"
+author: "Briana Mittleman"
+date: "12/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis, I will look to see if our RNA seq meta data segregate by species. If they do, I may need regress them out before the differential expression anaylsis.  
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+```{r}
+metaData=read.table("../data/RNASEQ_metadata_stranded.txt", header = T, stringsAsFactors = F)
+metaData$Species=as.factor(metaData$Species)
+metaData$Collection=as.factor(metaData$Collection)
+```
+
+
+
+```{r}
+ggplot(metaData,aes(y=AverageAlive, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="Average Percent alive at collection", title="Percent alive by Species")
+```
+
+```{r}
+ggplot(metaData,aes(y=Rin, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA RIN", title="RIN by Species")
+```
+
+
+```{r}
+ggplot(metaData,aes(y=BioAConc, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA Concentration", title="RNA concentration by Species")
+```
+
+
+```{r}
+ggplot(metaData,aes(y=UndilutedAverage, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="Cell concentration at collection", title="Cell concentration at collection by Species")
+```
+
+
+None of these metadata factors segragate by species.
+
+
