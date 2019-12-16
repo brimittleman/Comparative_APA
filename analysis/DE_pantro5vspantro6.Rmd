@@ -1,0 +1,46 @@
+---
+title: "Compare DE pantro5 vs pantro6"
+author: "Briana Mittleman"
+date: "12/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(VennDiagram)
+library(tidyverse)
+```
+
+
+Load in the DE genes from pantro5 and pantro6.  
+
+```{r}
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F)
+DEgenesPantro6=read.table("../data/DiffExpression/DE_genes_pantro6.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F)
+```
+
+```{r}
+overlap <- intersect(DEgenes$Gene_stable_ID, DEgenesPantro6$Gene_stable_ID) 
+DE.unique <- setdiff(DEgenes$Gene_stable_ID, DEgenesPantro6$Gene_stable_ID) # n 1st NOT 2nd
+DEgenesPantro6.unique <- setdiff(DEgenesPantro6$Gene_stable_ID, DEgenes$Gene_stable_ID)
+full.list <- unique(c(DEgenes$Gene_stable_ID,DEgenesPantro6$Gene_stable_ID))
+```
+
+Plot: 
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(DEgenes$Gene_stable_ID),
+                           area2 = length(DEgenesPantro6$Gene_stable_ID),
+                           cross.area = length(overlap),
+                           c("Pantro5", "Pantro6"), scaled = TRUE,
+                           fill = c("green", "blue"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```

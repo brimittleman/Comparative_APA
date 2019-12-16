@@ -58,6 +58,10 @@ Quantify Phenotypes with RNA:
 * [Differential Expression](diffExpression.html)
   
   * [Metadata by species](MetabySpecies.html)
+  
+  * [Differential Expression with Pantro6](diffExpressionPantro6.html)
+  
+  * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
 
 
 
@@ -65,7 +69,9 @@ Extra QC and Analysis
 
 * [Investigate bad RNA seq samples](InvestigateBadSamples.html)  
     * [Differential splicing without bad samples](diffSplicing_removeBad.html)  
-    * [Differential Expression without bad samples](diffExpressionRemove2.html)   
+    
+    * [Differential Expression without bad samples](diffExpressionRemove2.html)  
+    
 
 * [Map RNA to hg19](MapRNAhg19.html)
 
