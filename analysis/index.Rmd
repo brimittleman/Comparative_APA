@@ -74,3 +74,5 @@ Extra QC and Analysis
 * [Map to opposite Genomes](OppositeMap.html)
 
 * [Evaluate Pantro 5 problems](investigatePantro5.html)
+
+* [Compare pantro5 and pantro6 orthoexon](compareOrthoExon.html)

@@ -1,0 +1,54 @@
+---
+title: "Ortho exon comparison"
+author: "Briana Mittleman"
+date: "12/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+I need to compare the reads mapping to the ortho exon files. The first is hg38/pantro5 and the second is hg38/pantro6.  
+
+```{r}
+metadata=read.table("../data/RNASEQ_metadata_stranded.txt",stringsAsFactors = F, header = T)
+metadata_human=metadata %>% filter(Species=="Human") %>% mutate(MapOrthPer=mapOrtho6/Reads) %>% dplyr::select(Line, percentOrtho, MapOrthPer)
+metadata_chimp=metadata %>% filter(Species=="Chimp") %>% mutate(MapOrthPer=mapOrtho6/Reads) %>% dplyr::select(Line, percentOrtho, MapOrthPer)
+```
+
+
+```{r}
+human_gather=gather(metadata_human, key="File", value="Perc", -Line) 
+ggplot(human_gather, aes(x=Line, fill=File, y=Perc)) + geom_bar(stat="identity", position="dodge") + scale_fill_discrete(labels=c("Pantro6", "Pantro5")) + labs(title="Percent of reads mapping to ortho exon file human",y="Percent")
+```
+
+```{r}
+chimp_gather=gather(metadata_chimp, key="File", value="Perc", -Line) 
+ggplot(chimp_gather, aes(x=Line, fill=File, y=Perc)) + geom_bar(stat="identity", position="dodge") + scale_fill_discrete(labels=c("Pantro6", "Pantro5")) + labs(title="Percent of reads mapping to ortho exon file chimp",y="Percent")
+
+```
+
+Compare human vs chimp:
+
+```{r}
+metadata_perc=metadata %>%mutate(Pantro6=mapOrtho6/Reads)  %>%  dplyr::select(Line,Species, percentOrtho,Pantro6) %>% gather( key="File", value="Perc", -Line,-Species)
+ggplot(metadata_perc,aes(x=Species, by=File, y=Perc,fill=File)) + geom_boxplot() + scale_fill_discrete(labels=c("Pantro6", "Pantro5"))  + labs(y="Percent Mapped", title="Percent mapping to ortho exon") +stat_compare_means(method="t.test")
+```
+```{r}
+metadata_Num=metadata   %>%  dplyr::select(Line,Species, AssignedOrtho,mapOrtho6) %>% gather( key="File", value="Assigned", -Line,-Species)
+ggplot(metadata_Num,aes(x=Species, by=File, y=Assigned,fill=File)) + geom_boxplot() + labs(y="Mapped reads to OrthoExon", title="Number of Reads mapping to OrthoExon") + scale_fill_discrete(labels=c("Pantro5", "Pantro6"))+stat_compare_means(method="t.test")
+```
+Final ortho reads species: 
+
+```{r}
+metadata6= metadata %>% dplyr::select(Species,Line,mapOrtho6 )
+ggplot(metadata6, aes(x=Species, y=mapOrtho6, fill=Species )) + geom_boxplot() + stat_compare_means(method="t.test")+ labs(title="RNA seq reads mapping to ortho exon", y="Mappped Reads")
+
+```
+
