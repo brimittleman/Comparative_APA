@@ -78,11 +78,11 @@ python makeFileID.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed
 
 Make phenotypes from these: 
 ```{bash,eval=F}
-mkdir ../Human/phenotype/
-mkdir ../Chimp/phenotype/
-python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+mkdir ../Human/data/phenotype/
+mkdir ../Chimp/data/phenotype/
+python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
 
-python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt
+python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt
 ```
 
 
@@ -90,24 +90,24 @@ python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed
 Convert these to numeric:  
 
 ```{bash,eval=F}
-Rscript pheno2countonly.R -I ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+Rscript pheno2countonly.R -I ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
 
-Rscript pheno2countonly.R -I ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt -O ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt
+Rscript pheno2countonly.R -I ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt -O ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt
 
 
-python convertNumeric.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+python convertNumeric.py ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
 
-python convertNumeric.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt
+python convertNumeric.py ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt
 ```
 
 
 Plot usages to see if 5% is a good cutoff for this analysis as well.  
 
 ```{r}
-HumanAnno=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
 
-HumanUsage=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
 
 HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
 
@@ -115,10 +115,10 @@ HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
 ```
 
 ```{r}
-ChimpAnno=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
-ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
 
 ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
 
@@ -192,14 +192,14 @@ mkdir ../data/Pheno_5perc
 ```
 
 ```{r}
-BothMean_5_out=BothMean_5 %>% select(PAS,disc, gene, loc,chr, start, end,Chimp, Human)
+BothMean_5_out=BothMean_5 %>% dplyr::select(PAS,disc, gene, loc,chr, start, end,Chimp, Human)
 write.table(BothMean_5_out, "../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt", row.names = F, col.names = T, quote = F)
 
-BothMean_5_out_noUN=BothMean_5 %>% select(PAS,disc, gene, loc,chr, start, end,Chimp, Human) %>% filter(!grepl("Un",chr))
+BothMean_5_out_noUN=BothMean_5 %>% dplyr::select(PAS,disc, gene, loc,chr, start, end,Chimp, Human) %>% filter(!grepl("Un",chr))
 
 write.table(BothMean_5_out_noUN, "../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt", row.names = F, col.names = T, quote = F)
 #write bed with human coord for igv
-BothMean_5_bed=BothMean_5 %>% select(chr, start, end, PAS, Human, strand)
+BothMean_5_bed=BothMean_5 %>% dplyr::select(chr, start, end, PAS, Human, strand)
 write.table(BothMean_5_bed, "../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", row.names = F, col.names = T, quote = F)
 
 ```
