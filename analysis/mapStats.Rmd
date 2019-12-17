@@ -15,6 +15,7 @@ In this analysis I will look at mapping across lines.
 ```{r}
 library(tidyverse)
 library(reshape2)
+library(ggpubr)
 ```
 
 ```{r}
@@ -23,13 +24,16 @@ metadata=read.table("../data/metadata_HCpanel.txt", stringsAsFactors = F, header
 
 
 ```{r}
-ggplot(metadata, aes(x=Line, y=PerMap, fill=Species,by=Species)) + geom_bar(position = "dodge", stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map percent", title="Pre cleaning")
+ggplot(metadata, aes(x=Line, y=PerMap, fill=Species,by=Species)) + geom_bar(position = "dodge", stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map percent", title="Pre cleaning") + scale_fill_brewer(palette = "Dark2")
 ```
 ```{r}
-ggplot(metadata, aes(x=Line, y=PerMapClean, fill=Species,by=Species)) + geom_bar(position = "dodge", stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map percent", title="Post cleaning")
+ggplot(metadata, aes(x=Line, y=PerMapClean, fill=Species,by=Species)) + geom_bar(position = "dodge", stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map percent", title="Post cleaning") + scale_fill_brewer(palette = "Dark2")
 ```
 
-This is weird. It doesn't look like the mismapping filter worked.  
 
+Number of reads mapping:
 
+```{r}
+ggplot(metadata, aes(by=Species, x=Fraction, y=Mapped_Clean, fill = Species)) + geom_boxplot() + stat_compare_means(method="t.test") + labs(y="Mapped reads after cleaning", title="Mapped reads by fraction and species") + scale_fill_brewer(palette = "Dark2")
+```
 
