@@ -183,7 +183,7 @@ effectsize_deltaPAUProp_tot=effectsize_deltaPAU_total_loc %>% inner_join(PAS_loc
 effectsize_deltaPAUProp_nuc=effectsize_deltaPAU_nuclear_loc %>% inner_join(PAS_loc, by="loc") %>% mutate(Proportion_nuc=nlocNuclear/nloc)
 
 
-effectsize_deltaPAUProp_both= effectsize_deltaPAUProp_nuc %>% inner_join(effectsize_deltaPAUProp_tot, by=c("loc","nloc")) %>% dplyr::rename(Nuclear=Proportion_nuc, Total=Proportion_tot) %>% select(loc, Nuclear, Total) 
+effectsize_deltaPAUProp_both= effectsize_deltaPAUProp_nuc %>% inner_join(effectsize_deltaPAUProp_tot, by=c("loc","nloc")) %>% dplyr::rename(Nuclear=Proportion_nuc, Total=Proportion_tot) %>% dplyr::select(loc, Nuclear, Total) 
 effectsize_deltaPAUProp_both_melt= effectsize_deltaPAUProp_both %>% melt(id.vars="loc", variable.name="Fraction", value.name = "Proportion") 
 effectsize_deltaPAUProp_both_melt$Fraction=as.character(effectsize_deltaPAUProp_both_melt$Fraction)
 ```
