@@ -12,7 +12,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 
 
-Preparation and QC:  
+##Preparation and QC:  
 
 * [Prepare annotation files for mapping ](annotationInfo.html)  
 
@@ -25,12 +25,6 @@ Preparation and QC:
 * [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)
 
 * [PCA plot to look at variation in data](NromalizePhenos.html)
-
-      * [Total Fraction](NormalizePheno_total.html)  
-      
-      * [Total Fraction- Prenormalized](NonNormPheno_total.html)
-        
-      * [Nuclear Fraction](NormalizePheno_nuclear.html)  
       
 * [Correlation between individuals](CorrbetweenInd.html)
       
@@ -38,12 +32,12 @@ Preparation and QC:
 
 * [3' Seq enrichement along gene bodies](EnrichmentEndofGenes.html)
 
-Catalog PAS:
+##Catalog PAS:
 
 * [Number of PAS in each species](PASnumperSpecies.html)  
 
 
-Differential Isoform Analysis:
+##Differential Isoform Analysis:
 
 * [Human Total vs Nuclear Analysis](Human_TvN.html)  
 
@@ -51,7 +45,7 @@ Differential Isoform Analysis:
 
 * [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
 
-Quantify Phenotypes with RNA:   
+##Quantify Phenotypes with RNA:   
 
 * [Differnetial Splicing](diffSplicing.html) 
 
@@ -59,19 +53,19 @@ Quantify Phenotypes with RNA:
   
   * [Metadata by species](MetabySpecies.html)
   
-  * [Differential Expression with Pantro6](diffExpressionPantro6.html)
-  
-  * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
 
 
+##Extra QC and Analysis   
 
-Extra QC and Analysis   
+### Sample switch analysis  
 
 * [Investigate bad RNA seq samples](InvestigateBadSamples.html)  
+
     * [Differential splicing without bad samples](diffSplicing_removeBad.html)  
     
     * [Differential Expression without bad samples](diffExpressionRemove2.html)  
     
+### Mapping problems with pantro5 and multimapping
 
 * [Map RNA to hg19](MapRNAhg19.html)
 
@@ -81,4 +75,19 @@ Extra QC and Analysis
 
 * [Evaluate Pantro 5 problems](investigatePantro5.html)
 
-* [Compare pantro5 and pantro6 orthoexon](compareOrthoExon.html)
+From before reseq:
+
+* [Total Fraction](NormalizePheno_total.html)  
+      
+* [Total Fraction- Prenormalized](NonNormPheno_total.html)
+        
+* [Nuclear Fraction](NormalizePheno_nuclear.html)  
+
+### Chosing between pantro files
+
+  * [Compare pantro5 and pantro6 orthoexon](compareOrthoExon.html)
+    
+  * [Differential Expression with Pantro6](diffExpressionPantro6.html)
+  
+  * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
+
