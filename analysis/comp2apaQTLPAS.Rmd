@@ -72,7 +72,7 @@ Look at actual counts to see if this is a noise problem:
 
 
 ```{r}
-humanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",header = T, stringsAsFactors = F) %>% select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene"))
+humanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",header = T, stringsAsFactors = F) %>% dplyr::select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene"))
 
 humanCounts_mean=rowMeans(humanCounts[,8:19])
 
@@ -86,3 +86,4 @@ HumanMeanAnno$meanCount=as.integer(as.character(HumanMeanAnno$meanCount))
 ggplot(HumanMeanAnno, aes(x=overlap, y=log10(meanCount +1),fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")+ stat_compare_means(method="t.test") + labs(title="HC PAS counts by overlap with apaQTL PAS")
 ```
 
+Still a not high overlap, but it is goood to see those that overlap are the higher used.  
