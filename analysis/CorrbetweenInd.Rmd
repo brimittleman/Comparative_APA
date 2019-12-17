@@ -22,20 +22,20 @@ With ratio:
 ```{r}
 fiveper=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt",stringsAsFactors = F, header = T)
 
-HumanAnno=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
 
-HumanUsage=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
 
 HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
 
 HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
 
 
-ChimpAnno=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
-ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
 
 ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
 
@@ -43,7 +43,7 @@ ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
 
 
 
-allPheno=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% filter(PAS %in% fiveper$PAS) %>% select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
+allPheno=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% filter(PAS %in% fiveper$PAS) %>% dplyr::select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
 
 
 allPheno_matrix=as.matrix(allPheno)
@@ -58,13 +58,13 @@ Count_corr= round(cor(allPheno_matrix),2)
 Count_corr_melt=melt(Count_corr)
 
 ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 ##Counts
 
 
 ```{r}
-humanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",header = T) %>% select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene")) %>% filter(PAS %in% fiveper$PAS)  %>% select(-PAS, -disc, -chr, -start,-end,-strand,-gene)
+humanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",header = T) %>% dplyr::select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene")) %>% filter(PAS %in% fiveper$PAS)  %>% dplyr::select(-PAS, -disc, -chr, -start,-end,-strand,-gene)
 
 
 humanCountsM=as.matrix(humanCounts)
@@ -76,11 +76,11 @@ humanCount_corr_melt=melt(humanCount_corr)
 
 ```{r}
 ggplot(data = humanCount_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 
 ```{r}
-chimpCounts=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc",header = T) %>% select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene")) %>% filter(PAS %in% fiveper$PAS)  %>% select(-PAS, -disc, -chr, -start,-end,-strand,-gene)
+chimpCounts=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc",header = T) %>% dplyr::select(-Chr, -Start,-End, -Strand, -Length)  %>% tidyr::separate(Geneid, sep = ":", into = c("disc", "PAS", "chr", "start", "end", "strand", "gene")) %>% filter(PAS %in% fiveper$PAS)  %>% dplyr::select(-PAS, -disc, -chr, -start,-end,-strand,-gene)
 
 
 chimpCountsM=as.matrix(chimpCounts)
@@ -91,8 +91,7 @@ chimpCounts_corr_melt=melt(chimpCounts_corr)
 
 
 ```{r}
-ggplot(data = chimpCounts_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+ggplot(data = chimpCounts_corr_melt, aes(x=Var1, y=Var2, fill=value)) + geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 
 Counts both species: 
@@ -110,7 +109,7 @@ bothCounts_corr_melt=melt(bothCounts_corr)
 
 ```{r}
 ggplot(data = bothCounts_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 
 ```
 ##Normalzied ratio
@@ -118,7 +117,7 @@ ggplot(data = bothCounts_corr_melt, aes(x=Var1, y=Var2, fill=value)) +
 ```{r}
 normPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom", col.names = c('Chr', 'start',    'end',  'ID',   '18498_N',  '18498_T',  '18499_N',  '18499_T',  '18502_N',  '18502_T',  '18504_N',  '18504_T',  '18510_N',  '18510_T',  '18523_N',  '18523_T',  '18358_N',  '18358_T',  '3622_N',   '3622_T',   '3659_N',   '3659_T',   '4973_N',   '4973_T',   'pt30_N',   'pt30_T',   'pt91_N',   'pt91_T'))
 
-normPheno_matrix=as.matrix(normPheno %>% select(-Chr, -start, -end, -ID))
+normPheno_matrix=as.matrix(normPheno %>% dplyr::select(-Chr, -start, -end, -ID))
 normPheno_corr= round(cor(normPheno_matrix),2)
 
 normPheno_corr_melt=melt(normPheno_corr)
@@ -127,29 +126,29 @@ normPheno_corr_melt=melt(normPheno_corr)
 
 ```{r}
 ggplot(data = normPheno_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 
 Sep total and nuclear:
 
 ```{r}
-normPheno_T=normPheno %>% select(contains("_T"))
+normPheno_T=normPheno %>% dplyr::select(contains("_T"))
 normPheno_T_matrix=as.matrix(normPheno_T)
 normPheno_T_corr= round(cor(normPheno_T_matrix),2)
 
 normPheno_T_corrM=melt(normPheno_T_corr)
 
 ggplot(data = normPheno_T_corrM, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 ```{r}
-normPheno_N=normPheno %>% select(contains("_N"))
+normPheno_N=normPheno %>% dplyr::select(contains("_N"))
 normPheno_N_matrix=as.matrix(normPheno_N)
 normPheno_N_corr= round(cor(normPheno_N_matrix),2)
 
 normPheno_N_corrM=melt(normPheno_N_corr)
 
 ggplot(data = normPheno_N_corrM, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile() +theme(axis.text.x = element_text(angle = 90))
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
 ```
 
