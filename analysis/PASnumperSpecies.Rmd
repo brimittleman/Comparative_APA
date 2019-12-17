@@ -28,7 +28,7 @@ PAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt", s
 I want to look at the number of PAS at 5% in each gene by human and chimp.  
 
 ```{r}
-PAS_sm=PAS %>% select(gene, Chimp, Human) 
+PAS_sm=PAS %>% dplyr::select(gene, Chimp, Human) 
 PAS_m= melt(PAS_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.05) %>% group_by(species, gene) %>% summarise(nPAS=n())
 
 #pos = more human, neg = more chimp 
@@ -53,7 +53,7 @@ nrow(PAS_spread)
 
 
 ```{r}
-prop.test(x=c(3759, 2596), n=c(15711,15711), alternative ="greater")
+prop.test(x=c(5783, 5082), n=c(20040,20040), alternative ="greater")
 
 ```
 ```{r}
@@ -72,17 +72,17 @@ HumanNPAS=PAS_m %>% filter(species=="Human")
 wilcox.test(HumanNPAS$nPAS,ChimpNPAS$nPAS ,alternative = "greater")
 ```
 ```{r}
-ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_density(stat="count",alpha=.5) +  scale_fill_brewer(palette = "Dark2") + annotate(geom="text",x=7.5, y=4000, label="1 sided Wilcoxan Test p=2.55e-6 \n Human > Chimp") + labs(title="Distribution for number of PAS >= 5%", x="Number of PAS",y="Genes")
+ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_density(stat="count",alpha=.5) +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS >= 5%", x="Number of PAS",y="Genes")
 ```
 
 
 ###Total fraction
 
 ```{r}
-HumanAnno=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
 
-HumanUsage=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH) %>% select(contains("_T"))
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH) %>% dplyr::select(contains("_T"))
 
 
 HumanMeanTotal=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage))) 
@@ -91,10 +91,10 @@ HumanMeanTotal=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
 ```
 
 ```{r}
-ChimpAnno=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
-ChimpUsage=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC) %>% select(contains("_T"))
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC) %>% dplyr::select(contains("_T"))
 
 ChimpMeanTotal=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
 
@@ -123,7 +123,7 @@ ggplot(BothMean_total_gene,aes(x=nPASTotal, by=Species, fill=Species)) + geom_de
 
 ```{r}
 
-HumanUsageNuclear=read.table("../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH) %>% select(contains("_N"))
+HumanUsageNuclear=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH) %>% dplyr::select(contains("_N"))
 
 
 HumanMeanNuclear=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsageNuclear))) 
@@ -134,7 +134,7 @@ HumanMeanNuclear=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsageN
 ```{r}
 
 
-ChimpUsageNuclear=read.table("../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC) %>% select(contains("_N"))
+ChimpUsageNuclear=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC) %>% dplyr::select(contains("_N"))
 
 ChimpMeanNuclear=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsageNuclear)))
 
@@ -173,10 +173,9 @@ mean(PAS_Total_spread$TotalDiffPAS)
 mean(PAS_Nuclear_spread$NuclearDiffPAS)
 ```
 
-Is the skew different in total and nuclear:
 
 ```{r}
 t.test(PAS_Total_spread$TotalDiffPAS, PAS_Nuclear_spread$NuclearDiffPAS,alternative = "greater") 
 
 ```
-This means skew toward more PAS in human that chimp is stronger in the total fraction.  
+
