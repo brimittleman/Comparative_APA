@@ -15,6 +15,9 @@ I want to normalize the phenotypes with the leafcutter scripts. This can be used
 library(tidyverse)
 library(reshape2)
 library(ggpubr)
+library("scales")
+library("gplots")
+library("RColorBrewer")
 ```
 
 These are the inclusive phenotypes. I will need to subset of the 5% pas.  
@@ -28,9 +31,9 @@ I will make a python script that will do this. I
 
 
 ```{bash,eval=F}
-python filter5percPAS.py ../Human/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt
+python filter5percPAS.py ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt
 
-python filter5percPAS.py ../Chimp/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt
+python filter5percPAS.py ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt  ../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt
 ```
 
 
@@ -66,6 +69,7 @@ conda deactivate
 source ~/activate_anaconda_python2.sh 
 #go to directory ../data/Pheno_5perc/
 python ../../code/prepare_phenotype_table.py ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz
+
 cat ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_chr* > ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom
 
 ```
@@ -80,14 +84,62 @@ metaData=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors
 ```{r}
 normPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom", col.names = c('Chr',	'start',	'end',	'ID',	'18498_N',	'18498_T',	'18499_N',	'18499_T',	'18502_N',	'18502_T',	'18504_N',	'18504_T',	'18510_N',	'18510_T',	'18523_N',	'18523_T',	'18358_N',	'18358_T',	'3622_N',	'3622_T',	'3659_N',	'3659_T',	'4973_N',	'4973_T',	'pt30_N',	'pt30_T',	'pt91_N',	'pt91_T'))
 
-normPheno_matrix=as.matrix(normPheno %>% select(-Chr, -start, -end, -ID))
+normPheno_matrix=as.matrix(normPheno %>% dplyr::select(-Chr, -start, -end, -ID))
 ```
-Run PCA:  
+Run PCA:
+```{r}
+# Load colors 
+
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(metaData$Species,metaData$Line,metaData$Fraction, sep=" ")
+```
 
 ```{r}
-pca_Pheno=prcomp(normPheno_matrix, center=T,scale=T)
-pca_df=as.data.frame(pca_Pheno$rotation) %>% rownames_to_column(var="ID")
 
+cors <- cor(normPheno_matrix, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metaData$Species))], RowSideColors=pal[as.integer(as.factor(metaData$Fraction))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+
+```{r}
+pca_Pheno=prcomp(t(normPheno_matrix), scale=F)
+scores = pca_Pheno$x
+
+```
+Scores code
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=T){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+
+
+```{r}
+metaData$Species=as.factor(metaData$Species)
+for (n in 1:1){
+  col.v <- pal[as.integer(metaData$Species)]
+  plot_scores(pca_Pheno, scores, n, n+1, col.v)
+}
 ```
 
 ```{r}
@@ -98,113 +150,50 @@ plot(proportion)
 ```
 
 
-Plot color as species and shape as total v nuclear 
-
 ```{r}
-top5PC=pca_df %>% select(ID, PC1, PC2, PC3, PC4, PC5) %>%  inner_join(metaData, by="ID")
-top5PC$Cycles=as.factor(top5PC$Cycles)
+x.pca <- pca_Pheno
 
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Species, shape=Fraction)) + geom_point(size=3)
+tech_factors <- metaData
+tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(-Library,-Line)
+
+p_comps <- 1:6
+pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                     dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+for (pc in p_comps) {
+  for (covariate in 1:ncol(tech_factors_sum)) {
+    lm_result <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate])
+    r2 <- summary(lm_result)$r.squared
+    pc_cov_cor[covariate, pc] <- r2
+  }
+}
+
+pc_cov_pval <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                      dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+
+for (pc in p_comps) {
+  for (covariate_2 in 1:ncol(tech_factors_sum)) {
+    lm_result_2 <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate_2])
+    pval <- anova(lm_result_2)$'Pr(>F)'[1]
+    pc_cov_pval[covariate_2, pc] <- pval
+  }
+}
+
+PCs <- c("PC1", "PC2", "PC3", "PC4", "PC5", "PC6")
+Tech_fac <- colnames(tech_factors_sum)
+#Tech_fac <- c("Species",   "Individual", "O2.",  "Condition" , "Sex", "RIN" , "CO2", "Purity_high", "Purity_med" ,
+              #"Expt_Batch", "RNA_Batch", "Library_Batch", "Seq_pool", "Episomal_integration" )
+
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
 ```
 
 
-
 ```{r}
-ggplot(top5PC,aes(x=PC1, y=PC2, shape=Species,col=Cycles)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )
+log10_pc_cov_pval <- -log(pc_cov_pval)
+heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="-log10 pval of cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
 ```
 
-
-
-
-PC1
-```{r}
-Fraction1=summary(lm(top5PC$PC1 ~ top5PC$Fraction))$adj.r.squared
-Cycles1=summary(lm(top5PC$PC1 ~ top5PC$Cycles))$adj.r.squared
-Species1=summary(lm(top5PC$PC1 ~ top5PC$Species))$adj.r.squared
-Concentration1=summary(lm(top5PC$PC1 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration1=summary(lm(top5PC$PC1 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean1=summary(lm(top5PC$PC1 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio1=summary(lm(top5PC$PC1 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC1Fac=c(Fraction1, Species1, Concentration1, Ratio1,Cycles1,Library_concentration1, PerMapClean1)
-```
-
-PC2
-```{r}
-Fraction2=summary(lm(top5PC$PC2 ~ top5PC$Fraction))$adj.r.squared
-Cycles2=summary(lm(top5PC$PC2 ~ top5PC$Cycles))$adj.r.squared
-Species2=summary(lm(top5PC$PC2 ~ top5PC$Species))$adj.r.squared
-Concentration2=summary(lm(top5PC$PC2 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration2=summary(lm(top5PC$PC2 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean2=summary(lm(top5PC$PC2 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio2=summary(lm(top5PC$PC2 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC2Fac=c(Fraction2, Species2, Concentration2, Ratio2,Cycles2,Library_concentration2, PerMapClean2)
-```
-
-PC3
-```{r}
-Fraction3=summary(lm(top5PC$PC3 ~ top5PC$Fraction))$adj.r.squared
-Cycles3=summary(lm(top5PC$PC3 ~ top5PC$Cycles))$adj.r.squared
-Species3=summary(lm(top5PC$PC3 ~ top5PC$Species))$adj.r.squared
-Concentration3=summary(lm(top5PC$PC3 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration3=summary(lm(top5PC$PC3 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean3=summary(lm(top5PC$PC3 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio3=summary(lm(top5PC$PC3 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC3Fac=c(Fraction3, Species3, Concentration3, Ratio3,Cycles3,Library_concentration3, PerMapClean3)
-```
-
-
-PC4
-```{r}
-Fraction4=summary(lm(top5PC$PC4 ~ top5PC$Fraction))$adj.r.squared
-Cycles4=summary(lm(top5PC$PC4 ~ top5PC$Cycles))$adj.r.squared
-Species4=summary(lm(top5PC$PC4 ~ top5PC$Species))$adj.r.squared
-Concentration4=summary(lm(top5PC$PC4 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration4=summary(lm(top5PC$PC4 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean4=summary(lm(top5PC$PC4 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio4=summary(lm(top5PC$PC4 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC4Fac=c(Fraction4,Species4, Concentration4, Ratio4,Cycles4,Library_concentration4, PerMapClean4)
-```
-
-PC5
-```{r}
-Fraction5=summary(lm(top5PC$PC5 ~ top5PC$Fraction))$adj.r.squared
-Cycles5=summary(lm(top5PC$PC5 ~ top5PC$Cycles))$adj.r.squared
-Species5=summary(lm(top5PC$PC5 ~ top5PC$Species))$adj.r.squared
-Concentration5=summary(lm(top5PC$PC5 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration5=summary(lm(top5PC$PC5 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean5=summary(lm(top5PC$PC5 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio5=summary(lm(top5PC$PC5 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC5Fac=c(Fraction5,Species5, Concentration5, Ratio5,Cycles5,Library_concentration5, PerMapClean5)
-```
-
-Make DF and plot: 
-
-```{r}
-Exp=c("Fraction",'Species', 'Concentration', 'Ratio', 'Cycles','Library_concentration', 'PerMapClean')
-
-pcandEx=as.data.frame(cbind(Experiment=Exp,pc1=PC1Fac, pc2=PC2Fac,  pc3=PC3Fac,  pc4=PC4Fac,  pc5=PC5Fac))
-
-pcandExM=melt(pcandEx, id.var="Experiment",variable.name = "PC", value.name = "PVE")
-pcandExM$PVE=as.numeric(pcandExM$PVE)
-
-```
-
-```{r}
-ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile() + labs(title="Proportion of variation explained in PCs by Experimental Faction", y="")+ scale_fill_distiller(palette = "Blues", direction=1)
-```
 
