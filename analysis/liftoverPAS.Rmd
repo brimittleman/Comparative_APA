@@ -59,6 +59,7 @@ mkdir ../data/primaryLift
 mkdir ../data/reverseLift
 
 sbatch primaryLift.sh
+sbatch reverseLift.sh
 ```
 
 
@@ -168,7 +169,7 @@ nrow(Chimp_recLift)/originalC
 ```
 
 
-96% reciprocally lifted over. 
+96% reciprocally lifted over
 
 lift the chimp ones back to human
 
@@ -190,6 +191,11 @@ sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/Human_PASregions.bed > ../data/clean
 ```
 
 I used 75% overlap for the observed in both. I had it report number of basepair overlap so i can evaluate this. If it is bimodal i will change this.  (i chose 75% because its 50bp or within 1 read.)
+
+```{bash,eval=F}
+ sbatch intersectLiftedPAS.sh
+```
+
 ```{r}
 OverlapBoth_Test=read.table("../data/cleanPeaks_lifted/PASregions_identifiedbothTEST.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F)
 
@@ -206,14 +212,14 @@ OverlapBoth=read.table("../data/cleanPeaks_lifted/PASregions_identifiedboth.txt"
 
 overlap2= OverlapBoth %>% group_by(name) %>% filter(n()>1) %>%  mutate(id = row_number()) %>% filter(id==2)
 
-OverlapBoth_format=read.table("../data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"),Bothname=paste(Hname, Cname, sep=":")) %>% filter(!Bothname %in% overlap2$Bothname) %>% select(Hchr,Hstart,Hend,name,meanScore,Hstrand) 
+OverlapBoth_format=read.table("../data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"),Bothname=paste(Hname, Cname, sep=":")) %>% filter(!Bothname %in% overlap2$Bothname) %>% dplyr::select(Hchr,Hstart,Hend,name,meanScore,Hstrand) 
 
 
 
-HumanSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedHuman.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Human", Hname, sep=":")) %>% select(Hchr, Hstart,Hend, name, meanScore, Hstrand) 
+HumanSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedHuman.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Human", Hname, sep=":")) %>% dplyr::select(Hchr, Hstart,Hend, name, meanScore, Hstrand) 
 
 
-ChimpSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedChimp.txt", col.names = c("Hchr", "Hstart","Hend", "Cname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Chimp", Cname, sep=":")) %>% select(Hchr, Hstart,Hend, name, meanScore, Hstrand)
+ChimpSpec=read.table("../data/cleanPeaks_lifted/PASregions_identifiedChimp.txt", col.names = c("Hchr", "Hstart","Hend", "Cname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Chimp", Cname, sep=":")) %>% dplyr::select(Hchr, Hstart,Hend, name, meanScore, Hstrand)
 
 
 
