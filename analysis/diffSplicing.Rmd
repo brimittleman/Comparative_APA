@@ -46,6 +46,11 @@ I now have my RNA seq for each species. I can write a script that runs the junct
 
 
 ```{bash,eval=F}
+mkdir /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/
+mkdir /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/
+touch /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/human_juncfiles.txt
+touch /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/chimp_juncfiles.txt
+
 sbatch converBam2Junc.sh
 ```
 
@@ -142,7 +147,13 @@ liftStats=read.table("../data/DiffSplice_liftedJunc/JuncNums.txt", col.names = c
 #spread by line
 liftStatsSpread= liftStats %>% spread(key="File", value="Njunc") %>% mutate(PercLift=ForwardLift/original, PercSame=SamePlace/original)
 
+
+ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercLift)) + geom_bar(stat="identity")+geom_text(aes(label=round(PercLift,3)), vjust=1.6, color="black") + labs(title="Proportion of Junctions lifting first")
+
+
 ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercSame)) + geom_bar(stat="identity")+geom_text(aes(label=round(PercSame,3)), vjust=1.6, color="black") + labs(title="Proportion of Junctions Passing reciprocal liftover")
+
+
 ```
 
 Lift the passing chimps to human:  
@@ -227,11 +238,12 @@ sbatch DiffSplice.sh
 ```
  
  
-There are either not enough samples or min coverage problems.  Let me compare these to the numbers.  
 ```{r}
 results=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":") %>% filter(status=="Success") 
 results$p.adjust=as.numeric(as.character(results$p.adjust))
 
+
+nrow(results)
 results %>% filter(p.adjust < .05 ) %>% nrow()
 
 
@@ -243,6 +255,7 @@ results_sig= results %>% filter(p.adjust < .05 )
 qqplot(-log10(runif(nrow(results))), -log10(results$p.adjust),ylab="-log10 Total Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Human Chimp differential splicing")
 abline(0,1)
 ```
+
 ```{r}
 effectsize=read.table("../data/DiffSplice_liftedJunc/MergedRes_effect_sizes.txt", stringsAsFactors = F,header=T)
 plot(sort(effectsize$deltapsi), ,main="Human vs Chimp Effect sizes", ylab="Delta PSI", xlab="Cluster Index")
@@ -273,7 +286,7 @@ tr , '\n' < ../data/DiffSplice_liftedJunc/orderedGenelist.txt > ../data/DiffSpli
 Build leafviz  
 
 ```{bash,eval=F}
-sbatch prepareeafvizAnno.sh
+sbatch prepareLeafvizAnno.sh 
 sbatch buildLeafviz.sh
 #with leafcutter annotation (https://github.com/davidaknowles/leafcutter/blob/master/leafviz/download_human_annotation_codes.sh)
 sbatch buildLeafviz_leadAnno.sh
@@ -281,17 +294,14 @@ sbatch buildLeafviz_leadAnno.sh
 sbatch ClassifyLeafviz.sh
 ```
 
-Run this from leafviz on my own computer,  
+Run this from leafviz on my own computer
 
-Convert juntions to bed to look at in IGV:
-
-```{bash,eval=F}
-sbatch ConvertJunc2Bed.sh
-```
 
 Lift chimp bams to look at in IGV as well.
 
-Pantro5- hg38.  
+
+
+Pantro6- hg38.  
 
 ```{bash,eval=F}
 mkdir ../Chimp/data/RNAseq/Sort_hg38
