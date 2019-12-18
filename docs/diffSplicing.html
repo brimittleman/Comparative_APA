@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-11
+<strong>Last updated:</strong> 2019-12-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree76142dede3b39f33d13bb4ab41bf35163a059850targetblank76142dea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/76142dede3b39f33d13bb4ab41bf35163a059850" target="_blank">76142de</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2targetblankac06540a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2" target="_blank">ac06540</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree76142dede3b39f33d13bb4ab41bf35163a059850targetblank76142dea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2targetblankac06540a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,21 +451,14 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
-    Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
-    Ignored:    data/MapPantro6_meta.txt.sb-a5794dd2-Cskmlm/
-    Ignored:    data/OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf/
-    Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
-    Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
-    Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
-    Ignored:    data/RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2/
-    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
-    Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
+    Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -885,13 +878,15 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/._RNASEQ_metadata_stranded.txt
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
     Untracked:  data/._RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
+    Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
-    Untracked:  data/._~$RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
@@ -928,26 +923,22 @@ Untracked files:
     Untracked:  data/liftover_files/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_frompantro5.txt
+    Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/~$RNASEQ_metadata.xlsx
-    Untracked:  data/~$RNASEQ_metadata_stranded.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
-    Modified:   analysis/CorrbetweenInd.Rmd
     Modified:   analysis/OppositeMap.Rmd
-    Modified:   analysis/PASnumperSpecies.Rmd
-    Modified:   analysis/annotatePAS.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/investigatePantro5.Rmd
-    Modified:   analysis/liftoverPAS.Rmd
     Modified:   analysis/multiMap.Rmd
-    Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
 <p>
@@ -986,6 +977,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2/analysis/diffSplicing.Rmd" target="_blank">ac06540</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+<td>
+update pantro6
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/diffSplicing.html" target="_blank">5ac753a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1385,12 +1410,12 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1416,7 +1441,12 @@ python ../clustering/leafcutter_cluster_regtools.py -j test_juncfiles.txt -m 50 
 <pre class="bash"><code>../scripts/leafcutter_ds.R --num_threads 4 ../example_data/testYRIvsEU_perind_numers.counts.gz example_geuvadis/groups_file.txt
 </code></pre>
 <p>I now have my RNA seq for each species. I can write a script that runs the junctions for each species.</p>
-<pre class="bash"><code>sbatch converBam2Junc.sh</code></pre>
+<pre class="bash"><code>mkdir /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/
+mkdir /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/
+touch /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/DiffSplice/human_juncfiles.txt
+touch /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/DiffSplice/chimp_juncfiles.txt
+
+sbatch converBam2Junc.sh</code></pre>
 <p>Create a script that only keeps the number chromosomes (2A and 2B for chimp). This means I will not have any of the chimp contigs.</p>
 <p>I should lift first then filter</p>
 <pre class="bash"><code>
@@ -1480,8 +1510,48 @@ done
 #spread by line
 liftStatsSpread= liftStats %&gt;% spread(key=&quot;File&quot;, value=&quot;Njunc&quot;) %&gt;% mutate(PercLift=ForwardLift/original, PercSame=SamePlace/original)
 
-ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercSame)) + geom_bar(stat=&quot;identity&quot;)+geom_text(aes(label=round(PercSame,3)), vjust=1.6, color=&quot;black&quot;) + labs(title=&quot;Proportion of Junctions Passing reciprocal liftover&quot;)</code></pre>
+
+ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercLift)) + geom_bar(stat=&quot;identity&quot;)+geom_text(aes(label=round(PercLift,3)), vjust=1.6, color=&quot;black&quot;) + labs(title=&quot;Proportion of Junctions lifting first&quot;)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-9-1.png" target="_blank">5ac753a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercSame)) + geom_bar(stat=&quot;identity&quot;)+geom_text(aes(label=round(PercSame,3)), vjust=1.6, color=&quot;black&quot;) + labs(title=&quot;Proportion of Junctions Passing reciprocal liftover&quot;)</code></pre>
+<p><img src="figure/diffSplicing.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Lift the passing chimps to human:</p>
 <pre class="bash"><code>sbatch LiftFinalChimpJunc2Human.sh</code></pre>
 <p>I need to write a script that fixes the lifted files. I need to make column 9 255,0,0 and remove the commas from the last 2 columns.</p>
@@ -1519,12 +1589,14 @@ sbatch RunFixLeafCluster.sh
 
 sbatch DiffSplice.sh
 </code></pre>
-<p>There are either not enough samples or min coverage problems. Let me compare these to the numbers.</p>
 <pre class="r"><code>results=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt&quot;,stringsAsFactors = F, header = T, sep=&quot;\t&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;clus&quot;),sep=&quot;:&quot;) %&gt;% filter(status==&quot;Success&quot;) 
 results$p.adjust=as.numeric(as.character(results$p.adjust))
 
-results %&gt;% filter(p.adjust &lt; .05 ) %&gt;% nrow()</code></pre>
-<pre><code>[1] 2221</code></pre>
+
+nrow(results)</code></pre>
+<pre><code>[1] 6014</code></pre>
+<pre class="r"><code>results %&gt;% filter(p.adjust &lt; .05 ) %&gt;% nrow()</code></pre>
+<pre><code>[1] 2274</code></pre>
 <pre class="r"><code>results_sig= results %&gt;% filter(p.adjust &lt; .05 )</code></pre>
 <pre class="r"><code>qqplot(-log10(runif(nrow(results))), -log10(results$p.adjust),ylab=&quot;-log10 Total Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Human Chimp differential splicing&quot;)
 abline(0,1)</code></pre>
@@ -1551,6 +1623,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">5ac753a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/2fbf2d4e555c2aba2ffd4e7fd2e6a12aebce07e3/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">2fbf2d4</a>
@@ -1580,27 +1663,62 @@ brimittleman
 <pre class="r"><code>effectsize=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_effect_sizes.txt&quot;, stringsAsFactors = F,header=T)
 plot(sort(effectsize$deltapsi), ,main=&quot;Human vs Chimp Effect sizes&quot;, ylab=&quot;Delta PSI&quot;, xlab=&quot;Cluster Index&quot;)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-21-1.png" target="_blank">5ac753a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Use the leafcutter tool to visualize</p>
 <pre class="bash"><code>sbatch DiffSplicePlots.sh </code></pre>
 <p>prepare genes:</p>
 <pre class="r"><code>genes=results_sig %&gt;% arrange(p.adjust) %&gt;% dplyr::select(genes) %&gt;% unique()
 nrow(genes)</code></pre>
-<pre><code>[1] 1774</code></pre>
+<pre><code>[1] 1813</code></pre>
 <pre class="r"><code>write.table(genes, &quot;../data/DiffSplice_liftedJunc/orderedGenelist.txt&quot;, col.names = F, row.names = F, quote = F)</code></pre>
 <p>Fixlist:</p>
 <pre class="bash"><code>tr , &#39;\n&#39; &lt; ../data/DiffSplice_liftedJunc/orderedGenelist.txt &gt; ../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt</code></pre>
 <p>Build leafviz</p>
-<pre class="bash"><code>sbatch prepareeafvizAnno.sh
+<pre class="bash"><code>sbatch prepareLeafvizAnno.sh 
 sbatch buildLeafviz.sh
 #with leafcutter annotation (https://github.com/davidaknowles/leafcutter/blob/master/leafviz/download_human_annotation_codes.sh)
 sbatch buildLeafviz_leadAnno.sh
 #classify clusters 
 sbatch ClassifyLeafviz.sh</code></pre>
-<p>Run this from leafviz on my own computer,</p>
-<p>Convert juntions to bed to look at in IGV:</p>
-<pre class="bash"><code>sbatch ConvertJunc2Bed.sh</code></pre>
+<p>Run this from leafviz on my own computer</p>
 <p>Lift chimp bams to look at in IGV as well.</p>
-<p>Pantro5- hg38.</p>
+<p>Pantro6- hg38.</p>
 <pre class="bash"><code>mkdir ../Chimp/data/RNAseq/Sort_hg38
 sbatch CrossMapChimpRNA.sh </code></pre>
 <p>Interesting spots: - WSH3p= alt start -RPL22 (NM_000983.3) -RPL38 - chr3:129171277-129171446, NM_001127192.1, CNBP -chr20:46394503-46406548 - ELMO2, NM_001318253.1 - chimp extra exon chr10:79814716-79826198</p>
