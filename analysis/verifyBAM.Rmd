@@ -20,11 +20,6 @@ VCF: /project2/gilad/reem/vcf_fromjohn/sortedsnps.hg38liftover.exons.vcf.gz
 sbatch wrap_verifyBam.sh 
 ```
 
-Run with 4973:  
 
 
-```{bash,eval=F}
- sbatch verifyBam4973.sh 
-```
 
-Probably not a human sample (not a switch)

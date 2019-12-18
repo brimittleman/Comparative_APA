@@ -12,8 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
-library(tidyverse)
 library(reshape2)
+library(tidyverse)
+
 ```
 
 
@@ -36,7 +37,7 @@ chimp=read.table("../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Ch
 ```{r}
 Allsamps=human %>% full_join(chimp,by="chrom") 
 
-AllNuclear=Allsamps %>% select(chrom,contains("_N")) %>% column_to_rownames(var="chrom")
+AllNuclear=Allsamps %>% dplyr::select(chrom,contains("_N")) %>% column_to_rownames(var="chrom")
 
 write.table(AllNuclear, "../data/NuclearHvC/ALLPAS_postLift_LocParsed_HvC_Nuclear_fixed4LC.fc",row.names = T, col.names = T, quote = F)
 
@@ -64,26 +65,25 @@ Split by chromosome.
 mkdir ../data/DiffIso_Nuclear/
 
 python subset_diffisopheno_Nuclear_HvC.py 1
-python subset_diffisopheno_Chimp_tvN.py 2
-python subset_diffisopheno_Chimp_tvN.py 3
-python subset_diffisopheno_Chimp_tvN.py 4
-python subset_diffisopheno_Chimp_tvN.py 5
-python subset_diffisopheno_Chimp_tvN.py 6
-python subset_diffisopheno_Chimp_tvN.py 7
-python subset_diffisopheno_Chimp_tvN.py 8
-python subset_diffisopheno_Chimp_tvN.py 9
-python subset_diffisopheno_Chimp_tvN.py 10
-python subset_diffisopheno_Chimp_tvN.py 11
-python subset_diffisopheno_Chimp_tvN.py 12
-python subset_diffisopheno_Chimp_tvN.py 13
-python subset_diffisopheno_Chimp_tvN.py 14
-python subset_diffisopheno_Chimp_tvN.py 15
-python subset_diffisopheno_Chimp_tvN.py 16
-python subset_diffisopheno_Chimp_tvN.py 18
-python subset_diffisopheno_Chimp_tvN.py 19
-python subset_diffisopheno_Chimp_tvN.py 20
-python subset_diffisopheno_Chimp_tvN.py 21
-python subset_diffisopheno_Chimp_tvN.py 22
+python subset_diffisopheno_Nuclear_HvC.py 2
+python subset_diffisopheno_Nuclear_HvC.py 3
+python subset_diffisopheno_Nuclear_HvC.py 4
+python subset_diffisopheno_Nuclear_HvC.py 5
+python subset_diffisopheno_Nuclear_HvC.py 6
+python subset_diffisopheno_Nuclear_HvC.py 7
+python subset_diffisopheno_Nuclear_HvC.py 8
+python subset_diffisopheno_Nuclear_HvC.py 9
+python subset_diffisopheno_Nuclear_HvC.py 10
+python subset_diffisopheno_Nuclear_HvC.py 11
+python subset_diffisopheno_Nuclear_HvC.py 12
+python subset_diffisopheno_Nuclear_HvC.py 13
+python subset_diffisopheno_Nuclear_HvC.py 14
+python subset_diffisopheno_Nuclear_HvC.py 16
+python subset_diffisopheno_Nuclear_HvC.py 18
+python subset_diffisopheno_Nuclear_HvC.py 19
+python subset_diffisopheno_Nuclear_HvC.py 20
+python subset_diffisopheno_Nuclear_HvC.py 21
+python subset_diffisopheno_Nuclear_HvC.py 22
 ```
 
 Run leafcutter:
@@ -169,7 +169,7 @@ Volcano plot:
 I need the effect sizes and the significance. I need to plot only the top PAS per cluster.  
 
 ```{r}
-sig_geneP=sig %>% separate(cluster,into = c("chr", "gene"), sep=":") %>% select(gene, p.adjust)
+sig_geneP=sig %>% separate(cluster,into = c("chr", "gene"), sep=":") %>% dplyr::select(gene, p.adjust)
 
 effectsizeTop=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min)>Max, Min, Max))
 
@@ -209,4 +209,5 @@ ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes
 ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title="Top PAS per gene \nChimp dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) >20 & abs(TopdPAU)>.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) 
 
 ```
-This suggest there are dominant PAS on the chimp side and the PAS usage is more spread out in the humans. 
+
+I will want to lift the chimp bams to look at these genes in IGV.  
