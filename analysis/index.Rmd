@@ -45,6 +45,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
 
+* [Total Human vs. Chimp Analysis](Total_HvC.html)
+
 ##Quantify Phenotypes with RNA:   
 
 * [Differnetial Splicing](diffSplicing.html) 
