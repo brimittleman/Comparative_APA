@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Briana Mittleman" />
 
+<meta name="date" content="2019-12-19" />
 
-<title>Home</title>
+<title>Total fraction diff APA H v C</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +21,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -169,6 +174,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -217,7 +317,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Total fraction diff APA H v C</h1>
+<h4 class="author"><em>Briana Mittleman</em></h4>
+<h4 class="date"><em>12/19/2019</em></h4>
 
 </div>
 
@@ -245,7 +347,7 @@ div.section {
 <strong>Last updated:</strong> 2019-12-27
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -267,6 +369,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190902code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190902)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190902code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190902)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -834,7 +996,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c8973d5a093a6450fa78c96b3fc524bb3ca971a/analysis/index.Rmd" target="_blank">4c8973d</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4c8973d5a093a6450fa78c96b3fc524bb3ca971a/analysis/Total_HvC.Rmd" target="_blank">4c8973d</a>
 </td>
 <td>
 brimittleman
@@ -846,941 +1008,6 @@ brimittleman
 add total human vs chimp
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/ffecde802b87c4d1b1578945db9807fab043f0b4/docs/index.html" target="_blank">ffecde8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/d541bb5b0b501844781d1db3cb73f9182dc492d6/analysis/index.Rmd" target="_blank">d541bb5</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-17
-</td>
-<td>
-move extra pcas
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8b074b88d8eddfe32f775bf287b0ee2308d0a16e/docs/index.html" target="_blank">8b074b8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/de41e07c5a865e0fe881b5301917b46a3213b9ef/analysis/index.Rmd" target="_blank">de41e07</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-add gene comp 5v6
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/1b69793cd30f749ee4b0ba21d45783b7752cc282/docs/index.html" target="_blank">1b69793</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3b64d8c2dfa1c6a7c2c5e3687a09e2963987fed6/analysis/index.Rmd" target="_blank">3b64d8c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-add compare ortho exon
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/cbadb32d4f2c53f97ffab3f48cd89c838f4ed583/docs/index.html" target="_blank">cbadb32</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8068598fcdb9515d4c3f7b6b429971c0d2c7eec7/analysis/index.Rmd" target="_blank">8068598</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-12
-</td>
-<td>
-meta data by species
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/index.html" target="_blank">3ee8382</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f04a8042f4b698ab19e130b931b5aa8075a125a4/analysis/index.Rmd" target="_blank">f04a804</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-08
-</td>
-<td>
-add DE vs DS analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b32d961465fc2811af401d0ac4ff09dee895107c/docs/index.html" target="_blank">b32d961</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1452408d077ed41af636026bbe45b5aaf6066893/analysis/index.Rmd" target="_blank">1452408</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-add investigation pantro5
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/144bc43946f728c856c1039f0d8b7d0f6eb6e936/docs/index.html" target="_blank">144bc43</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/d56d98cb3aa2e4768d272c382017bdc8889a06ed/analysis/index.Rmd" target="_blank">d56d98c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-add opp map
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f53ab2772e3e897295f109389cb1cf19a7d71c4d/docs/index.html" target="_blank">f53ab27</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c48aedcbe8688bc762be9e2aa901a0a50606c3fc/analysis/index.Rmd" target="_blank">c48aedc</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-24
-</td>
-<td>
-add multimap stat graphs
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e7cb428de68cdf9db814b7fb859caa0e954338f1/docs/index.html" target="_blank">e7cb428</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9fbd1fe61d1a16783614fab355cc522bf11cb279/analysis/index.Rmd" target="_blank">9fbd1fe</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-figure out sample swap
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2e33ce93a1227b8cb84cacd5b3d914dcab1fc71c/docs/index.html" target="_blank">2e33ce9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/17d5d33beaa8e717b613ff408d8948415d559837/analysis/index.Rmd" target="_blank">17d5d33</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-add diff splice without 2 samples
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/40db68c19e220862b8f27ddadb157ad7f9f17bd8/docs/index.html" target="_blank">40db68c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7c206f8564758f532df70a03de7ba08ae322a15c/analysis/index.Rmd" target="_blank">7c206f8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-add extra QC anaylsis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9ecd7691d60ca3c6b742c1f3a4956f51832bd63e/docs/index.html" target="_blank">9ecd769</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/db85b26c94005e7cad373dc524afb78f7f2ad8fb/analysis/index.Rmd" target="_blank">db85b26</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-add remove 2 analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dc91b0af79367ef559ad277a01090d4c950dcc88/docs/index.html" target="_blank">dc91b0a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5ba82eee24903f1da5a92da2559275ffc71912d/analysis/index.Rmd" target="_blank">b5ba82e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-11
-</td>
-<td>
-add diff expression and diff splicing
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/066d419290a2f4c3eef8bdf538216f3d348572fb/docs/index.html" target="_blank">066d419</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a255e22b9d32ad80884501ae03a7c4e162fdbba5/analysis/index.Rmd" target="_blank">a255e22</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-16
-</td>
-<td>
-add code and annotations for dt plots
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f4bcae9ac5f32e2f228bd29eaaf2ae525899ce22/docs/index.html" target="_blank">f4bcae9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25a8b1e42180e62d71b4ff4dd0400102843f1cec/analysis/index.Rmd" target="_blank">25a8b1e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-15
-</td>
-<td>
-fix name bug add number PAS analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d9f241f464a962076d2b3378fc27d4167217ae49/docs/index.html" target="_blank">d9f241f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/36d8ded5078c72dbd927d0f8c1c26d5febef08bd/analysis/index.Rmd" target="_blank">36d8ded</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-11
-</td>
-<td>
-add correlation between ind analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3f3c4d0bbcd2e09211f2fea1ac28e58777e3d00f/docs/index.html" target="_blank">3f3c4d0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c4db4f0e862f52d0ff492d5ca928b9bc0ae2b345/analysis/index.Rmd" target="_blank">c4db4f0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-<td>
-add non norm pca and verify bam
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/index.html" target="_blank">b8ccfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1f063297413d5951470981d2eb95540825326ce0/analysis/index.Rmd" target="_blank">1f06329</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-add PCA by total and nuclear
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d0c98c261010b35d00259c9ca5488e2e46448332/docs/index.html" target="_blank">d0c98c2</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/14a3f665ce75def8370c8c6129603a205c5648d0/analysis/index.Rmd" target="_blank">14a3f66</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-add pca and human v chimp in nuc analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c3aa529bce951a381624b7854c6e7522f3c14bff/docs/index.html" target="_blank">c3aa529</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/da85ad8c1c69856141190009e20c4ef98ed07b76/analysis/index.Rmd" target="_blank">da85ad8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-add code to prepare human and chimp TvN
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/index.html" target="_blank">4ea2576</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/index.Rmd" target="_blank">920abac</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-add comaprison to old PAS
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e0ac227e5aa1b09a1da0fa75aaab25b9f0eb749a/docs/index.html" target="_blank">e0ac227</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/index.Rmd" target="_blank">e3f0cdf</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-add annotation analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b5edd8e21fc0cf262cf1332d74ffc1917c2ff7f7/docs/index.html" target="_blank">b5edd8e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5a215119477fca80ff396449a2cbbbff36db2d1/analysis/index.Rmd" target="_blank">b5a2151</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-add analysis for liftover
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0e8aa0da4367a78c4c39a2d082b6d235b78237e8/docs/index.html" target="_blank">0e8aa0d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7d81da82a31dd6f9169c49f13873a66afba68755/analysis/index.Rmd" target="_blank">7d81da8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-add map stats to site
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/index.html" target="_blank">7a9cf74</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/index.Rmd" target="_blank">a2fe9d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-add annotation prep anaylsis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/03cb9ab5e687900eff39dc89fbad5178e6a10a6c/docs/index.html" target="_blank">03cb9ab</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/88ed6b434a8626d6210e8921e2154078dca095d6/docs/index.html" target="_blank">88ed6b4</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b6db8f3924282d211181aeaf4baa6851908f18aa/analysis/index.Rmd" target="_blank">b6db8f3</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-add project info to about and index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d03d7b001d5748f6f9162210b368fab2dac90662/docs/index.html" target="_blank">d03d7b0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f914d4920107a1b4c48c590209133aa9ac5817de/analysis/index.Rmd" target="_blank">f914d49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1788,79 +1015,167 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>I am interesting in understanding differential APA between human and chimpanzees. I used 3’ Seq to identify PAS for total and nuclear frations of LCL in both species.</p>
-<div id="preparation-and-qc" class="section level2">
-<h2>Preparation and QC:</h2>
-<ul>
-<li><p><a href="annotationInfo.html">Prepare annotation files for mapping</a></p></li>
-<li><p><a href="mapStats.html">Mapping statistics and plots</a></p></li>
-<li><p><a href="liftoverPAS.html">Liftover PAS</a></p></li>
-<li><p><a href="annotatePAS.html">Annotated PAS and make APA phenotype</a></p></li>
-<li><p><a href="comp2apaQTLPAS.html">Compare identified PAS with apaQTL PAS</a></p></li>
-<li><p><a href="NromalizePhenos.html">PCA plot to look at variation in data</a></p></li>
-<li><p><a href="CorrbetweenInd.html">Correlation between individuals</a></p></li>
-<li><p><a href="verifyBAM.Rmd">Verify sample identity</a></p></li>
-<li><p><a href="EnrichmentEndofGenes.html">3’ Seq enrichement along gene bodies</a></p></li>
-</ul>
-</div>
-<div id="catalog-pas" class="section level2">
-<h2>Catalog PAS:</h2>
-<ul>
-<li><a href="PASnumperSpecies.html">Number of PAS in each species</a></li>
-</ul>
-</div>
-<div id="differential-isoform-analysis" class="section level2">
-<h2>Differential Isoform Analysis:</h2>
-<ul>
-<li><p><a href="Human_TvN.html">Human Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Chimp_TvN.html">Chimp Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p></li>
-<li><p><a href="Total_HvC.html">Total Human vs. Chimp Analysis</a></p></li>
-</ul>
-</div>
-<div id="quantify-phenotypes-with-rna" class="section level2">
-<h2>Quantify Phenotypes with RNA:</h2>
-<ul>
-<li><p><a href="diffSplicing.html">Differnetial Splicing</a></p></li>
-<li><p><a href="diffExpression.html">Differential Expression</a></p></li>
-<li><p><a href="MetabySpecies.html">Metadata by species</a></p></li>
-</ul>
-</div>
-<div id="extra-qc-and-analysis" class="section level2">
-<h2>Extra QC and Analysis</h2>
-<div id="sample-switch-analysis" class="section level3">
-<h3>Sample switch analysis</h3>
-<ul>
-<li><p><a href="InvestigateBadSamples.html">Investigate bad RNA seq samples</a></p>
-<ul>
-<li><p><a href="diffSplicing_removeBad.html">Differential splicing without bad samples</a></p></li>
-<li><p><a href="diffExpressionRemove2.html">Differential Expression without bad samples</a></p></li>
-</ul></li>
-</ul>
-</div>
-<div id="mapping-problems-with-pantro5-and-multimapping" class="section level3">
-<h3>Mapping problems with pantro5 and multimapping</h3>
-<ul>
-<li><p><a href="MapRNAhg19.html">Map RNA to hg19</a></p></li>
-<li><p><a href="multiMap.html">Evaluate multimapping criteria</a></p></li>
-<li><p><a href="OppositeMap.html">Map to opposite Genomes</a></p></li>
-<li><p><a href="investigatePantro5.html">Evaluate Pantro 5 problems</a></p></li>
-</ul>
-<p>From before reseq:</p>
-<ul>
-<li><p><a href="NormalizePheno_total.html">Total Fraction</a></p></li>
-<li><p><a href="NonNormPheno_total.html">Total Fraction- Prenormalized</a></p></li>
-<li><p><a href="NormalizePheno_nuclear.html">Nuclear Fraction</a></p></li>
-</ul>
-</div>
-<div id="chosing-between-pantro-files" class="section level3">
-<h3>Chosing between pantro files</h3>
-<ul>
-<li><p><a href="compareOrthoExon.html">Compare pantro5 and pantro6 orthoexon</a></p></li>
-<li><p><a href="diffExpressionPantro6.html">Differential Expression with Pantro6</a></p></li>
-<li><p><a href="DE_pantro5vspantro6.html">Compare DE in pantro5 vs pantro6</a></p></li>
-</ul>
-</div>
+<pre class="r"><code>library(reshape2)
+library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>Compare nuclear fraction PAS between human and chimp. I need to merge the 5% phenotypes from the human and chimp. I need a fc file with the human and chimp total samples. I will make a group file with the identifier being human or chimp.</p>
+<p>../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc ../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc</p>
+<pre class="bash"><code>mkdir ../data/TotalHvC</code></pre>
+<pre class="r"><code>human=read.table(&quot;../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc&quot;, stringsAsFactors = F, header = T) %&gt;% rownames_to_column(var=&quot;chrom&quot;)
+chimp=read.table(&quot;../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc&quot;, stringsAsFactors = F, header = T)%&gt;% rownames_to_column(var=&quot;chrom&quot;)</code></pre>
+<pre class="r"><code>Allsamps=human %&gt;% full_join(chimp,by=&quot;chrom&quot;) 
+
+AllTotal=Allsamps %&gt;% dplyr::select(chrom,contains(&quot;_T&quot;)) %&gt;% column_to_rownames(var=&quot;chrom&quot;)
+
+write.table(AllTotal, &quot;../data/TotalHvC/ALLPAS_postLift_LocParsed_HvC_Total_fixed4LC.fc&quot;,row.names = T, col.names = T, quote = F)</code></pre>
+<p>I will make the id file here.</p>
+<pre class="r"><code>Inds=colnames(AllTotal) 
+Species=c(rep(&quot;Human&quot;,6), rep(&quot;Chimp&quot;, 6))
+
+idFileDF=as.data.frame(cbind(Inds,Species))
+
+write.table(idFileDF, &quot;../data/TotalHvC/sample_goups.txt&quot;,row.names = F, col.names = F, quote = F)</code></pre>
+<p>Split by chromosome.</p>
+<pre class="bash"><code>mkdir ../data/DiffIso_Total/
+
+python subset_diffisopheno_Total_HvC.py 1
+python subset_diffisopheno_Total_HvC.py 2
+python subset_diffisopheno_Total_HvC.py 3
+python subset_diffisopheno_Total_HvC.py 4
+python subset_diffisopheno_Total_HvC.py 5
+python subset_diffisopheno_Total_HvC.py 6
+python subset_diffisopheno_Total_HvC.py 7
+python subset_diffisopheno_Total_HvC.py 8
+python subset_diffisopheno_Total_HvC.py 9
+python subset_diffisopheno_Total_HvC.py 10
+python subset_diffisopheno_Total_HvC.py 11
+python subset_diffisopheno_Total_HvC.py 12
+python subset_diffisopheno_Total_HvC.py 13
+python subset_diffisopheno_Total_HvC.py 14
+python subset_diffisopheno_Total_HvC.py 16
+python subset_diffisopheno_Total_HvC.py 18
+python subset_diffisopheno_Total_HvC.py 19
+python subset_diffisopheno_Total_HvC.py 20
+python subset_diffisopheno_Total_HvC.py 21
+python subset_diffisopheno_Total_HvC.py 22</code></pre>
+<p>Run leafcutter:</p>
+<pre class="bash"><code>
+sbatch runTotalDiffIso.sh</code></pre>
+<p>Concatinate results:</p>
+<pre class="bash"><code>awk &#39;{if(NR&gt;1)print}&#39; ../data/DiffIso_Total/TN_diff_isoform_chr*.txt_effect_sizes.txt &gt; ../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk &#39;{if(NR&gt;1)print}&#39; ../data/DiffIso_Total/TN_diff_isoform_chr*.txt_cluster_significance.txt &gt; ../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt
+</code></pre>
+<p>Significant clusters:</p>
+<pre class="r"><code>sig=read.table(&quot;../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))</code></pre>
+<pre class="r"><code>qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter differencial isoform analysis between Species Total Fraction&quot;)
+abline(0,1)</code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>tested_genes=nrow(sig)
+tested_genes</code></pre>
+<pre><code>[1] 9640</code></pre>
+<pre class="r"><code>sig_genes=sig %&gt;% filter(p.adjust&lt;.05)
+number_sig_genes=nrow(sig_genes)
+number_sig_genes</code></pre>
+<pre><code>[1] 6129</code></pre>
+<p>Effect Sizes</p>
+<pre class="r"><code>effectsize=read.table(&quot;../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;intron&#39;,  &#39;logef&#39; ,&#39;Human&#39;, &#39;Chimp&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(intron != &quot;intron&quot;)
+
+effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
+effectsize$logef=as.numeric(as.character(effectsize$logef))</code></pre>
+<pre class="r"><code>plot(sort(effectsize$deltaPAU),main=&quot;Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Are those discovered used more in chimp those discovered in chimp?</p>
+<pre class="r"><code>PASinfo=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt&quot;,header = T, stringsAsFactors = F)</code></pre>
+<p>Join this with the effect sizes.</p>
+<pre class="r"><code>effectsize_sep=effectsize %&gt;% separate(intron, into=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;),sep=&quot;:&quot;)
+effectsize_sep$start=as.integer(effectsize_sep$start)
+effectsize_sep$end=as.integer(effectsize_sep$end)
+effectsize_anno=effectsize_sep %&gt;% inner_join(PASinfo, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;,&quot;gene&quot;))</code></pre>
+<pre class="r"><code>ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()</code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Volcano plot:</p>
+<p>I need the effect sizes and the significance. I need to plot only the top PAS per cluster.</p>
+<pre class="r"><code>sig_geneP=sig %&gt;% separate(cluster,into = c(&quot;chr&quot;, &quot;gene&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(gene, p.adjust)
+
+effectsizeTop=effectsize_sep %&gt;% group_by(gene) %&gt;% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %&gt;% mutate(TopdPAU=ifelse(abs(Min)&gt;Max, Min, Max))
+
+#exclude when the max=min 
+effectsizeTopFilt=effectsizeTop %&gt;% filter(abs(Min) != Max)
+
+effectsize_wES=effectsizeTopFilt %&gt;% inner_join(sig_geneP, by=&quot;gene&quot;) %&gt;% mutate(Species=ifelse(TopdPAU &gt; 0.2 &amp; p.adjust&lt;.05, &quot;Chimp&quot;, ifelse(TopdPAU &lt; -0.2 &amp; p.adjust&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))</code></pre>
+<p>This is the significance for the gene.</p>
+<pre class="r"><code>ggplot(effectsize_wES,aes(x=TopdPAU, y=-log10(p.adjust))) +geom_point(aes(col=Species),alpha=.5) + labs(title=&quot;Top PAS per gene \nExclude 2 PAS genes&quot;)+ geom_text(data=subset(effectsize_wES, -log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))</code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Not the best way to visualize this because every PAS per gene is assigned the same pvalue.</p>
+<p>Try this including the matching one. I will make 2 plots. One with human dominant, one with chimp dominant.</p>
+<pre class="r"><code>effectsizeTopHuman=effectsize_sep %&gt;% group_by(gene) %&gt;% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %&gt;% mutate(TopdPAU=ifelse(abs(Min) &gt; Max, Min, ifelse(abs(Min)==Max, Min, Max)),TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_human=effectsizeTopHuman %&gt;% inner_join(sig_geneP, by=&quot;gene&quot;) %&gt;% mutate(Species=ifelse(TopdPAU &gt; 0.2 &amp; p.adjust&lt;.05, &quot;Chimp&quot;, ifelse(TopdPAU &lt; -0.2 &amp; p.adjust&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
+
+effectsizeTopChimp=effectsize_sep %&gt;% group_by(gene) %&gt;% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %&gt;% mutate(TopdPAU=ifelse(abs(Max)&gt;=abs(Min), Max, Min), TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_chimp=effectsizeTopChimp %&gt;% inner_join(sig_geneP, by=&quot;gene&quot;) %&gt;% mutate(Species=ifelse(TopdPAU &gt; 0.2 &amp; p.adjust&lt;.05, &quot;Chimp&quot;, ifelse(TopdPAU &lt; -0.2 &amp; p.adjust&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))</code></pre>
+<pre class="r"><code>ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5) + labs(title=&quot;Top PAS per gene \nHuman dominant for 2 PAS&quot;)+ geom_text(data=subset(effectsize_wES_human,-log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))</code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title=&quot;Top PAS per gene \nChimp dominant for 2 PAS&quot;)+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) </code></pre>
+<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+ [9] tidyverse_1.2.1 reshape2_1.4.3 
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.2       cellranger_1.1.0 compiler_3.5.1   pillar_1.3.1    
+ [5] later_0.7.5      git2r_0.26.1     plyr_1.8.4       workflowr_1.5.0 
+ [9] tools_3.5.1      digest_0.6.18    lubridate_1.7.4  jsonlite_1.6    
+[13] evaluate_0.12    nlme_3.1-137     gtable_0.2.0     lattice_0.20-38 
+[17] pkgconfig_2.0.2  rlang_0.4.0      cli_1.1.0        rstudioapi_0.10 
+[21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
+[25] httr_1.3.1       knitr_1.20       hms_0.4.2        generics_0.0.2  
+[29] fs_1.3.1         rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5
+[33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
+[37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    scales_1.0.0    
+[41] backports_1.1.2  promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
+[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     labeling_0.3    
+[49] stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1     
+[53] crayon_1.3.4    </code></pre>
 </div>
 
 
@@ -1877,6 +1192,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
