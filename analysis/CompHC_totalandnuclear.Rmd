@@ -1,0 +1,180 @@
+---
+title: "Differential APA in total and nuclear"
+author: "Briana Mittleman"
+date: "12/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I ran a differential isoform analysis to compare human and chimp PAS usage in both total and nuclear fractions. 
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(VennDiagram)
+```
+
+###Chimp  
+
+Are the total and nuclear genes the same: 
+
+```{r}
+ChimpTotal=read.table("../data/DiffIso_Total/SignifianceChimpPAS_2_Total.txt", header = T, stringsAsFactors = F)
+ChimpNuclear=read.table("../data/DiffIso_Nuclear/SignifianceChimpPAS_2_Nuclear.txt", header=T, stringsAsFactors = F)
+
+```
+
+
+
+```{r}
+overlap <- intersect(ChimpTotal$gene, ChimpNuclear$gene) 
+Total.unique <- setdiff(ChimpTotal$gene, ChimpNuclear$gene) # n 1st NOT 2nd
+Nuclear.unique <- setdiff(ChimpNuclear$gene, ChimpTotal$gene)
+full.list <- unique(c(ChimpTotal$gene,ChimpNuclear$gene))
+```
+
+Plot: 
+
+```{r}
+grid.newpage()
+venn.plot.chimp <- draw.pairwise.venn(area1 = length(ChimpTotal$gene),
+                           area2 = length(ChimpNuclear$gene),
+                           cross.area = length(overlap),
+                           c("Chimp Total", "Chimp Nuclear"), scaled = TRUE,
+                           fill = c("mediumorchid", "orange"),
+                           cex = 1,
+                           cat.cex = 1,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05,
+                           lty = "blank",
+                           alpha = rep(0.5, 2),
+                           fontface =rep("plain", 3)) 
+```
+
+
+
+###Human  
+
+Are the total and nuclear genes the same: 
+
+```{r}
+HumanTotal=read.table("../data/DiffIso_Total/SignifianceHumanPAS_2_Total.txt", header = T, stringsAsFactors = F)
+HumanNuclear=read.table("../data/DiffIso_Nuclear/SignifianceHumanPAS_2_Nuclear.txt", header=T, stringsAsFactors = F)
+
+```
+
+
+
+```{r}
+overlapH <- intersect(HumanTotal$gene, HumanNuclear$gene) 
+Total.uniqueH <- setdiff(HumanTotal$gene, HumanNuclear$gene) # n 1st NOT 2nd
+Nuclear.uniqueH <- setdiff(HumanNuclear$gene, HumanTotal$gene)
+full.listH <- unique(c(HumanTotal$gene,HumanNuclear$gene))
+```
+
+Plot: 
+
+```{r}
+grid.newpage()
+venn.plot.Human <- draw.pairwise.venn(area1 = length(HumanTotal$gene),
+                           area2 = length(HumanNuclear$gene),
+                           cross.area = length(overlapH),
+                           c("Human Total", "Human Nuclear"), scaled = TRUE,
+                           fill = c("skyblue", "pink1"),
+                           cex = 1,
+                           cat.cex = 1,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05,
+                           lty = "blank",
+                            alpha = rep(0.5, 2),
+                           fontface =rep("plain", 3))
+```
+
+
+More in  human total and more in chimp nuclear 
+```{r}
+
+overlapHTCN <- intersect(HumanTotal$gene,ChimpNuclear$gene) 
+grid.newpage()
+venn.plot.HTCN <- draw.pairwise.venn(area1 = length(HumanTotal$gene),
+                           area2 = length(ChimpNuclear$gene),
+                           cross.area = length(overlapHTCN),
+                           c("Human Total", "Chimp Nuclear" ), scaled = TRUE,
+                           fill = c("skyblue", "orange"),
+                           cex = 1,
+                           cat.cex = 1,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05,
+                           lty = "blank",
+                            alpha = rep(0.5, 2),
+                           fontface =rep("plain", 3))
+```
+
+More in  human nuclear and more in chimp total 
+```{r}
+
+overlapHNCT <- intersect(HumanNuclear$gene,ChimpTotal$gene) 
+grid.newpage()
+venn.plot.HNCT <- draw.pairwise.venn(area1 = length(HumanNuclear$gene),
+                           area2 = length(ChimpTotal$gene),
+                           cross.area = length(overlapHNCT),
+                           c("Human Nuclear", "Chimp Total" ), scaled = TRUE,
+                           fill = c("pink1", "mediumorchid"),
+                           cex = 1,
+                           cat.cex = 1,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05,
+                           lty = "blank",
+                            alpha = rep(0.5, 2),
+                           fontface =rep("plain", 3)) 
+```
+
+
+Plot with all:  
+
+**draw.quad.venn**
+
+area1=HT
+area2=HN
+area3=CT
+area4=CN
+
+
+Reduce(intersect,  list(v1 = c("a","b","c","d"), 
++                         v2 = c("a","b","e"), 
++                         v3 = c("a","f","g"))) 
+
+
+I need all of the intersections for this plot.  
+```{r}
+area1=length(HumanTotal$gene)
+area2= length(HumanNuclear$gene)
+area3=length(ChimpTotal$gene)
+area4=length(ChimpNuclear$gene)
+n12= length(intersect(HumanTotal$gene, HumanNuclear$gene))
+n13= length(intersect(HumanTotal$gene, ChimpTotal$gene) )
+n14=length(intersect(HumanTotal$gene, ChimpNuclear$gene) )
+n23=length(intersect(HumanNuclear$gene, ChimpTotal$gene) )
+n24=length(intersect(HumanNuclear$gene,ChimpNuclear$gene))
+n34=length(intersect(ChimpTotal$gene,ChimpNuclear$gene))
+n123=length(Reduce(intersect, list(v1=HumanTotal$gene,v2= HumanNuclear$gene , v3=ChimpTotal$gene)))
+n124=length(Reduce(intersect, list(v1=HumanTotal$gene,v2= HumanNuclear$gene , v4=ChimpNuclear$gene)))
+n134=length(Reduce(intersect, list(v1=HumanTotal$gene, v3=ChimpTotal$gene , v4=ChimpNuclear$gene)))
+n234=length(Reduce(intersect, list(v2= HumanNuclear$gene, v3=ChimpTotal$gene , v4=ChimpNuclear$gene)))
+n1234=length(Reduce(intersect, list(v1=HumanTotal$gene,v2= HumanNuclear$gene, v3=ChimpTotal$gene , v4=ChimpNuclear$gene)))
+
+
+```
+
+
+Draw it:
+
+```{r}
+grid.newpage()
+venn.plot.all=draw.quad.venn(area1,area2,area3,area4,n12,n13,n14,n23,n24,n34,n123,n124,n134,n234,n1234,category = c("Human Total", "Human Nuclear", "Chimp Total", "Chimp Nuclear"), fill = c("skyblue", "pink1", 
+    "mediumorchid", "orange"), alpha = rep(0.5, 4), label.col = rep("black", 15), cex = rep(1, 15),fontface =rep("plain", 15),lty = "blank")
+```
+
