@@ -38,9 +38,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Number of PAS in each species](PASnumperSpecies.html)  
 
-* [Dominant PAS in Total Fraction](dominantPAS.html)
+* [Dominant PAS in Total Fraction](dominantPAS_total.html)
 
-* [Dominant PAS in Nuclear Fraction](dominantPAS_total.Rmd)
+* [Dominant PAS in Nuclear Fraction](dominantPAS.html)
 
 
 ##Differential Isoform Analysis:
