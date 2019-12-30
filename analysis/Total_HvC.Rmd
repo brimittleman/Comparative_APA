@@ -214,3 +214,19 @@ ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes
 ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title="Top PAS per gene \nChimp dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) >20 & abs(TopdPAU)>.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) 
 
 ```
+
+Write out the significant genes with >.2 difference.
+
+
+```{r}
+effectsize_wES_chimpOnly= effectsize_wES %>% filter(Species=="Chimp")
+effectsize_wES_HumanOnly= effectsize_wES %>% filter(Species=="Human")
+
+
+write.table(effectsize_wES_chimpOnly,"../data/DiffIso_Total/SignifianceChimpPAS_2_Total.txt",col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_wES_HumanOnly,"../data/DiffIso_Total/SignifianceHumanPAS_2_Total.txt",col.names =T, row.names = F,quote = F)
+
+
+```
+
