@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-18
+<strong>Last updated:</strong> 2019-12-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed4e10f0153fc9b0552ba7f71d0dc7f2a9ec7497ctargetblankd4e10f0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d4e10f0153fc9b0552ba7f71d0dc7f2a9ec7497c" target="_blank">d4e10f0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree771d239b4ffec7233b88bfe3efdbef713ea23174targetblank771d239a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/771d239b4ffec7233b88bfe3efdbef713ea23174" target="_blank">771d239</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed4e10f0153fc9b0552ba7f71d0dc7f2a9ec7497ctargetblankd4e10f0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree771d239b4ffec7233b88bfe3efdbef713ea23174targetblank771d239a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -456,6 +456,7 @@ Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -465,6 +466,7 @@ Untracked files:
     Untracked:  code/._ConvertJunc2Bed.sh
     Untracked:  code/._CountNucleotides.py
     Untracked:  code/._CrossMapChimpRNA.sh
+    Untracked:  code/._CrossMapThreeprime.sh
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
@@ -522,6 +524,7 @@ Untracked files:
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mergeChimp3prime_inhg38.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._numMultimap.py
@@ -544,6 +547,7 @@ Untracked files:
     Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._runTotalDiffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
     Untracked:  code/._run_verifyBam.sh
     Untracked:  code/._snakemake.batch
@@ -563,6 +567,7 @@ Untracked files:
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Total_HvC.py
     Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
     Untracked:  code/._verifyBam4973inHuman.sh
@@ -579,6 +584,9 @@ Untracked files:
     Untracked:  code/ConvertJunc2Bed.sh
     Untracked:  code/CountNucleotides.py
     Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossMapThreeprime.sh
+    Untracked:  code/CrossmapChimp3prime.err
+    Untracked:  code/CrossmapChimp3prime.out
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DiffSplice.err
@@ -745,6 +753,7 @@ Untracked files:
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
     Untracked:  code/merge.err
+    Untracked:  code/mergeChimp3prime_inhg38.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
@@ -795,6 +804,7 @@ Untracked files:
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/runTotalDiffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Chimpverifybam.err
@@ -803,6 +813,8 @@ Untracked files:
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
     Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Totalleafcutter_ds.err
+    Untracked:  code/run_Totalleafcutter_ds.out
     Untracked:  code/run_chimpverifybam.sh
     Untracked:  code/run_verifyBam.sh
     Untracked:  code/run_verifybam.err
@@ -843,6 +855,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
@@ -892,6 +905,7 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Total/
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
@@ -913,6 +927,7 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/RNASEQ_metadata_stranded.txt
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
@@ -936,7 +951,6 @@ Unstaged changes:
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/diffExpression.Rmd
-    Modified:   analysis/diffSplicing.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
 
@@ -977,6 +991,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/771d239b4ffec7233b88bfe3efdbef713ea23174/analysis/Nuclear_HvC.Rmd" target="_blank">771d239</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-30
+</td>
+<td>
+add write out
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/Nuclear_HvC.html" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1173,12 +1221,12 @@ add pca and human v chimp in nuc analysis
 </div>
 <pre class="r"><code>library(reshape2)
 library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Compare nuclear fraction PAS between human and chimp. I need to merge the 5% phenotypes from the human and chimp. I need a fc file with the human and chimp nuclear samples. I will make a group file with the identifier being human or chimp.</p>
@@ -1261,6 +1309,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-10-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/ecd8410356695f74fd4b25b91a5fd9f3fed89456/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-10-1.png" target="_blank">ecd8410</a>
 </td>
 <td>
@@ -1323,6 +1382,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-14-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/d0c98c261010b35d00259c9ca5488e2e46448332/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-14-1.png" target="_blank">d0c98c2</a>
 </td>
 <td>
@@ -1367,6 +1437,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-17-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f4bcae9ac5f32e2f228bd29eaaf2ae525899ce22/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-17-1.png" target="_blank">f4bcae9</a>
@@ -1417,6 +1498,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-19-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/aab50e46a88261d54c57e8cb30e70b98cb764899/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-19-1.png" target="_blank">aab50e4</a>
@@ -1478,6 +1570,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-21-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/aab50e46a88261d54c57e8cb30e70b98cb764899/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-21-1.png" target="_blank">aab50e4</a>
 </td>
 <td>
@@ -1517,6 +1620,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d6a1ed8b979b050dfa18021fd19744d1ad5462ae/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-22-1.png" target="_blank">d6a1ed8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/aab50e46a88261d54c57e8cb30e70b98cb764899/docs/figure/Nuclear_HvC.Rmd/unnamed-chunk-22-1.png" target="_blank">aab50e4</a>
 </td>
 <td>
@@ -1530,7 +1644,14 @@ brimittleman
 </table>
 </div>
 </div>
-<p>I will want to lift the chimp bams to look at these genes in IGV.</p>
+<p>Write out the significant genes with &gt;.2 difference.</p>
+<pre class="r"><code>effectsize_wES_chimpOnly= effectsize_wES %&gt;% filter(Species==&quot;Chimp&quot;)
+effectsize_wES_HumanOnly= effectsize_wES %&gt;% filter(Species==&quot;Human&quot;)
+
+
+write.table(effectsize_wES_chimpOnly,&quot;../data/DiffIso_Nuclear/SignifianceChimpPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_wES_HumanOnly,&quot;../data/DiffIso_Nuclear/SignifianceHumanPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
