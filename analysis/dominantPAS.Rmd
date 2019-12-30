@@ -1,0 +1,112 @@
+---
+title: "Dominant PAS Location Nuclear"
+author: "Briana Mittleman"
+date: "12/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I want to find the most dominant PAS for each gene in each species. I am interested in genes where the dominant PAS in human and chimp are intronic vs utr respectively. I will do this first in the nuclear fraction.  
+
+I will compare these genes with those identified in the differential APA analysis. This will be helpful to narrow down the genes I want to visualize.  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+These are the PAS 
+```{r}
+ChimpPAS= read.table("../data/Pheno_5perc/Chimp_Pheno_5perc.txt", header = T) %>% dplyr::select(-contains("_T"))
+
+
+HumanPAS= read.table("../data/Pheno_5perc/Human_Pheno_5perc.txt", header = T) %>% dplyr::select(-contains("_T"))
+```
+
+Prepare the mean vector: 
+
+```{r}
+ChimpMean=rowMeans(ChimpPAS[,9:ncol(ChimpPAS)])
+
+ChimpPASwMean=cbind(ChimpPAS[,1:8],ChimpMean)
+
+
+HumanMean=rowMeans(HumanPAS[,9:ncol(HumanPAS)])
+
+HumanPASwMean=cbind(HumanPAS[,1:8],HumanMean)
+```
+
+Find the dominant PAS per gene:
+
+I will remove genes with ties for now
+```{r}
+Chimp_Dom= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,ChimpMean) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,ChimpMean) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= HumanPASwMean %>% 
+  group_by(gene) %>% 
+  top_n(1, HumanMean) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,HumanMean) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+#merge
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+```
+
+Look at how many have the same dominat and where these are:  
+
+```{r}
+SameDom=BothDom %>% filter(ChimpPAS==HumanPAS,HumanLoc!="008559") 
+
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species")
+
+```
+Plot this as boxplots as well. 
+
+```{r}
+SameDom_gather=SameDom %>% dplyr::select(gene, HumanLoc, ChimpMean,HumanMean) %>% gather(species, value, -c(gene,HumanLoc))
+
+ggplot(SameDom_gather,aes(x=HumanLoc, y=value,fill=species)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(x="PAS Location", y="Mean Usage accross individuals", title="Mean usage for Genes with matching Dominant PAS")
+```
+
+
+Different PAS but in the same location:   
+```{r}
+DiffDom_sameLoc=BothDom %>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc==HumanLoc) 
+
+ggplot(DiffDom_sameLoc,aes(x=HumanLoc)) +  geom_histogram(stat="count") + labs(x="PAS Location", y= "Number of Genes", title="Dominat PAS in same genic location but different PAS")
+
+```
+Now I can look at those that are in different locations. 
+
+```{r}
+DiffDom_diffLoc=BothDom %>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc) 
+
+
+ggplot(DiffDom_diffLoc,aes(x=ChimpLoc))+ geom_histogram(stat="count")+ labs(x="Chimp Dominant Location", y="Number of Genes", title="Location of dominant PAS when they are differnet between species")
+ggplot(DiffDom_diffLoc,aes(x=HumanLoc))+ geom_histogram(stat="count")+labs(x="Human Dominant Location", y="Number of Genes", title="Location of dominant PAS when they are differnet between species")
+```
+
+This is interesting but could be based on the annotations. I will look at the genes with human in intron and chimp in 3' UTR.  
+
+```{r}
+DiffDom_diffLoc_humanIntronChimpUTR= DiffDom_diffLoc %>% filter(ChimpLoc=="utr3", HumanLoc=="intron")
+
+nrow(DiffDom_diffLoc_humanIntronChimpUTR)
+```
+
+I will look to see if these genes are those I see with differential APA.  
+
+**How do i test if this number of genes is enriched??** 

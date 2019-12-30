@@ -32,9 +32,15 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [3' Seq enrichement along gene bodies](EnrichmentEndofGenes.html)
 
+* [Cross map and prepare Chimp 3' for Viz in IGV](CrossChimpThreePrime.html)
+
 ##Catalog PAS:
 
 * [Number of PAS in each species](PASnumperSpecies.html)  
+
+* [Dominant PAS in Total Fraction](dominantPAS.html)
+
+* [Dominant PAS in Nuclear Fraction](dominantPAS_total.Rmd)
 
 
 ##Differential Isoform Analysis:
