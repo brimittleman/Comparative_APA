@@ -41,7 +41,7 @@ metaData$Collection=as.factor(metaData$Collection)
 ```
 
 ```{r}
-readInfo=metaData %>% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %>% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %>%  gather(key="Category", value="Number", -Line, -Species)
+readInfo=metaData %>% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %>% dplyr::select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %>%  gather(key="Category", value="Number", -Line, -Species)
 
 
 ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2",name = "Type", labels = c("Unmapped", "Mapped not ortho", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y="Reads", title="Human and chimp read statistics") 
@@ -50,7 +50,7 @@ ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat="identity"
 
 Proportion of reads.  
 ```{r}
-readProp=metaData %>% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %>% select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %>%  gather(key="Category", value="Proportion", -Line, -Species)
+readProp=metaData %>% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %>% dplyr::select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %>%  gather(key="Category", value="Proportion", -Line, -Species)
 
 ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2", name="", labels = c("Unmapped", "Mapped not ortho", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y="Reads", title="Human and chimp read proportions") 
 
@@ -86,9 +86,9 @@ python fixExonFC.py /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/Exo
 
 
 ```{r}
-HumanCounts=read.table("../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% select(-Chr,-Start,-End,-Strand, -Length)
+HumanCounts=read.table("../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
 
-ChimpCounts=read.table("../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% select(-Chr,-Start,-End,-Strand, -Length)
+ChimpCounts=read.table("../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
 
 
 counts_genes=HumanCounts %>% inner_join(ChimpCounts,by="Geneid") %>% column_to_rownames(var="Geneid")
@@ -400,7 +400,7 @@ Code from Michelle Ward:
 x.pca <- pca_genes
 
 tech_factors <- metaData
-tech_factors_sum <- tech_factors[,c(2:15)] %>% select(-CollectionDate)
+tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(-CollectionDate)
 
 p_comps <- 1:6
 pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
@@ -440,6 +440,15 @@ heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, "Greens"
 ```
 
 
+Plot PVE by each PC:
+
+```{r}
+eigs <- pca_genes$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion, main="PVE by each PC", xlab="PC")
+proportion[4]
+```
 
 
 
