@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-08
+<strong>Last updated:</strong> 2020-01-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f04a8042f4b698ab19e130b931b5aa8075a125a4" target="_blank">f04a804</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree894a755d4a417d36d130a1f0566d575063a04173targetblank894a755a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/894a755d4a417d36d130a1f0566d575063a04173" target="_blank">894a755</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef04a8042f4b698ab19e130b931b5aa8075a125a4targetblankf04a804a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree894a755d4a417d36d130a1f0566d575063a04173targetblank894a755a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,24 +451,23 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
-    Ignored:    data/HC_filenames.txt.sb-4426323c-IKIs0S/
-    Ignored:    data/OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf/
-    Ignored:    data/RNASEQ_metadata.txt.sb-4426323c-TE4ns3/
-    Ignored:    data/RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq/
-    Ignored:    data/RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx/
-    Ignored:    data/RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2/
-    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
-    Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
+    Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
+    Untracked:  code/._ConvertJunc2Bed.sh
     Untracked:  code/._CountNucleotides.py
+    Untracked:  code/._CrossMapChimpRNA.sh
+    Untracked:  code/._CrossMapThreeprime.sh
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
@@ -476,9 +475,11 @@ Untracked files:
     Untracked:  code/._DiffSplice_removebad.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
@@ -488,6 +489,8 @@ Untracked files:
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
+    Untracked:  code/._buildLeafviz.sh
+    Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._cleanbed2saf.py
@@ -522,11 +525,13 @@ Untracked files:
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mergeChimp3prime_inhg38.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
     Untracked:  code/._processhg38exons.py
@@ -537,11 +542,13 @@ Untracked files:
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runCheckReverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
     Untracked:  code/._runCountNucleotides.sh
     Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._runTotalDiffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
     Untracked:  code/._run_verifyBam.sh
     Untracked:  code/._snakemake.batch
@@ -561,6 +568,7 @@ Untracked files:
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Total_HvC.py
     Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
     Untracked:  code/._verifyBam4973inHuman.sh
@@ -568,10 +576,20 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
+    Untracked:  code/ConvertJunc2Bed.err
+    Untracked:  code/ConvertJunc2Bed.out
+    Untracked:  code/ConvertJunc2Bed.sh
     Untracked:  code/CountNucleotides.py
+    Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossMapThreeprime.sh
+    Untracked:  code/CrossmapChimp3prime.err
+    Untracked:  code/CrossmapChimp3prime.out
+    Untracked:  code/CrossmapChimpRNA.err
+    Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -583,6 +601,8 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/FilterReverseLift.err
+    Untracked:  code/FilterReverseLift.out
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
@@ -591,6 +611,8 @@ Untracked files:
     Untracked:  code/HchromOrder.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
+    Untracked:  code/JunctionLiftFinalChimp.err
+    Untracked:  code/JunctionLiftFinalChimp.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
     Untracked:  code/LiftClustersFirst_remove.err
@@ -599,6 +621,7 @@ Untracked files:
     Untracked:  code/LiftClustersSecond.out
     Untracked:  code/LiftClustersSecond_remove.err
     Untracked:  code/LiftClustersSecond_remove.out
+    Untracked:  code/LiftFinalChimpJunc2Human.sh
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
@@ -617,6 +640,7 @@ Untracked files:
     Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/ReverseLiftFilter.R
     Untracked:  code/RunFixCluster.err
     Untracked:  code/RunFixCluster.out
     Untracked:  code/RunFixLeafCluster.sh
@@ -645,6 +669,12 @@ Untracked files:
     Untracked:  code/bg_to_cov.py
     Untracked:  code/buildIndecpantro5
     Untracked:  code/buildIndecpantro5.sh
+    Untracked:  code/buildLeafviz.err
+    Untracked:  code/buildLeafviz.out
+    Untracked:  code/buildLeafviz.sh
+    Untracked:  code/buildLeafviz_leadAnno.sh
+    Untracked:  code/buildLeafviz_leafanno.err
+    Untracked:  code/buildLeafviz_leafanno.out
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
     Untracked:  code/chimpChromprder.sh
@@ -652,6 +682,8 @@ Untracked files:
     Untracked:  code/chooseAnno2SAF.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
+    Untracked:  code/classifyLeafviz.err
+    Untracked:  code/classifyLeafviz.out
     Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
     Untracked:  code/cluster2bed.py
@@ -722,7 +754,10 @@ Untracked files:
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
     Untracked:  code/merge.err
+    Untracked:  code/mergeChimp3prime_inhg38.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
+    Untracked:  code/mergeandsort_ChimpinHuman.err
+    Untracked:  code/mergeandsort_ChimpinHuman.out
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -736,7 +771,10 @@ Untracked files:
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/prepareAnnoLeafviz.err
+    Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/prepareLeafvizAnno.sh
     Untracked:  code/preparePAS4lift.py
     Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
@@ -758,13 +796,18 @@ Untracked files:
     Untracked:  code/revLift.out
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
+    Untracked:  code/runCheckReverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
     Untracked:  code/runCountNucleotides.err
     Untracked:  code/runCountNucleotides.out
     Untracked:  code/runCountNucleotides.sh
+    Untracked:  code/runCountNucleotidesPantro6.err
+    Untracked:  code/runCountNucleotidesPantro6.out
+    Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/runTotalDiffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Chimpverifybam.err
@@ -773,6 +816,8 @@ Untracked files:
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
     Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Totalleafcutter_ds.err
+    Untracked:  code/run_Totalleafcutter_ds.out
     Untracked:  code/run_chimpverifybam.sh
     Untracked:  code/run_verifyBam.sh
     Untracked:  code/run_verifybam.err
@@ -813,6 +858,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
@@ -833,6 +879,9 @@ Untracked files:
     Untracked:  data/._HC_filenames.txt
     Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
     Untracked:  data/._HC_filenames.xlsx
+    Untracked:  data/._MapPantro6_meta.txt
+    Untracked:  data/._MapPantro6_meta.txt.sb-a5794dd2-Cskmlm
+    Untracked:  data/._MapPantro6_meta.xlsx
     Untracked:  data/._OppositeSpeciesMap.txt
     Untracked:  data/._OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf
     Untracked:  data/._OppositeSpeciesMap.xlsx
@@ -844,11 +893,15 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/._RNASEQ_metadata_stranded.txt
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
     Untracked:  data/._RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
+    Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
@@ -856,12 +909,15 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Total/
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/MapPantro6_meta.txt
+    Untracked:  data/MapPantro6_meta.xlsx
     Untracked:  data/MapStats/
     Untracked:  data/NuclearHvC/
     Untracked:  data/OppositeSpeciesMap.txt
@@ -874,15 +930,20 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/RNASEQ_metadata_stranded.txt
+    Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_frompantro5.txt
+    Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/~$RNASEQ_metadata.xlsx
@@ -892,14 +953,10 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
-    Modified:   analysis/CorrbetweenInd.Rmd
-    Modified:   analysis/PASnumperSpecies.Rmd
-    Modified:   analysis/annotatePAS.Rmd
+    Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffSplicing.Rmd
-    Modified:   analysis/liftoverPAS.Rmd
+    Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
-    Modified:   analysis/verifyBAM.Rmd
 
 </code></pre>
 <p>
@@ -938,6 +995,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/894a755d4a417d36d130a1f0566d575063a04173/analysis/diffExpression.Rmd" target="_blank">894a755</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-05
+</td>
+<td>
+update DE new Orthoexon file
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/diffExpression.html" target="_blank">3ee8382</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1340,12 +1431,12 @@ add diff expression and diff splicing
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;scales&quot;)</code></pre>
@@ -1411,7 +1502,7 @@ Attaching package: &#39;reshape2&#39;</code></pre>
 <pre class="r"><code>metaData=read.table(&quot;../data/RNASEQ_metadata_stranded.txt&quot;, header = T, stringsAsFactors = F)
 metaData$Species=as.factor(metaData$Species)
 metaData$Collection=as.factor(metaData$Collection)</code></pre>
-<pre class="r"><code>readInfo=metaData %&gt;% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %&gt;% select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Number&quot;, -Line, -Species)
+<pre class="r"><code>readInfo=metaData %&gt;% mutate(AAUnMapped= Reads-Mapped, ABNotOrtho= Mapped-AssignedOrtho) %&gt;% dplyr::select(Line, Species, AAUnMapped, ABNotOrtho, AssignedOrtho) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Number&quot;, -Line, -Species)
 
 
 ggplot(readInfo, aes(x=Line,y=Number, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;,name = &quot;Type&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read statistics&quot;) </code></pre>
@@ -1487,7 +1578,7 @@ brimittleman
 </div>
 </div>
 <p>Proportion of reads.</p>
-<pre class="r"><code>readProp=metaData %&gt;% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %&gt;% select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Proportion&quot;, -Line, -Species)
+<pre class="r"><code>readProp=metaData %&gt;% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %&gt;% dplyr::select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %&gt;%  gather(key=&quot;Category&quot;, value=&quot;Proportion&quot;, -Line, -Species)
 
 ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;&quot;, labels = c(&quot;Unmapped&quot;, &quot;Mapped not ortho&quot;, &quot;Assigned Ortho Exon&quot;))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y=&quot;Reads&quot;, title=&quot;Human and chimp read proportions&quot;) </code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1693,28 +1784,28 @@ brimittleman
 <pre class="bash"><code>python fixExonFC.py /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc
 
 python fixExonFC.py /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fc /project2/gilad/briana/Comparative_APA/Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc</code></pre>
-<pre class="r"><code>HumanCounts=read.table(&quot;../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length)
+<pre class="r"><code>HumanCounts=read.table(&quot;../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
 
-ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% select(-Chr,-Start,-End,-Strand, -Length)
+ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
 
 
 counts_genes=HumanCounts %&gt;% inner_join(ChimpCounts,by=&quot;Geneid&quot;) %&gt;% column_to_rownames(var=&quot;Geneid&quot;)
 
 head(counts_genes)</code></pre>
 <pre><code>                NA18498 NA18504 NA18510 NA18523 NA18499 NA18502 NA4973
-ENSG00000188976      48      24      50      31      34      58      2
-ENSG00000188157     148     106      59     106     128      39      6
-ENSG00000273443      69      40      43      54      48      11     24
-ENSG00000217801      77      60      36     164      61      19     62
-ENSG00000237330       1       0       1       0       1       1      0
-ENSG00000223823       0       0       0       0       0       0      0
+ENSG00000000003       0       3       4       1       2       2     13
+ENSG00000000005       0       0       0       0       0       0      0
+ENSG00000000419     911     742    1202     867     979    1023    580
+ENSG00000000457     529     421     613     408     623     555    716
+ENSG00000000460     448     287     545     159     560     481    546
+ENSG00000000938    5186    3676    7197   12054    2916    3675   2865
                 NAPT30 NAPT91 NA3622 NA3659 NA18358
-ENSG00000188976      2      1      1      1       0
-ENSG00000188157      5      7      7      8       6
-ENSG00000273443     21      2      3     78      16
-ENSG00000217801     34      8     19    139      31
-ENSG00000237330      0      0      0      2       0
-ENSG00000223823      0      0      0      0       0</code></pre>
+ENSG00000000003      3      1     18     13       0
+ENSG00000000005      0      0      0      0       0
+ENSG00000000419    451    533    530    563     501
+ENSG00000000457    656    905    712    727     531
+ENSG00000000460    410    237    510    526     245
+ENSG00000000938    230    369    427   2307    3742</code></pre>
 <pre class="r"><code># Load colors 
 
 colors &lt;- colorRampPalette(c(brewer.pal(9, &quot;Blues&quot;)[1],brewer.pal(9, &quot;Blues&quot;)[9]))(100)
@@ -1820,7 +1911,7 @@ brimittleman
 <pre class="r"><code>select &lt;- counts_genes
 summary(apply(select, 1, var) == 0) </code></pre>
 <pre><code>   Mode   FALSE    TRUE 
-logical   32592   11533 </code></pre>
+logical   18209    1164 </code></pre>
 <pre class="r"><code># Perform PCA
 
 pca_genes &lt;- prcomp(t(counts_genes), scale = F)
@@ -2060,20 +2151,27 @@ brimittleman
 <p>Convert to log2</p>
 <pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(counts_genes))
 head(log_counts_genes)</code></pre>
-<pre><code>                 NA18498  NA18504  NA18510  NA18523  NA18499  NA18502
-ENSG00000188976 5.584963 4.584963 5.643856 4.954196 5.087463 5.857981
-ENSG00000188157 7.209453 6.727920 5.882643 6.727920 7.000000 5.285402
-ENSG00000273443 6.108524 5.321928 5.426265 5.754888 5.584963 3.459432
-ENSG00000217801 6.266787 5.906891 5.169925 7.357552 5.930737 4.247928
-ENSG00000237330 0.000000     -Inf 0.000000     -Inf 0.000000 0.000000
-ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf
-                  NA4973   NAPT30   NAPT91   NA3622   NA3659  NA18358
-ENSG00000188976 1.000000 1.000000 0.000000 0.000000 0.000000     -Inf
-ENSG00000188157 2.584963 2.321928 2.807355 2.807355 3.000000 2.584963
-ENSG00000273443 4.584963 4.392317 1.000000 1.584963 6.285402 4.000000
-ENSG00000217801 5.954196 5.087463 3.000000 4.247928 7.118941 4.954196
-ENSG00000237330     -Inf     -Inf     -Inf     -Inf 1.000000     -Inf
-ENSG00000223823     -Inf     -Inf     -Inf     -Inf     -Inf     -Inf</code></pre>
+<pre><code>                  NA18498   NA18504   NA18510   NA18523   NA18499
+ENSG00000000003      -Inf  1.584963  2.000000  0.000000  1.000000
+ENSG00000000005      -Inf      -Inf      -Inf      -Inf      -Inf
+ENSG00000000419  9.831307  9.535275 10.231221  9.759888  9.935165
+ENSG00000000457  9.047124  8.717676  9.259743  8.672425  9.283088
+ENSG00000000460  8.807355  8.164907  9.090112  7.312883  9.129283
+ENSG00000000938 12.340406 11.843921 12.813180 13.557224 11.509775
+                  NA18502    NA4973   NAPT30   NAPT91   NA3622    NA3659
+ENSG00000000003  1.000000  3.700440 1.584963 0.000000 4.169925  3.700440
+ENSG00000000005      -Inf      -Inf     -Inf     -Inf     -Inf      -Inf
+ENSG00000000419  9.998590  9.179909 8.816984 9.057992 9.049849  9.136991
+ENSG00000000457  9.116344  9.483816 9.357552 9.821774 9.475733  9.505812
+ENSG00000000460  8.909893  9.092757 8.679480 7.888743 8.994353  9.038919
+ENSG00000000938 11.843529 11.484319 7.845490 8.527477 8.738092 11.171802
+                  NA18358
+ENSG00000000003      -Inf
+ENSG00000000005      -Inf
+ENSG00000000419  8.968667
+ENSG00000000457  9.052568
+ENSG00000000460  7.936638
+ENSG00000000938 11.869594</code></pre>
 <pre class="r"><code>density_plot_18504 &lt;- ggplot(log_counts_genes, aes(x = 18504)) + geom_density()
 
 density_plot_18504 + labs(title = &quot;Density plot of log2 counts of 18504&quot;) + labs(x = &quot;Log2 counts for each gene&quot;) + geom_vline(xintercept = 1) </code></pre>
@@ -2190,27 +2288,27 @@ brimittleman
 <p>Convert to CPM</p>
 <pre class="r"><code>cpm &lt;- cpm(counts_genes, log=TRUE)
 head(cpm)</code></pre>
-<pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
-ENSG00000188976  1.588820  0.9875278  1.619299  1.208070  1.067263
-ENSG00000188157  3.172567  3.0589636  1.849178  2.925953  2.915718
-ENSG00000273443  2.094172  1.6879541  1.411153  1.975405  1.539652
-ENSG00000217801  2.248076  2.2542940  1.167830  3.547237  1.872256
-ENSG00000237330 -2.441803 -3.0119508 -2.450600 -3.011951 -2.458357
-ENSG00000223823 -3.011951 -3.0119508 -3.011951 -3.011951 -3.011951
-                   NA18502     NA4973     NAPT30     NAPT91     NA3622
-ENSG00000188976  1.8417218 -2.1227985 -2.0245732 -2.4061117 -2.4360702
-ENSG00000188157  1.2932493 -1.1815889 -1.2226619 -0.7937756 -0.8633065
-ENSG00000273443 -0.3579863  0.4766993  0.4884775 -1.9807482 -1.7064115
-ENSG00000217801  0.3306162  1.7649277  1.1340383 -0.6404174  0.3555815
-ENSG00000237330 -2.4451184 -3.0119508 -3.0119508 -3.0119508 -3.0119508
-ENSG00000223823 -3.0119508 -3.0119508 -3.0119508 -3.0119508 -3.0119508
-                   NA3659    NA18358
-ENSG00000188976 -2.483011 -3.0119508
-ENSG00000188157 -0.828322 -0.8091641
-ENSG00000273443  2.139573  0.3953756
-ENSG00000217801  2.955188  1.2822287
-ENSG00000237330 -2.096822 -3.0119508
-ENSG00000223823 -3.011951 -3.0119508</code></pre>
+<pre><code>                  NA18498   NA18504   NA18510   NA18523   NA18499
+ENSG00000000003 -3.214119 -1.687803 -1.678332 -2.557786 -2.259918
+ENSG00000000005 -3.214119 -3.214119 -3.214119 -3.214119 -3.214119
+ENSG00000000419  5.579570  5.650403  5.945220  5.752976  5.631088
+ENSG00000000457  4.797732  4.835162  4.976165  4.668752  4.980802
+ENSG00000000460  4.558974  4.284933  4.807150  3.318750  4.827551
+ENSG00000000938  8.085987  7.956576  8.525076  9.547634  7.203612
+                  NA18502    NA4973    NAPT30    NAPT91      NA3622
+ENSG00000000003 -2.244077 -0.508794 -1.907969 -2.610028  0.08159357
+ENSG00000000005 -3.214119 -3.214119 -3.214119 -3.214119 -3.21411905
+ENSG00000000419  5.726859  4.736398  4.582972  4.905709  4.81211618
+ENSG00000000457  4.847086  5.039196  5.121512  5.667358  5.23658578
+ENSG00000000460  4.641466  4.649609  4.446117  3.742924  4.75683807
+ENSG00000000938  7.569677  7.036149  3.617698  4.377498  4.50169416
+                    NA3659   NA18358
+ENSG00000000003 -0.4625636 -3.214119
+ENSG00000000005 -3.2141190 -3.214119
+ENSG00000000419  4.7478795  5.024297
+ENSG00000000457  5.1153942  5.107928
+ENSG00000000460  4.6502143  3.997251
+ENSG00000000938  6.7783101  7.921081</code></pre>
 <pre class="r"><code>plotDensities(cpm, col=pal[as.numeric(metaData$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2293,27 +2391,27 @@ dge_original &lt;- calcNormFactors(dge_original)
 
 tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)</code></pre>
-<pre><code>                  NA18498    NA18504   NA18510   NA18523   NA18499
-ENSG00000188976  1.588820  0.9875278  1.619299  1.208070  1.067263
-ENSG00000188157  3.172567  3.0589636  1.849178  2.925953  2.915718
-ENSG00000273443  2.094172  1.6879541  1.411153  1.975405  1.539652
-ENSG00000217801  2.248076  2.2542940  1.167830  3.547237  1.872256
-ENSG00000237330 -2.441803 -3.0119508 -2.450600 -3.011951 -2.458357
-ENSG00000223823 -3.011951 -3.0119508 -3.011951 -3.011951 -3.011951
-                   NA18502     NA4973     NAPT30     NAPT91     NA3622
-ENSG00000188976  1.8417218 -2.1227985 -2.0245732 -2.4061117 -2.4360702
-ENSG00000188157  1.2932493 -1.1815889 -1.2226619 -0.7937756 -0.8633065
-ENSG00000273443 -0.3579863  0.4766993  0.4884775 -1.9807482 -1.7064115
-ENSG00000217801  0.3306162  1.7649277  1.1340383 -0.6404174  0.3555815
-ENSG00000237330 -2.4451184 -3.0119508 -3.0119508 -3.0119508 -3.0119508
-ENSG00000223823 -3.0119508 -3.0119508 -3.0119508 -3.0119508 -3.0119508
-                   NA3659    NA18358
-ENSG00000188976 -2.483011 -3.0119508
-ENSG00000188157 -0.828322 -0.8091641
-ENSG00000273443  2.139573  0.3953756
-ENSG00000217801  2.955188  1.2822287
-ENSG00000237330 -2.096822 -3.0119508
-ENSG00000223823 -3.011951 -3.0119508</code></pre>
+<pre><code>                  NA18498   NA18504   NA18510   NA18523   NA18499
+ENSG00000000003 -3.214119 -1.687803 -1.678332 -2.557786 -2.259918
+ENSG00000000005 -3.214119 -3.214119 -3.214119 -3.214119 -3.214119
+ENSG00000000419  5.579570  5.650403  5.945220  5.752976  5.631088
+ENSG00000000457  4.797732  4.835162  4.976165  4.668752  4.980802
+ENSG00000000460  4.558974  4.284933  4.807150  3.318750  4.827551
+ENSG00000000938  8.085987  7.956576  8.525076  9.547634  7.203612
+                  NA18502    NA4973    NAPT30    NAPT91      NA3622
+ENSG00000000003 -2.244077 -0.508794 -1.907969 -2.610028  0.08159357
+ENSG00000000005 -3.214119 -3.214119 -3.214119 -3.214119 -3.21411905
+ENSG00000000419  5.726859  4.736398  4.582972  4.905709  4.81211618
+ENSG00000000457  4.847086  5.039196  5.121512  5.667358  5.23658578
+ENSG00000000460  4.641466  4.649609  4.446117  3.742924  4.75683807
+ENSG00000000938  7.569677  7.036149  3.617698  4.377498  4.50169416
+                    NA3659   NA18358
+ENSG00000000003 -0.4625636 -3.214119
+ENSG00000000005 -3.2141190 -3.214119
+ENSG00000000419  4.7478795  5.024297
+ENSG00000000457  5.1153942  5.107928
+ENSG00000000460  4.6502143  3.997251
+ENSG00000000938  6.7783101  7.921081</code></pre>
 <pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
 scores &lt;- pca_genes$x
 
@@ -2735,20 +2833,20 @@ dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
 
 cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)</code></pre>
-<pre><code>                 NA18498  NA18504    NA18510  NA18523  NA18499   NA18502
-ENSG00000217801 2.256506 2.234115  1.0781627 3.660723 1.851408 0.2044122
-ENSG00000186891 6.449667 5.009505  5.0323421 4.887082 5.704206 3.3563261
-ENSG00000186827 5.245211 3.093190  4.6496753 1.700807 3.965561 1.8966473
-ENSG00000078808 7.201153 6.859702  7.0260235 7.463228 6.617502 6.7324642
-ENSG00000176022 4.796263 4.753597  4.6761916 4.790014 4.605178 4.6953254
-ENSG00000184163 1.692492 1.418453 -0.1695685 1.630775 1.054722 0.3468831
-                  NA4973    NAPT30    NAPT91    NA3622   NA3659  NA18358
-ENSG00000217801 1.778862 1.1607241 -0.791047 0.2757475 2.998563 1.300872
-ENSG00000186891 6.669085 4.6336365  3.159521 4.7270793 6.447786 6.482146
-ENSG00000186827 1.778862 0.2523816  2.006912 3.1506928 0.646502 2.175264
-ENSG00000078808 7.024471 6.6878664  6.765572 6.7760951 6.783817 7.061063
-ENSG00000176022 5.263508 4.8384442  5.550276 4.8453842 5.276059 5.561721
-ENSG00000184163 1.381411 2.8988501  2.195679 1.4096039 1.766196 3.222359</code></pre>
+<pre><code>                 NA18498  NA18504  NA18510  NA18523  NA18499  NA18502
+ENSG00000000419 5.605914 5.653296 5.916152 5.845268 5.644714 5.728449
+ENSG00000000457 4.822027 4.836001 4.944992 4.758197 4.992866 4.846521
+ENSG00000000460 4.582386 4.283559 4.775443 3.399813 4.839132 4.640177
+ENSG00000000938 8.114674 7.961624 8.497834 9.642281 7.219058 7.573114
+ENSG00000001036 5.888276 5.743706 5.726636 5.927711 5.758006 5.063235
+ENSG00000001084 4.763617 4.061338 4.530956 5.004519 3.991180 4.092598
+                  NA4973   NAPT30   NAPT91   NA3622   NA3659  NA18358
+ENSG00000000419 4.776243 4.670620 5.016289 4.838002 4.798818 5.096826
+ENSG00000000457 5.080011 5.210943 5.779817 5.263708 5.167477 5.180694
+ENSG00000000460 4.689137 4.533195 3.847813 4.782534 4.700797 4.065408
+ENSG00000000938 7.080071 3.699882 4.486049 4.526414 6.833086 7.997246
+ENSG00000001036 4.068473 3.761218 4.405707 3.489676 4.878534 5.234014
+ENSG00000001084 5.065843 4.396833 4.623827 4.751093 4.730640 4.640130</code></pre>
 <pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
 <p><img src="figure/diffExpression.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -4322,7 +4420,7 @@ brimittleman
 <pre class="r"><code>x.pca &lt;- pca_genes
 
 tech_factors &lt;- metaData
-tech_factors_sum &lt;- tech_factors[,c(2:15)] %&gt;% select(-CollectionDate)
+tech_factors_sum &lt;- tech_factors[,c(2:15)] %&gt;% dplyr::select(-CollectionDate)
 
 p_comps &lt;- 1:6
 pc_cov_cor &lt;- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
@@ -4489,19 +4587,27 @@ brimittleman
 </table>
 </div>
 </div>
+<p>Plot PVE by each PC:</p>
+<pre class="r"><code>eigs &lt;- pca_genes$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion, main=&quot;PVE by each PC&quot;, xlab=&quot;PC&quot;)</code></pre>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>proportion[4]</code></pre>
+<pre><code>[1] 0.09109573</code></pre>
 </div>
 </div>
 <div id="test-for-de" class="section level2">
 <h2>Test for DE</h2>
 <pre class="r"><code>fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))</code></pre>
-<pre><code>                    Chimp    Human
-ENSG00000217801 1.8181277 1.090565
-ENSG00000186891 5.0847804 5.358102
-ENSG00000186827 3.4803867 1.530705
-ENSG00000078808 6.9813729 6.845371
-ENSG00000176022 4.7019733 5.222465
-ENSG00000184163 0.8714861 2.121312</code></pre>
+<pre><code>                   Chimp    Human
+ENSG00000000419 5.729563 4.863479
+ENSG00000000457 4.862504 5.280516
+ENSG00000000460 4.452581 4.461012
+ENSG00000000938 8.146155 5.749239
+ENSG00000001036 5.682363 4.278239
+ENSG00000001084 4.398539 4.711799</code></pre>
 <pre class="r"><code>contr &lt;- makeContrasts(Chimp - Human, levels = colnames(coef(fit.cpm.voom)))
 contr</code></pre>
 <pre><code>       Contrasts
@@ -4513,49 +4619,49 @@ tmp &lt;- eBayes(tmp)
 top.table &lt;- topTable(tmp, sort.by = &quot;P&quot;, n = Inf)
 head(top.table, 20)</code></pre>
 <pre><code>                    logFC  AveExpr         t      P.Value    adj.P.Val
-ENSG00000133112  6.030526 8.579365  53.43162 6.149849e-16 4.099890e-12
-ENSG00000204463 -6.207223 5.290526 -51.05863 1.072784e-15 4.099890e-12
-ENSG00000205531 -5.980793 5.093652 -49.92171 1.413391e-15 4.099890e-12
-ENSG00000105372  4.929862 7.949106  49.41909 1.599801e-15 4.099890e-12
-ENSG00000142937  5.675315 8.225710  46.60155 3.281606e-15 6.727948e-12
-ENSG00000145741  4.945314 6.308328  43.27471 8.118680e-15 1.387077e-11
-ENSG00000142541  6.136435 6.806316  40.37221 1.896383e-14 2.777117e-11
-ENSG00000100316  5.939356 8.286237  39.35544 2.589428e-14 3.318029e-11
-ENSG00000072864 -6.888911 4.645283 -37.85395 4.162991e-14 4.741646e-11
-ENSG00000183020 -4.839255 4.196150 -31.80094 3.478039e-13 3.565338e-10
-ENSG00000071082  5.701659 6.557932  29.78081 7.722054e-13 7.196252e-10
-ENSG00000147604 -6.185695 5.466412 -27.74841 1.820354e-12 1.555037e-09
-ENSG00000116478  3.371308 5.843304  27.55764 1.979085e-12 1.560584e-09
-ENSG00000186298  3.080858 6.879040  27.10999 2.413402e-12 1.767127e-09
-ENSG00000198242  4.180714 4.991847  25.31780 5.520552e-12 3.772745e-09
-ENSG00000105640 -2.840101 8.171072 -24.34587 8.856795e-12 5.619929e-09
-ENSG00000197958  4.359628 7.193296  24.24324 9.319949e-12 5.619929e-09
-ENSG00000198918 -5.732348 5.424144 -23.80278 1.162663e-11 6.621363e-09
-ENSG00000198034  6.255072 7.138676  23.21900 1.568224e-11 8.460982e-09
-ENSG00000167193 -4.243003 4.135098 -22.95159 1.802961e-11 9.241077e-09
+ENSG00000105372  5.630358 8.110130  59.52351 1.485694e-16 1.508722e-12
+ENSG00000204463 -6.197558 5.041060 -45.74372 3.777266e-15 1.142820e-11
+ENSG00000205531 -5.940439 5.011790 -45.62134 3.903519e-15 1.142820e-11
+ENSG00000142937  5.589075 8.074735  45.09454 4.501505e-15 1.142820e-11
+ENSG00000137818  7.114468 6.794576  43.68229 6.651200e-15 1.350859e-11
+ENSG00000071082  5.413729 7.296312  35.45376 8.574484e-14 1.451231e-10
+ENSG00000186298  3.352417 6.680918  32.22943 2.748792e-13 3.974110e-10
+ENSG00000148303  4.640610 7.595442  31.88765 3.130762e-13 3.974110e-10
+ENSG00000116478  3.694113 6.385183  30.76256 4.852201e-13 5.474900e-10
+ENSG00000147604 -7.064441 5.783547 -30.38644 5.637299e-13 5.724678e-10
+ENSG00000088038 -4.999454 3.948451 -29.72131 7.382438e-13 6.815333e-10
+ENSG00000072864 -6.857923 4.399064 -29.44551 8.270260e-13 6.998707e-10
+ENSG00000183020 -5.130305 4.151035 -29.13161 9.423275e-13 7.361028e-10
+ENSG00000128731 -3.587995 5.679996 -28.54326 1.207989e-12 8.762231e-10
+ENSG00000161654 -3.666330 4.603805 -27.92183 1.578929e-12 1.040331e-09
+ENSG00000179950 -5.983934 4.402584 -27.78236 1.678068e-12 1.040331e-09
+ENSG00000167615 -6.313264 4.881549 -27.69762 1.741569e-12 1.040331e-09
+ENSG00000145741  2.897300 7.633998  26.95215 2.426347e-12 1.368864e-09
+ENSG00000105640 -2.953215 8.019379 -25.12854 5.677714e-12 2.925081e-09
+ENSG00000049656 -2.675713 5.440187 -25.09842 5.760868e-12 2.925081e-09
                        B
-ENSG00000133112 26.01466
-ENSG00000204463 23.65724
-ENSG00000205531 23.45459
-ENSG00000105372 25.30811
-ENSG00000142937 24.71006
-ENSG00000145741 23.49375
-ENSG00000142541 22.77665
-ENSG00000100316 22.98772
-ENSG00000072864 20.84202
-ENSG00000183020 19.73654
-ENSG00000071082 19.71403
-ENSG00000147604 18.63627
-ENSG00000116478 18.96720
-ENSG00000186298 18.86337
-ENSG00000198242 17.82095
-ENSG00000105640 17.59772
-ENSG00000197958 17.53671
-ENSG00000198918 17.07923
-ENSG00000198034 16.98147
-ENSG00000167193 16.58857</code></pre>
+ENSG00000105372 27.35947
+ENSG00000204463 22.47175
+ENSG00000205531 22.58641
+ENSG00000142937 24.66798
+ENSG00000137818 23.42239
+ENSG00000071082 21.98589
+ENSG00000186298 20.97083
+ENSG00000148303 20.85556
+ENSG00000116478 20.39436
+ENSG00000147604 19.44754
+ENSG00000088038 18.72823
+ENSG00000072864 18.27882
+ENSG00000183020 18.65049
+ENSG00000128731 19.44355
+ENSG00000161654 18.88385
+ENSG00000179950 18.10333
+ENSG00000167615 18.27649
+ENSG00000145741 18.88448
+ENSG00000105640 18.03812
+ENSG00000049656 17.99535</code></pre>
 <pre class="r"><code>length(which(top.table$adj.P.Val &lt; 0.05))</code></pre>
-<pre><code>[1] 3764</code></pre>
+<pre><code>[1] 3796</code></pre>
 <p>Make a table to plot:</p>
 <p>-log10(bh adjusted pval) vs logFC (log3 fold change)</p>
 <pre class="r"><code>top.table2=top.table %&gt;% mutate(Species=ifelse(logFC &gt; 1 &amp; adj.P.Val&lt;.05, &quot;Chimp&quot;, ifelse(logFC &lt; -1 &amp; adj.P.Val&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))
@@ -4563,71 +4669,12 @@ ENSG00000167193 16.58857</code></pre>
   
 
 ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)</code></pre>
-<p><img src="figure/diffExpression.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-45-1">
-Past versions of unnamed-chunk-45-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-45-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2c9b5b4be16ae92218356c8f3283156ae1876092/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">2c9b5b4</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8fca47ff6bde2da4c50419e9a4444a3dfde4e741/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">8fca47f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25971edfef3ce2cb4b4a1a1f095327b0709669da/docs/figure/diffExpression.Rmd/unnamed-chunk-45-1.png" target="_blank">25971ed</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/diffExpression.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>summary(decideTests(tmp))</code></pre>
 <pre><code>       Chimp - Human
-Down            1883
-NotSig          6487
-Up              1881</code></pre>
+Down            1895
+NotSig          6359
+Up              1901</code></pre>
 <pre class="r"><code>deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val &lt; 0.05,]))
 #mkdir ../data/DiffExpression
 
