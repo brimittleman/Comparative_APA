@@ -55,6 +55,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Venn diagrams for genes in each differential APA set](CompHC_totalandnuclear.html)
 
+* [Differential APA and eQTL overlap](DapaineQTL.html)
+
 ##Quantify Phenotypes with RNA:   
 
 * [Differnetial Splicing](diffSplicing.html) 
@@ -62,6 +64,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Differential Expression](diffExpression.html)
   
   * [Metadata by species](MetabySpecies.html)
+  
+  * [DE genes and eQTLs](DEandeQTls.html)
+  
+* [Compare DE and DS genes](DEvDS.html)
+
   
 
 

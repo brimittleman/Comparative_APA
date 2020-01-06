@@ -1,0 +1,58 @@
+---
+title: "Differential Expression and APA"
+author: "Briana Mittleman"
+date: "1/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+In this analysis I will look at the overlap between DE genes and eQTLs identified in Li et al 2016. This is similar to the anaylsis I did for dAPA and I will use this as a way to benchmark those results.  
+
+
+```{r}
+explained=read.table("../data/Li_eqtls/explainedEgenes.txt",col.names = c("Gene.name"),stringsAsFactors = F)
+unexplained=read.table("../data/Li_eqtls/UnexplainedEgenes.txt",col.names = c("Gene.name"),stringsAsFactors = F)
+```
+
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+
+
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name)
+```
+
+
+```{r}
+DE_explained=DEgenes %>% inner_join(explained, by="Gene.name")
+DE_unexplained=DEgenes %>% inner_join(unexplained, by="Gene.name")
+neither=DEgenes %>% anti_join(explained, by="Gene.name") %>% anti_join(unexplained, by="Gene.name")
+
+
+cat=c("Explained", "Unexaplained", "Neither")
+num=c(nrow(DE_explained), nrow(DE_unexplained), nrow(neither))
+
+DEqtl=as.data.frame(cbind(cat,num))
+
+DEqtl$cat=factor(DEqtl$cat, levels=c("Explained","Unexaplained", "Neither"), ordered=T)
+DEqtl$num=as.numeric(as.character(DEqtl$num ))
+
+ggplot(DEqtl,aes(x=cat, y=num)) +geom_bar(stat="identity") + geom_text(aes(label=num), vjust=1.6, color="white", size=3.5) + labs(title="Differential Expression and human eQTL", y="Number of genes", x="Overlap")
+```
+
+Proportion:  
+
+```{r}
+DEqtlProp=DEqtl %>% mutate(Prop=num/nrow(DEgenes))
+
+ggplot(DEqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat="identity") + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color="white", size=3.5) + labs(title="Differential Expression and human eQTL", y="Proportion of DE genes", x="Overlap")
+```
+

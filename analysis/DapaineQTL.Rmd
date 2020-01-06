@@ -1,0 +1,106 @@
+---
+title: "Differential APA and eQTLs"
+author: "Briana Mittleman"
+date: "1/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+
+To start to catalog my differential apa gene, I want to evaluate how many of them have an eQTL. I will use the eQTLs from Li et al. I have the explained and unexplained eGenes. 
+
+I will put them in ../data/Li_eqtls
+
+```{bash,eval=F}
+mkdir ../data/Li_eqtls
+```
+
+I want to make plots that have bars for explained eQTL, unexplained eQTL, not an eQTL for total differences and nuclear differences.  
+
+```{r}
+explained=read.table("../data/Li_eqtls/explainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+unexplained=read.table("../data/Li_eqtls/UnexplainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+```
+
+
+###Nuclear:
+
+```{r}
+sigNuclear=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sigNuclear$p.adjust=as.numeric(as.character(sigNuclear$p.adjust))
+
+sigNuclear_genes=sigNuclear %>% filter(p.adjust<.05) %>% separate(cluster, into=c("chrom", "genes"), sep=":") %>% dplyr::select(genes) %>% unique()
+```
+
+
+```{r}
+explainedNuclear= sigNuclear_genes %>% inner_join(explained, by = "genes")
+unexplainedNuclear=sigNuclear_genes %>% inner_join(unexplained, by="genes")
+NeitherNuclear= sigNuclear_genes %>%  anti_join(explained, by="genes") %>% anti_join(unexplained, by="genes")
+
+cat=c("Explained", "Unexaplained", "Neither")
+num=c(nrow(explainedNuclear), nrow(unexplainedNuclear), nrow(NeitherNuclear))
+
+Nuclearqtl=as.data.frame(cbind(cat,num))
+
+Nuclearqtl$cat=factor(Nuclearqtl$cat, levels=c("Explained","Unexaplained", "Neither"), ordered=T)
+Nuclearqtl$num=as.numeric(as.character(Nuclearqtl$num ))
+
+ggplot(Nuclearqtl,aes(x=cat, y=num)) +geom_bar(stat="identity") + geom_text(aes(label=num), vjust=1.6, color="white", size=3.5) + labs(title="Differential APA in Nuclear fraction and human eQTL", y="Number of genes", x="Overlap")
+```
+Make this plot with proportion:
+
+```{r}
+NuclearqtlProp=Nuclearqtl %>% mutate(Prop=num/nrow(sigNuclear_genes))
+
+ggplot(NuclearqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat="identity") + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color="white", size=3.5) + labs(title="Differential APA in Nuclear fraction and human eQTL", y="Proportion of dAPA genes", x="Overlap")
+```
+
+###Total 
+
+
+```{r}
+sigTotal=read.table("../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sigTotal$p.adjust=as.numeric(as.character(sigTotal$p.adjust))
+
+sigTotal_genes=sigTotal %>% filter(p.adjust<.05) %>% separate(cluster, into=c("chrom", "genes"), sep=":") %>% dplyr::select(genes) %>% unique()
+```
+
+
+```{r}
+explainedTotal= sigTotal_genes %>% inner_join(explained, by = "genes")
+unexplainedTotal=sigTotal_genes %>% inner_join(unexplained, by="genes")
+NeitherTotal= sigTotal_genes %>%  anti_join(explained, by="genes") %>% anti_join(unexplained, by="genes")
+
+catTotal=c("Explained", "Unexaplained", "Neither")
+numTotal=c(nrow(explainedTotal), nrow(unexplainedTotal), nrow(NeitherTotal))
+
+Totalqtl=as.data.frame(cbind(catTotal,numTotal))
+
+Totalqtl$catTotal=factor(Totalqtl$catTotal, levels=c("Explained","Unexaplained", "Neither"), ordered=T)
+Totalqtl$numTotal=as.numeric(as.character(Totalqtl$numTotal ))
+
+ggplot(Totalqtl,aes(x=catTotal, y=numTotal)) +geom_bar(stat="identity") + geom_text(aes(label=numTotal), vjust=1.6, color="white", size=3.5) + labs(title="Differential APA in Total fraction and human eQTL", y="Number of genes", x="Overlap")
+
+```
+
+Make this plot with proportion:
+
+```{r}
+TotalqtlProp=Totalqtl %>% mutate(Prop=num/nrow(sigTotal_genes))
+
+ggplot(TotalqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat="identity") + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color="white", size=3.5) + labs(title="Differential APA in Total fraction and human eQTL", y="Proportion of dAPA genes", x="Overlap")
+```
+
+
