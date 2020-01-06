@@ -93,6 +93,9 @@ DEtestedgenes=read.table("../data/DiffExpression/DE_Testedgenes.txt", header = F
 Perform permutations 1000 times
 ```{r}
 Expression_1000tests=permuteGenes(DEtestedgenes$Gene.name, nrow(DEgenes),1000 )
+
+EEx=Expression_1000tests %>% filter(explainedOverlap>=nrow(DE_explained)) %>% nrow() / 1000
+EUnEx=Expression_1000tests %>% filter(unexplainedOverlap>=nrow(DE_unexplained)) %>% nrow() / 1000
 ```
 
 Plot as histograms 
@@ -100,10 +103,10 @@ Plot as histograms
  Explained
 ```{r}
 
-ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_explained), col="red" )+labs(x="Number of Overlaps", title="DE overlap with explained eGenes")
+ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_explained), col="red" )+labs(x="Number of Overlaps", title="DE overlap with explained eGenes") + annotate("text", x = 275, y = 30, label = paste("EmpPvalue=", EEx), col="red")
 
 ```
  Unexplained
 ```{r}
-ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_unexplained), col="red" ) +labs(x="Number of Overlaps", title="DE overlap with unexplained eGenes")
+ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_unexplained), col="red" ) +labs(x="Number of Overlaps", title="DE overlap with unexplained eGenes")+ annotate("text", x = 200, y = 30, label = paste("EmpPvalue=", EUnEx), col="red")
 ```

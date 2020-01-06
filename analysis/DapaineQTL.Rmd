@@ -148,19 +148,28 @@ Nuclear_100tests=permuteGenes(NuclearAPAtested_genes, nrow(sigNuclear_genes),100
 Total_100tests=permuteGenes(TotalAPAtested_genes, nrow(sigTotal_genes),1000 )
 ```
 
+empirical pvalues
+```{r}
+nuclearEx=Nuclear_100tests %>% filter(explainedOverlap>=nrow(explainedNuclear)) %>% nrow() / 1000
+nuclearUnEx=Nuclear_100tests %>% filter(unexplainedOverlap>=nrow(unexplainedNuclear)) %>% nrow() / 1000
+
+totalEx=Total_100tests %>% filter(explainedOverlap>=nrow(explainedTotal)) %>% nrow() / 1000
+totalUnEx=Total_100tests %>% filter(unexplainedOverlap>=nrow(unexplainedTotal)) %>% nrow() / 1000
+```
 
 Plot as histograms 
 
 Nuclear Explained
 ```{r}
 
-ggplot(Nuclear_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedNuclear), col="red" )+labs(x="Number of Overlaps", title="Nuclear dAPA overlap with explained eGenes")
+ggplot(Nuclear_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedNuclear), col="red" )+labs(x="Number of Overlaps", title="Nuclear dAPA overlap with explained eGenes") + annotate("text", x = 490, y = 40, label = paste("EmpPvalue=", nuclearEx), col="red")
 
 ```
+
  
 Nuclear Unexplained
 ```{r}
-ggplot(Nuclear_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedNuclear), col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with unexplained eGenes")
+ggplot(Nuclear_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedNuclear), col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with unexplained eGenes")+ annotate("text", x = 376, y = 40, label = paste("EmpPvalue=", nuclearUnEx), col="red")
 ```
  
 
@@ -168,7 +177,7 @@ Total Explained
 
 ```{r}
 
-ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedTotal), col="red" )+labs(x="Number of Overlaps", title="Total dAPA overlap with explained eGenes")
+ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedTotal), col="red" )+labs(x="Number of Overlaps", title="Total dAPA overlap with explained eGenes")+ annotate("text", x = 425, y = 40, label = paste("EmpPvalue=", totalEx), col="red")
 
 ```
 
@@ -176,7 +185,7 @@ Total Unexplained
 
 
 ```{r}
-ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedTotal), col="red" ) +labs(x="Number of Overlaps", title="Total dAPA overlap with unexplained eGenes")
+ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedTotal), col="red" ) +labs(x="Number of Overlaps", title="Total dAPA overlap with unexplained eGenes")+ annotate("text", x = 325, y = 30, label = paste("EmpPvalue=", totalEx), col="red")
 ```
 ###extra code:
 
