@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree767ca26a283ffb64ce7e0c10da8428efe629fb35targetblank767ca26a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/767ca26a283ffb64ce7e0c10da8428efe629fb35" target="_blank">767ca26</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3bc05f3d2ea00583078b2aa56a11fc6b3ce6b453targetblank3bc05f3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3bc05f3d2ea00583078b2aa56a11fc6b3ce6b453" target="_blank">3bc05f3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree767ca26a283ffb64ce7e0c10da8428efe629fb35targetblank767ca26a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3bc05f3d2ea00583078b2aa56a11fc6b3ce6b453targetblank3bc05f3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1001,6 +1001,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3bc05f3d2ea00583078b2aa56a11fc6b3ce6b453/analysis/DEandeQTls.Rmd" target="_blank">3bc05f3</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+<td>
+add empirical pvalues
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e5dff293205ab9efa2e9363f3d85bfc9b8286589/docs/DEandeQTls.html" target="_blank">e5dff29</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/767ca26a283ffb64ce7e0c10da8428efe629fb35/analysis/DEandeQTls.Rmd" target="_blank">767ca26</a>
 </td>
 <td>
@@ -1192,15 +1226,93 @@ brimittleman
 <p>I need to have all of the genes tested for eGenes.</p>
 <pre class="r"><code>DEtestedgenes=read.table(&quot;../data/DiffExpression/DE_Testedgenes.txt&quot;, header = F,col.names = c(&quot;Gene_stable_ID&quot;),stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name)</code></pre>
 <p>Perform permutations 1000 times</p>
-<pre class="r"><code>Expression_1000tests=permuteGenes(DEtestedgenes$Gene.name, nrow(DEgenes),1000 )</code></pre>
+<pre class="r"><code>Expression_1000tests=permuteGenes(DEtestedgenes$Gene.name, nrow(DEgenes),1000 )
+
+EEx=Expression_1000tests %&gt;% filter(explainedOverlap&gt;=nrow(DE_explained)) %&gt;% nrow() / 1000
+EUnEx=Expression_1000tests %&gt;% filter(unexplainedOverlap&gt;=nrow(DE_unexplained)) %&gt;% nrow() / 1000</code></pre>
 <p>Plot as histograms</p>
 <p>Explained</p>
-<pre class="r"><code>ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(DE_explained), col=&quot;red&quot; )+labs(x=&quot;Number of Overlaps&quot;, title=&quot;DE overlap with explained eGenes&quot;)</code></pre>
+<pre class="r"><code>ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(DE_explained), col=&quot;red&quot; )+labs(x=&quot;Number of Overlaps&quot;, title=&quot;DE overlap with explained eGenes&quot;) + annotate(&quot;text&quot;, x = 275, y = 30, label = paste(&quot;EmpPvalue=&quot;, EEx), col=&quot;red&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/DEandeQTls.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> Unexplained</p>
-<pre class="r"><code>ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(DE_unexplained), col=&quot;red&quot; ) +labs(x=&quot;Number of Overlaps&quot;, title=&quot;DE overlap with unexplained eGenes&quot;)</code></pre>
+<p><img src="figure/DEandeQTls.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e5dff293205ab9efa2e9363f3d85bfc9b8286589/docs/figure/DEandeQTls.Rmd/unnamed-chunk-9-1.png" target="_blank">e5dff29</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Unexplained</p>
+<pre class="r"><code>ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(DE_unexplained), col=&quot;red&quot; ) +labs(x=&quot;Number of Overlaps&quot;, title=&quot;DE overlap with unexplained eGenes&quot;)+ annotate(&quot;text&quot;, x = 200, y = 30, label = paste(&quot;EmpPvalue=&quot;, EUnEx), col=&quot;red&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
 <p><img src="figure/DEandeQTls.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e5dff293205ab9efa2e9363f3d85bfc9b8286589/docs/figure/DEandeQTls.Rmd/unnamed-chunk-10-1.png" target="_blank">e5dff29</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
