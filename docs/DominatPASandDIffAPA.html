@@ -11,9 +11,8 @@
 
 <meta name="author" content="Briana Mittleman" />
 
-<meta name="date" content="2019-12-30" />
 
-<title>Dominant PAS Location Nuclear</title>
+<title>DominatPASandDIffAPA</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Dominant PAS Location Nuclear</h1>
+<h1 class="title toc-ignore">DominatPASandDIffAPA</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>12/30/2019</em></h4>
+<h4 class="date"><em>1/6/2020</em></h4>
 
 </div>
 
@@ -1004,7 +1003,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/54015c83b7d5a5583ee4c3cba8e9f12734ca0000/analysis/dominantPAS.Rmd" target="_blank">54015c8</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/54015c83b7d5a5583ee4c3cba8e9f12734ca0000/analysis/DominatPASandDIffAPA.Rmd" target="_blank">54015c8</a>
 </td>
 <td>
 brimittleman
@@ -1016,40 +1015,6 @@ brimittleman
 add overlap dom with dAPA
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/dominantPAS.html" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b25363cd6afdf6d3159d57a65fb785318f7fab7/analysis/dominantPAS.Rmd" target="_blank">5b25363</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-add total and nuclear dominant PAS analysis
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1057,11 +1022,7 @@ add total and nuclear dominant PAS analysis
 </div>
 </div>
 </div>
-<p>In this analysis I want to find the most dominant PAS for each gene in each species. I am interested in genes where the dominant PAS in human and chimp are intronic vs utr respectively. I will do this first in the nuclear fraction.</p>
-<p>I will compare these genes with those identified in the differential APA analysis. This will be helpful to narrow down the genes I want to visualize.</p>
-<pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.5.0
-Run ?workflowr for help getting started</code></pre>
+<p>In this analysis I will look to see if any of the genes I found with differences in the most dominant PAS were called as differentially used. I will look first at the gene level then move to the PAS level.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1071,283 +1032,50 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>These are the PAS</p>
-<pre class="r"><code>ChimpPAS= read.table(&quot;../data/Pheno_5perc/Chimp_Pheno_5perc.txt&quot;, header = T) %&gt;% dplyr::select(-contains(&quot;_T&quot;))
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.5.0
+Run ?workflowr for help getting started</code></pre>
+<div id="nuclear" class="section level3">
+<h3>Nuclear</h3>
+<pre class="r"><code>HumanIntronChimpUTR=read.table( &quot;../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt&quot;, header = T, stringsAsFactors = F)
+HumanUTRChimpChimp= read.table( &quot;../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt&quot;,  header = T, stringsAsFactors = F)</code></pre>
+<pre class="r"><code>sig=read.table(&quot;../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
 
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+sig_genes=sig %&gt;% filter(p.adjust&lt;.05) %&gt;% separate(cluster, into=c(&quot;chrom&quot;,&quot;gene&quot;), sep=&quot;:&quot;)</code></pre>
+<pre class="r"><code>OverlapHumanIntronChimpUTR=length(intersect(HumanIntronChimpUTR$gene, sig_genes$gene) )
+OverlapHumanIntronChimpUTR/nrow(HumanIntronChimpUTR)</code></pre>
+<pre><code>[1] 0.6565875</code></pre>
+<pre class="r"><code>OverlapHumanUTRChimpChimp= length(intersect(HumanUTRChimpChimp$gene, sig_genes$gene) )
+OverlapHumanUTRChimpChimp/nrow(HumanUTRChimpChimp)</code></pre>
+<pre><code>[1] 0.3944223</code></pre>
+<p>Compare this to the genes with the same dominant PAS.</p>
+<pre class="r"><code>NuclearSame= read.table( &quot;../data/DominantPAS/Nuclear_SameDom.txt&quot;,  header = T, stringsAsFactors = F)
 
-HumanPAS= read.table(&quot;../data/Pheno_5perc/Human_Pheno_5perc.txt&quot;, header = T) %&gt;% dplyr::select(-contains(&quot;_T&quot;))</code></pre>
-<p>Prepare the mean vector:</p>
-<pre class="r"><code>ChimpMean=rowMeans(ChimpPAS[,9:ncol(ChimpPAS)])
-
-ChimpPASwMean=cbind(ChimpPAS[,1:8],ChimpMean)
-
-
-HumanMean=rowMeans(HumanPAS[,9:ncol(HumanPAS)])
-
-HumanPASwMean=cbind(HumanPAS[,1:8],HumanMean)</code></pre>
-<p>Find the dominant PAS per gene:</p>
-<p>I will remove genes with ties for now</p>
-<pre class="r"><code>Chimp_Dom= ChimpPASwMean %&gt;%
-  group_by(gene) %&gt;%
-  top_n(1,ChimpMean) %&gt;% 
-  mutate(nPer=n()) %&gt;% 
-  filter(nPer==1) %&gt;% 
-  dplyr::select(gene,loc,PAS,ChimpMean) %&gt;% 
-  rename(ChimpLoc=loc, ChimpPAS=PAS)
-
-Human_Dom= HumanPASwMean %&gt;% 
-  group_by(gene) %&gt;% 
-  top_n(1, HumanMean) %&gt;% 
-  mutate(nPer=n()) %&gt;% 
-  filter(nPer==1) %&gt;% 
-  dplyr::select(gene,loc,PAS,HumanMean) %&gt;% 
-  rename(HumanLoc=loc, HumanPAS=PAS)
-
-
-#merge
-
-BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)</code></pre>
-<p>Look at how many have the same dominat and where these are:</p>
-<pre class="r"><code>SameDom=BothDom %&gt;% filter(ChimpPAS==HumanPAS,HumanLoc!=&quot;008559&quot;) 
-
-ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-5-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
+OverlapSame=length(intersect(NuclearSame$gene, sig_genes$gene) )
+OverlapSame/nrow(NuclearSame)</code></pre>
+<pre><code>[1] 0.3067315</code></pre>
 </div>
-</div>
-<p>Plot this as boxplots as well.</p>
-<pre class="r"><code>SameDom_gather=SameDom %&gt;% dplyr::select(gene, HumanLoc, ChimpMean,HumanMean) %&gt;% gather(species, value, -c(gene,HumanLoc))
+<div id="total" class="section level3">
+<h3>Total</h3>
+<pre class="r"><code>TotalHumanIntronChimpUTR=read.table( &quot;../data/DominantPAS/Total_HumanIntronicChimpUTR.txt&quot;, header = T, stringsAsFactors = F)
+TotalHumanUTRChimpChimp= read.table( &quot;../data/DominantPAS/Total_HumanUTRChimpIntronic.txt&quot;,  header = T, stringsAsFactors = F)</code></pre>
+<pre class="r"><code>TotalOverlapHumanIntronChimpUTR=length(intersect(TotalHumanIntronChimpUTR$gene, sig_genes$gene) )
+TotalOverlapHumanIntronChimpUTR/nrow(TotalHumanIntronChimpUTR)</code></pre>
+<pre><code>[1] 0.3704819</code></pre>
+<pre class="r"><code>TotalOverlapHumanUTRChimpChimp= length(intersect(TotalHumanUTRChimpChimp$gene, sig_genes$gene) )
+TotalOverlapHumanUTRChimpChimp/nrow(TotalHumanUTRChimpChimp)</code></pre>
+<pre><code>[1] 0.3461538</code></pre>
+<p>Compare this to the genes with the same dominant PAS.</p>
+<pre class="r"><code>TotalSame= read.table( &quot;../data/DominantPAS/Total_SameDom.txt&quot;,  header = T, stringsAsFactors = F)
 
-ggplot(SameDom_gather,aes(x=HumanLoc, y=value,fill=species)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;PAS Location&quot;, y=&quot;Mean Usage accross individuals&quot;, title=&quot;Mean usage for Genes with matching Dominant PAS&quot;)</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-6-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
+TotalOverlapSame=length(intersect(TotalSame$gene, sig_genes$gene) )
+TotalOverlapSame/nrow(TotalSame)</code></pre>
+<pre><code>[1] 0.3421897</code></pre>
 </div>
-</div>
-<p>Different PAS but in the same location:</p>
-<pre class="r"><code>DiffDom_sameLoc=BothDom %&gt;% filter(ChimpPAS!=HumanPAS,HumanLoc!=&quot;008559&quot;, ChimpLoc==HumanLoc) 
-
-ggplot(DiffDom_sameLoc,aes(x=HumanLoc)) +  geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;PAS Location&quot;, y= &quot;Number of Genes&quot;, title=&quot;Dominat PAS in same genic location but different PAS&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-7-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Now I can look at those that are in different locations.</p>
-<pre class="r"><code>DiffDom_diffLoc=BothDom %&gt;% filter(ChimpPAS!=HumanPAS,HumanLoc!=&quot;008559&quot;, ChimpLoc!=HumanLoc) 
-
-
-ggplot(DiffDom_diffLoc,aes(x=ChimpLoc))+ geom_histogram(stat=&quot;count&quot;)+ labs(x=&quot;Chimp Dominant Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Location of dominant PAS when they are differnet between species&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DiffDom_diffLoc,aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;)+labs(x=&quot;Human Dominant Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Location of dominant PAS when they are differnet between species&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-8-2.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This is interesting but could be based on the annotations. I will look at the genes with human in intron and chimp in 3’ UTR.</p>
-<pre class="r"><code>DiffDom_diffLoc_humanIntronChimpUTR= DiffDom_diffLoc %&gt;% filter(ChimpLoc==&quot;utr3&quot;, HumanLoc==&quot;intron&quot;)
-
-nrow(DiffDom_diffLoc_humanIntronChimpUTR)</code></pre>
-<pre><code>[1] 926</code></pre>
-<p>Opposite Direction</p>
-<pre class="r"><code>DiffDom_diffLoc_humanUTRChimpInton= DiffDom_diffLoc %&gt;% filter(ChimpLoc==&quot;intron&quot;, HumanLoc==&quot;utr3&quot;)
-nrow(DiffDom_diffLoc_humanUTRChimpInton)</code></pre>
-<pre><code>[1] 251</code></pre>
-<pre class="r"><code>prop.test(x=c(nrow(DiffDom_diffLoc_humanIntronChimpUTR),nrow(DiffDom_diffLoc_humanUTRChimpInton)), n=c(nrow(DiffDom_diffLoc), nrow(DiffDom_diffLoc)))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(nrow(DiffDom_diffLoc_humanIntronChimpUTR), nrow(DiffDom_diffLoc_humanUTRChimpInton)) out of c(nrow(DiffDom_diffLoc), nrow(DiffDom_diffLoc))
-X-squared = 485.91, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.2155473 0.2563156
-sample estimates:
-    prop 1     prop 2 
-0.32366305 0.08773156 </code></pre>
-<p>I will look to see if these genes are those I see with differential APA.</p>
-<pre class="bash"><code>mkdir ../data/DominantPAS</code></pre>
-<pre class="r"><code>write.table(DiffDom_diffLoc_humanIntronChimpUTR, &quot;../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt&quot;, col.names = T, row.names = F, quote = F)
-write.table(DiffDom_diffLoc_humanUTRChimpInton, &quot;../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt&quot;, col.names = T, row.names = F, quote = F)
-
-write.table(SameDom, &quot;../data/DominantPAS/Nuclear_SameDom.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
-<p><strong>How do i test if this number of genes is enriched??</strong></p>
+<div id="analysis" class="section level3">
+<h3>Analysis</h3>
+<p>Looks like the dominant human intronic and chimp 3’ utr are more likely to be called differential APA.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1375,29 +1103,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
- [9] tidyverse_1.2.1 workflowr_1.5.0
+ [1] workflowr_1.5.0 forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
-[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
-[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
+ [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     tools_3.5.1     
+ [9] digest_0.6.18    lubridate_1.7.4  jsonlite_1.6     evaluate_0.12   
+[13] nlme_3.1-137     gtable_0.2.0     lattice_0.20-38  pkgconfig_2.0.2 
+[17] rlang_0.4.0      cli_1.1.0        rstudioapi_0.10  yaml_2.2.0      
+[21] haven_1.1.2      withr_2.1.2      xml2_1.2.0       httr_1.3.1      
+[25] knitr_1.20       hms_0.4.2        generics_0.0.2   fs_1.3.1        
+[29] rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5 glue_1.3.0      
+[33] R6_2.3.0         readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2    
+[37] magrittr_1.5     whisker_0.3-2    backports_1.1.2  scales_1.0.0    
+[41] promises_1.0.1   htmltools_0.3.6  rvest_0.3.2      assertthat_0.2.0
+[45] colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4    lazyeval_0.2.1  
+[49] munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
+</div>
 </div>
 
 
