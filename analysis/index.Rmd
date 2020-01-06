@@ -57,9 +57,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Differential APA and eQTL overlap](DapaineQTL.html)
 
+* [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)  
+
 ##Quantify Phenotypes with RNA:   
 
-* [Differnetial Splicing](diffSplicing.html) 
+* [Differential Splicing](diffSplicing.html) 
 
 * [Differential Expression](diffExpression.html)
   
@@ -70,7 +72,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Compare DE and DS genes](DEvDS.html)
 
   
+##Intersect with outside molecular phenotypes:
 
+* [Download data from differential protein and ribosomes](dProtanddRibo.html)
 
 ##Extra QC and Analysis   
 

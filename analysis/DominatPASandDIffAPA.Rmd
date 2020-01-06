@@ -1,0 +1,86 @@
+---
+title: "DominatPASandDIffAPA"
+author: "Briana Mittleman"
+date: "1/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will look to see if any of the genes I found with differences in the most dominant PAS were called as differentially used. I will look first at the gene level then move to the PAS level.  
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+###Nuclear  
+
+
+```{r}
+HumanIntronChimpUTR=read.table( "../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt", header = T, stringsAsFactors = F)
+HumanUTRChimpChimp= read.table( "../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt",  header = T, stringsAsFactors = F)
+```
+
+
+```{r}
+sig=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+sig_genes=sig %>% filter(p.adjust<.05) %>% separate(cluster, into=c("chrom","gene"), sep=":")
+```
+
+```{r}
+OverlapHumanIntronChimpUTR=length(intersect(HumanIntronChimpUTR$gene, sig_genes$gene) )
+OverlapHumanIntronChimpUTR/nrow(HumanIntronChimpUTR)
+```
+
+```{r}
+OverlapHumanUTRChimpChimp= length(intersect(HumanUTRChimpChimp$gene, sig_genes$gene) )
+OverlapHumanUTRChimpChimp/nrow(HumanUTRChimpChimp)
+```
+
+
+Compare this to the genes with the same dominant PAS.  
+
+```{r}
+NuclearSame= read.table( "../data/DominantPAS/Nuclear_SameDom.txt",  header = T, stringsAsFactors = F)
+
+OverlapSame=length(intersect(NuclearSame$gene, sig_genes$gene) )
+OverlapSame/nrow(NuclearSame)
+```
+
+
+###Total  
+
+```{r}
+TotalHumanIntronChimpUTR=read.table( "../data/DominantPAS/Total_HumanIntronicChimpUTR.txt", header = T, stringsAsFactors = F)
+TotalHumanUTRChimpChimp= read.table( "../data/DominantPAS/Total_HumanUTRChimpIntronic.txt",  header = T, stringsAsFactors = F)
+```
+
+```{r}
+TotalOverlapHumanIntronChimpUTR=length(intersect(TotalHumanIntronChimpUTR$gene, sig_genes$gene) )
+TotalOverlapHumanIntronChimpUTR/nrow(TotalHumanIntronChimpUTR)
+```
+
+```{r}
+TotalOverlapHumanUTRChimpChimp= length(intersect(TotalHumanUTRChimpChimp$gene, sig_genes$gene) )
+TotalOverlapHumanUTRChimpChimp/nrow(TotalHumanUTRChimpChimp)
+```
+
+Compare this to the genes with the same dominant PAS.  
+
+```{r}
+TotalSame= read.table( "../data/DominantPAS/Total_SameDom.txt",  header = T, stringsAsFactors = F)
+
+TotalOverlapSame=length(intersect(TotalSame$gene, sig_genes$gene) )
+TotalOverlapSame/nrow(TotalSame)
+```
+
+
+###Analysis
+Looks like the dominant human intronic and chimp 3' utr are more likely to be called differential APA.  
+
+

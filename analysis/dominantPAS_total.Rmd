@@ -108,6 +108,33 @@ DiffDom_diffLoc_humanIntronChimpUTR= DiffDom_diffLoc %>% filter(ChimpLoc=="utr3"
 nrow(DiffDom_diffLoc_humanIntronChimpUTR)
 ```
 
+
+Opposite Direction
+```{r}
+
+DiffDom_diffLoc_humanUTRChimpInton= DiffDom_diffLoc %>% filter(ChimpLoc=="intron", HumanLoc=="utr3")
+nrow(DiffDom_diffLoc_humanUTRChimpInton)
+```
+
+
+```{r}
+prop.test(x=c(nrow(DiffDom_diffLoc_humanIntronChimpUTR),nrow(DiffDom_diffLoc_humanUTRChimpInton)), n=c(nrow(DiffDom_diffLoc), nrow(DiffDom_diffLoc)))
+```
+
+
 I will look to see if these genes are those I see with differential APA.  
 
+
+
+```{bash,eval=F}
+mkdir ../data/DominantPAS
+```
+
+```{r}
+write.table(DiffDom_diffLoc_humanIntronChimpUTR, "../data/DominantPAS/Total_HumanIntronicChimpUTR.txt", col.names = T, row.names = F, quote = F)
+write.table(DiffDom_diffLoc_humanUTRChimpInton, "../data/DominantPAS/Total_HumanUTRChimpIntronic.txt", col.names = T, row.names = F, quote = F)
+
+write.table(SameDom, "../data/DominantPAS/Total_SameDom.txt", col.names = T, row.names = F, quote = F)
+
+```
 **How do i test if this number of genes is enriched??** 
