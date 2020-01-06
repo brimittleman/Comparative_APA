@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5e857040d3c1c7aa994183714a5c0a7c84632596targetblank5e85704a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/5e857040d3c1c7aa994183714a5c0a7c84632596" target="_blank">5e85704</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb0dd3b592c9223b1fb15e256cddbff9fe64ea013targetblankb0dd3b5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b0dd3b592c9223b1fb15e256cddbff9fe64ea013" target="_blank">b0dd3b5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5e857040d3c1c7aa994183714a5c0a7c84632596targetblank5e85704a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb0dd3b592c9223b1fb15e256cddbff9fe64ea013targetblankb0dd3b5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1001,6 +1001,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b0dd3b592c9223b1fb15e256cddbff9fe64ea013/analysis/DapaineQTL.Rmd" target="_blank">b0dd3b5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+<td>
+add erichment histograms
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/DapaineQTL.html" target="_blank">c633e63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5e857040d3c1c7aa994183714a5c0a7c84632596/analysis/DapaineQTL.Rmd" target="_blank">5e85704</a>
 </td>
 <td>
@@ -1021,12 +1055,12 @@ add overlap with eQTLs
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(workflowr)</code></pre>
@@ -1058,11 +1092,86 @@ Nuclearqtl$cat=factor(Nuclearqtl$cat, levels=c(&quot;Explained&quot;,&quot;Unexa
 Nuclearqtl$num=as.numeric(as.character(Nuclearqtl$num ))
 
 ggplot(Nuclearqtl,aes(x=cat, y=num)) +geom_bar(stat=&quot;identity&quot;) + geom_text(aes(label=num), vjust=1.6, color=&quot;white&quot;, size=3.5) + labs(title=&quot;Differential APA in Nuclear fraction and human eQTL&quot;, y=&quot;Number of genes&quot;, x=&quot;Overlap&quot;)</code></pre>
-<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /> Make this plot with proportion:</p>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/figure/DapaineQTL.Rmd/unnamed-chunk-5-1.png" target="_blank">c633e63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Make this plot with proportion:</p>
 <pre class="r"><code>NuclearqtlProp=Nuclearqtl %&gt;% mutate(Prop=num/nrow(sigNuclear_genes))
 
 ggplot(NuclearqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat=&quot;identity&quot;) + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color=&quot;white&quot;, size=3.5) + labs(title=&quot;Differential APA in Nuclear fraction and human eQTL&quot;, y=&quot;Proportion of dAPA genes&quot;, x=&quot;Overlap&quot;)</code></pre>
 <p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/figure/DapaineQTL.Rmd/unnamed-chunk-6-1.png" target="_blank">c633e63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="total" class="section level3">
 <h3>Total</h3>
@@ -1085,11 +1194,179 @@ Totalqtl$numTotal=as.numeric(as.character(Totalqtl$numTotal ))
 
 ggplot(Totalqtl,aes(x=catTotal, y=numTotal)) +geom_bar(stat=&quot;identity&quot;) + geom_text(aes(label=numTotal), vjust=1.6, color=&quot;white&quot;, size=3.5) + labs(title=&quot;Differential APA in Total fraction and human eQTL&quot;, y=&quot;Number of genes&quot;, x=&quot;Overlap&quot;)</code></pre>
 <p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/figure/DapaineQTL.Rmd/unnamed-chunk-8-1.png" target="_blank">c633e63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Make this plot with proportion:</p>
 <pre class="r"><code>TotalqtlProp=Totalqtl %&gt;% mutate(Prop=num/nrow(sigTotal_genes))
 
 ggplot(TotalqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat=&quot;identity&quot;) + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color=&quot;white&quot;, size=3.5) + labs(title=&quot;Differential APA in Total fraction and human eQTL&quot;, y=&quot;Proportion of dAPA genes&quot;, x=&quot;Overlap&quot;)</code></pre>
 <p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/figure/DapaineQTL.Rmd/unnamed-chunk-9-1.png" target="_blank">c633e63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="test-enrichment" class="section level3">
+<h3>Test enrichment</h3>
+<p>To test if these values are enriched I need to write a function that randomly chooses the same number of genes and assess the same overlaps. I will use all of the genes that we tested for APA.</p>
+<pre class="r"><code>NuclearAPAtested=read.table(&quot;../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;gene&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(gene)
+NuclearAPAtested_genes=as.vector(NuclearAPAtested$gene)
+TotalAPAtested=read.table(&quot;../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;gene&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(gene)
+TotalAPAtested_genes=as.vector(TotalAPAtested$gene)</code></pre>
+<p>I can run it 100 times to have error bars.</p>
+<pre class="r"><code>permuteGenes &lt;- function(InputGenes, nGenes, nTests){
+  #InputGenes=NuclearAPAtested_genes
+  #nGenes=nrow(sigNuclear_genes)
+  #nTests=100
+  explained=read.table(&quot;../data/Li_eqtls/explainedEgenes.txt&quot;,col.names = c(&quot;genes&quot;),stringsAsFactors = F)
+  unexplained=read.table(&quot;../data/Li_eqtls/UnexplainedEgenes.txt&quot;,col.names = c(&quot;genes&quot;),stringsAsFactors = F)
+  explainedOverlap=c()
+  unexplainedOverlap=c()
+  neitherOverlap=c()
+  for (n in 1:nTests){
+    genesTest=sample(InputGenes, nGenes)
+    overlapE=intersect(genesTest, explained$genes) 
+    overlapUN=intersect(genesTest, unexplained$genes) 
+    diffs &lt;- Reduce(setdiff,list(A = genesTest, B = explained$genes,C = unexplained$genes))
+    explainedOverlap= c(explainedOverlap, length(overlapE))
+    unexplainedOverlap=c(unexplainedOverlap,length(overlapUN))
+    neitherOverlap=c(neitherOverlap, length(diffs))
+  }
+  DF=as.data.frame(cbind(explainedOverlap,unexplainedOverlap,neitherOverlap))
+  return(DF)
+}</code></pre>
+<p>Perform permutations 1000 times</p>
+<pre class="r"><code>Nuclear_100tests=permuteGenes(NuclearAPAtested_genes, nrow(sigNuclear_genes),1000 )
+
+Total_100tests=permuteGenes(TotalAPAtested_genes, nrow(sigTotal_genes),1000 )</code></pre>
+<p>Plot as histograms</p>
+<p>Nuclear Explained</p>
+<pre class="r"><code>ggplot(Nuclear_100tests,aes(x=explainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(explainedNuclear), col=&quot;red&quot; )+labs(x=&quot;Number of Overlaps&quot;, title=&quot;Nuclear dAPA overlap with explained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Nuclear Unexplained</p>
+<pre class="r"><code>ggplot(Nuclear_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(unexplainedNuclear), col=&quot;red&quot; ) +labs(x=&quot;Number of Overlaps&quot;, title=&quot;Nuclear dAPA overlap with unexplained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Total Explained</p>
+<pre class="r"><code>ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(explainedTotal), col=&quot;red&quot; )+labs(x=&quot;Number of Overlaps&quot;, title=&quot;Total dAPA overlap with explained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Total Unexplained</p>
+<pre class="r"><code>ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(unexplainedTotal), col=&quot;red&quot; ) +labs(x=&quot;Number of Overlaps&quot;, title=&quot;Total dAPA overlap with unexplained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /> ###extra code:</p>
+<pre class="r"><code># NuclearEx_mean=mean(Nuclear_100tests$explainedOverlap)
+# NuclearEx_sd=sd(Nuclear_100tests$explainedOverlap)
+# NuclearUn_mean=mean(Nuclear_100tests$unexplainedOverlap)
+# NuclearUn_sd=sd(Nuclear_100tests$unexplainedOverlap)
+# NuclearN_mean=mean(Nuclear_100tests$neitherOverlap)
+# NuclearN_sd=sd(Nuclear_100tests$neitherOverlap)
+# 
+# Nuclear_100testsDf=as.data.frame(cbind(cat=c(&quot;Explained&quot;,&quot;Unexplained&quot;, &quot;Neither&quot;), Mean=c(NuclearEx_mean,NuclearUn_mean,NuclearN_mean), SD=c(NuclearEx_sd,NuclearUn_sd,NuclearN_sd), actual=Nuclearqtl$num))
+# 
+# 
+# Nuclear_100testsDf$cat=factor(Nuclear_100testsDf$cat, levels=c(&quot;Explained&quot;,&quot;Unexplained&quot;, &quot;Neither&quot;), ordered=T)
+# Nuclear_100testsDf$Mean=as.numeric(as.character(Nuclear_100testsDf$Mean))
+# Nuclear_100testsDf$SD=as.numeric(as.character(Nuclear_100testsDf$SD))
+# Nuclear_100testsDf$actual=as.numeric(as.character(Nuclear_100testsDf$actual))
+# 
+# ggplot(Nuclear_100testsDf,aes(x=cat,y=Mean)) + geom_bar(stat = &quot;identity&quot;, alpha=.5) + geom_errorbar(aes(x=cat, ymin=Mean-SD, ymax=Mean+SD), width=0.2, size=1) + geom_point(aes(x=cat, y=actual), col=&quot;red&quot;)</code></pre>
+<p>Total Explained</p>
+<pre class="r"><code>ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(explainedTotal), col=&quot;red&quot; )+labs(x=&quot;Number of Overlaps&quot;, title=&quot;Total dAPA overlap with explained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Total Unexplained</p>
+<pre class="r"><code>ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat=&quot;count&quot;) + geom_vline(xintercept =nrow(unexplainedTotal), col=&quot;red&quot; ) +labs(x=&quot;Number of Overlaps&quot;, title=&quot;Total dAPA overlap with unexplained eGenes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DapaineQTL.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="extra-code" class="section level3">
+<h3>extra code:</h3>
+<pre class="r"><code># NuclearEx_mean=mean(Nuclear_100tests$explainedOverlap)
+# NuclearEx_sd=sd(Nuclear_100tests$explainedOverlap)
+# NuclearUn_mean=mean(Nuclear_100tests$unexplainedOverlap)
+# NuclearUn_sd=sd(Nuclear_100tests$unexplainedOverlap)
+# NuclearN_mean=mean(Nuclear_100tests$neitherOverlap)
+# NuclearN_sd=sd(Nuclear_100tests$neitherOverlap)
+# 
+# Nuclear_100testsDf=as.data.frame(cbind(cat=c(&quot;Explained&quot;,&quot;Unexplained&quot;, &quot;Neither&quot;), Mean=c(NuclearEx_mean,NuclearUn_mean,NuclearN_mean), SD=c(NuclearEx_sd,NuclearUn_sd,NuclearN_sd), actual=Nuclearqtl$num))
+# 
+# 
+# Nuclear_100testsDf$cat=factor(Nuclear_100testsDf$cat, levels=c(&quot;Explained&quot;,&quot;Unexplained&quot;, &quot;Neither&quot;), ordered=T)
+# Nuclear_100testsDf$Mean=as.numeric(as.character(Nuclear_100testsDf$Mean))
+# Nuclear_100testsDf$SD=as.numeric(as.character(Nuclear_100testsDf$SD))
+# Nuclear_100testsDf$actual=as.numeric(as.character(Nuclear_100testsDf$actual))
+# 
+# ggplot(Nuclear_100testsDf,aes(x=cat,y=Mean)) + geom_bar(stat = &quot;identity&quot;, alpha=.5) + geom_errorbar(aes(x=cat, ymin=Mean-SD, ymax=Mean+SD), width=0.2, size=1) + geom_point(aes(x=cat, y=actual), col=&quot;red&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
