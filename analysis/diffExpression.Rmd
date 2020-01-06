@@ -458,6 +458,7 @@ proportion[4]
 ```{r}
 fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))
+testgenes= rownames(coef(fit.cpm.voom))
 ```
 
 ```{r}
@@ -499,5 +500,6 @@ deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val < 0.05,]))
 #mkdir ../data/DiffExpression
 
 write.table(deGenes,"../data/DiffExpression/DE_genes.txt", col.names = F, row.names = F, quote = F)
+write.table(testgenes,"../data/DiffExpression/DE_Testedgenes.txt", col.names = F, row.names = F, quote = F)
 ```
 

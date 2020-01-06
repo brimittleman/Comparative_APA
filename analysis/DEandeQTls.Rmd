@@ -56,3 +56,54 @@ DEqtlProp=DEqtl %>% mutate(Prop=num/nrow(DEgenes))
 ggplot(DEqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat="identity") + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color="white", size=3.5) + labs(title="Differential Expression and human eQTL", y="Proportion of DE genes", x="Overlap")
 ```
 
+Look for enrichment:
+
+```{r}
+
+permuteGenes <- function(InputGenes, nGenes, nTests){
+  #InputGenes=NuclearAPAtested_genes
+  #nGenes=nrow(sigNuclear_genes)
+  #nTests=100
+  explained=read.table("../data/Li_eqtls/explainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+  unexplained=read.table("../data/Li_eqtls/UnexplainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+  explainedOverlap=c()
+  unexplainedOverlap=c()
+  neitherOverlap=c()
+  for (n in 1:nTests){
+    genesTest=sample(InputGenes, nGenes)
+    overlapE=intersect(genesTest, explained$genes) 
+    overlapUN=intersect(genesTest, unexplained$genes) 
+    diffs <- Reduce(setdiff,list(A = genesTest, B = explained$genes,C = unexplained$genes))
+    explainedOverlap= c(explainedOverlap, length(overlapE))
+    unexplainedOverlap=c(unexplainedOverlap,length(overlapUN))
+    neitherOverlap=c(neitherOverlap, length(diffs))
+  }
+  DF=as.data.frame(cbind(explainedOverlap,unexplainedOverlap,neitherOverlap))
+  return(DF)
+}
+```
+
+I need to have all of the genes tested for eGenes.  
+
+```{r}
+DEtestedgenes=read.table("../data/DiffExpression/DE_Testedgenes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name)
+```
+
+
+Perform permutations 1000 times
+```{r}
+Expression_1000tests=permuteGenes(DEtestedgenes$Gene.name, nrow(DEgenes),1000 )
+```
+
+Plot as histograms 
+
+ Explained
+```{r}
+
+ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_explained), col="red" )+labs(x="Number of Overlaps", title="DE overlap with explained eGenes")
+
+```
+ Unexplained
+```{r}
+ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_unexplained), col="red" ) +labs(x="Number of Overlaps", title="DE overlap with unexplained eGenes")
+```
