@@ -103,4 +103,144 @@ TotalqtlProp=Totalqtl %>% mutate(Prop=num/nrow(sigTotal_genes))
 ggplot(TotalqtlProp,aes(x=cat, y=Prop)) +geom_bar(stat="identity") + geom_text(aes(label=round(Prop,digits = 3)), vjust=1.6, color="white", size=3.5) + labs(title="Differential APA in Total fraction and human eQTL", y="Proportion of dAPA genes", x="Overlap")
 ```
 
+###Test enrichment
+To test if these values are enriched I need to write a function that randomly chooses the same number of genes and assess the same overlaps. I will use all of the genes that we tested for APA.
 
+```{r}
+NuclearAPAtested=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chrom", "gene"), sep=":") %>% dplyr::select(gene)
+NuclearAPAtested_genes=as.vector(NuclearAPAtested$gene)
+TotalAPAtested=read.table("../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chrom", "gene"), sep=":") %>% dplyr::select(gene)
+TotalAPAtested_genes=as.vector(TotalAPAtested$gene)
+```
+
+
+I can run it 100 times to have error bars.  
+
+```{r}
+permuteGenes <- function(InputGenes, nGenes, nTests){
+  #InputGenes=NuclearAPAtested_genes
+  #nGenes=nrow(sigNuclear_genes)
+  #nTests=100
+  explained=read.table("../data/Li_eqtls/explainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+  unexplained=read.table("../data/Li_eqtls/UnexplainedEgenes.txt",col.names = c("genes"),stringsAsFactors = F)
+  explainedOverlap=c()
+  unexplainedOverlap=c()
+  neitherOverlap=c()
+  for (n in 1:nTests){
+    genesTest=sample(InputGenes, nGenes)
+    overlapE=intersect(genesTest, explained$genes) 
+    overlapUN=intersect(genesTest, unexplained$genes) 
+    diffs <- Reduce(setdiff,list(A = genesTest, B = explained$genes,C = unexplained$genes))
+    explainedOverlap= c(explainedOverlap, length(overlapE))
+    unexplainedOverlap=c(unexplainedOverlap,length(overlapUN))
+    neitherOverlap=c(neitherOverlap, length(diffs))
+  }
+  DF=as.data.frame(cbind(explainedOverlap,unexplainedOverlap,neitherOverlap))
+  return(DF)
+}
+```
+
+
+Perform permutations 1000 times
+```{r}
+Nuclear_100tests=permuteGenes(NuclearAPAtested_genes, nrow(sigNuclear_genes),1000 )
+
+Total_100tests=permuteGenes(TotalAPAtested_genes, nrow(sigTotal_genes),1000 )
+```
+
+
+Plot as histograms 
+
+Nuclear Explained
+```{r}
+
+ggplot(Nuclear_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedNuclear), col="red" )+labs(x="Number of Overlaps", title="Nuclear dAPA overlap with explained eGenes")
+
+```
+ 
+Nuclear Unexplained
+```{r}
+ggplot(Nuclear_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedNuclear), col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with unexplained eGenes")
+```
+ 
+
+Total Explained
+
+```{r}
+
+ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedTotal), col="red" )+labs(x="Number of Overlaps", title="Total dAPA overlap with explained eGenes")
+
+```
+
+Total Unexplained
+
+
+```{r}
+ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedTotal), col="red" ) +labs(x="Number of Overlaps", title="Total dAPA overlap with unexplained eGenes")
+```
+###extra code:
+
+
+```{r}
+
+# NuclearEx_mean=mean(Nuclear_100tests$explainedOverlap)
+# NuclearEx_sd=sd(Nuclear_100tests$explainedOverlap)
+# NuclearUn_mean=mean(Nuclear_100tests$unexplainedOverlap)
+# NuclearUn_sd=sd(Nuclear_100tests$unexplainedOverlap)
+# NuclearN_mean=mean(Nuclear_100tests$neitherOverlap)
+# NuclearN_sd=sd(Nuclear_100tests$neitherOverlap)
+# 
+# Nuclear_100testsDf=as.data.frame(cbind(cat=c("Explained","Unexplained", "Neither"), Mean=c(NuclearEx_mean,NuclearUn_mean,NuclearN_mean), SD=c(NuclearEx_sd,NuclearUn_sd,NuclearN_sd), actual=Nuclearqtl$num))
+# 
+# 
+# Nuclear_100testsDf$cat=factor(Nuclear_100testsDf$cat, levels=c("Explained","Unexplained", "Neither"), ordered=T)
+# Nuclear_100testsDf$Mean=as.numeric(as.character(Nuclear_100testsDf$Mean))
+# Nuclear_100testsDf$SD=as.numeric(as.character(Nuclear_100testsDf$SD))
+# Nuclear_100testsDf$actual=as.numeric(as.character(Nuclear_100testsDf$actual))
+# 
+# ggplot(Nuclear_100testsDf,aes(x=cat,y=Mean)) + geom_bar(stat = "identity", alpha=.5) + geom_errorbar(aes(x=cat, ymin=Mean-SD, ymax=Mean+SD), width=0.2, size=1) + geom_point(aes(x=cat, y=actual), col="red")
+
+```
+
+
+
+Total Explained
+
+```{r}
+
+ggplot(Total_100tests,aes(x=explainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(explainedTotal), col="red" )+labs(x="Number of Overlaps", title="Total dAPA overlap with explained eGenes")
+
+```
+
+Total Unexplained
+
+
+```{r}
+ggplot(Total_100tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(unexplainedTotal), col="red" ) +labs(x="Number of Overlaps", title="Total dAPA overlap with unexplained eGenes")
+```
+
+###extra code:
+
+
+```{r}
+
+# NuclearEx_mean=mean(Nuclear_100tests$explainedOverlap)
+# NuclearEx_sd=sd(Nuclear_100tests$explainedOverlap)
+# NuclearUn_mean=mean(Nuclear_100tests$unexplainedOverlap)
+# NuclearUn_sd=sd(Nuclear_100tests$unexplainedOverlap)
+# NuclearN_mean=mean(Nuclear_100tests$neitherOverlap)
+# NuclearN_sd=sd(Nuclear_100tests$neitherOverlap)
+# 
+# Nuclear_100testsDf=as.data.frame(cbind(cat=c("Explained","Unexplained", "Neither"), Mean=c(NuclearEx_mean,NuclearUn_mean,NuclearN_mean), SD=c(NuclearEx_sd,NuclearUn_sd,NuclearN_sd), actual=Nuclearqtl$num))
+# 
+# 
+# Nuclear_100testsDf$cat=factor(Nuclear_100testsDf$cat, levels=c("Explained","Unexplained", "Neither"), ordered=T)
+# Nuclear_100testsDf$Mean=as.numeric(as.character(Nuclear_100testsDf$Mean))
+# Nuclear_100testsDf$SD=as.numeric(as.character(Nuclear_100testsDf$SD))
+# Nuclear_100testsDf$actual=as.numeric(as.character(Nuclear_100testsDf$actual))
+# 
+# ggplot(Nuclear_100testsDf,aes(x=cat,y=Mean)) + geom_bar(stat = "identity", alpha=.5) + geom_errorbar(aes(x=cat, ymin=Mean-SD, ymax=Mean+SD), width=0.2, size=1) + geom_point(aes(x=cat, y=actual), col="red")
+
+```
+
+ 
