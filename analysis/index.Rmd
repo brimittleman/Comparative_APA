@@ -76,7 +76,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Download data from differential protein and ribosomes](dProtanddRibo.html)  
 
-* [Compare to nuclear differential APA](DiffTransProtvsNuclearAPA.html)  
+* [Compare to nuclear differential APA](DiffTransProtvsNuclearAPA.html)   
+
+* [Use UpSetR to vizualize intersections](upsetter.html)  
 
 ##Extra QC and Analysis   
 
