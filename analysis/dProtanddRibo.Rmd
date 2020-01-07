@@ -1,0 +1,69 @@
+---
+title: "Differential Protein and Differential RIbo"
+author: "Briana Mittleman"
+date: "1/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+###Ribo seq: Post-translational buffering leads to convergent protein expression levels between primates
+
+```{bash,eval=F}
+mkdir ../data/Wang_ribo/
+```
+
+
+Download additional table 5 into this directory. I want to look at the HvC.FDR column. The genes are only ENSG so I will need to convert these.  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) 
+colnames(nameID)=c("ENSG", "Gene", "source")
+
+```
+
+```{r}
+translation=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",stringsAsFactors = F, header = T) %>% inner_join(nameID,by="ENSG") 
+```
+
+Subset to genes with FDR < 5%.  
+
+```{r}
+TranslationSig=translation %>% filter(HvC.FDR  <= 0.05) %>% dplyr::select(HvC.FDR, ENSG,Gene)
+```
+
+Write out to use for analysis:  
+
+```{r}
+write.table(TranslationSig, "../data/Wang_ribo/HC_SigTranslation.txt", col.names = T, row.names = F, quote = F)
+```
+
+###Protein: Primate Transcript and Protein Expression Levels Evolve Under Compensatory Selection Pressures
+
+```{bash,eval=F}
+mkdir ../data/Khan_prot/
+```
+
+Download supplementary table 4 to this directory. HC.pvalues.protein, HC.qvalues.protein are the columns with the information I want to see if the protiens are differentially used.  
+
+```{r}
+ProtComp=read.csv("../data/Khan_prot/Khan_TableS4.csv", stringsAsFactors = F, header = T)
+```
+Subset to genes with a qvalue less than 0.05. (5% fdr) 
+
+```{r}
+ProtSig=ProtComp %>% filter(HC.qvalues.protein <=.05) %>% dplyr::select(HC.qvalues.protein, ENSG, gene.symbol)
+```
+
+Write out the list of genes to run analysis with.  
+
+```{r}
+write.table(ProtSig, "../data/Khan_prot/HC_SigProtein.txt", col.names = T, row.names = F, quote = F)
+```
+
