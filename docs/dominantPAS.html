@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-06
+<strong>Last updated:</strong> 2020-01-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree54015c83b7d5a5583ee4c3cba8e9f12734ca0000targetblank54015c8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/54015c83b7d5a5583ee4c3cba8e9f12734ca0000" target="_blank">54015c8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree203eae574eb54842cf37786d93397c01153ea3b3targetblank203eae5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/203eae574eb54842cf37786d93397c01153ea3b3" target="_blank">203eae5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree54015c83b7d5a5583ee4c3cba8e9f12734ca0000targetblank54015c8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree203eae574eb54842cf37786d93397c01153ea3b3targetblank203eae5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -458,8 +458,8 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
+    Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/assessReadQual.Rmd
-    Untracked:  analysis/dProtanddRibo.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
@@ -474,6 +474,7 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
@@ -604,6 +605,9 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindIntronForDomPAS.err
+    Untracked:  code/FindIntronForDomPAS.out
+    Untracked:  code/FindIntronForDomPAS.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
@@ -918,6 +922,7 @@ Untracked files:
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
     Untracked:  data/MapPantro6_meta.xlsx
@@ -937,6 +942,7 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
     Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/Wang_ribo/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -1004,6 +1010,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/203eae574eb54842cf37786d93397c01153ea3b3/analysis/dominantPAS.Rmd" target="_blank">203eae5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-08
+</td>
+<td>
+first steps for intron loc analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dec23c17b58af879e35616b4e87db89ea5b422fe/docs/dominantPAS.html" target="_blank">dec23c1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/54015c83b7d5a5583ee4c3cba8e9f12734ca0000/analysis/dominantPAS.Rmd" target="_blank">54015c8</a>
 </td>
 <td>
@@ -1063,12 +1103,12 @@ add total and nuclear dominant PAS analysis
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>These are the PAS</p>
@@ -1192,133 +1232,25 @@ brimittleman
 </table>
 </div>
 </div>
+<p>Write out the intronic for location analysis.</p>
+<pre class="bash"><code>mkdir ../data/DominantPAS</code></pre>
+<pre class="r"><code>SameDom_intron=SameDom %&gt;% filter(ChimpLoc==&quot;intron&quot;)
+write.table(SameDom_intron, &quot;../data/DominantPAS/SameDominantIntronic.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
 <p>Different PAS but in the same location:</p>
 <pre class="r"><code>DiffDom_sameLoc=BothDom %&gt;% filter(ChimpPAS!=HumanPAS,HumanLoc!=&quot;008559&quot;, ChimpLoc==HumanLoc) 
 
 ggplot(DiffDom_sameLoc,aes(x=HumanLoc)) +  geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;PAS Location&quot;, y= &quot;Number of Genes&quot;, title=&quot;Dominat PAS in same genic location but different PAS&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-7-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Now I can look at those that are in different locations.</p>
+<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> Now I can look at those that are in different locations.</p>
 <pre class="r"><code>DiffDom_diffLoc=BothDom %&gt;% filter(ChimpPAS!=HumanPAS,HumanLoc!=&quot;008559&quot;, ChimpLoc!=HumanLoc) 
 
 
 ggplot(DiffDom_diffLoc,aes(x=ChimpLoc))+ geom_histogram(stat=&quot;count&quot;)+ labs(x=&quot;Chimp Dominant Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Location of dominant PAS when they are differnet between species&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DiffDom_diffLoc,aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;)+labs(x=&quot;Human Dominant Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Location of dominant PAS when they are differnet between species&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/figure/dominantPAS.Rmd/unnamed-chunk-8-2.png" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dominantPAS.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This is interesting but could be based on the annotations. I will look at the genes with human in intron and chimp in 3’ UTR.</p>
 <pre class="r"><code>DiffDom_diffLoc_humanIntronChimpUTR= DiffDom_diffLoc %&gt;% filter(ChimpLoc==&quot;utr3&quot;, HumanLoc==&quot;intron&quot;)
 
@@ -1342,7 +1274,6 @@ sample estimates:
     prop 1     prop 2 
 0.32366305 0.08773156 </code></pre>
 <p>I will look to see if these genes are those I see with differential APA.</p>
-<pre class="bash"><code>mkdir ../data/DominantPAS</code></pre>
 <pre class="r"><code>write.table(DiffDom_diffLoc_humanIntronChimpUTR, &quot;../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt&quot;, col.names = T, row.names = F, quote = F)
 write.table(DiffDom_diffLoc_humanUTRChimpInton, &quot;../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt&quot;, col.names = T, row.names = F, quote = F)
 
