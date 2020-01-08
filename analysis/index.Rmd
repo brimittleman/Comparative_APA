@@ -42,6 +42,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)
 
+  * [Intronics location for dominant PAS](DominantPASintronLoc.Rmd)  
 
 ##Differential Isoform Analysis:
 

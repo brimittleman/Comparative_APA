@@ -80,6 +80,19 @@ SameDom_gather=SameDom %>% dplyr::select(gene, HumanLoc, ChimpMean,HumanMean) %>
 
 ggplot(SameDom_gather,aes(x=HumanLoc, y=value,fill=species)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(x="PAS Location", y="Mean Usage accross individuals", title="Mean usage for Genes with matching Dominant PAS")
 ```
+Write out the intronic for location analysis.  
+
+
+```{bash,eval=F}
+mkdir ../data/DominantPAS
+```
+
+```{r}
+SameDom_intron=SameDom %>% filter(ChimpLoc=="intron")
+write.table(SameDom_intron, "../data/DominantPAS/SameDominantIntronic.txt", col.names = T, row.names = F, quote = F)
+```
+
+
 
 
 Different PAS but in the same location:   
@@ -121,9 +134,7 @@ prop.test(x=c(nrow(DiffDom_diffLoc_humanIntronChimpUTR),nrow(DiffDom_diffLoc_hum
 
 I will look to see if these genes are those I see with differential APA.  
 
-```{bash,eval=F}
-mkdir ../data/DominantPAS
-```
+
 
 ```{r}
 write.table(DiffDom_diffLoc_humanIntronChimpUTR, "../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt", col.names = T, row.names = F, quote = F)

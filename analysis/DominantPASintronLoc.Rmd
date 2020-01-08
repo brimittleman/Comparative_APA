@@ -1,0 +1,59 @@
+---
+title: "Intronic Location for Shared and Different Dominant PAS"
+author: "Briana Mittleman"
+date: "1/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+The goal of this analysis is to look at the distribution of intronic location for the shared and not shared dominant PAS. This will help me know if the pattern is due to annotation or not. In this analysis I will use the nuclear results.   
+
+
+The first step is assigning each PAS to the intron it comes from.  
+
+```{r}
+HumanIntronicChimpUTR=read.table("../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt",header = T, stringsAsFactors = F)%>% dplyr::select(gene, HumanPAS, HumanMean)
+SameDomIntron=read.table("../data/DominantPAS/SameDominantIntronic.txt",header = T, stringsAsFactors = F)%>% dplyr::select(gene, HumanPAS,HumanMean)
+```
+
+```{r}
+HumanPAS= read.table("../data/Pheno_5perc/Human_Pheno_5perc.txt", header = T,stringsAsFactors = F) %>% dplyr::select(chr, start, end, gene, strand, PAS) %>% rename("HumanPAS"=PAS)
+```
+
+Subset this file by those in the set and select it as a bed file for overlap with intron file. I will use the human mean as the score for now.    
+
+```{r}
+HumanPAS_samedom=HumanPAS %>% inner_join(SameDomIntron, by="HumanPAS") %>% mutate(GenePAS=paste(gene.x, HumanPAS, sep="_")) %>% dplyr::select(chr, start, end, GenePAS, HumanMean,strand)
+
+HumanPAS_diffDom=HumanPAS %>% inner_join(HumanIntronicChimpUTR, by="HumanPAS") %>% mutate(GenePAS=paste(gene.x, HumanPAS, sep="_")) %>% dplyr::select(chr, start, end, GenePAS, HumanMean,strand)
+```
+
+I can write these out as bed files. 
+
+```{r}
+write.table(HumanPAS_samedom, "../data/DominantPAS/SameDominantPAS_intronic.bed", quote = F, row.names = F, col.names = F,sep = "\t")
+write.table(HumanPAS_diffDom, "../data/DominantPAS/DifferentDominantPAS_intronic.bed", quote = F, row.names = F, col.names = F,sep = "\t")
+```
+
+
+I can use bedtools intersect to find the intron these are in.  
+
+
+bedtools intersect -s -sorted -loj -a (PAS file) -b intron file  > output  
+
+```{bash,eval=F}
+sbatch FindIntronForDomPAS.sh
+```
+
+
+I am getting a lot of missing introns. I dont know how this would be possible... Look at this in IGV...(pull in both bed files)
+Also there are places where multiple transcripts with the intron included. this means the same PAS shows up multiple times ( i can look for uniq intron locations to take care of this)
