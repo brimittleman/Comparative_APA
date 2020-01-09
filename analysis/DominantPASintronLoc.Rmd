@@ -55,5 +55,54 @@ sbatch FindIntronForDomPAS.sh
 ```
 
 
-I am getting a lot of missing introns. I dont know how this would be possible... Look at this in IGV...(pull in both bed files)
-Also there are places where multiple transcripts with the intron included. this means the same PAS shows up multiple times ( i can look for uniq intron locations to take care of this)
+There are places where multiple transcripts with the intron included. this means the same PAS shows up multiple times ( i can look for uniq intron locations to take care of this)
+
+
+```{r}
+SameDomIntron=read.table("../data/DominantPAS/SameDominantPAS_intronic_mapped2Intron.txt", stringsAsFactors = F, col.names = c("PASchr", "PASstart", "PASend", "PASname", "PASusage", "PASstrand", "Intronchr", "IntronStart", "IntronEnd", "IntronName", "IntronScore", "IntronStrand"))
+#group by intronname and keep top intron
+
+SameDomIntronOne=SameDomIntron %>% group_by(PASname) %>% slice(1) %>% ungroup()
+
+
+
+DiffDomIntron=read.table("../data/DominantPAS/DifferentDominantPAS_intronic_mapped2Intron.txt", stringsAsFactors = F, col.names = c("PASchr", "PASstart", "PASend", "PASname", "PASusage", "PASstrand", "Intronchr", "IntronStart", "IntronEnd", "IntronName", "IntronScore", "IntronStrand"))
+DiffDomIntronOne=DiffDomIntron %>% group_by(PASname) %>% slice(1) %>% ungroup()
+```
+
+Now I need to find the midpoint for the PAS and get the percent distance to the start of the intron. I will use the intron strand because this is the genomic strand.  
+
+```{r}
+SameDomIntronOne_dist=SameDomIntronOne %>% mutate(centerPAS=PASstart +100, intronLength=IntronEnd-IntronStart, distance2PAS=ifelse(IntronStrand=="+", centerPAS -IntronStart, IntronEnd-centerPAS),propIntron=distance2PAS/intronLength)
+
+DiffDomIntronOne_dist=DiffDomIntronOne %>% mutate(centerPAS=PASstart +100, intronLength=IntronEnd-IntronStart, distance2PAS=ifelse(IntronStrand=="+", centerPAS -IntronStart, IntronEnd-centerPAS),propIntron=distance2PAS/intronLength)
+```
+
+Plot both distributions, do percentage and absolute distance
+```{r}
+ggplot(SameDomIntronOne_dist, aes(x=distance2PAS)) + geom_histogram(bins=100)  + labs(x="Distance from intron start to PAS", title="Same Dominant Intron, absolute distance")
+
+ggplot(SameDomIntronOne_dist, aes(x=propIntron)) + geom_histogram(bins=100) +labs(x="Proportion of intron", title="Same Dominant Intron, proportion of intron")
+```
+```{r}
+SameDomIntronOne_dist_filt= SameDomIntronOne_dist %>% filter(distance2PAS<=100000)
+
+ggplot(SameDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=100)   +labs(x="Distance from intron start to PAS", title="Same Dominant Intron, absolute distance (less than 100kb)")
+```
+
+
+
+```{r}
+ggplot(DiffDomIntronOne_dist, aes(x=distance2PAS)) + geom_histogram(bins=100)+ labs(x="Distance from intron start to PAS", title="Human Dominant Intronic, Chimp Dominant 3' UTR, absolute distance")
+ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) + geom_histogram(bins=100) +labs(x="Proportion of intron", title="Human Dominant Intronic, Chimp Dominant 3' UTR, Proportion of intron")
+```
+
+
+```{r}
+DiffDomIntronOne_dist_filt= DiffDomIntronOne_dist %>% filter(distance2PAS<=100000)
+
+ggplot(DiffDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=100) +  labs(x="Distance from intron start to PAS", title="Human Dominant Intronic, Chimp Dominant 3' UTR \nabsolute distance (less than 100kb)")
+```
+
+
+Distributions look pretty similar.   
