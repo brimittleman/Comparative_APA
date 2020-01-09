@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree07697b2549ebd4674230f46d7993c74574e569dbtargetblank07697b2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/07697b2549ebd4674230f46d7993c74574e569db" target="_blank">07697b2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeabcafc425a91de5f87540812a83b02c2f9b896adtargetblankabcafc4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/abcafc425a91de5f87540812a83b02c2f9b896ad" target="_blank">abcafc4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree07697b2549ebd4674230f46d7993c74574e569dbtargetblank07697b2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeabcafc425a91de5f87540812a83b02c2f9b896adtargetblankabcafc4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1009,6 +1009,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/abcafc425a91de5f87540812a83b02c2f9b896ad/analysis/DominantPASintronLoc.Rmd" target="_blank">abcafc4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+<td>
+wflow_publish(“analysis/DominantPASintronLoc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/DominantPASintronLoc.html" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/07697b2549ebd4674230f46d7993c74574e569db/analysis/DominantPASintronLoc.Rmd" target="_blank">07697b2</a>
 </td>
 <td>
@@ -1106,21 +1140,245 @@ DiffDomIntronOne_dist=DiffDomIntronOne %&gt;% mutate(centerPAS=PASstart +100, in
 <p>Plot both distributions, do percentage and absolute distance</p>
 <pre class="r"><code>ggplot(SameDomIntronOne_dist, aes(x=distance2PAS)) + geom_histogram(bins=100)  + labs(x=&quot;Distance from intron start to PAS&quot;, title=&quot;Same Dominant Intron, absolute distance&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-9-1.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(SameDomIntronOne_dist, aes(x=propIntron)) + geom_histogram(bins=100) +labs(x=&quot;Proportion of intron&quot;, title=&quot;Same Dominant Intron, proportion of intron&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-9-2.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>SameDomIntronOne_dist_filt= SameDomIntronOne_dist %&gt;% filter(distance2PAS&lt;=100000)
 
 ggplot(SameDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=100)   +labs(x=&quot;Distance from intron start to PAS&quot;, title=&quot;Same Dominant Intron, absolute distance (less than 100kb)&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-10-1.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(DiffDomIntronOne_dist, aes(x=distance2PAS)) + geom_histogram(bins=100)+ labs(x=&quot;Distance from intron start to PAS&quot;, title=&quot;Human Dominant Intronic, Chimp Dominant 3&#39; UTR, absolute distance&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-11-1.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) + geom_histogram(bins=100) +labs(x=&quot;Proportion of intron&quot;, title=&quot;Human Dominant Intronic, Chimp Dominant 3&#39; UTR, Proportion of intron&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-11-2.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DiffDomIntronOne_dist_filt= DiffDomIntronOne_dist %&gt;% filter(distance2PAS&lt;=100000)
 
 ggplot(DiffDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=100) +  labs(x=&quot;Distance from intron start to PAS&quot;, title=&quot;Human Dominant Intronic, Chimp Dominant 3&#39; UTR \nabsolute distance (less than 100kb)&quot;)</code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f34d597c581f8725fd00938b8c197e1aabf0c89f/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-12-1.png" target="_blank">f34d597</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Distributions look pretty similar.</p>
+<pre class="r"><code>ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) +stat_ecdf(geom = &quot;step&quot;, col=&quot;red&quot;) +stat_ecdf(data=SameDomIntronOne_dist, geom = &quot;step&quot;, col=&quot;blue&quot;) + scale_colour_manual(name = &#39;Intron Set&#39;, values =c(&#39;red&#39;=&#39;red&#39;,&#39;blue&#39;=&#39;blue&#39;), labels = c(&#39;c2&#39;,&#39;c1&#39;),guide = &#39;legend&#39;)+ labs(x=&quot;PAS location by proprortion of Intron&quot;, title = &quot;ecdf for Intronic location, red=Different Dom, blue=Same dom&quot;) </code></pre>
+<p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
