@@ -60,6 +60,6 @@ sort -k1,1 -k2,2n  ../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.bed > ../da
 ```{r}
 Metadata=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt",header=T,stringsAsFactors = F)  %>% inner_join(strandinfo, by="PAS")
 
-write.table(PASChimpUsage,"../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",col.names = T, row.names = F, quote = F, sep="\t")
+write.table(Metadata,"../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",col.names = T, row.names = F, quote = F, sep="\t")
 ```
 
