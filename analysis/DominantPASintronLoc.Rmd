@@ -95,6 +95,8 @@ ggplot(SameDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=10
 ```{r}
 ggplot(DiffDomIntronOne_dist, aes(x=distance2PAS)) + geom_histogram(bins=100)+ labs(x="Distance from intron start to PAS", title="Human Dominant Intronic, Chimp Dominant 3' UTR, absolute distance")
 ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) + geom_histogram(bins=100) +labs(x="Proportion of intron", title="Human Dominant Intronic, Chimp Dominant 3' UTR, Proportion of intron")
+
+
 ```
 
 
@@ -105,4 +107,12 @@ ggplot(DiffDomIntronOne_dist_filt, aes(x=distance2PAS)) + geom_histogram(bins=10
 ```
 
 
-Distributions look pretty similar.   
+Distributions look pretty similar.  
+
+```{r}
+ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) +stat_ecdf(geom = "step", col="red") +stat_ecdf(data=SameDomIntronOne_dist, geom = "step", col="blue") + scale_colour_manual(name = 'Intron Set', values =c('red'='red','blue'='blue'), labels = c('c2','c1'),guide = 'legend')+ labs(x="PAS location by proprortion of Intron", title = "ecdf for Intronic location, red=Different Dom, blue=Same dom") 
+
+
+
+```
+
