@@ -40,13 +40,17 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Number of PAS in each species](PASnumperSpecies.html)  
 
+* [Pressence of top 2 signal sites](signalsites.html)
+
 * [Dominant PAS in Total Fraction](dominantPAS_total.html)
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)
 
   * [Intronics location for dominant PAS](DominantPASintronLoc.html)  
   
-* [Pressence of top 2 signal sites](signalsites.html)
+  * [Does signal site explain trend?](ss_sameDomdiffDom.html)
+  
+
 
 ##Differential Isoform Analysis:
 

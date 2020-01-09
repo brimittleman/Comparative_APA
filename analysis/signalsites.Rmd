@@ -124,6 +124,6 @@ write.table(human_write, "../data/SignalSites/HumanPresenceofSS.txt", col.names 
 
 chimp_write=chimp_both %>% dplyr::select(X4_usercol,SS,SS2,anySS) %>% rename("PAS"=X4_usercol)
 
-write.table(chimp_both,"../data/SignalSites/ChimpPresenceofSS.txt", col.names = T, row.names = F, quote = F)
+write.table(chimp_write,"../data/SignalSites/ChimpPresenceofSS.txt", col.names = T, row.names = F, quote = F)
 ```
 

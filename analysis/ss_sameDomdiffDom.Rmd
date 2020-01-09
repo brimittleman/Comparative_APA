@@ -1,0 +1,93 @@
+---
+title: "Same and Different Dominant PAS with Signal Sites"
+author: "Briana Mittleman"
+date: "1/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+I want to test if a difference in signal site distribution may explain the different dominant PAS. I am working with nuclear fraction results.  
+
+```{r}
+HumanIntronChimpUTR=read.table("../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt",stringsAsFactors = F, header = T ) %>% rename("PAS"=HumanPAS)
+SameDom=read.table("../data/DominantPAS/Nuclear_SameDom.txt", stringsAsFactors = F, header = T)
+HumanUTRChimpIntron= read.table("../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt", stringsAsFactors = F, header = T) %>% rename("PAS"=ChimpPAS)
+```
+
+Upload results for the PAS signal sites:  
+
+```{r}
+HumanSS=read.table("../data/SignalSites/HumanPresenceofSS.txt", col.names = c("PAS", "SS_human", "SS2_human", "anySS_human"), stringsAsFactors = F)
+ChimpSS=read.table("../data/SignalSites/ChimpPresenceofSS.txt", stringsAsFactors = F,col.names = c("PAS", "SS_chimp", "SS2_chimp", "anySS_chimp"))
+```
+
+Join these:
+
+
+I will also ask if human intronic PAS have a SS in human but not in chimp or vice versa. 
+
+```{r}
+HumanIntronChimpUTR_SS=HumanIntronChimpUTR %>% inner_join(HumanSS, by=c("PAS")) %>% inner_join(ChimpSS,by=c("PAS"))
+
+SSinHumanOnly=HumanIntronChimpUTR_SS %>% filter(anySS_human=="yes", anySS_chimp=="no") 
+nrow(SSinHumanOnly)
+SSchimpOnly=HumanIntronChimpUTR_SS %>% filter(anySS_human=="no", anySS_chimp=="yes")
+nrow(SSchimpOnly)
+```
+
+```{r}
+prop.test(x=c(12,10), n=c(926,926), alternative="greater")
+```
+
+It does not look like this is the mechanism of action.  
+
+Opposite direction.  I will ask if chimp intronic PAS have a SS in chimp but not in human or vice versa. 
+
+```{r}
+HumanUTRChimpIntron_SS=HumanUTRChimpIntron %>% inner_join(HumanSS, by=c("PAS")) %>% inner_join(ChimpSS,by=c("PAS"))
+
+SSinHumanOnly_opp=HumanUTRChimpIntron_SS %>% filter(anySS_human=="yes", anySS_chimp=="no") 
+nrow(SSinHumanOnly_opp)
+SSchimpOnly_opp=HumanUTRChimpIntron_SS %>% filter(anySS_human=="no", anySS_chimp=="yes")
+nrow(SSinHumanOnly_opp)
+```
+
+ This does not look like the mechanism this way either.  
+ 
+** It may be interesting to look at the less frequently used signal sites.  **
+ 
+ 
+I want to ask if the same dominant PAS have signal sites. It may be interesting if these intronic PAS are more likely to have a signal site than all of the intronic PAS.  
+```{r}
+HumanSS_2=read.table("../data/SignalSites/HumanPresenceofSS.txt", col.names = c("HumanPAS", "SS_human", "SS2_human", "anySS_human"), stringsAsFactors = F)
+ChimpSS_2=read.table("../data/SignalSites/ChimpPresenceofSS.txt", stringsAsFactors = F,col.names = c("ChimpPAS", "SS_chimp", "SS2_chimp", "anySS_chimp"))
+
+SameDom_SS=SameDom %>% inner_join(HumanSS_2, by="HumanPAS") %>% inner_join(ChimpSS_2, by="ChimpPAS") %>% mutate(bothSS=ifelse(anySS_human=="yes" & anySS_chimp =="yes", "yes", "no"), onehasSS=ifelse(anySS_human=="yes" | anySS_chimp =="yes", "yes", "no"))
+
+#most have in both  
+
+```
+ 
+ 
+Plot
+
+```{r}
+SameDom_SS_byloc=SameDom_SS %>% group_by(HumanLoc,bothSS) %>% summarise(count=n()) %>% ungroup() %>% group_by(HumanLoc) %>% mutate(nGroup=sum(count), propSS=count/nGroup)
+
+ggplot(SameDom_SS_byloc, aes(x=HumanLoc, y=count, by=bothSS, fill=bothSS)) +geom_bar(stat="identity",position="dodge")
+
+ggplot(SameDom_SS_byloc, aes(x=HumanLoc, y=propSS, by=bothSS, fill=bothSS)) +geom_bar(stat="identity",position="dodge") 
+```
+
+Make the same plot with all of them. I need to pull in the metadata to do this because it has the locations. 
+
+
+
