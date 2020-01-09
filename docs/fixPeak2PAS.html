@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree13448ceb7f92969728b9e783fd6bb3d04b401b63targetblank13448cea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/13448ceb7f92969728b9e783fd6bb3d04b401b63" target="_blank">13448ce</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4a1eaf2f6ad1a18e7b629508a92e60c7d125072ftargetblank4a1eaf2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/4a1eaf2f6ad1a18e7b629508a92e60c7d125072f" target="_blank">4a1eaf2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree13448ceb7f92969728b9e783fd6bb3d04b401b63targetblank13448cea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4a1eaf2f6ad1a18e7b629508a92e60c7d125072ftargetblank4a1eaf2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,7 +450,6 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
-    Ignored:    data/SignalSites/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
@@ -482,6 +481,7 @@ Untracked files:
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._PASsequences.sh
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
@@ -644,6 +644,9 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/PAS_sequence.err
+    Untracked:  code/PAS_sequence.out
+    Untracked:  code/PASsequences.sh
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -946,6 +949,7 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_stranded.txt
     Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/SignalSites/
     Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/Wang_ribo/
@@ -1011,6 +1015,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4a1eaf2f6ad1a18e7b629508a92e60c7d125072f/analysis/fixPeak2PAS.Rmd" target="_blank">4a1eaf2</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+<td>
+fix metadata out
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dd02dabec8be8444f027abc10b667f1c6e8c5f3a/docs/fixPeak2PAS.html" target="_blank">dd02dab</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1108,7 +1146,7 @@ sort -k1,1 -k2,2n  ../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.bed &gt; ..
 <h3>Metadata:</h3>
 <pre class="r"><code>Metadata=read.table(&quot;../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt&quot;,header=T,stringsAsFactors = F)  %&gt;% inner_join(strandinfo, by=&quot;PAS&quot;)
 
-write.table(PASChimpUsage,&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,col.names = T, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+write.table(Metadata,&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,col.names = T, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
