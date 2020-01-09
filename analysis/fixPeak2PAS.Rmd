@@ -32,6 +32,11 @@ PAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed
 
 write.table(PAS,"../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.bed",col.names = F, row.names = F, quote = F, sep="\t")
 ```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.bed > ../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.sort.bed
+```
+
 ###chimp:
 
 ```{r}
@@ -44,7 +49,11 @@ write.table(PASChimpUsage,"../data/PAS/PAS_5perc_either_HumanCoordChimpUsage.bed
 Lift to get the chimp coordinates:  
 ```{bashe,eval=F}
 sbatch Lift5perPAS.sh
+
+sort -k1,1 -k2,2n  ../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.bed > ../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.sort.bed
 ```
+
+
 
 ###Metadata:
 
