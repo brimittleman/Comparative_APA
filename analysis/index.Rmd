@@ -34,6 +34,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Cross map and prepare Chimp 3' for Viz in IGV](CrossChimpThreePrime.html)
 
+* [Make PAS bed for 5% peaks](fixPeak2PAS.html)
+
 ##Catalog PAS:
 
 * [Number of PAS in each species](PASnumperSpecies.html)  

@@ -1,0 +1,56 @@
+---
+title: "From peak to PAS"
+author: "Briana Mittleman"
+date: "1/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+In this analysis I want to make correct strand and coordinate bed files for the PAS .  
+
+The final PAS are in /project2/gilad/briana/Comparative_APA/data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed 
+
+I will fix the strand and put them in a PAS folder  
+
+```{bash,eval=F}
+mkdir ../data/PAS
+```
+
+###Human
+
+```{r}
+#fix strand
+PAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", header=T,stringsAsFactors = F) %>% mutate(strandFix=ifelse(strand =="+","-","+")) %>% dplyr::select(-strand)
+
+write.table(PAS,"../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+###chimp:
+
+```{r}
+strandinfo=PAS %>% dplyr::select(PAS, strandFix)
+PASChimpUsage=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt",header=T,stringsAsFactors = F) %>% inner_join(strandinfo, by="PAS") %>% dplyr::select(chr,start,end, PAS,Chimp, strandFix)
+
+write.table(PASChimpUsage,"../data/PAS/PAS_5perc_either_HumanCoordChimpUsage.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+Lift to get the chimp coordinates:  
+```{bashe,eval=F}
+sbatch Lift5perPAS.sh
+```
+
+###Metadata:
+
+```{r}
+Metadata=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt",header=T,stringsAsFactors = F)  %>% inner_join(strandinfo, by="PAS")
+
+write.table(PASChimpUsage,"../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",col.names = T, row.names = F, quote = F, sep="\t")
+```
+
