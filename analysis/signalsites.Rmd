@@ -114,6 +114,20 @@ ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot()
 label.y.npc = "bottom")
 ```
 
+Plot percentage either by loc:
+
+```{r}
+
+human_both_loc= human_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>% ungroup() %>% group_by(loc) %>% mutate(nLoc=sum(count),Human=count/nLoc) %>%ungroup() %>%  dplyr::select(loc, anySS,Human)
+
+chimp_both_loc= chimp_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>% ungroup() %>% group_by(loc) %>% mutate(nLoc=sum(count),Chimp=count/nLoc)%>% ungroup() %>% dplyr::select(loc, anySS,Chimp)
+
+bothSpeciesLoc=chimp_both_loc %>% inner_join(human_both_loc,by=c("loc", "anySS")) %>% gather(key="species", value="propSS", -loc, -anySS) %>% filter(anySS=="yes")
+
+
+ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Presence of top 2 signal sites by location", x="Proportion with signal site", x="location")
+```
+
 
 Write out information about SS so i can use it for other anaylsis.  
 
