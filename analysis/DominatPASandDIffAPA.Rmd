@@ -26,10 +26,9 @@ HumanUTRChimpChimp= read.table( "../data/DominantPAS/Nuclear_HumanUTRChimpIntron
 
 
 ```{r}
-sig=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
 
-sig$p.adjust=as.numeric(as.character(sig$p.adjust))
-sig_genes=sig %>% filter(p.adjust<.05) %>% separate(cluster, into=c("chrom","gene"), sep=":")
+
+sig_genes=read.table("../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt", stringsAsFactors = F, col.names = "genes")
 ```
 
 ```{r}
