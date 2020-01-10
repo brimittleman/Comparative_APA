@@ -221,12 +221,12 @@ Write out the significant genes with >.2 difference.
 ```{r}
 effectsize_wES_chimpOnly= effectsize_wES %>% filter(Species=="Chimp")
 effectsize_wES_HumanOnly= effectsize_wES %>% filter(Species=="Human")
-
+effectsize_wES_either=effectsize_wES %>% filter(Species!="Neither")
 
 write.table(effectsize_wES_chimpOnly,"../data/DiffIso_Total/SignifianceChimpPAS_2_Total.txt",col.names =T, row.names = F,quote = F)
 
 write.table(effectsize_wES_HumanOnly,"../data/DiffIso_Total/SignifianceHumanPAS_2_Total.txt",col.names =T, row.names = F,quote = F)
-
+write.table(effectsize_wES_HumanOnly,"../data/DiffIso_Total/SignifianceEitherPAS_2_Total.txt",col.names =T, row.names = F,quote = F)
 
 ```
 

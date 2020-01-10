@@ -216,11 +216,20 @@ Write out the significant genes with >.2 difference.
 ```{r}
 effectsize_wES_chimpOnly= effectsize_wES %>% filter(Species=="Chimp")
 effectsize_wES_HumanOnly= effectsize_wES %>% filter(Species=="Human")
+effectsize_wES_either=effectsize_wES %>% filter(Species!="Neither")
 
 
+  
 write.table(effectsize_wES_chimpOnly,"../data/DiffIso_Nuclear/SignifianceChimpPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
 
 write.table(effectsize_wES_HumanOnly,"../data/DiffIso_Nuclear/SignifianceHumanPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
 
-
+write.table(effectsize_wES_either,"../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
 ```
+
+Number of genes with >.2 DPAS
+
+
+
+
+
