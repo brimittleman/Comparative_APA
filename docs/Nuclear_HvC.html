@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree521dc81b697b863aced8fd0e9c3d687d3870782dtargetblank521dc81a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/521dc81b697b863aced8fd0e9c3d687d3870782d" target="_blank">521dc81</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3aee984f7420f857de61a077c365259510226d2ctargetblank3aee984a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3aee984f7420f857de61a077c365259510226d2c" target="_blank">3aee984</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree521dc81b697b863aced8fd0e9c3d687d3870782dtargetblank521dc81a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3aee984f7420f857de61a077c365259510226d2ctargetblank3aee984a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1017,6 +1017,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3aee984f7420f857de61a077c365259510226d2c/analysis/Nuclear_HvC.Rmd" target="_blank">3aee984</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-10
+</td>
+<td>
+delta pau and sig
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/417783c24259ffe80b5906725bce6ee4a55a12cb/docs/Nuclear_HvC.html" target="_blank">417783c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1705,9 +1739,18 @@ brimittleman
 </div>
 </div>
 <p>Write out the significant genes with &gt;.2 difference.</p>
+<pre class="r"><code>effectsize_sep_pval=effectsize_sep %&gt;% full_join(sig_geneP, by=&quot;gene&quot;)
+#significant &gt; .2
+effectsize_sep_pval_sig= effectsize_sep_pval %&gt;% filter(p.adjust &lt;= .05,abs(deltaPAU) &gt;=0.2)
+nrow(effectsize_sep_pval_sig)</code></pre>
+<pre><code>[1] 3616</code></pre>
+<pre class="r"><code>#genes
+effectsize_sep_pval_sig_genes=effectsize_sep_pval_sig %&gt;% dplyr::select(gene) %&gt;% unique()
+nrow(effectsize_sep_pval_sig_genes)</code></pre>
+<pre><code>[1] 2501</code></pre>
 <pre class="r"><code>effectsize_wES_chimpOnly= effectsize_wES %&gt;% filter(Species==&quot;Chimp&quot;)
 effectsize_wES_HumanOnly= effectsize_wES %&gt;% filter(Species==&quot;Human&quot;)
-effectsize_wES_either=effectsize_wES %&gt;% filter(Species!=&quot;Neither&quot;)
+
 
 
   
@@ -1715,8 +1758,9 @@ write.table(effectsize_wES_chimpOnly,&quot;../data/DiffIso_Nuclear/SignifianceCh
 
 write.table(effectsize_wES_HumanOnly,&quot;../data/DiffIso_Nuclear/SignifianceHumanPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)
 
-write.table(effectsize_wES_either,&quot;../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)</code></pre>
-<p>Number of genes with &gt;.2 DPAS</p>
+write.table(effectsize_sep_pval_sig,&quot;../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_sep_pval_sig_genes,&quot;../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
