@@ -486,8 +486,10 @@ Make a table to plot:
 top.table2=top.table %>% mutate(Species=ifelse(logFC > 1 & adj.P.Val<.05, "Chimp", ifelse(logFC < -1 & adj.P.Val< .05, "Human", "Neither")))
   
   
+```
 
-ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3)
+```{r, DEplot}
+ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3) + scale_color_brewer(palette = "Dark2") + labs(title="LCL differential Expression")
 ```
 
 ```{r}
