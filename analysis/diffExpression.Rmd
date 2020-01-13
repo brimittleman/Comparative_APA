@@ -501,7 +501,14 @@ summary(decideTests(tmp))
 deGenes=as.data.frame(row.names(top.table[top.table$adj.P.Val < 0.05,]))
 #mkdir ../data/DiffExpression
 
+geneNames=as.data.frame(row.names(top.table))
+colnames(geneNames)="genes"
+deGenes_witheffect= cbind(geneNames,top.table) %>% filter(adj.P.Val < 0.05)
+tested_witheffect=cbind(geneNames,top.table)
+
 write.table(deGenes,"../data/DiffExpression/DE_genes.txt", col.names = F, row.names = F, quote = F)
+write.table(tested_witheffect,"../data/DiffExpression/DEtested_allres.txt", col.names = F, row.names = F, quote = F)
+write.table(deGenes_witheffect,"../data/DiffExpression/DE_results5fdr.txt", col.names = T, row.names = F, quote = F)
 write.table(testgenes,"../data/DiffExpression/DE_Testedgenes.txt", col.names = F, row.names = F, quote = F)
 ```
 

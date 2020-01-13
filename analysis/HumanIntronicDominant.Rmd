@@ -1,0 +1,129 @@
+---
+title: "Explore human dominant intronic"
+author: "Briana Mittleman"
+date: "1/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+In this analysis I want to further explore the PAS that are dominant in human introns. For these PAS the dominant intron in the chimps are in the 3' UTR. I want to look to see if these are differentially used and if these are in differentially expressed genes.  
+
+```{r}
+HumanIntronChimpUTR=read.table("../data/DominantPAS/Nuclear_HumanIntronicChimpUTR.txt",stringsAsFactors = F, header = T ) %>% rename("PAS"=HumanPAS) 
+SameDom= read.table( "../data/DominantPAS/Nuclear_SameDom.txt",  header = T, stringsAsFactors = F) %>% rename("PAS"=HumanPAS) 
+HumanUTRChimpIntron= read.table( "../data/DominantPAS/Nuclear_HumanUTRChimpIntronic.txt",  header = T, stringsAsFactors = F) %>% rename("PAS"=HumanPAS) 
+```
+
+##Diff APA
+
+Differentially used PAS:  
+
+```{r}
+DiffUsage=read.table("../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
+```
+This does not have the PAS number. I need to add them by joining by location.  
+
+```{r}
+PASMeta=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
+```
+
+```{r}
+DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
+```
+
+
+Number overlapping with different dom. 
+
+```{r}
+HumanIntronChimpUTR_diffUsed=HumanIntronChimpUTR %>% inner_join(DiffUsagePAS, by="PAS")
+nrow(HumanIntronChimpUTR_diffUsed)
+nrow(HumanIntronChimpUTR_diffUsed)/nrow(HumanIntronChimpUTR)
+```
+
+Number overlapping in same:
+
+```{r}
+SameDom_diffUsed=SameDom %>%inner_join(DiffUsagePAS, by="PAS")
+nrow(SameDom_diffUsed)
+nrow(SameDom_diffUsed)/nrow(SameDom)
+```
+
+```{r}
+prop.test(x=c(nrow(HumanIntronChimpUTR_diffUsed),nrow(SameDom_diffUsed)), n=c(nrow(HumanIntronChimpUTR),nrow(SameDom)),alternative = "greater")
+```
+
+**Better background is random PAS, not the same used.**
+
+##Diff Expression  
+
+In my first paper I saw a correlation between effect size for intronic PAS and eQTL effect size. I want to see if there is a correlation between the dAPA effect size and DE effect size for the intronic dominant PAS.  
+
+I want to include the dPAU for all of the PAS.  
+```{r}
+effectsize=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr", "start", "end", "gene"), sep=":")
+effectsize$start=as.numeric(effectsize$start)
+effectsize$end=as.numeric(effectsize$end)
+
+effectsize_PAS=effectsize%>% inner_join(PASMeta, by=c("start", "end","chr", "gene")) %>% dplyr::select(PAS, deltaPAU)
+```
+
+
+```{r}
+HumanIntronChimpUTR_dpau= HumanIntronChimpUTR %>% inner_join(effectsize_PAS,by="PAS")
+SameDom_dpau= SameDom %>% inner_join(effectsize_PAS,by="PAS")
+
+HumanUTRChimpIntron_dpau= HumanUTRChimpIntron %>% inner_join(effectsize_PAS,by="PAS")
+```
+
+Pull in the expression values.  
+
+
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+
+
+DEgenes=read.table("../data/DiffExpression/DEtested_allres.txt", header =T, col.names = c("Gene_stable_ID", "logFC", "AveExpr","t", "P.Value", "adj.Pval", "B"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% rename("gene"=Gene.name) 
+
+
+```
+
+Join:
+
+```{r}
+HumanIntronChimpUTR_dpau_DE= HumanIntronChimpUTR_dpau %>% inner_join(DEgenes, by="gene")
+HumanIntronChimpUTR_dpau_DE$deltaPAU = as.numeric(HumanIntronChimpUTR_dpau_DE$deltaPAU)
+
+ggplot(HumanIntronChimpUTR_dpau_DE,aes(x=deltaPAU, y=logFC)) +geom_point()+  geom_smooth(method = "lm")
+
+summary(lm(HumanIntronChimpUTR_dpau_DE$logFC~HumanIntronChimpUTR_dpau_DE$deltaPAU))
+```
+
+
+```{r}
+SameDom_dpau_DE= SameDom_dpau %>% inner_join(DEgenes, by="gene")
+SameDom_dpau_DE$deltaPAU = as.numeric(SameDom_dpau_DE$deltaPAU)
+
+ggplot(SameDom_dpau_DE,aes(x=deltaPAU, y=logFC)) +geom_point()+  geom_smooth(method = "lm")
+
+summary(lm(SameDom_dpau_DE$logFC~SameDom_dpau_DE$deltaPAU))
+
+```
+```{r}
+HumanUTRChimpIntron_dpau_de= HumanUTRChimpIntron_dpau %>% inner_join(DEgenes, by="gene")
+HumanUTRChimpIntron_dpau_de$deltaPAU = as.numeric(HumanUTRChimpIntron_dpau_de$deltaPAU)
+
+ggplot(HumanUTRChimpIntron_dpau_de,aes(x=deltaPAU, y=logFC)) +geom_point()+  geom_smooth(method = "lm")
+
+summary(lm(HumanUTRChimpIntron_dpau_de$logFC~HumanUTRChimpIntron_dpau_de$deltaPAU))
+```
+
+Looks like this is the opposite direction. Here we have greater delta pau correlated with greater gene expression for human when intronic...

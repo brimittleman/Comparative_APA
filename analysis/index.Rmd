@@ -50,6 +50,8 @@ I am interesting in understanding differential APA between human and chimpanzees
   
   * [Does signal site explain trend?](ss_sameDomdiffDom.html)
   
+  * [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)
+  
 
 
 ##Differential Isoform Analysis:
