@@ -46,11 +46,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)
 
-  * [Intronics location for dominant PAS](DominantPASintronLoc.html)  
+    - [Intronics location for dominant PAS](DominantPASintronLoc.html)  
   
-  * [Does signal site explain trend?](ss_sameDomdiffDom.html)
-  
-  * [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)
+    - [Does signal site explain trend?](ss_sameDomdiffDom.html)
+
+    - [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)
   
 
 
@@ -66,9 +66,13 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Venn diagrams for genes in each differential APA set](CompHC_totalandnuclear.html)
 
+* [Explore nuclear differential APA PAS and genes](ExploredAPA.html)
+
 * [Differential APA and eQTL overlap](DapaineQTL.html)
 
-* [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)  
+* [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
+
+
 
 ##Quantify Phenotypes with RNA:   
 

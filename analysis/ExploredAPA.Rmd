@@ -1,0 +1,72 @@
+---
+title: "Explore genes with dAPA"
+author: "Briana Mittleman"
+date: "1/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(reshape2)
+```
+
+I want to look more at the genes we found with dAPA. 
+
+Question 1:
+
+Do genes with differential APA have different numbers of PAS in each species?
+
+```{r}
+DiffUsage=read.table("../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
+
+PASMeta=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+
+DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
+```
+
+Number of PAS in each species: 
+
+```{r}
+PAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt", stringsAsFactors = F, header = T)
+PAS_sm=PAS %>% dplyr::select(gene, Chimp, Human) 
+PAS_m= melt(PAS_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.05) %>% group_by(species, gene) %>% summarise(nPAS=n())
+```
+
+Filter these by those with dAPA:
+
+```{r}
+PAS_m_dAPA= PAS_m %>% mutate(dAPA=ifelse(gene %in% DiffUsagePAS$gene, "Y", "N"))
+```
+
+```{r}
+ggplot(PAS_m_dAPA,aes(by=dAPA, y=nPAS,x=species, fill=dAPA)) + geom_boxplot()  + stat_compare_means(method = "t.test") + scale_fill_brewer(palette = "Dark2") + labs(y="Number of PAS detected at 5% usage", title="Number of PAS detected by gene with differential usage") 
+```
+
+Question 2: Where are the differentially used PAS?
+
+```{r}
+ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") 
+```
+
+Seperate by location:  
+
+```{r}
+#negative deltaPAU is used more in human 
+DiffUsagePAS_dir= DiffUsagePAS %>% mutate(direction=ifelse(deltaPAU >=0, "Chimp", "Human"))
+
+ggplot(DiffUsagePAS_dir,aes(x=loc, fill=loc)) + geom_bar(stat="count")  + facet_grid(~direction)
+```
+This is opposite of the results using just the dominant PAS.  I probably shouldn't put too much into that.  
+
+Question 3: Does locaiton of the PAS effect the absolute value of the effect size  
+
+```{r}
+ggplot(DiffUsagePAS_dir,aes(x=loc, y=abs(deltaPAU), fill=loc)) + geom_violin() 
+```
+
