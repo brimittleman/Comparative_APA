@@ -116,3 +116,10 @@ ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) +stat_ecdf(geom = "step", col="
 
 ```
 
+
+```{r}
+wilcox.test(DiffDomIntronOne_dist$propIntron, SameDomIntronOne_dist$propIntron)
+wilcox.test(DiffDomIntronOne_dist$distance2PAS, SameDomIntronOne_dist$distance2PAS)
+```
+
+Not a significant difference in these distributions.  
