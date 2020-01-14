@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-09
+<strong>Last updated:</strong> 2020-01-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeabcafc425a91de5f87540812a83b02c2f9b896adtargetblankabcafc4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/abcafc425a91de5f87540812a83b02c2f9b896ad" target="_blank">abcafc4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree81336e44189dc5a20bf3f4df01394d4d683091adtargetblank81336e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/81336e44189dc5a20bf3f4df01394d4d683091ad" target="_blank">81336e4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeabcafc425a91de5f87540812a83b02c2f9b896adtargetblankabcafc4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree81336e44189dc5a20bf3f4df01394d4d683091adtargetblank81336e4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -460,6 +460,7 @@ Untracked files:
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  analysis/mediation.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -476,9 +477,12 @@ Untracked files:
     Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._Lift5perPAS.sh
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._PAS_ATTAAA.sh
+    Untracked:  code/._PASsequences.sh
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
@@ -617,6 +621,9 @@ Untracked files:
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
     Untracked:  code/JunctionLiftFinalChimp.out
+    Untracked:  code/Lift5perPAS.sh
+    Untracked:  code/Lift5perPASbed.err
+    Untracked:  code/Lift5perPASbed.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
     Untracked:  code/LiftClustersFirst_remove.err
@@ -638,6 +645,12 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/PAS_ATTAAA.err
+    Untracked:  code/PAS_ATTAAA.out
+    Untracked:  code/PAS_ATTAAA.sh
+    Untracked:  code/PAS_sequence.err
+    Untracked:  code/PAS_sequence.out
+    Untracked:  code/PASsequences.sh
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -929,6 +942,7 @@ Untracked files:
     Untracked:  data/NuclearHvC/
     Untracked:  data/OppositeSpeciesMap.txt
     Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/PAS/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -939,6 +953,7 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_stranded.txt
     Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/SignalSites/
     Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/Wang_ribo/
@@ -961,7 +976,6 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
-    Modified:   analysis/Nuclear_HvC.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/investigatePantro5.Rmd
@@ -1004,6 +1018,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81336e44189dc5a20bf3f4df01394d4d683091ad/analysis/DominantPASintronLoc.Rmd" target="_blank">81336e4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-14
+</td>
+<td>
+add sig test
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4c056b5f8bf981d7524caa80e4f9f2fc62197414/docs/DominantPASintronLoc.html" target="_blank">4c056b5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1100,12 +1148,12 @@ first steps for intron loc analysis
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>The goal of this analysis is to look at the distribution of intronic location for the shared and not shared dominant PAS. This will help me know if the pattern is due to annotation or not. In this analysis I will use the nuclear results.</p>
@@ -1379,6 +1427,58 @@ brimittleman
 <p>Distributions look pretty similar.</p>
 <pre class="r"><code>ggplot(DiffDomIntronOne_dist, aes(x=propIntron)) +stat_ecdf(geom = &quot;step&quot;, col=&quot;red&quot;) +stat_ecdf(data=SameDomIntronOne_dist, geom = &quot;step&quot;, col=&quot;blue&quot;) + scale_colour_manual(name = &#39;Intron Set&#39;, values =c(&#39;red&#39;=&#39;red&#39;,&#39;blue&#39;=&#39;blue&#39;), labels = c(&#39;c2&#39;,&#39;c1&#39;),guide = &#39;legend&#39;)+ labs(x=&quot;PAS location by proprortion of Intron&quot;, title = &quot;ecdf for Intronic location, red=Different Dom, blue=Same dom&quot;) </code></pre>
 <p><img src="figure/DominantPASintronLoc.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4c056b5f8bf981d7524caa80e4f9f2fc62197414/docs/figure/DominantPASintronLoc.Rmd/unnamed-chunk-13-1.png" target="_blank">4c056b5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>wilcox.test(DiffDomIntronOne_dist$propIntron, SameDomIntronOne_dist$propIntron)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  DiffDomIntronOne_dist$propIntron and SameDomIntronOne_dist$propIntron
+W = 949110, p-value = 0.04153
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre class="r"><code>wilcox.test(DiffDomIntronOne_dist$distance2PAS, SameDomIntronOne_dist$distance2PAS)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  DiffDomIntronOne_dist$distance2PAS and SameDomIntronOne_dist$distance2PAS
+W = 887280, p-value = 0.3558
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Not a significant difference in these distributions.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
