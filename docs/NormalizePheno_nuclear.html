@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-16
+<strong>Last updated:</strong> 2020-01-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -353,7 +353,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7861b64bee2fb7101a896baebe37b0895a8ba80etargetblank7861b64a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7861b64bee2fb7101a896baebe37b0895a8ba80e" target="_blank">7861b64</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3cce3da7f1e29f6354c8ba13cfbf5670d31b266ftargetblank3cce3daa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3cce3da7f1e29f6354c8ba13cfbf5670d31b266f" target="_blank">3cce3da</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7861b64bee2fb7101a896baebe37b0895a8ba80etargetblank7861b64a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3cce3da7f1e29f6354c8ba13cfbf5670d31b266ftargetblank3cce3daa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -449,47 +449,112 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
-    Ignored:    data/metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF/
-    Ignored:    data/metadata_HCpanel.txt.sb-f4823d1e-qihGek/
+    Ignored:    data/.DS_Store
+    Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/CrossChimpThreePrime.Rmd
+    Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
+    Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
+    Untracked:  code/._ConvertJunc2Bed.sh
+    Untracked:  code/._CountNucleotides.py
+    Untracked:  code/._CrossMapChimpRNA.sh
+    Untracked:  code/._CrossMapThreeprime.sh
+    Untracked:  code/._DiffSplice.sh
+    Untracked:  code/._DiffSplicePlots.sh
+    Untracked:  code/._DiffSplicePlots_gencode.sh
+    Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._FindIntronForDomPAS.sh
+    Untracked:  code/._GetMAPQscore.py
+    Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._Lift5perPAS.sh
+    Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
+    Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._PAS_ATTAAA.sh
+    Untracked:  code/._PASsequences.sh
+    Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._ReverseLiftFilter.R
+    Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._SortIndexBadSamples.sh
     Untracked:  code/._bed215upbed.py
     Untracked:  code/._bed2SAF_gen.py
+    Untracked:  code/._buildIndecpantro5
+    Untracked:  code/._buildIndecpantro5.sh
+    Untracked:  code/._buildLeafviz.sh
+    Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
+    Untracked:  code/._cluster2bed.py
+    Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftReverse_removebad.sh
+    Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._clusterLiftprimary_removebad.sh
+    Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._filter5percPAS.py
+    Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixLeafCluster.py
+    Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
     Untracked:  code/._formathg38Anno.py
     Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._getRNAseqMapStats.sh
+    Untracked:  code/._hg19MapStats.sh
+    Untracked:  code/._humanChromorder.sh
     Untracked:  code/._intersectLiftedPAS.sh
+    Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/._mapRNAseqhg19.sh
+    Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mediation_test.R
+    Untracked:  code/._mergeChimp3prime_inhg38.sh
+    Untracked:  code/._mergedBam2BW.sh
+    Untracked:  code/._nameClusters.py
+    Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
     Untracked:  code/._primaryLift.sh
+    Untracked:  code/._processhg38exons.py
+    Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_TEST.sh
+    Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
     Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runCheckReverseLift.sh
     Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runCountNucleotides.sh
+    Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
     Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._runTotalDiffIso.sh
+    Untracked:  code/._run_chimpverifybam.sh
     Untracked:  code/._run_verifyBam.sh
     Untracked:  code/._snakemake.batch
     Untracked:  code/._snakemakePAS.batch
@@ -508,60 +573,184 @@ Untracked files:
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Total_HvC.py
+    Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._verifyBam4973inHuman.sh
+    Untracked:  code/._wrap_chimpverifybam.sh
     Untracked:  code/._wrap_verifyBam.sh
+    Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
+    Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
+    Untracked:  code/ConvertJunc2Bed.err
+    Untracked:  code/ConvertJunc2Bed.out
+    Untracked:  code/ConvertJunc2Bed.sh
+    Untracked:  code/CountNucleotides.py
+    Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossMapThreeprime.sh
+    Untracked:  code/CrossmapChimp3prime.err
+    Untracked:  code/CrossmapChimp3prime.out
+    Untracked:  code/CrossmapChimpRNA.err
+    Untracked:  code/CrossmapChimpRNA.out
+    Untracked:  code/DiffSplice.err
+    Untracked:  code/DiffSplice.out
+    Untracked:  code/DiffSplice.sh
+    Untracked:  code/DiffSplicePlots.err
+    Untracked:  code/DiffSplicePlots.out
+    Untracked:  code/DiffSplicePlots.sh
+    Untracked:  code/DiffSplicePlots_gencode.sh
+    Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/DiffSplice_removebad.err
+    Untracked:  code/DiffSplice_removebad.out
+    Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/FilterReverseLift.err
+    Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindIntronForDomPAS.err
+    Untracked:  code/FindIntronForDomPAS.out
+    Untracked:  code/FindIntronForDomPAS.sh
+    Untracked:  code/GencodeDiffSplice.err
+    Untracked:  code/GencodeDiffSplice.out
+    Untracked:  code/GetMAPQscore.py
+    Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/HchromOrder.err
+    Untracked:  code/HchromOrder.out
+    Untracked:  code/JunctionLift.err
+    Untracked:  code/JunctionLift.out
+    Untracked:  code/JunctionLiftFinalChimp.err
+    Untracked:  code/JunctionLiftFinalChimp.out
+    Untracked:  code/Lift5perPAS.sh
+    Untracked:  code/Lift5perPASbed.err
+    Untracked:  code/Lift5perPASbed.out
+    Untracked:  code/LiftClustersFirst.err
+    Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersFirst_remove.err
+    Untracked:  code/LiftClustersFirst_remove.out
+    Untracked:  code/LiftClustersSecond.err
+    Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftClustersSecond_remove.err
+    Untracked:  code/LiftClustersSecond_remove.out
+    Untracked:  code/LiftFinalChimpJunc2Human.sh
     Untracked:  code/LiftOrthoPAS2chimp.sh
     Untracked:  code/LiftorthoPAS.err
     Untracked:  code/LiftorthoPASt.out
     Untracked:  code/Log.out
+    Untracked:  code/MapBadSamples.err
+    Untracked:  code/MapBadSamples.out
+    Untracked:  code/MapBadSamples.sh
+    Untracked:  code/MapStats.err
+    Untracked:  code/MapStats.out
+    Untracked:  code/MergeClusters.err
+    Untracked:  code/MergeClusters.out
+    Untracked:  code/MergeClusters.sh
+    Untracked:  code/PAS_ATTAAA.err
+    Untracked:  code/PAS_ATTAAA.out
+    Untracked:  code/PAS_ATTAAA.sh
+    Untracked:  code/PAS_sequence.err
+    Untracked:  code/PAS_sequence.out
+    Untracked:  code/PASsequences.sh
+    Untracked:  code/QuantMergeClusters
+    Untracked:  code/QuantMergeClusters.err
+    Untracked:  code/QuantMergeClusters.out
+    Untracked:  code/QuantMergedClusters.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/ReverseLiftFilter.R
+    Untracked:  code/RunFixCluster.err
+    Untracked:  code/RunFixCluster.out
+    Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
+    Untracked:  code/SortIndexBadSamples.err
+    Untracked:  code/SortIndexBadSamples.out
+    Untracked:  code/SortIndexBadSamples.sh
+    Untracked:  code/TotalTranscriptDTplot.err
+    Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
     Untracked:  code/apaQTLsnake.err
     Untracked:  code/apaQTLsnake.out
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/bam2junc.err
+    Untracked:  code/bam2junc.out
+    Untracked:  code/bam2junc_remove.err
+    Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
     Untracked:  code/bg_to_cov.py
+    Untracked:  code/buildIndecpantro5
+    Untracked:  code/buildIndecpantro5.sh
+    Untracked:  code/buildLeafviz.err
+    Untracked:  code/buildLeafviz.out
+    Untracked:  code/buildLeafviz.sh
+    Untracked:  code/buildLeafviz_leadAnno.sh
+    Untracked:  code/buildLeafviz_leafanno.err
+    Untracked:  code/buildLeafviz_leafanno.out
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
+    Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chromOrder.err
+    Untracked:  code/chromOrder.out
+    Untracked:  code/classifyLeafviz.err
+    Untracked:  code/classifyLeafviz.out
     Untracked:  code/cleanbed2saf.py
     Untracked:  code/cluster.json
+    Untracked:  code/cluster2bed.py
+    Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftReverse_removebad.sh
+    Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterLiftprimary_removebad.sh
     Untracked:  code/clusterPAS.json
     Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/comands2Mege.sh
+    Untracked:  code/converBam2Junc.sh
+    Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
+    Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
     Untracked:  code/filterBamforMP.pysam2_gen.py
+    Untracked:  code/filterJuncChroms.err
+    Untracked:  code/filterJuncChroms.out
     Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
     Untracked:  code/filterSAFforMP_gen.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
+    Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixLeafCluster.py
+    Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
     Untracked:  code/formathg38Anno.py
     Untracked:  code/generateStarIndex.err
     Untracked:  code/generateStarIndex.out
+    Untracked:  code/generateStarIndexHuman.err
+    Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getRNAseqMapStats.sh
+    Untracked:  code/hg19MapStats.err
+    Untracked:  code/hg19MapStats.out
+    Untracked:  code/hg19MapStats.sh
+    Untracked:  code/humanChromorder.sh
+    Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectLiftedPAS.sh
+    Untracked:  code/leafcutter_merge_regtools_redo.py
+    Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
@@ -571,27 +760,53 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/mapRNAseqhg19.sh
+    Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
     Untracked:  code/maphg19.out
     Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_new.err
+    Untracked:  code/maphg19_new.out
     Untracked:  code/maphg19_sub.err
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/mediation_test.R
+    Untracked:  code/merge.err
+    Untracked:  code/mergeChimp3prime_inhg38.sh
+    Untracked:  code/merge_leafcutter_clusters_redo.py
+    Untracked:  code/mergeandsort_ChimpinHuman.err
+    Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergedBam2BW.sh
+    Untracked:  code/mergedbam2bw.err
+    Untracked:  code/mergedbam2bw.out
+    Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
+    Untracked:  code/nuclearTranscriptDTplot.err
+    Untracked:  code/nuclearTranscriptDTplot.out
+    Untracked:  code/numMultimap.py
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/prepareAnnoLeafviz.err
+    Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/prepareLeafvizAnno.sh
     Untracked:  code/preparePAS4lift.py
     Untracked:  code/prepare_phenotype_table.py
     Untracked:  code/primaryLift.err
     Untracked:  code/primaryLift.out
     Untracked:  code/primaryLift.sh
+    Untracked:  code/processhg38exons.py
+    Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_TEST.sh
+    Untracked:  code/quantJunc_removeBad.sh
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quatJunc.err
+    Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
     Untracked:  code/recChimpback2Human.out
     Untracked:  code/recLiftchim2human.sh
@@ -599,25 +814,46 @@ Untracked files:
     Untracked:  code/revLift.out
     Untracked:  code/revLiftPAShg38to19.sh
     Untracked:  code/reverseLift.sh
+    Untracked:  code/runCheckReverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runCountNucleotides.err
+    Untracked:  code/runCountNucleotides.out
+    Untracked:  code/runCountNucleotides.sh
+    Untracked:  code/runCountNucleotidesPantro6.err
+    Untracked:  code/runCountNucleotidesPantro6.out
+    Untracked:  code/runCountNucleotides_pantro6.sh
+    Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/runTotalDiffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
+    Untracked:  code/run_Chimpverifybam.err
+    Untracked:  code/run_Chimpverifybam.out
     Untracked:  code/run_Humanleafcutter_ds.err
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
     Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Totalleafcutter_ds.err
+    Untracked:  code/run_Totalleafcutter_ds.out
+    Untracked:  code/run_chimpverifybam.sh
     Untracked:  code/run_verifyBam.sh
     Untracked:  code/run_verifybam.err
     Untracked:  code/run_verifybam.out
     Untracked:  code/slurm-62824013.out
     Untracked:  code/slurm-62825841.out
     Untracked:  code/slurm-62826116.out
+    Untracked:  code/slurm-64108209.out
+    Untracked:  code/slurm-64108521.out
+    Untracked:  code/slurm-64108557.out
     Untracked:  code/snakePASChimp.err
     Untracked:  code/snakePASChimp.out
     Untracked:  code/snakePAShuman.out
     Untracked:  code/snakemake.batch
+    Untracked:  code/snakemakeChimp.err
+    Untracked:  code/snakemakeChimp.out
+    Untracked:  code/snakemakeHuman.err
+    Untracked:  code/snakemakeHuman.out
     Untracked:  code/snakemakePAS.batch
     Untracked:  code/snakemakePASFiltChimp.err
     Untracked:  code/snakemakePASFiltChimp.out
@@ -640,39 +876,113 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Total_HvC.py
+    Untracked:  code/test
+    Untracked:  code/transcriptDTplotsNuclear.sh
+    Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
     Untracked:  code/verifybam4973.out
+    Untracked:  code/verifybam4973HumanMap.err
+    Untracked:  code/verifybam4973HumanMap.out
+    Untracked:  code/wrap_Chimpverifybam.err
+    Untracked:  code/wrap_Chimpverifybam.out
+    Untracked:  code/wrap_chimpverifybam.sh
     Untracked:  code/wrap_verifyBam.sh
     Untracked:  code/wrap_verifybam.err
     Untracked:  code/wrap_verifybam.out
+    Untracked:  code/writeMergecode.py
+    Untracked:  data/._.DS_Store
+    Untracked:  data/._HC_filenames.txt
+    Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
+    Untracked:  data/._HC_filenames.xlsx
+    Untracked:  data/._MapPantro6_meta.txt
+    Untracked:  data/._MapPantro6_meta.txt.sb-a5794dd2-Cskmlm
+    Untracked:  data/._MapPantro6_meta.xlsx
+    Untracked:  data/._OppositeSpeciesMap.txt
+    Untracked:  data/._OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf
+    Untracked:  data/._OppositeSpeciesMap.xlsx
+    Untracked:  data/._RNASEQ_metadata.txt
+    Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
+    Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
+    Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/._RNASEQ_metadata_stranded.txt
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
+    Untracked:  data/._RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
+    Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
     Untracked:  data/._metadata_HCpanel.xlsx
+    Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
+    Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DTmatrix/
+    Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Total/
+    Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_liftedJunc/
+    Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DominantPAS/
+    Untracked:  data/EvalPantro5/
+    Untracked:  data/HC_filenames.txt
+    Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/Khan_prot/
+    Untracked:  data/Li_eqtls/
+    Untracked:  data/MapPantro6_meta.txt
+    Untracked:  data/MapPantro6_meta.xlsx
     Untracked:  data/MapStats/
+    Untracked:  data/NormalizedClusters/
     Untracked:  data/NuclearHvC/
+    Untracked:  data/OppositeSpeciesMap.txt
+    Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/PAS/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_nuclear/
+    Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/RNASEQ_metadata.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/RNASEQ_metadata_stranded.txt
+    Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
+    Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/SignalSites/
+    Untracked:  data/TotalHvC/
+    Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/Wang_ribo/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_frompantro5.txt
+    Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
-    Untracked:  docs/figure/assessReadQual.Rmd/
+    Untracked:  data/.xlsx
+    Untracked:  output/dtPlots/
+    Untracked:  projectNotes.Rmd
 
 Unstaged changes:
-    Modified:   analysis/PASnumperSpecies.Rmd
+    Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/multiMap.Rmd
 
 </code></pre>
 <p>
@@ -711,6 +1021,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3cce3da7f1e29f6354c8ba13cfbf5670d31b266f/analysis/NormalizePheno_nuclear.Rmd" target="_blank">3cce3da</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-14
+</td>
+<td>
+start mediation analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/27d36410c1127f02a24f7f51608719d7f5e4b980/docs/NormalizePheno_nuclear.html" target="_blank">27d3641</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-10-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -807,12 +1151,12 @@ add PCA by total and nuclear
 <pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -847,314 +1191,8 @@ cat ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz.phen_chr* &
 
 normPheno_matrix=as.matrix(normPheno %&gt;% select(-Chr, -start, -end, -ID))</code></pre>
 <p>Run PCA:</p>
-<pre class="r"><code>pca_Pheno=prcomp(normPheno_matrix, center=T,scale=T)
+<pre class="r"><code>pca_Pheno=prcomp(t(normPheno_matrix), center=T,scale=T)
 pca_df=as.data.frame(pca_Pheno$rotation) %&gt;% rownames_to_column(var=&quot;ID&quot;)</code></pre>
-<pre class="r"><code>eigs &lt;- pca_Pheno$sdev^2
-proportion = eigs/sum(eigs)
-
-plot(proportion)</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-9-1.png" target="_blank">b8ccfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>top5PC=pca_df %&gt;% select(ID, PC1, PC2, PC3, PC4, PC5) %&gt;% inner_join(metaDataN, by=&quot;ID&quot;)
-
-
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-10-1.png" target="_blank">b8ccfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(top5PC,aes(x=PC1, y=PC2, col=Concentration, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4689510f2067eb8da0d608d7f0d4306c9971deb0/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-11-1.png" target="_blank">4689510</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>top5PC$Cycles=as.factor(top5PC$Cycles)
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4689510f2067eb8da0d608d7f0d4306c9971deb0/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-12-1.png" target="_blank">4689510</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Correlation between experimental factors and pcs:</p>
-<p>PC1</p>
-<pre class="r"><code>Cycles1=summary(lm(top5PC$PC1 ~ top5PC$Cycles))$adj.r.squared
-Species1=summary(lm(top5PC$PC1 ~ top5PC$Species))$adj.r.squared
-Concentration1=summary(lm(top5PC$PC1 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration1=summary(lm(top5PC$PC1 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean1=summary(lm(top5PC$PC1 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio1=summary(lm(top5PC$PC1 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC1Fac=c(Species1, Concentration1, Ratio1,Cycles1,Library_concentration1, PerMapClean1)</code></pre>
-<p>PC2</p>
-<pre class="r"><code>Cycles2=summary(lm(top5PC$PC2 ~ top5PC$Cycles))$adj.r.squared
-Species2=summary(lm(top5PC$PC2 ~ top5PC$Species))$adj.r.squared
-Concentration2=summary(lm(top5PC$PC2 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration2=summary(lm(top5PC$PC2 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean2=summary(lm(top5PC$PC2 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio2=summary(lm(top5PC$PC2 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC2Fac=c(Species2, Concentration2, Ratio2,Cycles2,Library_concentration2, PerMapClean2)</code></pre>
-<p>PC3</p>
-<pre class="r"><code>Cycles3=summary(lm(top5PC$PC3 ~ top5PC$Cycles))$adj.r.squared
-Species3=summary(lm(top5PC$PC3 ~ top5PC$Species))$adj.r.squared
-Concentration3=summary(lm(top5PC$PC3 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration3=summary(lm(top5PC$PC3 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean3=summary(lm(top5PC$PC3 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio3=summary(lm(top5PC$PC3 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC3Fac=c(Species3, Concentration3, Ratio3,Cycles3,Library_concentration3, PerMapClean3)</code></pre>
-<p>PC4</p>
-<pre class="r"><code>Cycles4=summary(lm(top5PC$PC4 ~ top5PC$Cycles))$adj.r.squared
-Species4=summary(lm(top5PC$PC4 ~ top5PC$Species))$adj.r.squared
-Concentration4=summary(lm(top5PC$PC4 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration4=summary(lm(top5PC$PC4 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean4=summary(lm(top5PC$PC4 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio4=summary(lm(top5PC$PC4 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC4Fac=c(Species4, Concentration4, Ratio4,Cycles4,Library_concentration4, PerMapClean4)</code></pre>
-<p>PC5</p>
-<pre class="r"><code>Cycles5=summary(lm(top5PC$PC5 ~ top5PC$Cycles))$adj.r.squared
-Species5=summary(lm(top5PC$PC5 ~ top5PC$Species))$adj.r.squared
-Concentration5=summary(lm(top5PC$PC5 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration5=summary(lm(top5PC$PC5 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean5=summary(lm(top5PC$PC5 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio5=summary(lm(top5PC$PC5 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC5Fac=c(Species5, Concentration5, Ratio5,Cycles5,Library_concentration5, PerMapClean5)</code></pre>
-<p>Make DF and plot:</p>
-<pre class="r"><code>Exp=c(&#39;Species&#39;, &#39;Concentration&#39;, &#39;Ratio&#39;, &#39;Cycles&#39;,&#39;Library_concentration&#39;, &#39;PerMapClean&#39;)
-
-pcandEx=as.data.frame(cbind(Experiment=Exp,pc1=PC1Fac, pc2=PC2Fac,  pc3=PC3Fac,  pc4=PC4Fac,  pc5=PC5Fac))
-
-pcandExM=melt(pcandEx, id.var=&quot;Experiment&quot;,variable.name = &quot;PC&quot;, value.name = &quot;PVE&quot;)</code></pre>
-<pre><code>Warning: attributes are not identical across measure variables; they will
-be dropped</code></pre>
-<pre class="r"><code>pcandExM$PVE=as.numeric(pcandExM$PVE)</code></pre>
-<pre class="r"><code>ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile()+  labs(title=&quot;Proportion of variation explained in PCs by Experimental Faction \n Nuclear&quot;, y=&quot;&quot;) + scale_fill_distiller(palette = &quot;Blues&quot;, direction=1)</code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
-Past versions of unnamed-chunk-19-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4689510f2067eb8da0d608d7f0d4306c9971deb0/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-19-1.png" target="_blank">4689510</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(top5PC,aes(x=Species,y=Concentration)) + geom_boxplot(alpha=.5)+ geom_jitter(aes(col=Cycles)) + stat_compare_means(method=&quot;t.test&quot;)  + labs(title=&quot;Nuclear Fraction&quot;) </code></pre>
-<p><img src="figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4689510f2067eb8da0d608d7f0d4306c9971deb0/docs/figure/NormalizePheno_nuclear.Rmd/unnamed-chunk-20-1.png" target="_blank">4689510</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1187,23 +1225,19 @@ other attached packages:
  [9] tidyverse_1.2.1 ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1  
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        pillar_1.3.1      
-[10] glue_1.3.0         withr_2.1.2        RColorBrewer_1.1-2
-[13] modelr_0.1.2       readxl_1.1.0       plyr_1.8.4        
-[16] munsell_0.5.0      gtable_0.2.0       workflowr_1.4.0   
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         broom_0.5.1       
-[25] Rcpp_1.0.2         scales_1.0.0       backports_1.1.2   
-[28] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
-[31] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
-[34] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
-[37] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[40] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[43] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[46] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[49] git2r_0.25.2       compiler_3.5.1    </code></pre>
+ [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
+ [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
+ [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
+[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
+[17] gtable_0.2.0     workflowr_1.5.0  cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    knitr_1.20       httpuv_1.4.5     broom_0.5.1     
+[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
+[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
+[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
+[37] tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2   
+[41] pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
+[45] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10  R6_2.3.0        
+[49] nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
 </div>
 
 
