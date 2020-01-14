@@ -265,6 +265,10 @@ dge_in_cutoff <- calcNormFactors(dge_in_cutoff)
 
 cpm_in_cutoff <- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)
+
+GenesCutoff=rownames(cpm_in_cutoff)
+NormalizedGenesCuttoff=as.data.frame(cbind(Gene_stable_ID=GenesCutoff, cpm_in_cutoff))
+
 ```
 
 ```{r}
@@ -514,5 +518,6 @@ write.table(deGenes,"../data/DiffExpression/DE_genes.txt", col.names = F, row.na
 write.table(tested_witheffect,"../data/DiffExpression/DEtested_allres.txt", col.names = F, row.names = F, quote = F)
 write.table(deGenes_witheffect,"../data/DiffExpression/DE_results5fdr.txt", col.names = T, row.names = F, quote = F)
 write.table(testgenes,"../data/DiffExpression/DE_Testedgenes.txt", col.names = F, row.names = F, quote = F)
+write.table(NormalizedGenesCuttoff, "../data/DiffExpression/NormalizedExpressionPassCutoff.txt", col.names=T, row.names=F, quote = F)
 ```
 

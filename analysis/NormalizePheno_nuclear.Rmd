@@ -68,133 +68,16 @@ normPheno_matrix=as.matrix(normPheno %>% select(-Chr, -start, -end, -ID))
 Run PCA:  
 
 ```{r}
-pca_Pheno=prcomp(normPheno_matrix, center=T,scale=T)
+pca_Pheno=prcomp(t(normPheno_matrix), center=T,scale=T)
 pca_df=as.data.frame(pca_Pheno$rotation) %>% rownames_to_column(var="ID")
 
 ```
 
-```{r}
-eigs <- pca_Pheno$sdev^2
-proportion = eigs/sum(eigs)
-
-plot(proportion)
-```
-```{r}
-top5PC=pca_df %>% select(ID, PC1, PC2, PC3, PC4, PC5) %>% inner_join(metaDataN, by="ID")
-
-
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03) )
-```
 
 
 
-```{r}
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Concentration, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))
-
-
-```
-```{r}
-
-top5PC$Cycles=as.factor(top5PC$Cycles)
-ggplot(top5PC,aes(x=PC1, y=PC2, col=Cycles, shape=Species)) + geom_point(size=3) + geom_text(aes(label=Line), position = position_nudge(y = 0.03))
-```
-
-Correlation between experimental factors and pcs:
-
-
-PC1
-```{r}
-
-Cycles1=summary(lm(top5PC$PC1 ~ top5PC$Cycles))$adj.r.squared
-Species1=summary(lm(top5PC$PC1 ~ top5PC$Species))$adj.r.squared
-Concentration1=summary(lm(top5PC$PC1 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration1=summary(lm(top5PC$PC1 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean1=summary(lm(top5PC$PC1 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio1=summary(lm(top5PC$PC1 ~ top5PC$Ratio))$adj.r.squared
 
 
 
-PC1Fac=c(Species1, Concentration1, Ratio1,Cycles1,Library_concentration1, PerMapClean1)
-```
-
-PC2
-```{r}
-Cycles2=summary(lm(top5PC$PC2 ~ top5PC$Cycles))$adj.r.squared
-Species2=summary(lm(top5PC$PC2 ~ top5PC$Species))$adj.r.squared
-Concentration2=summary(lm(top5PC$PC2 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration2=summary(lm(top5PC$PC2 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean2=summary(lm(top5PC$PC2 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio2=summary(lm(top5PC$PC2 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC2Fac=c(Species2, Concentration2, Ratio2,Cycles2,Library_concentration2, PerMapClean2)
-```
-
-PC3
-```{r}
-Cycles3=summary(lm(top5PC$PC3 ~ top5PC$Cycles))$adj.r.squared
-Species3=summary(lm(top5PC$PC3 ~ top5PC$Species))$adj.r.squared
-Concentration3=summary(lm(top5PC$PC3 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration3=summary(lm(top5PC$PC3 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean3=summary(lm(top5PC$PC3 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio3=summary(lm(top5PC$PC3 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC3Fac=c(Species3, Concentration3, Ratio3,Cycles3,Library_concentration3, PerMapClean3)
-```
-
-
-PC4
-```{r}
-Cycles4=summary(lm(top5PC$PC4 ~ top5PC$Cycles))$adj.r.squared
-Species4=summary(lm(top5PC$PC4 ~ top5PC$Species))$adj.r.squared
-Concentration4=summary(lm(top5PC$PC4 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration4=summary(lm(top5PC$PC4 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean4=summary(lm(top5PC$PC4 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio4=summary(lm(top5PC$PC4 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC4Fac=c(Species4, Concentration4, Ratio4,Cycles4,Library_concentration4, PerMapClean4)
-```
-
-PC5
-```{r}
-Cycles5=summary(lm(top5PC$PC5 ~ top5PC$Cycles))$adj.r.squared
-Species5=summary(lm(top5PC$PC5 ~ top5PC$Species))$adj.r.squared
-Concentration5=summary(lm(top5PC$PC5 ~ top5PC$Concentration))$adj.r.squared
-Library_concentration5=summary(lm(top5PC$PC5 ~ top5PC$Library_concentration))$adj.r.squared
-PerMapClean5=summary(lm(top5PC$PC5 ~ top5PC$PerMapClean))$adj.r.squared
-Ratio5=summary(lm(top5PC$PC5 ~ top5PC$Ratio))$adj.r.squared
-
-
-
-PC5Fac=c(Species5, Concentration5, Ratio5,Cycles5,Library_concentration5, PerMapClean5)
-```
-
-Make DF and plot: 
-
-```{r}
-Exp=c('Species', 'Concentration', 'Ratio', 'Cycles','Library_concentration', 'PerMapClean')
-
-pcandEx=as.data.frame(cbind(Experiment=Exp,pc1=PC1Fac, pc2=PC2Fac,  pc3=PC3Fac,  pc4=PC4Fac,  pc5=PC5Fac))
-
-pcandExM=melt(pcandEx, id.var="Experiment",variable.name = "PC", value.name = "PVE")
-pcandExM$PVE=as.numeric(pcandExM$PVE)
-
-```
-
-```{r}
-ggplot(pcandExM, aes(x=PC, fill=PVE, y=Experiment))+ geom_tile()+  labs(title="Proportion of variation explained in PCs by Experimental Faction \n Nuclear", y="") + scale_fill_distiller(palette = "Blues", direction=1)
-```
-
-
-
-```{r}
-ggplot(top5PC,aes(x=Species,y=Concentration)) + geom_boxplot(alpha=.5)+ geom_jitter(aes(col=Cycles)) + stat_compare_means(method="t.test")  + labs(title="Nuclear Fraction") 
-
-```
 
 

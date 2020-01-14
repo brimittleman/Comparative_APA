@@ -95,7 +95,16 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Compare to nuclear differential APA](DiffTransProtvsNuclearAPA.html)   
 
-* [Use UpSetR to vizualize intersections](upsetter.html)  
+* [Use UpSetR to vizualize intersections](upsetter.html) 
+
+
+##Mediation  
+
+* [Normalize Nuclear Fraction](NormalizePheno_nuclear.html)  
+
+* [Normalize clusters from splicing analysis](normalizeClusters.html)
+
+* [Mediation analysis](mediation.html)
 
 ##Extra QC and Analysis   
 
@@ -123,7 +132,6 @@ From before reseq:
       
 * [Total Fraction- Prenormalized](NonNormPheno_total.html)
         
-* [Nuclear Fraction](NormalizePheno_nuclear.html)  
 
 ### Chosing between pantro files
 
