@@ -1,0 +1,67 @@
+---
+title: "Species Specific PAS"
+author: "Briana Mittleman"
+date: "1/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I want to look at the PAS that are identified at at least 5% in one species but are not identified in the other species. I will work with avergage nuclear. I can then run the differential apa analysis with only the PAS identified in both.
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+
+```{r}
+PAS=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F)
+
+HumanSpec= PAS %>% filter(Chimp==0)
+nrow(HumanSpec)
+ChimpSpec= PAS %>% filter(Human==0)
+nrow(ChimpSpec)
+```
+
+
+Look at the distribution of these accross the gene. 
+
+```{r}
+ggplot(HumanSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Human Specific PAS")
+
+ggplot(ChimpSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Chimp Specific PAS")
+```
+
+Next I will see if these are due to low expression. I will pull in the average normalized expression and rerun the filter.  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID,Gene.name)
+expr=read.table("../data/DiffExpression/NoramalizedExpression.txt",header = T,stringsAsFactors = F) %>% rename('Gene_stable_ID'=genes) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name,Chimp, Human) %>% rename("ChimpExp"=Chimp, "HumanExp"=Human, "gene"=Gene.name)
+
+PAS_exp=PAS %>% inner_join(expr,by="gene")
+nrow(PAS_exp)
+nrow(PAS_exp)/nrow(PAS)
+
+HumanSpecExp= PAS_exp %>% filter(Chimp==0)
+nrow(HumanSpecExp)
+nrow(HumanSpecExp)/nrow(HumanSpec)
+ChimpSpecExp= PAS_exp %>% filter(Human==0)
+nrow(ChimpSpecExp)/nrow(ChimpSpec)
+```
+
+
+Looks like the filter on gene expresion removes almost half of the PAS and leaves a lot fewer specfic PAS. I can compare expression levels for the remaining specific PAS  
+
+
+```{r}
+PAS_exp_spe=PAS_exp %>% mutate(HumanSpec=ifelse(gene %in%HumanSpecExp$gene, "yes", "no"), ChimpSpec=ifelse(gene %in% ChimpSpecExp$gene, "yes","no"))
+
+ggplot(PAS_exp_spe,aes(x=HumanSpec,y=HumanExp)) + geom_boxplot() + stat_compare_means(method = "t.test") + labs(x="Presence of Human Specific PAS", y="Average Normalized Expression", title="Expression in Genes with Human Specific PAS")
+
+ggplot(PAS_exp_spe,aes(x=ChimpSpec,y=ChimpExp)) + geom_boxplot() + stat_compare_means(method = "t.test") + labs(x="Presence of Chimp Specific PAS", y="Average Normalized Expression", title="Expression in Genes with Chimp Specific PAS")
+```
+This may be evidence for filtering the PAS the same way we filter expression before DE.   

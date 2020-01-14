@@ -241,7 +241,7 @@ plotDensities(tmm_cpm, col=pal[as.numeric(metaData$Species)], legend="topright")
 
 Filter based on log2 cpm  
 
-filter log2(cpm >1) in at least 10 of the samples  (2/3)
+filter log2(cpm) >1 in at least 8 of the samples  (2/3)
 
 
 ```{r}
@@ -459,6 +459,8 @@ proportion[4]
 fit.cpm.voom = lmFit(cpm.voom, design, plot=T)
 head(coef(fit.cpm.voom))
 testgenes= rownames(coef(fit.cpm.voom))
+#df for average normalized expression
+avgExp=as.data.frame(cbind(genes=testgenes,coef(fit.cpm.voom) ))
 ```
 
 ```{r}
@@ -506,6 +508,8 @@ colnames(geneNames)="genes"
 deGenes_witheffect= cbind(geneNames,top.table) %>% filter(adj.P.Val < 0.05)
 tested_witheffect=cbind(geneNames,top.table)
 
+
+write.table(avgExp, "../data/DiffExpression/NoramalizedExpression.txt", col.names = T, row.names = F, quote = F)
 write.table(deGenes,"../data/DiffExpression/DE_genes.txt", col.names = F, row.names = F, quote = F)
 write.table(tested_witheffect,"../data/DiffExpression/DEtested_allres.txt", col.names = F, row.names = F, quote = F)
 write.table(deGenes_witheffect,"../data/DiffExpression/DE_results5fdr.txt", col.names = T, row.names = F, quote = F)
