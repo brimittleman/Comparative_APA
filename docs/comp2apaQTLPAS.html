@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree65a4e09db7db43ff77650603fa3df3fd9534c922targetblank65a4e09a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/65a4e09db7db43ff77650603fa3df3fd9534c922" target="_blank">65a4e09</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4055858a32d9e204500603e252c980afed7761btargetblankf405585a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f4055858a32d9e204500603e252c980afed7761b" target="_blank">f405585</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree65a4e09db7db43ff77650603fa3df3fd9534c922targetblank65a4e09a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4055858a32d9e204500603e252c980afed7761btargetblankf405585a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1041,6 +1041,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f4055858a32d9e204500603e252c980afed7761b/analysis/comp2apaQTLPAS.Rmd" target="_blank">f405585</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+<td>
+add boxplot for extended
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9e0680a64552070035b006667055f7477471ca7d/docs/comp2apaQTLPAS.html" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/65a4e09db7db43ff77650603fa3df3fd9534c922/analysis/comp2apaQTLPAS.Rmd" target="_blank">65a4e09</a>
 </td>
 <td>
@@ -1321,6 +1355,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/9fb15ebe17ef42d1846a748c1a7f73f62e4e5a1d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-8-1.png" target="_blank">9fb15eb</a>
 </td>
 <td>
@@ -1437,12 +1482,86 @@ nrow(AllwOinfo_gene_filt)</code></pre>
 <p>Now plot:</p>
 <pre class="r"><code>ggplot(AllwOinfo_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes&quot;, y=&quot;percentage&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-13-1.png" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Remove those identified in chimp:</p>
 <pre class="r"><code>AllwOinfo_gene_filt_humanident=AllwOinfo_gene_filt %&gt;% filter(disc != &quot;Chimp&quot;)
 nrow(AllwOinfo_gene_filt_humanident)</code></pre>
 <pre><code>[1] 32506</code></pre>
 <pre class="r"><code>ggplot(AllwOinfo_gene_filt_humanident, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes\n and identified in chimp&quot;, y=&quot;percentage&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-14-1.png" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at some of these in IGV:</p>
 <p>It look like some of them are off by just a few basepairs. To be more liberal with this analysis, I will increase the size of the apaQTLs by 50 on each side.</p>
 <pre class="r"><code>apaQTLPAS=read.table(&quot;../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed&quot;,stringsAsFactors = F,col.names = c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;score&quot;,&quot;strand&quot;)) 
@@ -1460,6 +1579,43 @@ nrow(AllwOinfoExt)</code></pre>
 <pre><code>[1] 60307</code></pre>
 <pre class="r"><code>ggplot(AllwOinfoExt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-18-1.png" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>AllwOinfoExt_gene=AllwOinfoExt %&gt;% inner_join(PASMeta,by=c(&quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
 <pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
 character vector</code></pre>
@@ -1469,8 +1625,47 @@ character vector</code></pre>
 
 ggplot(AllwOinfoExt_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes \n extended PAS&quot;, y=&quot;percentage&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-19-1.png" target="_blank">9e0680a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>nrow(AllwOinfoExt_gene_filt)</code></pre>
 <pre><code>[1] 35607</code></pre>
+<pre class="r"><code>ggplot(AllwOinfoExt_gene_filt,aes(x=overlap,y=Human,fill=overlap))+ geom_boxplot() + stat_compare_means(method=&quot;t.test&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
