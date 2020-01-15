@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Briana Mittleman" />
 
 
-<title>Home</title>
+<title>Visualize Usage Percentages</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -169,6 +173,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -217,7 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Visualize Usage Percentages</h1>
+<h4 class="author"><em>Briana Mittleman</em></h4>
+<h4 class="date"><em>1/15/2020</em></h4>
 
 </div>
 
@@ -245,7 +346,7 @@ div.section {
 <strong>Last updated:</strong> 2020-01-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -267,6 +368,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190902code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190902)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190902code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190902)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -887,7 +1048,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5dd5e3520a1db76aac47d0cd2ff68516635a8be6/analysis/index.Rmd" target="_blank">5dd5e35</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5dd5e3520a1db76aac47d0cd2ff68516635a8be6/analysis/visualizePASUsage.Rmd" target="_blank">5dd5e35</a>
 </td>
 <td>
 brimittleman
@@ -899,1502 +1060,6 @@ brimittleman
 add code to viz nuclear dapa
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4f5d4929bd9915b744db58348b0e6abd8dbf17e9/docs/index.html" target="_blank">4f5d492</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3cce3da7f1e29f6354c8ba13cfbf5670d31b266f/analysis/index.Rmd" target="_blank">3cce3da</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-start mediation analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c74c3dff8fe4e0f556c85f6e87a52b98af045052/docs/index.html" target="_blank">c74c3df</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e1c6d25cab3b2417ff0cb817baa5b2ce20c2bc18/analysis/index.Rmd" target="_blank">e1c6d25</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-add analysis on species spec PAS
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/1b9ae04751591afa424b45746658ede0a2fe8265/docs/index.html" target="_blank">1b9ae04</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5ea47104fe4b593dc225c6982b9287a75d033568/analysis/index.Rmd" target="_blank">5ea4710</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-13
-</td>
-<td>
-add questions about dAPA pas and genes
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b963392cd54baea2025e643b0f5c7fa5b8a22ce2/docs/index.html" target="_blank">b963392</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1121102d5c13611abe70c2f43c03cea96e44fbc0/analysis/index.Rmd" target="_blank">1121102</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-13
-</td>
-<td>
-add dpau and de overlap with dom intronic
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/df07f1ae847e014b069b024db3499632d98b7199/docs/index.html" target="_blank">df07f1a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/928a30dd19be22274470defdc5d88b3e87a05048/analysis/index.Rmd" target="_blank">928a30d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-add same and diff dom ss analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/ced196676b623df77391971e34c2804b6ec4d087/docs/index.html" target="_blank">ced1966</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1cdc21d6416fd4732da758fe59f13769a5a06c29/analysis/index.Rmd" target="_blank">1cdc21d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-add initial signal site analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dd02dabec8be8444f027abc10b667f1c6e8c5f3a/docs/index.html" target="_blank">dd02dab</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a41141b42e3d041fb7643c6b4fe21e9144dddc58/docs/index.html" target="_blank">a41141b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/93ced1e42aac3e088f3a548d93f2ca501a5b0736/analysis/index.Rmd" target="_blank">93ced1e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-09
-</td>
-<td>
-peak 2 pas
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/6d9e3694a2b7c72dc2ed9d8647c74328504d1602/docs/index.html" target="_blank">6d9e369</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/203eae574eb54842cf37786d93397c01153ea3b3/analysis/index.Rmd" target="_blank">203eae5</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-08
-</td>
-<td>
-first steps for intron loc analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4c87e962435f44f7059b09a4b9647ac5aa9ab9b2/docs/index.html" target="_blank">4c87e96</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6e3027ad7348b369c091f8fb903edfee7cd13b3d/analysis/index.Rmd" target="_blank">6e3027a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-07
-</td>
-<td>
-upset plots for comparisons
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/776853582da60e8c2f6bb43a1a0b14e339c47463/docs/index.html" target="_blank">7768535</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/670020f30d49aae921fa8368b8e7db48a43d4ce5/analysis/index.Rmd" target="_blank">670020f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-07
-</td>
-<td>
-add translation protien overlap
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dec23c17b58af879e35616b4e87db89ea5b422fe/docs/index.html" target="_blank">dec23c1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/54015c83b7d5a5583ee4c3cba8e9f12734ca0000/analysis/index.Rmd" target="_blank">54015c8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-06
-</td>
-<td>
-add overlap dom with dAPA
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c633e63b7908ec3c5e4a1dd03454495fe8d80f38/docs/index.html" target="_blank">c633e63</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e857040d3c1c7aa994183714a5c0a7c84632596/analysis/index.Rmd" target="_blank">5e85704</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-06
-</td>
-<td>
-add overlap with eQTLs
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dc41b3bed4b09ecfbadc5582fe9344c478a36f26/docs/index.html" target="_blank">dc41b3b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6214ec5ac07800db9fcab129908c163965822c19/analysis/index.Rmd" target="_blank">6214ec5</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-add venn diagram for diff apa
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/42a8b12141c2eaa3041cbbb71c6923e210c46dc6/docs/index.html" target="_blank">42a8b12</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/385057f01b6b0ca687e6e47d3a4bc8203d56768b/analysis/index.Rmd" target="_blank">385057f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-fix dom PAS on index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0176b490c9d47ce9a1a57debcb33dd33a8678879/docs/index.html" target="_blank">0176b49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b25363cd6afdf6d3159d57a65fb785318f7fab7/analysis/index.Rmd" target="_blank">5b25363</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-add total and nuclear dominant PAS analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/26447479c3188b6643bf89ec83ac1c4042b4369b/docs/index.html" target="_blank">2644747</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c8973d5a093a6450fa78c96b3fc524bb3ca971a/analysis/index.Rmd" target="_blank">4c8973d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-<td>
-add total human vs chimp
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/ffecde802b87c4d1b1578945db9807fab043f0b4/docs/index.html" target="_blank">ffecde8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/d541bb5b0b501844781d1db3cb73f9182dc492d6/analysis/index.Rmd" target="_blank">d541bb5</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-17
-</td>
-<td>
-move extra pcas
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8b074b88d8eddfe32f775bf287b0ee2308d0a16e/docs/index.html" target="_blank">8b074b8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/de41e07c5a865e0fe881b5301917b46a3213b9ef/analysis/index.Rmd" target="_blank">de41e07</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-add gene comp 5v6
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/1b69793cd30f749ee4b0ba21d45783b7752cc282/docs/index.html" target="_blank">1b69793</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3b64d8c2dfa1c6a7c2c5e3687a09e2963987fed6/analysis/index.Rmd" target="_blank">3b64d8c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-16
-</td>
-<td>
-add compare ortho exon
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/cbadb32d4f2c53f97ffab3f48cd89c838f4ed583/docs/index.html" target="_blank">cbadb32</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/8068598fcdb9515d4c3f7b6b429971c0d2c7eec7/analysis/index.Rmd" target="_blank">8068598</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-12
-</td>
-<td>
-meta data by species
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3ee838285a224d7b74f683ccc93ff29a21a4333e/docs/index.html" target="_blank">3ee8382</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f04a8042f4b698ab19e130b931b5aa8075a125a4/analysis/index.Rmd" target="_blank">f04a804</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-08
-</td>
-<td>
-add DE vs DS analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b32d961465fc2811af401d0ac4ff09dee895107c/docs/index.html" target="_blank">b32d961</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1452408d077ed41af636026bbe45b5aaf6066893/analysis/index.Rmd" target="_blank">1452408</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-add investigation pantro5
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/144bc43946f728c856c1039f0d8b7d0f6eb6e936/docs/index.html" target="_blank">144bc43</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/d56d98cb3aa2e4768d272c382017bdc8889a06ed/analysis/index.Rmd" target="_blank">d56d98c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-05
-</td>
-<td>
-add opp map
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f53ab2772e3e897295f109389cb1cf19a7d71c4d/docs/index.html" target="_blank">f53ab27</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c48aedcbe8688bc762be9e2aa901a0a50606c3fc/analysis/index.Rmd" target="_blank">c48aedc</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-24
-</td>
-<td>
-add multimap stat graphs
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e7cb428de68cdf9db814b7fb859caa0e954338f1/docs/index.html" target="_blank">e7cb428</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9fbd1fe61d1a16783614fab355cc522bf11cb279/analysis/index.Rmd" target="_blank">9fbd1fe</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-figure out sample swap
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2e33ce93a1227b8cb84cacd5b3d914dcab1fc71c/docs/index.html" target="_blank">2e33ce9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/17d5d33beaa8e717b613ff408d8948415d559837/analysis/index.Rmd" target="_blank">17d5d33</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-21
-</td>
-<td>
-add diff splice without 2 samples
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/40db68c19e220862b8f27ddadb157ad7f9f17bd8/docs/index.html" target="_blank">40db68c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7c206f8564758f532df70a03de7ba08ae322a15c/analysis/index.Rmd" target="_blank">7c206f8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-add extra QC anaylsis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9ecd7691d60ca3c6b742c1f3a4956f51832bd63e/docs/index.html" target="_blank">9ecd769</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/db85b26c94005e7cad373dc524afb78f7f2ad8fb/analysis/index.Rmd" target="_blank">db85b26</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-20
-</td>
-<td>
-add remove 2 analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/dc91b0af79367ef559ad277a01090d4c950dcc88/docs/index.html" target="_blank">dc91b0a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5ba82eee24903f1da5a92da2559275ffc71912d/analysis/index.Rmd" target="_blank">b5ba82e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-11-11
-</td>
-<td>
-add diff expression and diff splicing
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/066d419290a2f4c3eef8bdf538216f3d348572fb/docs/index.html" target="_blank">066d419</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a255e22b9d32ad80884501ae03a7c4e162fdbba5/analysis/index.Rmd" target="_blank">a255e22</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-16
-</td>
-<td>
-add code and annotations for dt plots
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f4bcae9ac5f32e2f228bd29eaaf2ae525899ce22/docs/index.html" target="_blank">f4bcae9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25a8b1e42180e62d71b4ff4dd0400102843f1cec/analysis/index.Rmd" target="_blank">25a8b1e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-15
-</td>
-<td>
-fix name bug add number PAS analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d9f241f464a962076d2b3378fc27d4167217ae49/docs/index.html" target="_blank">d9f241f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/36d8ded5078c72dbd927d0f8c1c26d5febef08bd/analysis/index.Rmd" target="_blank">36d8ded</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-11
-</td>
-<td>
-add correlation between ind analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3f3c4d0bbcd2e09211f2fea1ac28e58777e3d00f/docs/index.html" target="_blank">3f3c4d0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c4db4f0e862f52d0ff492d5ca928b9bc0ae2b345/analysis/index.Rmd" target="_blank">c4db4f0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-10
-</td>
-<td>
-add non norm pca and verify bam
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b8ccfdba858ba7a58fd036f32380c6c91d513263/docs/index.html" target="_blank">b8ccfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1f063297413d5951470981d2eb95540825326ce0/analysis/index.Rmd" target="_blank">1f06329</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-add PCA by total and nuclear
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d0c98c261010b35d00259c9ca5488e2e46448332/docs/index.html" target="_blank">d0c98c2</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/14a3f665ce75def8370c8c6129603a205c5648d0/analysis/index.Rmd" target="_blank">14a3f66</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-09
-</td>
-<td>
-add pca and human v chimp in nuc analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c3aa529bce951a381624b7854c6e7522f3c14bff/docs/index.html" target="_blank">c3aa529</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/da85ad8c1c69856141190009e20c4ef98ed07b76/analysis/index.Rmd" target="_blank">da85ad8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-07
-</td>
-<td>
-add code to prepare human and chimp TvN
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ea25767ec9bed8fe46e366e324043d228e57f5e/docs/index.html" target="_blank">4ea2576</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/920abac02a19940bb87f056a3a06dcb35cd5016d/analysis/index.Rmd" target="_blank">920abac</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-04
-</td>
-<td>
-add comaprison to old PAS
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e0ac227e5aa1b09a1da0fa75aaab25b9f0eb749a/docs/index.html" target="_blank">e0ac227</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e3f0cdffde5f9e8344479c42d2e16e725e73b22e/analysis/index.Rmd" target="_blank">e3f0cdf</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-03
-</td>
-<td>
-add annotation analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b5edd8e21fc0cf262cf1332d74ffc1917c2ff7f7/docs/index.html" target="_blank">b5edd8e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b5a215119477fca80ff396449a2cbbbff36db2d1/analysis/index.Rmd" target="_blank">b5a2151</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-02
-</td>
-<td>
-add analysis for liftover
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0e8aa0da4367a78c4c39a2d082b6d235b78237e8/docs/index.html" target="_blank">0e8aa0d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7d81da82a31dd6f9169c49f13873a66afba68755/analysis/index.Rmd" target="_blank">7d81da8</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-10-01
-</td>
-<td>
-add map stats to site
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7a9cf749ef4c1a7f45bf19aab838396625c8284c/docs/index.html" target="_blank">7a9cf74</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2fe9d6cca95411e4ce8b2cfd67d80c7b22c418d/analysis/index.Rmd" target="_blank">a2fe9d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-24
-</td>
-<td>
-add annotation prep anaylsis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/03cb9ab5e687900eff39dc89fbad5178e6a10a6c/docs/index.html" target="_blank">03cb9ab</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/88ed6b434a8626d6210e8921e2154078dca095d6/docs/index.html" target="_blank">88ed6b4</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b6db8f3924282d211181aeaf4baa6851908f18aa/analysis/index.Rmd" target="_blank">b6db8f3</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-add project info to about and index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d03d7b001d5748f6f9162210b368fab2dac90662/docs/index.html" target="_blank">d03d7b0</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f914d4920107a1b4c48c590209133aa9ac5817de/analysis/index.Rmd" target="_blank">f914d49</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-09-02
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -2402,112 +1067,101 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>I am interesting in understanding differential APA between human and chimpanzees. I used 3’ Seq to identify PAS for total and nuclear frations of LCL in both species.</p>
-<div id="preparation-and-qc" class="section level2">
-<h2>Preparation and QC:</h2>
-<ul>
-<li><p><a href="annotationInfo.html">Prepare annotation files for mapping</a></p></li>
-<li><p><a href="mapStats.html">Mapping statistics and plots</a></p></li>
-<li><p><a href="liftoverPAS.html">Liftover PAS</a></p></li>
-<li><p><a href="annotatePAS.html">Annotated PAS and make APA phenotype</a></p></li>
-<li><p><a href="comp2apaQTLPAS.html">Compare identified PAS with apaQTL PAS</a></p></li>
-<li><p><a href="NromalizePhenos.html">PCA plot to look at variation in data</a></p></li>
-<li><p><a href="CorrbetweenInd.html">Correlation between individuals</a></p></li>
-<li><p><a href="verifyBAM.Rmd">Verify sample identity</a></p></li>
-<li><p><a href="EnrichmentEndofGenes.html">3’ Seq enrichement along gene bodies</a></p></li>
-<li><p><a href="CrossChimpThreePrime.html">Cross map and prepare Chimp 3’ for Viz in IGV</a></p></li>
-<li><p><a href="fixPeak2PAS.html">Make PAS bed for 5% peaks</a></p></li>
-</ul>
-</div>
-<div id="catalog-pas" class="section level2">
-<h2>Catalog PAS:</h2>
-<ul>
-<li><p><a href="PASnumperSpecies.html">Number of PAS in each species</a></p></li>
-<li><p><a href="signalsites.html">Pressence of top 2 signal sites</a></p></li>
-<li><p><a href="dominantPAS_total.html">Dominant PAS in Total Fraction</a></p></li>
-<li><p><a href="dominantPAS.html">Dominant PAS in Nuclear Fraction</a></p>
-<ul>
-<li><p><a href="DominantPASintronLoc.html">Intronics location for dominant PAS</a></p></li>
-<li><p><a href="ss_sameDomdiffDom.html">Does signal site explain trend?</a></p></li>
-<li><p><a href="HumanIntronicDominant.html">Look at Intronic Dominant with DPAU and DE</a></p></li>
-</ul></li>
-<li><p><a href="speciesSpecific.html">Species Specificity in PAS</a></p></li>
-</ul>
-</div>
-<div id="differential-isoform-analysis" class="section level2">
-<h2>Differential Isoform Analysis:</h2>
-<ul>
-<li><p><a href="Human_TvN.html">Human Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Chimp_TvN.html">Chimp Total vs Nuclear Analysis</a></p></li>
-<li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p></li>
-<li><p><a href="Total_HvC.html">Total Human vs. Chimp Analysis</a></p></li>
-<li><p><a href="CompHC_totalandnuclear.html">Venn diagrams for genes in each differential APA set</a></p></li>
-<li><p><a href="ExploredAPA.html">Explore nuclear differential APA PAS and genes</a></p></li>
-<li><p><a href="DapaineQTL.html">Differential APA and eQTL overlap</a></p></li>
-<li><p><a href="DominatPASandDIffAPA.html">Look at dAPA and genes from Dominant PAS analysis</a></p></li>
-<li><p><a href="visualizePASUsage.html">Visualization for all Nuclear DAPA genes</a></p></li>
-</ul>
-</div>
-<div id="quantify-phenotypes-with-rna" class="section level2">
-<h2>Quantify Phenotypes with RNA:</h2>
-<ul>
-<li><p><a href="diffSplicing.html">Differential Splicing</a></p></li>
-<li><p><a href="diffExpression.html">Differential Expression</a></p></li>
-<li><p><a href="MetabySpecies.html">Metadata by species</a></p></li>
-<li><p><a href="DEandeQTls.html">DE genes and eQTLs</a></p></li>
-<li><p><a href="DEvDS.html">Compare DE and DS genes</a></p></li>
-</ul>
-</div>
-<div id="intersect-with-outside-molecular-phenotypes" class="section level2">
-<h2>Intersect with outside molecular phenotypes:</h2>
-<ul>
-<li><p><a href="dProtanddRibo.html">Download data from differential protein and ribosomes</a></p></li>
-<li><p><a href="DiffTransProtvsNuclearAPA.html">Compare to nuclear differential APA</a></p></li>
-<li><p><a href="upsetter.html">Use UpSetR to vizualize intersections</a></p></li>
-</ul>
-</div>
-<div id="mediation" class="section level2">
-<h2>Mediation</h2>
-<ul>
-<li><p><a href="NormalizePheno_nuclear.html">Normalize Nuclear Fraction</a></p></li>
-<li><p><a href="normalizeClusters.html">Normalize clusters from splicing analysis</a></p></li>
-<li><p><a href="mediation.html">Mediation analysis</a></p></li>
-</ul>
-</div>
-<div id="extra-qc-and-analysis" class="section level2">
-<h2>Extra QC and Analysis</h2>
-<div id="sample-switch-analysis" class="section level3">
-<h3>Sample switch analysis</h3>
-<ul>
-<li><p><a href="InvestigateBadSamples.html">Investigate bad RNA seq samples</a></p>
-<ul>
-<li><p><a href="diffSplicing_removeBad.html">Differential splicing without bad samples</a></p></li>
-<li><p><a href="diffExpressionRemove2.html">Differential Expression without bad samples</a></p></li>
-</ul></li>
-</ul>
-</div>
-<div id="mapping-problems-with-pantro5-and-multimapping" class="section level3">
-<h3>Mapping problems with pantro5 and multimapping</h3>
-<ul>
-<li><p><a href="MapRNAhg19.html">Map RNA to hg19</a></p></li>
-<li><p><a href="multiMap.html">Evaluate multimapping criteria</a></p></li>
-<li><p><a href="OppositeMap.html">Map to opposite Genomes</a></p></li>
-<li><p><a href="investigatePantro5.html">Evaluate Pantro 5 problems</a></p></li>
-</ul>
-<p>From before reseq:</p>
-<ul>
-<li><p><a href="NormalizePheno_total.html">Total Fraction</a></p></li>
-<li><p><a href="NonNormPheno_total.html">Total Fraction- Prenormalized</a></p></li>
-</ul>
-</div>
-<div id="chosing-between-pantro-files" class="section level3">
-<h3>Chosing between pantro files</h3>
-<ul>
-<li><p><a href="compareOrthoExon.html">Compare pantro5 and pantro6 orthoexon</a></p></li>
-<li><p><a href="diffExpressionPantro6.html">Differential Expression with Pantro6</a></p></li>
-<li><p><a href="DE_pantro5vspantro6.html">Compare DE in pantro5 vs pantro6</a></p></li>
-</ul>
-</div>
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.5.0
+Run ?workflowr for help getting started</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>I want to write a loop that will create boxplots for all of the PAS in each gene. I need a script that takes one gene and then outputs the plot.</p>
+<p>I want PAS:Location as the x axis. Usage as the y axis. I will seperate the plots by species.</p>
+<p>I need a long dataframe with species, individual, PASid, gene, usage.</p>
+<p>Pull in the usage numbers:</p>
+<p>../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz</p>
+<p>I need to make these numeric.</p>
+<pre class="bash"><code>mkdir ../data/files4viz_nuclear/</code></pre>
+<p>Vector with humans:</p>
+<pre class="r"><code>humans=c(&#39;NA18498&#39;, &#39;NA18499&#39;, &#39;NA18502&#39; ,&#39;NA18504&#39;, &#39;NA18510&#39;, &#39;NA18523&#39;)
+
+chimps=c( &#39;NA18358&#39;, &#39;NA3622&#39; ,&#39;NA3659&#39;, &#39;NA4973&#39;, &#39;NApt30&#39;, &#39;NApt91&#39;)</code></pre>
+<p>LOC100288069_+_utr3-Both-human23</p>
+<p>LOC107984841_+_utr3-Chimp-chimp242477 utr3-Chimp-chimp242477</p>
+<pre class="r"><code>NuclearUsage=read.table(&quot;../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz&quot;, header = T)
+
+Nuclear_gather=NuclearUsage %&gt;% gather(key=&quot;Ind&quot;, value=&quot;Frac&quot;, -chrom) %&gt;% separate(Frac, into=c(&quot;num&quot;, &quot;denom&quot;), sep=&quot;/&quot;) %&gt;% mutate(numUsage=as.integer(num)/as.integer(denom)) %&gt;% replace_na(list(numUsage=0)) %&gt;% separate(Ind, into=c(&quot;sample&quot;, &quot;fraction&quot;), by=&quot;_&quot;) %&gt;% mutate(species=ifelse(sample %in% humans, &quot;Human&quot;,&quot;Chimp&quot;)) %&gt;% separate(chrom, into=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;PASid&quot;), sep=&quot;:&quot;)%&gt;% separate(PASid, into=c(&quot;Gene&quot;, &quot;strand&quot;, &quot;PASinf&quot;), sep=&quot;_&quot;) %&gt;% separate(PASinf, into=c(&quot;loc&quot;, &quot;disc&quot;, &quot;PASnum&quot;), sep=&quot;-&quot;)%&gt;% mutate(PAS=paste(PASnum,loc,sep=&quot;_&quot;)) %&gt;% dplyr::select(PAS, species,Gene, sample,numUsage)</code></pre>
+<pre><code>Warning: attributes are not identical across measure variables;
+they will be dropped</code></pre>
+<p>example gene:<br />
+DFFB</p>
+<pre class="r"><code>Nuclear_gather_DFFB=Nuclear_gather %&gt;% filter(Gene==&quot;DFFB&quot;)
+
+ggplot(Nuclear_gather_DFFB,aes(x=PAS, y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x = element_text(angle = 90)) + labs(y=&quot;Usage&quot;, title=&quot;Usage by species for DFFB&quot;)</code></pre>
+<p><img src="figure/visualizePASUsage.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>write.table(Nuclear_gather,&quot;../data/files4viz_nuclear/NuclearPASUsage.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
+<p>I will put this in an R script that takes a gene.</p>
+<p>test on DFFB</p>
+<pre class="bash"><code>Rscript PlotNuclearUsagebySpecies.R -g DFFB</code></pre>
+<p>This works, now I can make it for every gene that was called as DAPA. I will make a list of all of the genes.</p>
+<p>genes are in ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt</p>
+<pre class="bash"><code>sed &#39;1d&#39; ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt &gt; ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear_noHead.txt
+
+sbatch makeNuclearDapaplots.sh</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+ [9] tidyverse_1.2.1 workflowr_1.5.0
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
+[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
+[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
+[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
+[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
+[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
+[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
+[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
@@ -2524,6 +1178,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
