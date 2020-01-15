@@ -163,3 +163,7 @@ ggplot(AllwOinfoExt_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (.
 nrow(AllwOinfoExt_gene_filt)
 ```
 
+```{r}
+ggplot(AllwOinfoExt_gene_filt,aes(x=overlap,y=Human,fill=overlap))+ geom_boxplot() + stat_compare_means(method="t.test") + scale_fill_brewer(palette = "Dark2")
+```
+
