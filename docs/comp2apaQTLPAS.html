@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4055858a32d9e204500603e252c980afed7761btargetblankf405585a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f4055858a32d9e204500603e252c980afed7761b" target="_blank">f405585</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3bcd5af74e456bc86da16a7d2d4ba854f893971dtargetblank3bcd5afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3bcd5af74e456bc86da16a7d2d4ba854f893971d" target="_blank">3bcd5af</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4055858a32d9e204500603e252c980afed7761btargetblankf405585a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3bcd5af74e456bc86da16a7d2d4ba854f893971dtargetblank3bcd5afa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -482,6 +482,7 @@ Untracked files:
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PASsequences.sh
+    Untracked:  code/._PlotNuclearUsagebySpecies.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
@@ -525,6 +526,7 @@ Untracked files:
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
+    Untracked:  code/._makeNuclearDapaplots.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
@@ -653,6 +655,7 @@ Untracked files:
     Untracked:  code/PAS_sequence.err
     Untracked:  code/PAS_sequence.out
     Untracked:  code/PASsequences.sh
+    Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -767,6 +770,9 @@ Untracked files:
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
+    Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearPlots.err
+    Untracked:  code/makeNuclearPlots.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -977,6 +983,7 @@ Untracked files:
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/files4viz_nuclear/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1036,6 +1043,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3bcd5af74e456bc86da16a7d2d4ba854f893971d/analysis/comp2apaQTLPAS.Rmd" target="_blank">3bcd5af</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+<td>
+add usage cuttoff plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7bac2c5d6b8c89f2bd9a2e5842889f84449669bb/docs/comp2apaQTLPAS.html" target="_blank">7bac2c5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1234,12 +1275,12 @@ add comaprison to old PAS
 <pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1461,26 +1502,25 @@ brimittleman
 </table>
 </div>
 </div>
-<p>Still a not high overlap, but it is goood to see those that overlap are the higher used.</p>
-<div id="expression-filter" class="section level2">
-<h2>Expression Filter</h2>
-<p>Filter down to those with higher expression:</p>
-<p>I want to only look at the genes that passed the expression filter to test for DE.</p>
-<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID,Gene.name)
-DEtested=read.table(&quot;../data/DiffExpression/DE_Testedgenes.txt&quot;, col.names = c(&quot;Gene_stable_ID&quot;), stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;)</code></pre>
-<p>Join gene names to the intersections:</p>
-<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,header = T,stringsAsFactors = F) %&gt;% dplyr::select(PAS, gene, chr, start,end,disc)
-AllwOinfo_gene=AllwOinfo %&gt;% inner_join(PASMeta,by=c(&quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
-<pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre><code>Warning: Column `chr` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre class="r"><code>AllwOinfo_gene_filt=AllwOinfo_gene %&gt;% filter(gene %in% DEtested$Gene.name )
-
-nrow(AllwOinfo_gene_filt)</code></pre>
-<pre><code>[1] 35191</code></pre>
-<p>Now plot:</p>
-<pre class="r"><code>ggplot(AllwOinfo_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes&quot;, y=&quot;percentage&quot;)</code></pre>
+<p>Get the percent overlap by usage filter:</p>
+<pre class="r"><code>overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo %&gt;% filter(Human&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap=c(overlap,prop)
+  totalvec=c(totalvec,total)
+}</code></pre>
+<pre class="r"><code>plot(seq_usage,overlap,main=&quot;Overlap with apaQTL PAS by human average usage&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(seq_usage,totalvec,main=&quot;Number of PAS&quot;,ylab=&quot;Number of PAS&quot;,xlab=&quot;Usage Cutoff&quot; )
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
@@ -1519,51 +1559,7 @@ brimittleman
 </table>
 </div>
 </div>
-<p>Remove those identified in chimp:</p>
-<pre class="r"><code>AllwOinfo_gene_filt_humanident=AllwOinfo_gene_filt %&gt;% filter(disc != &quot;Chimp&quot;)
-nrow(AllwOinfo_gene_filt_humanident)</code></pre>
-<pre><code>[1] 32506</code></pre>
-<pre class="r"><code>ggplot(AllwOinfo_gene_filt_humanident, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes\n and identified in chimp&quot;, y=&quot;percentage&quot;)</code></pre>
-<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-14-1.png" target="_blank">9e0680a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Look at some of these in IGV:</p>
-<p>It look like some of them are off by just a few basepairs. To be more liberal with this analysis, I will increase the size of the apaQTLs by 50 on each side.</p>
+<p>Extended:</p>
 <pre class="r"><code>apaQTLPAS=read.table(&quot;../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed&quot;,stringsAsFactors = F,col.names = c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;score&quot;,&quot;strand&quot;)) 
 apaQTLPAS_ext= apaQTLPAS %&gt;% mutate(start_new=start-50, end_new=end+50) %&gt;% dplyr::select(chr,start_new, end_new, PAS, score, strand)
 
@@ -1578,52 +1574,29 @@ AllwOinfoExt=as.data.frame(rbind(wOverlapExt, noOverlapExt))
 nrow(AllwOinfoExt)</code></pre>
 <pre><code>[1] 60307</code></pre>
 <pre class="r"><code>ggplot(AllwOinfoExt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9e0680a64552070035b006667055f7477471ca7d/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-18-1.png" target="_blank">9e0680a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>AllwOinfoExt_gene=AllwOinfoExt %&gt;% inner_join(PASMeta,by=c(&quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
-<pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre><code>Warning: Column `chr` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre class="r"><code>AllwOinfoExt_gene_filt=AllwOinfoExt_gene %&gt;% filter(gene %in% DEtested$Gene.name )
-
-ggplot(AllwOinfoExt_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes \n extended PAS&quot;, y=&quot;percentage&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfoExt %&gt;% filter(Human&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap=c(overlap,prop)
+  if (i==.05 | i==.1){
+    print(prop)
+    print(i)
+  }
+  totalvec=c(totalvec,total)
+}</code></pre>
+<pre><code>[1] 0.4646119
+[1] 0.05
+[1] 0.5581395
+[1] 0.1</code></pre>
+<pre class="r"><code>plot(seq_usage,overlap,main=&quot;Overlap with apaQTL Extended PAS by human average usage&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
 <p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
@@ -1662,10 +1635,114 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>plot(seq_usage,totalvec,main=&quot;Number of PAS by human by usage&quot;,ylab=&quot;Number of PAS&quot;,xlab=&quot;Usage Cutoff&quot; )
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7bac2c5d6b8c89f2bd9a2e5842889f84449669bb/docs/figure/comp2apaQTLPAS.Rmd/unnamed-chunk-20-1.png" target="_blank">7bac2c5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="expression-filter" class="section level2">
+<h2>Expression Filter</h2>
+<p>Filter down to those with higher expression:</p>
+<p>I want to only look at the genes that passed the expression filter to test for DE.</p>
+<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID,Gene.name)
+DEtested=read.table(&quot;../data/DiffExpression/DE_Testedgenes.txt&quot;, col.names = c(&quot;Gene_stable_ID&quot;), stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;)</code></pre>
+<p>Join gene names to the intersections:</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,header = T,stringsAsFactors = F) %&gt;% dplyr::select(PAS, gene, chr, start,end,disc)
+AllwOinfo_gene=AllwOinfo %&gt;% inner_join(PASMeta,by=c(&quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
+<pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
+character vector</code></pre>
+<pre><code>Warning: Column `chr` joining factor and character vector, coercing into
+character vector</code></pre>
+<pre class="r"><code>AllwOinfo_gene_filt=AllwOinfo_gene %&gt;% filter(gene %in% DEtested$Gene.name )
+
+nrow(AllwOinfo_gene_filt)</code></pre>
+<pre><code>[1] 35191</code></pre>
+<p>Now plot:</p>
+<pre class="r"><code>ggplot(AllwOinfo_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes&quot;, y=&quot;percentage&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Remove those identified in chimp:</p>
+<pre class="r"><code>AllwOinfo_gene_filt_humanident=AllwOinfo_gene_filt %&gt;% filter(disc != &quot;Chimp&quot;)
+nrow(AllwOinfo_gene_filt_humanident)</code></pre>
+<pre><code>[1] 32506</code></pre>
+<pre class="r"><code>ggplot(AllwOinfo_gene_filt_humanident, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes\n and identified in chimp&quot;, y=&quot;percentage&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>AllwOinfoExt_gene=AllwOinfoExt %&gt;% inner_join(PASMeta,by=c(&quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;, &quot;end&quot;))</code></pre>
+<pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
+character vector</code></pre>
+<pre><code>Warning: Column `chr` joining factor and character vector, coercing into
+character vector</code></pre>
+<pre class="r"><code>AllwOinfoExt_gene_filt=AllwOinfoExt_gene %&gt;% filter(gene %in% DEtested$Gene.name )
+
+ggplot(AllwOinfoExt_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Overlap with apaQTL PAS after filtering low expressed genes \n extended PAS&quot;, y=&quot;percentage&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>nrow(AllwOinfoExt_gene_filt)</code></pre>
 <pre><code>[1] 35607</code></pre>
 <pre class="r"><code>ggplot(AllwOinfoExt_gene_filt,aes(x=overlap,y=Human,fill=overlap))+ geom_boxplot() + stat_compare_means(method=&quot;t.test&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Get the percent overlap by usage filter:</p>
+<pre class="r"><code>overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfoExt_gene_filt %&gt;% filter(Human&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+    if (i==.05 | i==.1){
+    print(prop)
+    print(i)
+  }
+  overlap=c(overlap,prop)
+  totalvec=c(totalvec,total)
+}</code></pre>
+<pre><code>[1] 0.6058321
+[1] 0.05
+[1] 0.7593642
+[1] 0.1</code></pre>
+<pre class="r"><code>plot(seq_usage,overlap,main=&quot;Overlap with apaQTL extended PAS by human \naverage usage filtered by gene expression&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(seq_usage,totalvec,main=&quot;Number of PAS by human \naverage usage filtered by gene expression&quot;,ylab=&quot;Number of PAS&quot;,xlab=&quot;Usage Cutoff&quot; )
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/comp2apaQTLPAS.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
