@@ -74,6 +74,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
 
+* [Visualization for all Nuclear DAPA genes](visualizePASUsage.html)
+
 
 
 ##Quantify Phenotypes with RNA:   

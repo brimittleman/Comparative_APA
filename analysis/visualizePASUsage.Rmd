@@ -1,0 +1,90 @@
+---
+title: "Visualize Usage Percentages"
+author: "Briana Mittleman"
+date: "1/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+I want to write a loop that will create boxplots for all of the PAS in each gene. I need a script that takes one gene and then outputs the plot.  
+
+I want PAS:Location as the x axis. Usage as the y axis. I will seperate the plots by species.  
+
+
+I need a long dataframe with species, individual, PASid, gene, usage.  
+
+
+Pull in the usage numbers: 
+
+../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz
+
+I need to make these numeric.  
+
+
+```{bash,eval=F}
+mkdir ../data/files4viz_nuclear/
+```
+
+
+Vector with humans:
+
+```{r}
+humans=c('NA18498', 'NA18499', 'NA18502' ,'NA18504', 'NA18510', 'NA18523')
+
+chimps=c( 'NA18358', 'NA3622' ,'NA3659', 'NA4973', 'NApt30', 'NApt91')
+```
+
+LOC100288069_+_utr3-Both-human23
+
+LOC107984841_+_utr3-Chimp-chimp242477
+utr3-Chimp-chimp242477
+
+```{r}
+NuclearUsage=read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz", header = T)
+
+Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_") %>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-")%>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(PAS, species,Gene, sample,numUsage)
+```
+
+
+
+example gene:  
+DFFB
+```{r}
+Nuclear_gather_DFFB=Nuclear_gather %>% filter(Gene=="DFFB")
+
+ggplot(Nuclear_gather_DFFB,aes(x=PAS, y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB")
+```
+```{r}
+write.table(Nuclear_gather,"../data/files4viz_nuclear/NuclearPASUsage.txt", col.names = T, row.names = F, quote = F)
+```
+
+
+
+I will put this in an R script that takes a gene.  
+
+
+test on DFFB
+```{bash,eval=F}
+Rscript PlotNuclearUsagebySpecies.R -g DFFB
+```
+
+This works, now I can make it for every gene that was called as DAPA. I will make a list of all of the genes.  
+
+genes are in ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt
+
+```{bash,eval=F}
+sed '1d' ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt > ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear_noHead.txt
+
+sbatch makeNuclearDapaplots.sh
+```
+
+
