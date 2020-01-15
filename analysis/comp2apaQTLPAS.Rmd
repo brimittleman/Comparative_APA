@@ -54,7 +54,7 @@ wOverlap=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.bed", c
 noOverlap=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
 
 AllwOinfo=as.data.frame(rbind(wOverlap, noOverlap))
-
+nrow(AllwOinfo)
 ```
 
 
@@ -63,7 +63,7 @@ ggplot(AllwOinfo, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum
 ```
 
 ```{r}
-ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")
+ggplot(AllwOinfo, aes(x=overlap, y=Human, fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method="t.test")
 ```
 
 
@@ -87,3 +87,79 @@ ggplot(HumanMeanAnno, aes(x=overlap, y=log10(meanCount +1),fill=overlap)) + geom
 ```
 
 Still a not high overlap, but it is goood to see those that overlap are the higher used.  
+
+##Expression Filter  
+Filter down to those with higher expression: 
+
+I want to only look at the genes that passed the expression filter to test for DE.  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID,Gene.name)
+DEtested=read.table("../data/DiffExpression/DE_Testedgenes.txt", col.names = c("Gene_stable_ID"), stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID")
+```
+
+Join gene names to the intersections:
+```{r}
+PASMeta=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",header = T,stringsAsFactors = F) %>% dplyr::select(PAS, gene, chr, start,end,disc)
+AllwOinfo_gene=AllwOinfo %>% inner_join(PASMeta,by=c("PAS", "chr","start", "end"))
+AllwOinfo_gene_filt=AllwOinfo_gene %>% filter(gene %in% DEtested$Gene.name )
+
+nrow(AllwOinfo_gene_filt)
+```
+
+Now plot:  
+
+```{r}
+ggplot(AllwOinfo_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2") + labs(title="Overlap with apaQTL PAS after filtering low expressed genes", y="percentage")
+
+```
+
+Remove those identified in chimp:
+
+```{r}
+AllwOinfo_gene_filt_humanident=AllwOinfo_gene_filt %>% filter(disc != "Chimp")
+nrow(AllwOinfo_gene_filt_humanident)
+
+ggplot(AllwOinfo_gene_filt_humanident, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2") + labs(title="Overlap with apaQTL PAS after filtering low expressed genes\n and identified in chimp", y="percentage")
+```
+
+
+Look at some of these in IGV:  
+
+It look like some of them are off by just a few basepairs. To be more liberal with this analysis, I will increase the size of the apaQTLs by 50 on each side. 
+
+```{r}
+apaQTLPAS=read.table("../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed",stringsAsFactors = F,col.names = c("chr","start", "end", "PAS", "score","strand")) 
+apaQTLPAS_ext= apaQTLPAS %>% mutate(start_new=start-50, end_new=end+50) %>% dplyr::select(chr,start_new, end_new, PAS, score, strand)
+
+write.table(apaQTLPAS_ext,"../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed > ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.sort.bed
+
+sbatch overlapapaQTLPAS_extended.sh
+```
+
+
+```{r}
+wOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="yes")
+noOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
+
+AllwOinfoExt=as.data.frame(rbind(wOverlapExt, noOverlapExt))
+nrow(AllwOinfoExt)
+```
+
+```{r}
+ggplot(AllwOinfoExt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+```
+
+
+```{r}
+AllwOinfoExt_gene=AllwOinfoExt %>% inner_join(PASMeta,by=c("PAS", "chr","start", "end"))
+AllwOinfoExt_gene_filt=AllwOinfoExt_gene %>% filter(gene %in% DEtested$Gene.name )
+
+ggplot(AllwOinfoExt_gene_filt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2") + labs(title="Overlap with apaQTL PAS after filtering low expressed genes \n extended PAS", y="percentage")
+nrow(AllwOinfoExt_gene_filt)
+```
+
