@@ -11,8 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+library(workflowr)
 library(tidyverse)
 library(limma)
+library(MASS)
 ```
 
 In this analysis, I will ask if differrecnes in APA or splicing are causal for differences in expression. I will use midiation analysis as implemented in (https://lauren-blake.github.io/Regulatory_Evol/analysis/Final_effect_size_human_chimp.html) using Joyces package mediation. 
@@ -34,6 +36,11 @@ For this version I do not need the package. I only need limma. I will try this f
 
 To deal with multiple phenotypes per gene I will take the highest absolute effect size cluster or PAS for splicing and APA respectively.  
 
+```{bash,eval=F}
+mkdir ../data/mediation
+```
+
+
 ```{r}
 source("../code/mediation_test.R") #Obtain necessary functions
 ```
@@ -51,11 +58,11 @@ nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t
 ExpRes=read.table("../data/DiffExpression/DEtested_allres.txt", header = F, stringsAsFactors = F, col.names = c("Gene_stable_ID", "logFC", "AveExpr", "t", "P.Value", "adj.P.Val", "B")) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name,adj.P.Val )
 ExpNorm=read.table("../data/DiffExpression/NormalizedExpressionPassCutoff.txt", header = T, stringsAsFactors = F) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID)
 #join indiv with adjust pval
-Exp=ExpRes %>% inner_join(ExpNorm, by="Gene.name") %>% rename("gene"= Gene.name) %>% select(gene, adj.P.Val, NA18498, NA18499, NA18502, NA18504, NA18510,NA18523,NA18358, NA3622,NA3659,NA4973,NAPT30,NAPT91)
+Exp=ExpRes %>% inner_join(ExpNorm, by="Gene.name")%>% rename("gene"= Gene.name) %>% dplyr::select(gene, adj.P.Val, NA18498, NA18499, NA18502, NA18504, NA18510,NA18523,NA18358, NA3622,NA3659,NA4973,NAPT30,NAPT91)
 
 #Chr	start	end	ID	NA18498_N	NA18499_N	NA18502_N	NA18504_N	NA18510_N	NA18523_N	NA18358_N	NA3622_N	NA3659_N	NA4973_N	NApt30_N	NApt91_N
 #apa:  
-apaN= read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz.phen_AllChrom", col.names = c("chr", "start", "end", "id","NA18498_APA", "NA18499_APA", "NA18502_APA", "NA18504_APA", "NA18510_APA","NA18523_APA", "NA18358_APA", "NA3622_APA","NA3659_APA", "NA4973_APA","NAPT30_APA","NAPT91_APA")) %>% separate(id, into=c("ch", "st", "en","id2"),sep=":") %>% separate(id2, into=c("gene", "strand","id3"),sep="_") %>% separate(id3, into=c("loc", "disc", "PAS"), sep="-") %>% select(gene, PAS,contains("NA"))
+apaN= read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz.phen_AllChrom", col.names = c("chr", "start", "end", "id","NA18498_APA", "NA18499_APA", "NA18502_APA", "NA18504_APA", "NA18510_APA","NA18523_APA", "NA18358_APA", "NA3622_APA","NA3659_APA", "NA4973_APA","NAPT30_APA","NAPT91_APA")) %>% separate(id, into=c("ch", "st", "en","id2"),sep=":") %>% separate(id2, into=c("gene", "strand","id3"),sep="_") %>% separate(id3, into=c("loc", "disc", "PAS"), sep="-") %>% dplyr::select(gene, PAS,contains("NA"))
 PASMeta=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
 apaRes= read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr","gene"),sep=":")
 apaPASres=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr","start", "end","gene"), sep=":") 
@@ -89,8 +96,8 @@ is_de <- which(APA_posandExp$adj.P.Val < .05)
 isnot_de <- which(APA_posandExp$adj.P.Val >= .05)
 
 gvec <- APA_posandExp$genes
-Exp_pos <- APA_posandExp %>% select(-gene,-adj.P.Val, -contains("APA"))
-APA_pos <- APA_posandExp %>% select(contains("APA"))
+Exp_pos <- APA_posandExp %>% dplyr::select(-gene,-adj.P.Val, -contains("APA"))
+APA_pos <- APA_posandExp %>% dplyr::select(contains("APA"))
 
 # metadata label
 species <- factor(c("H","H","H","H","H","H","C","C","C","C","C","C"))
@@ -113,25 +120,76 @@ fit_node_pos <- test_mediation(exprs = Exp_pos[isnot_de,],
                            fixed_covariates = list(species=metadata$species,
                                                    batch=metadata$batch),
                            varying_covariate = APA_pos[isnot_de,])
+
+#save as R data object:
+save(fit_de_pos, fit_node_pos, is_de, isnot_de, Exp_pos, APA_pos, metadata, gvec, file = "../data/mediation/positive_mediation.rda")
+
+```
+
+Montecarlo: 
+
+I will have to run this seperatly as an Rscript. 
+
+```{bash,eval=F}
+
+sbatch RunPosMCMediation.sh
+
+```
+
+Load results 
+```{r}
+mc_pos_de <- readRDS(file = "../data/mediation/mc_de_postive.rds")
+mc_pos_node <- readRDS(file = "../data/mediation/mc_node_postive.rds")
+
+##In DE genes
+ngenes <- ncol(mc_pos_de)
+ab <- fit_de_pos$alpha*fit_de_pos$beta
+out <- sapply(1:ngenes, function(g) {
+  x <- unlist(mc_pos_de[,g])
+  q <- quantile(x, prob = c(.025, .975))
+#  q <- quantile(x, prob = c(.005, .995))
+  ifelse(0 > q[1] & 0 < q[2], F, T)
+})
+table(out)
+
+85/(85+2823) #
 ```
 
 
 ```{r}
-DEdat <- data.frame(bf=fit_de_pos$tau, af=fit_de_pos$tau_prime)
-#DEdat$color <- ifelse(DEdat$significance==TRUE, "red", "black")
-plot(x=DEdat$bf, y=DEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10))
-
+DEdat <- data.frame(bf=fit_de_pos$tau, af=fit_de_pos$tau_prime,significance=out)
+DEdat$color <- ifelse(DEdat$significance==TRUE, "red", "black")
+plot(x=DEdat$bf, y=DEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
+legend("topleft", legend=c("95% CI Significant (n=85)", "95% CI Non significant (n=2823)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
 ```
 Not DE:
 
+
+```{r}
+##In non-DE genes
+ngenes <- ncol(mc_pos_node)
+ab <- fit_node_pos$alpha*fit_node_pos$beta
+out <- sapply(1:ngenes, function(g) {
+  x <- unlist(mc_pos_node[,g])
+  q <- quantile(x, prob = c(.025, .975))
+#  q <- quantile(x, prob = c(.005, .995))
+  ifelse(0 > q[1] & 0 < q[2], F, T)
+})
+table(out)
+
+110/(110+4852)
+```
+
+
 ```{r}
 #Visualization for non DE genes:
-noDEdat <- data.frame(bf=fit_node_pos$tau, af=fit_node_pos$tau_prime)
-#noDEdat$color <- ifelse(noDEdat$significance==TRUE, "red", "black")
-plot(x=noDEdat$bf, y=noDEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6)
+noDEdat <- data.frame(bf=fit_node_pos$tau, af=fit_node_pos$tau_prime,significance=out)
+noDEdat$color <- ifelse(noDEdat$significance==TRUE, "red", "black")
+plot(x=noDEdat$bf, y=noDEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat$color, 0.6))
+legend("topleft", legend=c("95% CI Significant (n=110)", "95% CI Non significant (n=4852)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
@@ -147,8 +205,8 @@ is_de_neg <- which(APA_negandExp$adj.P.Val < .05)
 isnot_de_gen <- which(APA_negandExp$adj.P.Val >= .05)
 
 gvec_neg <- APA_negandExp$genes
-Exp_neg <- APA_negandExp %>% select(-gene,-adj.P.Val, -contains("APA"))
-APA_neg <- APA_negandExp %>% select(contains("APA"))
+Exp_neg <- APA_negandExp %>% dplyr::select(-gene,-adj.P.Val, -contains("APA"))
+APA_neg <- APA_negandExp %>%  dplyr::select(contains("APA"))
 
 
 ```
@@ -165,14 +223,48 @@ fit_node_neg <- test_mediation(exprs = Exp_neg[isnot_de_gen,],
                            fixed_covariates = list(species=metadata$species,
                                                    batch=metadata$batch),
                            varying_covariate = APA_neg[isnot_de_gen,])
+
+#save as R data object:
+save(fit_de_neg, fit_node_neg, is_de_neg, isnot_de_gen, Exp_neg, APA_neg, metadata, gvec_neg, file = "../data/mediation/negative_mediation.rda")
 ```
 
 
-```{r}
-DEdat_neg <- data.frame(bf=fit_de_neg$tau, af=fit_de_neg$tau_prime)
-#DEdat$color <- ifelse(DEdat$significance==TRUE, "red", "black")
-plot(x=DEdat_neg$bf, y=DEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10))
+Montecarlo: 
 
+I will have to run this seperatly as an Rscript. 
+
+```{bash,eval=F}
+
+sbatch RunNegMCMediation.sh
+
+```
+
+Pull in results. 
+```{r}
+mc_neg_de <- readRDS(file = "../data/mediation/mc_de_negative.rds")
+mc_neg_node <- readRDS(file = "../data/mediation/mc_node_negative.rds")
+
+##In DE genes
+ngenes <- ncol(mc_neg_de)
+ab <- fit_de_neg$alpha*fit_de_neg$beta
+out <- sapply(1:ngenes, function(g) {
+  x <- unlist(mc_neg_de[,g])
+  q <- quantile(x, prob = c(.025, .975))
+#  q <- quantile(x, prob = c(.005, .995))
+  ifelse(0 > q[1] & 0 < q[2], F, T)
+})
+table(out)
+
+93/(93+2823) #
+```
+
+```{r}
+
+
+DEdat_neg <- data.frame(bf=fit_de_neg$tau, af=fit_de_neg$tau_prime,significance=out)
+DEdat_neg$color <- ifelse(DEdat_neg$significance==TRUE, "red", "black")
+plot(x=DEdat_neg$bf, y=DEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes (Negative)", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
+legend("topleft", legend=c("95% CI Significant (n=93)", "95% CI Non significant (n=2823)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
@@ -181,10 +273,29 @@ abline(v=0)
 Not DE:
 
 ```{r}
+##In not DE genes
+ngenes <- ncol(mc_neg_node)
+ab <- fit_node_neg$alpha*fit_node_neg$beta
+out <- sapply(1:ngenes, function(g) {
+  x <- unlist(mc_neg_node[,g])
+  q <- quantile(x, prob = c(.025, .975))
+#  q <- quantile(x, prob = c(.005, .995))
+  ifelse(0 > q[1] & 0 < q[2], F, T)
+})
+table(out)
+
+102/(102+4859) #
+```
+
+
+```{r}
+
+
 #Visualization for non DE genes:
-noDEdat_neg <- data.frame(bf=fit_node_neg$tau, af=fit_node_neg$tau_prime)
-#noDEdat$color <- ifelse(noDEdat$significance==TRUE, "red", "black")
-plot(x=noDEdat_neg$bf, y=noDEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6)
+noDEdat_neg <- data.frame(bf=fit_node_neg$tau, af=fit_node_neg$tau_prime,significance=out)
+noDEdat$color <- ifelse(noDEdat$significance==TRUE, "red", "black")
+plot(x=noDEdat_neg$bf, y=noDEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes (negative)", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat_neg$color, 0.6))
+legend("topleft", legend=c("95% CI Significant (n=102)", "95% CI Non significant (n=4859)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
