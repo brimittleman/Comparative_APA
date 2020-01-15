@@ -86,7 +86,95 @@ HumanMeanAnno$meanCount=as.integer(as.character(HumanMeanAnno$meanCount))
 ggplot(HumanMeanAnno, aes(x=overlap, y=log10(meanCount +1),fill=overlap)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")+ stat_compare_means(method="t.test") + labs(title="HC PAS counts by overlap with apaQTL PAS")
 ```
 
-Still a not high overlap, but it is goood to see those that overlap are the higher used.  
+Get the percent overlap by usage filter:  
+
+```{r}
+overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo %>% filter(Human>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap=c(overlap,prop)
+  totalvec=c(totalvec,total)
+}
+
+```
+
+```{r}
+plot(seq_usage,overlap,main="Overlap with apaQTL PAS by human average usage", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+```{r}
+plot(seq_usage,totalvec,main="Number of PAS",ylab="Number of PAS",xlab="Usage Cutoff" )
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+Extended:  
+
+```{r}
+apaQTLPAS=read.table("../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed",stringsAsFactors = F,col.names = c("chr","start", "end", "PAS", "score","strand")) 
+apaQTLPAS_ext= apaQTLPAS %>% mutate(start_new=start-50, end_new=end+50) %>% dplyr::select(chr,start_new, end_new, PAS, score, strand)
+
+write.table(apaQTLPAS_ext,"../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed > ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.sort.bed
+
+sbatch overlapapaQTLPAS_extended.sh
+```
+
+
+```{r}
+wOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="yes")
+noOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
+
+AllwOinfoExt=as.data.frame(rbind(wOverlapExt, noOverlapExt))
+nrow(AllwOinfoExt)
+```
+
+```{r}
+ggplot(AllwOinfoExt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+```
+
+
+```{r}
+overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfoExt %>% filter(Human>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap=c(overlap,prop)
+  if (i==.05 | i==.1){
+    print(prop)
+    print(i)
+  }
+  totalvec=c(totalvec,total)
+}
+```
+
+```{r}
+plot(seq_usage,overlap,main="Overlap with apaQTL Extended PAS by human average usage", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+
+```{r}
+plot(seq_usage,totalvec,main="Number of PAS by human by usage",ylab="Number of PAS",xlab="Usage Cutoff" )
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
 
 ##Expression Filter  
 Filter down to those with higher expression: 
@@ -124,37 +212,6 @@ ggplot(AllwOinfo_gene_filt_humanident, aes(x=overlap,fill=overlap)) +geom_bar(ae
 ```
 
 
-Look at some of these in IGV:  
-
-It look like some of them are off by just a few basepairs. To be more liberal with this analysis, I will increase the size of the apaQTLs by 50 on each side. 
-
-```{r}
-apaQTLPAS=read.table("../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted.sorted.bed",stringsAsFactors = F,col.names = c("chr","start", "end", "PAS", "score","strand")) 
-apaQTLPAS_ext= apaQTLPAS %>% mutate(start_new=start-50, end_new=end+50) %>% dplyr::select(chr,start_new, end_new, PAS, score, strand)
-
-write.table(apaQTLPAS_ext,"../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed",col.names = F, row.names = F, quote = F, sep="\t")
-```
-
-```{bash,eval=F}
-sort -k1,1 -k2,2n ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.bed > ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.sort.bed
-
-sbatch overlapapaQTLPAS_extended.sh
-```
-
-
-```{r}
-wOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="yes")
-noOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
-
-AllwOinfoExt=as.data.frame(rbind(wOverlapExt, noOverlapExt))
-nrow(AllwOinfoExt)
-```
-
-```{r}
-ggplot(AllwOinfoExt, aes(x=overlap,fill=overlap)) +geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
-```
-
-
 ```{r}
 AllwOinfoExt_gene=AllwOinfoExt %>% inner_join(PASMeta,by=c("PAS", "chr","start", "end"))
 AllwOinfoExt_gene_filt=AllwOinfoExt_gene %>% filter(gene %in% DEtested$Gene.name )
@@ -167,3 +224,35 @@ nrow(AllwOinfoExt_gene_filt)
 ggplot(AllwOinfoExt_gene_filt,aes(x=overlap,y=Human,fill=overlap))+ geom_boxplot() + stat_compare_means(method="t.test") + scale_fill_brewer(palette = "Dark2")
 ```
 
+Get the percent overlap by usage filter:  
+
+```{r}
+overlap=c()
+totalvec=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfoExt_gene_filt %>% filter(Human>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+    if (i==.05 | i==.1){
+    print(prop)
+    print(i)
+  }
+  overlap=c(overlap,prop)
+  totalvec=c(totalvec,total)
+}
+
+```
+
+```{r}
+plot(seq_usage,overlap,main="Overlap with apaQTL extended PAS by human \naverage usage filtered by gene expression", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+```{r}
+plot(seq_usage,totalvec,main="Number of PAS by human \naverage usage filtered by gene expression",ylab="Number of PAS",xlab="Usage Cutoff" )
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
