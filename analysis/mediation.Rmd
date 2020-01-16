@@ -300,3 +300,25 @@ abline(0, 1)
 abline(h=0)
 abline(v=0)
 ```
+###Expression and Splicing  
+
+
+```{r}
+#YG-BM-S3-3622C-Total_S3_R1_001-sort.bam	YG-BM-FIXED-18498H-Total_S5_R1_001-sort.bam	YG-BM-S12-18523H-Total_S12_R1_001-sort.baYG-BM-S4-3659C-Total_S4_R1_001-sort.bam	YG-BM-S2-PT91C-Total_S2_R1_001-sort.bam	YG-BM-S11-18510H-Total_S11_R1_001-sort.bam	YG-BM-S9-18502H-Total_S9_R1_001-sort.bam	YG-BM-S8-18499H-Total_S8_R1_001-sort.bam	YG-BM-S1-PT30C-Total_S1_R1_001-sort.bam	YG-BM-FIXED-4973C-Total_S7_R1_001-sort.bam	YG-BM-S10-18504H-Total_S10_R1_001-sort.bam	YG-BM-S6-18358C-Total_S6_R1_001-sort.bam
+
+Splicing= read.table("../data/NormalizedClusters/MergeCombined_perind.counts.fixed.gz.qqnorm.allchr", col.names = c("chr", "start", "end", "id","NA3622_Splice", "NA18498_Splice", "NA18523_Splice", "NA3659_Splice", "NAPT91_Splice","NA18510_Splice", "NA18502_Splice", "NA18499_Splice","NAPT30_Splice", "NA4973_Splice","NA18504_Splice","NA18358_Splice")) %>% separate(id, into=c("ch", "st", "en","clus"),sep=":") 
+Sp_res=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":") %>% filter(status=="Success") %>% dplyr::select(p.adjust,clus, genes,loglr)
+
+#%>% dplyr::select(genes,clus, p.adjust)
+Splicing_andres=Splicing %>% inner_join(Sp_res, by=c("clus") )
+
+
+
+#%>% dplyr::select(genes, p.adjust, NA18498_Splice, NA18499_Splice, NA18502_Splice, NA18504_Splice, NA18510_Splice,NA18523_Splice,NA18358_Splice, NA3622_Splice,NA3659_Splice,NA4973_Splice,NAPT30_Splice,NAPT91_Splice) %>% rename("gene"=genes)
+
+#create a dataframe with expression and apa
+#SpandExp=Exp %>% inner_join(Splicing_andres, by="gene")
+```
+
+Current problem: genes to cluster mapping is not trivial. I do not know how to chose the top DS isoform per gene.  
+

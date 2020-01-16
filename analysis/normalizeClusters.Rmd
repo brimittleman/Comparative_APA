@@ -19,15 +19,10 @@ mkdir ../data/NormalizedClusters/
 #in that dir (copy numbers to it)
 python ../../code/prepare_phenotype_table.py MergeCombined_perind.counts.fixed.gz
 
-##error:
-Starting...
-Traceback (most recent call last):
-  File "../../code/prepare_phenotype_table.py", line 171, in <module>
-    main(args[0], int(options.npcs) )
-  File "../../code/prepare_phenotype_table.py", line 117, in main
-    for i in xrange(len(matrix[0,:])):
-IndexError: too many indices for array
-
-
 ```
+
+```{bash,eval=F}
+cat *qqnorm* > MergeCombined_perind.counts.fixed.gz.qqnorm.allchr
+```
+
 
