@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec7e1c1fa65a4df23347bd4daad3e72b751e76c64targetblankc7e1c1fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c7e1c1fa65a4df23347bd4daad3e72b751e76c64" target="_blank">c7e1c1f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea624a7e4ef8e0754c6a01925e55477644dfd6b2ctargetblanka624a7ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a624a7e4ef8e0754c6a01925e55477644dfd6b2c" target="_blank">a624a7e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec7e1c1fa65a4df23347bd4daad3e72b751e76c64targetblankc7e1c1fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea624a7e4ef8e0754c6a01925e55477644dfd6b2ctargetblanka624a7ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,7 +447,6 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
@@ -483,6 +482,7 @@ Untracked files:
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PASsequences.sh
+    Untracked:  code/._PlotNuclearUsagebySpecies.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
@@ -526,6 +526,7 @@ Untracked files:
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
+    Untracked:  code/._makeNuclearDapaplots.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
@@ -654,6 +655,7 @@ Untracked files:
     Untracked:  code/PAS_sequence.err
     Untracked:  code/PAS_sequence.out
     Untracked:  code/PASsequences.sh
+    Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -757,6 +759,8 @@ Untracked files:
     Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
+    Untracked:  code/intersectAnnoExt.err
+    Untracked:  code/intersectAnnoExt.out
     Untracked:  code/intersectLiftedPAS.sh
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
@@ -766,6 +770,9 @@ Untracked files:
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
+    Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearPlots.err
+    Untracked:  code/makeNuclearPlots.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -797,6 +804,7 @@ Untracked files:
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
+    Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
@@ -975,6 +983,7 @@ Untracked files:
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/files4viz_nuclear/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -995,6 +1004,7 @@ Unstaged changes:
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
 <p>
@@ -1033,6 +1043,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a624a7e4ef8e0754c6a01925e55477644dfd6b2c/analysis/mediation.Rmd" target="_blank">a624a7e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-16
+</td>
+<td>
+normalize splice and start mediation code
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/mediation.html" target="_blank">5b4069c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1095,12 +1139,12 @@ start mediation analysis
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(limma)
@@ -1223,7 +1267,45 @@ legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=85)&quot;, &quo
 abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
-<p><img src="figure/mediation.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> Not DE:</p>
+<p><img src="figure/mediation.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-9-1.png" target="_blank">5b4069c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Not DE:</p>
 <pre class="r"><code>##In non-DE genes
 ngenes &lt;- ncol(mc_pos_node)
 ab &lt;- fit_node_pos$alpha*fit_node_pos$beta
@@ -1270,6 +1352,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-11-1.png" target="_blank">5b4069c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/4f5d4929bd9915b744db58348b0e6abd8dbf17e9/docs/figure/mediation.Rmd/unnamed-chunk-11-1.png" target="_blank">4f5d492</a>
@@ -1340,6 +1433,43 @@ abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
 <p><img src="figure/mediation.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-16-1.png" target="_blank">5b4069c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Not DE:</p>
 <pre class="r"><code>##In not DE genes
 ngenes &lt;- ncol(mc_neg_node)
@@ -1365,6 +1495,61 @@ abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
 <p><img src="figure/mediation.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-18-1.png" target="_blank">5b4069c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="expression-and-splicing" class="section level3">
+<h3>Expression and Splicing</h3>
+<pre class="r"><code>#YG-BM-S3-3622C-Total_S3_R1_001-sort.bam    YG-BM-FIXED-18498H-Total_S5_R1_001-sort.bam YG-BM-S12-18523H-Total_S12_R1_001-sort.baYG-BM-S4-3659C-Total_S4_R1_001-sort.bam    YG-BM-S2-PT91C-Total_S2_R1_001-sort.bam YG-BM-S11-18510H-Total_S11_R1_001-sort.bam  YG-BM-S9-18502H-Total_S9_R1_001-sort.bam    YG-BM-S8-18499H-Total_S8_R1_001-sort.bam    YG-BM-S1-PT30C-Total_S1_R1_001-sort.bam YG-BM-FIXED-4973C-Total_S7_R1_001-sort.bam  YG-BM-S10-18504H-Total_S10_R1_001-sort.bam  YG-BM-S6-18358C-Total_S6_R1_001-sort.bam
+
+Splicing= read.table(&quot;../data/NormalizedClusters/MergeCombined_perind.counts.fixed.gz.qqnorm.allchr&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;,&quot;NA3622_Splice&quot;, &quot;NA18498_Splice&quot;, &quot;NA18523_Splice&quot;, &quot;NA3659_Splice&quot;, &quot;NAPT91_Splice&quot;,&quot;NA18510_Splice&quot;, &quot;NA18502_Splice&quot;, &quot;NA18499_Splice&quot;,&quot;NAPT30_Splice&quot;, &quot;NA4973_Splice&quot;,&quot;NA18504_Splice&quot;,&quot;NA18358_Splice&quot;)) %&gt;% separate(id, into=c(&quot;ch&quot;, &quot;st&quot;, &quot;en&quot;,&quot;clus&quot;),sep=&quot;:&quot;) 
+Sp_res=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt&quot;,stringsAsFactors = F, header = T, sep=&quot;\t&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;clus&quot;),sep=&quot;:&quot;) %&gt;% filter(status==&quot;Success&quot;) %&gt;% dplyr::select(p.adjust,clus, genes,loglr)
+
+#%&gt;% dplyr::select(genes,clus, p.adjust)
+Splicing_andres=Splicing %&gt;% inner_join(Sp_res, by=c(&quot;clus&quot;) )
+
+
+
+#%&gt;% dplyr::select(genes, p.adjust, NA18498_Splice, NA18499_Splice, NA18502_Splice, NA18504_Splice, NA18510_Splice,NA18523_Splice,NA18358_Splice, NA3622_Splice,NA3659_Splice,NA4973_Splice,NAPT30_Splice,NAPT91_Splice) %&gt;% rename(&quot;gene&quot;=genes)
+
+#create a dataframe with expression and apa
+#SpandExp=Exp %&gt;% inner_join(Splicing_andres, by=&quot;gene&quot;)</code></pre>
+<p>Current problem: genes to cluster mapping is not trivial. I do not know how to chose the top DS isoform per gene.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
