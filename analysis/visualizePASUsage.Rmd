@@ -51,7 +51,7 @@ utr3-Chimp-chimp242477
 ```{r}
 NuclearUsage=read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz", header = T)
 
-Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_") %>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-")%>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(PAS, species,Gene, sample,numUsage)
+Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_") %>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-")%>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(chr,start,end, strand, PAS, species,Gene, sample,numUsage)
 ```
 
 
@@ -61,8 +61,12 @@ DFFB
 ```{r}
 Nuclear_gather_DFFB=Nuclear_gather %>% filter(Gene=="DFFB")
 
-ggplot(Nuclear_gather_DFFB,aes(x=PAS, y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB")
+Nuclear_gather_DFFB$start=as.factor(as.integer(Nuclear_gather_DFFB$start))
+
+ggplot(Nuclear_gather_DFFB,aes(x=start, y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB") 
 ```
+
+
 ```{r}
 write.table(Nuclear_gather,"../data/files4viz_nuclear/NuclearPASUsage.txt", col.names = T, row.names = F, quote = F)
 ```
@@ -86,5 +90,9 @@ sed '1d' ../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt > ../data/Di
 
 sbatch makeNuclearDapaplots.sh
 ```
+
+
+Problem is with the order. The chimp PAS come before the other. This mean they are not in line. I need to pull the locations into the file and do some factor ordering.  
+
 
 
