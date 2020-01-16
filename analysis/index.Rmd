@@ -144,3 +144,9 @@ From before reseq:
   
   * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
 
+
+### Choosing cuttoffs for usage and expression level  
+
+  * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
+  
+  * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  

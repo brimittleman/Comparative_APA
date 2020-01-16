@@ -1,0 +1,68 @@
+---
+title: "Use apaQTL Individuals to establish cutoffs"
+author: "Briana Mittleman"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+In this analyisis I will chose the 3 sets of 6 individuals randomly from my previous study to use for a benchmark analysis. 
+
+I will need to rerun the snakefile each time.  
+
+```{r}
+indiv=read.table("../../apaQTL/data/MetaDataSequencing.txt", header= T, stringsAsFactors = F) %>% dplyr::select(line) %>% unique()
+```
+
+
+```{bash,eval=F}
+mkdir ../data/OverlapBenchmark
+```
+
+Randomly choose 3 sets:  
+
+
+```{r}
+#sample1= sample(indiv$line, 6)
+#sample2= sample(indiv$line, 6)
+#sample3= sample(indiv$line, 6)
+
+#save(sample1, sample2,sample3, file = "../data/OverlapBenchmark/samples.RData")
+
+
+load("../data/OverlapBenchmark/samples.RData")
+sample1
+sample2
+sample3
+
+```
+
+```{bash,eval=F}
+mkdir ../../PAS_Sample1
+mkdir ../../PAS_Sample1/code
+mkdir ../../PAS_Sample1/data
+mkdir ../../PAS_Sample1/data/fastq
+
+mkdir ../../PAS_Sample2
+mkdir ../../PAS_Sample2/code
+mkdir ../../PAS_Sample2/data
+mkdir ../../PAS_Sample2/data/fastq
+
+
+mkdir ../../PAS_Sample3/
+mkdir ../../PAS_Sample3/code/
+mkdir ../../PAS_Sample3/data/
+mkdir ../../PAS_Sample3/data/fastq
+
+```
+Move over these fastq files. 
+
+I will also move the necessary snakefile and run files.  
+

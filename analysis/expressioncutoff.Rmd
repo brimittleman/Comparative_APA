@@ -1,0 +1,30 @@
+---
+title: "Establish Expression cutoff with 3' Seq"
+author: "Briana Mittleman"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will use feature counts to count all the 3' seq reads in each gene. I will then use a similar pipeline to the RNA seq to establish a cutoff for normalized expression. This will be used as a data filter on the pas for the humans and chimps.  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library("edgeR")
+library("limma")
+```
+
+Run featurecounts script with oposite strandedness on 3' seq clean bams. Human and chimp nuclear.  
+
+I can do this first with the orthoexon file and evaluate the correlation between these counts and the RNA seq data. This is not ideal beccause I wont keep intron reads but hopefully it is proportional to those reads as wel.  
+
+```{bash,eval=F}
+mkdir ../data/Threeprime2Ortho
+sbatch threeprimeOrthoFC.sh
+```
+
+On pause until ortho exon is fixed...
