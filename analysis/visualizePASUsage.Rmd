@@ -61,9 +61,10 @@ DFFB
 ```{r}
 Nuclear_gather_DFFB=Nuclear_gather %>% filter(Gene=="DFFB")
 
-Nuclear_gather_DFFB$start=as.factor(as.integer(Nuclear_gather_DFFB$start))
+Nuclear_gather_DFFB$start=as.integer(Nuclear_gather_DFFB$start)
 
-ggplot(Nuclear_gather_DFFB,aes(x=start, y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB") 
+
+ggplot(Nuclear_gather_DFFB,aes(x=(reorder(PAS, start)), y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB",x="PAS")
 ```
 
 
