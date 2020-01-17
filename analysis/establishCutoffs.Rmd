@@ -66,3 +66,99 @@ Move over these fastq files.
 
 I will also move the necessary snakefile and run files.  
 
+Next steps:
+
+* assign to genes and get pheno ratio (https://brimittleman.github.io/Comparative_APA/annotatePAS.html)  - run code in all 3 locations
+
+'
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_anno
+bedtools map -a ../data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+
+python chooseAnno2Bed.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed
+
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.SAF
+
+mkdir  ../data/CleanLiftedPeaks_FC/
+
+sbatch quantLiftedPAS.sh 
+
+
+###
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc
+
+
+python makeFileID.py ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../data/CleanLiftedPeaks_FC/HumanFileID.txt
+
+
+mkdir ../data/phenotype/
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../data/CleanLiftedPeaks_FC/HumanFileID.txt ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+
+Rscript pheno2countonly.R -I ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+
+python convertNumeric.py ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+
+```
+
+
+Pull these in, pull just the nuclear and get the mean:
+
+
+Sample 1
+```{r}
+Sample1Anno=read.table("../../PAS_Sample1/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("start1", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "PAS","chr"), sep="-")
+
+Sample1Ind=colnames(Sample1Anno)[9:ncol(Sample1Anno)]
+
+Sample1Usage=read.table("../../PAS_Sample1/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = Sample1Ind) %>% dplyr::select(contains("_N")) 
+
+Sample1All=as.data.frame(cbind(cbind(Sample1Anno[,1:8], Sample1=rowMeans(Sample1Usage))))
+```
+
+Sample 2:
+
+```{r}
+Sample2Anno=read.table("../../PAS_Sample2/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("start1", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "PAS","chr"), sep="-")
+
+Sample2Ind=colnames(Sample2Anno)[9:ncol(Sample2Anno)]
+
+Sample2Usage=read.table("../../PAS_Sample2/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = Sample2Ind) %>% dplyr::select(contains("_N")) 
+
+Sample2All=as.data.frame(cbind(cbind(Sample2Anno[,1:8], Sample2=rowMeans(Sample2Usage))))
+```
+
+
+Sample 3  
+
+```{r}
+Sample3Anno=read.table("../../PAS_Sample3/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("start1", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "PAS","chr"), sep="-")
+
+Sample3Ind=colnames(Sample3Anno)[9:ncol(Sample3Anno)]
+
+Sample3Usage=read.table("../../PAS_Sample3/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = Sample3Ind) %>% dplyr::select(contains("_N")) 
+
+Sample3All=as.data.frame(cbind(cbind(Sample3Anno[,1:8], Sample3=rowMeans(Sample3Usage))))
+```
+
+
+I need to make a bed file with these to overlap with the original PAS. I want 100 bp on each side of the end. Positive strand (actual negative strand) take 
+
+```{r}
+Sample1bed=Sample1All %>% mutate(PASName=paste(gene,PAS, sep="_"),newStart=ifelse(strand=="+", as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand=="+",as.integer(start)+100, as.integer(end)+100)) %>%  dplyr::select(chr, newStart, newEnd, PASName, Sample1, strand)
+
+#write.table(Sample1bed,"../data/OverlapBenchmark/sample1PAS.bed", col.names = F, row.names = F, sep="\t", quote = F )
+
+Sample2bed=Sample2All %>% mutate(PASName=paste(gene,PAS, sep="_"),newStart=ifelse(strand=="+", as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand=="+",as.integer(start)+100, as.integer(end)+100)) %>%  dplyr::select(chr, newStart, newEnd, PASName, Sample2, strand)
+
+#write.table(Sample2bed,"../data/OverlapBenchmark/sample2PAS.bed", col.names = F, row.names = F, sep="\t", quote = F )
+
+Sample3bed=Sample3All %>% mutate(PASName=paste(gene,PAS, sep="_"),newStart=ifelse(strand=="+", as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand=="+",as.integer(start)+100, as.integer(end)+100)) %>%  dplyr::select(chr, newStart, newEnd, PASName, Sample3, strand)
+
+#write.table(Sample3bed,"../data/OverlapBenchmark/sample3PAS.bed", col.names = F, row.names = F, sep="\t", quote = F )
+```
+
+
+
+Next step is to assess the overlap.  
