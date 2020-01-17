@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-16
+<strong>Last updated:</strong> 2020-01-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5c24c0cad611959f9d9c0266b270a52242768642targetblank5c24c0ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/5c24c0cad611959f9d9c0266b270a52242768642" target="_blank">5c24c0c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6c72627367fd37058f496305693b1d0e990f5cedtargetblank6c72627a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6c72627367fd37058f496305693b1d0e990f5ced" target="_blank">6c72627</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5c24c0cad611959f9d9c0266b270a52242768642targetblank5c24c0ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6c72627367fd37058f496305693b1d0e990f5cedtargetblank6c72627a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1055,6 +1055,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6c72627367fd37058f496305693b1d0e990f5ced/analysis/establishCutoffs.Rmd" target="_blank">6c72627</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-17
+</td>
+<td>
+add code to make sample APS
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5eef3eb638ca2bf1784cce27cdf859279202a165/docs/establishCutoffs.html" target="_blank">5eef3eb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5c24c0cad611959f9d9c0266b270a52242768642/analysis/establishCutoffs.Rmd" target="_blank">5c24c0c</a>
 </td>
 <td>
@@ -1120,6 +1154,76 @@ mkdir ../../PAS_Sample3/data/fastq
 </code></pre>
 <p>Move over these fastq files.</p>
 <p>I will also move the necessary snakefile and run files.</p>
+<p>Next steps:</p>
+<ul>
+<li>assign to genes and get pheno ratio (<a href="https://brimittleman.github.io/Comparative_APA/annotatePAS.html" class="uri">https://brimittleman.github.io/Comparative_APA/annotatePAS.html</a>) - run code in all 3 locations</li>
+</ul>
+<p>’</p>
+<pre class="bash"><code>mkdir ../data/cleanPeaks_anno
+bedtools map -a ../data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct &gt; ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+
+python chooseAnno2Bed.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed
+
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.SAF
+
+mkdir  ../data/CleanLiftedPeaks_FC/
+
+sbatch quantLiftedPAS.sh 
+
+
+###
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc
+
+
+python makeFileID.py ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../data/CleanLiftedPeaks_FC/HumanFileID.txt
+
+
+mkdir ../data/phenotype/
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../data/CleanLiftedPeaks_FC/HumanFileID.txt ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+
+Rscript pheno2countonly.R -I ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+
+python convertNumeric.py ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+</code></pre>
+<p>Pull these in, pull just the nuclear and get the mean:</p>
+<p>Sample 1</p>
+<pre class="r"><code>Sample1Anno=read.table(&quot;../../PAS_Sample1/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;start1&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;PAS&quot;,&quot;chr&quot;), sep=&quot;-&quot;)
+
+Sample1Ind=colnames(Sample1Anno)[9:ncol(Sample1Anno)]
+
+Sample1Usage=read.table(&quot;../../PAS_Sample1/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = Sample1Ind) %&gt;% dplyr::select(contains(&quot;_N&quot;)) 
+
+Sample1All=as.data.frame(cbind(cbind(Sample1Anno[,1:8], Sample1=rowMeans(Sample1Usage))))</code></pre>
+<p>Sample 2:</p>
+<pre class="r"><code>Sample2Anno=read.table(&quot;../../PAS_Sample2/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;start1&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;PAS&quot;,&quot;chr&quot;), sep=&quot;-&quot;)
+
+Sample2Ind=colnames(Sample2Anno)[9:ncol(Sample2Anno)]
+
+Sample2Usage=read.table(&quot;../../PAS_Sample2/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = Sample2Ind) %&gt;% dplyr::select(contains(&quot;_N&quot;)) 
+
+Sample2All=as.data.frame(cbind(cbind(Sample2Anno[,1:8], Sample2=rowMeans(Sample2Usage))))</code></pre>
+<p>Sample 3</p>
+<pre class="r"><code>Sample3Anno=read.table(&quot;../../PAS_Sample3/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;start1&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;PAS&quot;,&quot;chr&quot;), sep=&quot;-&quot;)
+
+Sample3Ind=colnames(Sample3Anno)[9:ncol(Sample3Anno)]
+
+Sample3Usage=read.table(&quot;../../PAS_Sample3/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = Sample3Ind) %&gt;% dplyr::select(contains(&quot;_N&quot;)) 
+
+Sample3All=as.data.frame(cbind(cbind(Sample3Anno[,1:8], Sample3=rowMeans(Sample3Usage))))</code></pre>
+<p>I need to make a bed file with these to overlap with the original PAS. I want 100 bp on each side of the end. Positive strand (actual negative strand) take</p>
+<pre class="r"><code>Sample1bed=Sample1All %&gt;% mutate(PASName=paste(gene,PAS, sep=&quot;_&quot;),newStart=ifelse(strand==&quot;+&quot;, as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand==&quot;+&quot;,as.integer(start)+100, as.integer(end)+100)) %&gt;%  dplyr::select(chr, newStart, newEnd, PASName, Sample1, strand)
+
+#write.table(Sample1bed,&quot;../data/OverlapBenchmark/sample1PAS.bed&quot;, col.names = F, row.names = F, sep=&quot;\t&quot;, quote = F )
+
+Sample2bed=Sample2All %&gt;% mutate(PASName=paste(gene,PAS, sep=&quot;_&quot;),newStart=ifelse(strand==&quot;+&quot;, as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand==&quot;+&quot;,as.integer(start)+100, as.integer(end)+100)) %&gt;%  dplyr::select(chr, newStart, newEnd, PASName, Sample2, strand)
+
+#write.table(Sample2bed,&quot;../data/OverlapBenchmark/sample2PAS.bed&quot;, col.names = F, row.names = F, sep=&quot;\t&quot;, quote = F )
+
+Sample3bed=Sample3All %&gt;% mutate(PASName=paste(gene,PAS, sep=&quot;_&quot;),newStart=ifelse(strand==&quot;+&quot;, as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand==&quot;+&quot;,as.integer(start)+100, as.integer(end)+100)) %&gt;%  dplyr::select(chr, newStart, newEnd, PASName, Sample3, strand)
+
+#write.table(Sample3bed,&quot;../data/OverlapBenchmark/sample3PAS.bed&quot;, col.names = F, row.names = F, sep=&quot;\t&quot;, quote = F )</code></pre>
+<p>Next step is to assess the overlap.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
