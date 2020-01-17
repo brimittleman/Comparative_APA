@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6c72627367fd37058f496305693b1d0e990f5cedtargetblank6c72627a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6c72627367fd37058f496305693b1d0e990f5ced" target="_blank">6c72627</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree11b26b4a39756e8570f8a56338c295731df5a4f8targetblank11b26b4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/11b26b4a39756e8570f8a56338c295731df5a4f8" target="_blank">11b26b4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6c72627367fd37058f496305693b1d0e990f5cedtargetblank6c72627a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree11b26b4a39756e8570f8a56338c295731df5a4f8targetblank11b26b4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,6 +447,7 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
@@ -806,6 +807,7 @@ Untracked files:
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
+    Untracked:  code/overlapapaQTLPAS_samples.sh
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
@@ -1055,6 +1057,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/11b26b4a39756e8570f8a56338c295731df5a4f8/analysis/establishCutoffs.Rmd" target="_blank">11b26b4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-17
+</td>
+<td>
+add benchmark res
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9024e8613939acade1890b29abfacb1a95100e43/docs/establishCutoffs.html" target="_blank">9024e86</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/6c72627367fd37058f496305693b1d0e990f5ced/analysis/establishCutoffs.Rmd" target="_blank">6c72627</a>
 </td>
 <td>
@@ -1109,12 +1145,12 @@ add cutoff code files
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>In this analyisis I will chose the 3 sets of 6 individuals randomly from my previous study to use for a benchmark analysis.</p>
@@ -1223,7 +1259,93 @@ Sample2bed=Sample2All %&gt;% mutate(PASName=paste(gene,PAS, sep=&quot;_&quot;),n
 Sample3bed=Sample3All %&gt;% mutate(PASName=paste(gene,PAS, sep=&quot;_&quot;),newStart=ifelse(strand==&quot;+&quot;, as.integer(start)-100, as.integer(end)-100), newEnd=ifelse(strand==&quot;+&quot;,as.integer(start)+100, as.integer(end)+100)) %&gt;%  dplyr::select(chr, newStart, newEnd, PASName, Sample3, strand)
 
 #write.table(Sample3bed,&quot;../data/OverlapBenchmark/sample3PAS.bed&quot;, col.names = F, row.names = F, sep=&quot;\t&quot;, quote = F )</code></pre>
+<pre class="bash"><code>sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample1PAS.bed &gt; ../data/OverlapBenchmark/sample1PAS_sort.bed
+
+sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample2PAS.bed &gt; ../data/OverlapBenchmark/sample2PAS_sort.bed
+
+sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample3PAS.bed &gt; ../data/OverlapBenchmark/sample3PAS_sort.bed</code></pre>
 <p>Next step is to assess the overlap.</p>
+<pre class="bash"><code>sbatch overlapapaQTLPAS_samples.sh</code></pre>
+<p>Sample 1 res:</p>
+<pre class="r"><code>wOverlap1=read.table(&quot;../data/OverlapBenchmark/sample1PAS_sort.Intersect.bed&quot;, col.names = colnames(Sample1bed)) %&gt;% mutate(overlap=&quot;yes&quot;)
+noOverlap1=read.table(&quot;../data/OverlapBenchmark/sample1PAS_sort.Intersect.NoOverlap.bed&quot;, col.names = colnames(Sample1bed)) %&gt;% mutate(overlap=&quot;no&quot;)
+
+AllwOinfo1=as.data.frame(rbind(wOverlap1, noOverlap1))
+nrow(AllwOinfo1)</code></pre>
+<pre><code>[1] 77850</code></pre>
+<pre class="r"><code>overlap1=c()
+totalvec1=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo1 %&gt;% filter(Sample1&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap1=c(overlap1,prop)
+  totalvec1=c(totalvec1,total)
+}
+
+plot(seq_usage,overlap1,main=&quot;Sample 1&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /> Sample 2</p>
+<pre class="r"><code>wOverlap2=read.table(&quot;../data/OverlapBenchmark/sample2PAS_sort.Intersect.bed&quot;, col.names = colnames(Sample2bed)) %&gt;% mutate(overlap=&quot;yes&quot;)
+noOverlap2=read.table(&quot;../data/OverlapBenchmark/sample2PAS_sort.Intersect.NoOverlap.bed&quot;, col.names = colnames(Sample2bed)) %&gt;% mutate(overlap=&quot;no&quot;)
+
+AllwOinfo2=as.data.frame(rbind(wOverlap2, noOverlap2))
+nrow(AllwOinfo2)</code></pre>
+<pre><code>[1] 106751</code></pre>
+<pre class="r"><code>overlap2=c()
+totalvec2=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo2 %&gt;% filter(Sample2&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap2=c(overlap2,prop)
+  totalve2c=c(totalvec2,total)
+}
+
+plot(seq_usage,overlap2,main=&quot;Sample 2&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Sample 3</p>
+<pre class="r"><code>wOverlap3=read.table(&quot;../data/OverlapBenchmark/sample3PAS_sort.Intersect.bed&quot;, col.names = colnames(Sample3bed)) %&gt;% mutate(overlap=&quot;yes&quot;)
+noOverlap3=read.table(&quot;../data/OverlapBenchmark/sample3PAS_sort.Intersect.NoOverlap.bed&quot;, col.names = colnames(Sample3bed)) %&gt;% mutate(overlap=&quot;no&quot;)
+
+AllwOinfo3=as.data.frame(rbind(wOverlap3, noOverlap3))
+nrow(AllwOinfo3)</code></pre>
+<pre><code>[1] 96769</code></pre>
+<pre class="r"><code>overlap3=c()
+totalvec3=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo3 %&gt;% filter(Sample3&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap3=c(overlap3,prop)
+  totalvec3=c(totalvec3,total)
+}
+
+plot(seq_usage,overlap3,main=&quot;Sample 2&quot;, ylab=&quot;Percent Overlap&quot;, xlab=&quot;Usage Cutoff&quot;)
+abline(v=.05,col=&quot;red&quot;)
+abline(v=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot with all:</p>
+<pre class="r"><code>allSamp=as.data.frame(cbind(seq_usage,overlap1,overlap2,overlap3))
+actualres= read.table(&quot;../data/CompapaQTLpas/ExtendedResoverlap.txt&quot;, header = T)
+
+SampandRes=allSamp %&gt;% inner_join(actualres,by=&quot;seq_usage&quot;) 
+
+colnames(SampandRes)= c(&quot;Cutoff&quot;,&quot;Sample1&quot;, &quot;Sample2&quot;, &quot;Sample3&quot;, &quot;CompPAS&quot;)
+
+SampandRes_gather=SampandRes %&gt;% gather(key=&quot;set&quot;, value=&quot;overlap&quot;,-Cutoff)</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>ggplot(SampandRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title=&quot;Benchmark results with 3 sets of 6 samples&quot;) + geom_vline(xintercept=.05,col=&quot;red&quot;)+ geom_vline(xintercept=.1,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1267,8 +1389,9 @@ loaded via a namespace (and not attached):
 [33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
 [37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    backports_1.1.2 
 [41] scales_1.0.0     promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
-[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4   
-[49] lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
+[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     labeling_0.3    
+[49] stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1     
+[53] crayon_1.3.4    </code></pre>
 </div>
 
 
