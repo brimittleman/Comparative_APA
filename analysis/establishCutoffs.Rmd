@@ -159,6 +159,123 @@ Sample3bed=Sample3All %>% mutate(PASName=paste(gene,PAS, sep="_"),newStart=ifels
 #write.table(Sample3bed,"../data/OverlapBenchmark/sample3PAS.bed", col.names = F, row.names = F, sep="\t", quote = F )
 ```
 
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample1PAS.bed > ../data/OverlapBenchmark/sample1PAS_sort.bed
+
+sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample2PAS.bed > ../data/OverlapBenchmark/sample2PAS_sort.bed
+
+sort -k1,1 -k2,2n ../data/OverlapBenchmark/sample3PAS.bed > ../data/OverlapBenchmark/sample3PAS_sort.bed
+```
 
 
 Next step is to assess the overlap.  
+
+```{bash,eval=F}
+sbatch overlapapaQTLPAS_samples.sh
+```
+
+Sample 1 res:  
+
+```{r}
+wOverlap1=read.table("../data/OverlapBenchmark/sample1PAS_sort.Intersect.bed", col.names = colnames(Sample1bed)) %>% mutate(overlap="yes")
+noOverlap1=read.table("../data/OverlapBenchmark/sample1PAS_sort.Intersect.NoOverlap.bed", col.names = colnames(Sample1bed)) %>% mutate(overlap="no")
+
+AllwOinfo1=as.data.frame(rbind(wOverlap1, noOverlap1))
+nrow(AllwOinfo1)
+```
+
+```{r}
+overlap1=c()
+totalvec1=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo1 %>% filter(Sample1>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap1=c(overlap1,prop)
+  totalvec1=c(totalvec1,total)
+}
+
+plot(seq_usage,overlap1,main="Sample 1", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+Sample 2 
+
+
+```{r}
+wOverlap2=read.table("../data/OverlapBenchmark/sample2PAS_sort.Intersect.bed", col.names = colnames(Sample2bed)) %>% mutate(overlap="yes")
+noOverlap2=read.table("../data/OverlapBenchmark/sample2PAS_sort.Intersect.NoOverlap.bed", col.names = colnames(Sample2bed)) %>% mutate(overlap="no")
+
+AllwOinfo2=as.data.frame(rbind(wOverlap2, noOverlap2))
+nrow(AllwOinfo2)
+```
+
+```{r}
+overlap2=c()
+totalvec2=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo2 %>% filter(Sample2>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap2=c(overlap2,prop)
+  totalve2c=c(totalvec2,total)
+}
+
+plot(seq_usage,overlap2,main="Sample 2", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+Sample 3 
+
+
+```{r}
+wOverlap3=read.table("../data/OverlapBenchmark/sample3PAS_sort.Intersect.bed", col.names = colnames(Sample3bed)) %>% mutate(overlap="yes")
+noOverlap3=read.table("../data/OverlapBenchmark/sample3PAS_sort.Intersect.NoOverlap.bed", col.names = colnames(Sample3bed)) %>% mutate(overlap="no")
+
+AllwOinfo3=as.data.frame(rbind(wOverlap3, noOverlap3))
+nrow(AllwOinfo3)
+```
+
+```{r}
+overlap3=c()
+totalvec3=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo3 %>% filter(Sample3>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlap3=c(overlap3,prop)
+  totalvec3=c(totalvec3,total)
+}
+
+plot(seq_usage,overlap3,main="Sample 2", ylab="Percent Overlap", xlab="Usage Cutoff")
+abline(v=.05,col="red")
+abline(v=.1,col="blue")
+```
+
+
+Plot with all:  
+
+```{r}
+allSamp=as.data.frame(cbind(seq_usage,overlap1,overlap2,overlap3))
+actualres= read.table("../data/CompapaQTLpas/ExtendedResoverlap.txt", header = T)
+
+SampandRes=allSamp %>% inner_join(actualres,by="seq_usage") 
+
+colnames(SampandRes)= c("Cutoff","Sample1", "Sample2", "Sample3", "CompPAS")
+
+SampandRes_gather=SampandRes %>% gather(key="set", value="overlap",-Cutoff)
+```
+
+Plot:
+
+```{r}
+ggplot(SampandRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+```
+

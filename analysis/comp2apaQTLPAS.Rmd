@@ -168,6 +168,13 @@ abline(v=.05,col="red")
 abline(v=.1,col="blue")
 ```
 
+```{r}
+extendedres=as.data.frame(cbind(seq_usage,overlap))
+
+write.table(extendedres, "../data/CompapaQTLpas/ExtendedResoverlap.txt", col.names = T, row.names = F, quote = F)
+```
+
+
 
 ```{r}
 plot(seq_usage,totalvec,main="Number of PAS by human by usage",ylab="Number of PAS",xlab="Usage Cutoff" )
