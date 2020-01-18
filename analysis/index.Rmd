@@ -147,6 +147,8 @@ From before reseq:
 
 ### Choosing cuttoffs for usage and expression level  
 
+  * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
+
   * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
   
-  * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
+

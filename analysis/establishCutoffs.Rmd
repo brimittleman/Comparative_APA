@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(cowplot)
 ```
 
 In this analyisis I will chose the 3 sets of 6 individuals randomly from my previous study to use for a benchmark analysis. 
@@ -276,6 +277,100 @@ SampandRes_gather=SampandRes %>% gather(key="set", value="overlap",-Cutoff)
 Plot:
 
 ```{r}
-ggplot(SampandRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+bench=ggplot(SampandRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+
+bench
+```
+
+I will filter this to only genes passing the filter I established in the previous:  
+
+```{r}
+PassingGenes=read.table("../data/OverlapBenchmark/genesPassingCuttoff.txt", header = T, stringsAsFactors = F)
+```
+
+
+
+```{r}
+AllwOinfo1_filt=AllwOinfo1 %>% separate(PASName, into=c("gene", "PAS"), sep="_")%>% filter(gene %in% PassingGenes$genes)
+
+
+AllwOinfo2_filt=AllwOinfo2 %>% separate(PASName, into=c("gene", "PAS"), sep="_") %>% filter(gene %in% PassingGenes$genes)
+AllwOinfo3_filt=AllwOinfo3 %>% separate(PASName, into=c("gene", "PAS"), sep="_") %>% filter(gene %in% PassingGenes$genes)
+
+
+```
+
+Actual results:
+
+```{r}
+
+chroms=c('chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr1', 'chr2', 'chr20', 'chr21', 'chr22', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7','chr8', 'chr9')
+
+compAPAPAS=read.table("../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", header =   T, stringsAsFactors = F)  %>%  filter(Human>=0.05, chr %in% chroms) 
+metaDataPAS=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, gene)
+
+
+wOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="yes")
+noOverlapExt=read.table("../data/CompapaQTLpas/PAS_5percHuman.sort.Intersect.NoOverlap_ext.bed", col.names = colnames(compAPAPAS)) %>% mutate(overlap="no")
+
+AllwOinfoExt=as.data.frame(rbind(wOverlapExt, noOverlapExt)) %>% inner_join(metaDataPAS,by="PAS") %>% filter(gene %in% PassingGenes$genes)
+nrow(AllwOinfoExt)
+```
+
+
+```{r}
+overlapFilt1=c()
+seq_usage=seq(0, .95, .01)
+for (i in seq_usage){
+  x=AllwOinfo1_filt %>% filter(Sample1>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFilt1=c(overlapFilt1,prop)
+}
+
+overlapFilt2=c()
+for (i in seq_usage){
+  x=AllwOinfo2_filt %>% filter(Sample2>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFilt2=c(overlapFilt2,prop)
+}
+
+overlapFilt3=c()
+for (i in seq_usage){
+  x=AllwOinfo3_filt %>% filter(Sample3>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFilt3=c(overlapFilt3,prop)
+}
+
+overlapFiltActual=c()
+for (i in seq_usage){
+  x=AllwOinfoExt %>% filter(Human>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFiltActual=c(overlapFiltActual,prop)
+}
+
+FilteredRes=as.data.frame(cbind(seq_usage,overlapFilt1,overlapFilt2,overlapFilt3,overlapFiltActual))
+colnames(FilteredRes)= c("Cutoff","Sample1", "Sample2", "Sample3", "CompPAS")
+
+FilteredRes_gather=FilteredRes %>% gather(key="set", value="overlap",-Cutoff)
+```
+
+```{r}
+filteredbench=ggplot(FilteredRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples, filtered genes") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+
+filteredbench
+```
+Plot together:  
+
+
+```{r}
+plot_grid(bench,filteredbench)
 ```
 
