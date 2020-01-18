@@ -13,18 +13,243 @@ In this analysis I will use feature counts to count all the 3' seq reads in each
 
 ```{r}
 library(workflowr)
+library("gplots")
+library("R.utils")
 library(tidyverse)
 library("edgeR")
 library("limma")
+library("scales")
+library("RColorBrewer")
 ```
 
-Run featurecounts script with oposite strandedness on 3' seq clean bams. Human and chimp nuclear.  
 
-I can do this first with the orthoexon file and evaluate the correlation between these counts and the RNA seq data. This is not ideal beccause I wont keep intron reads but hopefully it is proportional to those reads as wel.  
+I will sum over all PAS for a psuedo gene count. I will use the full set of PAS before cutting to 5%. 
 
-```{bash,eval=F}
-mkdir ../data/Threeprime2Ortho
-sbatch threeprimeOrthoFC.sh
+Human nuclear only
+
+```{r}
+humanPAS=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc", header=T, stringsAsFactors = F) %>% 
+  separate(Geneid, into=c("disc","PAS","chrom", "start","end","strand","geneid"), sep=":") %>%
+  separate(geneid,into=c("gene","loc"),sep="_") %>%
+  dplyr::select(gene,contains("_N")) %>%
+  gather(key="ind", value="count", -gene) %>% 
+  group_by(ind, gene) %>%
+  summarize(GeneCount=sum(count)) %>% 
+  spread(ind, GeneCount)
+
+
+chimpPAS=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc", header=T, stringsAsFactors = F) %>% 
+  separate(Geneid, into=c("disc","PAS","chrom", "start","end","strand","geneid"), sep=":") %>%
+  separate(geneid,into=c("gene","loc"),sep="_") %>%
+  dplyr::select(gene,contains("_N")) %>%
+  gather(key="ind", value="count", -gene) %>% 
+  group_by(ind, gene) %>%
+  summarize(GeneCount=sum(count)) %>% 
+  spread(ind, GeneCount)
 ```
 
-On pause until ortho exon is fixed...
+Join these together:  
+
+```{r}
+
+metadata=read.table("../data/metadata_HCpanel.txt",header = T) %>% mutate(id2=ifelse(grepl("pt", ID), ID, paste("X", ID, sep=""))) %>% filter(Fraction=="Nuclear")
+
+order=c(metadata$id2[1:10], "pt30_N", "pt91_N")
+
+BothbyGene= chimpPAS %>% inner_join(humanPAS,by="gene") %>% dplyr::select(gene,order)
+
+#count matrix:
+Genematrix=as.matrix(BothbyGene %>% column_to_rownames(var="gene"))
+```
+
+
+
+```{r}
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(metadata$Species,metadata$Line, sep=" ")
+```
+
+```{r}
+# Clustering (original code from Julien Roux)
+cors <- cor(Genematrix, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metadata$Species))], RowSideColors=pal[as.integer(as.factor(metadata$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+Look at the correlation between this and expression:  
+
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F,col.names = c("Geneid","gene","source")) %>% dplyr::select(-source)
+
+
+HumanCounts=read.table("../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+
+ChimpCounts=read.table("../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+
+
+counts_genes=HumanCounts %>% inner_join(ChimpCounts,by="Geneid") %>% inner_join(nameID, by="Geneid") %>% dplyr::select(-Geneid)
+
+counts_genes_nog=counts_genes %>% dplyr::select(-gene)
+
+ExpMean=as.data.frame(cbind(gene=counts_genes$gene, meanExp=rowMeans(counts_genes_nog)))
+
+
+ThreeMean=as.data.frame(cbind(gene=BothbyGene$gene, meanThree=rowMeans(Genematrix)))
+
+
+ExpandThree=ExpMean %>% inner_join(ThreeMean,by="gene")  
+
+
+```
+
+Plot this:  
+
+
+```{r}
+
+
+ExpandThree$meanExp=as.numeric(as.character(ExpandThree$meanExp))
+ExpandThree$meanThree=as.numeric(as.character(ExpandThree$meanThree))
+
+
+ggplot(ExpandThree,aes(x=log10(meanExp),y=log10(meanThree)))+ geom_point() + geom_smooth(method="lm")
+
+```
+
+This looks pretty good. I can treat the psuedo threeprime as expression to find an expression cuttoff. Next I will normalize and standardize the sum gene counts.  
+
+
+Log2
+```{r}
+log_counts_genes <- as.data.frame(log2(Genematrix))
+head(log_counts_genes)
+
+plotDensities(log_counts_genes, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+CPM 
+```{r}
+cpm <- cpm(Genematrix, log=TRUE)
+plotDensities(cpm, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+
+Use log2 cmp:  
+
+```{r}
+## Create edgeR object (dge) to calculate TMM normalization  
+dge_original <- DGEList(counts=as.matrix(Genematrix), genes=rownames(Genematrix), group = as.character(t(labels)))
+dge_original <- calcNormFactors(dge_original)
+
+tmm_cpm <- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm)
+```
+
+Look at a PCA plot of the log2cpm  
+
+
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+
+```{r}
+pca_genes <- prcomp(t(tmm_cpm), scale = F)
+scores <- pca_genes$x
+
+for (n in 1:2){
+  col.v <- pal[as.integer(metadata$Species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+
+Plot the log2cpm  
+
+```{r}
+plotDensities(tmm_cpm, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+
+
+
+I will need to filter out the lowly expressed genes. This will also be the gene filter I use for the PAS.  
+
+Start with log2cpm>2 for 8 of the 12 indiv. Filter the counts  
+```{r}
+keep.exprs=rowSums(tmm_cpm>2) >8
+
+counts_filtered= Genematrix[keep.exprs,]
+
+
+
+
+plotDensities(counts_filtered, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+Make a new dge list and filter:
+
+```{r}
+labels <- paste(metadata$Species, metadata$Line, sep=" ")
+dge_in_cutoff <- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
+dge_in_cutoff <- calcNormFactors(dge_in_cutoff)
+
+cpm_in_cutoff <- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm_in_cutoff)
+```
+```{r}
+GenesCutoff=rownames(cpm_in_cutoff)
+NormalizedGenesCuttoff=as.data.frame(cbind(Gene_stable_ID=GenesCutoff, cpm_in_cutoff))
+```
+Plot the historgram: 
+
+```{r}
+hist(cpm_in_cutoff, xlab = "Log2(CPM)", main = "Log2(CPM) values for genes meeting the filtering criteria", breaks = 100 )
+```
+
+This looks relatively normal.  I will next look at the voom transformed values with quantile normalization.  
+
+```{r}
+Species <- factor(metadata$Species)
+design <- model.matrix(~ 0 + Species)
+head(design)
+
+colnames(design) <- gsub("Species", "", dput(colnames(design)))
+```
+```{r}
+cpm.voom<- voom(counts_filtered, design, normalize.method="quantile", plot=T)
+
+boxplot(cpm.voom$E, col = pal[as.numeric(metadata$Species)],las=2)
+
+plotDensities(cpm.voom, col =  pal[as.numeric(metadata$Species)], legend = "topleft") 
+```
+
+
+This looks like a good cuttoff. I will make a list of the genes that pass the cutoff.  
+
+```{r}
+length(GenesCutoff)
+
+GenesCutoffDF=as.data.frame(GenesCutoff) %>% rename("genes"=GenesCutoff)
+#mkdir ../data/OverlapBenchmark
+write.table(GenesCutoffDF,"../data/OverlapBenchmark/genesPassingCuttoff.txt", col.names = T, row.names = F,quote = F)
+
+
+```
+
