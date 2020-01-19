@@ -70,7 +70,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Explore nuclear differential APA PAS and genes](ExploredAPA.html)
 
-* [Differential APA and eQTL overlap](DapaineQTL.html)
+* [Enrichment for differencial APA and eQTL](DapaineQTL.html)
+
+* [Enrichment for differencial APA and apaQTL](dAPAandapaQTL.html)
 
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
 

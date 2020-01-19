@@ -1,0 +1,87 @@
+---
+title: "DAPA enrichment in apaQTL genes"
+author: "Briana Mittleman"
+date: "1/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to ask if dAPA genes are enriched in the genes I found to have apaQTLs in my previous paper. This is similar to the analysis where I asked if dAPA genes are enriched for egenes. This is a more relevent analysis. I am asking if genes with species level differenences are enriched for those found to be genetically regulated.  
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+First I need to get the apaQTL genes from my other project. These are the nuclear apaQTLs at 5% fdr.  
+
+```{bash,eval=F}
+mkdir ../data/apaQTLGenes
+#NuclearapaQTLGenes.txt
+```
+
+```{r}
+QTL_genes=read.table("../data/apaQTLGenes/NuclearapaQTLGenes.txt", header = F, stringsAsFactors = F, col.names = "genes")
+```
+
+
+Now I will pull in the genes from the dAPA analysis in the nuclear fraction. I need both the sigificant genes as well as all of those tested.    
+
+```{r}
+sigNuclear_genes=read.table("../data/DiffIso_Nuclear/SignifianceEitherGENES_Nuclear.txt", stringsAsFactors = F, col.names = "genes")
+
+NuclearAPAtested=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chrom", "gene"), sep=":") %>% dplyr::select(gene)
+NuclearAPAtested_genes=as.vector(NuclearAPAtested$gene)
+```
+
+First look at the overlap.  
+
+
+```{r}
+actual=QTL_genes %>% inner_join(sigNuclear_genes,by="genes") %>% nrow()
+```
+
+
+I will use permutations selecting 1502 genes from all of those tested to see if this is significant.  
+
+```{r}
+permuteGenes <- function(InputGenes, nGenes, nTests){
+  #InputGenes=NuclearAPAtested_genes
+  #nGenes=nrow(sigNuclear_genes)
+  #nTests=10000
+  qtls=QTL_genes
+  qtlOverlap=c()
+  for (n in 1:nTests){
+    genesTest=sample(InputGenes, nGenes)
+    overlapqtl=intersect(genesTest, qtls$genes)
+    qtlOverlap= c(qtlOverlap, length(overlapqtl))
+  }
+  DF=as.data.frame(cbind(qtlOverlap))
+  return(DF)
+}
+
+```
+
+
+Run this:  
+```{r}
+overlapSample=permuteGenes(NuclearAPAtested_genes,nrow(sigNuclear_genes), 10000)
+```
+
+an empirical pvalue is the number of sample overlaps greater than the actual overlap. 
+
+
+```{r}
+empricalpval=overlapSample %>% filter(qtlOverlap>=actual) %>% nrow() / 10000
+```
+
+
+Plot the results:  
+
+```{r}
+ggplot(overlapSample,aes(x=qtlOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =actual, col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with apaQTL Genes") +  annotate("text", x = 110, y = 400, label = paste("Empirical Pvalue=", empricalpval), col="black") +  annotate("text", x = 168, y = 400, label = "Actual Overlap", col="red")
+```
