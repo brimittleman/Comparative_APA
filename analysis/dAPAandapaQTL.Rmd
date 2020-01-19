@@ -85,3 +85,9 @@ Plot the results:
 ```{r}
 ggplot(overlapSample,aes(x=qtlOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =actual, col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with apaQTL Genes") +  annotate("text", x = 110, y = 400, label = paste("Empirical Pvalue=", empricalpval), col="black") +  annotate("text", x = 168, y = 400, label = "Actual Overlap", col="red")
 ```
+
+
+```{r}
+overlapgenes=QTL_genes %>% inner_join(sigNuclear_genes,by="genes")
+```
+

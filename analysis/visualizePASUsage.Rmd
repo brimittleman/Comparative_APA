@@ -93,7 +93,59 @@ sbatch makeNuclearDapaplots.sh
 ```
 
 
-Problem is with the order. The chimp PAS come before the other. This mean they are not in line. I need to pull the locations into the file and do some factor ordering.  
+Example genes (looking at overlap with apaQTLs): 
+
+* apbb1ip
+
+* acot7  
+
+* ap3m2  
+
+* arnt   
+
+* BTD- distribution of human, chimp usually use 1  
+
+
+* c10orf88 (from apaQTL paper example )  
+
+* churc1 (from apa paper)  
+
+* CTSB  
+
+* DDX58  
+
+* dram1  
+
+* erap2 (human 3 intronic up reg, chimp 1 utr up)  
+
+* HEIH (evidence for extended transcript in chimps)  
+
+* IRF5 (looked at this in other paper- opposite usage in 3' UTR pas)  
+
+* KPNB1, variability in human, extended transcript in chimp  
+
+* LIPH  
+
+* OTUB1 - Switch in UTR human extended isoform  
+
+* OSTF1 - intronic isoform used highly in chimps  
+
+* prr13- more variance in human samples 
+
+* RBM47 intronic higher usage in both (different intronic pas)  
+
+* RPUSD4- humans usually use 1 in 3'UTR chimos more spread in all 3  
+
+* TMED5- chimp intronic, human dominant in UTR  
+
+* tmem216- more variability in humans, chimo usually use 1  (**https://ghr.nlm.nih.gov/gene/TMEM216**)    
+
+* VDR- human intronic dominant  
+
+* VRK3- strong evidence for 2 isoforms in human but 1 in chimp  
+
+* Zswim7- switch between species, human has extended isoform, chimp proximal  
+
 
 
 
