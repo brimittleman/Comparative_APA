@@ -414,8 +414,31 @@ Plot together:
 
 
 ```{r}
-plot_grid(bench,filteredbench,filteredbencnoChimop, nrow=1)
+plot_grid(bench,filteredbench,filteredbencnoChimop)
 ```
 
 
 Looks like using a 10% usage and this expression cuttoff is pretty good.  
+
+
+I will write out the list of PAS and call them DoubleFilter
+
+I will put in the PAS meta data one more time and filter human or chimp 10% and the genes in the passing list. 
+
+```{bash,eval=F}
+mkdir ../data/PAS_doubleFilter  
+```
+
+```{r}
+PAS=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",header = T,stringsAsFactors = F) %>% filter(gene %in% PassingGenes$genes) %>% filter(Chimp >=.1 || Human >= .1)
+```
+
+
+
+This brings it to 42K PAS.  
+
+
+```{r}
+write.table(PAS, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",col.names = T,row.names = F, quote = F)
+```
+
