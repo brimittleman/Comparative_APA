@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-18
+<strong>Last updated:</strong> 2020-01-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7a9f60879915ace82b872f58d7209efd957b93a5targetblank7a9f608a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7a9f60879915ace82b872f58d7209efd957b93a5" target="_blank">7a9f608</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec27674c6d1dee0a9a99514500ecff762564723cdtargetblankc27674ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c27674c6d1dee0a9a99514500ecff762564723cd" target="_blank">c27674c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7a9f60879915ace82b872f58d7209efd957b93a5targetblank7a9f608a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec27674c6d1dee0a9a99514500ecff762564723cdtargetblankc27674ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -986,6 +986,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/Wang_ribo/
+    Untracked:  data/apaQTLGenes/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
@@ -1011,7 +1012,6 @@ Unstaged changes:
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/expressioncutoff.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1053,6 +1053,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c27674c6d1dee0a9a99514500ecff762564723cd/analysis/establishCutoffs.Rmd" target="_blank">c27674c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+<td>
+remove disc in chimp
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c211e215cc82898901dd43dc9cfac50fbf10154d/docs/establishCutoffs.html" target="_blank">c211e21</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1180,12 +1214,12 @@ add cutoff code files
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1525,6 +1559,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c211e215cc82898901dd43dc9cfac50fbf10154d/docs/figure/establishCutoffs.Rmd/unnamed-chunk-20-1.png" target="_blank">c211e21</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/0c14f5143e61d931815912c7b07b18505db939e5/docs/figure/establishCutoffs.Rmd/unnamed-chunk-20-1.png" target="_blank">0c14f51</a>
 </td>
 <td>
@@ -1601,12 +1646,73 @@ FilteredRes=as.data.frame(cbind(seq_usage,overlapFilt1,overlapFilt2,overlapFilt3
 colnames(FilteredRes)= c(&quot;Cutoff&quot;,&quot;Sample1&quot;, &quot;Sample2&quot;, &quot;Sample3&quot;, &quot;CompPAS&quot;)
 
 FilteredRes_gather=FilteredRes %&gt;% gather(key=&quot;set&quot;, value=&quot;overlap&quot;,-Cutoff)</code></pre>
-<pre class="r"><code>filteredbench=ggplot(FilteredRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title=&quot;Benchmark results with 3 sets of 6 samples, filtered genes&quot;) + geom_vline(xintercept=.05,col=&quot;red&quot;)+ geom_vline(xintercept=.1,col=&quot;blue&quot;)
+<pre class="r"><code>filteredbench=ggplot(FilteredRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title=&quot;Benchmark results with 3 sets of 6 samples\n filtered gene expresssion&quot;) + geom_vline(xintercept=.05,col=&quot;red&quot;)+ geom_vline(xintercept=.1,col=&quot;blue&quot;)
 
 filteredbench</code></pre>
-<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /> Plot together:</p>
-<pre class="r"><code>plot_grid(bench,filteredbench)</code></pre>
-<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c211e215cc82898901dd43dc9cfac50fbf10154d/docs/figure/establishCutoffs.Rmd/unnamed-chunk-25-1.png" target="_blank">c211e21</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Last step is to remove the PAS that were discovered originally in chimp.</p>
+<pre class="r"><code>PASdisc=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;, header = T, stringsAsFactors = F) %&gt;% filter(disc!=&quot;Chimp&quot;)</code></pre>
+<p>Filter and rerun loop for percent overlap. Only the actual need to be updated for this.</p>
+<pre class="r"><code>AllwOinfoExt_noChimp =AllwOinfoExt %&gt;% filter(PAS %in% PASdisc$PAS)</code></pre>
+<p>Rerun:</p>
+<pre class="r"><code>overlapFiltActualnoChimp=c()
+for (i in seq_usage){
+  x=AllwOinfoExt_noChimp %&gt;% filter(Human&gt;i) %&gt;% group_by(overlap) %&gt;% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFiltActualnoChimp=c(overlapFiltActualnoChimp,prop)
+}
+
+FilteredResNochimp=as.data.frame(cbind(seq_usage,overlapFilt1,overlapFilt2,overlapFilt3,overlapFiltActualnoChimp))
+colnames(FilteredResNochimp)= c(&quot;Cutoff&quot;,&quot;Sample1&quot;, &quot;Sample2&quot;, &quot;Sample3&quot;, &quot;CompPAS&quot;)  
+
+FilteredResNochimp_gather=FilteredResNochimp %&gt;% gather(key=&quot;set&quot;, value=&quot;overlap&quot;,-Cutoff)</code></pre>
+<pre class="r"><code>filteredbencnoChimop=ggplot(FilteredResNochimp_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title=&quot;Benchmark results with 3 sets of 6 samples\n filtered gene expresssion, remove discovered in Chimp&quot;) + geom_vline(xintercept=.05,col=&quot;red&quot;)+ geom_vline(xintercept=.1,col=&quot;blue&quot;)
+
+filteredbencnoChimop</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot together:</p>
+<pre class="r"><code>plot_grid(bench,filteredbench,filteredbencnoChimop, nrow=1)</code></pre>
+<p><img src="figure/establishCutoffs.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Looks like using a 10% usage and this expression cuttoff is pretty good.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
