@@ -363,14 +363,59 @@ FilteredRes_gather=FilteredRes %>% gather(key="set", value="overlap",-Cutoff)
 ```
 
 ```{r}
-filteredbench=ggplot(FilteredRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples, filtered genes") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+filteredbench=ggplot(FilteredRes_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples\n filtered gene expresssion") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
 
 filteredbench
 ```
+
+
+Last step is to remove the PAS that were discovered originally in chimp.  
+
+```{r}
+PASdisc=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% filter(disc!="Chimp")
+```
+
+
+Filter and rerun loop for percent overlap. Only the actual need to be updated for this.  
+
+```{r}
+AllwOinfoExt_noChimp =AllwOinfoExt %>% filter(PAS %in% PASdisc$PAS)
+
+```
+
+Rerun:  
+
+```{r}
+
+
+overlapFiltActualnoChimp=c()
+for (i in seq_usage){
+  x=AllwOinfoExt_noChimp %>% filter(Human>i) %>% group_by(overlap) %>% summarise(n=n())
+  yes=as.numeric(x[2,2])
+  total=as.numeric(x[2,2])+ as.numeric(x[1,2])
+  prop=yes/total
+  overlapFiltActualnoChimp=c(overlapFiltActualnoChimp,prop)
+}
+
+FilteredResNochimp=as.data.frame(cbind(seq_usage,overlapFilt1,overlapFilt2,overlapFilt3,overlapFiltActualnoChimp))
+colnames(FilteredResNochimp)= c("Cutoff","Sample1", "Sample2", "Sample3", "CompPAS")  
+
+FilteredResNochimp_gather=FilteredResNochimp %>% gather(key="set", value="overlap",-Cutoff)
+```
+
+
+```{r}
+filteredbencnoChimop=ggplot(FilteredResNochimp_gather,aes(x=Cutoff,y=overlap, by=set, col=set))+ geom_line() + labs(title="Benchmark results with 3 sets of 6 samples\n filtered gene expresssion, remove discovered in Chimp") + geom_vline(xintercept=.05,col="red")+ geom_vline(xintercept=.1,col="blue")
+
+filteredbencnoChimop
+```
+
 Plot together:  
 
 
 ```{r}
-plot_grid(bench,filteredbench)
+plot_grid(bench,filteredbench,filteredbencnoChimop, nrow=1)
 ```
 
+
+Looks like using a 10% usage and this expression cuttoff is pretty good.  
