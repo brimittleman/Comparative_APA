@@ -57,11 +57,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)  
 
-    - [Intronics location for dominant PAS](DominantPASintronLoc.html)  
-  
-    - [Does signal site explain trend?](ss_sameDomdiffDom.html)  
+   * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
 
-    - [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)  
+    - [Intronics location for dominant PAS](DominantPASintronLoc.html)  
+      
+       * [Intronics location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
     
 * [Species Specificity in PAS](speciesSpecific.html)  
   
@@ -161,4 +161,10 @@ From before reseq:
 * [Chimp Total vs Nuclear Analysis](Chimp_TvN.html)  
 
 * [Dominant PAS in Total Fraction](dominantPAS_total.html)  
+
+From the original nuclear dominant  
+
+   * [Does signal site explain trend?](ss_sameDomdiffDom.html)  
+
+   * [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)  
 
