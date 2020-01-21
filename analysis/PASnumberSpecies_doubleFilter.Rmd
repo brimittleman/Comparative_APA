@@ -1,0 +1,74 @@
+---
+title: "Number of PAS by Species - double filter"
+author: "Briana Mittleman"
+date: "1/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(tidyverse)
+library(reshape2)
+library(workflowr)
+```
+
+
+###Nuclear fraction
+In this analysis I will look at thenumber of PAS per species at a gene level. I am only including PAS in chr1-22. These results use mean usage accross fraction.  
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T)
+```
+
+
+I am looking at PAS at .1 or greater in either species. 
+```{r}
+PAS_sm=PAS %>% dplyr::select(gene, Chimp, Human) 
+
+PAS_m= melt(PAS_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.1) %>% group_by(species, gene) %>% summarise(nPAS=n())
+
+#pos = more human, neg = more chimp 
+PAS_spread=PAS_m %>% spread(species, nPAS, fill=0) %>% mutate(DiffPAS=Human-Chimp)
+```
+
+```{r}
+summary(PAS_spread$DiffPAS)
+
+#more human
+nrow(PAS_spread[PAS_spread$DiffPAS>0,])
+
+#more chimp
+nrow(PAS_spread[PAS_spread$DiffPAS<0,])
+
+#same
+nrow(PAS_spread[PAS_spread$DiffPAS==0,])
+
+#all
+nrow(PAS_spread)
+```
+
+
+```{r}
+ggplot(PAS_spread, aes(x=DiffPAS)) + geom_bar(stat="count") +geom_vline(xintercept = mean(PAS_spread$DiffPAS),col="red") + labs(title="Difference in number of PAS at 10% Human vs Chimp", y="Genes", x="N Human PAS - N Chimp PAS")
+```
+
+Plot distribution of N pas by species:  
+
+Wilcoxan test to see if there is a difference in this distribution.  
+
+```{r}
+ChimpNPAS=PAS_m %>% filter(species=="Chimp")
+HumanNPAS=PAS_m %>% filter(species=="Human")
+
+
+wilcox.test(HumanNPAS$nPAS,ChimpNPAS$nPAS )
+```
+```{r}
+ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_density(stat="count",alpha=.5) +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS >= 10%", x="Number of PAS",y="Genes")
+```
+

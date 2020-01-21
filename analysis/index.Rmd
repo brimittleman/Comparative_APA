@@ -36,13 +36,24 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Make PAS bed for 5% peaks](fixPeak2PAS.html)
 
+
+### Choosing cuttoffs for usage and expression level  
+
+  * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
+
+  * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
+  
+  
+
 ##Catalog PAS:
 
 * [Number of PAS in each species](PASnumperSpecies.html)   
 
+    * [Number of PAS in each species double filter](PASnumberSpecies_doubleFilter.html)   
+
 * [Pressence of top 2 signal sites](signalsites.html)  
 
-* [Dominant PAS in Total Fraction](dominantPAS_total.html)  
+    * [Top 2 signal sites double filter](signalsites_doublefilter.html)
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)  
 
@@ -57,10 +68,6 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 
 ##Differential Isoform Analysis:
-
-* [Human Total vs Nuclear Analysis](Human_TvN.html)  
-
-* [Chimp Total vs Nuclear Analysis](Chimp_TvN.html)  
 
 * [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
 
@@ -147,10 +154,11 @@ From before reseq:
   * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
 
 
-### Choosing cuttoffs for usage and expression level  
+### Extra comparisons
 
-  * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
+* [Human Total vs Nuclear Analysis](Human_TvN.html)  
 
-  * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
-  
+* [Chimp Total vs Nuclear Analysis](Chimp_TvN.html)  
+
+* [Dominant PAS in Total Fraction](dominantPAS_total.html)  
 

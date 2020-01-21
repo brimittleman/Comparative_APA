@@ -1,0 +1,144 @@
+---
+title: "Signal Site Distribution Double filter"
+author: "Briana Mittleman"
+date: "1/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this analysis I will look at the signal site distributions for the human and chimp PAS I have called.  
+
+```{r}
+library(ggpubr)
+library(workflowr)
+library(tidyverse)
+```
+
+I am looking at 200 base pair regions for each pas. I will look for the sequence in these for now and then refine the search.  
+
+
+I can use bedtools nuc on both to get the sequences for the bed files in ../data/PAS.
+
+
+```{bash,eval=F}
+mkdir ../data/SignalSites_doublefilter
+sbatch PASsequences_DF.sh
+```
+
+The way I did this it flipped the - strand and assayed the correct strand sequence. I will still have to make everything upper case.
+
+Before I use python to find the occurances. I will look at the results because I gave the AATAAA pattern to the nuc program to assay.  
+
+First i have to remove the # in each file
+
+
+```{r}
+humanRawout=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_nuc.txt", stringsAsFactors = F, header = T) %>% mutate(SS=ifelse(X17_user_patt_count>=1, "yes", "no"))
+ChimpRawout=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_nuc.txt", stringsAsFactors = F, header = T)%>% mutate(SS=ifelse(X17_user_patt_count>=1, "yes", "no"))
+```
+
+Histogram for the results: 
+
+
+```{r}
+ggplot(humanRawout,aes(x=X17_user_patt_count)) + geom_bar(aes(y=..prop..)) +labs(title="Distribution of AATAAA pattern Human")
+
+ggplot(ChimpRawout,aes(x=X17_user_patt_count)) + geom_bar(aes(y=..prop..))+labs(title="Distribution of AATAAA pattern Chimps")
+
+```
+
+
+See if yes no segragates with usage:
+
+```{r}
+ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test")
+```
+```{r}
+
+ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test")
+```
+
+Look at location data and bring this in.  
+
+```{r}
+Loc=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% rename("X4_usercol"=PAS) %>% dplyr::select(X4_usercol,loc)
+
+ChimpRawout_withloc=ChimpRawout %>% inner_join(Loc, by="X4_usercol") %>% filter(loc!="008559")
+humanRawout_withloc=humanRawout%>% inner_join(Loc, by="X4_usercol") %>% filter(loc!="008559")
+```
+
+```{r}
+
+ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+
+ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+label.y.npc = "bottom")
+```
+
+I can run the nuc command again for the other doninant signal site I found in the apaQTL analysis (ATTAAA), I can join the results.
+
+```{bash,eval=F}
+sbatch PAS_ATTAAA_df.sh
+```
+
+**remove #**
+```{r}
+human_ATTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_ATTAAA.txt",stringsAsFactors = F,header = T) %>% mutate(SS2=ifelse(X17_user_patt_count>=1, "yes", "no"))
+
+chimp_ATTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_ATTAAA.txt",stringsAsFactors = F,header = T) %>% mutate(SS2=ifelse(X17_user_patt_count>=1, "yes", "no"))
+
+
+human_both=human_ATTAAA %>% inner_join(humanRawout_withloc, by=c("X1_usercol", "X2_usercol", "X3_usercol", "X4_usercol", "X5_usercol", "X6_usercol", "X7_pct_at", "X8_pct_gc", "X9_num_A", "X10_num_C", "X11_num_G", "X12_num_T", "X13_num_N", "X14_num_oth", "X15_seq_len", "X16_seq")) %>% mutate(anySS=ifelse(SS == "yes" | SS2 =="yes", "yes", "no"))
+
+chimp_both=chimp_ATTAAA %>% inner_join(ChimpRawout_withloc, by=c("X1_usercol", "X2_usercol", "X3_usercol", "X4_usercol", "X5_usercol", "X6_usercol", "X7_pct_at", "X8_pct_gc", "X9_num_A", "X10_num_C", "X11_num_G", "X12_num_T", "X13_num_N", "X14_num_oth", "X15_seq_len", "X16_seq")) %>% mutate(anySS=ifelse(SS == "yes" | SS2 =="yes", "yes", "no"))
+
+
+```
+
+```{r}
+ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of  ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+
+ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+label.y.npc = "bottom")
+```
+
+
+
+```{r}
+
+ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+
+ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+label.y.npc = "bottom")
+```
+
+Plot percentage either by loc:
+
+```{r}
+
+human_both_loc= human_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>% ungroup() %>% group_by(loc) %>% mutate(nLoc=sum(count),Human=count/nLoc) %>%ungroup() %>%  dplyr::select(loc, anySS,Human)
+
+chimp_both_loc= chimp_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>% ungroup() %>% group_by(loc) %>% mutate(nLoc=sum(count),Chimp=count/nLoc)%>% ungroup() %>% dplyr::select(loc, anySS,Chimp)
+
+bothSpeciesLoc=chimp_both_loc %>% inner_join(human_both_loc,by=c("loc", "anySS")) %>% gather(key="species", value="propSS", -loc, -anySS) %>% filter(anySS=="yes")
+
+
+ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Presence of top 2 signal sites by location", x="Proportion with signal site", x="location")
+```
+
+
+Write out information about SS so i can use it for other anaylsis.  
+
+```{r}
+human_write=human_both %>% dplyr::select(X4_usercol,SS,SS2,anySS) %>% rename("PAS"=X4_usercol)
+
+write.table(human_write, "../data/SignalSites_doublefilter/HumanPresenceofSS_DF.txt", col.names = T, row.names = F, quote = F)
+
+chimp_write=chimp_both %>% dplyr::select(X4_usercol,SS,SS2,anySS) %>% rename("PAS"=X4_usercol)
+
+write.table(chimp_write,"../data/SignalSites_doublefilter/ChimpPresenceofSS_DF.txt", col.names = T, row.names = F, quote = F)
+```
