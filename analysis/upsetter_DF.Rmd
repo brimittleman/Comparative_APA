@@ -1,0 +1,67 @@
+---
+title: "Upsetter plot with all phenotypes double fiilter"
+author: "Briana Mittleman"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will use the UpSetR package to look at all of the differential gene regulation phenotype results in one plot. This should be easier to visualize than the venn diagrams.  
+
+
+```{r}
+
+library(UpSetR)
+library(workflowr)
+library(tidyverse)
+```
+
+
+
+Input the datasets:
+
+```{r}
+#protein
+Protein=read.table("../data/Khan_prot/HC_SigProtein.txt", header = T, stringsAsFactors = F)
+#trans
+Translation=read.table("../data/Wang_ribo/HC_SigTranslation.txt", header = T, stringsAsFactors = F)
+#expression
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name)
+#nuclear apa  
+NucAPA=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T,stringsAsFactors = F)
+
+DSgenes=read.table("../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt",stringsAsFactors = F, col.names = "DS")
+
+```
+
+
+Create a named list object  
+
+
+```{r}
+listInput_nucOnly <- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
+
+upset(fromList(listInput_nucOnly), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+
+Add colors for certain queries:
+
+```{r}
+#upset(movies, queries = list(list(query = intersects, params = list("Drama", 
+#    "Comedy", "Action"), color = "orange", active = T), list(query = intersects, 
+ #   params = list("Drama"), color = "red", active = F), list(query = intersects, 
+ #   params = list("Action", "Drama"), active = T)))
+
+
+upset(fromList(listInput_nucOnly), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="red", active=T,query.name="APA,Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="orange", active=T, query.name="Expression,Ribo, Protein"), list(query=intersects, params=list("DS", "DT", "DP"), color="green", active=T,query.name="Splicing ,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="blue", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="purple", active=T, query.name="APA, Protein")), order.by = "freq", query.legend = "bottom")
+
+```
+
+
+Will use hypergeometric to test overlaps.  
+
+

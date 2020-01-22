@@ -1,0 +1,58 @@
+---
+title: "Protein and translation overlap with nuclear APA double filter"
+author: "Briana Mittleman"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(VennDiagram)
+```
+
+In this analysis I want to look if the genes with nuclear differential APA are also the genes with differential translation and protein. I can make a 3 way vendiagram first. 
+
+
+First upload the genes.  
+
+```{r}
+Protein=read.table("../data/Khan_prot/HC_SigProtein.txt", header = T, stringsAsFactors = F)
+Translation=read.table("../data/Wang_ribo/HC_SigTranslation.txt", header = T, stringsAsFactors = F)
+```
+
+I am using the nuclear significant genes with differences ofo at least 20%   
+```{r}
+nuclearAPA=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T,stringsAsFactors = F)
+```
+
+
+Venn diagram:
+
+```{r}
+#area 1 comp apa
+#area 2 translation
+#area 3 protein 
+
+n12= length(intersect(nuclearAPA$gene, Translation$Gene))
+n13= length(intersect(nuclearAPA$gene, Protein$gene.symbol))
+n23=length(intersect(Translation$Gene, Protein$gene.symbol))
+n123= length(Reduce(intersect, list(v1=nuclearAPA$gene,v2= Translation$Gene , v3=Protein$gene.symbol)))
+```
+
+
+
+```{r}
+grid.newpage()
+draw.triple.venn(length(nuclearAPA$gene), length(Translation$Gene), length(Protein$gene.symbol), n12, n23, n13, n123,category = c("APA", "Translation", "Protein"), fill = c("skyblue", "pink1", "mediumorchid"), alpha = rep(0.5, 3),  cex = rep(1, 7),fontface =rep("plain", 7),lty = "blank",scaled = T)
+
+```
+
+
+This will be easier to see in the upsetter plot in the next analysis, 
