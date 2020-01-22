@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree46c489bf544f38874f9e7e15db4dbbd640136cb2targetblank46c489ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/46c489bf544f38874f9e7e15db4dbbd640136cb2" target="_blank">46c489b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree117fd632969209613fed6fed461293da502a2986targetblank117fd63a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/117fd632969209613fed6fed461293da502a2986" target="_blank">117fd63</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree46c489bf544f38874f9e7e15db4dbbd640136cb2targetblank46c489ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree117fd632969209613fed6fed461293da502a2986targetblank117fd63a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -325,6 +325,7 @@ Untracked files:
     Untracked:  code/._PASsequences.sh
     Untracked:  code/._PASsequences_DF.sh
     Untracked:  code/._PlotNuclearUsagebySpecies.R
+    Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
@@ -369,6 +370,7 @@ Untracked files:
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeNuclearDapaplots.sh
+    Untracked:  code/._makeNuclearDapaplots_DF.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
@@ -508,6 +510,7 @@ Untracked files:
     Untracked:  code/PASsequences.sh
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -623,8 +626,11 @@ Untracked files:
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearDapaplots_DF.sh
     Untracked:  code/makeNuclearPlots.err
     Untracked:  code/makeNuclearPlots.out
+    Untracked:  code/makeNuclearPlotsDF.err
+    Untracked:  code/makeNuclearPlotsDF.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -852,6 +858,7 @@ Untracked files:
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
+    Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -868,6 +875,7 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
+    Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -914,6 +922,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/117fd632969209613fed6fed461293da502a2986/analysis/index.Rmd" target="_blank">117fd63</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+redo differential analysis with double filt
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/index.html" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2761,10 +2803,11 @@ Start workflowr project.
 <li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p></li>
 <li><p><a href="Nuclear_HvC_DF.html">Nuclear Human vs. Chimp Analysis Double filter</a></p></li>
 <li><p><a href="ExploredAPA.html">Explore nuclear differential APA PAS and genes</a></p></li>
-<li><p><a href="DapaineQTL.html">Enrichment for differencial APA and eQTL</a></p></li>
+<li><p><a href="ExploredAPA_DF.html">Explore nuclear differential APA PAS and genes Double filter</a></p></li>
 <li><p><a href="dAPAandapaQTL.html">Enrichment for differencial APA and apaQTL</a></p></li>
-<li><p><a href="DominatPASandDIffAPA.html">Look at dAPA and genes from Dominant PAS analysis</a></p></li>
+<li><p><a href="dAPAandapaQTL_DF.html">Enrichment for differencial APA and apaQTL double filter</a></p></li>
 <li><p><a href="visualizePASUsage.html">Visualization for all Nuclear DAPA genes</a></p></li>
+<li><p><a href="visualizePASUsage_DF.html">Visualization for all Nuclear DAPA genes double filter</a></p></li>
 </ul>
 </div>
 <div id="quantify-phenotypes-with-rna" class="section level2">
@@ -2828,8 +2871,8 @@ Start workflowr project.
 <li><p><a href="DE_pantro5vspantro6.html">Compare DE in pantro5 vs pantro6</a></p></li>
 </ul>
 </div>
-<div id="extra-comparisons" class="section level3">
-<h3>Extra comparisons</h3>
+<div id="extra-comparisons-or-analysis-not-redone-after-double-filter" class="section level3">
+<h3>Extra comparisons or analysis: not redone after double filter</h3>
 <ul>
 <li><p><a href="Human_TvN.html">Human Total vs Nuclear Analysis</a></p></li>
 <li><p><a href="Chimp_TvN.html">Chimp Total vs Nuclear Analysis</a></p></li>
@@ -2841,6 +2884,8 @@ Start workflowr project.
 <ul>
 <li><p><a href="ss_sameDomdiffDom.html">Does signal site explain trend?</a></p></li>
 <li><p><a href="HumanIntronicDominant.html">Look at Intronic Dominant with DPAU and DE</a></p></li>
+<li><p><a href="DapaineQTL.html">Enrichment for differencial APA and eQTL</a></p></li>
+<li><p><a href="DominatPASandDIffAPA.html">Look at dAPA and genes from Dominant PAS analysis</a></p></li>
 </ul>
 </div>
 </div>
