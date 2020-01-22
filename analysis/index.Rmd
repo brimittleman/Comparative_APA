@@ -122,9 +122,13 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Normalize Nuclear Fraction](NormalizePheno_nuclear.html)  
 
+    * [Normalize (qqnrom) Nuclear Fraction double filter](NormalizePheno_nuclear_DF.html)    
+
 * [Normalize clusters from splicing analysis](normalizeClusters.html)
 
-* [Mediation analysis](mediation.html)
+* [Mediation analysis](mediation.html)    
+
+    * [Mediation analysis double filter](mediation_df.html)
 
 ##Extra QC and Analysis   
 

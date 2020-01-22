@@ -1,7 +1,7 @@
 ---
-title: "Mediation analysis"
+title: "Mediation analysis double filtered"
 author: "Briana Mittleman"
-date: "1/13/2020"
+date: "1/22/2020"
 output: html_document
 ---
 
@@ -17,27 +17,16 @@ library(limma)
 library(MASS)
 ```
 
-In this analysis, I will ask if differrecnes in APA or splicing are causal for differences in expression. I will use midiation analysis as implemented in (https://lauren-blake.github.io/Regulatory_Evol/analysis/Final_effect_size_human_chimp.html) using Joyces package mediation. 
-
-Notes:  
-
-* need one value for gene, sample, expression values, mol pheno values (normalized and non normalized)  
-
-* uses ashR,vashr,medinome package
-
-* df= sample -2 (4)
-
-* run for DE and non DE genes seperatly 
+In this analysis, I will ask if differrecnes in APA or splicing are causal for differences in expression. I did this before the filter, this is post the double filter for expression and 10% cutoff.  
 
 
 Ittai's version of the analysis: https://ittaieres.github.io/HiCiPSC/gene_expression.html#now,_get_the_appropriate_data_and_actually_run_the_mediation_analysis
 
-For this version I do not need the package. I only need limma. I will try this first.  
 
 To deal with multiple phenotypes per gene I will take the highest absolute effect size cluster or PAS for splicing and APA respectively.  
 
 ```{bash,eval=F}
-mkdir ../data/mediation
+mkdir ../data/mediation_DF
 ```
 
 
@@ -62,10 +51,10 @@ Exp=ExpRes %>% inner_join(ExpNorm, by="Gene.name")%>% rename("gene"= Gene.name) 
 
 #Chr	start	end	ID	NA18498_N	NA18499_N	NA18502_N	NA18504_N	NA18510_N	NA18523_N	NA18358_N	NA3622_N	NA3659_N	NA4973_N	NApt30_N	NApt91_N
 #apa:  
-apaN= read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz.phen_AllChrom", col.names = c("chr", "start", "end", "id","NA18498_APA", "NA18499_APA", "NA18502_APA", "NA18504_APA", "NA18510_APA","NA18523_APA", "NA18358_APA", "NA3622_APA","NA3659_APA", "NA4973_APA","NAPT30_APA","NAPT91_APA")) %>% separate(id, into=c("ch", "st", "en","id2"),sep=":") %>% separate(id2, into=c("gene", "strand","id3"),sep="_") %>% separate(id3, into=c("loc", "disc", "PAS"), sep="-") %>% dplyr::select(gene, PAS,contains("NA"))
-PASMeta=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
-apaRes= read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr","gene"),sep=":")
-apaPASres=read.table("../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr","start", "end","gene"), sep=":") 
+apaN= read.table("../data/Pheno_5perc_DF_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz.qqnorm_AllChrom", col.names = c("chr", "start", "end", "id","NA18498_APA", "NA18499_APA", "NA18502_APA", "NA18504_APA", "NA18510_APA","NA18523_APA", "NA18358_APA", "NA3622_APA","NA3659_APA", "NA4973_APA","NAPT30_APA","NAPT91_APA")) %>% separate(id, into=c("ch", "st", "en","id2"),sep=":") %>% separate(id2, into=c("gene", "strand","id3"),sep="_") %>% separate(id3, into=c("loc", "disc", "PAS"), sep="-") %>% dplyr::select(gene, PAS,contains("NA"))
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
+apaRes= read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr","gene"),sep=":")
+apaPASres=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr","start", "end","gene"), sep=":") 
 apaPASres$start=as.integer(apaPASres$start)
 apaPASres$end=as.integer(apaPASres$end)
 apaPASres$deltaPAU=as.numeric(apaPASres$deltaPAU)
@@ -122,7 +111,7 @@ fit_node_pos <- test_mediation(exprs = Exp_pos[isnot_de,],
                            varying_covariate = APA_pos[isnot_de,])
 
 #save as R data object:
-save(fit_de_pos, fit_node_pos, is_de, isnot_de, Exp_pos, APA_pos, metadata, gvec, file = "../data/mediation/positive_mediation.rda")
+save(fit_de_pos, fit_node_pos, is_de, isnot_de, Exp_pos, APA_pos, metadata, gvec, file = "../data/mediation_DF/positive_mediation.rda")
 
 ```
 
@@ -132,14 +121,14 @@ I will have to run this seperatly as an Rscript.
 
 ```{bash,eval=F}
 
-sbatch RunPosMCMediation.sh
+sbatch RunPosMCMediationDF.sh
 
 ```
 
 Load results 
 ```{r}
-mc_pos_de <- readRDS(file = "../data/mediation/mc_de_postive.rds")
-mc_pos_node <- readRDS(file = "../data/mediation/mc_node_postive.rds")
+mc_pos_de <- readRDS(file = "../data/mediation_DF/mc_de_postive.rds")
+mc_pos_node <- readRDS(file = "../data/mediation_DF/mc_node_postive.rds")
 
 ##In DE genes
 ngenes <- ncol(mc_pos_de)
@@ -152,7 +141,7 @@ out <- sapply(1:ngenes, function(g) {
 })
 table(out)
 
-85/(85+2823) #
+85/(85+2679) #
 ```
 
 
@@ -160,11 +149,12 @@ table(out)
 DEdat <- data.frame(bf=fit_de_pos$tau, af=fit_de_pos$tau_prime,significance=out)
 DEdat$color <- ifelse(DEdat$significance==TRUE, "red", "black")
 plot(x=DEdat$bf, y=DEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
-legend("topleft", legend=c("95% CI Significant (n=85)", "95% CI Non significant (n=2823)"), col=c("red", "black"), pch=16:16, cex=0.8)
+legend("topleft", legend=c("95% CI Significant (n=85)", "95% CI Non significant (n=2679)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
 ```
+
 Not DE:
 
 
@@ -180,7 +170,7 @@ out <- sapply(1:ngenes, function(g) {
 })
 table(out)
 
-110/(110+4852)
+116/(116+4557)
 ```
 
 
@@ -189,12 +179,11 @@ table(out)
 noDEdat <- data.frame(bf=fit_node_pos$tau, af=fit_node_pos$tau_prime,significance=out)
 noDEdat$color <- ifelse(noDEdat$significance==TRUE, "red", "black")
 plot(x=noDEdat$bf, y=noDEdat$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat$color, 0.6))
-legend("topleft", legend=c("95% CI Significant (n=110)", "95% CI Non significant (n=4852)"), col=c("red", "black"), pch=16:16, cex=0.8)
+legend("topleft", legend=c("95% CI Significant (n=116)", "95% CI Non significant (n=4557)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
 ```
-
 
 
 ###Negative:  
@@ -225,7 +214,7 @@ fit_node_neg <- test_mediation(exprs = Exp_neg[isnot_de_gen,],
                            varying_covariate = APA_neg[isnot_de_gen,])
 
 #save as R data object:
-save(fit_de_neg, fit_node_neg, is_de_neg, isnot_de_gen, Exp_neg, APA_neg, metadata, gvec_neg, file = "../data/mediation/negative_mediation.rda")
+save(fit_de_neg, fit_node_neg, is_de_neg, isnot_de_gen, Exp_neg, APA_neg, metadata, gvec_neg, file = "../data/mediation_DF/negative_mediation.rda")
 ```
 
 
@@ -241,8 +230,8 @@ sbatch RunNegMCMediation.sh
 
 Pull in results. 
 ```{r}
-mc_neg_de <- readRDS(file = "../data/mediation/mc_de_negative.rds")
-mc_neg_node <- readRDS(file = "../data/mediation/mc_node_negative.rds")
+mc_neg_de <- readRDS(file = "../data/mediation_DF/mc_de_negative.rds")
+mc_neg_node <- readRDS(file = "../data/mediation_DF/mc_node_negative.rds")
 
 ##In DE genes
 ngenes <- ncol(mc_neg_de)
@@ -255,7 +244,7 @@ out <- sapply(1:ngenes, function(g) {
 })
 table(out)
 
-93/(93+2823) #
+96/(96+2668) #
 ```
 
 ```{r}
@@ -264,7 +253,7 @@ table(out)
 DEdat_neg <- data.frame(bf=fit_de_neg$tau, af=fit_de_neg$tau_prime,significance=out)
 DEdat_neg$color <- ifelse(DEdat_neg$significance==TRUE, "red", "black")
 plot(x=DEdat_neg$bf, y=DEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in DE genes (Negative)", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
-legend("topleft", legend=c("95% CI Significant (n=93)", "95% CI Non significant (n=2823)"), col=c("red", "black"), pch=16:16, cex=0.8)
+legend("topleft", legend=c("95% CI Significant (n=96)", "95% CI Non significant (n=2668)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
@@ -284,7 +273,7 @@ out <- sapply(1:ngenes, function(g) {
 })
 table(out)
 
-102/(102+4859) #
+104/(104+4568) #
 ```
 
 
@@ -295,30 +284,8 @@ table(out)
 noDEdat_neg <- data.frame(bf=fit_node_neg$tau, af=fit_node_neg$tau_prime,significance=out)
 noDEdat_neg$color <- ifelse(noDEdat_neg$significance==TRUE, "red", "black")
 plot(x=noDEdat_neg$bf, y=noDEdat_neg$af, ylab="Effect Size After Controlling for APA", xlab="Effect Size Before Controlling for APA", main="Effect of APA on Expression Divergence in non-DE genes (negative)", pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat_neg$color, 0.6))
-legend("topleft", legend=c("95% CI Significant (n=102)", "95% CI Non significant (n=4859)"), col=c("red", "black"), pch=16:16, cex=0.8)
+legend("topleft", legend=c("95% CI Significant (n=104)", "95% CI Non significant (n=4568)"), col=c("red", "black"), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)
 ```
-###Expression and Splicing  
-
-
-```{r}
-#YG-BM-S3-3622C-Total_S3_R1_001-sort.bam	YG-BM-FIXED-18498H-Total_S5_R1_001-sort.bam	YG-BM-S12-18523H-Total_S12_R1_001-sort.baYG-BM-S4-3659C-Total_S4_R1_001-sort.bam	YG-BM-S2-PT91C-Total_S2_R1_001-sort.bam	YG-BM-S11-18510H-Total_S11_R1_001-sort.bam	YG-BM-S9-18502H-Total_S9_R1_001-sort.bam	YG-BM-S8-18499H-Total_S8_R1_001-sort.bam	YG-BM-S1-PT30C-Total_S1_R1_001-sort.bam	YG-BM-FIXED-4973C-Total_S7_R1_001-sort.bam	YG-BM-S10-18504H-Total_S10_R1_001-sort.bam	YG-BM-S6-18358C-Total_S6_R1_001-sort.bam
-
-Splicing= read.table("../data/NormalizedClusters/MergeCombined_perind.counts.fixed.gz.qqnorm.allchr", col.names = c("chr", "start", "end", "id","NA3622_Splice", "NA18498_Splice", "NA18523_Splice", "NA3659_Splice", "NAPT91_Splice","NA18510_Splice", "NA18502_Splice", "NA18499_Splice","NAPT30_Splice", "NA4973_Splice","NA18504_Splice","NA18358_Splice")) %>% separate(id, into=c("ch", "st", "en","clus"),sep=":") 
-Sp_res=read.table("../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt",stringsAsFactors = F, header = T, sep="\t") %>% separate(cluster, into=c("chrom", "clus"),sep=":") %>% filter(status=="Success") %>% dplyr::select(p.adjust,clus, genes,loglr)
-
-#%>% dplyr::select(genes,clus, p.adjust)
-Splicing_andres=Splicing %>% inner_join(Sp_res, by=c("clus") )
-
-
-
-#%>% dplyr::select(genes, p.adjust, NA18498_Splice, NA18499_Splice, NA18502_Splice, NA18504_Splice, NA18510_Splice,NA18523_Splice,NA18358_Splice, NA3622_Splice,NA3659_Splice,NA4973_Splice,NAPT30_Splice,NAPT91_Splice) %>% rename("gene"=genes)
-
-#create a dataframe with expression and apa
-#SpandExp=Exp %>% inner_join(Splicing_andres, by="gene")
-```
-
-Current problem: genes to cluster mapping is not trivial. I do not know how to chose the top DS isoform per gene.  
-
