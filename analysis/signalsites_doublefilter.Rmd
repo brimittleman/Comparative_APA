@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+##Top 2 SS  
 
 In this analysis I will look at the signal site distributions for the human and chimp PAS I have called.  
 
@@ -142,3 +143,138 @@ chimp_write=chimp_both %>% dplyr::select(X4_usercol,SS,SS2,anySS) %>% rename("PA
 
 write.table(chimp_write,"../data/SignalSites_doublefilter/ChimpPresenceofSS_DF.txt", col.names = T, row.names = F, quote = F)
 ```
+
+##Expand  
+
+I previously just looked at the top 2 signal sites. Now I will write a loop to run this on the remaining 10.  
+
+AAAAAG AATACA AATAGA AATATA ACTAAA AGTAAA CATAAA GATAAA TATAAA AAAAAA  
+
+```{r}
+
+Human_AATAAA= humanRawout %>% rename("Human_AATAAA"=X17_user_patt_count, "PAS"=X4_usercol) %>% dplyr::select(PAS, Human_AATAAA)
+
+Human_ATTAAA= human_ATTAAA %>% rename("Human_ATTAAA"=X17_user_patt_count, "PAS"=X4_usercol) %>% dplyr::select(PAS, Human_ATTAAA)
+
+Human_AAAAAG=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AAAAAG.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AAAAAG")) %>% dplyr::select(PAS, Human_AAAAAG)
+
+Human_AATACA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATACA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AATACA")) %>% dplyr::select(PAS, Human_AATACA)
+ 
+Human_AATAGA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATAGA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AATAGA")) %>% dplyr::select(PAS, Human_AATAGA)
+ 
+
+Human_AATATA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATATA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AATATA")) %>% dplyr::select(PAS, Human_AATATA)  
+
+
+Human_ACTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_ACTAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_ACTAAA")) %>% dplyr::select(PAS, Human_ACTAAA)  
+
+Human_AGTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AGTAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AGTAAA")) %>% dplyr::select(PAS, Human_AGTAAA)  
+
+
+Human_CATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_CATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_CATAAA")) %>% dplyr::select(PAS, Human_CATAAA)  
+
+Human_GATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_GATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_GATAAA")) %>% dplyr::select(PAS, Human_GATAAA)  
+
+Human_TATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_TATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_TATAAA")) %>% dplyr::select(PAS, Human_TATAAA)  
+
+
+Human_AAAAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AAAAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Human_AAAAAA")) %>% dplyr::select(PAS, Human_AAAAAA)  
+
+```
+
+```{r}
+
+Chimp_AATAAA= ChimpRawout %>% rename("Chimp_AATAAA"=X17_user_patt_count, "PAS"=X4_usercol) %>% dplyr::select(PAS, Chimp_AATAAA)
+
+Chimp_ATTAAA= chimp_ATTAAA %>% rename("Chimp_ATTAAA"=X17_user_patt_count, "PAS"=X4_usercol) %>% dplyr::select(PAS, Chimp_ATTAAA)
+
+
+Chimp_AAAAAG=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AAAAAG.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AAAAAG")) %>% dplyr::select(PAS, Chimp_AAAAAG)
+
+Chimp_AATACA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATACA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AATACA")) %>% dplyr::select(PAS, Chimp_AATACA)
+ 
+Chimp_AATAGA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATAGA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AATAGA")) %>% dplyr::select(PAS, Chimp_AATAGA)
+ 
+
+Chimp_AATATA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATATA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AATATA")) %>% dplyr::select(PAS, Chimp_AATATA)  
+
+
+Chimp_ACTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_ACTAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_ACTAAA")) %>% dplyr::select(PAS, Chimp_ACTAAA)  
+
+Chimp_AGTAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AGTAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AGTAAA")) %>% dplyr::select(PAS, Chimp_AGTAAA)  
+
+
+Chimp_CATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_CATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_CATAAA")) %>% dplyr::select(PAS, Chimp_CATAAA)  
+
+Chimp_GATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_GATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_GATAAA")) %>% dplyr::select(PAS, Chimp_GATAAA)  
+
+Chimp_TATAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_TATAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_TATAAA")) %>% dplyr::select(PAS, Chimp_TATAAA)  
+
+
+Chimp_AAAAAA=read.table("../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AAAAAA.txt",stringsAsFactors = F,col.names=c("chr","start", "end", "PAS", "Human", "strand", "pcAT", "pcGC", "A", "C", "G", "T","N","oth", "leng", "Chimp_AAAAAA")) %>% dplyr::select(PAS, Chimp_AAAAAA)  
+```
+
+Join all of these by PAS  
+
+```{r}
+Human_allPAS=Human_AATAAA %>% inner_join(Human_ATTAAA, by="PAS")  %>% inner_join(Human_AAAAAG, by="PAS")  %>% inner_join(Human_AATACA, by="PAS") %>% inner_join(Human_AATAGA, by="PAS") %>% inner_join(Human_AATATA, by="PAS") %>% inner_join(Human_ACTAAA, by="PAS") %>% inner_join(Human_AGTAAA, by="PAS") %>% inner_join(Human_CATAAA, by="PAS") %>% inner_join(Human_GATAAA, by="PAS") %>% inner_join(Human_TATAAA, by="PAS") %>% inner_join(Human_AAAAAA, by="PAS")
+
+
+Chimp_allPAS=Chimp_AATAAA %>% inner_join(Chimp_ATTAAA, by="PAS")  %>% inner_join(Chimp_AAAAAG, by="PAS")  %>% inner_join(Chimp_AATACA, by="PAS") %>% inner_join(Chimp_AATAGA, by="PAS") %>% inner_join(Chimp_AATATA, by="PAS") %>% inner_join(Chimp_ACTAAA, by="PAS") %>% inner_join(Chimp_AGTAAA, by="PAS") %>% inner_join(Chimp_CATAAA, by="PAS") %>% inner_join(Chimp_GATAAA, by="PAS") %>% inner_join(Chimp_TATAAA, by="PAS") %>% inner_join(Chimp_AAAAAA, by="PAS")
+
+
+```
+
+Gather these  
+
+```{r}
+Human_allPAS_gather=Human_allPAS %>% gather("Site", "Count",-PAS) %>% mutate(Identified=ifelse(Count>=1, "Y", "N")) %>% separate(Site, into=c("Species", "Signal"), by="_")
+
+Chimp_allPAS_gather=Chimp_allPAS %>% gather("Site", "Count",-PAS) %>% mutate(Identified=ifelse(Count>=1, "Y", "N"))%>% separate(Site, into=c("Species", "Signal"), by="_")
+
+Both_AllPAS_ident= Chimp_allPAS_gather %>% bind_rows(Human_allPAS_gather) %>% filter(Identified=="Y")
+
+
+Both_AllPAS_group= Both_AllPAS_ident %>% group_by(Species, Signal) %>% summarise(n=n()) %>% mutate(NPAS=42318, propW=n/NPAS)
+```
+
+
+Plot:  
+
+```{r}
+ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+```
+ 
+```{r}
+ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat="identity",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+```
+
+This is not accounting for more than 1. I need to chose in a hierarchical way. I think I will use these proportions.  
+
+I want to see how many signals are identified per PAS  
+
+```{r}
+Chimp_allPAS_gather_site= Chimp_allPAS_gather %>% filter(Identified=="Y") %>% group_by(PAS) %>% summarise(nPerPAS_Chimp=n())
+
+Human_allPAS_gather_site= Human_allPAS_gather %>% filter(Identified=="Y") %>% group_by(PAS) %>% summarise(nPerPAS_Human=n())
+
+
+BothwithninSite=Chimp_allPAS_gather_site %>% inner_join(Human_allPAS_gather_site, by="PAS")
+```
+
+Plot:  
+
+```{r}
+ggplot(BothwithninSite, aes(x=nPerPAS_Chimp, y=nPerPAS_Human)) + geom_point() + geom_smooth(method="lm")
+```
+
+
+```{r}
+ggplot(BothwithninSite, aes(x=nPerPAS_Chimp)) + geom_bar()
+
+ggplot(BothwithninSite, aes(x=nPerPAS_Human)) + geom_bar()
+```
+
+Ok similar distributions. I can hierarchically chose in both with the same parameter.  
+
+
