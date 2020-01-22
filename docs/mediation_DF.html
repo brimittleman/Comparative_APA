@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Mediation analysis</title>
+<title>Mediation analysis double filtered</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Mediation analysis</h1>
+<h1 class="title toc-ignore">Mediation analysis double filtered</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>1/13/2020</em></h4>
+<h4 class="date"><em>1/22/2020</em></h4>
 
 </div>
 
@@ -1104,7 +1104,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/97ef45e819253bd06708ea181f98f23121f9dbec/analysis/mediation.Rmd" target="_blank">97ef45e</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/97ef45e819253bd06708ea181f98f23121f9dbec/analysis/mediation_DF.Rmd" target="_blank">97ef45e</a>
 </td>
 <td>
 brimittleman
@@ -1114,108 +1114,6 @@ brimittleman
 </td>
 <td>
 add mediation DF
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/346ba87ec60862767f75c1f7a0d99f4a4fae3aa4/docs/mediation.html" target="_blank">346ba87</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a624a7e4ef8e0754c6a01925e55477644dfd6b2c/analysis/mediation.Rmd" target="_blank">a624a7e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-16
-</td>
-<td>
-normalize splice and start mediation code
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/mediation.html" target="_blank">5b4069c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c7e1c1fa65a4df23347bd4daad3e72b751e76c64/analysis/mediation.Rmd" target="_blank">c7e1c1f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-<td>
-add negative
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4f5d4929bd9915b744db58348b0e6abd8dbf17e9/docs/mediation.html" target="_blank">4f5d492</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3cce3da7f1e29f6354c8ba13cfbf5670d31b266f/analysis/mediation.Rmd" target="_blank">3cce3da</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-<td>
-start mediation analysis
 </td>
 </tr>
 </tbody>
@@ -1229,12 +1127,12 @@ start mediation analysis
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(limma)
@@ -1244,18 +1142,10 @@ Attaching package: &#39;MASS&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:dplyr&#39;:
 
     select</code></pre>
-<p>In this analysis, I will ask if differrecnes in APA or splicing are causal for differences in expression. I will use midiation analysis as implemented in (<a href="https://lauren-blake.github.io/Regulatory_Evol/analysis/Final_effect_size_human_chimp.html" class="uri">https://lauren-blake.github.io/Regulatory_Evol/analysis/Final_effect_size_human_chimp.html</a>) using Joyces package mediation.</p>
-<p>Notes:</p>
-<ul>
-<li><p>need one value for gene, sample, expression values, mol pheno values (normalized and non normalized)</p></li>
-<li><p>uses ashR,vashr,medinome package</p></li>
-<li><p>df= sample -2 (4)</p></li>
-<li><p>run for DE and non DE genes seperatly</p></li>
-</ul>
+<p>In this analysis, I will ask if differrecnes in APA or splicing are causal for differences in expression. I did this before the filter, this is post the double filter for expression and 10% cutoff.</p>
 <p>Ittai’s version of the analysis: <a href="https://ittaieres.github.io/HiCiPSC/gene_expression.html#now,_get_the_appropriate_data_and_actually_run_the_mediation_analysis" class="uri">https://ittaieres.github.io/HiCiPSC/gene_expression.html#now,_get_the_appropriate_data_and_actually_run_the_mediation_analysis</a></p>
-<p>For this version I do not need the package. I only need limma. I will try this first.</p>
 <p>To deal with multiple phenotypes per gene I will take the highest absolute effect size cluster or PAS for splicing and APA respectively.</p>
-<pre class="bash"><code>mkdir ../data/mediation</code></pre>
+<pre class="bash"><code>mkdir ../data/mediation_DF</code></pre>
 <pre class="r"><code>source(&quot;../code/mediation_test.R&quot;) #Obtain necessary functions</code></pre>
 <p>Now I need to pull in the expression, apa, and splicing data.<br />
 - expression= log2RPKM, and adju.P.val - normalized nuclear apa phenotype<br />
@@ -1271,10 +1161,10 @@ Exp=ExpRes %&gt;% inner_join(ExpNorm, by=&quot;Gene.name&quot;)%&gt;% rename(&qu
 
 #Chr    start   end ID  NA18498_N   NA18499_N   NA18502_N   NA18504_N   NA18510_N   NA18523_N   NA18358_N   NA3622_N    NA3659_N    NA4973_N    NApt30_N    NApt91_N
 #apa:  
-apaN= read.table(&quot;../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz.phen_AllChrom&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;,&quot;NA18498_APA&quot;, &quot;NA18499_APA&quot;, &quot;NA18502_APA&quot;, &quot;NA18504_APA&quot;, &quot;NA18510_APA&quot;,&quot;NA18523_APA&quot;, &quot;NA18358_APA&quot;, &quot;NA3622_APA&quot;,&quot;NA3659_APA&quot;, &quot;NA4973_APA&quot;,&quot;NAPT30_APA&quot;,&quot;NAPT91_APA&quot;)) %&gt;% separate(id, into=c(&quot;ch&quot;, &quot;st&quot;, &quot;en&quot;,&quot;id2&quot;),sep=&quot;:&quot;) %&gt;% separate(id2, into=c(&quot;gene&quot;, &quot;strand&quot;,&quot;id3&quot;),sep=&quot;_&quot;) %&gt;% separate(id3, into=c(&quot;loc&quot;, &quot;disc&quot;, &quot;PAS&quot;), sep=&quot;-&quot;) %&gt;% dplyr::select(gene, PAS,contains(&quot;NA&quot;))
-PASMeta=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene)
-apaRes= read.table(&quot;../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) %&gt;% separate(cluster, into=c(&quot;chr&quot;,&quot;gene&quot;),sep=&quot;:&quot;)
-apaPASres=read.table(&quot;../data/DiffIso_Nuclear/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;intron&#39;,  &#39;logef&#39; ,&#39;Human&#39;, &#39;Chimp&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(intron != &quot;intron&quot;) %&gt;% separate(intron, into=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;), sep=&quot;:&quot;) 
+apaN= read.table(&quot;../data/Pheno_5perc_DF_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz.qqnorm_AllChrom&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;,&quot;NA18498_APA&quot;, &quot;NA18499_APA&quot;, &quot;NA18502_APA&quot;, &quot;NA18504_APA&quot;, &quot;NA18510_APA&quot;,&quot;NA18523_APA&quot;, &quot;NA18358_APA&quot;, &quot;NA3622_APA&quot;,&quot;NA3659_APA&quot;, &quot;NA4973_APA&quot;,&quot;NAPT30_APA&quot;,&quot;NAPT91_APA&quot;)) %&gt;% separate(id, into=c(&quot;ch&quot;, &quot;st&quot;, &quot;en&quot;,&quot;id2&quot;),sep=&quot;:&quot;) %&gt;% separate(id2, into=c(&quot;gene&quot;, &quot;strand&quot;,&quot;id3&quot;),sep=&quot;_&quot;) %&gt;% separate(id3, into=c(&quot;loc&quot;, &quot;disc&quot;, &quot;PAS&quot;), sep=&quot;-&quot;) %&gt;% dplyr::select(gene, PAS,contains(&quot;NA&quot;))
+PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene)
+apaRes= read.table(&quot;../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) %&gt;% separate(cluster, into=c(&quot;chr&quot;,&quot;gene&quot;),sep=&quot;:&quot;)
+apaPASres=read.table(&quot;../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;intron&#39;,  &#39;logef&#39; ,&#39;Human&#39;, &#39;Chimp&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(intron != &quot;intron&quot;) %&gt;% separate(intron, into=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;), sep=&quot;:&quot;) 
 apaPASres$start=as.integer(apaPASres$start)
 apaPASres$end=as.integer(apaPASres$end)
 apaPASres$deltaPAU=as.numeric(apaPASres$deltaPAU)
@@ -1325,15 +1215,15 @@ fit_node_pos &lt;- test_mediation(exprs = Exp_pos[isnot_de,],
                            varying_covariate = APA_pos[isnot_de,])
 
 #save as R data object:
-save(fit_de_pos, fit_node_pos, is_de, isnot_de, Exp_pos, APA_pos, metadata, gvec, file = &quot;../data/mediation/positive_mediation.rda&quot;)</code></pre>
+save(fit_de_pos, fit_node_pos, is_de, isnot_de, Exp_pos, APA_pos, metadata, gvec, file = &quot;../data/mediation_DF/positive_mediation.rda&quot;)</code></pre>
 <p>Montecarlo:</p>
 <p>I will have to run this seperatly as an Rscript.</p>
 <pre class="bash"><code>
-sbatch RunPosMCMediation.sh
+sbatch RunPosMCMediationDF.sh
 </code></pre>
 <p>Load results</p>
-<pre class="r"><code>mc_pos_de &lt;- readRDS(file = &quot;../data/mediation/mc_de_postive.rds&quot;)
-mc_pos_node &lt;- readRDS(file = &quot;../data/mediation/mc_node_postive.rds&quot;)
+<pre class="r"><code>mc_pos_de &lt;- readRDS(file = &quot;../data/mediation_DF/mc_de_postive.rds&quot;)
+mc_pos_node &lt;- readRDS(file = &quot;../data/mediation_DF/mc_node_postive.rds&quot;)
 
 ##In DE genes
 ngenes &lt;- ncol(mc_pos_de)
@@ -1347,54 +1237,17 @@ out &lt;- sapply(1:ngenes, function(g) {
 table(out)</code></pre>
 <pre><code>out
 FALSE  TRUE 
- 2823    85 </code></pre>
-<pre class="r"><code>85/(85+2823) #</code></pre>
-<pre><code>[1] 0.02922971</code></pre>
+ 2679    85 </code></pre>
+<pre class="r"><code>85/(85+2679) #</code></pre>
+<pre><code>[1] 0.03075253</code></pre>
 <pre class="r"><code>DEdat &lt;- data.frame(bf=fit_de_pos$tau, af=fit_de_pos$tau_prime,significance=out)
 DEdat$color &lt;- ifelse(DEdat$significance==TRUE, &quot;red&quot;, &quot;black&quot;)
 plot(x=DEdat$bf, y=DEdat$af, ylab=&quot;Effect Size After Controlling for APA&quot;, xlab=&quot;Effect Size Before Controlling for APA&quot;, main=&quot;Effect of APA on Expression Divergence in DE genes&quot;, pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
-legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=85)&quot;, &quot;95% CI Non significant (n=2823)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
+legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=85)&quot;, &quot;95% CI Non significant (n=2679)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
-<p><img src="figure/mediation.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-9-1.png" target="_blank">5b4069c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/mediation_DF.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Not DE:</p>
 <pre class="r"><code>##In non-DE genes
 ngenes &lt;- ncol(mc_pos_node)
@@ -1408,66 +1261,18 @@ out &lt;- sapply(1:ngenes, function(g) {
 table(out)</code></pre>
 <pre><code>out
 FALSE  TRUE 
- 4852   110 </code></pre>
-<pre class="r"><code>110/(110+4852)</code></pre>
-<pre><code>[1] 0.02216848</code></pre>
+ 4557   116 </code></pre>
+<pre class="r"><code>116/(116+4557)</code></pre>
+<pre><code>[1] 0.02482345</code></pre>
 <pre class="r"><code>#Visualization for non DE genes:
 noDEdat &lt;- data.frame(bf=fit_node_pos$tau, af=fit_node_pos$tau_prime,significance=out)
 noDEdat$color &lt;- ifelse(noDEdat$significance==TRUE, &quot;red&quot;, &quot;black&quot;)
 plot(x=noDEdat$bf, y=noDEdat$af, ylab=&quot;Effect Size After Controlling for APA&quot;, xlab=&quot;Effect Size Before Controlling for APA&quot;, main=&quot;Effect of APA on Expression Divergence in non-DE genes&quot;, pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat$color, 0.6))
-legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=110)&quot;, &quot;95% CI Non significant (n=4852)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
+legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=116)&quot;, &quot;95% CI Non significant (n=4557)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
-<p><img src="figure/mediation.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-11-1.png" target="_blank">5b4069c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4f5d4929bd9915b744db58348b0e6abd8dbf17e9/docs/figure/mediation.Rmd/unnamed-chunk-11-1.png" target="_blank">4f5d492</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/mediation_DF.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="negative" class="section level3">
 <h3>Negative:</h3>
@@ -1490,15 +1295,15 @@ fit_node_neg &lt;- test_mediation(exprs = Exp_neg[isnot_de_gen,],
                            varying_covariate = APA_neg[isnot_de_gen,])
 
 #save as R data object:
-save(fit_de_neg, fit_node_neg, is_de_neg, isnot_de_gen, Exp_neg, APA_neg, metadata, gvec_neg, file = &quot;../data/mediation/negative_mediation.rda&quot;)</code></pre>
+save(fit_de_neg, fit_node_neg, is_de_neg, isnot_de_gen, Exp_neg, APA_neg, metadata, gvec_neg, file = &quot;../data/mediation_DF/negative_mediation.rda&quot;)</code></pre>
 <p>Montecarlo:</p>
 <p>I will have to run this seperatly as an Rscript.</p>
 <pre class="bash"><code>
 sbatch RunNegMCMediation.sh
 </code></pre>
 <p>Pull in results.</p>
-<pre class="r"><code>mc_neg_de &lt;- readRDS(file = &quot;../data/mediation/mc_de_negative.rds&quot;)
-mc_neg_node &lt;- readRDS(file = &quot;../data/mediation/mc_node_negative.rds&quot;)
+<pre class="r"><code>mc_neg_de &lt;- readRDS(file = &quot;../data/mediation_DF/mc_de_negative.rds&quot;)
+mc_neg_node &lt;- readRDS(file = &quot;../data/mediation_DF/mc_node_negative.rds&quot;)
 
 ##In DE genes
 ngenes &lt;- ncol(mc_neg_de)
@@ -1512,54 +1317,17 @@ out &lt;- sapply(1:ngenes, function(g) {
 table(out)</code></pre>
 <pre><code>out
 FALSE  TRUE 
- 2817    91 </code></pre>
-<pre class="r"><code>93/(93+2823) #</code></pre>
-<pre><code>[1] 0.031893</code></pre>
+ 2668    96 </code></pre>
+<pre class="r"><code>96/(96+2668) #</code></pre>
+<pre><code>[1] 0.03473227</code></pre>
 <pre class="r"><code>DEdat_neg &lt;- data.frame(bf=fit_de_neg$tau, af=fit_de_neg$tau_prime,significance=out)
 DEdat_neg$color &lt;- ifelse(DEdat_neg$significance==TRUE, &quot;red&quot;, &quot;black&quot;)
 plot(x=DEdat_neg$bf, y=DEdat_neg$af, ylab=&quot;Effect Size After Controlling for APA&quot;, xlab=&quot;Effect Size Before Controlling for APA&quot;, main=&quot;Effect of APA on Expression Divergence in DE genes (Negative)&quot;, pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10),col=alpha(DEdat$color, 0.6))
-legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=93)&quot;, &quot;95% CI Non significant (n=2823)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
+legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=96)&quot;, &quot;95% CI Non significant (n=2668)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
-<p><img src="figure/mediation.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-16-1.png" target="_blank">5b4069c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/mediation_DF.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Not DE:</p>
 <pre class="r"><code>##In not DE genes
 ngenes &lt;- ncol(mc_neg_node)
@@ -1573,73 +1341,18 @@ out &lt;- sapply(1:ngenes, function(g) {
 table(out)</code></pre>
 <pre><code>out
 FALSE  TRUE 
- 4853   108 </code></pre>
-<pre class="r"><code>102/(102+4859) #</code></pre>
-<pre><code>[1] 0.02056037</code></pre>
+ 4568   104 </code></pre>
+<pre class="r"><code>104/(104+4568) #</code></pre>
+<pre><code>[1] 0.02226027</code></pre>
 <pre class="r"><code>#Visualization for non DE genes:
 noDEdat_neg &lt;- data.frame(bf=fit_node_neg$tau, af=fit_node_neg$tau_prime,significance=out)
 noDEdat_neg$color &lt;- ifelse(noDEdat_neg$significance==TRUE, &quot;red&quot;, &quot;black&quot;)
 plot(x=noDEdat_neg$bf, y=noDEdat_neg$af, ylab=&quot;Effect Size After Controlling for APA&quot;, xlab=&quot;Effect Size Before Controlling for APA&quot;, main=&quot;Effect of APA on Expression Divergence in non-DE genes (negative)&quot;, pch=16, cex=0.6, xlim=c(-10, 10), ylim=c(-10,10), adj=0.6,col=alpha(noDEdat_neg$color, 0.6))
-legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=102)&quot;, &quot;95% CI Non significant (n=4859)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
+legend(&quot;topleft&quot;, legend=c(&quot;95% CI Significant (n=104)&quot;, &quot;95% CI Non significant (n=4568)&quot;), col=c(&quot;red&quot;, &quot;black&quot;), pch=16:16, cex=0.8)
 abline(0, 1)
 abline(h=0)
 abline(v=0)</code></pre>
-<p><img src="figure/mediation.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5b4069c5c0dc0decb1045e9136845efd9fba0417/docs/figure/mediation.Rmd/unnamed-chunk-18-1.png" target="_blank">5b4069c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="expression-and-splicing" class="section level3">
-<h3>Expression and Splicing</h3>
-<pre class="r"><code>#YG-BM-S3-3622C-Total_S3_R1_001-sort.bam    YG-BM-FIXED-18498H-Total_S5_R1_001-sort.bam YG-BM-S12-18523H-Total_S12_R1_001-sort.baYG-BM-S4-3659C-Total_S4_R1_001-sort.bam    YG-BM-S2-PT91C-Total_S2_R1_001-sort.bam YG-BM-S11-18510H-Total_S11_R1_001-sort.bam  YG-BM-S9-18502H-Total_S9_R1_001-sort.bam    YG-BM-S8-18499H-Total_S8_R1_001-sort.bam    YG-BM-S1-PT30C-Total_S1_R1_001-sort.bam YG-BM-FIXED-4973C-Total_S7_R1_001-sort.bam  YG-BM-S10-18504H-Total_S10_R1_001-sort.bam  YG-BM-S6-18358C-Total_S6_R1_001-sort.bam
-
-Splicing= read.table(&quot;../data/NormalizedClusters/MergeCombined_perind.counts.fixed.gz.qqnorm.allchr&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;,&quot;NA3622_Splice&quot;, &quot;NA18498_Splice&quot;, &quot;NA18523_Splice&quot;, &quot;NA3659_Splice&quot;, &quot;NAPT91_Splice&quot;,&quot;NA18510_Splice&quot;, &quot;NA18502_Splice&quot;, &quot;NA18499_Splice&quot;,&quot;NAPT30_Splice&quot;, &quot;NA4973_Splice&quot;,&quot;NA18504_Splice&quot;,&quot;NA18358_Splice&quot;)) %&gt;% separate(id, into=c(&quot;ch&quot;, &quot;st&quot;, &quot;en&quot;,&quot;clus&quot;),sep=&quot;:&quot;) 
-Sp_res=read.table(&quot;../data/DiffSplice_liftedJunc/MergedRes_cluster_significance.txt&quot;,stringsAsFactors = F, header = T, sep=&quot;\t&quot;) %&gt;% separate(cluster, into=c(&quot;chrom&quot;, &quot;clus&quot;),sep=&quot;:&quot;) %&gt;% filter(status==&quot;Success&quot;) %&gt;% dplyr::select(p.adjust,clus, genes,loglr)
-
-#%&gt;% dplyr::select(genes,clus, p.adjust)
-Splicing_andres=Splicing %&gt;% inner_join(Sp_res, by=c(&quot;clus&quot;) )
-
-
-
-#%&gt;% dplyr::select(genes, p.adjust, NA18498_Splice, NA18499_Splice, NA18502_Splice, NA18504_Splice, NA18510_Splice,NA18523_Splice,NA18358_Splice, NA3622_Splice,NA3659_Splice,NA4973_Splice,NAPT30_Splice,NAPT91_Splice) %&gt;% rename(&quot;gene&quot;=genes)
-
-#create a dataframe with expression and apa
-#SpandExp=Exp %&gt;% inner_join(Splicing_andres, by=&quot;gene&quot;)</code></pre>
-<p>Current problem: genes to cluster mapping is not trivial. I do not know how to chose the top DS isoform per gene.</p>
+<p><img src="figure/mediation_DF.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
