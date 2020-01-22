@@ -57,21 +57,23 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Dominant PAS in Nuclear Fraction](dominantPAS.html)  
 
-   * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
+          * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
 
-    - [Intronics location for dominant PAS](DominantPASintronLoc.html)  
+      * [Intronic location for dominant PAS](DominantPASintronLoc.html)  
       
-       * [Intronics location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
+          * [Intronic location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
     
 * [Species Specificity in PAS](speciesSpecific.html)  
 
-  * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
+     * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
   
 
 
 ##Differential Isoform Analysis:
 
-* [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)
+* [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)  
+
+   * [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)
 
 * [Explore nuclear differential APA PAS and genes](ExploredAPA.html)
 

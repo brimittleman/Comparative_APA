@@ -1,0 +1,259 @@
+---
+title: "Compare Nuclear Fraction PAS Double filter"
+author: "Briana Mittleman"
+date: "1/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(reshape2)
+library(tidyverse)
+
+```
+
+
+Compare nuclear fraction PAS between human and chimp.  I need to fiter the phenotypes fixed for leafcutter further to have only the double filtered PAS. 
+
+I need a fc file with the human and chimp nuclear samples. I will make a group file with the identifier being human or chimp.  
+
+These were created with prepareCleanLiftedFC_5perc4LC.py  (in human and chimp extra analysis TvN)  
+
+../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc
+../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc
+
+
+```{bash,eval=F}
+mkdir ../data/NuclearHvC_DF
+```
+
+
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
+```
+
+
+```{r}
+human=read.table("../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc", stringsAsFactors = F, header = T) %>% rownames_to_column(var="chrom") %>% filter(chrom %in% PAS$chrom)
+
+
+chimp=read.table("../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc", stringsAsFactors = F, header = T)%>% rownames_to_column(var="chrom")%>% filter(chrom %in% PAS$chrom)
+```
+
+
+```{r}
+Allsamps=human %>% full_join(chimp,by="chrom") 
+
+AllNuclear=Allsamps %>% dplyr::select(chrom,contains("_N")) %>% column_to_rownames(var="chrom")
+
+write.table(AllNuclear, "../data/NuclearHvC_DF/ALLPAS_postLift_LocParsed_HvC_Nuclear_fixed4LC_Doublefilt.fc",row.names = T, col.names = T, quote = F)
+
+```
+
+
+I will make the id file here.  
+
+```{r}
+Inds=colnames(AllNuclear) 
+Species=c(rep("Human",6), rep("Chimp", 6))
+
+idFileDF=as.data.frame(cbind(Inds,Species))
+
+write.table(idFileDF, "../data/NuclearHvC_DF/sample_goups.txt",row.names = F, col.names = F, quote = F)
+
+```
+
+
+Split by chromosome.  
+
+
+
+```{bash,eval=F}
+mkdir ../data/DiffIso_Nuclear_DF/
+
+python subset_diffisopheno_Nuclear_HvC_DF.py 1
+python subset_diffisopheno_Nuclear_HvC_DF.py 2
+python subset_diffisopheno_Nuclear_HvC_DF.py 3
+python subset_diffisopheno_Nuclear_HvC_DF.py 4
+python subset_diffisopheno_Nuclear_HvC_DF.py 5
+python subset_diffisopheno_Nuclear_HvC_DF.py 6
+python subset_diffisopheno_Nuclear_HvC_DF.py 7
+python subset_diffisopheno_Nuclear_HvC_DF.py 8
+python subset_diffisopheno_Nuclear_HvC_DF.py 9
+python subset_diffisopheno_Nuclear_HvC_DF.py 10
+python subset_diffisopheno_Nuclear_HvC_DF.py 11
+python subset_diffisopheno_Nuclear_HvC_DF.py 12
+python subset_diffisopheno_Nuclear_HvC_DF.py 13
+python subset_diffisopheno_Nuclear_HvC_DF.py 14
+python subset_diffisopheno_Nuclear_HvC_DF.py 16
+python subset_diffisopheno_Nuclear_HvC_DF.py 18
+python subset_diffisopheno_Nuclear_HvC_DF.py 19
+python subset_diffisopheno_Nuclear_HvC_DF.py 20
+python subset_diffisopheno_Nuclear_HvC_DF.py 21
+python subset_diffisopheno_Nuclear_HvC_DF.py 22
+```
+
+Run leafcutter:
+
+```{bash,eval=F}
+
+sbatch runNuclearDiffIso_DF.sh
+```
+
+Concatinate results:  
+
+```{bash,eval=F}
+awk '{if(NR>1)print}' ../data/DiffIso_Nuclear_DF/TN_diff_isoform_chr*.txt_effect_sizes.txt > ../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk '{if(NR>1)print}' ../data/DiffIso_Nuclear_DF/TN_diff_isoform_chr*.txt_cluster_significance.txt > ../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt
+
+```
+
+
+Significant clusters:  
+
+```{r}
+sig=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sig$p.adjust=as.numeric(as.character(sig$p.adjust))
+```
+
+
+
+```{r}
+qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab="-log10 Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter differencial isoform analysis between Species")
+abline(0,1)
+```
+
+
+```{r}
+tested_genes=nrow(sig)
+tested_genes
+```
+
+```{r}
+sig_genes=sig %>% filter(p.adjust<.05)
+number_sig_genes=nrow(sig_genes)
+number_sig_genes
+```
+
+Effect Sizes  
+
+```{r}
+effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron")
+
+effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
+effectsize$logef=as.numeric(as.character(effectsize$logef))
+```
+
+
+```{r}
+plot(sort(effectsize$deltaPAU),main="Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
+```
+
+Are those discovered used more in chimp those discovered in chimp?
+
+```{r}
+PASinfo=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
+```
+
+Join this with the effect sizes.  
+
+```{r}
+effectsize_sep=effectsize %>% separate(intron, into=c("chr", "start", "end", "gene"),sep=":")
+effectsize_sep$start=as.integer(effectsize_sep$start)
+effectsize_sep$end=as.integer(effectsize_sep$end)
+effectsize_anno=effectsize_sep %>% inner_join(PASinfo, by=c("chr", "start", "end","gene"))
+
+```
+```{r}
+ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()
+```
+
+Volcano plot: 
+
+I need the effect sizes and the significance. I need to plot only the top PAS per cluster.  
+
+```{r}
+sig_geneP=sig %>% separate(cluster,into = c("chr", "gene"), sep=":") %>% dplyr::select(gene, p.adjust)
+
+effectsizeTop=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min)>Max, Min, Max))
+
+#exclude when the max=min 
+effectsizeTopFilt=effectsizeTop %>% filter(abs(Min) != Max)
+
+effectsize_wES=effectsizeTopFilt %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+```
+
+This is the significance for the gene. 
+
+
+```{r}
+ggplot(effectsize_wES,aes(x=TopdPAU, y=-log10(p.adjust))) +geom_point(aes(col=Species),alpha=.5) + labs(title="Top PAS per gene \nExclude 2 PAS genes")+ geom_text(data=subset(effectsize_wES, -log10(p.adjust) >20 & abs(TopdPAU)>.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))
+``` 
+Not the best way to visualize this because every PAS per gene is assigned the same pvalue. 
+
+
+Try this including the matching one. I will make 2 plots. One with human dominant, one with chimp dominant. 
+
+```{r}
+effectsizeTopHuman=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min) > Max, Min, ifelse(abs(Min)==Max, Min, Max)),TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_human=effectsizeTopHuman %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+
+effectsizeTopChimp=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Max)>=abs(Min), Max, Min), TwoPAS=ifelse(abs(Min)==Max, T, F))
+
+effectsize_wES_chimp=effectsizeTopChimp %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+```
+
+
+```{r}
+ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5) + labs(title="Top PAS per gene \nHuman dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_human,-log10(p.adjust) >20 & abs(TopdPAU)>.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))
+
+```
+```{r}
+ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title="Top PAS per gene \nChimp dominant for 2 PAS")+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) >20 & abs(TopdPAU)>.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) 
+
+```
+
+Write out the significant genes with >.2 difference.
+
+```{r}
+effectsize_sep_pval=effectsize_sep %>% full_join(sig_geneP, by="gene")
+#significant > .2
+effectsize_sep_pval_sig= effectsize_sep_pval %>% filter(p.adjust <= .05,abs(deltaPAU) >=0.2)
+nrow(effectsize_sep_pval_sig)
+#genes
+effectsize_sep_pval_sig_genes=effectsize_sep_pval_sig %>% dplyr::select(gene) %>% unique()
+nrow(effectsize_sep_pval_sig_genes)
+```
+
+
+
+```{r}
+effectsize_wES_chimpOnly= effectsize_wES %>% filter(Species=="Chimp")
+effectsize_wES_HumanOnly= effectsize_wES %>% filter(Species=="Human")
+
+
+
+  
+write.table(effectsize_wES_chimpOnly,"../data/DiffIso_Nuclear_DF/SignifianceChimpPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_wES_HumanOnly,"../data/DiffIso_Nuclear_DF/SignifianceHumanPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_sep_pval_sig,"../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt",col.names =T, row.names = F,quote = F)
+
+write.table(effectsize_sep_pval_sig_genes,"../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",col.names =T, row.names = F,quote = F)
+```
+
+
+
+
+
