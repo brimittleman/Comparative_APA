@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-21
+<strong>Last updated:</strong> 2020-01-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2e66af99c18acdebb901d0e367eeec84e940fbdetargetblank2e66af9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2e66af99c18acdebb901d0e367eeec84e940fbde" target="_blank">2e66af9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed5a6a052212cd3359a1c2d4864f101c2c052c6ctargetblanked5a6a0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ed5a6a052212cd3359a1c2d4864f101c2c052c6c" target="_blank">ed5a6a0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2e66af99c18acdebb901d0e367eeec84e940fbdetargetblank2e66af9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed5a6a052212cd3359a1c2d4864f101c2c052c6ctargetblanked5a6a0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -458,6 +458,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/NormalizePheno_nuclear_DF.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -474,6 +475,7 @@ Untracked files:
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
     Untracked:  code/._FindIntronForDomPAS.sh
+    Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
     Untracked:  code/._Lift5perPAS.sh
@@ -482,13 +484,18 @@ Untracked files:
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
+    Untracked:  code/._PAS_seqExpanded.sh
     Untracked:  code/._PASsequences.sh
     Untracked:  code/._PASsequences_DF.sh
     Untracked:  code/._PlotNuclearUsagebySpecies.R
+    Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._RunNegMCMediation.sh
+    Untracked:  code/._RunNegMCMediationDF.sh
+    Untracked:  code/._RunPosMCMediationDF.err
+    Untracked:  code/._RunPosMCMediationDF.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -529,6 +536,7 @@ Untracked files:
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeNuclearDapaplots.sh
+    Untracked:  code/._makeNuclearDapaplots_DF.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
@@ -539,8 +547,10 @@ Untracked files:
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._negativeMediation_montecarlo.R
+    Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
@@ -558,6 +568,7 @@ Untracked files:
     Untracked:  code/._runCountNucleotides.sh
     Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDiffIso_DF.sh
     Untracked:  code/._runNuclearDifffIso.sh
     Untracked:  code/._runTotalDiffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
@@ -579,6 +590,7 @@ Untracked files:
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC_DF.py
     Untracked:  code/._subset_diffisopheno_Total_HvC.py
     Untracked:  code/._threeprimeOrthoFC.sh
     Untracked:  code/._transcriptDTplotsNuclear.sh
@@ -618,6 +630,7 @@ Untracked files:
     Untracked:  code/FindIntronForDomPAS.err
     Untracked:  code/FindIntronForDomPAS.out
     Untracked:  code/FindIntronForDomPAS.sh
+    Untracked:  code/FindIntronForDomPAS_DF.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
@@ -658,13 +671,17 @@ Untracked files:
     Untracked:  code/PAS_ATTAAADF.err
     Untracked:  code/PAS_ATTAAADF.out
     Untracked:  code/PAS_ATTAAA_df.sh
+    Untracked:  code/PAS_seqExpanded.sh
     Untracked:  code/PAS_sequence.err
     Untracked:  code/PAS_sequence.out
     Untracked:  code/PAS_sequenceDF.err
     Untracked:  code/PAS_sequenceDF.out
+    Untracked:  code/PASexpanded_sequenceDF.err
+    Untracked:  code/PASexpanded_sequenceDF.out
     Untracked:  code/PASsequences.sh
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -677,9 +694,15 @@ Untracked files:
     Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/RunNegMCMediation.err
     Untracked:  code/RunNegMCMediation.sh
+    Untracked:  code/RunNegMCMediationDF.err
+    Untracked:  code/RunNegMCMediationDF.out
+    Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
+    Untracked:  code/RunPosMCMediationDF.err
+    Untracked:  code/RunPosMCMediationDF.out
+    Untracked:  code/RunPosMCMediationDF.sh
     Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
@@ -780,8 +803,11 @@ Untracked files:
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearDapaplots_DF.sh
     Untracked:  code/makeNuclearPlots.err
     Untracked:  code/makeNuclearPlots.out
+    Untracked:  code/makeNuclearPlotsDF.err
+    Untracked:  code/makeNuclearPlotsDF.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -807,6 +833,7 @@ Untracked files:
     Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
     Untracked:  code/negativeMediation_montecarlo.R
+    Untracked:  code/negativeMediation_montecarloDF.R
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
@@ -818,6 +845,7 @@ Untracked files:
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
+    Untracked:  code/postiveMediation_montecarlo_DF.R
     Untracked:  code/prepareAnnoLeafviz.err
     Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
@@ -853,6 +881,7 @@ Untracked files:
     Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
@@ -863,6 +892,8 @@ Untracked files:
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
     Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_dsDF.err
+    Untracked:  code/run_Nuclearleafcutter_dsDF.out
     Untracked:  code/run_Totalleafcutter_ds.err
     Untracked:  code/run_Totalleafcutter_ds.out
     Untracked:  code/run_chimpverifybam.sh
@@ -905,6 +936,7 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC_DF.py
     Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
     Untracked:  code/threeprimeOrthoFC.out
@@ -959,11 +991,13 @@ Untracked files:
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Nuclear_DF/
     Untracked:  data/DiffIso_Total/
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
     Untracked:  data/DominantPAS/
+    Untracked:  data/DominantPAS_DF/
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
@@ -974,6 +1008,7 @@ Untracked files:
     Untracked:  data/MapStats/
     Untracked:  data/NormalizedClusters/
     Untracked:  data/NuclearHvC/
+    Untracked:  data/NuclearHvC_DF/
     Untracked:  data/OppositeSpeciesMap.txt
     Untracked:  data/OppositeSpeciesMap.xlsx
     Untracked:  data/OverlapBenchmark/
@@ -981,6 +1016,7 @@ Untracked files:
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
@@ -1002,9 +1038,11 @@ Untracked files:
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
+    Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
+    Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
@@ -1018,6 +1056,7 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
+    Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1069,6 +1108,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ed5a6a052212cd3359a1c2d4864f101c2c052c6c/analysis/signalsites_doublefilter.Rmd" target="_blank">ed5a6a0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+add all SS
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/signalsites_doublefilter.html" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/2e66af99c18acdebb901d0e367eeec84e940fbde/analysis/signalsites_doublefilter.Rmd" target="_blank">2e66af9</a>
 </td>
 <td>
@@ -1088,6 +1161,8 @@ add ss and PAS num DF
 </div>
 </div>
 </div>
+<div id="top-2-ss" class="section level2">
+<h2>Top 2 SS</h2>
 <p>In this analysis I will look at the signal site distributions for the human and chimp PAS I have called.</p>
 <pre class="r"><code>library(ggpubr)</code></pre>
 <pre><code>Loading required package: ggplot2</code></pre>
@@ -1096,12 +1171,12 @@ add ss and PAS num DF
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1118,13 +1193,161 @@ ChimpRawout=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_e
 <p>Histogram for the results:</p>
 <pre class="r"><code>ggplot(humanRawout,aes(x=X17_user_patt_count)) + geom_bar(aes(y=..prop..)) +labs(title=&quot;Distribution of AATAAA pattern Human&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(ChimpRawout,aes(x=X17_user_patt_count)) + geom_bar(aes(y=..prop..))+labs(title=&quot;Distribution of AATAAA pattern Chimps&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
+Past versions of unnamed-chunk-4-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-2.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>See if yes no segragates with usage:</p>
 <pre class="r"><code>ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-5-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-6-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at location data and bring this in.</p>
 <pre class="r"><code>Loc=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(&quot;X4_usercol&quot;=PAS) %&gt;% dplyr::select(X4_usercol,loc)
 
@@ -1132,9 +1355,83 @@ ChimpRawout_withloc=ChimpRawout %&gt;% inner_join(Loc, by=&quot;X4_usercol&quot;
 humanRawout_withloc=humanRawout%&gt;% inner_join(Loc, by=&quot;X4_usercol&quot;) %&gt;% filter(loc!=&quot;008559&quot;)</code></pre>
 <pre class="r"><code>ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-2.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>I can run the nuc command again for the other doninant signal site I found in the apaQTL analysis (ATTAAA), I can join the results.</p>
 <pre class="bash"><code>sbatch PAS_ATTAAA_df.sh</code></pre>
 <p><strong>remove #</strong></p>
@@ -1148,14 +1445,162 @@ human_both=human_ATTAAA %&gt;% inner_join(humanRawout_withloc, by=c(&quot;X1_use
 chimp_both=chimp_ATTAAA %&gt;% inner_join(ChimpRawout_withloc, by=c(&quot;X1_usercol&quot;, &quot;X2_usercol&quot;, &quot;X3_usercol&quot;, &quot;X4_usercol&quot;, &quot;X5_usercol&quot;, &quot;X6_usercol&quot;, &quot;X7_pct_at&quot;, &quot;X8_pct_gc&quot;, &quot;X9_num_A&quot;, &quot;X10_num_C&quot;, &quot;X11_num_G&quot;, &quot;X12_num_T&quot;, &quot;X13_num_N&quot;, &quot;X14_num_oth&quot;, &quot;X15_seq_len&quot;, &quot;X16_seq&quot;)) %&gt;% mutate(anySS=ifelse(SS == &quot;yes&quot; | SS2 ==&quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;))</code></pre>
 <pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of  ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-2.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-2.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Plot percentage either by loc:</p>
 <pre class="r"><code>human_both_loc= human_both %&gt;% group_by(loc, anySS) %&gt;% summarise(count=n()) %&gt;% ungroup() %&gt;% group_by(loc) %&gt;% mutate(nLoc=sum(count),Human=count/nLoc) %&gt;%ungroup() %&gt;%  dplyr::select(loc, anySS,Human)
 
@@ -1166,6 +1611,43 @@ bothSpeciesLoc=chimp_both_loc %&gt;% inner_join(human_both_loc,by=c(&quot;loc&qu
 
 ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Presence of top 2 signal sites by location&quot;, x=&quot;Proportion with signal site&quot;, x=&quot;location&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-13-1.png" target="_blank">5525b39</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Write out information about SS so i can use it for other anaylsis.</p>
 <pre class="r"><code>human_write=human_both %&gt;% dplyr::select(X4_usercol,SS,SS2,anySS) %&gt;% rename(&quot;PAS&quot;=X4_usercol)
 
@@ -1174,6 +1656,101 @@ write.table(human_write, &quot;../data/SignalSites_doublefilter/HumanPresenceofS
 chimp_write=chimp_both %&gt;% dplyr::select(X4_usercol,SS,SS2,anySS) %&gt;% rename(&quot;PAS&quot;=X4_usercol)
 
 write.table(chimp_write,&quot;../data/SignalSites_doublefilter/ChimpPresenceofSS_DF.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
+</div>
+<div id="expand" class="section level2">
+<h2>Expand</h2>
+<p>I previously just looked at the top 2 signal sites. Now I will write a loop to run this on the remaining 10.</p>
+<p>AAAAAG AATACA AATAGA AATATA ACTAAA AGTAAA CATAAA GATAAA TATAAA AAAAAA</p>
+<pre class="r"><code>Human_AATAAA= humanRawout %&gt;% rename(&quot;Human_AATAAA&quot;=X17_user_patt_count, &quot;PAS&quot;=X4_usercol) %&gt;% dplyr::select(PAS, Human_AATAAA)
+
+Human_ATTAAA= human_ATTAAA %&gt;% rename(&quot;Human_ATTAAA&quot;=X17_user_patt_count, &quot;PAS&quot;=X4_usercol) %&gt;% dplyr::select(PAS, Human_ATTAAA)
+
+Human_AAAAAG=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AAAAAG.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AAAAAG&quot;)) %&gt;% dplyr::select(PAS, Human_AAAAAG)
+
+Human_AATACA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATACA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AATACA&quot;)) %&gt;% dplyr::select(PAS, Human_AATACA)
+ 
+Human_AATAGA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATAGA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AATAGA&quot;)) %&gt;% dplyr::select(PAS, Human_AATAGA)
+ 
+
+Human_AATATA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AATATA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AATATA&quot;)) %&gt;% dplyr::select(PAS, Human_AATATA)  
+
+
+Human_ACTAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_ACTAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_ACTAAA&quot;)) %&gt;% dplyr::select(PAS, Human_ACTAAA)  
+
+Human_AGTAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AGTAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AGTAAA&quot;)) %&gt;% dplyr::select(PAS, Human_AGTAAA)  
+
+
+Human_CATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_CATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_CATAAA&quot;)) %&gt;% dplyr::select(PAS, Human_CATAAA)  
+
+Human_GATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_GATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_GATAAA&quot;)) %&gt;% dplyr::select(PAS, Human_GATAAA)  
+
+Human_TATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_TATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_TATAAA&quot;)) %&gt;% dplyr::select(PAS, Human_TATAAA)  
+
+
+Human_AAAAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AAAAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Human_AAAAAA&quot;)) %&gt;% dplyr::select(PAS, Human_AAAAAA)  </code></pre>
+<pre class="r"><code>Chimp_AATAAA= ChimpRawout %&gt;% rename(&quot;Chimp_AATAAA&quot;=X17_user_patt_count, &quot;PAS&quot;=X4_usercol) %&gt;% dplyr::select(PAS, Chimp_AATAAA)
+
+Chimp_ATTAAA= chimp_ATTAAA %&gt;% rename(&quot;Chimp_ATTAAA&quot;=X17_user_patt_count, &quot;PAS&quot;=X4_usercol) %&gt;% dplyr::select(PAS, Chimp_ATTAAA)
+
+
+Chimp_AAAAAG=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AAAAAG.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AAAAAG&quot;)) %&gt;% dplyr::select(PAS, Chimp_AAAAAG)
+
+Chimp_AATACA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATACA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AATACA&quot;)) %&gt;% dplyr::select(PAS, Chimp_AATACA)
+ 
+Chimp_AATAGA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATAGA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AATAGA&quot;)) %&gt;% dplyr::select(PAS, Chimp_AATAGA)
+ 
+
+Chimp_AATATA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AATATA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AATATA&quot;)) %&gt;% dplyr::select(PAS, Chimp_AATATA)  
+
+
+Chimp_ACTAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_ACTAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_ACTAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_ACTAAA)  
+
+Chimp_AGTAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AGTAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AGTAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_AGTAAA)  
+
+
+Chimp_CATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_CATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_CATAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_CATAAA)  
+
+Chimp_GATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_GATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_GATAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_GATAAA)  
+
+Chimp_TATAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_TATAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_TATAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_TATAAA)  
+
+
+Chimp_AAAAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_AAAAAA.txt&quot;,stringsAsFactors = F,col.names=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Human&quot;, &quot;strand&quot;, &quot;pcAT&quot;, &quot;pcGC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;,&quot;oth&quot;, &quot;leng&quot;, &quot;Chimp_AAAAAA&quot;)) %&gt;% dplyr::select(PAS, Chimp_AAAAAA)  </code></pre>
+<p>Join all of these by PAS</p>
+<pre class="r"><code>Human_allPAS=Human_AATAAA %&gt;% inner_join(Human_ATTAAA, by=&quot;PAS&quot;)  %&gt;% inner_join(Human_AAAAAG, by=&quot;PAS&quot;)  %&gt;% inner_join(Human_AATACA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_AATAGA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_AATATA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_ACTAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_AGTAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_CATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_GATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_TATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Human_AAAAAA, by=&quot;PAS&quot;)
+
+
+Chimp_allPAS=Chimp_AATAAA %&gt;% inner_join(Chimp_ATTAAA, by=&quot;PAS&quot;)  %&gt;% inner_join(Chimp_AAAAAG, by=&quot;PAS&quot;)  %&gt;% inner_join(Chimp_AATACA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_AATAGA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_AATATA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_ACTAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_AGTAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_CATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_GATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_TATAAA, by=&quot;PAS&quot;) %&gt;% inner_join(Chimp_AAAAAA, by=&quot;PAS&quot;)</code></pre>
+<p>Gather these</p>
+<pre class="r"><code>Human_allPAS_gather=Human_allPAS %&gt;% gather(&quot;Site&quot;, &quot;Count&quot;,-PAS) %&gt;% mutate(Identified=ifelse(Count&gt;=1, &quot;Y&quot;, &quot;N&quot;)) %&gt;% separate(Site, into=c(&quot;Species&quot;, &quot;Signal&quot;), by=&quot;_&quot;)
+
+Chimp_allPAS_gather=Chimp_allPAS %&gt;% gather(&quot;Site&quot;, &quot;Count&quot;,-PAS) %&gt;% mutate(Identified=ifelse(Count&gt;=1, &quot;Y&quot;, &quot;N&quot;))%&gt;% separate(Site, into=c(&quot;Species&quot;, &quot;Signal&quot;), by=&quot;_&quot;)
+
+Both_AllPAS_ident= Chimp_allPAS_gather %&gt;% bind_rows(Human_allPAS_gather) %&gt;% filter(Identified==&quot;Y&quot;)
+
+
+Both_AllPAS_group= Both_AllPAS_ident %&gt;% group_by(Species, Signal) %&gt;% summarise(n=n()) %&gt;% mutate(NPAS=42318, propW=n/NPAS)</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is not accounting for more than 1. I need to chose in a hierarchical way. I think I will use these proportions.</p>
+<p>I want to see how many signals are identified per PAS</p>
+<pre class="r"><code>Chimp_allPAS_gather_site= Chimp_allPAS_gather %&gt;% filter(Identified==&quot;Y&quot;) %&gt;% group_by(PAS) %&gt;% summarise(nPerPAS_Chimp=n())
+
+Human_allPAS_gather_site= Human_allPAS_gather %&gt;% filter(Identified==&quot;Y&quot;) %&gt;% group_by(PAS) %&gt;% summarise(nPerPAS_Human=n())
+
+
+BothwithninSite=Chimp_allPAS_gather_site %&gt;% inner_join(Human_allPAS_gather_site, by=&quot;PAS&quot;)</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Chimp, y=nPerPAS_Human)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Chimp)) + geom_bar()</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Human)) + geom_bar()</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Ok similar distributions. I can hierarchically chose in both with the same parameter.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1224,6 +1801,7 @@ loaded via a namespace (and not attached):
 [46] rmarkdown_1.10     httr_1.3.1         rstudioapi_0.10   
 [49] R6_2.3.0           nlme_3.1-137       git2r_0.26.1      
 [52] compiler_3.5.1    </code></pre>
+</div>
 </div>
 
 
