@@ -77,13 +77,15 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Explore nuclear differential APA PAS and genes](ExploredAPA.html)
 
-* [Enrichment for differencial APA and eQTL](DapaineQTL.html)
+   * [Explore nuclear differential APA PAS and genes Double filter](ExploredAPA_DF.html)
 
-* [Enrichment for differencial APA and apaQTL](dAPAandapaQTL.html)
+* [Enrichment for differencial APA and apaQTL](dAPAandapaQTL.html)  
 
-* [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
+   * [Enrichment for differencial APA and apaQTL double filter](dAPAandapaQTL_DF.html)  
 
 * [Visualization for all Nuclear DAPA genes](visualizePASUsage.html)
+   
+   * [Visualization for all Nuclear DAPA genes double filter](visualizePASUsage_DF.html)
 
 
 
@@ -154,7 +156,7 @@ From before reseq:
   * [Compare DE in pantro5 vs pantro6](DE_pantro5vspantro6.html)
 
 
-### Extra comparisons
+### Extra comparisons or analysis: not redone after double filter
 
 * [Human Total vs Nuclear Analysis](Human_TvN.html)  
 
@@ -171,4 +173,8 @@ From the original nuclear dominant
    * [Does signal site explain trend?](ss_sameDomdiffDom.html)  
 
    * [Look at Intronic Dominant with DPAU and DE](HumanIntronicDominant.html)  
+
+* [Enrichment for differencial APA and eQTL](DapaineQTL.html)  
+
+* [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
 
