@@ -1,0 +1,78 @@
+---
+title: "Correlation between phenotype effect sizes"
+author: "Briana Mittleman"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(gplots)
+library(tidyverse)
+```
+
+For this analysis I will look at correlation between the regualtory phenotype effect sizes.  I need to make sure the effect sizes go in the same direction.  
+
+
+Read in data:
+
+
+```{r}
+#expression: - = upreg in human
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID,Gene.name)
+ExpRes=read.table("../data/DiffExpression/DEtested_allres.txt", header = F, stringsAsFactors = F, col.names = c("Gene_stable_ID", "logFC", "AveExpr", "t", "P.Value", "adj.P.Val", "B")) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, logFC)%>% rename( "Expresion_logFC"=logFC)
+
+
+#apa  - = upreg in human
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
+apaRes= read.table("../data/DiffIso_Nuclear_DF//TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr","gene"),sep=":")
+apaPASres=read.table("../data/DiffIso_Nuclear_DF//TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr","start", "end","gene"), sep=":") 
+apaPASres$start=as.integer(apaPASres$start)
+apaPASres$end=as.integer(apaPASres$end)
+apaPASres$deltaPAU=as.numeric(apaPASres$deltaPAU)
+apaPASres=apaPASres%>% inner_join(PASMeta,by=c("chr", "start", "end", "gene"))
+#problem if there are 2 pas then the are opposite but same value - do with all one direction for 
+apaPASres_topPos= apaPASres %>% group_by(gene) %>% top_n(1,abs(deltaPAU)) %>% top_n(1,deltaPAU) %>% dplyr::select(gene,logef) %>% rename("Gene.name"=gene, "APA_logef"=logef)
+apaPASres_topNeg= apaPASres %>% group_by(gene) %>% top_n(1,abs(deltaPAU)) %>% top_n(-1,deltaPAU) %>% dplyr::select(gene,logef)%>% rename("Gene.name"=gene, "APA_logef"=logef)
+
+
+#translation:
+
+translation=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",stringsAsFactors = F, header = T) %>% rename("Gene_stable_ID"=ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name,HvC.beta) %>% rename("ribo_beta"=HvC.beta)
+
+#protein  
+prot=read.csv("../data/Khan_prot/Khan_TableS4.csv", stringsAsFactors = F, header = T)
+#need to look into which is the effect size  
+```
+
+
+Join phenotypes:
+
+```{r}
+Joint_pos=ExpRes %>% inner_join(apaPASres_topPos,by="Gene.name") %>% inner_join(translation, by="Gene.name") %>% dplyr::select(-Gene.name) 
+Joint_pos$APA_logef=as.numeric(Joint_pos$APA_logef)
+
+Joint_neg=ExpRes %>% inner_join(apaPASres_topNeg,by="Gene.name") %>% inner_join(translation, by="Gene.name") %>% dplyr::select(-Gene.name) 
+Joint_neg$APA_logef=as.numeric(Joint_neg$APA_logef)
+```
+
+Correlations:
+
+```{r}
+PhenoPos_corr= round(cor(Joint_pos),2)
+heatmap.2(as.matrix(PhenoPos_corr),trace="none", dendrogram =c("col"), key=T)
+PhenoPos_corr
+
+PhenoNeg_corr= round(cor(Joint_neg),2)
+heatmap.2(as.matrix(PhenoNeg_corr),trace="none", dendrogram =c("col"), key=T)
+PhenoNeg_corr
+
+```
+These don't look great. I will keep working on it.  
+
+
+

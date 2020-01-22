@@ -114,7 +114,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
     * [Use UpSetR to vizualize intersections Double filter](upsetter_DF.html) 
 
-* [Effect size correlations](correlationPhenos.html)
+* [Effect size correlations](correlationPhenos.html)  
+
+    * [Effect size correlations double filter](correlationPhenos_DF.html)
 
 ##Mediation  
 
