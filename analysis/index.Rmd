@@ -87,7 +87,9 @@ I am interesting in understanding differential APA between human and chimpanzees
    
      * [Visualization for all Nuclear DAPA genes double filter](visualizePASUsage_DF.html)  
 
+From here on, I did everything double filtered:  
 
+* [Does presence or absense of signal explain differential usage](SS_diffUsage.html)
 
 ##Quantify Phenotypes with RNA:   
 
@@ -117,6 +119,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Effect size correlations](correlationPhenos.html)  
 
     * [Effect size correlations double filter](correlationPhenos_DF.html)
+    
+From here on, I did everything double filtered:  
+
+
 
 ##Mediation  
 

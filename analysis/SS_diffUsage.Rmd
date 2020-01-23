@@ -1,0 +1,106 @@
+---
+title: "Can signal site explain differential usage"
+author: "Briana Mittleman"
+date: "1/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis, I will ask if presence or absense of a signal site in either species can explain the diffentially used PAS. I can do overlaps and look at correlations.  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+```{r}
+MetaPAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F)
+```
+
+Pull in the differentiall used PAS:  
+
+```{r}
+DiffUsed=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F) %>% rename("Human_NormUse"=Human, "Chimp_NormUse"=Chimp)
+```
+
+
+Join this by chr, start,end, gene  
+
+```{r}
+DiffUsed_anno=DiffUsed %>% inner_join(MetaPAS,by=c("chr","start", "end","gene"))
+```
+
+Ask how many of the effect size either way are those with SS in one species  
+
++ upreg in chimp
+- upred in human 
+```{r}
+DiffUsed_anno_humanup=DiffUsed_anno %>% filter(deltaPAU<0)
+nrow(DiffUsed_anno_humanup)
+
+nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+
+
+DiffUsed_anno_chimpup=DiffUsed_anno %>% filter(deltaPAU>0)
+nrow(DiffUsed_anno_chimpup)
+
+nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+```
+
+This means that of the 3076 only 19 are in PAS where signal site could account for it.  
+
+Significance:  
+
+
+```{r}
+humanOnly=nrow(MetaPAS %>%  filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+
+chimpOnly=nrow(MetaPAS %>%  filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+
+humanOnly+chimpOnly
+
+```
+Of the 42318 we see that 638 have the pattern of interest. We choose 3076 of them and 19 come out.  Look to see if it is more than expected by change 
+
+phyper(success in sample, sucesss in possible, failure possible, sample size)
+
+```{r}
+42318-638
+
+phyper(19,638, 41680 , 3076,lower.tail=F)
+```
+No significant enrichment for the pattern.  
+
+
+Plot dPAU by presence and absense:
+
+
+
+```{r}
+ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title="Human upregualted PAS by presence of Signal")
+
+
+
+```
+Test with wilcoxan test:  
+
+
+
+There is a shift. 
+
+
+```{r}
+ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title="Chimp upregualted PAS by presence of Signal")
+
+```
+
+It does not look like presence of a signal within the upregulated matters.  
+
+Overall it does not look like presense of a signal site or not can explain the differences.   
+
+
+
