@@ -36,12 +36,16 @@ Subset to genes with FDR < 5%.
 
 ```{r}
 TranslationSig=translation %>% filter(HvC.FDR  <= 0.05) %>% dplyr::select(HvC.FDR, ENSG,Gene)
+
+TranslationALL=translation %>% dplyr::select(HvC.FDR, ENSG,Gene)
 ```
 
 Write out to use for analysis:  
 
 ```{r}
 write.table(TranslationSig, "../data/Wang_ribo/HC_SigTranslation.txt", col.names = T, row.names = F, quote = F)
+
+write.table(TranslationALL, "../data/Wang_ribo/HC_AllTestedTranslation.txt", col.names = T, row.names = F, quote = F)
 ```
 
 ###Protein: Primate Transcript and Protein Expression Levels Evolve Under Compensatory Selection Pressures
@@ -59,11 +63,17 @@ Subset to genes with a qvalue less than 0.05. (5% fdr)
 
 ```{r}
 ProtSig=ProtComp %>% filter(HC.qvalues.protein <=.05) %>% dplyr::select(HC.qvalues.protein, ENSG, gene.symbol)
+
+ProtAllTested=ProtComp %>% dplyr::select(HC.qvalues.protein, ENSG, gene.symbol)
 ```
 
 Write out the list of genes to run analysis with.  
 
 ```{r}
 write.table(ProtSig, "../data/Khan_prot/HC_SigProtein.txt", col.names = T, row.names = F, quote = F)
+
+
+write.table(ProtAllTested, "../data/Khan_prot/HC_AlltestedProtein.txt", col.names = T, row.names = F, quote = F)
+
 ```
 
