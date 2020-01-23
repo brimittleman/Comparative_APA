@@ -421,4 +421,43 @@ write.table(MetaPASwSS, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_B
 
 In another analysis I can ask if the differentially used PAS are those that have a SS in one and not another or different SS.  
 
+I also want to include only the signal sites that correlate with differences in average usage: These are the Top 2.  AATAAA and ATTAAA  
+
+I will add a column with those with PAS if they are either of those:
+```{r}
+MetaPASwSS_top = MetaPASwSS %>% mutate(HumanTopSS=ifelse(HumanPAS=="AATAAA" | HumanPAS== "ATTAAA", "Yes", "No"),ChimpTopSS=ifelse(ChimpPAS=="AATAAA" | ChimpPAS== "ATTAAA", "Yes", "No"))
+```
+This will be important for looking at the differentially used PAS.  
+
+```{r}
+ggplot(MetaPASwSS_top,aes(x=HumanTopSS, y=Human))+ geom_boxplot()
+ggplot(MetaPASwSS_top,aes(x=ChimpTopSS, y=Chimp))+ geom_boxplot()
+```
+
+Now I can subset to those with SS in chimp only:  
+
+```{r}
+MetaPASwSS_top_chimponly=MetaPASwSS_top %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes")
+
+nrow(MetaPASwSS_top_chimponly)
+
+MetaPASwSS_top_chimponly_G= MetaPASwSS_top_chimponly %>% dplyr::select(PAS, Chimp,Human) %>% gather("Species", "Usage", -PAS)
+
+ggplot(MetaPASwSS_top_chimponly_G,aes(x=Species, y=Usage))+ geom_boxplot() + stat_compare_means(method="t.test") + labs(title="Usage for PAS with a signal site in chimps only")
+```
+```{r}
+MetaPASwSS_top_humanonly=MetaPASwSS_top %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No")
+
+nrow(MetaPASwSS_top_humanonly)
+
+MetaPASwSS_top_humanonly_G= MetaPASwSS_top_humanonly %>% dplyr::select(PAS, Chimp,Human) %>% gather("Species", "Usage", -PAS)
+
+ggplot(MetaPASwSS_top_humanonly_G,aes(x=Species, y=Usage))+ geom_boxplot() + stat_compare_means(method="t.test") + labs(title="Usage for PAS with a signal site in human only")
+```
+
+Write out this extra info:  
+
+```{r}
+write.table(MetaPASwSS_top, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", col.names = T, quote = F, row.names = F)
+```
 

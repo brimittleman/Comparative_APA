@@ -43,7 +43,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
   * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
   
-  
+  * [Compare before and after cutoff](compareFilter.html)  
 
 ##Catalog PAS:
 

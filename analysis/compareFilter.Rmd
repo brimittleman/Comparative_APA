@@ -1,0 +1,57 @@
+---
+title: "Compare pre and post filtered PAS"
+author: "Briana Mittleman"
+date: "1/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+Prefilter:
+
+```{r}
+pre=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",header = T, stringsAsFactors = F) %>% filter(loc != "008559")
+
+nrow(pre)
+
+prebygene=pre %>% group_by(gene) %>% summarise(n=n())
+nrow(prebygene)
+```
+
+
+```{r}
+ggplot(pre,aes(x=loc,fill=loc) ) + geom_bar(stat="count") + scale_fill_brewer(palette = "Dark2")+ labs(y="Number of PAS", title="Pre filter location of PAS",x="")
+```
+
+
+```{r}
+nrow(prebygene)
+
+ggplot(prebygene, aes(x=n))+ geom_bar() + labs(x="Number of PAS per gene", title="Number of PAS per gene before filter")
+```
+
+Post:  
+
+```{r}
+post=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt",header = T, stringsAsFactors = F)%>% filter(loc != "008559")
+
+nrow(post)
+
+postbygene=post %>% group_by(gene) %>% summarise(n=n())
+nrow(postbygene)
+
+```
+```{r}
+ggplot(post,aes(x=loc,fill=loc) ) + geom_bar(stat="count")+ scale_fill_brewer(palette = "Dark2") + labs(y="Number of PAS", title="Post filter location of PAS", x="")
+```
+```{r}
+ggplot(postbygene, aes(x=n))+ geom_bar() + labs(x="Number of PAS per gene", title="Number of PAS per gene after filter")
+```
+
