@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed5a6a052212cd3359a1c2d4864f101c2c052c6ctargetblanked5a6a0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ed5a6a052212cd3359a1c2d4864f101c2c052c6c" target="_blank">ed5a6a0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec3a9af57abd8c1c8aa26978c6343a09bd957c5a2targetblankc3a9af5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c3a9af57abd8c1c8aa26978c6343a09bd957c5a2" target="_blank">c3a9af5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed5a6a052212cd3359a1c2d4864f101c2c052c6ctargetblanked5a6a0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec3a9af57abd8c1c8aa26978c6343a09bd957c5a2targetblankc3a9af5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -508,6 +508,7 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -740,6 +741,7 @@ Untracked files:
     Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chooseSignalSite.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
     Untracked:  code/classifyLeafviz.err
@@ -1108,6 +1110,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c3a9af57abd8c1c8aa26978c6343a09bd957c5a2/analysis/signalsites_doublefilter.Rmd" target="_blank">c3a9af5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-23
+</td>
+<td>
+add all ss and choose 1
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/signalsites_doublefilter.html" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/ed5a6a052212cd3359a1c2d4864f101c2c052c6c/analysis/signalsites_doublefilter.Rmd" target="_blank">ed5a6a0</a>
 </td>
 <td>
@@ -1171,12 +1207,12 @@ add ss and PAS num DF
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1733,8 +1769,82 @@ Both_AllPAS_group= Both_AllPAS_ident %&gt;% group_by(Species, Signal) %&gt;% sum
 <p>Plot:</p>
 <pre class="r"><code>ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-19-1.png" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This is not accounting for more than 1. I need to chose in a hierarchical way. I think I will use these proportions.</p>
 <p>I want to see how many signals are identified per PAS</p>
 <pre class="r"><code>Chimp_allPAS_gather_site= Chimp_allPAS_gather %&gt;% filter(Identified==&quot;Y&quot;) %&gt;% group_by(PAS) %&gt;% summarise(nPerPAS_Chimp=n())
@@ -1742,15 +1852,203 @@ Both_AllPAS_group= Both_AllPAS_ident %&gt;% group_by(Species, Signal) %&gt;% sum
 Human_allPAS_gather_site= Human_allPAS_gather %&gt;% filter(Identified==&quot;Y&quot;) %&gt;% group_by(PAS) %&gt;% summarise(nPerPAS_Human=n())
 
 
-BothwithninSite=Chimp_allPAS_gather_site %&gt;% inner_join(Human_allPAS_gather_site, by=&quot;PAS&quot;)</code></pre>
+BothwithninSite=Chimp_allPAS_gather_site %&gt;% inner_join(Human_allPAS_gather_site, by=&quot;PAS&quot;) </code></pre>
 <p>Plot:</p>
 <pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Chimp, y=nPerPAS_Human)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-22-1.png" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Chimp)) + geom_bar()</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-1.png" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothwithninSite, aes(x=nPerPAS_Human)) + geom_bar()</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-2">
+Past versions of unnamed-chunk-23-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f3aa6b1f9f2a6d33e226257bf124cf4cd3f2607a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-2.png" target="_blank">f3aa6b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Ok similar distributions. I can hierarchically chose in both with the same parameter.</p>
+<p>AATAAA, ATTAAA, AAAAAG, AAAAAA, TATAAA, AATATA, AGTAAA, AATACA, GATAAA, AATAGA, CATAAA, ACTAAA</p>
+<p>I will do this seperately for human and chimp per PAS.</p>
+<p>I can make a script in python that makes a dictionary for each PAS with the signals that are identified for it. After that I can use the heiarchical model to choose the signal.</p>
+<p>I can do the signal with a dictionary so each PAS is given a number. I will chose the minimun number</p>
+<p>Write out the files for this:</p>
+<pre class="r"><code>write.table(Human_allPAS_gather, &quot;../data/SignalSites_doublefilter/HumanAllSignalSiteInfo.txt&quot;, col.names = F, row.names = F, quote = F)
+
+write.table(Chimp_allPAS_gather, &quot;../data/SignalSites_doublefilter/ChimpAllSignalSiteInfo.txt&quot;, col.names = F, row.names = F, quote = F)</code></pre>
+<pre class="bash"><code>python chooseSignalSite.py ../data/SignalSites_doublefilter/HumanAllSignalSiteInfo.txt ../data/SignalSites_doublefilter/HumanSignalSiteperPAS.txt
+
+python chooseSignalSite.py ../data/SignalSites_doublefilter/ChimpAllSignalSiteInfo.txt ../data/SignalSites_doublefilter/ChimpSignalSiteperPAS.txt</code></pre>
+<pre class="r"><code>SS=c(&#39;AATAAA&#39;, &#39;ATTAAA&#39;, &#39;AAAAAG&#39;, &#39;AAAAAA&#39;, &#39;TATAAA&#39;, &#39;AATATA&#39;, &#39;AGTAAA&#39;, &#39;AATACA&#39;, &#39;GATAAA&#39;, &#39;AATAGA&#39;, &#39;CATAAA&#39;, &#39;ACTAAA&#39;)
+SS_numer=seq(1,12)
+
+SS_DF=as.data.frame(cbind(SS, SS_numer))
+
+SS_DF$SS_numer=as.numeric(as.character(SS_DF$SS_numer))
+Human1Per=read.table(&quot;../data/SignalSites_doublefilter/HumanSignalSiteperPAS.txt&quot;,col.names = c(&quot;PAS&quot;, &quot;SS_numer&quot;), stringsAsFactors = F) %&gt;% full_join(SS_DF, by=&quot;SS_numer&quot;) %&gt;% mutate(Species=&quot;Human&quot;)
+
+Chimp1Per=read.table(&quot;../data/SignalSites_doublefilter/ChimpSignalSiteperPAS.txt&quot;,col.names = c(&quot;PAS&quot;, &quot;SS_numer&quot;), stringsAsFactors = F) %&gt;% full_join(SS_DF, by=&quot;SS_numer&quot;) %&gt;% mutate(Species=&quot;Chimp&quot;) 
+
+
+Both1Per=Human1Per %&gt;% bind_rows(Chimp1Per)</code></pre>
+<p>Plot</p>
+<pre class="r"><code>ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look and see if the sites are the same</p>
+<pre class="r"><code>Chimp1Petojoin=Chimp1Per %&gt;% rename(&quot;Chimp&quot;=SS) %&gt;% dplyr::select(PAS, Chimp )
+Human1Petojoin=Human1Per %&gt;% rename(&quot;Human&quot;=SS) %&gt;% dplyr::select(PAS, Human )
+
+
+Both1perJoin=Chimp1Petojoin %&gt;% full_join(Human1Petojoin,by=&quot;PAS&quot;)
+Both1perJoin$Chimp=as.character(Both1perJoin$Chimp)
+Both1perJoin$Human=as.character(Both1perJoin$Human)
+Both1perJoin= Both1perJoin %&gt;%  mutate(Chimp = replace_na(Chimp, &quot;None&quot;),Human = replace_na(Human, &quot;None&quot;))
+
+ChimpNone=Both1perJoin %&gt;% filter(Chimp==&quot;None&quot;)
+
+HumanNone=Both1perJoin %&gt;% filter(Human==&quot;None&quot;)</code></pre>
+<p>Plot when the other has none, what is the SS</p>
+<pre class="r"><code>ggplot(ChimpNone,aes(x=Human))+ geom_bar(stat=&quot;count&quot;)+ theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(HumanNone,aes(x=Chimp))+ geom_bar(stat=&quot;count&quot;)+ theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now I want to add usage:</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T)
+
+MetaPASwSS=Both1perJoin %&gt;% rename(&quot;ChimpPAS&quot;=Chimp, &quot;HumanPAS&quot;=Human) %&gt;%  full_join(PASMeta,by=&quot;PAS&quot;) %&gt;% mutate(ChimpPAS = replace_na(ChimpPAS, &quot;None&quot;),HumanPAS = replace_na(HumanPAS, &quot;None&quot;))</code></pre>
+<p>Plot usage average by SS</p>
+<pre class="r"><code>#human
+ggplot(MetaPASwSS, aes(x=HumanPAS,y=Human)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#chimp  
+ggplot(MetaPASwSS, aes(x=ChimpPAS,y=Chimp)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I want to see if the usage is different when the PAS is same vs different</p>
+<pre class="r"><code>#filter out when same is none 
+MetaPASwSS_match= MetaPASwSS %&gt;% mutate(SameSS=ifelse(ChimpPAS==HumanPAS , &quot;Yes&quot;, &quot;No&quot;), bothNone=ifelse(ChimpPAS==&quot;None&quot; &amp; HumanPAS==&quot;None&quot;, &quot;yes&quot;, &quot;no&quot;)) %&gt;% filter(bothNone==&quot;no&quot;) 
+
+
+MetaPASwSS_matchG= MetaPASwSS_match%&gt;% dplyr::select(PAS, SameSS, Chimp, Human) %&gt;% gather(Species, Usage, -SameSS, -PAS)</code></pre>
+<pre class="r"><code>ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = &quot;t.test&quot;,label.y=0) + scale_fill_brewer(palette = &quot;Dark2&quot;,name=&quot;Both Species \nhave Same Signal Site&quot;) +labs(title=&quot;Usage of PAS by same signal in both species&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This means usage is higher when they have matching signal sites.</p>
+<p>Get proportion plot.</p>
+<pre class="r"><code>MetaPASwSS_Sm = MetaPASwSS %&gt;%  dplyr::select(PAS,ChimpPAS, HumanPAS) %&gt;% gather(&quot;Species&quot;, &quot;SS&quot;, -PAS) %&gt;% group_by(Species,SS) %&gt;% summarise(nSS=n()) %&gt;% mutate(propSS=nSS/nrow(MetaPASwSS))
+
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>By location SS:</p>
+<pre class="r"><code>MetaPASwSS_loc=MetaPASwSS %&gt;% mutate(ChimpWSS=ifelse(ChimpPAS ==&quot;None&quot;, &quot;No&quot;, &quot;Yes&quot;),HumanWSS=ifelse(HumanPAS ==&quot;None&quot;, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% dplyr::select(loc, PAS, ChimpWSS, HumanWSS) %&gt;% gather(&quot;Species&quot;, &quot;SS&quot;, -PAS, -loc) %&gt;% group_by(loc, Species, SS) %&gt;% summarise(n=n()) %&gt;% ungroup() %&gt;% group_by(loc, Species) %&gt;% mutate(nLoc=sum(n),PropWSS=n/nLoc) %&gt;% filter(SS==&quot;Yes&quot;)
+
+ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;)+ labs(x=&quot;&quot;,y=&quot;Proportion of PAS&quot;,title=&quot;PAS with signal site \nby species and location&quot;) + scale_fill_brewer( labels = c(&quot;Chimp&quot;,&quot;Human&quot;), palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I will write out the metadata with signal site info for downstream analysis.</p>
+<pre class="r"><code>write.table(MetaPASwSS, &quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt&quot;, col.names = T, quote = F, row.names = F)</code></pre>
+<p>In another analysis I can ask if the differentially used PAS are those that have a SS in one and not another or different SS.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
