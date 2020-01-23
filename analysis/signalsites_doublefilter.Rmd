@@ -259,7 +259,7 @@ Chimp_allPAS_gather_site= Chimp_allPAS_gather %>% filter(Identified=="Y") %>% gr
 Human_allPAS_gather_site= Human_allPAS_gather %>% filter(Identified=="Y") %>% group_by(PAS) %>% summarise(nPerPAS_Human=n())
 
 
-BothwithninSite=Chimp_allPAS_gather_site %>% inner_join(Human_allPAS_gather_site, by="PAS")
+BothwithninSite=Chimp_allPAS_gather_site %>% inner_join(Human_allPAS_gather_site, by="PAS") 
 ```
 
 Plot:  
@@ -276,5 +276,149 @@ ggplot(BothwithninSite, aes(x=nPerPAS_Human)) + geom_bar()
 ```
 
 Ok similar distributions. I can hierarchically chose in both with the same parameter.  
+
+
+AATAAA, ATTAAA, AAAAAG, AAAAAA, TATAAA, AATATA, AGTAAA, AATACA, GATAAA, AATAGA, CATAAA, ACTAAA
+
+I will do this seperately for human and chimp per PAS.  
+
+I can make a script in python that makes a dictionary for each PAS with the signals that are identified for it.  After that I can use the heiarchical model to choose the signal.
+
+I can do the signal with a dictionary so each PAS is given a number. I will chose the minimun number  
+
+
+Write out the files for this:  
+
+```{r}
+write.table(Human_allPAS_gather, "../data/SignalSites_doublefilter/HumanAllSignalSiteInfo.txt", col.names = F, row.names = F, quote = F)
+
+write.table(Chimp_allPAS_gather, "../data/SignalSites_doublefilter/ChimpAllSignalSiteInfo.txt", col.names = F, row.names = F, quote = F)
+```
+
+
+```{bash, eval=F}
+python chooseSignalSite.py ../data/SignalSites_doublefilter/HumanAllSignalSiteInfo.txt ../data/SignalSites_doublefilter/HumanSignalSiteperPAS.txt
+
+python chooseSignalSite.py ../data/SignalSites_doublefilter/ChimpAllSignalSiteInfo.txt ../data/SignalSites_doublefilter/ChimpSignalSiteperPAS.txt
+```
+
+```{r}
+SS=c('AATAAA', 'ATTAAA', 'AAAAAG', 'AAAAAA', 'TATAAA', 'AATATA', 'AGTAAA', 'AATACA', 'GATAAA', 'AATAGA', 'CATAAA', 'ACTAAA')
+SS_numer=seq(1,12)
+
+SS_DF=as.data.frame(cbind(SS, SS_numer))
+
+SS_DF$SS_numer=as.numeric(as.character(SS_DF$SS_numer))
+Human1Per=read.table("../data/SignalSites_doublefilter/HumanSignalSiteperPAS.txt",col.names = c("PAS", "SS_numer"), stringsAsFactors = F) %>% full_join(SS_DF, by="SS_numer") %>% mutate(Species="Human")
+
+Chimp1Per=read.table("../data/SignalSites_doublefilter/ChimpSignalSiteperPAS.txt",col.names = c("PAS", "SS_numer"), stringsAsFactors = F) %>% full_join(SS_DF, by="SS_numer") %>% mutate(Species="Chimp") 
+
+
+Both1Per=Human1Per %>% bind_rows(Chimp1Per)
+
+```
+
+Plot
+
+
+```{r}
+ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+```
+
+Look and see if the sites are the same  
+
+```{r}
+Chimp1Petojoin=Chimp1Per %>% rename("Chimp"=SS) %>% dplyr::select(PAS, Chimp )
+Human1Petojoin=Human1Per %>% rename("Human"=SS) %>% dplyr::select(PAS, Human )
+
+
+Both1perJoin=Chimp1Petojoin %>% full_join(Human1Petojoin,by="PAS")
+Both1perJoin$Chimp=as.character(Both1perJoin$Chimp)
+Both1perJoin$Human=as.character(Both1perJoin$Human)
+Both1perJoin= Both1perJoin %>%  mutate(Chimp = replace_na(Chimp, "None"),Human = replace_na(Human, "None"))
+
+ChimpNone=Both1perJoin %>% filter(Chimp=="None")
+
+HumanNone=Both1perJoin %>% filter(Human=="None")
+```
+
+
+Plot when the other has none, what is the SS
+```{r}
+ggplot(ChimpNone,aes(x=Human))+ geom_bar(stat="count")+ theme(axis.text.x = element_text(angle = 90))
+```
+
+
+```{r}
+ggplot(HumanNone,aes(x=Chimp))+ geom_bar(stat="count")+ theme(axis.text.x = element_text(angle = 90))
+```
+
+
+Now I want to add usage:  
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T)
+
+MetaPASwSS=Both1perJoin %>% rename("ChimpPAS"=Chimp, "HumanPAS"=Human) %>%  full_join(PASMeta,by="PAS") %>% mutate(ChimpPAS = replace_na(ChimpPAS, "None"),HumanPAS = replace_na(HumanPAS, "None"))
+
+
+```
+
+
+Plot usage average by SS  
+
+```{r}
+#human
+ggplot(MetaPASwSS, aes(x=HumanPAS,y=Human)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90))
+
+#chimp  
+ggplot(MetaPASwSS, aes(x=ChimpPAS,y=Chimp)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90))
+
+
+```
+
+I want to see if the usage is different when the PAS is same vs different  
+
+```{r}
+#filter out when same is none 
+MetaPASwSS_match= MetaPASwSS %>% mutate(SameSS=ifelse(ChimpPAS==HumanPAS , "Yes", "No"), bothNone=ifelse(ChimpPAS=="None" & HumanPAS=="None", "yes", "no")) %>% filter(bothNone=="no") 
+
+
+MetaPASwSS_matchG= MetaPASwSS_match%>% dplyr::select(PAS, SameSS, Chimp, Human) %>% gather(Species, Usage, -SameSS, -PAS)
+
+
+
+```
+
+```{r}
+ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = "t.test",label.y=0) + scale_fill_brewer(palette = "Dark2",name="Both Species \nhave Same Signal Site") +labs(title="Usage of PAS by same signal in both species")
+```
+
+This means usage is higher when they have matching signal sites.  
+
+Get proportion plot.  
+
+```{r}
+MetaPASwSS_Sm = MetaPASwSS %>%  dplyr::select(PAS,ChimpPAS, HumanPAS) %>% gather("Species", "SS", -PAS) %>% group_by(Species,SS) %>% summarise(nSS=n()) %>% mutate(propSS=nSS/nrow(MetaPASwSS))
+
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+```
+
+By location SS:  
+
+```{r}
+MetaPASwSS_loc=MetaPASwSS %>% mutate(ChimpWSS=ifelse(ChimpPAS =="None", "No", "Yes"),HumanWSS=ifelse(HumanPAS =="None", "No", "Yes")) %>% dplyr::select(loc, PAS, ChimpWSS, HumanWSS) %>% gather("Species", "SS", -PAS, -loc) %>% group_by(loc, Species, SS) %>% summarise(n=n()) %>% ungroup() %>% group_by(loc, Species) %>% mutate(nLoc=sum(n),PropWSS=n/nLoc) %>% filter(SS=="Yes")
+
+ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat="identity", position = "dodge")+ labs(x="",y="Proportion of PAS",title="PAS with signal site \nby species and location") + scale_fill_brewer( labels = c("Chimp","Human"), palette = "Dark2")
+```
+
+
+I will write out the metadata with signal site info for downstream analysis.  
+
+```{r}
+write.table(MetaPASwSS, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt", col.names = T, quote = F, row.names = F)
+```
+
+In another analysis I can ask if the differentially used PAS are those that have a SS in one and not another or different SS.  
 
 
