@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-21
+<strong>Last updated:</strong> 2020-01-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree46c489bf544f38874f9e7e15db4dbbd640136cb2targetblank46c489ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/46c489bf544f38874f9e7e15db4dbbd640136cb2" target="_blank">46c489b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeea17340cc15b89e5473f6a8fe1769795b8f96756targetblankea17340a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ea17340cc15b89e5473f6a8fe1769795b8f96756" target="_blank">ea17340</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree46c489bf544f38874f9e7e15db4dbbd640136cb2targetblank46c489ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeea17340cc15b89e5473f6a8fe1769795b8f96756targetblankea17340a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,6 +450,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
@@ -458,6 +459,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/NormalizePheno_nuclear_DF.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -483,13 +485,18 @@ Untracked files:
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
+    Untracked:  code/._PAS_seqExpanded.sh
     Untracked:  code/._PASsequences.sh
     Untracked:  code/._PASsequences_DF.sh
     Untracked:  code/._PlotNuclearUsagebySpecies.R
+    Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._RunNegMCMediation.sh
+    Untracked:  code/._RunNegMCMediationDF.sh
+    Untracked:  code/._RunPosMCMediationDF.err
+    Untracked:  code/._RunPosMCMediationDF.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -502,6 +509,7 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -512,6 +520,7 @@ Untracked files:
     Untracked:  code/._converBam2Junc.sh
     Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._extractPhyloReg.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
@@ -530,6 +539,7 @@ Untracked files:
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
     Untracked:  code/._makeNuclearDapaplots.sh
+    Untracked:  code/._makeNuclearDapaplots_DF.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
@@ -540,8 +550,10 @@ Untracked files:
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._negativeMediation_montecarlo.R
+    Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
@@ -662,13 +674,17 @@ Untracked files:
     Untracked:  code/PAS_ATTAAADF.err
     Untracked:  code/PAS_ATTAAADF.out
     Untracked:  code/PAS_ATTAAA_df.sh
+    Untracked:  code/PAS_seqExpanded.sh
     Untracked:  code/PAS_sequence.err
     Untracked:  code/PAS_sequence.out
     Untracked:  code/PAS_sequenceDF.err
     Untracked:  code/PAS_sequenceDF.out
+    Untracked:  code/PASexpanded_sequenceDF.err
+    Untracked:  code/PASexpanded_sequenceDF.out
     Untracked:  code/PASsequences.sh
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -681,9 +697,15 @@ Untracked files:
     Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/RunNegMCMediation.err
     Untracked:  code/RunNegMCMediation.sh
+    Untracked:  code/RunNegMCMediationDF.err
+    Untracked:  code/RunNegMCMediationDF.out
+    Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
+    Untracked:  code/RunPosMCMediationDF.err
+    Untracked:  code/RunPosMCMediationDF.out
+    Untracked:  code/RunPosMCMediationDF.sh
     Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
@@ -721,6 +743,7 @@ Untracked files:
     Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chooseSignalSite.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
     Untracked:  code/classifyLeafviz.err
@@ -740,6 +763,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhyloReg.py
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
@@ -784,8 +808,11 @@ Untracked files:
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearDapaplots_DF.sh
     Untracked:  code/makeNuclearPlots.err
     Untracked:  code/makeNuclearPlots.out
+    Untracked:  code/makeNuclearPlotsDF.err
+    Untracked:  code/makeNuclearPlotsDF.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -811,6 +838,7 @@ Untracked files:
     Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
     Untracked:  code/negativeMediation_montecarlo.R
+    Untracked:  code/negativeMediation_montecarloDF.R
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
@@ -822,6 +850,7 @@ Untracked files:
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
+    Untracked:  code/postiveMediation_montecarlo_DF.R
     Untracked:  code/prepareAnnoLeafviz.err
     Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
@@ -964,6 +993,7 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
@@ -992,9 +1022,11 @@ Untracked files:
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/PhyloP/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1013,9 +1045,11 @@ Untracked files:
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
+    Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
+    Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
@@ -1029,6 +1063,7 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
+    Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1080,6 +1115,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ea17340cc15b89e5473f6a8fe1769795b8f96756/analysis/Nuclear_HvC_DF.Rmd" target="_blank">ea17340</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-24
+</td>
+<td>
+add phylo/dnds/go
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/Nuclear_HvC_DF.html" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/46c489bf544f38874f9e7e15db4dbbd640136cb2/analysis/Nuclear_HvC_DF.Rmd" target="_blank">46c489b</a>
 </td>
 <td>
@@ -1101,12 +1170,12 @@ nuclear diff filtered
 </div>
 <pre class="r"><code>library(reshape2)
 library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Compare nuclear fraction PAS between human and chimp. I need to fiter the phenotypes fixed for leafcutter further to have only the double filtered PAS.</p>
@@ -1170,6 +1239,43 @@ sig$p.adjust=as.numeric(as.character(sig$p.adjust))</code></pre>
 <pre class="r"><code>qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter differencial isoform analysis between Species&quot;)
 abline(0,1)</code></pre>
 <p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-11-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>tested_genes=nrow(sig)
 tested_genes</code></pre>
 <pre><code>[1] 8544</code></pre>
@@ -1184,6 +1290,43 @@ effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
 effectsize$logef=as.numeric(as.character(effectsize$logef))</code></pre>
 <pre class="r"><code>plot(sort(effectsize$deltaPAU),main=&quot;Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
 <p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-15-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Are those discovered used more in chimp those discovered in chimp?</p>
 <pre class="r"><code>PASinfo=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T, stringsAsFactors = F)</code></pre>
 <p>Join this with the effect sizes.</p>
@@ -1193,6 +1336,43 @@ effectsize_sep$end=as.integer(effectsize_sep$end)
 effectsize_anno=effectsize_sep %&gt;% inner_join(PASinfo, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;,&quot;gene&quot;))</code></pre>
 <pre class="r"><code>ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()</code></pre>
 <p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-18-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Volcano plot:</p>
 <p>I need the effect sizes and the significance. I need to plot only the top PAS per cluster.</p>
 <pre class="r"><code>sig_geneP=sig %&gt;% separate(cluster,into = c(&quot;chr&quot;, &quot;gene&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(gene, p.adjust)
@@ -1205,7 +1385,45 @@ effectsizeTopFilt=effectsizeTop %&gt;% filter(abs(Min) != Max)
 effectsize_wES=effectsizeTopFilt %&gt;% inner_join(sig_geneP, by=&quot;gene&quot;) %&gt;% mutate(Species=ifelse(TopdPAU &gt; 0.2 &amp; p.adjust&lt;.05, &quot;Chimp&quot;, ifelse(TopdPAU &lt; -0.2 &amp; p.adjust&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))</code></pre>
 <p>This is the significance for the gene.</p>
 <pre class="r"><code>ggplot(effectsize_wES,aes(x=TopdPAU, y=-log10(p.adjust))) +geom_point(aes(col=Species),alpha=.5) + labs(title=&quot;Top PAS per gene \nExclude 2 PAS genes&quot;)+ geom_text(data=subset(effectsize_wES, -log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))</code></pre>
-<p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /> Not the best way to visualize this because every PAS per gene is assigned the same pvalue.</p>
+<p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-20-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Not the best way to visualize this because every PAS per gene is assigned the same pvalue.</p>
 <p>Try this including the matching one. I will make 2 plots. One with human dominant, one with chimp dominant.</p>
 <pre class="r"><code>effectsizeTopHuman=effectsize_sep %&gt;% group_by(gene) %&gt;% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %&gt;% mutate(TopdPAU=ifelse(abs(Min) &gt; Max, Min, ifelse(abs(Min)==Max, Min, Max)),TwoPAS=ifelse(abs(Min)==Max, T, F))
 
@@ -1216,8 +1434,82 @@ effectsizeTopChimp=effectsize_sep %&gt;% group_by(gene) %&gt;% summarise(Min=min
 effectsize_wES_chimp=effectsizeTopChimp %&gt;% inner_join(sig_geneP, by=&quot;gene&quot;) %&gt;% mutate(Species=ifelse(TopdPAU &gt; 0.2 &amp; p.adjust&lt;.05, &quot;Chimp&quot;, ifelse(TopdPAU &lt; -0.2 &amp; p.adjust&lt; .05, &quot;Human&quot;, &quot;Neither&quot;)))</code></pre>
 <pre class="r"><code>ggplot(effectsize_wES_human,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5) + labs(title=&quot;Top PAS per gene \nHuman dominant for 2 PAS&quot;)+ geom_text(data=subset(effectsize_wES_human,-log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2 ), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene))</code></pre>
 <p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-22-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(effectsize_wES_chimp,aes(x=TopdPAU, y=-log10(p.adjust))) + geom_point(aes(col=Species, shape=TwoPAS),alpha=.5)  + labs(title=&quot;Top PAS per gene \nChimp dominant for 2 PAS&quot;)+ geom_text(data=subset(effectsize_wES_chimp, -log10(p.adjust) &gt;20 &amp; abs(TopdPAU)&gt;.2), aes(x=TopdPAU,y=-log10(p.adjust) +2,label=gene)) </code></pre>
 <p><img src="figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f00297802381bb687f60fb10c2ccea7e9cae8280/docs/figure/Nuclear_HvC_DF.Rmd/unnamed-chunk-23-1.png" target="_blank">f002978</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Write out the significant genes with &gt;.2 difference.</p>
 <pre class="r"><code>effectsize_sep_pval=effectsize_sep %&gt;% full_join(sig_geneP, by=&quot;gene&quot;)
 #significant &gt; .2
@@ -1228,11 +1520,12 @@ nrow(effectsize_sep_pval_sig)</code></pre>
 effectsize_sep_pval_sig_genes=effectsize_sep_pval_sig %&gt;% dplyr::select(gene) %&gt;% unique()
 nrow(effectsize_sep_pval_sig_genes)</code></pre>
 <pre><code>[1] 2149</code></pre>
+<pre class="r"><code>effectsize_sep_pval_colforsig=effectsize_sep_pval %&gt;% mutate(SigPAU2=ifelse(p.adjust &lt;= .05 &amp;abs(deltaPAU) &gt;=0.2, &quot;Yes&quot;,&quot;No&quot;))</code></pre>
 <pre class="r"><code>effectsize_wES_chimpOnly= effectsize_wES %&gt;% filter(Species==&quot;Chimp&quot;)
 effectsize_wES_HumanOnly= effectsize_wES %&gt;% filter(Species==&quot;Human&quot;)
 
 
-
+write.table(effectsize_sep_pval_colforsig,&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, col.names = T, row.names = F, quote = F )
   
 write.table(effectsize_wES_chimpOnly,&quot;../data/DiffIso_Nuclear_DF/SignifianceChimpPAS_2_Nuclear.txt&quot;,col.names =T, row.names = F,quote = F)
 
