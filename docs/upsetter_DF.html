@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-22
+<strong>Last updated:</strong> 2020-01-23
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree07fd45952afd6e6586320a0f6ae9230c1e3f7ff0targetblank07fd459a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/07fd45952afd6e6586320a0f6ae9230c1e3f7ff0" target="_blank">07fd459</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree95a319ffb0de5e33c51c1e8b54ce2f644f05dab6targetblank95a319fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/95a319ffb0de5e33c51c1e8b54ce2f644f05dab6" target="_blank">95a319f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree07fd45952afd6e6586320a0f6ae9230c1e3f7ff0targetblank07fd459a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree95a319ffb0de5e33c51c1e8b54ce2f644f05dab6targetblank95a319fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -458,6 +458,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/NormalizePheno_nuclear_DF.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -483,6 +484,7 @@ Untracked files:
     Untracked:  code/._MapBadSamples.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
+    Untracked:  code/._PAS_seqExpanded.sh
     Untracked:  code/._PASsequences.sh
     Untracked:  code/._PASsequences_DF.sh
     Untracked:  code/._PlotNuclearUsagebySpecies.R
@@ -491,6 +493,9 @@ Untracked files:
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._RunNegMCMediation.sh
+    Untracked:  code/._RunNegMCMediationDF.sh
+    Untracked:  code/._RunPosMCMediationDF.err
+    Untracked:  code/._RunPosMCMediationDF.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -503,6 +508,7 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -542,8 +548,10 @@ Untracked files:
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._negativeMediation_montecarlo.R
+    Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
@@ -664,10 +672,13 @@ Untracked files:
     Untracked:  code/PAS_ATTAAADF.err
     Untracked:  code/PAS_ATTAAADF.out
     Untracked:  code/PAS_ATTAAA_df.sh
+    Untracked:  code/PAS_seqExpanded.sh
     Untracked:  code/PAS_sequence.err
     Untracked:  code/PAS_sequence.out
     Untracked:  code/PAS_sequenceDF.err
     Untracked:  code/PAS_sequenceDF.out
+    Untracked:  code/PASexpanded_sequenceDF.err
+    Untracked:  code/PASexpanded_sequenceDF.out
     Untracked:  code/PASsequences.sh
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
@@ -684,9 +695,15 @@ Untracked files:
     Untracked:  code/RunFixLeafCluster.sh
     Untracked:  code/RunNegMCMediation.err
     Untracked:  code/RunNegMCMediation.sh
+    Untracked:  code/RunNegMCMediationDF.err
+    Untracked:  code/RunNegMCMediationDF.out
+    Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
+    Untracked:  code/RunPosMCMediationDF.err
+    Untracked:  code/RunPosMCMediationDF.out
+    Untracked:  code/RunPosMCMediationDF.sh
     Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
@@ -724,6 +741,7 @@ Untracked files:
     Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chooseSignalSite.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
     Untracked:  code/classifyLeafviz.err
@@ -817,6 +835,7 @@ Untracked files:
     Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
     Untracked:  code/negativeMediation_montecarlo.R
+    Untracked:  code/negativeMediation_montecarloDF.R
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
@@ -828,6 +847,7 @@ Untracked files:
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
+    Untracked:  code/postiveMediation_montecarlo_DF.R
     Untracked:  code/prepareAnnoLeafviz.err
     Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
@@ -998,6 +1018,7 @@ Untracked files:
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
@@ -1023,6 +1044,7 @@ Untracked files:
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
+    Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
@@ -1037,6 +1059,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1088,6 +1111,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/95a319ffb0de5e33c51c1e8b54ce2f644f05dab6/analysis/upsetter_DF.Rmd" target="_blank">95a319f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-24
+</td>
+<td>
+add hypergeo pvalues
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8536528851f483bf8a720d0eba211af89085aa55/docs/upsetter_DF.html" target="_blank">8536528</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/07fd45952afd6e6586320a0f6ae9230c1e3f7ff0/analysis/upsetter_DF.Rmd" target="_blank">07fd459</a>
 </td>
 <td>
@@ -1113,12 +1170,12 @@ library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Input the datasets:</p>
@@ -1138,6 +1195,43 @@ DSgenes=read.table(&quot;../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt&
 
 upset(fromList(listInput_nucOnly), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
 <p><img src="figure/upsetter_DF.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8536528851f483bf8a720d0eba211af89085aa55/docs/figure/upsetter_DF.Rmd/unnamed-chunk-3-1.png" target="_blank">8536528</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Add colors for certain queries:</p>
 <pre class="r"><code>#upset(movies, queries = list(list(query = intersects, params = list(&quot;Drama&quot;, 
 #    &quot;Comedy&quot;, &quot;Action&quot;), color = &quot;orange&quot;, active = T), list(query = intersects, 
@@ -1147,7 +1241,119 @@ upset(fromList(listInput_nucOnly), order.by = &quot;freq&quot;, keep.order = T,e
 
 upset(fromList(listInput_nucOnly), queries = list(list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;red&quot;, active=T,query.name=&quot;APA,Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DE&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;orange&quot;, active=T, query.name=&quot;Expression,Ribo, Protein&quot;), list(query=intersects, params=list(&quot;DS&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;green&quot;, active=T,query.name=&quot;Splicing ,Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;), color=&quot;blue&quot;, active=T, query.name=&quot;APA,Ribo&quot;) ,list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DP&quot;), color=&quot;purple&quot;, active=T, query.name=&quot;APA, Protein&quot;)), order.by = &quot;freq&quot;, query.legend = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/upsetter_DF.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8536528851f483bf8a720d0eba211af89085aa55/docs/figure/upsetter_DF.Rmd/unnamed-chunk-4-1.png" target="_blank">8536528</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Will use hypergeometric to test overlaps.</p>
+<p>phyper(success in sample, sucesss in possible, failure possible, sample size)</p>
+<p>Success is the overlap, de, not DE, sample size is the apagenes tested in DE</p>
+<p>I need the full lists for this. Not just the significant ones.</p>
+<p>I will start with expression and apa. I need all of the genes tested for both.</p>
+<pre class="r"><code>DEgenestested=read.table(&quot;../data/DiffExpression/DE_Testedgenes.txt&quot;, header = F,col.names = c(&quot;Gene_stable_ID&quot;),stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name)
+apaTested=read.table(&quot;../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) %&gt;% separate(cluster, into=c(&quot;chr&quot;, &quot;Gene.name&quot;),sep=&quot;:&quot;)
+
+DEtestedandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;% inner_join(DEgenestested, by=&quot;Gene.name&quot;) %&gt;% nrow()
+DeandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;%  inner_join(DEgenes, by=&quot;Gene.name&quot;)%&gt;% nrow()
+NotDe= nrow(DEgenestested)-nrow(DEgenes)
+
+  
+phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)</code></pre>
+<pre><code>[1] 0.0009561245</code></pre>
+<p>Translation:<br />
+Success is the overlap, T, not T, sample size is the apagenes tested in DE</p>
+<pre class="r"><code>TranslationTested=read.table(&quot;../data/Wang_ribo/HC_AllTestedTranslation.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;gene&quot;=Gene)
+TranslationNotTE= TranslationTested %&gt;% filter(HvC.FDR&gt;=.05)
+#actual overlap
+TeandAPA=Translation %&gt;% rename(&quot;gene&quot;=Gene) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+TranslationTestedandAPA= TranslationTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+
+phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)</code></pre>
+<pre><code>[1] 0.01307088</code></pre>
+<p>Protein</p>
+<p>Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp</p>
+<pre class="r"><code>ProtTested=read.table(&quot;../data/Khan_prot/HC_AlltestedProtein.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;gene&quot;=gene.symbol)
+nrow(ProtTested)</code></pre>
+<pre><code>[1] 3390</code></pre>
+<pre class="r"><code>ProtNotPE= ProtTested %&gt;% filter(HC.qvalues.protein&gt;=.05)
+nrow(ProtNotPE)</code></pre>
+<pre><code>[1] 2128</code></pre>
+<pre class="r"><code>#actual overlap
+PEandAPA=Protein %&gt;% rename(&quot;gene&quot;=gene.symbol) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+nrow(PEandAPA)</code></pre>
+<pre><code>[1] 214</code></pre>
+<pre class="r"><code>ProtTestedandAPA= ProtTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+nrow(ProtTestedandAPA)</code></pre>
+<pre><code>[1] 593</code></pre>
+<pre class="r"><code>phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)</code></pre>
+<pre><code>[1] 0.7201916</code></pre>
+<p>APA, protein, and translation:</p>
+<p>possible hits, not possible</p>
+<p>Success is the overlap, dp and dt, not dp and dt, sample size is the apagenes tested in both dp and dt</p>
+<pre class="r"><code>ApaProtTrans=PEandAPA  %&gt;% inner_join(TeandAPA, by=&quot;gene&quot;)
+
+PeandTE=Translation %&gt;% inner_join(Protein) %&gt;% rename(&quot;gene&quot;=Gene)</code></pre>
+<pre><code>Joining, by = &quot;ENSG&quot;</code></pre>
+<pre class="r"><code>#not dp and dt is all tested in both - pe and te set
+PeandTEtested= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% anti_join(PeandTE,by=&quot;gene&quot;)
+  
+apaTestedinboth= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% inner_join(NucAPA, by=&quot;gene&quot;)
+
+phyper(nrow(ApaProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(apaTestedinboth),lower.tail=F)</code></pre>
+<pre><code>[1] 0.0803436</code></pre>
+<p>Expression te and pe</p>
+<p>APA, protein, and translation:</p>
+<p>possible hits, not possible</p>
+<p>Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt</p>
+<pre class="r"><code>Protein_g = Protein %&gt;% rename(&quot;gene&quot;=gene.symbol)
+translation_g= Translation%&gt;% rename(&quot;gene&quot;=Gene)
+DEgenes_g= DEgenes %&gt;% rename(&quot;gene&quot;=Gene.name)
+
+EProtTrans=DEgenes %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% inner_join(Protein_g, by=&quot;gene&quot;) %&gt;% inner_join(translation_g, by=&quot;gene&quot;)
+
+PeandTE=Translation %&gt;% inner_join(Protein, by = &quot;ENSG&quot;) %&gt;% rename(&quot;gene&quot;=Gene)
+
+#not dp and dt is all tested in both - pe and te set
+PeandTEtested= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% anti_join(PeandTE,by=&quot;gene&quot;)
+  
+expressioninboth= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% inner_join(DEgenes_g, by=&quot;gene&quot;)
+
+phyper(nrow(EProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(expressioninboth),lower.tail=F)</code></pre>
+<pre><code>[1] 3.771448e-30</code></pre>
+<p>Skipping splicing for now due to gene list problem.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
