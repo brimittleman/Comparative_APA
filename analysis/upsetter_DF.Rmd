@@ -45,6 +45,7 @@ Create a named list object
 ```{r}
 listInput_nucOnly <- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
 
+
 upset(fromList(listInput_nucOnly), order.by = "freq", keep.order = T,empty.intersections = "on")
 ```
 
@@ -60,9 +61,20 @@ Add colors for certain queries:
 upset(fromList(listInput_nucOnly), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="red", active=T,query.name="APA,Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="orange", active=T, query.name="Expression,Ribo, Protein"), list(query=intersects, params=list("DS", "DT", "DP"), color="green", active=T,query.name="Splicing ,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="blue", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="purple", active=T, query.name="APA, Protein")), order.by = "freq", query.legend = "bottom")
 
 ```
+Remove splicing:  
+
+```{r}
+listInput_nosplice <- list(DE=DEgenes$Gene.name, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
+
+
+upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="red", active=T,query.name="APA, Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="orange", active=T, query.name="Expression,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="blue", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="purple", active=T, query.name="APA, Protein"),list(query=intersects, params=list("DAPA", "DE"), color="green", active=T, query.name="APA, Expression")), order.by = "freq", query.legend = "bottom")
+```
 
 
 Will use hypergeometric to test overlaps.  
+
+https://lauren-blake.github.io/Regulatory_Evol/analysis/Tissue_specific_overlap.html#human-chimpanzee-rhesus-macaque-tissue-specific-overlap
+
 
 phyper(success in sample, sucesss in possible, failure possible, sample size)
 
@@ -82,7 +94,20 @@ DEtestedandAPA=NucAPA %>%rename("Gene.name"=gene) %>% inner_join(DEgenestested, 
 DeandAPA=NucAPA %>%rename("Gene.name"=gene) %>%  inner_join(DEgenes, by="Gene.name")%>% nrow()
 NotDe= nrow(DEgenestested)-nrow(DEgenes)
 
-  
+x=DeandAPA
+m=nrow(DEgenes)
+n=NotDe
+k=DEtestedandAPA
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+
+#actual:
+DeandAPA
+
+#pval
 phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)
 ```
 
@@ -96,6 +121,20 @@ TranslationNotTE= TranslationTested %>% filter(HvC.FDR>=.05)
 TeandAPA=Translation %>% rename("gene"=Gene) %>% inner_join(NucAPA,by="gene")
 TranslationTestedandAPA= TranslationTested %>% inner_join(NucAPA,by="gene")
 
+
+x=nrow(TeandAPA)
+m= nrow(Translation)
+n=nrow(TranslationNotTE)
+k=nrow(TranslationTestedandAPA)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(TeandAPA)
+
+#pval
 phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)
 ```
 
@@ -105,25 +144,40 @@ Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp
 
 ```{r}
 ProtTested=read.table("../data/Khan_prot/HC_AlltestedProtein.txt",header = T,stringsAsFactors = F) %>% rename("gene"=gene.symbol)
-nrow(ProtTested)
 ProtNotPE= ProtTested %>% filter(HC.qvalues.protein>=.05)
-nrow(ProtNotPE)
 #actual overlap
 PEandAPA=Protein %>% rename("gene"=gene.symbol) %>% inner_join(NucAPA,by="gene")
-nrow(PEandAPA)
 ProtTestedandAPA= ProtTested %>% inner_join(NucAPA,by="gene")
-nrow(ProtTestedandAPA)
 
+
+x=nrow(PEandAPA)
+m= nrow(Protein)
+n=nrow(ProtNotPE)
+k=nrow(ProtTestedandAPA)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(PEandAPA)
+
+#pval
 phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)
 ```
 
 
-APA, protein, and translation: 
+Use lauren's code for the 3 set  
 
-possible hits, not possible 
+Human-chimpanzee-rhesus macaque tissue specific overlap:  
 
-Success is the overlap, dp and dt, not dp and dt, sample size is the apagenes tested in both dp and dt 
+m is the overlap of human+chimpanzee tissue-specific genes
+n is the Total genes - (overlap of human+chimpanzee tissue-specific genes)
+x/q is the overlap between human, chimpanzee, rhesus macaque tissue-specific genes
+k is the total rhesus tissue-specific genes
 
+
+phyper(x=overlap all pheno, m=overlap 2 (not apa) , n= total - overlap of 2 (not apa), k=total for apa)
 
 ```{r}
 ApaProtTrans=PEandAPA  %>% inner_join(TeandAPA, by="gene")
@@ -135,14 +189,26 @@ PeandTEtested= ProtTested %>% full_join(TranslationTested, by="gene") %>% anti_j
   
 apaTestedinboth= ProtTested %>% full_join(TranslationTested, by="gene") %>% inner_join(NucAPA, by="gene")
 
-phyper(nrow(ApaProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(apaTestedinboth),lower.tail=F)
+x=nrow(ApaProtTrans)
+m= nrow(PeandTE)
+n=nrow(PeandTEtested)
+k=nrow(apaTestedinboth)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(ApaProtTrans)
+
+#pval
+
+
+phyper(x,m,n,k,lower.tail=F)
 ```
 
 Expression te and pe  
 
-APA, protein, and translation: 
-
-possible hits, not possible 
 
 Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt 
 
@@ -161,8 +227,22 @@ PeandTEtested= ProtTested %>% full_join(TranslationTested, by="gene") %>% anti_j
   
 expressioninboth= ProtTested %>% full_join(TranslationTested, by="gene") %>% inner_join(DEgenes_g, by="gene")
 
-phyper(nrow(EProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(expressioninboth),lower.tail=F)
+x=nrow(EProtTrans)
+m= nrow(PeandTE)
+n=nrow(PeandTEtested)
+k=nrow(expressioninboth)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(EProtTrans)
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
 ```
 
 
-Skipping splicing for now due to gene list problem. 
+I can make a table for this- I'll have the set, the actual, the expected, the pvalue. I can also add these numbers onto the figure above.  
+
