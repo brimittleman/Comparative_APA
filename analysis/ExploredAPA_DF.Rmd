@@ -70,3 +70,168 @@ Question 3: Does locaiton of the PAS effect the absolute value of the effect siz
 ggplot(DiffUsagePAS_dir,aes(x=loc, y=abs(deltaPAU), fill=loc)) + geom_violin() 
 ```
 
+
+
+Explore conservation:  
+
+https://www.ultraconserved.org
+
+https://useast.ensembl.org/info/genome/compara/conservation_and_constrained.html
+
+
+phylo p from genomebrowser  
+
+```{bash,eval=F}
+mkdir ../data/PhyloP
+mkdir ../data/DNDS
+
+```
+PhyloP: Column #1 contains a one-based position coordinate. Column #2 contains a score showing the posterior probability that the phylogenetic hidden Markov model (HMM) of phastCons is in its most conserved state at that base position.  
+
+I want to get the average score for each of the tested PAS. I can use pybigwig.  
+
+```{bash,eval=F}
+python extractPhyloReg.py
+```
+
+```{r}
+phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na()
+NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr","start","end"))
+```
+40756 have results of the 40776
+Plot:  
+
+```{r}
+ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2")
+
+
+```
+
+```{r}
+
+ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2")
+```
+
+The significant PAS have on average lower phyloP scores. 
+
+
+Positive scores — Measure conservation, which is slower evolution than expected, at sites that are predicted to be conserved.
+Negative scores — Measure acceleration, which is faster evolution than expected, at sites that are predicted to be fast-evolving.
+
+
+I can look at those with negative values:  
+
+```{r}
+x=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
+m= nrow(NucReswPhy %>% filter(phyloP<0))
+n=nrow(NucReswPhy %>% filter(phyloP>=0))
+k=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+This means these regions are more likely to be fast evolving.  
+
+DN (non synonymous) /DS (synonymous): from ensamble site  - ratio of substitution rate (quick and dirty way to look at evo), ration >1 usually evidence for positive selection. values are in ../data/DNDS/HumanChimp_DNDS.csv 
+
+Remove NA values 
+```{r}
+DNDS= read.csv("../data/DNDS/HumanChimp_DNDS.csv", header = T,stringsAsFactors = F) %>% drop_na() %>% group_by(Gene.name) %>% slice(1) %>% ungroup() %>% mutate(DNDSratio= dN.with.Chimpanzee/dS.with.Chimpanzee) %>% dplyr::select(Gene.name, dN.with.Chimpanzee,dS.with.Chimpanzee,DNDSratio) %>% rename("gene"=Gene.name)
+```
+
+Join with all results then subset based on significance:  
+
+I will get all genes,
+
+```{r}
+NucResGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T)
+NucResAll=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% dplyr::select(gene) %>% unique() %>% mutate(SigPASinGene=ifelse(gene %in% NucResGenes$gene, "yes", "no")) 
+
+NucResDNDS= NucResAll %>% inner_join(DNDS,by="gene") 
+```
+We do not have information for 1236 of the genes. I will assess results on the 7308 with data. There  are also genes with ratio problems due to zero in the ds column. If it is infinity, i can make it 1 for now because there are only fixed non syn mutations fixing. If both are 0 I will make it 0. 
+
+```{r}
+NucResDNDS_fix=NucResDNDS %>% mutate(DNDSratio = replace_na(DNDSratio,0))
+
+NucResDNDS_fix[NucResDNDS_fix == Inf] <- 1
+
+summary(NucResDNDS_fix$DNDSratio)
+
+NucResDNDS_fix %>% group_by(SigPASinGene) %>% summarise(n=n())
+```
+Plot this.  
+
+```{r}
+
+ggplot(NucResDNDS_fix,aes(y=log10(DNDSratio+1), x=SigPASinGene, fill=SigPASinGene))+ geom_boxplot() + stat_compare_means( label.y.npc = "middle") + scale_fill_brewer(palette = "Dark2") + labs(x="dAPA in Nuclear") + annotate("text", label="Yes=1827 \n No=5481", y=1.8,x=2)
+
+
+```
+I can ask if they are more likely to be above 1. I can do this with a hypergeo. 
+
+```{r}
+
+x=nrow(NucResDNDS_fix %>% filter(SigPASinGene=="yes", DNDSratio>=1))
+m= nrow(NucResDNDS_fix %>% filter(DNDSratio>=1))
+n=nrow(NucResDNDS_fix %>% filter(DNDSratio<1))
+k=nrow(NucResDNDS_fix %>% filter(SigPASinGene=="yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+
+
+
+No enrichment for positive selected genes.  
+
+Gene ontology: 
+Need a ranked list of genes. I can do this for the differential apa genes by pvalue.  
+http://cbl-gorilla.cs.technion.ac.il
+
+```{r}
+NucRes=read.table("../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt",header = T,stringsAsFactors = F) %>% arrange(p.adjust) %>% dplyr::select(gene) %>% unique()
+
+
+write.table(NucRes,"../data/DiffIso_Nuclear/SignifianceGenes_orderPval.txt",col.names = F, row.names = F, quote = F)
+```
+
+Use gorilla:  
+
+Top results: 
+
+RNA binding
+
+translation factor activity, RNA binding
+
+protein-containing complex
+
+eukaryotic translation initiation factor  
+
+cellular protein-containing complex assembly
+
+	intracellular transport
+	
+	establishment of localization in cell	
+	
+	protein targeting to membrane
+	
+	nuclear-transcribed mRNA catabolic process, nonsense-mediated decay 
+		 
+	translational initiation	 
+	
+
