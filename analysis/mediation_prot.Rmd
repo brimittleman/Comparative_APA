@@ -1,0 +1,114 @@
+---
+title: "Mediation in protein"
+author: "Briana Mittleman"
+date: "1/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(qvalue)
+library(edgeR)
+library(tidyverse)
+library(limma)
+library(MASS)
+```
+
+
+In this analysis, I will ask if differrecnes in APA  are causal for differences in protein.  
+
+
+To deal with multiple phenotypes per gene I will take the highest absolute effect size PAS.
+
+```{bash,eval=F}
+mkdir ../data/mediation_prot
+```
+
+```{r}
+source("../code/mediation_test.R") #Obtain necessary functions
+```
+
+I cant do this because we dont have the protein effect sizes. I need to remodel  
+
+```{r}
+ProtComp=read.csv("../data/Khan_prot/Khan_TableS4.csv", stringsAsFactors = F, header = T) %>% dplyr::select(gene.symbol, human.GM18505.protein,human.GM18507.protein,human.GM18516.protein,human.GM19193.protein,human.GM19204.protein,chimp.18358.protein,chimp.18359.protein ,chimp.3659.protein ,chimp.4973.protein,chimp.Pt91.protein ) %>% column_to_rownames(var="gene.symbol") %>% drop_na()
+```
+These are normalized values and filtered values. I will create a design matrix and test for differential protein.  
+
+
+```{r}
+ProtMeta=as.data.frame(cbind(indiv=colnames(ProtComp), Species=c(rep("H",5), rep("C",5))))
+
+Species <- factor(ProtMeta$Species)
+design <- model.matrix(~ 0 + Species)
+head(design)
+
+colnames(design) <- gsub("Species", "", dput(colnames(design)))
+```
+
+Make a object 
+
+```{r}
+labels <- paste(ProtMeta$Species,ProtMeta$indiv, sep=" ")
+
+
+```
+Use classic linear model:  
+
+```{r}
+gene1_lm= summary(lm(as.numeric(ProtComp[1,])~Species))
+gene1_lm$coefficients[2,1]
+gene1_lm$coefficients[2,4]
+```
+human is 1.  
+
+
+Effect size is  -0.007561, pvalue is .9405  
+
+
+Run for all genes:  
+
+```{r}
+Ppvals <- c()
+Peffect <- c()
+for (i in 1:dim(ProtComp)[1]) {
+model <- summary(lm(as.numeric(ProtComp[i,]) ~ Species))
+pval <-model$coefficients[2,4]
+effect= model$coefficients[2,1]
+Ppvals <- c(Ppvals, pval)
+Peffect <- c(Peffect,effect)
+}
+
+```
+
+
+Join results: 
+
+```{r}
+Pres=as.data.frame(cbind(genes=rownames(ProtComp), P=Ppvals, Ef=Peffect))
+Pres$P=as.numeric(as.character(Pres$P))
+
+Pres$Ef=as.numeric(as.character(Pres$Ef))
+
+adjP=qvalue(Pres$P)
+PresF= Pres %>% mutate(adjPval=adjP$pvalues)
+
+SigP=PresF %>% filter(adjPval <=.05)
+nrow(SigP)
+NotSigP=PresF %>% filter(adjPval >.05)
+nrow(NotSigP)
+
+
+```
+
+I can use this for the mediation.  - effect size in down in human. 
+
+The individuals are not the same. I cannot do this analysis.  
+
+
+

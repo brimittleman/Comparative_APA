@@ -134,7 +134,11 @@ From here on, I did everything double filtered:
 
 * [Mediation analysis](mediation.html)    
 
-    * [Mediation analysis double filter](mediation_df.html)
+    * [Mediation analysis double filter](mediation_DF.html)  
+    
+From here on, I did everything double filtered:  
+    
+* [Mediation with protein](mediation_prot.html)
 
 ##Extra QC and Analysis   
 
