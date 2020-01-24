@@ -64,4 +64,105 @@ upset(fromList(listInput_nucOnly), queries = list(list(query=intersects, params=
 
 Will use hypergeometric to test overlaps.  
 
+phyper(success in sample, sucesss in possible, failure possible, sample size)
 
+Success is the overlap, de, not DE, sample size is the apagenes tested in DE 
+
+I need the full lists for this. Not just the significant ones.  
+
+
+I will start with expression and apa. I need all of the genes tested for both.   
+
+```{r}
+
+DEgenestested=read.table("../data/DiffExpression/DE_Testedgenes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name)
+apaTested=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr", "Gene.name"),sep=":")
+
+DEtestedandAPA=NucAPA %>%rename("Gene.name"=gene) %>% inner_join(DEgenestested, by="Gene.name") %>% nrow()
+DeandAPA=NucAPA %>%rename("Gene.name"=gene) %>%  inner_join(DEgenes, by="Gene.name")%>% nrow()
+NotDe= nrow(DEgenestested)-nrow(DEgenes)
+
+  
+phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)
+```
+
+Translation:  
+Success is the overlap, T, not T, sample size is the apagenes tested in DE 
+
+```{r}
+TranslationTested=read.table("../data/Wang_ribo/HC_AllTestedTranslation.txt",header = T,stringsAsFactors = F) %>% rename("gene"=Gene)
+TranslationNotTE= TranslationTested %>% filter(HvC.FDR>=.05)
+#actual overlap
+TeandAPA=Translation %>% rename("gene"=Gene) %>% inner_join(NucAPA,by="gene")
+TranslationTestedandAPA= TranslationTested %>% inner_join(NucAPA,by="gene")
+
+phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)
+```
+
+Protein  
+
+Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp  
+
+```{r}
+ProtTested=read.table("../data/Khan_prot/HC_AlltestedProtein.txt",header = T,stringsAsFactors = F) %>% rename("gene"=gene.symbol)
+nrow(ProtTested)
+ProtNotPE= ProtTested %>% filter(HC.qvalues.protein>=.05)
+nrow(ProtNotPE)
+#actual overlap
+PEandAPA=Protein %>% rename("gene"=gene.symbol) %>% inner_join(NucAPA,by="gene")
+nrow(PEandAPA)
+ProtTestedandAPA= ProtTested %>% inner_join(NucAPA,by="gene")
+nrow(ProtTestedandAPA)
+
+phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)
+```
+
+
+APA, protein, and translation: 
+
+possible hits, not possible 
+
+Success is the overlap, dp and dt, not dp and dt, sample size is the apagenes tested in both dp and dt 
+
+
+```{r}
+ApaProtTrans=PEandAPA  %>% inner_join(TeandAPA, by="gene")
+
+PeandTE=Translation %>% inner_join(Protein) %>% rename("gene"=Gene)
+
+#not dp and dt is all tested in both - pe and te set
+PeandTEtested= ProtTested %>% full_join(TranslationTested, by="gene") %>% anti_join(PeandTE,by="gene")
+  
+apaTestedinboth= ProtTested %>% full_join(TranslationTested, by="gene") %>% inner_join(NucAPA, by="gene")
+
+phyper(nrow(ApaProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(apaTestedinboth),lower.tail=F)
+```
+
+Expression te and pe  
+
+APA, protein, and translation: 
+
+possible hits, not possible 
+
+Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt 
+
+
+```{r}
+Protein_g = Protein %>% rename("gene"=gene.symbol)
+translation_g= Translation%>% rename("gene"=Gene)
+DEgenes_g= DEgenes %>% rename("gene"=Gene.name)
+
+EProtTrans=DEgenes %>% rename("gene"=Gene.name) %>% inner_join(Protein_g, by="gene") %>% inner_join(translation_g, by="gene")
+
+PeandTE=Translation %>% inner_join(Protein, by = "ENSG") %>% rename("gene"=Gene)
+
+#not dp and dt is all tested in both - pe and te set
+PeandTEtested= ProtTested %>% full_join(TranslationTested, by="gene") %>% anti_join(PeandTE,by="gene")
+  
+expressioninboth= ProtTested %>% full_join(TranslationTested, by="gene") %>% inner_join(DEgenes_g, by="gene")
+
+phyper(nrow(EProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(expressioninboth),lower.tail=F)
+```
+
+
+Skipping splicing for now due to gene list problem. 
