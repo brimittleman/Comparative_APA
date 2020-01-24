@@ -139,6 +139,20 @@ phyper(x,m,n,k,lower.tail=F)
 ```
 This means these regions are more likely to be fast evolving.  
 
+Look at this by location: (is it driven by region)
+
+```{r}
+NucReswPhy_meta= NucReswPhy %>% inner_join(PASMeta, by=c("chr", "start", "end", "gene"))
+
+ggplot(NucReswPhy_meta,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2") + facet_grid(~loc)
+```
+```{r}
+NucReswPhy_meta_group=NucReswPhy_meta %>% group_by(loc,SigPAU2) %>% summarise(n=n(),meanPhylo=mean(phyloP))
+NucReswPhy_meta_group
+```
+
+
+
 DN (non synonymous) /DS (synonymous): from ensamble site  - ratio of substitution rate (quick and dirty way to look at evo), ration >1 usually evidence for positive selection. values are in ../data/DNDS/HumanChimp_DNDS.csv 
 
 Remove NA values 
