@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree95a319ffb0de5e33c51c1e8b54ce2f644f05dab6targetblank95a319fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/95a319ffb0de5e33c51c1e8b54ce2f644f05dab6" target="_blank">95a319f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3ac4dab565aca57b36bb4b98e22c36c143d85d73targetblank3ac4daba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3ac4dab565aca57b36bb4b98e22c36c143d85d73" target="_blank">3ac4dab</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree95a319ffb0de5e33c51c1e8b54ce2f644f05dab6targetblank95a319fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3ac4dab565aca57b36bb4b98e22c36c143d85d73targetblank3ac4daba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,6 +450,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
@@ -1111,6 +1112,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3ac4dab565aca57b36bb4b98e22c36c143d85d73/analysis/upsetter_DF.Rmd" target="_blank">3ac4dab</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-24
+</td>
+<td>
+upset w/out splicing
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/de291258d25d47c02d6188165707ac03cc42f500/docs/upsetter_DF.html" target="_blank">de29125</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/95a319ffb0de5e33c51c1e8b54ce2f644f05dab6/analysis/upsetter_DF.Rmd" target="_blank">95a319f</a>
 </td>
 <td>
@@ -1170,12 +1205,12 @@ library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Input the datasets:</p>
@@ -1192,6 +1227,7 @@ NucAPA=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclea
 DSgenes=read.table(&quot;../data/DiffSplice_liftedJunc/orderedGeneListFixed.txt&quot;,stringsAsFactors = F, col.names = &quot;DS&quot;)</code></pre>
 <p>Create a named list object</p>
 <pre class="r"><code>listInput_nucOnly &lt;- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
+
 
 upset(fromList(listInput_nucOnly), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
 <p><img src="figure/upsetter_DF.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1278,7 +1314,14 @@ brimittleman
 </table>
 </div>
 </div>
+<p>Remove splicing:</p>
+<pre class="r"><code>listInput_nosplice &lt;- list(DE=DEgenes$Gene.name, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
+
+
+upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;red&quot;, active=T,query.name=&quot;APA, Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DE&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;orange&quot;, active=T, query.name=&quot;Expression,Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;), color=&quot;blue&quot;, active=T, query.name=&quot;APA,Ribo&quot;) ,list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DP&quot;), color=&quot;purple&quot;, active=T, query.name=&quot;APA, Protein&quot;),list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DE&quot;), color=&quot;green&quot;, active=T, query.name=&quot;APA, Expression&quot;)), order.by = &quot;freq&quot;, query.legend = &quot;bottom&quot;)</code></pre>
+<p><img src="figure/upsetter_DF.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Will use hypergeometric to test overlaps.</p>
+<p><a href="https://lauren-blake.github.io/Regulatory_Evol/analysis/Tissue_specific_overlap.html#human-chimpanzee-rhesus-macaque-tissue-specific-overlap" class="uri">https://lauren-blake.github.io/Regulatory_Evol/analysis/Tissue_specific_overlap.html#human-chimpanzee-rhesus-macaque-tissue-specific-overlap</a></p>
 <p>phyper(success in sample, sucesss in possible, failure possible, sample size)</p>
 <p>Success is the overlap, de, not DE, sample size is the apagenes tested in DE</p>
 <p>I need the full lists for this. Not just the significant ones.</p>
@@ -1290,7 +1333,19 @@ DEtestedandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;% inner_join
 DeandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;%  inner_join(DEgenes, by=&quot;Gene.name&quot;)%&gt;% nrow()
 NotDe= nrow(DEgenestested)-nrow(DEgenes)
 
-  
+x=DeandAPA
+m=nrow(DEgenes)
+n=NotDe
+k=DEtestedandAPA
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 687</code></pre>
+<pre class="r"><code>#actual:
+DeandAPA</code></pre>
+<pre><code>[1] 745</code></pre>
+<pre class="r"><code>#pval
 phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)</code></pre>
 <pre><code>[1] 0.0009561245</code></pre>
 <p>Translation:<br />
@@ -1301,28 +1356,50 @@ TranslationNotTE= TranslationTested %&gt;% filter(HvC.FDR&gt;=.05)
 TeandAPA=Translation %&gt;% rename(&quot;gene&quot;=Gene) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
 TranslationTestedandAPA= TranslationTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
 
+
+x=nrow(TeandAPA)
+m= nrow(Translation)
+n=nrow(TranslationNotTE)
+k=nrow(TranslationTestedandAPA)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 335</code></pre>
+<pre class="r"><code>#actual:
+nrow(TeandAPA)</code></pre>
+<pre><code>[1] 368</code></pre>
+<pre class="r"><code>#pval
 phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)</code></pre>
 <pre><code>[1] 0.01307088</code></pre>
 <p>Protein</p>
 <p>Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp</p>
 <pre class="r"><code>ProtTested=read.table(&quot;../data/Khan_prot/HC_AlltestedProtein.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;gene&quot;=gene.symbol)
-nrow(ProtTested)</code></pre>
-<pre><code>[1] 3390</code></pre>
-<pre class="r"><code>ProtNotPE= ProtTested %&gt;% filter(HC.qvalues.protein&gt;=.05)
-nrow(ProtNotPE)</code></pre>
-<pre><code>[1] 2128</code></pre>
-<pre class="r"><code>#actual overlap
+ProtNotPE= ProtTested %&gt;% filter(HC.qvalues.protein&gt;=.05)
+#actual overlap
 PEandAPA=Protein %&gt;% rename(&quot;gene&quot;=gene.symbol) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+ProtTestedandAPA= ProtTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+
+
+x=nrow(PEandAPA)
+m= nrow(Protein)
+n=nrow(ProtNotPE)
+k=nrow(ProtTestedandAPA)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 214</code></pre>
+<pre class="r"><code>#actual:
 nrow(PEandAPA)</code></pre>
 <pre><code>[1] 214</code></pre>
-<pre class="r"><code>ProtTestedandAPA= ProtTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
-nrow(ProtTestedandAPA)</code></pre>
-<pre><code>[1] 593</code></pre>
-<pre class="r"><code>phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)</code></pre>
+<pre class="r"><code>#pval
+phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)</code></pre>
 <pre><code>[1] 0.7201916</code></pre>
-<p>APA, protein, and translation:</p>
-<p>possible hits, not possible</p>
-<p>Success is the overlap, dp and dt, not dp and dt, sample size is the apagenes tested in both dp and dt</p>
+<p>Use lauren’s code for the 3 set</p>
+<p>Human-chimpanzee-rhesus macaque tissue specific overlap:</p>
+<p>m is the overlap of human+chimpanzee tissue-specific genes n is the Total genes - (overlap of human+chimpanzee tissue-specific genes) x/q is the overlap between human, chimpanzee, rhesus macaque tissue-specific genes k is the total rhesus tissue-specific genes</p>
+<p>phyper(x=overlap all pheno, m=overlap 2 (not apa) , n= total - overlap of 2 (not apa), k=total for apa)</p>
 <pre class="r"><code>ApaProtTrans=PEandAPA  %&gt;% inner_join(TeandAPA, by=&quot;gene&quot;)
 
 PeandTE=Translation %&gt;% inner_join(Protein) %&gt;% rename(&quot;gene&quot;=Gene)</code></pre>
@@ -1332,11 +1409,24 @@ PeandTEtested= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot
   
 apaTestedinboth= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% inner_join(NucAPA, by=&quot;gene&quot;)
 
-phyper(nrow(ApaProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(apaTestedinboth),lower.tail=F)</code></pre>
+x=nrow(ApaProtTrans)
+m= nrow(PeandTE)
+n=nrow(PeandTEtested)
+k=nrow(apaTestedinboth)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 65</code></pre>
+<pre class="r"><code>#actual:
+nrow(ApaProtTrans)</code></pre>
+<pre><code>[1] 75</code></pre>
+<pre class="r"><code>#pval
+
+
+phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 0.0803436</code></pre>
 <p>Expression te and pe</p>
-<p>APA, protein, and translation:</p>
-<p>possible hits, not possible</p>
 <p>Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt</p>
 <pre class="r"><code>Protein_g = Protein %&gt;% rename(&quot;gene&quot;=gene.symbol)
 translation_g= Translation%&gt;% rename(&quot;gene&quot;=Gene)
@@ -1351,9 +1441,22 @@ PeandTEtested= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot
   
 expressioninboth= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% inner_join(DEgenes_g, by=&quot;gene&quot;)
 
-phyper(nrow(EProtTrans), nrow(PeandTE), nrow(PeandTEtested), nrow(expressioninboth),lower.tail=F)</code></pre>
+x=nrow(EProtTrans)
+m= nrow(PeandTE)
+n=nrow(PeandTEtested)
+k=nrow(expressioninboth)
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 125</code></pre>
+<pre class="r"><code>#actual:
+nrow(EProtTrans)</code></pre>
+<pre><code>[1] 232</code></pre>
+<pre class="r"><code>#pval
+phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 3.771448e-30</code></pre>
-<p>Skipping splicing for now due to gene list problem.</p>
+<p>I can make a table for this- I’ll have the set, the actual, the expected, the pvalue. I can also add these numbers onto the figure above.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
