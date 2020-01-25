@@ -377,6 +377,21 @@ ggplot(MetaPASwSS, aes(x=ChimpPAS,y=Chimp)) + geom_boxplot()+ theme(axis.text.x 
 
 ```
 
+
+Make the above plots wiht both speicies:  
+
+I need to seperate and bind the rows.  
+
+```{r}
+MetaPASwSS_groupC=MetaPASwSS %>% dplyr::select(PAS,ChimpPAS,Chimp) %>% mutate(Species="Chimp") %>% rename("Signal"=ChimpPAS, "Usage"=Chimp)
+
+MetaPASwSS_groupH=MetaPASwSS %>% dplyr::select(PAS,HumanPAS,Human) %>% mutate(Species="Human") %>% rename("Signal"=HumanPAS, "Usage"=Human)
+
+MetaPASwSSBoth=MetaPASwSS_groupC %>% bind_rows(MetaPASwSS_groupH)
+
+ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2") + labs(title="Usage distribution by Signal and species")
+```
+
 I want to see if the usage is different when the PAS is same vs different  
 
 ```{r}
@@ -454,6 +469,17 @@ MetaPASwSS_top_humanonly_G= MetaPASwSS_top_humanonly %>% dplyr::select(PAS, Chim
 
 ggplot(MetaPASwSS_top_humanonly_G,aes(x=Species, y=Usage))+ geom_boxplot() + stat_compare_means(method="t.test") + labs(title="Usage for PAS with a signal site in human only")
 ```
+
+
+```{r}
+MetaPASwSS_topLocH= MetaPASwSS_top %>% dplyr::select(HumanTopSS,loc) %>% mutate(Species='Human') %>% rename("Signal"=HumanTopSS)
+MetaPASwSS_topLocC= MetaPASwSS_top %>% dplyr::select(ChimpTopSS,loc) %>% mutate(Species='Chimp')%>% rename("Signal"=ChimpTopSS)
+
+MetaPASwSS_topLocBoth= MetaPASwSS_topLocH %>% bind_rows(MetaPASwSS_topLocC) %>% group_by(Species, loc,Signal) %>% summarise(WithSS=n()) %>% ungroup() %>% group_by(Species, loc) %>% mutate(nLoc=sum(WithSS), Prop=WithSS/nLoc) %>% filter(Signal=="Yes")
+
+ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat="identity", position = "dodge")+ labs(title="Proportion of PAS with a Signal Site", y="Proportion of PAS", x="") + scale_fill_brewer(palette = "Dark2")
+```
+
 
 Write out this extra info:  
 
