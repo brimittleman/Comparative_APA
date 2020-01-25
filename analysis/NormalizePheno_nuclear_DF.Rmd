@@ -1,0 +1,183 @@
+---
+title: "Normalize Phenotypes Nuclear after Double filter"
+author: "Briana Mittleman"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggpubr)
+library(tidyverse)
+library("scales")
+library("RColorBrewer")
+library("gplots")
+library(reshape2)
+```
+
+Double filtered sites:  
+
+
+chr1:744266:744465:LOC107984841_+_utr3-Chimp-chimp242477  
+```{r}
+PASDF=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F) %>% mutate(strandPre=ifelse(strandFix=="+", "-","+"),geneLoc=paste(gene, strandPre, loc, sep="_"), genelocPAS=paste(geneLoc,disc, PAS, sep = "-"), chrom=paste(chr, start,end, genelocPAS,sep=":"))
+```
+
+
+```{r}
+humanPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Human_Pheno_5perc.txt",stringsAsFactors = F, header = T)  %>% filter(chrom %in% PASDF$chrom)
+chimpPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_Chimp_Pheno_5perc.txt",stringsAsFactors = F, header = T)%>% filter(chrom %in% PASDF$chrom)
+
+
+allPhenoN=humanPheno %>% full_join(chimpPheno,by="chrom") %>% dplyr::select(-contains("_T"))
+```
+
+
+```{bash,eval=F}
+mkdir ../data/Pheno_5perc_DF_nuclear
+```
+
+```{r}
+write.table(allPhenoN, "../data/Pheno_5perc_DF_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt", col.names = T, row.names = F, quote = F)
+
+```
+
+
+```{bash,eval=F}
+
+gzip ../data/Pheno_5perc_DF_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt
+
+#conda deactivate 
+conda deactivate 
+conda deactivate 
+#python 2
+source ~/activate_anaconda_python2.sh 
+#go to directory ../data/Pheno_5perc_DF_nuclear/
+python ../../code/prepare_phenotype_table.py ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz
+#normalized 
+cat ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz.qqnorm_chr* > ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz.qqnorm_AllChrom
+```
+
+
+Use these normalized phenotypes for the PCA 
+
+```{r}
+metaDataN=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors = F) %>% filter(Fraction=="Nuclear")
+```
+
+
+```{r}
+normPheno=read.table("../data/Pheno_5perc_DF_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_DoubleFilter_Nuclear.txt.gz.qqnorm_AllChrom", col.names = c('Chr',	'start',	'end',	'ID',	'18498_N',		'18499_N',		'18502_N',		'18504_N',	'18510_N',	'18523_N',	'18358_N','3622_N',		'3659_N',	'4973_N',	'pt30_N',		'pt91_N'))
+
+normPheno_matrix=as.matrix(normPheno %>% dplyr::select(-Chr, -start, -end, -ID))
+```
+
+Run PCA:  
+
+```{r}
+pca_Pheno=prcomp(t(normPheno_matrix), center=T,scale=T)
+scores = pca_Pheno$x
+pca_df=as.data.frame(pca_Pheno$rotation) %>% rownames_to_column(var="ID")
+
+```
+
+
+
+```{r}
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(metaDataN$Species,metaDataN$Line, sep=" ")
+
+
+cors <- cor(normPheno_matrix, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metaDataN$Species))], RowSideColors=pal[as.integer(as.factor(metaDataN$Line))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+
+
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=T){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+
+
+
+```{r}
+metaDataN$Species=as.factor(metaDataN$Species)
+for (n in 1:1){
+  col.v <- pal[as.integer(metaDataN$Species)]
+  plot_scores(pca_Pheno, scores, n, n+1, col.v)
+}
+```
+
+```{r}
+x.pca <- pca_Pheno
+
+tech_factors <- metaDataN
+tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(-Library,-Line,-Fraction)
+
+p_comps <- 1:6
+pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                     dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+for (pc in p_comps) {
+  for (covariate in 1:ncol(tech_factors_sum)) {
+    lm_result <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate])
+    r2 <- summary(lm_result)$r.squared
+    pc_cov_cor[covariate, pc] <- r2
+  }
+}
+
+pc_cov_pval <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                      dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+
+for (pc in p_comps) {
+  for (covariate_2 in 1:ncol(tech_factors_sum)) {
+    lm_result_2 <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate_2])
+    pval <- anova(lm_result_2)$'Pr(>F)'[1]
+    pc_cov_pval[covariate_2, pc] <- pval
+  }
+}
+
+PCs <- c("PC1", "PC2", "PC3", "PC4", "PC5", "PC6")
+Tech_fac <- colnames(tech_factors_sum)
+#Tech_fac <- c("Species",   "Individual", "O2.",  "Condition" , "Sex", "RIN" , "CO2", "Purity_high", "Purity_med" ,
+              #"Expt_Batch", "RNA_Batch", "Library_Batch", "Seq_pool", "Episomal_integration" )
+
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
+```
+Proportion explained:  
+
+
+```{r}
+eigs <- pca_Pheno$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)
+```
+
