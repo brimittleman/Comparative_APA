@@ -102,14 +102,14 @@ NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", heade
 Plot:  
 
 ```{r}
-ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2")
+ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2", name="Signficant")
 
 
 ```
 
 ```{r}
 
-ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2")
+ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2", name="Signficant PAS") + labs(title="Mean PhyloP scores for tested PAS") + annotate("text",label="Wilcoxan, p=1.4e -5",x=6,y=.75)
 ```
 
 The significant PAS have on average lower phyloP scores. 
@@ -188,7 +188,9 @@ GenesPhy=genesWithSig %>% inner_join(phyloresG, by=c("chr","start","end"))
 I lose 2237 from NAs in the values. 
 
 ```{r}
-ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2")
+ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5)+ scale_fill_brewer(palette = "Dark2", name="Gene with \nSignificant PAS") + labs(title="Mean PhyloP scores for tested Genes") + annotate("text",label="Wilcoxan, p=2.6.4e -12",x=4,y=1.5)
+
+
 
 
 ggplot(GenesPhy,aes(y=phyloP, x=Sig,fill=Sig)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2")
