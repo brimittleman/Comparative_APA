@@ -13,6 +13,7 @@ In this analysis, I will ask if presence or absense of a signal site in either s
 
 ```{r}
 library(workflowr)
+library(RColorBrewer)
 library(ggpubr)
 library(tidyverse)
 ```
@@ -69,7 +70,17 @@ Of the 42318 we see that 638 have the pattern of interest. We choose 3076 of the
 phyper(success in sample, sucesss in possible, failure possible, sample size)
 
 ```{r}
-42318-638
+x= 19
+m= 638
+n=41680
+k=3076
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+
+
 
 phyper(19,638, 41680 , 3076,lower.tail=F)
 ```
@@ -84,6 +95,8 @@ Plot dPAU by presence and absense:
 ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title="Human upregualted PAS by presence of Signal")
 
 
+ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title="Human upregualted PAS by presence of Signal") + scale_fill_discrete(name="Human Signal Site Detected") + annotate("text",label="Wilcoxon, p=0.73",x=.8,y=6)
+
 
 ```
 Test with wilcoxan test:  
@@ -96,6 +109,8 @@ There is a shift.
 ```{r}
 ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title="Chimp upregualted PAS by presence of Signal")
 
+
+ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title="Chimp upregualted PAS by presence of Signal") + scale_fill_discrete(name="Chimp Signal Site Detected") + annotate("text",label="Wilcoxon, p=0.025",x=.8,y=7.5)
 ```
 
 It does not look like presence of a signal within the upregulated matters.  
