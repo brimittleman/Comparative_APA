@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-23
+<strong>Last updated:</strong> 2020-01-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea018c33ff0177b4b40492a343f1d63f658932766targetblanka018c33a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a018c33ff0177b4b40492a343f1d63f658932766" target="_blank">a018c33</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree66581516bdaa454f8b5e04b3e0a38aba1ecee1datargetblank6658151a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/66581516bdaa454f8b5e04b3e0a38aba1ecee1da" target="_blank">6658151</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea018c33ff0177b4b40492a343f1d63f658932766targetblanka018c33a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree66581516bdaa454f8b5e04b3e0a38aba1ecee1datargetblank6658151a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,6 +450,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
@@ -458,7 +459,6 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
-    Untracked:  analysis/NormalizePheno_nuclear_DF.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -519,6 +519,8 @@ Untracked files:
     Untracked:  code/._converBam2Junc.sh
     Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._extractPhyloReg.py
+    Untracked:  code/._extractPhyloRegGene.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
@@ -551,6 +553,7 @@ Untracked files:
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
@@ -761,6 +764,8 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhyloReg.py
+    Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
@@ -844,6 +849,7 @@ Untracked files:
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
+    Untracked:  code/parseHg38.py
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
@@ -990,6 +996,7 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
@@ -1022,6 +1029,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear/
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/PhyloP/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1063,10 +1071,12 @@ Unstaged changes:
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/speciesSpecific_DF.Rmd
 
 </code></pre>
 <p>
@@ -1110,6 +1120,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/66581516bdaa454f8b5e04b3e0a38aba1ecee1da/analysis/SS_diffUsage.Rmd" target="_blank">6658151</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+<td>
+add density plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/838da9ba6d3ca6ea1f2a42821c15e65f5abb795a/docs/SS_diffUsage.html" target="_blank">838da9b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a018c33ff0177b4b40492a343f1d63f658932766/analysis/SS_diffUsage.Rmd" target="_blank">a018c33</a>
 </td>
 <td>
@@ -1133,16 +1177,17 @@ add diff usgage and ss
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.5.0
 Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(ggpubr)</code></pre>
+<pre class="r"><code>library(RColorBrewer)
+library(ggpubr)</code></pre>
 <pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1177,17 +1222,102 @@ humanOnly+chimpOnly</code></pre>
 <pre><code>[1] 682</code></pre>
 <p>Of the 42318 we see that 638 have the pattern of interest. We choose 3076 of them and 19 come out. Look to see if it is more than expected by change</p>
 <p>phyper(success in sample, sucesss in possible, failure possible, sample size)</p>
-<pre class="r"><code>42318-638</code></pre>
-<pre><code>[1] 41680</code></pre>
+<pre class="r"><code>x= 19
+m= 638
+n=41680
+k=3076
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 19</code></pre>
 <pre class="r"><code>phyper(19,638, 41680 , 3076,lower.tail=F)</code></pre>
 <pre><code>[1] 0.9999979</code></pre>
 <p>No significant enrichment for the pattern.</p>
 <p>Plot dPAU by presence and absense:</p>
 <pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title=&quot;Human upregualted PAS by presence of Signal&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> Test with wilcoxan test:</p>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/838da9ba6d3ca6ea1f2a42821c15e65f5abb795a/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" target="_blank">838da9b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Human upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Human Signal Site Detected&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxon, p=0.73&quot;,x=.8,y=6)</code></pre>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /> Test with wilcoxan test:</p>
 <p>There is a shift.</p>
 <pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;)</code></pre>
 <p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/838da9ba6d3ca6ea1f2a42821c15e65f5abb795a/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-9-1.png" target="_blank">838da9b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Chimp Signal Site Detected&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxon, p=0.025&quot;,x=.8,y=7.5)</code></pre>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It does not look like presence of a signal within the upregulated matters.</p>
 <p>Overall it does not look like presense of a signal site or not can explain the differences.</p>
 <br>
@@ -1217,9 +1347,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1   workflowr_1.5.0
+ [1] forcats_0.3.0      stringr_1.3.1      dplyr_0.8.0.1     
+ [4] purrr_0.3.2        readr_1.3.1        tidyr_0.8.3       
+ [7] tibble_2.1.1       tidyverse_1.2.1    ggpubr_0.2        
+[10] magrittr_1.5       ggplot2_3.1.1      RColorBrewer_1.1-2
+[13] workflowr_1.5.0   
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
