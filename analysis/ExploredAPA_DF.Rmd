@@ -151,7 +151,68 @@ NucReswPhy_meta_group=NucReswPhy_meta %>% group_by(loc,SigPAU2) %>% summarise(n=
 NucReswPhy_meta_group
 ```
 
+Compare this to the genes that are expressed for this I will need to make a bedfile with the genes. I will pull them in as well as the gene annotation:  
 
+```{r}
+
+DAPAGeneSig=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", stringsAsFactors = F, header = T) 
+
+DAPAGene=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", stringsAsFactors = F, header = T) %>% dplyr::select(gene) %>% unique() %>% mutate(Sig=ifelse(gene %in% DAPAGeneSig$gene,"Yes","No"))
+```
+To be safe ill use the longest transcripts from table browser refseq.  
+
+This will be easiest in a python dictionary.  
+```{bash,eval=F}
+python parseHg38.py
+sort -k1,1 -k2,2n ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed.bed > ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed_sort.bed
+```
+
+```{r}
+genes=read.table("../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed_sort.bed", col.names = c("chr", "start", "end","name","score","strand"),stringsAsFactors = F) %>% filter(name %in% DAPAGene$gene ) %>% rename("gene"=name)
+genesWithSig= genes %>% inner_join(DAPAGene, by="gene")
+write.table(genes, "../data/PhyloP/NuclearSigGenes.bed", col.names = F, row.names = F, quote=F, sep="\t")
+
+```
+
+Get the mean phyloP scores.  
+
+```{bash,eval=F}
+ python extractPhyloRegGene.py 
+```
+
+```{r}
+phyloresG=read.table("../data/PhyloP/PAS_phyloP_genes.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na()
+GenesPhy=genesWithSig %>% inner_join(phyloresG, by=c("chr","start","end"))
+```
+
+I lose 2237 from NAs in the values. 
+
+```{r}
+ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2")
+
+
+ggplot(GenesPhy,aes(y=phyloP, x=Sig,fill=Sig)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2")
+
+```
+These are also genes with a shift. See if more likely to have - value.  
+
+```{r}
+x=nrow(GenesPhy %>% filter(Sig=="Yes", phyloP<0))
+m= nrow(GenesPhy %>% filter(phyloP<0))
+n=nrow(GenesPhy %>% filter(phyloP>=0))
+k=nrow(GenesPhy %>% filter(Sig=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+Enriched for genes with - scores.  
 
 DN (non synonymous) /DS (synonymous): from ensamble site  - ratio of substitution rate (quick and dirty way to look at evo), ration >1 usually evidence for positive selection. values are in ../data/DNDS/HumanChimp_DNDS.csv 
 
