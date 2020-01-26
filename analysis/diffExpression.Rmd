@@ -404,7 +404,7 @@ Code from Michelle Ward:
 x.pca <- pca_genes
 
 tech_factors <- metaData
-tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(-CollectionDate)
+tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(-CollectionDate,-percentOrtho)
 
 p_comps <- 1:6
 pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
