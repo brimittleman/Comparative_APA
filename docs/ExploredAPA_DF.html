@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree10d6e05599cd52e52dd01731f63567182ab7e22atargetblank10d6e05a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/10d6e05599cd52e52dd01731f63567182ab7e22a" target="_blank">10d6e05</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefea5899863b1d9a63c78c78cc3ad0d0b00c7dfbdtargetblankfea5899a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fea5899863b1d9a63c78c78cc3ad0d0b00c7dfbd" target="_blank">fea5899</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree10d6e05599cd52e52dd01731f63567182ab7e22atargetblank10d6e05a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefea5899863b1d9a63c78c78cc3ad0d0b00c7dfbdtargetblankfea5899a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1071,6 +1071,7 @@ Unstaged changes:
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1114,6 +1115,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/fea5899863b1d9a63c78c78cc3ad0d0b00c7dfbd/analysis/ExploredAPA_DF.Rmd" target="_blank">fea5899</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+<td>
+modify plots for CM
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/55cf50b49387cf012b53c68269b5661964106831/docs/ExploredAPA_DF.html" target="_blank">55cf50b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1455,7 +1490,7 @@ mkdir ../data/DNDS
 <pre class="r"><code>phylores=read.table(&quot;../data/PhyloP/PAS_phyloP.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP&quot;), stringsAsFactors = F) %&gt;% drop_na()
 NucReswPhy=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(phylores, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;))</code></pre>
 <p>40756 have results of the 40776 Plot:</p>
-<pre class="r"><code>ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;Signficant&quot;)</code></pre>
 <p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -1494,7 +1529,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;Signficant PAS&quot;) + labs(title=&quot;Mean PhyloP scores for tested PAS&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxan, p=1.4e -5&quot;,x=6,y=.75)</code></pre>
 <p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
@@ -1626,10 +1661,85 @@ write.table(genes, &quot;../data/PhyloP/NuclearSigGenes.bed&quot;, col.names = F
 <pre class="r"><code>phyloresG=read.table(&quot;../data/PhyloP/PAS_phyloP_genes.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP&quot;), stringsAsFactors = F) %&gt;% drop_na()
 GenesPhy=genesWithSig %&gt;% inner_join(phyloresG, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;))</code></pre>
 <p>I lose 2237 from NAs in the values.</p>
-<pre class="r"><code>ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5)+ scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;Gene with \nSignificant PAS&quot;) + labs(title=&quot;Mean PhyloP scores for tested Genes&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxan, p=2.6.4e -12&quot;,x=4,y=1.5)</code></pre>
 <p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/55cf50b49387cf012b53c68269b5661964106831/docs/figure/ExploredAPA_DF.Rmd/unnamed-chunk-22-1.png" target="_blank">55cf50b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(GenesPhy,aes(y=phyloP, x=Sig,fill=Sig)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /> These are also genes with a shift. See if more likely to have - value.</p>
+<p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-2">
+Past versions of unnamed-chunk-22-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/55cf50b49387cf012b53c68269b5661964106831/docs/figure/ExploredAPA_DF.Rmd/unnamed-chunk-22-2.png" target="_blank">55cf50b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>These are also genes with a shift. See if more likely to have - value.</p>
 <pre class="r"><code>x=nrow(GenesPhy %&gt;% filter(Sig==&quot;Yes&quot;, phyloP&lt;0))
 m= nrow(GenesPhy %&gt;% filter(phyloP&lt;0))
 n=nrow(GenesPhy %&gt;% filter(phyloP&gt;=0))
@@ -1671,7 +1781,45 @@ summary(NucResDNDS_fix$DNDSratio)</code></pre>
 2 yes           1827</code></pre>
 <p>Plot this.</p>
 <pre class="r"><code>ggplot(NucResDNDS_fix,aes(y=log10(DNDSratio+1), x=SigPASinGene, fill=SigPASinGene))+ geom_boxplot() + stat_compare_means( label.y.npc = &quot;middle&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;dAPA in Nuclear&quot;) + annotate(&quot;text&quot;, label=&quot;Yes=1827 \n No=5481&quot;, y=1.8,x=2)</code></pre>
-<p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /> I can ask if they are more likely to be above 1. I can do this with a hypergeo.</p>
+<p><img src="figure/ExploredAPA_DF.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/55cf50b49387cf012b53c68269b5661964106831/docs/figure/ExploredAPA_DF.Rmd/unnamed-chunk-27-1.png" target="_blank">55cf50b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>I can ask if they are more likely to be above 1. I can do this with a hypergeo.</p>
 <pre class="r"><code>x=nrow(NucResDNDS_fix %&gt;% filter(SigPASinGene==&quot;yes&quot;, DNDSratio&gt;=1))
 m= nrow(NucResDNDS_fix %&gt;% filter(DNDSratio&gt;=1))
 n=nrow(NucResDNDS_fix %&gt;% filter(DNDSratio&lt;1))
