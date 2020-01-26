@@ -168,6 +168,11 @@ nrow(Human_recLift)/originalH
 nrow(Chimp_recLift)/originalC
 ```
 
+Reciprocal lift: 
+
+
+
+
 
 96% reciprocally lifted over
 
@@ -199,7 +204,7 @@ I used 75% overlap for the observed in both. I had it report number of basepair 
 ```{r}
 OverlapBoth_Test=read.table("../data/cleanPeaks_lifted/PASregions_identifiedbothTEST.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F)
 
-ggplot(OverlapBoth_Test, aes(x=overlap)) + geom_histogram(bins=30) + scale_y_log10() + geom_vline(xintercept = 125)
+ggplot(OverlapBoth_Test, aes(x=overlap)) + geom_histogram(bins=30) + scale_y_log10() + geom_vline(xintercept = 125) + labs(title="Test for how many basepairs of 200 overlap", y="Number of Sites", x="Number of Overlaped bases")
 
 125/200
 ```
