@@ -20,6 +20,7 @@ In this analysis I will look at the overlap between DE genes and eQTLs identifie
 ```{r}
 explained=read.table("../data/Li_eqtls/explainedEgenes.txt",col.names = c("Gene.name"),stringsAsFactors = F)
 unexplained=read.table("../data/Li_eqtls/UnexplainedEgenes.txt",col.names = c("Gene.name"),stringsAsFactors = F)
+allEQTL= explained %>% full_join(unexplained)
 ```
 
 
@@ -109,4 +110,43 @@ ggplot(Expression_1000tests,aes(x=explainedOverlap)) + geom_histogram(stat="coun
  Unexplained
 ```{r}
 ggplot(Expression_1000tests,aes(x=unexplainedOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =nrow(DE_unexplained), col="red" ) +labs(x="Number of Overlaps", title="DE overlap with unexplained eGenes")+ annotate("text", x = 200, y = 30, label = paste("EmpPvalue=", EUnEx), col="red")
+```
+
+
+All eQTLs  
+
+allEQTL
+
+```{r}
+DE_all=DEgenes %>% inner_join(allEQTL, by="Gene.name")
+
+
+permuteGenesAll  <- function(InputGenes, nGenes, nTests){
+  #InputGenes=DEtestedgenes$Gene.name
+  #nGenes=nrow(DEgenes)
+  #nTests=10000
+  qtls=DE_all
+  qtlOverlap=c()
+  for (n in 1:nTests){
+    genesTest=sample(InputGenes, nGenes)
+    overlapqtl=intersect(genesTest, qtls$Gene.name)
+    qtlOverlap= c(qtlOverlap, length(overlapqtl))
+  }
+  DF=as.data.frame(cbind(qtlOverlap))
+  return(DF)
+}
+
+
+
+overlapAll=permuteGenesAll(DEtestedgenes$Gene.name, nrow(DEgenes),10000)
+
+actual=length(intersect(DEgenes$Gene.name,allEQTL$Gene.name ))
+
+empricalpval=overlapAll %>% filter(qtlOverlap >= actual) %>% nrow() / 10000
+```
+
+
+
+```{r}
+ggplot(overlapAll,aes(x=qtlOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =actual, col="red" ) +labs(x="Number of Overlaps", title="eGene with eQTL Genes")+ annotate("text", x = 525, y = 400, label = "Actual Overlap", col="red")
 ```
