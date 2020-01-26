@@ -158,6 +158,17 @@ effectsize$logef=as.numeric(as.character(effectsize$logef))
 plot(sort(effectsize$deltaPAU),main="Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
 ```
 
+Effect size >.2 color:  
+
+```{r}
+effectsize_col= effectsize %>% arrange(deltaPAU) %>%  mutate(diffuse=ifelse(abs(deltaPAU)>=.2,"Yes", "No"))
+effectsize_col$color <- ifelse(effectsize_col$diffuse=="Yes", "red", "black")
+
+plot(sort(effectsize_col$deltaPAU),main="Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsize_col$color, 0.6))
+legend("topleft", legend=c("abs(DPAU) > .2, (n=3103)", "Not differentially used (n=37673)"), col=c("red", "black"), pch=16:16, cex=0.8)
+```
+
+
 Are those discovered used more in chimp those discovered in chimp?
 
 ```{r}
