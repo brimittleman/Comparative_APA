@@ -246,3 +246,11 @@ phyper(x,m,n,k,lower.tail=F)
 
 I can make a table for this- I'll have the set, the actual, the expected, the pvalue. I can also add these numbers onto the figure above.  
 
+
+Splicing results:  
+
+```{r}
+listInput_Splice <- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DT=Translation$Gene, DP=Protein$gene.symbol)
+upset(fromList(listInput_Splice), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+
