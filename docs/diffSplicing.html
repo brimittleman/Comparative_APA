@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-12-18
+<strong>Last updated:</strong> 2020-01-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -435,10 +435,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2targetblankac06540a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2" target="_blank">ac06540</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8fc483e9863cf2143a8eeccff9993beb507cf81btargetblank8fc483ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8fc483e9863cf2143a8eeccff9993beb507cf81b" target="_blank">8fc483e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeac06540d43d8d1ff0f9cdb02a55d71e73b15d0a2targetblankac06540a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8fc483e9863cf2143a8eeccff9993beb507cf81btargetblank8fc483ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,12 +451,16 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
 
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/CrossChimpThreePrime.Rmd
+    Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/PhenotypeOverlap10.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -466,19 +470,34 @@ Untracked files:
     Untracked:  code/._ConvertJunc2Bed.sh
     Untracked:  code/._CountNucleotides.py
     Untracked:  code/._CrossMapChimpRNA.sh
+    Untracked:  code/._CrossMapThreeprime.sh
     Untracked:  code/._DiffSplice.sh
     Untracked:  code/._DiffSplicePlots.sh
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._FindIntronForDomPAS.sh
+    Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
     Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._Lift5perPAS.sh
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._PAS_ATTAAA.sh
+    Untracked:  code/._PAS_ATTAAA_df.sh
+    Untracked:  code/._PAS_seqExpanded.sh
+    Untracked:  code/._PASsequences.sh
+    Untracked:  code/._PASsequences_DF.sh
+    Untracked:  code/._PlotNuclearUsagebySpecies.R
+    Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/._QuantMergedClusters.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
+    Untracked:  code/._RunNegMCMediation.sh
+    Untracked:  code/._RunNegMCMediationDF.sh
+    Untracked:  code/._RunPosMCMediationDF.err
+    Untracked:  code/._RunPosMCMediationDF.sh
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -491,6 +510,7 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
     Untracked:  code/._cluster2bed.py
@@ -501,6 +521,8 @@ Untracked files:
     Untracked:  code/._converBam2Junc.sh
     Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._extractPhyloReg.py
+    Untracked:  code/._extractPhyloRegGene.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
@@ -518,15 +540,23 @@ Untracked files:
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
     Untracked:  code/._liftedchimpJunc2human.sh
+    Untracked:  code/._makeNuclearDapaplots.sh
+    Untracked:  code/._makeNuclearDapaplots_DF.sh
     Untracked:  code/._makeSamplyGroupsHuman_TvN.py
     Untracked:  code/._mapRNAseqhg19.sh
     Untracked:  code/._mapRNAseqhg19_newPipeline.sh
     Untracked:  code/._maphg19.sh
     Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mediation_test.R
+    Untracked:  code/._mergeChimp3prime_inhg38.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
+    Untracked:  code/._negativeMediation_montecarlo.R
+    Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._parseHg38.py
+    Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
     Untracked:  code/._preparePAS4lift.py
@@ -544,7 +574,9 @@ Untracked files:
     Untracked:  code/._runCountNucleotides.sh
     Untracked:  code/._runFilterNumChroms.sh
     Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDiffIso_DF.sh
     Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._runTotalDiffIso.sh
     Untracked:  code/._run_chimpverifybam.sh
     Untracked:  code/._run_verifyBam.sh
     Untracked:  code/._snakemake.batch
@@ -564,6 +596,9 @@ Untracked files:
     Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
     Untracked:  code/._submit-snakemakefiltPAS-human.sh
     Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC_DF.py
+    Untracked:  code/._subset_diffisopheno_Total_HvC.py
+    Untracked:  code/._threeprimeOrthoFC.sh
     Untracked:  code/._transcriptDTplotsNuclear.sh
     Untracked:  code/._verifyBam4973.sh
     Untracked:  code/._verifyBam4973inHuman.sh
@@ -580,6 +615,9 @@ Untracked files:
     Untracked:  code/ConvertJunc2Bed.sh
     Untracked:  code/CountNucleotides.py
     Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossMapThreeprime.sh
+    Untracked:  code/CrossmapChimp3prime.err
+    Untracked:  code/CrossmapChimp3prime.out
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DiffSplice.err
@@ -595,6 +633,10 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindIntronForDomPAS.err
+    Untracked:  code/FindIntronForDomPAS.out
+    Untracked:  code/FindIntronForDomPAS.sh
+    Untracked:  code/FindIntronForDomPAS_DF.sh
     Untracked:  code/GencodeDiffSplice.err
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
@@ -605,6 +647,9 @@ Untracked files:
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
     Untracked:  code/JunctionLiftFinalChimp.out
+    Untracked:  code/Lift5perPAS.sh
+    Untracked:  code/Lift5perPASbed.err
+    Untracked:  code/Lift5perPASbed.out
     Untracked:  code/LiftClustersFirst.err
     Untracked:  code/LiftClustersFirst.out
     Untracked:  code/LiftClustersFirst_remove.err
@@ -626,6 +671,23 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/PAS_ATTAAA.err
+    Untracked:  code/PAS_ATTAAA.out
+    Untracked:  code/PAS_ATTAAA.sh
+    Untracked:  code/PAS_ATTAAADF.err
+    Untracked:  code/PAS_ATTAAADF.out
+    Untracked:  code/PAS_ATTAAA_df.sh
+    Untracked:  code/PAS_seqExpanded.sh
+    Untracked:  code/PAS_sequence.err
+    Untracked:  code/PAS_sequence.out
+    Untracked:  code/PAS_sequenceDF.err
+    Untracked:  code/PAS_sequenceDF.out
+    Untracked:  code/PASexpanded_sequenceDF.err
+    Untracked:  code/PASexpanded_sequenceDF.out
+    Untracked:  code/PASsequences.sh
+    Untracked:  code/PASsequences_DF.sh
+    Untracked:  code/PlotNuclearUsagebySpecies.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -636,6 +698,18 @@ Untracked files:
     Untracked:  code/RunFixCluster.err
     Untracked:  code/RunFixCluster.out
     Untracked:  code/RunFixLeafCluster.sh
+    Untracked:  code/RunNegMCMediation.err
+    Untracked:  code/RunNegMCMediation.sh
+    Untracked:  code/RunNegMCMediationDF.err
+    Untracked:  code/RunNegMCMediationDF.out
+    Untracked:  code/RunNegMCMediationDF.sh
+    Untracked:  code/RunNegMCMediationr.out
+    Untracked:  code/RunPosMCMediation.err
+    Untracked:  code/RunPosMCMediation.sh
+    Untracked:  code/RunPosMCMediationDF.err
+    Untracked:  code/RunPosMCMediationDF.out
+    Untracked:  code/RunPosMCMediationDF.sh
+    Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
@@ -672,6 +746,7 @@ Untracked files:
     Untracked:  code/chimpChromprder.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chooseSignalSite.py
     Untracked:  code/chromOrder.err
     Untracked:  code/chromOrder.out
     Untracked:  code/classifyLeafviz.err
@@ -691,6 +766,8 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhyloReg.py
+    Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
@@ -723,6 +800,8 @@ Untracked files:
     Untracked:  code/humanFiles
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
+    Untracked:  code/intersectAnnoExt.err
+    Untracked:  code/intersectAnnoExt.out
     Untracked:  code/intersectLiftedPAS.sh
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
@@ -732,6 +811,12 @@ Untracked files:
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeFileID.py
+    Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearDapaplots_DF.sh
+    Untracked:  code/makeNuclearPlots.err
+    Untracked:  code/makeNuclearPlots.out
+    Untracked:  code/makeNuclearPlotsDF.err
+    Untracked:  code/makeNuclearPlotsDF.out
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
@@ -745,21 +830,32 @@ Untracked files:
     Untracked:  code/maphg19_sub.err
     Untracked:  code/maphg19_sub.out
     Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/mediation_test.R
     Untracked:  code/merge.err
+    Untracked:  code/mergeChimp3prime_inhg38.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
+    Untracked:  code/mergeandsort_ChimpinHuman.err
+    Untracked:  code/mergeandsort_ChimpinHuman.out
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
     Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
+    Untracked:  code/negativeMediation_montecarlo.R
+    Untracked:  code/negativeMediation_montecarloDF.R
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
     Untracked:  code/overlapapaQTLPAS.sh
+    Untracked:  code/overlapapaQTLPAS_extended.sh
+    Untracked:  code/overlapapaQTLPAS_samples.sh
+    Untracked:  code/parseHg38.py
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
+    Untracked:  code/postiveMediation_montecarlo.R
+    Untracked:  code/postiveMediation_montecarlo_DF.R
     Untracked:  code/prepareAnnoLeafviz.err
     Untracked:  code/prepareAnnoLeafviz.out
     Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
@@ -795,7 +891,9 @@ Untracked files:
     Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/runTotalDiffIso.sh
     Untracked:  code/run_Chimpleafcutter_ds.err
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Chimpverifybam.err
@@ -804,6 +902,10 @@ Untracked files:
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
     Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_dsDF.err
+    Untracked:  code/run_Nuclearleafcutter_dsDF.out
+    Untracked:  code/run_Totalleafcutter_ds.err
+    Untracked:  code/run_Totalleafcutter_ds.out
     Untracked:  code/run_chimpverifybam.sh
     Untracked:  code/run_verifyBam.sh
     Untracked:  code/run_verifybam.err
@@ -844,7 +946,12 @@ Untracked files:
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC_DF.py
+    Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
+    Untracked:  code/threeprimeOrthoFC.out
+    Untracked:  code/threeprimeOrthoFC.sh
+    Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
     Untracked:  code/verifyBam4973.sh
@@ -879,6 +986,7 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_stranded.txt
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
     Untracked:  data/._RNASEQ_metadata_stranded.xlsx
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
@@ -890,37 +998,63 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Nuclear_DF/
+    Untracked:  data/DiffIso_Total/
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DominantPAS/
+    Untracked:  data/DominantPAS_DF/
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/Khan_prot/
+    Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
     Untracked:  data/MapPantro6_meta.xlsx
     Untracked:  data/MapStats/
+    Untracked:  data/NormalizedClusters/
     Untracked:  data/NuclearHvC/
+    Untracked:  data/NuclearHvC_DF/
     Untracked:  data/OppositeSpeciesMap.txt
     Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/OverlapBenchmark/
+    Untracked:  data/PAS/
+    Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
+    Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/PhyloP/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
     Untracked:  data/RNASEQ_metadata_stranded.txt
+    Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/SignalSites/
+    Untracked:  data/SignalSites_doublefilter/
+    Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/Wang_ribo/
+    Untracked:  data/apaQTLGenes/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/files4viz_nuclear/
+    Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
+    Untracked:  data/mediation/
+    Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
@@ -934,11 +1068,17 @@ Untracked files:
     Untracked:  projectNotes.Rmd
 
 Unstaged changes:
+    Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/annotationInfo.Rmd
-    Modified:   analysis/diffExpression.Rmd
+    Modified:   analysis/comp2apaQTLPAS.Rmd
+    Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dAPAandapaQTL_DF.Rmd
+    Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/speciesSpecific_DF.Rmd
 
 </code></pre>
 <p>
@@ -977,6 +1117,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9d57abaa540a44f2aef5289389524159946c2567/docs/diffSplicing.html" target="_blank">9d57aba</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1410,12 +1567,12 @@ add diff expression and diff splicing
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1537,6 +1694,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d57abaa540a44f2aef5289389524159946c2567/docs/figure/diffSplicing.Rmd/unnamed-chunk-9-1.png" target="_blank">9d57aba</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-9-1.png" target="_blank">5ac753a</a>
 </td>
 <td>
@@ -1552,6 +1720,43 @@ brimittleman
 </div>
 <pre class="r"><code>ggplot(liftStatsSpread, aes(x=line, fill=Species, y=PercSame)) + geom_bar(stat=&quot;identity&quot;)+geom_text(aes(label=round(PercSame,3)), vjust=1.6, color=&quot;black&quot;) + labs(title=&quot;Proportion of Junctions Passing reciprocal liftover&quot;)</code></pre>
 <p><img src="figure/diffSplicing.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
+Past versions of unnamed-chunk-9-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d57abaa540a44f2aef5289389524159946c2567/docs/figure/diffSplicing.Rmd/unnamed-chunk-9-2.png" target="_blank">9d57aba</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Lift the passing chimps to human:</p>
 <pre class="bash"><code>sbatch LiftFinalChimpJunc2Human.sh</code></pre>
 <p>I need to write a script that fixes the lifted files. I need to make column 9 255,0,0 and remove the commas from the last 2 columns.</p>
@@ -1625,6 +1830,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d57abaa540a44f2aef5289389524159946c2567/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">9d57aba</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-20-1.png" target="_blank">5ac753a</a>
 </td>
 <td>
@@ -1685,6 +1901,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d57abaa540a44f2aef5289389524159946c2567/docs/figure/diffSplicing.Rmd/unnamed-chunk-21-1.png" target="_blank">9d57aba</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2019-12-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5ac753a770a357182e36b05da1c8b93229c3fd76/docs/figure/diffSplicing.Rmd/unnamed-chunk-21-1.png" target="_blank">5ac753a</a>
