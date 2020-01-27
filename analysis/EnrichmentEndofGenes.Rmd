@@ -38,3 +38,19 @@ sbatch transcriptDTplotsTotal.sh
 ```
 
 
+Do this for expression as well.
+
+First I will merge RNA and create BW for the expression RNA seq data.  
+
+```{bash,eval=F}
+mkdir ../Human/data/RNAseq/mergeBam
+mkdir ../Human/data/RNAseq/mergeBW
+
+mkdir ../Chimp/data/RNAseq/mergeBam
+mkdir ../Chimp/data/RNAseq/mergeBW
+
+sbatch mergeandBWRNAseq.sh
+
+sbatch RNATranscriptDTplot.sh  
+```
+
