@@ -1,0 +1,186 @@
+---
+title: "Explore relationship between APA and expression in significant overlap genes"
+author: "Briana Mittleman"
+date: "1/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will complete the same analysis I did in the other explore APA and expression analysis but I will subset the overlapping gene. For these I know that there are differences in both phenotypes.
+
+Genes with overlap:  
+
+```{r}
+GenesUse=read.table("../data/DiffIso_Nuclear_DF/GeneswithDEanddAPA.txt", header = T, stringsAsFactors = F)
+```
+
+
+
+
+In this analysis I will do as much as I can do compare APA and expression. I will look at the genes we have data for both. 
+```{r}
+library(tidyverse)
+library("gplots")
+library("scales")
+library("RColorBrewer")
+library(ggpubr)
+```
+
+I will start with a full correlation matrix using the counts for the top used PAS (mean human and chimp).    
+
+
+```{r}
+TopUsedPAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header=T,stringsAsFactors = F) %>% mutate(MeanUsage=(Chimp+Human)/2) %>% group_by(gene) %>% arrange(desc(MeanUsage)) %>% slice(1) %>% ungroup() %>% dplyr::select(PAS, chr, start, end) %>% rename("Chr"= chr,"Start"= start, "End"= end)
+```
+
+Filter these in the counts file:  
+
+```{r}
+
+#Both:human74:chr1:944201:944401:+:NOC2L_utr3
+
+
+HumanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc",stringsAsFactors = F,header = T) %>% inner_join(TopUsedPAS,by=c("Chr", "Start", "End")) %>% separate(Geneid, into=c("d", "pas", "chr","start","end","strand", "geneID"), sep=":") %>% separate(geneID,into=c("gene","loc"),sep="_") %>% dplyr::select(PAS, gene, contains("_N"))
+
+ChimpCounts=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc",stringsAsFactors = F,header = T) %>% separate(Geneid, into=c("d", "PAS", "chr","start","end","strand", "geneID"), sep=":") %>% separate(geneID,into=c("gene","loc"),sep="_") %>% inner_join(TopUsedPAS,by=c("PAS")) %>% dplyr::select(PAS, gene, contains("_N"))
+
+
+AllCounts=HumanCounts %>% inner_join(ChimpCounts, by=c("gene", "PAS")) %>% dplyr::select(-PAS)
+
+
+colnames(AllCounts)=paste("APA" ,colnames(AllCounts), sep="_")
+
+
+AllCounts=AllCounts %>% rename("gene"= APA_gene) %>% filter(gene %in% GenesUse$gene)
+```
+
+
+Expression counts:  
+
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+HumanRNA=read.table("../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+
+ChimpRNA=read.table("../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc", header = T, stringsAsFactors = F) %>% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+
+
+RNACounts=HumanRNA %>% inner_join(ChimpRNA,by="Geneid") %>% rename("Gene_stable_ID"=Geneid) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"= Gene.name) %>% group_by(gene) %>% slice(1) %>% ungroup()
+
+
+colnames(RNACounts)=paste("RNA" ,colnames(RNACounts), sep="_")
+
+RNACounts=RNACounts %>% rename("gene"= RNA_gene) %>% filter(gene %in% GenesUse$gene)
+```
+
+
+Add all together:  
+
+```{r}
+BothPhenoCount=  RNACounts %>% inner_join(AllCounts, by="gene")%>% column_to_rownames(var="gene")
+
+Names=colnames(BothPhenoCount)
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+Species=c(rep("Human",6), rep("Chimp",6),rep("Human",6),rep("Chimp",6))
+Meta=as.data.frame(cbind(Names,Species )) %>% mutate(Pheno=ifelse(grepl("RNA",Names),"RNA", "APA" )) 
+
+cors <- cor(BothPhenoCount, method="spearman", use="pairwise.complete.obs")
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none',ColSideColors=pal[as.integer(as.factor(Meta$Species))], RowSideColors=pal[as.integer(as.factor(Meta$Pheno))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+
+
+Pvalues:  
+
+```{r}
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name)%>% filter(gene %in% GenesUse$gene)
+
+APA=read.table(c("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt"),header = T,stringsAsFactors = F) 
+```
+
+
+```{r}
+GenesWithapa=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F) %>% filter(gene %in% GenesUse$gene)
+
+DEandAPA= DE %>% inner_join(APA, by="gene") %>% mutate(HasDPAU=ifelse(gene %in% GenesWithapa$gene, "Yes","No"))
+```
+
+
+
+Correlation between effect sizes:  
+
+```{r}
+ggplot(DEandAPA,aes(x=logFC, y=logef)) + geom_point() + labs(x="DE log Effect size", y="APA effect size",title="Relationship between effect sizes") + geom_density2d()
+
+ggplot(DEandAPA,aes(x=abs(logFC), y=abs(logef))) + geom_point()+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.27 , R2= 0.03",y=40,x=5)
+
+summary(lm(abs(DEandAPA$logef)~abs(DEandAPA$logFC)))
+```
+
+Subset the PAS in the top used:  
+
+
+```{r}
+TopUsedPASlow= TopUsedPAS %>% rename("chr"=Chr, "start"=Start, "end"=End)
+DEandAPA_filt= DEandAPA %>% semi_join(TopUsedPASlow,by=c("chr","start","end"))
+
+
+
+```
+
+
+
+Correlation between effect sizes:  
+
+```{r}
+ggplot(DEandAPA_filt,aes(x=logFC, y=logef)) + geom_point() + labs(x="DE log Effect size", y="APA effect size", title="Relationship between effect sizes \n most used PAS") 
+
+ggplot(DEandAPA_filt,aes(x=abs(logFC), y=abs(logef))) + geom_point( )+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes \n most used PAS") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.28 , R2= 0.03",y=20,x=5)
+
+
+summary(lm(abs(DEandAPA_filt$logef)~abs(DEandAPA_filt$logFC)))
+```
+
+
+Number of significant PAS and de  
+
+```{r}
+DEandAPA_sig= DEandAPA %>% filter(SigPAU2 == "Yes") %>% group_by(gene) %>% summarise(NsigPAS=n())
+
+DEandAPA_sigWithDE= DE %>% inner_join(DEandAPA_sig,by="gene" )
+
+
+summary(lm(data=DEandAPA_sigWithDE, abs(logFC)~NsigPAS))
+ggplot(DEandAPA_sigWithDE, aes(x=NsigPAS, y=abs(logFC))) +geom_point() + geom_smooth(method = "lm") + annotate("text",label="beta=.2, r2=0.017, pvalue=0.0002248",x=4, y=6) + labs(x="Number of differentially used PAS 20%",title="Relationship between DE effect size and dAPA PAS")
+
+cor( DEandAPA_sigWithDE$NsigPAS, DEandAPA_sigWithDE$logFC, method = "spearman")
+cor(DEandAPA_sigWithDE$B, DEandAPA_sigWithDE$NsigPAS, method = "spearman")
+
+```
+
+
+Maybe use the variance in effect sizes for dAPA:  
+
+```{r}
+APA_var= APA %>% group_by(gene) %>% summarise(VarLogef=var(logef), VarDeltaPAU=var(deltaPAU))
+
+APA_varDE= APA_var %>% inner_join(DE, by="gene")
+```
+
+
+```{r}
+
+cor(APA_varDE$VarDeltaPAU, APA_varDE$B, method = "spearman")
+
+cor(APA_varDE$VarDeltaPAU, APA_varDE$logFC, method = "spearman")
+
+cor(APA_varDE$VarLogef, APA_varDE$B, method = "spearman")
+
+cor(APA_varDE$VarLogef, APA_varDE$logFC, method = "spearman")
+
+```
+This does not help other than for the varlogeffect size for APA and the DE beta value.  
