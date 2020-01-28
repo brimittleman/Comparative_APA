@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-25
+<strong>Last updated:</strong> 2020-01-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0bdae143ce9e57ca53b5e40b116eb26499380426targetblank0bdae14a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/0bdae143ce9e57ca53b5e40b116eb26499380426" target="_blank">0bdae14</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree86aabf27b3f3489bf4342ea9585753cedf3b9e31targetblank86aabf2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/86aabf27b3f3489bf4342ea9585753cedf3b9e31" target="_blank">86aabf2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0bdae143ce9e57ca53b5e40b116eb26499380426targetblank0bdae14a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree86aabf27b3f3489bf4342ea9585753cedf3b9e31targetblank86aabf2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -291,6 +291,7 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
+    Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
@@ -298,6 +299,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/PhenotypeOverlap10.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
@@ -329,6 +331,7 @@ Untracked files:
     Untracked:  code/._PlotNuclearUsagebySpecies.R
     Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
     Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._RNATranscriptDTplot.sh
     Untracked:  code/._ReverseLiftFilter.R
     Untracked:  code/._RunFixLeafCluster.sh
     Untracked:  code/._RunNegMCMediation.sh
@@ -359,6 +362,7 @@ Untracked files:
     Untracked:  code/._converBam2Junc_removeBad.sh
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._extractPhyloReg.py
+    Untracked:  code/._extractPhyloRegGene.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
@@ -385,12 +389,14 @@ Untracked files:
     Untracked:  code/._maphg19_subjunc.sh
     Untracked:  code/._mediation_test.R
     Untracked:  code/._mergeChimp3prime_inhg38.sh
+    Untracked:  code/._mergeandBWRNAseq.sh
     Untracked:  code/._mergedBam2BW.sh
     Untracked:  code/._nameClusters.py
     Untracked:  code/._negativeMediation_montecarlo.R
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
     Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
     Untracked:  code/._prepareLeafvizAnno.sh
@@ -527,6 +533,9 @@ Untracked files:
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
     Untracked:  code/QuantMergedClusters.sh
+    Untracked:  code/RNATranscriptDTplot.err
+    Untracked:  code/RNATranscriptDTplot.out
+    Untracked:  code/RNATranscriptDTplot.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -602,6 +611,7 @@ Untracked files:
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhyloReg.py
+    Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
@@ -668,11 +678,14 @@ Untracked files:
     Untracked:  code/merge.err
     Untracked:  code/mergeChimp3prime_inhg38.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
+    Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
+    Untracked:  code/mergedbamRNAand2bw.err
+    Untracked:  code/mergedbamRNAand2bw.out
     Untracked:  code/nameClusters.py
     Untracked:  code/namePeaks.py
     Untracked:  code/negativeMediation_montecarlo.R
@@ -685,6 +698,7 @@ Untracked files:
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
+    Untracked:  code/parseHg38.py
     Untracked:  code/peak2PAS.py
     Untracked:  code/pheno2countonly.R
     Untracked:  code/postiveMediation_montecarlo.R
@@ -897,6 +911,7 @@ Untracked files:
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
+    Untracked:  output/._.DS_Store
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
 
@@ -906,10 +921,13 @@ Unstaged changes:
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/speciesSpecific_DF.Rmd
+    Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
 <p>
@@ -948,6 +966,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/86aabf27b3f3489bf4342ea9585753cedf3b9e31/analysis/index.Rmd" target="_blank">86aabf2</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-28
+</td>
+<td>
+add expression overlap with APA exploration
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b1b07d51e1e9512fbd668da46dc9dacd51c9f3ae/docs/index.html" target="_blank">b1b07d5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -3032,12 +3084,10 @@ Start workflowr project.
 <li><a href="signalsites_doublefilter.html">Top 2 signal sites double filter</a></li>
 </ul></li>
 <li><p><a href="dominantPAS.html">Dominant PAS in Nuclear Fraction</a></p>
-<pre><code>  * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  </code></pre>
 <ul>
-<li><p><a href="DominantPASintronLoc.html">Intronic location for dominant PAS</a></p>
-<ul>
-<li><a href="DominantPASintronLoc_DF.html">Intronic location for dominant PAS double filter</a></li>
-</ul></li>
+<li><p><a href="dominantPAS_DF.html">Dominant PAS in Nuclear Fraction double filter</a></p></li>
+<li><p><a href="DominantPASintronLoc.html">Intronic location for dominant PAS</a></p></li>
+<li><p><a href="DominantPASintronLoc_DF.html">Intronic location for dominant PAS double filter</a></p></li>
 </ul></li>
 <li><p><a href="speciesSpecific.html">Species Specificity in PAS</a></p>
 <ul>
@@ -3116,7 +3166,9 @@ Start workflowr project.
 </ul>
 <p>From here on, I did everything double filtered:</p>
 <ul>
-<li><a href="mediation_prot.html">Mediation with protein</a></li>
+<li><p><a href="mediation_prot.html">Mediation with protein</a></p></li>
+<li><p><a href="ExploreAPAexpression.html">Explore more about APA expression relationship</a></p></li>
+<li><p><a href="ExploreAPAexpressionOverlap.html">Explore more about APA expression relationship with overlaping significant genes</a></p></li>
 </ul>
 </div>
 <div id="extra-qc-and-analysis" class="section level2">
