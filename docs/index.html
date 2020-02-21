@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-01-28
+<strong>Last updated:</strong> 2020-02-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -252,7 +252,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.5.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree86aabf27b3f3489bf4342ea9585753cedf3b9e31targetblank86aabf2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/86aabf27b3f3489bf4342ea9585753cedf3b9e31" target="_blank">86aabf2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2e8ed44a32216fa67ac83880a5e30b7bf6d5c267targetblank2e8ed44a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2e8ed44a32216fa67ac83880a5e30b7bf6d5c267" target="_blank">2e8ed44</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree86aabf27b3f3489bf4342ea9585753cedf3b9e31targetblank86aabf2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2e8ed44a32216fa67ac83880a5e30b7bf6d5c267targetblank2e8ed44a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -342,6 +342,8 @@ Untracked files:
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
     Untracked:  code/._SortIndexBadSamples.sh
+    Untracked:  code/._assignPeak2Intronicregion
+    Untracked:  code/._assignPeak2Intronicregion.sh
     Untracked:  code/._bed215upbed.py
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
@@ -509,6 +511,7 @@ Untracked files:
     Untracked:  code/MapBadSamples.sh
     Untracked:  code/MapStats.err
     Untracked:  code/MapStats.out
+    Untracked:  code/MaxEntCode/
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
@@ -569,6 +572,9 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/assignPeak2Intronicregion.err
+    Untracked:  code/assignPeak2Intronicregion.out
+    Untracked:  code/assignPeak2Intronicregion.sh
     Untracked:  code/bam2junc.err
     Untracked:  code/bam2junc.out
     Untracked:  code/bam2junc_remove.err
@@ -887,6 +893,7 @@ Untracked files:
     Untracked:  data/RNASEQ_metadata_stranded.xlsx
     Untracked:  data/SignalSites/
     Untracked:  data/SignalSites_doublefilter/
+    Untracked:  data/SpliceSite/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
     Untracked:  data/TwoBadSampleAnalysis/
@@ -971,6 +978,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2e8ed44a32216fa67ac83880a5e30b7bf6d5c267/analysis/index.Rmd" target="_blank">2e8ed44</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-21
+</td>
+<td>
+add Splice site strength
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/index.html" target="_blank">f02217e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-01-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/86aabf27b3f3489bf4342ea9585753cedf3b9e31/analysis/index.Rmd" target="_blank">86aabf2</a>
 </td>
 <td>
@@ -1011,7 +1052,7 @@ html
 brimittleman
 </td>
 <td>
-2020-01-24
+2020-01-23
 </td>
 <td>
 Build site.
@@ -1028,7 +1069,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2020-01-24
+2020-01-23
 </td>
 <td>
 start the prot mediation cant do diff indiv
@@ -1215,7 +1256,7 @@ html
 brimittleman
 </td>
 <td>
-2020-01-22
+2020-01-21
 </td>
 <td>
 Build site.
@@ -1232,7 +1273,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2020-01-22
+2020-01-21
 </td>
 <td>
 redo differential analysis with double filt
@@ -1249,7 +1290,7 @@ html
 brimittleman
 </td>
 <td>
-2020-01-22
+2020-01-21
 </td>
 <td>
 Build site.
@@ -1266,7 +1307,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2020-01-22
+2020-01-21
 </td>
 <td>
 nuclear diff filtered
@@ -2354,7 +2395,7 @@ html
 brimittleman
 </td>
 <td>
-2019-11-24
+2019-11-23
 </td>
 <td>
 Build site.
@@ -2371,7 +2412,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2019-11-24
+2019-11-23
 </td>
 <td>
 add multimap stat graphs
@@ -2456,7 +2497,7 @@ html
 brimittleman
 </td>
 <td>
-2019-11-20
+2019-11-19
 </td>
 <td>
 Build site.
@@ -2473,7 +2514,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2019-11-20
+2019-11-19
 </td>
 <td>
 add extra QC anaylsis
@@ -2490,7 +2531,7 @@ html
 brimittleman
 </td>
 <td>
-2019-11-20
+2019-11-19
 </td>
 <td>
 Build site.
@@ -2507,7 +2548,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2019-11-20
+2019-11-19
 </td>
 <td>
 add remove 2 analysis
@@ -2864,7 +2905,7 @@ html
 brimittleman
 </td>
 <td>
-2019-10-02
+2019-10-01
 </td>
 <td>
 Build site.
@@ -2881,7 +2922,7 @@ Rmd
 brimittleman
 </td>
 <td>
-2019-10-02
+2019-10-01
 </td>
 <td>
 add analysis for liftover
@@ -3148,8 +3189,8 @@ Start workflowr project.
 <ul>
 <li><a href="correlationPhenos_DF.html">Effect size correlations double filter</a></li>
 </ul></li>
+<li><p><a href="SpliceSiteStrength.html">Compare species 5’ splice site strength</a></p></li>
 </ul>
-<p>From here on, I did everything double filtered:</p>
 </div>
 <div id="mediation" class="section level2">
 <h2>Mediation</h2>
