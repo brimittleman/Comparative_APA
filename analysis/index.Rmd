@@ -119,8 +119,8 @@ From here on, I did everything double filtered:
 * [Effect size correlations](correlationPhenos.html)  
 
     * [Effect size correlations double filter](correlationPhenos_DF.html)  
-    
-From here on, I did everything double filtered:  
+
+* [Compare species 5' splice site strength](SpliceSiteStrength.html)
 
 
 
@@ -143,6 +143,8 @@ From here on, I did everything double filtered:
 * [Explore more about APA expression relationship](ExploreAPAexpression.html)
 
 * [Explore more about APA expression relationship with overlaping significant genes](ExploreAPAexpressionOverlap.html)
+
+
 
 ##Extra QC and Analysis   
 

@@ -1,0 +1,94 @@
+---
+title: "5' Spice Site strength"
+author: "Briana Mittleman"
+date: "2/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+There is a hypothesis that increased 5' splice site strength is assocaited with decreased usage of intronic PAS. This is relate to competition and binding of the U1 snurp. I will ask if there are differences in 5' splcie sites for humans and chimp. 
+
+Need to be careful about orthology here. To be conservative. I will only look at regions that map downstream of an ortho exon. 
+
+First step is to map each intronic PAS to a human intron annotation.
+
+
+
+I created a transcript minus exon file for my previos project. I will lift this file over andcheck it. I can remake it 
+
+```{bash,eval=F}
+mkdir ../data/SpliceSite  
+
+liftOver /project2/gilad/briana/apaQTL/data/intron_analysis/transcriptsMinusExons.sort.bed  ../data/liftover_files/hg19ToHg38.over.chain.gz ../data/SpliceSite/transcriptMinusexon_hg38.bed ../data/SpliceSite/UnliftedIntron.bed 
+
+```
+
+These look really good, they line up well.  
+
+
+Pull out intronic PAS  
+```{r}
+PAS_metaIntron=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% filter(loc=="intron")
+PAS=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed", col.names = c("chr", "start", "end", "PAS", "score", "strand"),stringsAsFactors = F) %>% semi_join(PAS_metaIntron, by="PAS")
+
+write.table(PAS, "../data/SpliceSite/IntronicPAS_humanCoord.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+
+```{bash,eval=F}
+sbatch assignPeak2Intronicregion.sh
+```
+
+Get the 5' splice sites for all of these.  
+
+(lose ~800)
+
+
+
+```{r}
+PAS2Intron=read.table("../data/SpliceSite/IntronincPAS2Introns_humanCoord.bed",col.names = c("IntronChr", "IntronStart", "IntronEnd", "Gene", "Score", "Strand", "PASChr", "PASStart","PASEnd", "PAS", "humanUsage", "passtrand"),stringsAsFactors = F)
+
+Lost= PAS %>% anti_join(PAS2Intron, by="PAS")
+
+write.table(Lost, "../data/SpliceSite/LostinIntersect.bed", col.names = F, row.names = F, quote =F, sep = "\t")
+
+```
+
+
+
+Lose some with multiple isoforms. Downstream of a gene may be an intron in one. It is probably not possible to get perfect annotation.  
+
+
+```{r}
+PAS2Intron_pos= PAS2Intron %>% filter(Strand=="+") %>% mutate(start=IntronStart-3, end= IntronStart +6) %>% select(IntronChr, start,end, PAS,humanUsage, Strand)
+PAS2Intron_neg=PAS2Intron %>% filter(Strand=="-") %>% mutate(start=IntronEnd-6, end= IntronEnd +3) %>% select(IntronChr, start,end, PAS,humanUsage, Strand)
+PAS_5SS_both= PAS2Intron_neg %>% bind_rows(PAS2Intron_pos)
+
+write.table(PAS_5SS_both, "../data/SpliceSite/IntronicPAS_SS_humanCoord.bed", col.names = F, row.names = F, quote=F, sep="\t")
+```
+
+Sort and assign to ortho exon. I need a small amount of overlap with the human ortho exon file. This comes from Kenneth's work.  /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf
+
+Ortho exon needs to be converted to bed to intersect.  
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/SpliceSite/IntronicPAS_SS_humanCoord.bed > ../data/SpliceSite/IntronicPAS_SS_humanCoord.sort.bed 
+
+
+
+
+```
+
+
+
+Maxent scripts are in /code/MaxEntCode/fordownload  
+usage: perl score5.pl test5
