@@ -84,11 +84,203 @@ Ortho exon needs to be converted to bed to intersect.
 sort -k1,1 -k2,2n ../data/SpliceSite/IntronicPAS_SS_humanCoord.bed > ../data/SpliceSite/IntronicPAS_SS_humanCoord.sort.bed 
 
 
+bedtools intersect -a ../data/SpliceSite/IntronicPAS_SS_humanCoord.sort.bed  -b /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf -s -wao > ../data/SpliceSite/IntronicPAS_SS_intersectOrthoExon.txt
 
+#looking for 3 base overlap with splice sites  
+
+```
+
+```{r}
+IntersectRes=read.table("../data/SpliceSite/IntronicPAS_SS_intersectOrthoExon.txt",stringsAsFactors = F,sep="\t", col.names = c("chr",'ssstart','ssend','PAS', 'humanusage','passtrand', 'file', 'loc','exonchr', 'enonstart','exonend', 'score', 'strand', 'score2', 'geneinfo', 'overlap')) %>% filter(overlap==3)
+
+
+IntersectRes_group= IntersectRes %>% group_by(PAS) %>% summarise(nExon=n())
+nrow(IntersectRes_group)
+```
+
+From 11060 to 8146.
+
+I will only look at the 8146 intronic PAS that map intersect 3 basepairs of the 5' splice site to an ortho exon. 
+
+
+Filter :  
+
+
+```{r}
+PAS_5SS_both_filt= PAS_5SS_both %>% semi_join(IntersectRes_group, by="PAS") 
+
+PAS_5SS_both_filt %>% group_by(PAS) %>% summarise(n=n()) %>% filter(n>1)
+
+PAS_5SS_both_filt %>% group_by(PAS) %>% summarise(n=n()) %>% filter(n>1) %>% nrow()
+```
+171 map to 2 introns. Count each site for now.  
+
+
+Write these out to sort and liftover.
+```{r}
+write.table(PAS_5SS_both_filt, "../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.bed > ../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.sort.bed
+
+
+liftOver ../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.sort.bed ../data/chainFiles/hg38ToPanTro6.over.chain ../data/SpliceSite/IntronicPAS_SS_ChimpCoord_filterOotho.sort.bed ../data/SpliceSite/ChimpCoordUnliftedSS.txt 
+```
+
+
+Remove unlifted from human
+
+```{r}
+unliftedSS=read.table("../data/SpliceSite/ChimpCoordUnliftedSS.txt",col.names = c("chr", 'start','end','PAS', 'humanscore', 'strand'), stringsAsFactors = F)
+#check still 9 bases
+liftedSS=read.table("../data/SpliceSite/IntronicPAS_SS_ChimpCoord_filterOotho.sort.bed",col.names = c("chr", 'start','end','PAS', 'humanscore', 'strand'), stringsAsFactors = F) %>% mutate(legnth=end-start) 
+
+liftedSS_wrongsize= liftedSS %>%  filter(legnth!=9)
+
+
+nrow(liftedSS_wrongsize)
+nrow(unliftedSS)
+
+BADSS= as.data.frame(cbind(PAS=c(liftedSS_wrongsize$PAS,unliftedSS$PAS)))
+```
+Remove the 31 that to not lift or lift to the wrong size. 
+
+```{r}
+ChimpSS=liftedSS %>% filter(legnth==9) %>% select(-legnth)
+nrow(ChimpSS)
+HumanSS=PAS_5SS_both_filt %>% anti_join(BADSS, by="PAS")
+nrow(HumanSS)
+```
+I will look at 8298 PAS.  
+
+Next step is to use bedtools nuc to get the strand specific basepairs.  
+
+
+```{r}
+write.table(ChimpSS, "../data/SpliceSite/Chimp_SS.bed", col.names = F, row.names = F, quote = F, sep="\t")
+
+write.table(HumanSS, "../data/SpliceSite/Human_SS.bed", col.names = F, row.names = F, quote = F, sep="\t")
 
 ```
 
 
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/SpliceSite/Chimp_SS.bed > ../data/SpliceSite/Chimp_SS_sort.bed
 
-Maxent scripts are in /code/MaxEntCode/fordownload  
-usage: perl score5.pl test5
+sort -k1,1 -k2,2n ../data/SpliceSite/Human_SS.bed > ../data/SpliceSite/Human_SS.sort.bed
+
+#bedtools nuc -fi /project2/gilad/briana/genome_anotation_data/genome/Homo_sapiens.GRCh37.75.dna_sm.all.fa -bed ../data/splicesite/AllPASSS.sort.noChr.bed -seq -s > ../data/splicesite/AllPASSS.sort.Nuc.txt
+
+bedtools nuc -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/SpliceSite/Chimp_SS_sort.bed -seq -s > ../data/SpliceSite/Chimp_SS_sort.Nuc.txt
+
+bedtools nuc -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/SpliceSite/Human_SS.sort.bed -seq -s > ../data/SpliceSite/Human_SS.sort.Nuc.txt
+
+#parse
+python spliceSite2Fasta.py ../data/SpliceSite/Chimp_SS_sort.Nuc.txt ../data/SpliceSite/Chimp_SS_sort.Nuc.fasta
+
+python spliceSite2Fasta.py ../data/SpliceSite/Human_SS.sort.Nuc.txt ../data/SpliceSite/Human_SS_sort.Nuc.fasta
+
+#run ss maxent  
+cd /MaxEntCode/fordownload
+perl score5.pl ../../../data/SpliceSite/Chimp_SS_sort.Nuc.fasta >  ../../../data/SpliceSite/Chimp_SS_sort.Nuc.MaxentScores.txt
+perl score5.pl  ../../../data/SpliceSite/Human_SS_sort.Nuc.fasta >  ../../../data/SpliceSite/Human_SS_sort.Nuc.MaxentScore.txt
+```
+
+```{r}
+ChimpSS=read.table("../data/SpliceSite/Chimp_SS_sort.bed", col.names = c("chr",'start','end','PAS', 'HumanUsage', 'strand'), stringsAsFactors = F) %>% select(PAS,HumanUsage)
+ChimpRES=read.table("../data/SpliceSite/Chimp_SS_sort.Nuc.MaxentScores.txt", col.names =c("Chimpseq", "ChimpScore"))
+ChimpSSandRes=ChimpSS %>% bind_cols(ChimpRES)
+
+HumanSS=read.table("../data/SpliceSite/Human_SS.sort.bed", col.names = c("chr",'start','end','PAS', 'HumanUsage', 'strand'), stringsAsFactors = F)%>% select(PAS,HumanUsage)
+HumanRES=read.table("../data/SpliceSite/Human_SS_sort.Nuc.MaxentScore.txt", col.names = c("Humanseq", "HumanScore")) 
+HumanSSandRes=HumanSS %>% bind_cols(HumanRES)
+
+
+BothSSandRes= ChimpSSandRes %>% inner_join(HumanSSandRes, by=c('PAS','HumanUsage'))
+
+
+```
+Add mean chimp  
+
+```{r}
+ChimpPASUsage=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed",col.names = c('chr','start','end',"PAS", 'ChimpUsage','strand' ),stringsAsFactors = F) %>% select(PAS, ChimpUsage)
+
+BothSSandReswUsage=BothSSandRes %>% inner_join(ChimpPASUsage,by='PAS')
+```
+
+```{r}
+
+ggplot(BothSSandReswUsage, aes(x=HumanScore, y=HumanUsage)) +geom_point(col="blue", alpha=.3) + geom_point(data=BothSSandReswUsage, aes(x=ChimpScore, y=ChimpUsage), alpha=.3,col="orange") 
+```
+
+```{r}
+ggplot(BothSSandReswUsage,aes(x=ChimpScore, y=HumanScore)) + geom_point() + geom_density2d(col="green") + geom_smooth(method="lm",col="orange") + annotate("text",label="Pearsons Correlation = .98", x=-10, y=10)
+
+cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore )
+
+```
+
+```{r}
+ggplot(BothSSandReswUsage,aes(x=ChimpUsage, y=HumanUsage)) + geom_point() + geom_density2d(col="green") + geom_smooth(method="lm",col="orange") + annotate("text", label="Pearsons Correlation= 0.58", x=.65,y=.8)
+
+
+cor.test(BothSSandReswUsage$ChimpUsage,BothSSandReswUsage$HumanUsage )
+```
+
+How many have different score: 
+
+```{r}
+BothSSandReswUsage_diff= BothSSandReswUsage %>% filter(ChimpScore!=HumanScore)
+
+nrow(BothSSandReswUsage_diff)
+```
+
+229/8298 PAS have different scores in human and chimp  
+
+I expect higher scores to have lower usage 
+
+Plot difference in score and diff in usage  
+
+```{r}
+BothSSandReswUsage_diff_score= BothSSandReswUsage_diff %>% mutate(DiffScore=HumanScore-ChimpScore, DiffUsage=HumanUsage-ChimpUsage)
+
+ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_score$DiffUsage))
+
+```
+
+No correlation  
+
+Are any of these the differentially used PAS.  
+
+```{r}
+
+
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(PAS,chr, loc, start, end)
+
+DiffIsoRes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% select(PAS,SigPAU2 )
+```
+
+Join:  
+
+```{r}
+BothSSandReswUsage_diff_score_iso=BothSSandReswUsage_diff_score %>% inner_join(DiffIsoRes, by="PAS")
+
+
+BothSSandReswUsage_diff_score_iso %>% filter(SigPAU2=="Yes") %>% select(PAS,HumanScore, HumanUsage, ChimpScore,ChimpUsage)
+
+nrow(BothSSandReswUsage_diff_score_iso %>% filter(SigPAU2=="Yes"))
+```
+Examples conforming to expectation :  
+
+human100575
+human86581
+human114714
+human182838
+human238691
+human303540
+
+
+
