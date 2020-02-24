@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-23
+<strong>Last updated:</strong> 2020-02-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4ae857f8fbacb81df9398e779042bda1c749282targetblankf4ae857a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f4ae857f8fbacb81df9398e779042bda1c749282" target="_blank">f4ae857</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7385496764bfb27c830cf11223f138997a0f20adtargetblank7385496a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7385496764bfb27c830cf11223f138997a0f20ad" target="_blank">7385496</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef4ae857f8fbacb81df9398e779042bda1c749282targetblankf4ae857a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7385496764bfb27c830cf11223f138997a0f20adtargetblank7385496a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1085,6 +1085,7 @@ Untracked files:
     Untracked:  output/._.DS_Store
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
+    Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
     Modified:   analysis/ExploredAPA.Rmd
@@ -1142,6 +1143,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7385496764bfb27c830cf11223f138997a0f20ad/analysis/DiffUsedIntronic.Rmd" target="_blank">7385496</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-24
+</td>
+<td>
+add correlations plotted by location
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/DiffUsedIntronic.html" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f4ae857f8fbacb81df9398e779042bda1c749282/analysis/DiffUsedIntronic.Rmd" target="_blank">f4ae857</a>
 </td>
 <td>
@@ -1164,20 +1199,27 @@ wflow_publish(c(“analysis/index.Rmd”, “analysis/DiffUsedIntronic.Rmd”))
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-✔ tidyr   0.8.3       ✔ stringr 1.3.1  
-✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
+✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
+✔ readr   1.3.1       ✔ stringr 1.3.1  
+✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>For this analysis I will look at the differentially used PAS in introns and ask if I can used information from DE and dribosome and dprotien to better understand these. I subset intornic because I believe the intronic and utr mechanisms are different.</p>
+✖ tidyr::extract()   masks magrittr::extract()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::lag()       masks stats::lag()
+✖ purrr::set_names() masks magrittr::set_names()</code></pre>
+<p>For this analysis I will look at the differentially used PAS in introns and ask if I can used information from DE and dribosome to better understand these. I subset intornic because I believe the intronic and utr mechanisms are different.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)  %&gt;% select(PAS, chr, start,end, loc)
-DiffIso= read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% filter(loc==&quot;intron&quot;)
+DiffIso= read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% filter(loc %in% c(&quot;intron&quot;,&quot;utr3&quot;))
 DiffIsoSig= DiffIso %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
-<p>742 of the 11228 intronic PAS are significant. I can compare the effect sizes with these genes in the DE.</p>
+<p>742 of the 11228 intronic PAS are significant.</p>
+<p>1659 of the 17012 3’ UTR PAS are significant.</p>
+<p>I can compare the effect sizes with these genes in the DE.</p>
 <div id="compare-with-expression" class="section level2">
 <h2>Compare with expression</h2>
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% select(Gene_stable_ID, Gene.name)
@@ -1186,254 +1228,223 @@ DE=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFa
 <p>First do all of the genes:</p>
 <pre class="r"><code>DeandAPA= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;)</code></pre>
 <p>This pas I will include each PAS</p>
-<pre class="r"><code>ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
+<pre class="r"><code>ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA$deltaPAU~DeandAPA$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA$deltaPAU ~ DeandAPA$logFC)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.69365 -0.06405 -0.00194  0.05663  0.76837 
-
-Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)     0.041100   0.001120  36.680  &lt; 2e-16 ***
-DeandAPA$logFC -0.009831   0.001272  -7.727 1.22e-14 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.1042 on 8716 degrees of freedom
-Multiple R-squared:  0.006804,  Adjusted R-squared:  0.00669 
-F-statistic: 59.71 on 1 and 8716 DF,  p-value: 1.22e-14</code></pre>
-<pre class="r"><code>cor.test(DeandAPA$deltaPAU,DeandAPA$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA$deltaPAU and DeandAPA$logFC
-t = -7.7273, df = 8716, p-value = 1.22e-14
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.10330034 -0.06160219
-sample estimates:
-        cor 
--0.08248736 </code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-5-1.png" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Just the genes with significant differences in PAS</p>
 <pre class="r"><code>DeandAPA_sigAPA= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
-<pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
+<pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA_sigAPA$deltaPAU~DeandAPA_sigAPA$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA_sigAPA$deltaPAU ~ DeandAPA_sigAPA$logFC)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.82159  0.01339  0.05347  0.11130  0.60587 
-
-Coefficients:
-                       Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)            0.183773   0.009599  19.144  &lt; 2e-16 ***
-DeandAPA_sigAPA$logFC -0.028174   0.009024  -3.122  0.00188 ** 
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.2311 on 578 degrees of freedom
-Multiple R-squared:  0.01659,   Adjusted R-squared:  0.01488 
-F-statistic: 9.748 on 1 and 578 DF,  p-value: 0.001885</code></pre>
-<pre class="r"><code>cor.test(DeandAPA_sigAPA$deltaPAU,DeandAPA_sigAPA$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_sigAPA$deltaPAU and DeandAPA_sigAPA$logFC
-t = -3.1222, df = 578, p-value = 0.001885
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.20801803 -0.04787348
-sample estimates:
-       cor 
--0.1287853 </code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-1.png" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>DeandAPA_sigAPAandE= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)</code></pre>
-<pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
+<pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA_sigAPAandE$deltaPAU~DeandAPA_sigAPAandE$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA_sigAPAandE$deltaPAU ~ DeandAPA_sigAPAandE$logFC)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.81354 -0.00442  0.06000  0.11909  0.60013 
-
-Coefficients:
-                          Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                0.17922    0.01591  11.264  &lt; 2e-16 ***
-DeandAPA_sigAPAandE$logFC -0.03770    0.01048  -3.598 0.000392 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.2444 on 234 degrees of freedom
-Multiple R-squared:  0.05241,   Adjusted R-squared:  0.04836 
-F-statistic: 12.94 on 1 and 234 DF,  p-value: 0.0003918</code></pre>
-<pre class="r"><code>cor.test(DeandAPA_sigAPAandE$deltaPAU,DeandAPA_sigAPAandE$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_sigAPAandE$deltaPAU and DeandAPA_sigAPAandE$logFC
-t = -3.5977, df = 234, p-value = 0.0003918
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.3465098 -0.1042883
-sample estimates:
-       cor 
--0.2289398 </code></pre>
-<p>Is there a correlation between pValues:</p>
-<pre class="r"><code>cor.test(DeandAPA$p.adjust, DeandAPA$adj.P.Val)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA$p.adjust and DeandAPA$adj.P.Val
-t = 2.6159, df = 8716, p-value = 0.008914
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.007021126 0.048971892
-sample estimates:
-       cor 
-0.02800884 </code></pre>
-<pre class="r"><code>cor.test(DeandAPA_sigAPA$p.adjust, DeandAPA_sigAPA$adj.P.Val)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_sigAPA$p.adjust and DeandAPA_sigAPA$adj.P.Val
-t = -0.49878, df = 578, p-value = 0.6181
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.10198363  0.06077433
-sample estimates:
-        cor 
--0.02074207 </code></pre>
-<pre class="r"><code>cor.test(DeandAPA_sigAPAandE$p.adjust, DeandAPA_sigAPAandE$adj.P.Val)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_sigAPAandE$p.adjust and DeandAPA_sigAPAandE$adj.P.Val
-t = 0.13628, df = 234, p-value = 0.8917
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.1189273  0.1364537
-sample estimates:
-        cor 
-0.008908498 </code></pre>
-<p>No correlation here. This may be due to the multiple PAS.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-1.png" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="choose-most-sig-pas" class="section level3">
 <h3>Choose most Sig PAS</h3>
-<p>To break ties I will use the top average usage</p>
-<pre class="r"><code>DeandAPA_topPAS= DeandAPA %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()</code></pre>
+<p>To break ties I will use the top average usage. I will not worry about location when chosing top PAS.</p>
+<pre class="r"><code>DeandAPA_topPAS= DeandAPA %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()
+
+#intron
+nrow(DeandAPA_topPAS %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
+<pre><code>[1] 1358</code></pre>
+<pre class="r"><code>nrow(DeandAPA_topPAS %&gt;% filter(loc==&quot;intron&quot;, SigPAU2==&quot;Yes&quot;))</code></pre>
+<pre><code>[1] 221</code></pre>
+<pre class="r"><code>#3 utr
+nrow(DeandAPA_topPAS %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 5993</code></pre>
+<pre class="r"><code>nrow(DeandAPA_topPAS %&gt;% filter(loc==&quot;utr3&quot;, SigPAU2==&quot;Yes&quot;))</code></pre>
+<pre><code>[1] 1088</code></pre>
+<p>from 11228 intronic to 1358 PAS (12%) from 742 to 221 significant (30%)</p>
+<p>from 17012 to 5993 3’ UTR PAS. (35%) from 1659 to 1088 significant (66%)</p>
 <p>Plot the correlation in effect size</p>
-<pre class="r"><code>ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;) + geom_density2d(col=&quot;red&quot;)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA_topPAS$deltaPAU~DeandAPA_topPAS$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA_topPAS$deltaPAU ~ DeandAPA_topPAS$logFC)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.70414 -0.06984 -0.00066  0.06638  0.74199 
-
-Coefficients:
-                       Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)            0.061581   0.001945  31.659  &lt; 2e-16 ***
-DeandAPA_topPAS$logFC -0.015287   0.002280  -6.704 2.32e-11 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.1229 on 4023 degrees of freedom
-Multiple R-squared:  0.01105,   Adjusted R-squared:  0.0108 
-F-statistic: 44.94 on 1 and 4023 DF,  p-value: 2.316e-11</code></pre>
-<pre class="r"><code>cor.test(DeandAPA_topPAS$deltaPAU,DeandAPA_topPAS$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_topPAS$deltaPAU and DeandAPA_topPAS$logFC
-t = -6.7036, df = 4023, p-value = 2.316e-11
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.1355590 -0.0744509
-sample estimates:
-       cor 
--0.1051042 </code></pre>
+<pre class="r"><code>ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;Intronic and 3&#39; UTR APA top PAS v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;) + stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DeandAPA_topPASsigAPA= DeandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
-<pre class="r"><code>ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA_topPASsigAPA$deltaPAU~DeandAPA_topPASsigAPA$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA_topPASsigAPA$deltaPAU ~ DeandAPA_topPASsigAPA$logFC)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.83216  0.00555  0.04632  0.10897  0.59333 
-
-Coefficients:
-                             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                  0.194844   0.010717   18.18  &lt; 2e-16 ***
-DeandAPA_topPASsigAPA$logFC -0.029540   0.009846   -3.00  0.00284 ** 
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 0.2325 on 469 degrees of freedom
-Multiple R-squared:  0.01883,   Adjusted R-squared:  0.01674 
-F-statistic:     9 on 1 and 469 DF,  p-value: 0.002843</code></pre>
-<pre class="r"><code>cor.test(DeandAPA_topPASsigAPA$deltaPAU,DeandAPA_topPASsigAPA$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  DeandAPA_topPASsigAPA$deltaPAU and DeandAPA_topPASsigAPA$logFC
-t = -3.0001, df = 469, p-value = 0.002843
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.2247846 -0.0474553
-sample estimates:
-       cor 
--0.1372192 </code></pre>
+<pre class="r"><code>ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA, Top PAS v DE &quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>DeandAPA_topPASsigAPAandE= DeandAPA_topPASsigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)</code></pre>
-<pre class="r"><code>ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>summary(lm(DeandAPA_topPASsigAPAandE$deltaPAU~DeandAPA_topPASsigAPAandE$logFC))</code></pre>
-<pre><code>
-Call:
-lm(formula = DeandAPA_topPASsigAPAandE$deltaPAU ~ DeandAPA_topPASsigAPAandE$logFC)
+<pre class="r"><code>ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, Top PAS  v Significant DE&quot;) +  scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="ribosome-occupancy" class="section level2">
+<h2>Ribosome occupancy</h2>
+<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name) </code></pre>
+<p>Join with APA</p>
+<pre class="r"><code>RiboandAPA=DiffIso %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
 
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.82506 -0.01782  0.05480  0.11924  0.58620 
+RiboandAPA %&gt;% group_by(gene) %&gt;% n_distinct()</code></pre>
+<pre><code>[1] 21159</code></pre>
+<pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Just the genes with significant differences in PAS</p>
+<pre class="r"><code>RiboandAPA_sigAPA= RiboandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
+<pre class="r"><code>ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Sig both:</p>
+<pre class="r"><code>RiboandAPA_sigAPAandR= RiboandAPA_sigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  HvC.FDR&lt;.05)</code></pre>
+<pre class="r"><code>ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The correlation in expression with intronic is not there in ribosome occupancy.</p>
+<div id="choose-most-sig-pas-1" class="section level3">
+<h3>Choose most Sig PAS</h3>
+<p>To break ties I will use the top average usage. I will not worry about location at first.</p>
+<pre class="r"><code>RiboandAPA_topPAS= RiboandAPA %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()
 
-Coefficients:
-                                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                      0.19136    0.01810  10.570  &lt; 2e-16 ***
-DeandAPA_topPASsigAPAandE$logFC -0.03936    0.01154  -3.412 0.000789 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 0.2508 on 190 degrees of freedom
-Multiple R-squared:  0.05772,   Adjusted R-squared:  0.05276 
-F-statistic: 11.64 on 1 and 190 DF,  p-value: 0.0007892</code></pre>
-<pre class="r"><code>cor.test(DeandAPA_topPASsigAPAandE$deltaPAU,DeandAPA_topPASsigAPAandE$logFC)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
+nrow(RiboandAPA %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
+<pre><code>[1] 7405</code></pre>
+<pre class="r"><code>nrow(RiboandAPA_topPAS %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
+<pre><code>[1] 1180</code></pre>
+<pre class="r"><code>nrow(RiboandAPA %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 13754</code></pre>
+<pre class="r"><code>nrow(RiboandAPA_topPAS %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 5179</code></pre>
+<p>UTR and ribo: - All 13754 - in top used set- 5179</p>
+<p>itron and ribo: - All- 7405 - in top used set- 1180</p>
+<p>Plot the correlation in effect size</p>
+<pre class="r"><code>ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;APA, top PAS v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Sig APA</p>
+<pre class="r"><code>RiboandAPA_topPASsigAPA= RiboandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
-data:  DeandAPA_topPASsigAPAandE$deltaPAU and DeandAPA_topPASsigAPAandE$logFC
-t = -3.4115, df = 190, p-value = 0.0007892
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.3692937 -0.1021150
-sample estimates:
-       cor 
--0.2402492 </code></pre>
+nrow(RiboandAPA_topPASsigAPA %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
+<pre><code>[1] 192</code></pre>
+<pre class="r"><code>nrow(RiboandAPA_topPASsigAPA %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 908</code></pre>
+<p>192 intronic significant, 908 significant 3’ utr</p>
+<pre class="r"><code>ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS v Ribosome Occupany&quot;) +scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Sig both:</p>
+<pre class="r"><code>RiboandAPA_topPASsigAPAandR= RiboandAPA_topPASsigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  HvC.FDR&lt;.05)
+
+nrow(RiboandAPA_topPASsigAPAandR %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
+<pre><code>[1] 43</code></pre>
+<pre class="r"><code>nrow(RiboandAPA_topPASsigAPAandR %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 227</code></pre>
+<p>43 PAS for intrnic 227 for 3’ UTR</p>
+<pre class="r"><code>ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS  v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Correlation in UTR bnut not intronic. Not sure if this is due to the number of PAS.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1462,24 +1473,28 @@ attached base packages:
 
 other attached packages:
  [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
- [9] tidyverse_1.2.1 workflowr_1.6.0
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
+ [9] ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1   workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
-[21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.5.1      magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4    
-[41] whisker_0.3-2    pkgconfig_2.0.2  MASS_7.3-51.1    xml2_1.2.0      
-[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
-[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
-[53] compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
+[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
+[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
+[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
+[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
+[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
+[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[37] cli_1.1.0          tools_3.5.1        lazyeval_0.2.1    
+[40] crayon_1.3.4       whisker_0.3-2      pkgconfig_2.0.2   
+[43] xml2_1.2.0         lubridate_1.7.4    assertthat_0.2.0  
+[46] rmarkdown_1.10     httr_1.3.1         rstudioapi_0.10   
+[49] R6_2.3.0           nlme_3.1-137       git2r_0.26.1      
+[52] compiler_3.5.1    </code></pre>
 </div>
 </div>
 </div>
