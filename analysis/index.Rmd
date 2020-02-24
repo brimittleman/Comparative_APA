@@ -144,7 +144,7 @@ From here on, I did everything double filtered:
 
 * [Explore more about APA expression relationship with overlaping significant genes](ExploreAPAexpressionOverlap.html)  
 
-* [Apa and expression relationship for intronic PAS](DiffUsedIntronic.html)  
+* [Apa and expression relationship for seperated by location of PAS](DiffUsedIntronic.html)  
 
 
 
