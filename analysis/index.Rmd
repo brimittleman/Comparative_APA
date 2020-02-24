@@ -142,7 +142,9 @@ From here on, I did everything double filtered:
 
 * [Explore more about APA expression relationship](ExploreAPAexpression.html)
 
-* [Explore more about APA expression relationship with overlaping significant genes](ExploreAPAexpressionOverlap.html)
+* [Explore more about APA expression relationship with overlaping significant genes](ExploreAPAexpressionOverlap.html)  
+
+* [Apa and expression relationship for intronic PAS](DiffUsedIntronic.html)  
 
 
 

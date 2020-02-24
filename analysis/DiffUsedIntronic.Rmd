@@ -1,0 +1,147 @@
+---
+title: "Differential Used Intronic"
+author: "Briana Mittleman"
+date: "2/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+For this analysis I will look at the differentially used PAS in introns and ask if I can used information from DE and dribosome and dprotien to better understand these. I subset intornic because I believe the intronic and utr mechanisms are different.  
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc=="intron")
+DiffIsoSig= DiffIso %>% filter(SigPAU2=="Yes")
+
+
+```
+
+742 of the 11228 intronic PAS are significant. I can compare the effect sizes with these genes in the DE.  
+
+##Compare with expression
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% rename('gene'=Gene.name) %>% select(-Gene_stable_ID)
+
+```
+
+
+First do all of the genes:  
+
+```{r}
+DeandAPA= DiffIso %>% inner_join(DE, by="gene")
+```
+
+This pas I will include each PAS 
+
+```{r}
+ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(DeandAPA$deltaPAU~DeandAPA$logFC))
+cor.test(DeandAPA$deltaPAU,DeandAPA$logFC)
+```
+Just the genes with significant differences in PAS  
+
+```{r}
+DeandAPA_sigAPA= DeandAPA %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(DeandAPA_sigAPA$deltaPAU~DeandAPA_sigAPA$logFC))
+cor.test(DeandAPA_sigAPA$deltaPAU,DeandAPA_sigAPA$logFC)
+```
+
+Sig both:  
+
+
+```{r}
+DeandAPA_sigAPAandE= DeandAPA %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
+```
+
+
+```{r}
+ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(DeandAPA_sigAPAandE$deltaPAU~DeandAPA_sigAPAandE$logFC))
+cor.test(DeandAPA_sigAPAandE$deltaPAU,DeandAPA_sigAPAandE$logFC)
+```
+
+
+
+Is there a correlation between pValues:  
+
+```{r}
+cor.test(DeandAPA$p.adjust, DeandAPA$adj.P.Val)
+
+cor.test(DeandAPA_sigAPA$p.adjust, DeandAPA_sigAPA$adj.P.Val)
+
+cor.test(DeandAPA_sigAPAandE$p.adjust, DeandAPA_sigAPAandE$adj.P.Val)
+```
+
+No correlation here. This may be due to the multiple PAS. 
+
+
+###Choose most Sig PAS  
+
+To break ties I will use the top average usage 
+
+```{r}
+DeandAPA_topPAS= DeandAPA %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+```
+
+
+Plot the correlation in effect size  
+
+```{r}
+ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm") + geom_density2d(col="red")
+
+summary(lm(DeandAPA_topPAS$deltaPAU~DeandAPA_topPAS$logFC))
+cor.test(DeandAPA_topPAS$deltaPAU,DeandAPA_topPAS$logFC)
+```
+
+
+
+```{r}
+DeandAPA_topPASsigAPA= DeandAPA_topPAS %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(DeandAPA_topPASsigAPA$deltaPAU~DeandAPA_topPASsigAPA$logFC))
+cor.test(DeandAPA_topPASsigAPA$deltaPAU,DeandAPA_topPASsigAPA$logFC)
+```
+Sig both:  
+
+
+```{r}
+DeandAPA_topPASsigAPAandE= DeandAPA_topPASsigAPA %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
+```
+
+
+```{r}
+ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")
+
+summary(lm(DeandAPA_topPASsigAPAandE$deltaPAU~DeandAPA_topPASsigAPAandE$logFC))
+cor.test(DeandAPA_topPASsigAPAandE$deltaPAU,DeandAPA_topPASsigAPAandE$logFC)
+```
+
+
+
+
