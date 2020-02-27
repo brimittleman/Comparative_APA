@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(workflowr)
 library(ggpubr)
+library(limma)
+library(qvalue)
 library(tidyverse)
 ```
 
@@ -159,7 +161,7 @@ ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3
 ##Ribosome occupancy  
 
 ```{r}
-Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) 
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
 ```
 
 Join with APA  
@@ -294,4 +296,194 @@ ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alp
 ```
 
 
-Correlation in UTR bnut not intronic. Not sure if this is due to the number of PAS.   
+Correlation in UTR but not intronic. Not sure if this is due to the number of PAS.   
+
+
+##Protein  
+
+I will use code from https://github.com/siddisis/project_primate_ribo to fit the linear model again and get effect sizes.  
+
+
+load("../tables/fileS4.RData")
+
+load("../rdas/HCR.protein.TMM.RData")
+
+
+Put both of these in ../data/Khan_prot
+
+```{r}
+load("../data/Khan_prot/fileS4.RData")
+
+load("../data/Khan_prot/HCR.protein.TMM.RData")
+```
+
+
+```{r}
+expressed.gene.names <- as.character(HCR.protein.TMM.norm.ESNGlabeled[rownames(HCR.protein.TMM.norm.ESNGlabeled) %in% rownames(protein.expressed.data),16])
+names(expressed.gene.names) <- rownames(protein.expressed.data)
+```
+
+Use to make design matrix  
+```{r}
+
+# HvC 
+RNA.expressed.data.HC<-RNA.expressed.data[,1:10]
+
+
+
+species.label <- substring(colnames(RNA.expressed.data.HC),1,1)
+
+design <- model.matrix(~species.label)
+colnames(design)<-c("Chimp","Human")
+```
+
+
+Protien 
+```{r}
+protein.expressed.data.HC<-protein.expressed.data[,1:10]
+
+protein.fit<-lmFit(protein.expressed.data.HC ,design = design)
+
+
+HvC.prot<- eBayes(protein.fit)
+
+top.table <- topTable(HvC.prot, n = Inf)
+
+volcanoplot(HvC.prot,coef=2,highlight=2)
+
+effectsizeDF= as.data.frame(cbind(Gene_stable_ID=rownames(protein.expressed.data.HC),logEf=HvC.prot$coefficients[,2], pval=top.table$adj.P.Val))  %>% inner_join(nameID,by="Gene_stable_ID") %>% rename('gene'=Gene.name) %>% select(-Gene_stable_ID)
+```
+
+```{r}
+DPandAPA= DiffIso %>% inner_join(effectsizeDF, by="gene")
+DPandAPA %>% group_by(gene) %>% summarise(n()) %>% nrow()
+
+DPandAPA$logEf= as.numeric(as.character(DPandAPA$logEf))
+
+DPandAPA$pval= as.numeric(as.character(DPandAPA$pval))
+```
+
+Looking at 2568 common genes.  
+
+
+```{r}
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 2)
+
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 2)
+```
+Just the genes with significant differences in PAS  
+
+```{r}
+PandAPA_sigAPA= DPandAPA %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
+
+ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
+```
+Sig both:  
+
+
+```{r}
+PandAPA_sigAPAandP= PandAPA_sigAPA %>% filter(SigPAU2=="Yes", pval <.05)
+```
+
+
+
+```{r}
+ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
+
+ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
+
+```
+
+###Choose most Sig PAS  
+
+To break ties I will use the top average usage. I will not worry about location at first.  
+
+```{r}
+PandAPA_topPAS= DPandAPA %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+```
+
+
+```{r}
+ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA, top PAS v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
+
+ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
+```
+```{r}
+PandAPA_topPAS_sigAPA= PandAPA_topPAS %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA, top PAS v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
+
+ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA top PAS v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
+```
+
+Sig both:  
+
+
+```{r}
+PandAPA_topPAS_sigAPAandP= PandAPA_topPAS_sigAPA %>% filter(SigPAU2=="Yes", pval <.05)
+```
+
+
+
+```{r}
+ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA top PAS v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
+
+ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA top PAS v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
+
+```
+
+
+
+Check pvalues:  
+```{r}
+
+protKhan=read.csv("../data/Khan_prot/Khan_TableS4.csv",header = T)  %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID")  %>% rename("gene"=Gene.name) 
+
+protKhanwmine= protKhan %>% inner_join(effectsizeDF, by="gene")
+protKhanwmine$logEf=as.numeric(as.character(protKhanwmine$logEf))
+
+protKhanwmine$pval=as.numeric(as.character(protKhanwmine$pval))
+cor.test(protKhanwmine$pval,protKhanwmine$HC.pvalues.protein )
+```
+This is not good. Try the difference in means approach:  
+
+Chimp-human 
+```{r} 
+protKhanSmall= protKhan %>% select(gene,mean.H.protein,mean.C.protein, HC.qvalues.rna) %>% mutate(Effect=mean.C.protein-mean.H.protein)
+```
+
+```{r}
+deltaPandAPA= DiffIso %>% inner_join(protKhanSmall, by="gene")
+deltaPandAPA %>% group_by(gene) %>% summarise(n()) %>% nrow()
+
+```
+
+2620 genes  
+
+```{r}
+ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 2)
+
+ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 2)
+```
+
+Correlation effect sizes: 
+
+```{r}
+protKhanSmall_withmone= protKhanSmall %>% inner_join(effectsizeDF, by="gene")
+protKhanSmall_withmone$logEf=as.numeric(as.character(protKhanSmall_withmone$logEf))
+
+
+cor.test(protKhanSmall_withmone$logEf, protKhanSmall_withmone$Effect)
+```
+Ok this is equal but opposite.  So this is correct.  
+
+
+**I need to check the direction  of the effects.**
