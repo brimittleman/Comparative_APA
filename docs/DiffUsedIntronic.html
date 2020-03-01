@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-27
+<strong>Last updated:</strong> 2020-02-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0ef2c6d01d88000b9c263bd7104d17ca412f58e8targetblank0ef2c6da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/0ef2c6d01d88000b9c263bd7104d17ca412f58e8" target="_blank">0ef2c6d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8366a888900c3464fc8e321afeb01d8d009ef52atargetblank8366a88a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8366a888900c3464fc8e321afeb01d8d009ef52a" target="_blank">8366a88</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0ef2c6d01d88000b9c263bd7104d17ca412f58e8targetblank0ef2c6da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8366a888900c3464fc8e321afeb01d8d009ef52atargetblank8366a88a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -463,6 +463,7 @@ Untracked files:
     Untracked:  analysis/DiffUsedUTR.Rmd
     Untracked:  analysis/PhenotypeOverlap10.Rmd
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/dAPA_Conservation.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
@@ -1143,6 +1144,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8366a888900c3464fc8e321afeb01d8d009ef52a/analysis/DiffUsedIntronic.Rmd" target="_blank">8366a88</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-29
+</td>
+<td>
+add cowplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0a68177f6f6d40ed15650a0eb5d36bb092024554/docs/DiffUsedIntronic.html" target="_blank">0a68177</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/0ef2c6d01d88000b9c263bd7104d17ca412f58e8/analysis/DiffUsedIntronic.Rmd" target="_blank">0ef2c6d</a>
 </td>
 <td>
@@ -1273,16 +1308,25 @@ Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(limma)
 library(qvalue)
 library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
 ✖ purrr::set_names() masks magrittr::set_names()</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
 <p>For this analysis I will look at the differentially used PAS in introns and ask if I can used information from DE and dribosome to better understand these. I subset intornic because I believe the intronic and utr mechanisms are different.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)  %&gt;% select(PAS, chr, start,end, loc)
 DiffIso= read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% filter(loc %in% c(&quot;intron&quot;,&quot;utr3&quot;))
@@ -1390,185 +1434,15 @@ brimittleman
 <p>Just the genes with significant differences in PAS</p>
 <pre class="r"><code>DeandAPA_sigAPA= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-1.png" target="_blank">5f821ee</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
-Past versions of unnamed-chunk-7-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-7-2.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>DeandAPA_sigAPAandE= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)</code></pre>
 <pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-1.png" target="_blank">5f821ee</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
-Past versions of unnamed-chunk-9-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-9-2.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="choose-most-sig-pas" class="section level3">
 <h3>Choose most Sig PAS</h3>
 <p>To break ties I will use the top average usage. I will not worry about location when chosing top PAS.</p>
@@ -1588,13 +1462,13 @@ nrow(DeandAPA_topPAS %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
 <p>from 17012 to 5993 3’ UTR PAS. (35%) from 1659 to 1088 significant (66%)</p>
 <p>Plot the correlation in effect size</p>
 <pre class="r"><code>ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;Intronic and 3&#39; UTR APA top PAS v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;) + stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div id="fig-unnamed-chunk-12-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1613,13 +1487,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-11-1.png" target="_blank">09ad482</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-12-1.png" target="_blank">09ad482</a>
 </td>
 <td>
 brimittleman
 </td>
 <td>
 2020-02-24
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-12-1.png" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
 </td>
 </tr>
 </tbody>
@@ -1627,53 +1512,16 @@ brimittleman
 </div>
 </div>
 <pre class="r"><code>ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
-Past versions of unnamed-chunk-11-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-11-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DeandAPA_topPASsigAPA= DeandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA, Top PAS v DE &quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div id="fig-unnamed-chunk-14-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1692,13 +1540,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-13-1.png" target="_blank">09ad482</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-14-1.png" target="_blank">09ad482</a>
 </td>
 <td>
 brimittleman
 </td>
 <td>
 2020-02-24
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-14-1.png" target="_blank">5f821ee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-23
 </td>
 </tr>
 </tbody>
@@ -1706,54 +1565,17 @@ brimittleman
 </div>
 </div>
 <pre class="r"><code>ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA, Top PAS v DE &quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
-Past versions of unnamed-chunk-13-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-13-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>DeandAPA_topPASsigAPAandE= DeandAPA_topPASsigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)</code></pre>
 <pre class="r"><code>ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, Top PAS  v Significant DE&quot;) +  scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div id="fig-unnamed-chunk-16-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1772,7 +1594,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-15-1.png" target="_blank">09ad482</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-16-1.png" target="_blank">09ad482</a>
 </td>
 <td>
 brimittleman
@@ -1781,60 +1603,33 @@ brimittleman
 2020-02-24
 </td>
 </tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, Top PAS  v Significant DE&quot;) +  scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
-Past versions of unnamed-chunk-15-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-15-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-15-2.png" target="_blank">1d56205</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5f821eeff2d8a089e1561a65b9c77ac3c0aff7f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-16-1.png" target="_blank">5f821ee</a>
 </td>
 <td>
 brimittleman
 </td>
 <td>
-2020-02-27
+2020-02-23
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<pre class="r"><code>ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, Top PAS  v Significant DE&quot;) +  scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-</div>
-<div id="ribosome-occupancy" class="section level2">
-<h2>Ribosome occupancy</h2>
-<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name)</code></pre>
-<p>Join with APA</p>
-<pre class="r"><code>RiboandAPA=DiffIso %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
-
-RiboandAPA %&gt;% group_by(gene) %&gt;% n_distinct()</code></pre>
-<pre><code>[1] 21159</code></pre>
-<pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<div id="plot-together" class="section level3">
+<h3>Plot together:</h3>
+<pre class="r"><code>allboth=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;) + labs(title=&quot;APA v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 1) +theme_classic(base_size = 12) 
+allSep= ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;APA, top PAS v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;) + stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+sigAPAboth=ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 1)+theme_classic(base_size = 12) 
+sigAPSep=ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA, Top PAS v DE &quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+SigBoth= ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+SigSep=ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, Top PAS  v Significant DE&quot;) +  scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) </code></pre>
+<pre class="r"><code>plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
@@ -1873,205 +1668,32 @@ brimittleman
 </table>
 </div>
 </div>
+</div>
+</div>
+<div id="ribosome-occupancy" class="section level2">
+<h2>Ribosome occupancy</h2>
+<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name)</code></pre>
+<p>Join with APA</p>
+<pre class="r"><code>RiboandAPA=DiffIso %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
+
+RiboandAPA %&gt;% group_by(gene) %&gt;% n_distinct()</code></pre>
+<pre><code>[1] 21159</code></pre>
+<pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
-Past versions of unnamed-chunk-18-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-2.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Just the genes with significant differences in PAS</p>
 <pre class="r"><code>RiboandAPA_sigAPA= RiboandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
-Past versions of unnamed-chunk-20-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-20-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-2">
-Past versions of unnamed-chunk-20-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-20-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-20-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>RiboandAPA_sigAPAandR= RiboandAPA_sigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  HvC.FDR&lt;.05)</code></pre>
 <pre class="r"><code>ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
-Past versions of unnamed-chunk-22-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-22-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-22-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-2">
-Past versions of unnamed-chunk-22-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-22-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-22-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The correlation in expression with intronic is not there in ribosome occupancy.</p>
 <div id="choose-most-sig-pas-1" class="section level3">
 <h3>Choose most Sig PAS</h3>
@@ -2092,83 +1714,9 @@ nrow(RiboandAPA %&gt;% filter(loc==&quot;intron&quot;))</code></pre>
 <p>itron and ribo: - All- 7405 - in top used set- 1180</p>
 <p>Plot the correlation in effect size</p>
 <pre class="r"><code>ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;APA, top PAS v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
-Past versions of unnamed-chunk-24-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-24-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-24-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;APA, top PAS v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
-Past versions of unnamed-chunk-24-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-24-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-24-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig APA</p>
 <pre class="r"><code>RiboandAPA_topPASsigAPA= RiboandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
@@ -2178,83 +1726,9 @@ nrow(RiboandAPA_topPASsigAPA %&gt;% filter(loc==&quot;intron&quot;))</code></pre
 <pre><code>[1] 908</code></pre>
 <p>192 intronic significant, 908 significant 3’ utr</p>
 <pre class="r"><code>ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS v Ribosome Occupany&quot;) +scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
-Past versions of unnamed-chunk-26-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-26-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-26-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS v Ribosome Occupany&quot;) +scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
-Past versions of unnamed-chunk-26-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-26-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-26-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>RiboandAPA_topPASsigAPAandR= RiboandAPA_topPASsigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  HvC.FDR&lt;.05)
 
@@ -2264,84 +1738,24 @@ nrow(RiboandAPA_topPASsigAPAandR %&gt;% filter(loc==&quot;intron&quot;))</code><
 <pre><code>[1] 227</code></pre>
 <p>43 PAS for intrnic 227 for 3’ UTR</p>
 <pre class="r"><code>ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS  v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
-Past versions of unnamed-chunk-28-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-28-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/09ad48202c9b6cca3c08aa15f8d8af777526c6f9/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-28-1.png" target="_blank">09ad482</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS  v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 3)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-2">
-Past versions of unnamed-chunk-28-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-28-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1d56205276ce21905d35802ad283158d85207813/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-28-2.png" target="_blank">1d56205</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-02-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Correlation in UTR but not intronic. Not sure if this is due to the number of PAS.</p>
+</div>
+<div id="plot-all-together" class="section level3">
+<h3>Plot all together</h3>
+<pre class="r"><code>riboBoth=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+riboTop=ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;APA, top PAS v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+ribosigapaboth=ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+
+ribosigapasep=ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS v Ribosome Occupany&quot;) +scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+
+sigapasigriboboth=ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(label.x = 1)+theme_classic(base_size = 12) 
+
+sigapasigribosep=ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant  APA, top PAS  v Significant Ribosome Occupany&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) </code></pre>
+<pre class="r"><code>plot_grid(riboBoth,riboTop,ribosigapaboth, ribosigapasep,sigapasigriboboth,sigapasigribosep, ncol=2)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="protein" class="section level2">
@@ -2376,7 +1790,7 @@ HvC.prot&lt;- eBayes(protein.fit)
 top.table &lt;- topTable(HvC.prot, n = Inf)
 
 volcanoplot(HvC.prot,coef=2,highlight=2)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>effectsizeDF= as.data.frame(cbind(Gene_stable_ID=rownames(protein.expressed.data.HC),logEf=HvC.prot$coefficients[,2], pval=top.table$adj.P.Val))  %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% rename(&#39;gene&#39;=Gene.name) %&gt;% select(-Gene_stable_ID)</code></pre>
 <pre><code>Warning: Column `Gene_stable_ID` joining factor and character vector,
 coercing into character vector</code></pre>
@@ -2388,38 +1802,38 @@ DPandAPA %&gt;% group_by(gene) %&gt;% summarise(n()) %&gt;% nrow()</code></pre>
 DPandAPA$pval= as.numeric(as.character(DPandAPA$pval))</code></pre>
 <p>Looking at 2568 common genes.</p>
 <pre class="r"><code>ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 2)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 2)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /> Just the genes with significant differences in PAS</p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" /> Just the genes with significant differences in PAS</p>
 <pre class="r"><code>PandAPA_sigAPA= DPandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /> Sig both:</p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /> Sig both:</p>
 <pre class="r"><code>PandAPA_sigAPAandP= PandAPA_sigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;, pval &lt;.05)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-43-2.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="choose-most-sig-pas-2" class="section level3">
 <h3>Choose most Sig PAS</h3>
 <p>To break ties I will use the top average usage. I will not worry about location at first.</p>
 <pre class="r"><code>PandAPA_topPAS= DPandAPA %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA, top PAS v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-45-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>PandAPA_topPAS_sigAPA= PandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, top PAS v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-47-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Sig both:</p>
 <pre class="r"><code>PandAPA_topPAS_sigAPAandP= PandAPA_topPAS_sigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;, pval &lt;.05)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-49-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Check pvalues:</p>
 <pre class="r"><code>protKhan=read.csv(&quot;../data/Khan_prot/Khan_TableS4.csv&quot;,header = T)  %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;)  %&gt;% rename(&quot;gene&quot;=Gene.name) </code></pre>
 <pre><code>Warning: Column `Gene_stable_ID` joining factor and character vector,
@@ -2448,9 +1862,9 @@ deltaPandAPA %&gt;% group_by(gene) %&gt;% summarise(n()) %&gt;% nrow()</code></p
 <pre><code>[1] 2620</code></pre>
 <p>2620 genes</p>
 <pre class="r"><code>ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 2)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 2)</code></pre>
-<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-53-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Correlation effect sizes:</p>
 <pre class="r"><code>protKhanSmall_withmone= protKhanSmall %&gt;% inner_join(effectsizeDF, by=&quot;gene&quot;)
 protKhanSmall_withmone$logEf=as.numeric(as.character(protKhanSmall_withmone$logEf))
@@ -2470,6 +1884,17 @@ sample estimates:
 -0.9999876 </code></pre>
 <p>Ok this is equal but opposite. So this is correct.</p>
 <p><strong>I need to check the direction of the effects.</strong></p>
+</div>
+<div id="plot-together-1" class="section level3">
+<h3>Plot together:</h3>
+<pre class="r"><code>protboth=ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Protein&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 2)+theme_classic(base_size = 12) 
+protsep=ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;APA, top PAS  v Protein&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+protsigapa=ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+protsigapasep=ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, top PAS v Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+protsigall=ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+protsigallsep=ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) </code></pre>
+<pre class="r"><code>plot_grid(protboth,protsep,protsigapa,protsigapasep,protsigall,protsigallsep, ncol=2)</code></pre>
+<p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2497,10 +1922,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] qvalue_2.14.0   limma_3.38.2    ggpubr_0.2      magrittr_1.5   
-[13] ggplot2_3.1.1   workflowr_1.6.0
+ [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] tidyverse_1.2.1 qvalue_2.14.0   limma_3.38.2    ggpubr_0.2     
+[13] magrittr_1.5    ggplot2_3.1.1   workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   reshape2_1.4.3     splines_3.5.1     
