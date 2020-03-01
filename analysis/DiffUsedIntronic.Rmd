@@ -16,6 +16,7 @@ library(ggpubr)
 library(limma)
 library(qvalue)
 library(tidyverse)
+library(cowplot)
 ```
 
 For this analysis I will look at the differentially used PAS in introns and ask if I can used information from DE and dribosome to better understand these. I subset intornic because I believe the intronic and utr mechanisms are different. 
@@ -57,6 +58,9 @@ This pas I will include each PAS
 ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
 
 ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 3)
+```
+```{r}
+
 ```
 
 
@@ -156,6 +160,30 @@ ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(
 ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA, Top PAS  v Significant DE") +  scale_color_brewer(palette = "Dark2")+ stat_cor(label.x = 3)
 
 ```
+
+###Plot together: 
+
+
+```{r}
+allboth=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth( method="lm") + labs(title="APA v DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(label.x = 1) +theme_classic(base_size = 12) 
+allSep= ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v DE") + scale_color_brewer(palette = "Dark2") + stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+sigAPAboth=ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v DE")+ scale_color_brewer(palette = "Dark2")+ stat_cor(label.x = 1)+theme_classic(base_size = 12) 
+sigAPSep=ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method="lm") + labs(title="Significant APA, Top PAS v DE ") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+SigBoth= ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant APA v Significant DE") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+SigSep=ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA, Top PAS  v Significant DE") +  scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+
+```
+
+
+```{r}
+plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)
+```
+
+```{r expression, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
+
+plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)
+```
+
 
 
 ##Ribosome occupancy  
@@ -297,6 +325,34 @@ ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alp
 
 
 Correlation in UTR but not intronic. Not sure if this is due to the number of PAS.   
+
+
+###Plot all together 
+
+```{r}
+riboBoth=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+riboTop=ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+ribosigapaboth=ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+
+ribosigapasep=ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+
+sigapasigriboboth=ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Significant Ribosome Occupany") + scale_color_brewer(palette = "Dark2")+ stat_cor(label.x = 1)+theme_classic(base_size = 12) 
+
+sigapasigribosep=ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+
+
+```
+
+
+```{r}
+plot_grid(riboBoth,riboTop,ribosigapaboth, ribosigapasep,sigapasigriboboth,sigapasigribosep, ncol=2)
+```
+```{r ribo, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
+
+plot_grid(riboBoth,riboTop,ribosigapaboth, ribosigapasep,sigapasigriboboth,sigapasigribosep, ncol=2)
+
+
+```
 
 
 ##Protein  
@@ -487,3 +543,28 @@ Ok this is equal but opposite.  So this is correct.
 
 
 **I need to check the direction  of the effects.**
+
+###Plot together:  
+
+```{r}
+protboth=ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Protein") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 2)+theme_classic(base_size = 12) 
+protsep=ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="APA, top PAS  v Protein") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+protsigapa=ggplot(PandAPA_sigAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+protsigapasep=ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA, top PAS v Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+protsigall=ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)+theme_classic(base_size = 12) 
+protsigallsep=ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA top PAS v Signficant Protein")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) 
+
+
+```
+
+
+```{r}
+plot_grid(protboth,protsep,protsigapa,protsigapasep,protsigall,protsigallsep, ncol=2)
+```
+```{r prot, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
+
+plot_grid(protboth,protsep,protsigapa,protsigapasep,protsigall,protsigallsep, ncol=2)
+
+
+
+```
