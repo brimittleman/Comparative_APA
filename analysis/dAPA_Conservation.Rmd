@@ -1,0 +1,203 @@
+---
+title: "Conservation Questions"
+author: "Briana Mittleman"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In my initial exploration of dAPA PAS I saw they are enriched for negative phylop scores. I will explore this trend further here. I will see if intron location explain the differences.  
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(reshape2)
+```
+
+```{r}
+DiffUsage=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
+
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+
+DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
+```
+
+```{r}
+phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na()
+NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr","start","end"))
+```
+40756 have results of the 40776  
+
+```{r}
+ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2", name="Signficant")
+
+
+```
+
+```{r}
+
+ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2", name="Signficant PAS") + labs(title="Mean PhyloP scores for tested PAS") + annotate("text",label="Wilcoxan, p=1.4e -5",x=6,y=.75)
+```
+
+
+The significant PAS have on average lower phyloP scores. 
+
+
+Positive scores — Measure conservation, which is slower evolution than expected, at sites that are predicted to be conserved.
+Negative scores — Measure acceleration, which is faster evolution than expected, at sites that are predicted to be fast-evolving.
+
+
+I can look at those with negative values:  
+
+```{r}
+x=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
+m= nrow(NucReswPhy %>% filter(phyloP<0))
+n=nrow(NucReswPhy %>% filter(phyloP>=0))
+k=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+
+```{r}
+b=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
+n=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
+B=nrow(NucReswPhy %>% filter(phyloP<0))
+N=nrow(NucReswPhy)
+
+(b/n)/(B/N)
+```
+
+
+
+This means these regions are more likely to be fast evolving.  
+
+Look at this by location: (is it driven by region)
+
+```{r}
+NucReswPhy_meta= NucReswPhy %>% inner_join(PASMeta, by=c("chr", "start", "end", "gene"))
+
+ggplot(NucReswPhy_meta,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2") + facet_grid(~loc)
+```
+```{r}
+NucReswPhy_meta_group=NucReswPhy_meta %>% group_by(loc,SigPAU2) %>% summarise(n=n(),meanPhylo=mean(phyloP))
+NucReswPhy_meta_group
+```
+
+##Control sequence (upstream 200): 
+
+Look at the 200 basepairs upstream of each PAS as a control. 
+
+
+```{r}
+metaStrand=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(chr, start,end, strandFix, PAS)
+
+NucReswPhy_upstream=NucReswPhy %>% inner_join(metaStrand,by=c("chr", "start", "end")) %>% mutate(newStart=ifelse(strandFix=="+", start - 200, end), newEnd=ifelse(strandFix=="+", start, end +200))
+
+NucReswPhy_upstreambed=NucReswPhy_upstream %>% select(chr, newStart, newEnd, PAS, Human, strandFix)
+
+write.table(NucReswPhy_upstreambed,"../data/PhyloP/PAS_200upregions.bed",col.names = F,row.names = F,quote = F,sep="\t")
+```
+
+
+```{bash,eval=F}
+python extractPhylopReg200up.py
+
+```
+
+
+```{r}
+Phylo200UpContron=read.table("../data/PhyloP/PAS_phyloP_200upstream.txt",stringsAsFactors = F, col.names = c("chr", "start","end", "PAS","UpstreamControl_Phylop")) 
+
+NucReswPhyandC=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr", "start","end")) %>% inner_join(metaStrand,by=c("chr", "start", "end"))%>% inner_join(Phylo200UpContron, by="PAS")  %>% drop_na()
+
+NucReswPhyandCsmall=NucReswPhyandC %>% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop ) %>% gather("set", "Phylop", -PAS, -SigPAU2)
+
+wilcox.test(NucReswPhyandC$phyloP, NucReswPhyandC$UpstreamControl_Phylop, alternative = "greater")
+```
+Actual are greater than region upstream  
+
+```{r}
+ggplot(NucReswPhyandCsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2",labels=c('PAS', 'Control') ) + stat_compare_means()
+
+```
+
+
+```{r}
+NucReswPhyandCsmall_noc= NucReswPhyandCsmall %>% filter(set!="UpstreamControl_Phylop")
+
+ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Dark2")
+```
+
+Significant are lower than not significant:  
+
+```{r}
+NucReswPhyandCsmall_nocYES= NucReswPhyandCsmall_noc %>% filter(SigPAU2=="Yes")
+NucReswPhyandCsmall_nocNO= NucReswPhyandCsmall_noc %>% filter(SigPAU2=="No")
+
+wilcox.test(NucReswPhyandCsmall_nocYES$Phylop, NucReswPhyandCsmall_nocNO$Phylop, alternative ="less")
+```
+
+Significant have lower scores.  
+
+
+
+Number of negative in each set?
+
+```{r}
+neg=NucReswPhyandCsmall %>% filter(Phylop <0) %>% group_by(set, SigPAU2) %>% summarise(nNeg=n())
+
+pos=NucReswPhyandCsmall %>% filter(Phylop >0) %>% group_by(set, SigPAU2) %>% summarise(nPos=n())
+
+both=neg %>% inner_join(pos,by= c('set', 'SigPAU2')) %>% mutate(PropNeg=nNeg/(nNeg+nPos))
+
+both
+```
+
+More negative overall in actual. Is there an enrichment for negative in the control set?  
+
+```{r}
+x=nrow(NucReswPhyandC %>% filter(SigPAU2=="Yes", UpstreamControl_Phylop<0))
+m= nrow(NucReswPhyandC %>% filter(UpstreamControl_Phylop<0))
+n=nrow(NucReswPhyandC %>% filter(UpstreamControl_Phylop>=0))
+k=nrow(NucReswPhyandC %>% filter(SigPAU2=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+```{r}
+b=nrow(NucReswPhyandC %>% filter(SigPAU2=="Yes", UpstreamControl_Phylop<0))
+n=nrow(NucReswPhyandC %>% filter(SigPAU2=="Yes"))
+B=nrow(NucReswPhyandC %>% filter(UpstreamControl_Phylop<0))
+N=nrow(NucReswPhyandC)
+
+(b/n)/(B/N)
+```
+
+Stronger enrichement in the for negative in the real results compared to contol.
+1.07x in control 1.11x in actual.
+
+
+
+Maybe I need to move the control further up. 
+
+Is this a better control? Dont want to go into an exon? What about downstream?  
+
+##Control sequence (downstream 200): 

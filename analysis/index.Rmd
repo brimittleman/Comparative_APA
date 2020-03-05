@@ -75,11 +75,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 
      * [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)  
 
-* [Explore nuclear differential APA PAS and genes](ExploredAPA.html)  
+* [Explore nuclear differential APA PAS and genes](Explore.html)  
 
-     * [Explore nuclear differential APA PAS and genes Double filter](ExploredAPA_DF.html)  
+     * [Explore nuclear differential APA PAS and genes Double filter](Explore_DF.html)  
 
-* [Enrichment for differencial APA and apaQTL](dAPAandapaQTL.html)  
+* [Enrichment for differencial APA and apaQTL](andapaQTL.html)  
 
      * [Enrichment for differencial APA and apaQTL double filter](dAPAandapaQTL_DF.html)   
 
@@ -119,8 +119,11 @@ From here on, I did everything double filtered:
 * [Effect size correlations](correlationPhenos.html)  
 
     * [Effect size correlations double filter](correlationPhenos_DF.html)  
+All with double filter:  
 
-* [Compare species 5' splice site strength](SpliceSiteStrength.html)
+* [Compare species 5' splice site strength](SpliceSiteStrength.html)  
+
+* [Explore PAS conservation](dAPA_Conservation.html)
 
 
 
