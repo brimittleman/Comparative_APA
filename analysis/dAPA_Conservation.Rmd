@@ -201,3 +201,71 @@ Maybe I need to move the control further up.
 Is this a better control? Dont want to go into an exon? What about downstream?  
 
 ##Control sequence (downstream 200): 
+
+```{r}
+
+NucReswPhy_downstream=NucReswPhy %>% inner_join(metaStrand,by=c("chr", "start", "end")) %>% mutate(newStart=ifelse(strandFix=="+",  end, start-200), newEnd=ifelse(strandFix=="+", end+200, start))
+
+NucReswPhy_downstreambed=NucReswPhy_downstream %>% select(chr, newStart, newEnd, PAS, Human, strandFix)
+
+write.table(NucReswPhy_downstreambed,"../data/PhyloP/PAS_200downpregions.bed",col.names = F,row.names = F,quote = F,sep="\t")
+```
+
+
+
+```{bash,eval=F}
+python extractPhylopReg200down.py
+
+```
+
+
+```{r}
+Phylo200downCont=read.table("../data/PhyloP/PAS_phyloP_200downstream.txt",stringsAsFactors = F, col.names = c("chr", "start","end", "PAS","DownstreamControl_Phylop")) 
+
+NucReswPhyandbothC=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr", "start","end")) %>% inner_join(metaStrand,by=c("chr", "start", "end"))%>% inner_join(Phylo200UpContron, by="PAS")  %>% drop_na() %>%  inner_join(Phylo200downCont, by="PAS")  %>% drop_na()
+
+NucReswPhyandCbothsmall=NucReswPhyandbothC %>% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) %>% gather("set", "Phylop", -PAS, -SigPAU2)
+
+
+#difference in controls? 
+wilcox.test(NucReswPhyandbothC$DownstreamControl_Phylop, NucReswPhyandbothC$UpstreamControl_Phylop,alternative = "greater")
+
+
+```
+
+
+```{r}
+ggplot(NucReswPhyandCbothsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2",labels=c("Downstream Control", "PAS", "Upstream Control") )
+```
+
+Same here. The actual region looks more conserved.  
+
+Enrichemnt for negative in this control:  
+
+```{r}
+x=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes", DownstreamControl_Phylop<0))
+m= nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop<0))
+n=nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop>=0))
+k=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+x
+
+#pval
+phyper(x,m,n,k,lower.tail=F)
+```
+
+```{r}
+b=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes", DownstreamControl_Phylop<0))
+n=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes"))
+B=nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop<0))
+N=nrow(NucReswPhyandbothC)
+
+(b/n)/(B/N)
+```
+
+Most enrichment for negative in this set.  Maybe an annotation bias still. 
