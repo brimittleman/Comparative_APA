@@ -80,7 +80,7 @@ Plot the proportion with a dAPA in each
 KhanData_gwAPA=KhanData_withAPAinfo %>% gather("Set", "Model", -gene, -dAPA)
 KhanData_gwAPA$Model= as.factor(KhanData_gwAPA$Model)
 
-
+KhanData_gwAPA$Set=factor(KhanData_gwAPA$Set, levels=c("RNA", "Protein"))
 ggplot(KhanData_gwAPA, aes(x=Model, by=dAPA, fill=dAPA)) +geom_bar(stat="count", position = "stack") + facet_grid(~Set) + scale_fill_brewer(palette = "Dark2") + labs(y="Number of Genes") + scale_x_discrete( labels=c("Selection Human","Selection Chimp","Undetermined","No mean difference","Relaxation in Human","Relaxation in Chimp"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16))
 ```
 
@@ -124,6 +124,61 @@ Protein
 -0 genes relax in human  
 -6 genes relax in chimp  
 
+
+
+Enrichement:  
+
+Write a loop that gets the pvalue and enrichment for each of these:  
+
+
+```{r}
+Model=seq(1,6)
+EnrichmentRNA=c()
+PvalueRNA=c()
+for (i in seq(1:6)){
+  x=nrow(KhanData_gwAPA %>% filter(Set=="RNA", dAPA=="Yes", Model==i))
+  m=nrow(KhanData_gwAPA %>% filter(Set=="RNA", Model==i))
+  n=nrow(KhanData_gwAPA %>% filter(Set=="RNA", Model!=i))
+  k=nrow(KhanData_gwAPA %>% filter(Set=="RNA", dAPA=="Yes"))
+  N=nrow(KhanData_gwAPA %>% filter(Set=="RNA"))
+  PvalueRNA=c(PvalueRNA, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentRNA=c(EnrichmentRNA, enrich)
+}
+
+EnrichProt=c()
+PvalueProt=c()
+
+for (i in seq(1:6)){
+  x=nrow(KhanData_gwAPA %>% filter(Set=="Protein", dAPA=="Yes", Model==i))
+  m=nrow(KhanData_gwAPA %>% filter(Set=="Protein", Model==i))
+  n=nrow(KhanData_gwAPA %>% filter(Set=="Protein", Model!=i))
+  k=nrow(KhanData_gwAPA %>% filter(Set=="Protein", dAPA=="Yes"))
+  N=nrow(KhanData_gwAPA %>% filter(Set=="Protein"))
+  PvalueProt=c(PvalueProt, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichProt=c(EnrichProt, enrich)
+}
+
+
+
+
+```
+
+
+```{r}
+EnrichmentResults=as.data.frame(cbind(Model, EnrichmentRNA,EnrichProt,PvalueRNA, PvalueProt))
+
+EnrichmentG= EnrichmentResults %>% select(Model, EnrichmentRNA, EnrichProt) %>% rename("RNA"=EnrichmentRNA, "Protein"=EnrichProt) %>% gather("Set", "Enrichment", -Model)
+PvalG= EnrichmentResults %>% select(Model, PvalueRNA, PvalueProt) %>% rename("RNA"=PvalueRNA, "Protein"=PvalueProt) %>% gather("Set", "Pvalue", -Model)
+
+Alldata=EnrichmentG %>% inner_join(PvalG, by=c("Model","Set"))
+
+Alldata$Set=factor(Alldata$Set, levels=c("RNA", "Protein"))
+Alldata$Model=factor(Alldata$Model)
+
+ggplot(Alldata,aes(x=Model, y=Enrichment,fill=Set)) + geom_bar(stat = "identity") + geom_hline(yintercept = 1) + geom_text(aes(label=round(Pvalue,2), vjust=0))+ facet_grid(~Set) + scale_fill_brewer(palette = "Dark2")  + scale_x_discrete( labels=c("Selection Human","Selection Chimp","Undetermined","No mean difference","Relaxation in Human","Relaxation in Chimp"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) +labs(title="Enrichment of dAPA genes in directional selection sets")
+```
 
 
 I need a way to relate this to something about APA  
