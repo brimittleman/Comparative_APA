@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-05
+<strong>Last updated:</strong> 2020-03-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea71e15c015c2de7e0d4822100d35ae2f388bc7eetargetblanka71e15ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a71e15c015c2de7e0d4822100d35ae2f388bc7ee" target="_blank">a71e15c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8400ab63ac2f68d7f3cc3e40405b61d7356ea7eftargetblank8400ab6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8400ab63ac2f68d7f3cc3e40405b61d7356ea7ef" target="_blank">8400ab6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea71e15c015c2de7e0d4822100d35ae2f388bc7eetargetblanka71e15ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8400ab63ac2f68d7f3cc3e40405b61d7356ea7eftargetblank8400ab6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1151,6 +1151,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8400ab63ac2f68d7f3cc3e40405b61d7356ea7ef/analysis/DirSelectionKhan.Rmd" target="_blank">8400ab6</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-06
+</td>
+<td>
+add enrichment results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a1fd883fda88dea7e55f5d53ee8824e5ecfbe9e4/docs/DirSelectionKhan.html" target="_blank">a1fd883</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a71e15c015c2de7e0d4822100d35ae2f388bc7ee/analysis/DirSelectionKhan.Rmd" target="_blank">a71e15c</a>
 </td>
 <td>
@@ -1189,12 +1223,93 @@ KhanData_g=KhanData %&gt;% gather(&quot;Set&quot;, &quot;Model&quot;, -gene)
 
 KhanData_g$Model= as.factor(KhanData_g$Model)</code></pre>
 <pre class="r"><code>ggplot(KhanData_g, aes(x=Model, by=Set, fill=Set)) +geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)</code></pre>
-<p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /> 1. directional human 2. directional in chimp 3, undetermined 4. no mean difference 5. relaxed in human 6. related in chimp</p>
+<p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a1fd883fda88dea7e55f5d53ee8824e5ecfbe9e4/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-3-1.png" target="_blank">a1fd883</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ol style="list-style-type: decimal">
+<li>directional human</li>
+<li>directional in chimp 3, undetermined</li>
+<li>no mean difference</li>
+<li>relaxed in human</li>
+<li>related in chimp</li>
+</ol>
 <p>Proportion</p>
 <pre class="r"><code>KhanData_group=KhanData_g %&gt;% group_by(Set, Model) %&gt;% summarise(Nset=n(), Prortion=Nset/nrow(KhanData))
 
 ggplot(KhanData_group, aes(x=Model, by=Set, fill=Set, y=Prortion)) +geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)</code></pre>
 <p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a1fd883fda88dea7e55f5d53ee8824e5ecfbe9e4/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-4-1.png" target="_blank">a1fd883</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This is their results. I will overlap this with the genes I found differences in.</p>
 <pre class="r"><code>DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(KhanData, by=&quot;gene&quot;)
 
@@ -1211,9 +1326,46 @@ KhanData_withAPAinfo= KhanData %&gt;% mutate(dAPA=ifelse(gene %in%GenewDiffIso$g
 <pre class="r"><code>KhanData_gwAPA=KhanData_withAPAinfo %&gt;% gather(&quot;Set&quot;, &quot;Model&quot;, -gene, -dAPA)
 KhanData_gwAPA$Model= as.factor(KhanData_gwAPA$Model)
 
-
+KhanData_gwAPA$Set=factor(KhanData_gwAPA$Set, levels=c(&quot;RNA&quot;, &quot;Protein&quot;))
 ggplot(KhanData_gwAPA, aes(x=Model, by=dAPA, fill=dAPA)) +geom_bar(stat=&quot;count&quot;, position = &quot;stack&quot;) + facet_grid(~Set) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Number of Genes&quot;) + scale_x_discrete( labels=c(&quot;Selection Human&quot;,&quot;Selection Chimp&quot;,&quot;Undetermined&quot;,&quot;No mean difference&quot;,&quot;Relaxation in Human&quot;,&quot;Relaxation in Chimp&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16))</code></pre>
 <p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a1fd883fda88dea7e55f5d53ee8824e5ecfbe9e4/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" target="_blank">a1fd883</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at the genes with directional selection:</p>
 <pre class="r"><code>DirSelectionRNA=KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, Model %in% c(1,2))
 
@@ -1269,6 +1421,47 @@ RelSelectionProt %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
 <p>Protein<br />
 -0 genes relax in human<br />
 -6 genes relax in chimp</p>
+<p>Enrichement:</p>
+<p>Write a loop that gets the pvalue and enrichment for each of these:</p>
+<pre class="r"><code>Model=seq(1,6)
+EnrichmentRNA=c()
+PvalueRNA=c()
+for (i in seq(1:6)){
+  x=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, dAPA==&quot;Yes&quot;, Model==i))
+  m=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, Model==i))
+  n=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, Model!=i))
+  k=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, dAPA==&quot;Yes&quot;))
+  N=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;))
+  PvalueRNA=c(PvalueRNA, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentRNA=c(EnrichmentRNA, enrich)
+}
+
+EnrichProt=c()
+PvalueProt=c()
+
+for (i in seq(1:6)){
+  x=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, dAPA==&quot;Yes&quot;, Model==i))
+  m=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, Model==i))
+  n=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, Model!=i))
+  k=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, dAPA==&quot;Yes&quot;))
+  N=nrow(KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;))
+  PvalueProt=c(PvalueProt, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichProt=c(EnrichProt, enrich)
+}</code></pre>
+<pre class="r"><code>EnrichmentResults=as.data.frame(cbind(Model, EnrichmentRNA,EnrichProt,PvalueRNA, PvalueProt))
+
+EnrichmentG= EnrichmentResults %&gt;% select(Model, EnrichmentRNA, EnrichProt) %&gt;% rename(&quot;RNA&quot;=EnrichmentRNA, &quot;Protein&quot;=EnrichProt) %&gt;% gather(&quot;Set&quot;, &quot;Enrichment&quot;, -Model)
+PvalG= EnrichmentResults %&gt;% select(Model, PvalueRNA, PvalueProt) %&gt;% rename(&quot;RNA&quot;=PvalueRNA, &quot;Protein&quot;=PvalueProt) %&gt;% gather(&quot;Set&quot;, &quot;Pvalue&quot;, -Model)
+
+Alldata=EnrichmentG %&gt;% inner_join(PvalG, by=c(&quot;Model&quot;,&quot;Set&quot;))
+
+Alldata$Set=factor(Alldata$Set, levels=c(&quot;RNA&quot;, &quot;Protein&quot;))
+Alldata$Model=factor(Alldata$Model)
+
+ggplot(Alldata,aes(x=Model, y=Enrichment,fill=Set)) + geom_bar(stat = &quot;identity&quot;) + geom_hline(yintercept = 1) + geom_text(aes(label=round(Pvalue,2), vjust=0))+ facet_grid(~Set) + scale_fill_brewer(palette = &quot;Dark2&quot;)  + scale_x_discrete( labels=c(&quot;Selection Human&quot;,&quot;Selection Chimp&quot;,&quot;Undetermined&quot;,&quot;No mean difference&quot;,&quot;Relaxation in Human&quot;,&quot;Relaxation in Chimp&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) +labs(title=&quot;Enrichment of dAPA genes in directional selection sets&quot;)</code></pre>
+<p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I need a way to relate this to something about APA</p>
 <p>Examples:</p>
 <br>
