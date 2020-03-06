@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8400ab63ac2f68d7f3cc3e40405b61d7356ea7eftargetblank8400ab6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8400ab63ac2f68d7f3cc3e40405b61d7356ea7ef" target="_blank">8400ab6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebe1ed382e52d3a440def14a151aff2573dfb2deftargetblankbe1ed38a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/be1ed382e52d3a440def14a151aff2573dfb2def" target="_blank">be1ed38</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8400ab63ac2f68d7f3cc3e40405b61d7356ea7eftargetblank8400ab6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebe1ed382e52d3a440def14a151aff2573dfb2deftargetblankbe1ed38a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1074,6 +1074,7 @@ Untracked files:
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gviz/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1151,6 +1152,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/be1ed382e52d3a440def14a151aff2573dfb2def/analysis/DirSelectionKhan.Rmd" target="_blank">be1ed38</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-06
+</td>
+<td>
+add exampels
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8d7a76ea0d2360477eed364bcf7fc2441dd158a2/docs/DirSelectionKhan.html" target="_blank">8d7a76e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8400ab63ac2f68d7f3cc3e40405b61d7356ea7ef/analysis/DirSelectionKhan.Rmd" target="_blank">8400ab6</a>
 </td>
 <td>
@@ -1206,12 +1241,12 @@ wflow_publish(c(“analysis/index.Rmd”, “analysis/DirSelectionKhan.Rmd”))
 </div>
 <p>I will use the directional selection categories from Khan et al.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Model from Khan et al.</p>
@@ -1353,6 +1388,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8d7a76ea0d2360477eed364bcf7fc2441dd158a2/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" target="_blank">8d7a76e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a1fd883fda88dea7e55f5d53ee8824e5ecfbe9e4/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" target="_blank">a1fd883</a>
 </td>
 <td>
@@ -1462,8 +1508,170 @@ Alldata$Model=factor(Alldata$Model)
 
 ggplot(Alldata,aes(x=Model, y=Enrichment,fill=Set)) + geom_bar(stat = &quot;identity&quot;) + geom_hline(yintercept = 1) + geom_text(aes(label=round(Pvalue,2), vjust=0))+ facet_grid(~Set) + scale_fill_brewer(palette = &quot;Dark2&quot;)  + scale_x_discrete( labels=c(&quot;Selection Human&quot;,&quot;Selection Chimp&quot;,&quot;Undetermined&quot;,&quot;No mean difference&quot;,&quot;Relaxation in Human&quot;,&quot;Relaxation in Chimp&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) +labs(title=&quot;Enrichment of dAPA genes in directional selection sets&quot;)</code></pre>
 <p><img src="figure/DirSelectionKhan.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8d7a76ea0d2360477eed364bcf7fc2441dd158a2/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-11-1.png" target="_blank">8d7a76e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>I need a way to relate this to something about APA</p>
 <p>Examples:</p>
+<p>Look at all of the relaxed</p>
+<pre class="r"><code>RelSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;6&quot;)</code></pre>
+<pre><code>     gene dAPA Set Model
+1   LIMA1  Yes RNA     6
+2    CUL1  Yes RNA     6
+3 APBB1IP  Yes RNA     6
+4   PTCD3  Yes RNA     6
+5    STOM  Yes RNA     6</code></pre>
+<pre class="r"><code>RelSelectionProt%&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;6&quot;)</code></pre>
+<pre><code>   gene dAPA     Set Model
+1 PTBP3  Yes Protein     6
+2  IRF5  Yes Protein     6
+3 FABP5  Yes Protein     6
+4 OTUB1  Yes Protein     6
+5  ECI1  Yes Protein     6
+6 LYRM7  Yes Protein     6</code></pre>
+<p>IRF5 OTUB1</p>
+<pre class="r"><code>RelSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;5&quot;)</code></pre>
+<pre><code>     gene dAPA Set Model
+1    PYGB  Yes RNA     5
+2   EIF4H  Yes RNA     5
+3     MTR  Yes RNA     5
+4   PTBP3  Yes RNA     5
+5 SNRNP27  Yes RNA     5
+6   STX17  Yes RNA     5
+7   ADPGK  Yes RNA     5
+8   LIMS1  Yes RNA     5
+9    IARS  Yes RNA     5</code></pre>
+<pre class="r"><code>DirSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;2&quot;)</code></pre>
+<pre><code>       gene dAPA Set Model
+1     RECQL  Yes RNA     2
+2     PPP5C  Yes RNA     2
+3   SMARCD1  Yes RNA     2
+4     SEL1L  Yes RNA     2
+5   DYNC1I2  Yes RNA     2
+6     EPS15  Yes RNA     2
+7     TMED2  Yes RNA     2
+8    GOLGA3  Yes RNA     2
+9      GLG1  Yes RNA     2
+10    CDC23  Yes RNA     2
+11    ASCC2  Yes RNA     2
+12    PSMC1  Yes RNA     2
+13     ADNP  Yes RNA     2
+14    INTS6  Yes RNA     2
+15   ZFAND1  Yes RNA     2
+16    GOSR2  Yes RNA     2
+17     DDX6  Yes RNA     2
+18    RAB5B  Yes RNA     2
+19    HDDC2  Yes RNA     2
+20    RPL22  Yes RNA     2
+21   CAPZA1  Yes RNA     2
+22  ARHGEF2  Yes RNA     2
+23     CBX3  Yes RNA     2
+24    PLCG1  Yes RNA     2
+25  TUBGCP3  Yes RNA     2
+26     IRF3  Yes RNA     2
+27    HERC2  Yes RNA     2
+28      DUT  Yes RNA     2
+29     ELP3  Yes RNA     2
+30  SYNCRIP  Yes RNA     2
+31    SCYL2  Yes RNA     2
+32     FLNB  Yes RNA     2
+33     RAC1  Yes RNA     2
+34      RB1  Yes RNA     2
+35     SORD  Yes RNA     2
+36     IRF8  Yes RNA     2
+37   SERBP1  Yes RNA     2
+38     TPM3  Yes RNA     2
+39   RPL7L1  Yes RNA     2
+40 ARHGAP18  Yes RNA     2
+41     DGKE  Yes RNA     2
+42   CC2D1B  Yes RNA     2
+43   SAMSN1  Yes RNA     2
+44    UBE2Z  Yes RNA     2
+45    NCSTN  Yes RNA     2
+46    UTP15  Yes RNA     2
+47     GFM2  Yes RNA     2
+48    RPL13  Yes RNA     2
+49    STX18  Yes RNA     2
+50   POLR1C  Yes RNA     2
+51   BCL2L1  Yes RNA     2
+52    DCAKD  Yes RNA     2
+53  DENND4A  Yes RNA     2
+54   TMEM70  Yes RNA     2
+55  FAM91A1  Yes RNA     2
+56    AP3S1  Yes RNA     2
+57    SNRPE  Yes RNA     2
+58     ADI1  Yes RNA     2
+59   UBE2L3  Yes RNA     2
+60  MORF4L1  Yes RNA     2
+61     MYO6  Yes RNA     2
+62   MRPL42  Yes RNA     2
+63  ANKRD28  Yes RNA     2
+64     HEXA  Yes RNA     2
+65   SEC22B  Yes RNA     2</code></pre>
+<pre class="r"><code>DirSelectionProt %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;2&quot;)</code></pre>
+<pre><code>      gene dAPA     Set Model
+1     CUL1  Yes Protein     2
+2    GNAI3  Yes Protein     2
+3  DYNC1I2  Yes Protein     2
+4     CPOX  Yes Protein     2
+5   SAMM50  Yes Protein     2
+6     PYGB  Yes Protein     2
+7    EIF4H  Yes Protein     2
+8    RAB5B  Yes Protein     2
+9   TRIM38  Yes Protein     2
+10    KYNU  Yes Protein     2
+11   WDR77  Yes Protein     2
+12     DUT  Yes Protein     2
+13   YARS2  Yes Protein     2
+14  GALNT2  Yes Protein     2
+15   CCT6A  Yes Protein     2
+16    CCT5  Yes Protein     2
+17    DGKE  Yes Protein     2
+18  CC2D1B  Yes Protein     2
+19   TTC9C  Yes Protein     2
+20  UBLCP1  Yes Protein     2
+21    NFU1  Yes Protein     2
+22    MFN1  Yes Protein     2
+23   PGAM1  Yes Protein     2
+24  BCL2L1  Yes Protein     2
+25   DCAKD  Yes Protein     2
+26    MYO6  Yes Protein     2
+27   PRIM1  Yes Protein     2
+28  SEC22B  Yes Protein     2</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
