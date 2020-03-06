@@ -185,5 +185,30 @@ I need a way to relate this to something about APA
 
 Examples:  
 
+Look at all of the relaxed 
 
+
+```{r}
+RelSelectionRNA %>% filter(dAPA=="Yes", Model=="6")
+```
+
+```{r}
+RelSelectionProt%>% filter(dAPA=="Yes", Model=="6")
+```
+
+IRF5
+OTUB1
+
+```{r}
+RelSelectionRNA %>% filter(dAPA=="Yes", Model=="5")
+```
+
+```{r}
+DirSelectionRNA %>% filter(dAPA=="Yes", Model=="2")
+```
+
+
+```{r}
+DirSelectionProt %>% filter(dAPA=="Yes", Model=="2")
+```
 
