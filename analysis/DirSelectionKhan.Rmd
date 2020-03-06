@@ -1,0 +1,134 @@
+---
+title: "Categories from Khan"
+author: "Briana Mittleman"
+date: "3/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will use the directional selection categories from Khan et al.  
+
+```{r}
+library(tidyverse)
+```
+
+
+Model from Khan et al. 
+
+model.num.rna: : 1 = mRNA expression level pattern consistent with directional selection along human lineage, 2 = mRNA expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage
+
+model.num.protein: 1 = protein expression level pattern consistent with directional selection along human lineage, 2 = protein expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage 
+
+
+```{r}
+
+KhanData=read.csv("../data/Khan_prot/Khan_TableS4.csv",stringsAsFactors = F)  %>% select(gene.symbol,contains("model") ) %>% rename("gene"=gene.symbol, "Protein"=model.num.protein, "RNA"=model.num.rna)
+
+KhanData_g=KhanData %>% gather("Set", "Model", -gene)
+
+KhanData_g$Model= as.factor(KhanData_g$Model)
+```
+
+
+
+```{r}
+ggplot(KhanData_g, aes(x=Model, by=Set, fill=Set)) +geom_bar(stat="count",position = "dodge")
+
+
+```
+1. directional human 
+2. directional in chimp 
+3, undetermined
+4. no mean difference
+5. relaxed in human
+6. related in chimp 
+
+Proportion  
+
+```{r}
+KhanData_group=KhanData_g %>% group_by(Set, Model) %>% summarise(Nset=n(), Prortion=Nset/nrow(KhanData))
+
+ggplot(KhanData_group, aes(x=Model, by=Set, fill=Set, y=Prortion)) +geom_bar(stat="identity",position = "dodge")
+```
+
+This is their results. I will overlap this with the genes I found differences in. 
+
+```{r}
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(KhanData, by="gene")
+
+nrow(DiffIso)
+nrow(DiffIso %>% select(gene) %>% unique())
+
+
+```
+We have data for 11,203 PAS in 2,485 genes.  
+
+I want to get this down to gene level
+
+```{r}
+GenewDiffIso= DiffIso %>% group_by(gene,SigPAU2) %>% summarise(nEach=n()) %>% filter(SigPAU2=="Yes")
+
+KhanData_withAPAinfo= KhanData %>% mutate(dAPA=ifelse(gene %in%GenewDiffIso$gene, "Yes", "No" ))
+
+```
+
+Plot the proportion with a dAPA in each 
+```{r}
+KhanData_gwAPA=KhanData_withAPAinfo %>% gather("Set", "Model", -gene, -dAPA)
+KhanData_gwAPA$Model= as.factor(KhanData_gwAPA$Model)
+
+
+ggplot(KhanData_gwAPA, aes(x=Model, by=dAPA, fill=dAPA)) +geom_bar(stat="count", position = "stack") + facet_grid(~Set) + scale_fill_brewer(palette = "Dark2") + labs(y="Number of Genes") + scale_x_discrete( labels=c("Selection Human","Selection Chimp","Undetermined","No mean difference","Relaxation in Human","Relaxation in Chimp"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16))
+```
+
+Look at the genes with directional selection:
+
+```{r}
+DirSelectionRNA=KhanData_gwAPA %>% filter(Set=="RNA", Model %in% c(1,2))
+
+DirSelectionRNA %>% group_by(Model,dAPA) %>% summarise(n())
+
+DirSelectionProt=KhanData_gwAPA %>% filter(Set=="Protein", Model %in% c(1,2))
+
+DirSelectionProt %>% group_by(Model,dAPA) %>% summarise(n())
+```
+RNA 
+-84 genes directional to human  
+-64 genes directional to chimp    
+
+Protein  
+-32 genes directional in human  
+-27 genes directional in chimp  
+
+Relaxed selection:  
+
+```{r}
+RelSelectionRNA=KhanData_gwAPA %>% filter(Set=="RNA", Model %in% c(5,6))
+
+RelSelectionRNA %>% group_by(Model,dAPA) %>% summarise(n())
+
+RelSelectionProt=KhanData_gwAPA %>% filter(Set=="Protein", Model %in% c(5,6))
+
+RelSelectionProt %>% group_by(Model,dAPA) %>% summarise(n())
+```
+9/57, 5/13
+
+RNA 
+-9 genes relax to human  (9/66) 13%
+-5 genes relax to chimp   (5/18) 27%
+
+Protein  
+-0 genes relax in human  
+-6 genes relax in chimp  
+
+
+
+I need a way to relate this to something about APA  
+
+Examples:  
+
+
+
