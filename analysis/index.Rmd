@@ -91,6 +91,8 @@ From here on, I did everything double filtered:
 
 * [Does presence or absense of signal explain differential usage](SS_diffUsage.html)
 
+* [Protein interactions](PTM_analysis.html)  
+
 ##Quantify Phenotypes with RNA:   
 
 * [Differential Splicing](diffSplicing.html) 

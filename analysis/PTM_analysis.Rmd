@@ -1,0 +1,121 @@
+---
+title: "Post translation modification"
+author: "Briana Mittleman"
+date: "3/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggpubr)
+library(workflowr)
+library(tidyverse)
+```
+
+Looking at protien interactions. https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-3.5.182/
+
+Are genes with dAPA more likely to be in genes with known protein protein interactions. Given the regulatory elements in the 3' UTR. This could help us understand a mechanism. 
+
+( interactions, chemical associations, and post-translational modifications (PTM))
+
+```{bash,eval=F}
+mkdir ../data/bioGRID
+```
+
+
+
+Look at data:  
+
+Fix colnames  
+```{r}
+Biogrid=read_tsv("../data/bioGRID/BIOGRID-ORGANISM-Homo_sapiens-3.5.182.tab2.txt")
+
+colnames(Biogrid)= c( "BioGRID_Interaction_ID",  "Entrez_Gene_Interactor_A", "Entrez_Gene_Interactor_B", "BioGRID_ID_Interactor_A",  "BioGRID_ID_Interactor_B"   ,   "Systematic_Name_Interactor_A","Systematic_Name_Interactor_B", "Official_Symbol_Interactor_A", "Official_Symbol_Interactor_B","Synonyms_Interactor_A", "Synonyms_Interactor_B" , "Experimental_System", "Experimental_System_Type" ,"Author" , "Pubmed_ID" ,"Organism_Interactor_A", "Organism_Interactor_B", "Throughput","Score", "Modification" , "Phenotypes","Qualifications", "Tags" , "Source Database" )
+
+
+```
+
+Select the official names for the interactors:  
+
+```{r}
+Biogridsmall=Biogrid %>% dplyr::select(Official_Symbol_Interactor_A, Official_Symbol_Interactor_B,Score, Modification, Phenotypes, Tags) 
+```
+
+I need a way to remove duplicates. I can do this by making unordered sets of these. I will need the uniq sets.
+
+Make a set with the pasted version of A:B and B:A, keep the unique set  
+
+```{r}
+BioGridsets=Biogridsmall %>% mutate(Afirst=paste(Official_Symbol_Interactor_A, Official_Symbol_Interactor_B, sep="_:_"), Bfirst=paste(Official_Symbol_Interactor_B, Official_Symbol_Interactor_A, sep="_:_")) 
+
+Allsets= as.data.frame(c(BioGridsets$Afirst, BioGridsets$Bfirst)) %>%  unique()
+
+colnames(Allsets)=c("Interaction")
+
+
+AllGenes=as.data.frame(c(Biogridsmall$Official_Symbol_Interactor_A, Biogridsmall$Official_Symbol_Interactor_B)) %>% unique()
+
+colnames(AllGenes)=c("Genes")
+```
+I want to know if my genes are in either of these sets. I also need the set of all genes that are involved. 
+
+
+
+```{r}
+Allsets_sep= Allsets %>% separate(Interaction, into=c("a","b"), sep="_:_")
+```
+
+Get all of the genes together in one column (not unique) , group by the gene and count how many interactions
+
+
+```{r}
+GenesWint= as.data.frame(c(Allsets_sep$a, Allsets_sep$b))
+colnames(GenesWint)= c("gene")
+GenesWint_g= GenesWint %>% group_by(gene) %>% summarise(nInt=n())
+
+```
+
+
+Join this with the genes I test. 
+
+```{r}
+NucRes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% group_by(gene, SigPAU2) %>% summarise(N=n()) %>% spread(SigPAU2,N) %>% replace_na(list(Yes=0)) %>% mutate(dAPA=ifelse(Yes>=1, "Yes", "No")) %>% dplyr::select(-Yes, -No)
+
+NucResAll= NucRes  %>% left_join(GenesWint_g, by="gene") %>%  replace_na(list(nInt=0)) 
+```
+
+
+```{r}
+ggplot(NucResAll,aes(x=dAPA, y=log10(nInt +1))) + geom_boxplot() + stat_compare_means()
+```
+
+Does not look like this can explain the differences.  
+
+Enriched for non 0?
+
+
+
+```{r}
+NucResAll_g= NucResAll %>% mutate(HasInteraction=ifelse(nInt>0, "Yes", "No")) %>% group_by(dAPA, HasInteraction) %>% summarise(nWithSet=n())
+
+NucResAll_g
+```
+
+
+```{r}
+5581/(5581+814)
+1869/(1869+280)
+```
+
+Doesnt look like differentail are more likely to have an interaction.  
+
+
+##filter for modifications  
+
+```{r}
+Biogridsmall %>% dplyr::select(Modification) %>% unique()
+```
+
