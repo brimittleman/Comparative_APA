@@ -1,0 +1,194 @@
+---
+title: "Difference in protein and APA not expression"
+author: "Briana Mittleman"
+date: "3/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(UpSetR)
+library(ggpubr)
+```
+
+Upload:  
+
+```{r}
+Protein=read.table("../data/Khan_prot/HC_SigProtein.txt", header = T, stringsAsFactors = F)%>% dplyr::rename("gene"=gene.symbol)
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name) %>% dplyr::rename("gene"=Gene.name)
+NucAPA=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T,stringsAsFactors = F)
+```
+
+I will do this first with these then I can start to look at it by significance.  
+
+214 dAPA and dp  
+```{r}
+APAandPnotE= NucAPA %>% inner_join(Protein, by="gene") %>% anti_join(DEgenes,by="gene")
+```
+
+```{r}
+listInput_nucOnly <- list(DE=DEgenes$gene, DAPA=NucAPA$gene, DP=Protein$gene)
+
+#upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="red", active=T,query.name="APA, Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="orange", active=T, query.name="Expression,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="blue", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="purple", active=T, query.name="APA, Protein"),list(query=intersects, params=list("DAPA", "DE"), color="green", active=T, query.name="APA, Expression")), order.by = "freq", query.legend = "bottom")
+
+
+
+
+upset(fromList(listInput_nucOnly), order.by = "freq", keep.order = T,empty.intersections = "on", queries = list(list(query=intersects, params=list("DAPA", "DP"), color="darkorchid4", active=T,query.name="APA, Protein")))
+      
+      
+      
+      
+```
+
+
+
+113 of these genes.  
+
+Learn about these genes. 
+
+Selection:  
+
+
+model.num.rna: : 1 = mRNA expression level pattern consistent with directional selection along human lineage, 2 = mRNA expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage
+
+model.num.protein: 1 = protein expression level pattern consistent with directional selection along human lineage, 2 = protein expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage 
+
+
+```{r}
+KhanData=read.csv("../data/Khan_prot/Khan_TableS4.csv",stringsAsFactors = F)  %>% dplyr::select(gene.symbol,contains("model") ) %>% dplyr::rename("gene"=gene.symbol, "Protein"=model.num.protein, "RNA"=model.num.rna)
+
+
+APAandPnotE_sel= APAandPnotE %>% inner_join(KhanData,by="gene")
+```
+
+Plot the information about the RNA and protein for these:  
+
+```{r}
+APAandPnotE_sel_g=APAandPnotE_sel %>% dplyr::select(gene, Protein, RNA) %>% gather("Set", "Model", -gene)
+
+
+APAandPnotE_sel_g$Model= as.factor(APAandPnotE_sel_g$Model)
+ggplot(APAandPnotE_sel_g,aes(x=Model, by=Set, fill=Set)) + geom_bar(stat="count", position="dodge") + scale_fill_brewer(palette = "Dark2")
+
+
+
+
+```
+
+Plot protein only:  
+
+```{r}
+APAandPnotE_sel_gOnlyP= APAandPnotE_sel_g %>% filter(Set=="Protein")
+
+APAandPnotE_sel_gOnlyP$Model= as.factor(APAandPnotE_sel_gOnlyP$Model)
+
+ggplot(APAandPnotE_sel_gOnlyP,aes(x=Model)) + geom_bar(stat="count", position="dodge", fill="darkorchid4") + labs(y="Number of Genes", x="Protein Selection Model", title="Protein and APA differences\n no difference in Expression") + scale_x_discrete( labels=c("Selection Human","Selection Chimp","Undetermined","No mean difference","Relaxation in Chimp"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) 
+```
+
+
+The genes in 1,2,5,6 are interesting.  
+
+```{r}
+APAandPnotE_selCalled= APAandPnotE_sel_g %>% filter(Set=="Protein", Model %in% c(1,2,5,6))
+```
+There are 27 of these genes: 
+
+```{r}
+APAandPnotE_selCalled
+```
+
+
+Where are the differential PAS in these genes:  
+
+```{r}
+#APAandPnotE_sel_gOnlyP
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = T) %>% dplyr::rename("ChimpUsage"=Chimp, "HumanUsage"=Human)
+NucAPAres=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", "start","end", "gene"))
+
+
+NucAPAres_DP= NucAPAres %>% filter(gene %in%APAandPnotE_sel_gOnlyP$gene ) %>% filter(SigPAU2=="Yes")
+
+
+NucAPAresSig=NucAPAres %>% filter(SigPAU2=="Yes")
+```
+
+THere are 152 PAS in this set:
+
+
+```{r}
+ggplot(NucAPAres_DP,aes(x=loc,fill=loc))+ geom_bar(stat="count") + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="", y="Number of PAS", title="Expression independent PAS locations")
+```
+
+
+Enrichment for this:  
+
+Compare to all of the significant in that location. 
+
+```{r}
+
+NucAPAres_sig= NucAPAres %>% filter(SigPAU2=="Yes") %>% mutate(dPnotE=ifelse(PAS %in% NucAPAres_DP$PAS,"Yes", "No"))
+
+
+enrich=c()
+pval=c()
+
+for (i in c("cds", "end", "intron", "utr3")){
+  x=nrow(NucAPAres_sig %>% filter(dPnotE=="Yes", loc==i))
+  m=nrow(NucAPAres_sig %>% filter( loc==i))
+  n=nrow(NucAPAres_sig %>% filter(loc!=i))
+  k=nrow(NucAPAres_sig %>% filter(dPnotE=="Yes"))
+  N=nrow(NucAPAres_sig)
+  pval=c(pval, phyper(x,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrich=c(enrich, enrichval)
+}
+enrich
+pval
+
+
+NucAPAres_DPLocEnrich=NucAPAres_DP %>% group_by(loc) %>% summarise(n=n()) %>% bind_cols(enrichment=enrich, pvalue=pval)
+
+
+ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="", y="Number of PAS", title="Expression independent PAS locations")+ geom_text(aes(label=paste("Enrichment=",round(enrichment,2), "X", sep=""), vjust=0)) +geom_text(aes(label=paste("Pval=",round(pvalue,2), sep=""), vjust=2))
+```
+
+Interactions:
+
+
+Are there differences in protien interactions for these. 
+```{r}
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T)
+
+InteractionsAPA=Interactions %>%filter(gene %in% NucAPAresSig$gene) %>% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, "Yes", "No"))
+
+
+ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="Gene in Expression independent set", y="log10(Number of Protein Interactions)", title="Protein Interactions for Expression \nindependent dAPA genes")
+```
+
+More likly to have one:  
+
+```{r}
+InteractionsAPA %>% mutate(HasInteraction=ifelse(nInt>0, "Yes", "No")) %>% group_by(dPnotE, HasInteraction) %>% summarise(nWithSet=n())
+```
+
+Set should be the interaction set dAPA, de, and dP. 
+
+```{r}
+Alldiff=Protein %>% inner_join(DEgenes,by="gene") %>% inner_join(NucAPA, by="gene") %>% dplyr::select(gene)
+#This is 101 genes.  
+geneAPAPnotEG=APAandPnotE %>% dplyr::select(gene)
+
+GenesMatter= Alldiff %>% bind_rows(geneAPAPnotEG) %>% mutate(Ex=ifelse(gene %in% geneAPAPnotEG$gene, "No", "Yes")) %>% inner_join(Interactions, by="gene")
+```
+
+
+```{r}
+ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="DE gene", y="Number of protein protein interactions", title="dAPA, DP, and DE")
+```
+

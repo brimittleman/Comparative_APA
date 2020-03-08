@@ -76,6 +76,7 @@ GenesWint= as.data.frame(c(Allsets_sep$a, Allsets_sep$b))
 colnames(GenesWint)= c("gene")
 GenesWint_g= GenesWint %>% group_by(gene) %>% summarise(nInt=n())
 
+
 ```
 
 
@@ -85,6 +86,8 @@ Join this with the genes I test.
 NucRes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% group_by(gene, SigPAU2) %>% summarise(N=n()) %>% spread(SigPAU2,N) %>% replace_na(list(Yes=0)) %>% mutate(dAPA=ifelse(Yes>=1, "Yes", "No")) %>% dplyr::select(-Yes, -No)
 
 NucResAll= NucRes  %>% left_join(GenesWint_g, by="gene") %>%  replace_na(list(nInt=0)) 
+
+write.table(GenesWint_g, "../data/bioGRID/GeneswInteractions.txt",col.names = T, row.names = F, quote = F)
 ```
 
 

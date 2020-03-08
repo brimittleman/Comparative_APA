@@ -155,7 +155,7 @@ From here on, I did everything double filtered:
 
 * [Apa and expression relationship for seperated by location of PAS](DiffUsedIntronic.html)  
 
-
+* [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
 
 
