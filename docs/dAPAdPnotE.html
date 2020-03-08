@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Post translation modification</title>
+<title>Difference in protein and APA not expression</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Post translation modification</h1>
+<h1 class="title toc-ignore">Difference in protein and APA not expression</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>3/6/2020</em></h4>
+<h4 class="date"><em>3/7/2020</em></h4>
 
 </div>
 
@@ -1153,7 +1153,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c6a11f00dbcd38e20964f4a8d82d690d2004ae12/analysis/PTM_analysis.Rmd" target="_blank">c6a11f0</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c6a11f00dbcd38e20964f4a8d82d690d2004ae12/analysis/dAPAdPnotE.Rmd" target="_blank">c6a11f0</a>
 </td>
 <td>
 brimittleman
@@ -1165,40 +1165,6 @@ brimittleman
 add expression indep
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/22926ec6140cb1e4a6866acbb4e56a09983013a7/docs/PTM_analysis.html" target="_blank">22926ec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/680d435cd9ebc983d9448ddf0ee8e6a9c18dbe11/analysis/PTM_analysis.Rmd" target="_blank">680d435</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-06
-</td>
-<td>
-add ptm analysis
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1206,153 +1172,165 @@ add ptm analysis
 </div>
 </div>
 </div>
-<pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>Loading required package: magrittr</code></pre>
-<pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.6.0
-Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()</code></pre>
-<p>Looking at protien interactions. <a href="https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-3.5.182/" class="uri">https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-3.5.182/</a></p>
-<p>Are genes with dAPA more likely to be in genes with known protein protein interactions. Given the regulatory elements in the 3’ UTR. This could help us understand a mechanism.</p>
-<p>( interactions, chemical associations, and post-translational modifications (PTM))</p>
-<pre class="bash"><code>mkdir ../data/bioGRID</code></pre>
-<p>Look at data:</p>
-<p>Fix colnames</p>
-<pre class="r"><code>Biogrid=read_tsv(&quot;../data/bioGRID/BIOGRID-ORGANISM-Homo_sapiens-3.5.182.tab2.txt&quot;)</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_character(),
-  `#BioGRID Interaction ID` = col_double(),
-  `Entrez Gene Interactor A` = col_double(),
-  `Entrez Gene Interactor B` = col_double(),
-  `BioGRID ID Interactor A` = col_double(),
-  `BioGRID ID Interactor B` = col_double(),
-  `Pubmed ID` = col_double(),
-  `Organism Interactor A` = col_double(),
-  `Organism Interactor B` = col_double()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>colnames(Biogrid)= c( &quot;BioGRID_Interaction_ID&quot;,  &quot;Entrez_Gene_Interactor_A&quot;, &quot;Entrez_Gene_Interactor_B&quot;, &quot;BioGRID_ID_Interactor_A&quot;,  &quot;BioGRID_ID_Interactor_B&quot;   ,   &quot;Systematic_Name_Interactor_A&quot;,&quot;Systematic_Name_Interactor_B&quot;, &quot;Official_Symbol_Interactor_A&quot;, &quot;Official_Symbol_Interactor_B&quot;,&quot;Synonyms_Interactor_A&quot;, &quot;Synonyms_Interactor_B&quot; , &quot;Experimental_System&quot;, &quot;Experimental_System_Type&quot; ,&quot;Author&quot; , &quot;Pubmed_ID&quot; ,&quot;Organism_Interactor_A&quot;, &quot;Organism_Interactor_B&quot;, &quot;Throughput&quot;,&quot;Score&quot;, &quot;Modification&quot; , &quot;Phenotypes&quot;,&quot;Qualifications&quot;, &quot;Tags&quot; , &quot;Source Database&quot; )</code></pre>
-<p>Select the official names for the interactors:</p>
-<pre class="r"><code>Biogridsmall=Biogrid %&gt;% dplyr::select(Official_Symbol_Interactor_A, Official_Symbol_Interactor_B,Score, Modification, Phenotypes, Tags) </code></pre>
-<p>I need a way to remove duplicates. I can do this by making unordered sets of these. I will need the uniq sets.</p>
-<p>Make a set with the pasted version of A:B and B:A, keep the unique set</p>
-<pre class="r"><code>BioGridsets=Biogridsmall %&gt;% mutate(Afirst=paste(Official_Symbol_Interactor_A, Official_Symbol_Interactor_B, sep=&quot;_:_&quot;), Bfirst=paste(Official_Symbol_Interactor_B, Official_Symbol_Interactor_A, sep=&quot;_:_&quot;)) 
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(UpSetR)
+library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
 
-Allsets= as.data.frame(c(BioGridsets$Afirst, BioGridsets$Bfirst)) %&gt;%  unique()
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
-colnames(Allsets)=c(&quot;Interaction&quot;)
+    extract</code></pre>
+<p>Upload:</p>
+<pre class="r"><code>Protein=read.table(&quot;../data/Khan_prot/HC_SigProtein.txt&quot;, header = T, stringsAsFactors = F)%&gt;% dplyr::rename(&quot;gene&quot;=gene.symbol)
+nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
+DEgenes=read.table(&quot;../data/DiffExpression/DE_genes.txt&quot;, header = F,col.names = c(&quot;Gene_stable_ID&quot;),stringsAsFactors = F) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name) %&gt;% dplyr::rename(&quot;gene&quot;=Gene.name)
+NucAPA=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;,header = T,stringsAsFactors = F)</code></pre>
+<p>I will do this first with these then I can start to look at it by significance.</p>
+<p>214 dAPA and dp</p>
+<pre class="r"><code>APAandPnotE= NucAPA %&gt;% inner_join(Protein, by=&quot;gene&quot;) %&gt;% anti_join(DEgenes,by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>listInput_nucOnly &lt;- list(DE=DEgenes$gene, DAPA=NucAPA$gene, DP=Protein$gene)
+
+#upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;red&quot;, active=T,query.name=&quot;APA, Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DE&quot;, &quot;DT&quot;, &quot;DP&quot;), color=&quot;orange&quot;, active=T, query.name=&quot;Expression,Ribo, Protein&quot;),list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DT&quot;), color=&quot;blue&quot;, active=T, query.name=&quot;APA,Ribo&quot;) ,list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DP&quot;), color=&quot;purple&quot;, active=T, query.name=&quot;APA, Protein&quot;),list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DE&quot;), color=&quot;green&quot;, active=T, query.name=&quot;APA, Expression&quot;)), order.by = &quot;freq&quot;, query.legend = &quot;bottom&quot;)
 
 
-AllGenes=as.data.frame(c(Biogridsmall$Official_Symbol_Interactor_A, Biogridsmall$Official_Symbol_Interactor_B)) %&gt;% unique()
 
-colnames(AllGenes)=c(&quot;Genes&quot;)</code></pre>
-<p>I want to know if my genes are in either of these sets. I also need the set of all genes that are involved.</p>
-<pre class="r"><code>Allsets_sep= Allsets %&gt;% separate(Interaction, into=c(&quot;a&quot;,&quot;b&quot;), sep=&quot;_:_&quot;)</code></pre>
-<p>Get all of the genes together in one column (not unique) , group by the gene and count how many interactions</p>
-<pre class="r"><code>GenesWint= as.data.frame(c(Allsets_sep$a, Allsets_sep$b))
-colnames(GenesWint)= c(&quot;gene&quot;)
-GenesWint_g= GenesWint %&gt;% group_by(gene) %&gt;% summarise(nInt=n())</code></pre>
-<p>Join this with the genes I test.</p>
-<pre class="r"><code>NucRes=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% group_by(gene, SigPAU2) %&gt;% summarise(N=n()) %&gt;% spread(SigPAU2,N) %&gt;% replace_na(list(Yes=0)) %&gt;% mutate(dAPA=ifelse(Yes&gt;=1, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% dplyr::select(-Yes, -No)
 
-NucResAll= NucRes  %&gt;% left_join(GenesWint_g, by=&quot;gene&quot;) %&gt;%  replace_na(list(nInt=0)) </code></pre>
+upset(fromList(listInput_nucOnly), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;, queries = list(list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DP&quot;), color=&quot;darkorchid4&quot;, active=T,query.name=&quot;APA, Protein&quot;)))</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>113 of these genes.</p>
+<p>Learn about these genes.</p>
+<p>Selection:</p>
+<p>model.num.rna: : 1 = mRNA expression level pattern consistent with directional selection along human lineage, 2 = mRNA expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage</p>
+<p>model.num.protein: 1 = protein expression level pattern consistent with directional selection along human lineage, 2 = protein expression level pattern consistent with directional selection along chimpanzee lineage, 3 = undetermined pattern, 4 = patterns with no significant difference between mean expression levels; 5 = evidence for relaxation of constraint along human lineage, 6 = evidence of relaxation of constraint along chimpanzee lineage</p>
+<pre class="r"><code>KhanData=read.csv(&quot;../data/Khan_prot/Khan_TableS4.csv&quot;,stringsAsFactors = F)  %&gt;% dplyr::select(gene.symbol,contains(&quot;model&quot;) ) %&gt;% dplyr::rename(&quot;gene&quot;=gene.symbol, &quot;Protein&quot;=model.num.protein, &quot;RNA&quot;=model.num.rna)
+
+
+APAandPnotE_sel= APAandPnotE %&gt;% inner_join(KhanData,by=&quot;gene&quot;)</code></pre>
+<p>Plot the information about the RNA and protein for these:</p>
+<pre class="r"><code>APAandPnotE_sel_g=APAandPnotE_sel %&gt;% dplyr::select(gene, Protein, RNA) %&gt;% gather(&quot;Set&quot;, &quot;Model&quot;, -gene)
+
+
+APAandPnotE_sel_g$Model= as.factor(APAandPnotE_sel_g$Model)
+ggplot(APAandPnotE_sel_g,aes(x=Model, by=Set, fill=Set)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot protein only:</p>
+<pre class="r"><code>APAandPnotE_sel_gOnlyP= APAandPnotE_sel_g %&gt;% filter(Set==&quot;Protein&quot;)
+
+APAandPnotE_sel_gOnlyP$Model= as.factor(APAandPnotE_sel_gOnlyP$Model)
+
+ggplot(APAandPnotE_sel_gOnlyP,aes(x=Model)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;, fill=&quot;darkorchid4&quot;) + labs(y=&quot;Number of Genes&quot;, x=&quot;Protein Selection Model&quot;, title=&quot;Protein and APA differences\n no difference in Expression&quot;) + scale_x_discrete( labels=c(&quot;Selection Human&quot;,&quot;Selection Chimp&quot;,&quot;Undetermined&quot;,&quot;No mean difference&quot;,&quot;Relaxation in Chimp&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) </code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The genes in 1,2,5,6 are interesting.</p>
+<pre class="r"><code>APAandPnotE_selCalled= APAandPnotE_sel_g %&gt;% filter(Set==&quot;Protein&quot;, Model %in% c(1,2,5,6))</code></pre>
+<p>There are 27 of these genes:</p>
+<pre class="r"><code>APAandPnotE_selCalled</code></pre>
+<pre><code>      gene     Set Model
+1    MED17 Protein     1
+2    PRIM1 Protein     2
+3    SART3 Protein     1
+4  ATP6V1D Protein     1
+5    SEL1L Protein     1
+6     DGKE Protein     2
+7   GALNT2 Protein     2
+8    GNAI3 Protein     2
+9    PFDN2 Protein     1
+10    PPIH Protein     1
+11  SEC22B Protein     2
+12   WDR77 Protein     2
+13    KYNU Protein     2
+14   PPIL3 Protein     1
+15 ATP6V1A Protein     1
+16    CPOX Protein     2
+17   MANBA Protein     1
+18   BNIP1 Protein     1
+19    CCT5 Protein     2
+20  CYFIP2 Protein     1
+21    TARS Protein     1
+22    MYO6 Protein     2
+23   CCT6A Protein     2
+24    CUL1 Protein     2
+25   VPS41 Protein     1
+26   PTBP3 Protein     6
+27    STOM Protein     1</code></pre>
+<p>Where are the differential PAS in these genes:</p>
+<pre class="r"><code>#APAandPnotE_sel_gOnlyP
+Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = T) %&gt;% dplyr::rename(&quot;ChimpUsage&quot;=Chimp, &quot;HumanUsage&quot;=Human)
+NucAPAres=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;gene&quot;))</code></pre>
+<pre><code>Warning: Column `chr` joining character vector and factor, coercing into
+character vector</code></pre>
 <pre><code>Warning: Column `gene` joining character vector and factor, coercing into
 character vector</code></pre>
-<pre class="r"><code>write.table(GenesWint_g, &quot;../data/bioGRID/GeneswInteractions.txt&quot;,col.names = T, row.names = F, quote = F)</code></pre>
-<pre class="r"><code>ggplot(NucResAll,aes(x=dAPA, y=log10(nInt +1))) + geom_boxplot() + stat_compare_means()</code></pre>
-<p><img src="figure/PTM_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/22926ec6140cb1e4a6866acbb4e56a09983013a7/docs/figure/PTM_analysis.Rmd/unnamed-chunk-9-1.png" target="_blank">22926ec</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Does not look like this can explain the differences.</p>
-<p>Enriched for non 0?</p>
-<pre class="r"><code>NucResAll_g= NucResAll %&gt;% mutate(HasInteraction=ifelse(nInt&gt;0, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% group_by(dAPA, HasInteraction) %&gt;% summarise(nWithSet=n())
+<pre class="r"><code>NucAPAres_DP= NucAPAres %&gt;% filter(gene %in%APAandPnotE_sel_gOnlyP$gene ) %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
-NucResAll_g</code></pre>
-<pre><code># A tibble: 4 x 3
-# Groups:   dAPA [2]
-  dAPA  HasInteraction nWithSet
-  &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-1 No    No                  814
-2 No    Yes                5581
-3 Yes   No                  280
-4 Yes   Yes                1869</code></pre>
-<pre class="r"><code>5581/(5581+814)</code></pre>
-<pre><code>[1] 0.8727131</code></pre>
-<pre class="r"><code>1869/(1869+280)</code></pre>
-<pre><code>[1] 0.8697068</code></pre>
-<p>Doesnt look like differentail are more likely to have an interaction.</p>
-<div id="filter-for-modifications" class="section level2">
-<h2>filter for modifications</h2>
-<pre class="r"><code>Biogridsmall %&gt;% dplyr::select(Modification) %&gt;% unique()</code></pre>
-<pre><code># A tibble: 19 x 1
-   Modification          
-   &lt;chr&gt;                 
- 1 -                     
- 2 No Modification       
- 3 Proteolytic Processing
- 4 Phosphorylation       
- 5 Ubiquitination        
- 6 Methylation           
- 7 Dephosphorylation     
- 8 Sumoylation           
- 9 Deacetylation         
-10 Acetylation           
-11 Glycosylation         
-12 Deubiquitination      
-13 Demethylation         
-14 Ribosylation          
-15 Desumoylation         
-16 Nedd(Rub1)ylation     
-17 Deneddylation         
-18 FAT10ylation          
-19 Neddylation           </code></pre>
+
+NucAPAresSig=NucAPAres %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
+<p>THere are 152 PAS in this set:</p>
+<pre class="r"><code>ggplot(NucAPAres_DP,aes(x=loc,fill=loc))+ geom_bar(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Enrichment for this:</p>
+<p>Compare to all of the significant in that location.</p>
+<pre class="r"><code>NucAPAres_sig= NucAPAres %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% mutate(dPnotE=ifelse(PAS %in% NucAPAres_DP$PAS,&quot;Yes&quot;, &quot;No&quot;))
+
+
+enrich=c()
+pval=c()
+
+for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;)){
+  x=nrow(NucAPAres_sig %&gt;% filter(dPnotE==&quot;Yes&quot;, loc==i))
+  m=nrow(NucAPAres_sig %&gt;% filter( loc==i))
+  n=nrow(NucAPAres_sig %&gt;% filter(loc!=i))
+  k=nrow(NucAPAres_sig %&gt;% filter(dPnotE==&quot;Yes&quot;))
+  N=nrow(NucAPAres_sig)
+  pval=c(pval, phyper(x,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrich=c(enrich, enrichval)
+}
+enrich</code></pre>
+<pre><code>[1] 1.4585111 0.4096527 0.7363810 1.1710288</code></pre>
+<pre class="r"><code>pval</code></pre>
+<pre><code>[1] 0.01963087 0.98702113 0.96568720 0.00735525</code></pre>
+<pre class="r"><code>NucAPAres_DPLocEnrich=NucAPAres_DP %&gt;% group_by(loc) %&gt;% summarise(n=n()) %&gt;% bind_cols(enrichment=enrich, pvalue=pval)
+
+
+ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,2), sep=&quot;&quot;), vjust=2))</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Interactions:</p>
+<p>Are there differences in protien interactions for these.</p>
+<pre class="r"><code>Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,stringsAsFactors = F, header = T)
+
+InteractionsAPA=Interactions %&gt;%filter(gene %in% NucAPAresSig$gene) %&gt;% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, &quot;Yes&quot;, &quot;No&quot;))
+
+
+ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(Number of Protein Interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>More likly to have one:</p>
+<pre class="r"><code>InteractionsAPA %&gt;% mutate(HasInteraction=ifelse(nInt&gt;0, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% group_by(dPnotE, HasInteraction) %&gt;% summarise(nWithSet=n())</code></pre>
+<pre><code># A tibble: 2 x 3
+# Groups:   dPnotE [2]
+  dPnotE HasInteraction nWithSet
+  &lt;chr&gt;  &lt;chr&gt;             &lt;int&gt;
+1 No     Yes                1756
+2 Yes    Yes                 113</code></pre>
+<p>Set should be the interaction set dAPA, de, and dP.</p>
+<pre class="r"><code>Alldiff=Protein %&gt;% inner_join(DEgenes,by=&quot;gene&quot;) %&gt;% inner_join(NucAPA, by=&quot;gene&quot;) %&gt;% dplyr::select(gene)
+#This is 101 genes.  
+geneAPAPnotEG=APAandPnotE %&gt;% dplyr::select(gene)
+
+GenesMatter= Alldiff %&gt;% bind_rows(geneAPAPnotEG) %&gt;% mutate(Ex=ifelse(gene %in% geneAPAPnotEG$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;DE gene&quot;, y=&quot;Number of protein protein interactions&quot;, title=&quot;dAPA, DP, and DE&quot;)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1380,26 +1358,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] workflowr_1.6.0 ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1  
+ [1] ggpubr_0.2      magrittr_1.5    UpSetR_1.3.3    forcats_0.3.0  
+ [5] stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1    
+ [9] tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       utf8_1.1.4      
- [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
-[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
-[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.2       promises_1.0.1  
-[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
-[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
-[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      lazyeval_0.2.1  
-[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
-[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
-[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
-[53] compiler_3.5.1  </code></pre>
-</div>
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
+[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
+[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
+[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
+[19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
+[22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
+[25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
+[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
+[34] fs_1.3.1           gridExtra_2.3      hms_0.4.2         
+[37] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[40] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[43] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[46] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[55] git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
