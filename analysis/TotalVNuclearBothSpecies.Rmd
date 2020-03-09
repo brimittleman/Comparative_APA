@@ -1,0 +1,211 @@
+---
+title: "Total v Nuclear in Both species"
+author: "Briana Mittleman"
+date: "3/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+I am interested in testing for PAS that are differentially used between fractions in one species but not the other. I will condition this analysis on the PAS that pass both filters in the nuclear fraction. I need to filter the fc files for PAS in the final set.  
+
+
+##Prep and run LC
+fixed for leafcutter are in:  
+
+/project2/gilad/briana/Comparative_APA/Human/data/CleanLiftedPeaks4LC (filter with: /project2/gilad/briana/Comparative_APA/data/PAS_doubleFilter)
+/project2/gilad/briana/Comparative_APA/Chimp/data/CleanLiftedPeaks4LC
+
+```{r}
+PAS_H=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(PASn=paste(chr,start,end,gene,sep=":") ) %>% dplyr::select(PASn, PAS) 
+
+
+
+HumanAll=read.table("../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc", header = T,stringsAsFactors = F) %>% rownames_to_column(var="PASn")  %>% inner_join(PAS_H,by="PASn")%>% dplyr::select(-PAS)
+
+ChimpAll=read.table("../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc", header = T,stringsAsFactors = F)  %>% rownames_to_column(var="PASn") %>% inner_join(PAS_H,by="PASn") %>% dplyr::select(-PAS)
+
+```
+
+I need to write these out without column names. I will then add the original headers back.  
+
+
+```{bash,eval=F}
+mkdir ../Human/data/CleanLiftedPeaks4LC_DF
+head -n 1 ../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc > ../Human/data/CleanLiftedPeaks4LC_DF/Header.txt
+mkdir ../Chimp/data/CleanLiftedPeaks4LC_DF
+head -n 1 ../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc > ../Chimp/data/CleanLiftedPeaks4LC_DF/Header.txt
+```
+
+```{r}
+write.table(HumanAll, "../Human/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc",quote = F, col.names = F, row.names = F)
+
+write.table(ChimpAll, "../Chimp/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc",quote = F, col.names = F, row.names = F)
+```
+
+
+
+```{bash,eval=F}
+cat ../Human/data/CleanLiftedPeaks4LC_DF/Header.txt ../Human/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc > ../Human/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Human_fixed4LC_wInd.fc
+
+cat ../Chimp/data/CleanLiftedPeaks4LC_DF/Header.txt ../Chimp/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc > ../Chimp/data/CleanLiftedPeaks4LC_DF/ALLPAS_postLift_LocParsed_Chimp_fixed4LC_wInd.fc
+
+
+mkdir ../Human/data/DiffIso_Human_DF/
+
+python subset_diffisopheno_Huma_tvN_DF.py 1
+python subset_diffisopheno_Huma_tvN_DF.py 2
+python subset_diffisopheno_Huma_tvN_DF.py 3
+python subset_diffisopheno_Huma_tvN_DF.py 4
+python subset_diffisopheno_Huma_tvN_DF.py 5
+python subset_diffisopheno_Huma_tvN_DF.py 6
+python subset_diffisopheno_Huma_tvN_DF.py 7
+python subset_diffisopheno_Huma_tvN_DF.py 8
+python subset_diffisopheno_Huma_tvN_DF.py 9
+python subset_diffisopheno_Huma_tvN_DF.py 10
+python subset_diffisopheno_Huma_tvN_DF.py 11
+python subset_diffisopheno_Huma_tvN_DF.py 12
+python subset_diffisopheno_Huma_tvN_DF.py 13
+python subset_diffisopheno_Huma_tvN_DF.py 14
+python subset_diffisopheno_Huma_tvN_DF.py 15
+python subset_diffisopheno_Huma_tvN_DF.py 16
+python subset_diffisopheno_Huma_tvN_DF.py 18
+python subset_diffisopheno_Huma_tvN_DF.py 19
+python subset_diffisopheno_Huma_tvN_DF.py 20
+python subset_diffisopheno_Huma_tvN_DF.py 21
+python subset_diffisopheno_Huma_tvN_DF.py 22
+
+mkdir ../Chimp/data/DiffIso_Chimp_DF/
+
+#subset_diffisopheno_Chimp_tvN_DF.py
+
+python subset_diffisopheno_Chimp_tvN_DF.py 1
+python subset_diffisopheno_Chimp_tvN_DF.py 2
+python subset_diffisopheno_Chimp_tvN_DF.py 3
+python subset_diffisopheno_Chimp_tvN_DF.py 4
+python subset_diffisopheno_Chimp_tvN_DF.py 5
+python subset_diffisopheno_Chimp_tvN_DF.py 6
+python subset_diffisopheno_Chimp_tvN_DF.py 7
+python subset_diffisopheno_Chimp_tvN_DF.py 8
+python subset_diffisopheno_Chimp_tvN_DF.py 9
+python subset_diffisopheno_Chimp_tvN_DF.py 10
+python subset_diffisopheno_Chimp_tvN_DF.py 11
+python subset_diffisopheno_Chimp_tvN_DF.py 12
+python subset_diffisopheno_Chimp_tvN_DF.py 13
+python subset_diffisopheno_Chimp_tvN_DF.py 14
+python subset_diffisopheno_Chimp_tvN_DF.py 15
+python subset_diffisopheno_Chimp_tvN_DF.py 16
+python subset_diffisopheno_Chimp_tvN_DF.py 18
+python subset_diffisopheno_Chimp_tvN_DF.py 19
+python subset_diffisopheno_Chimp_tvN_DF.py 20
+python subset_diffisopheno_Chimp_tvN_DF.py 21
+python subset_diffisopheno_Chimp_tvN_DF.py 22
+
+#Samples groups:  
+#../Human/data/DiffIso_Human/sample_groups.txt
+#../Chimp/data/DiffIso_Chimp/sample_groups.txt 
+
+sbatch runHumanDiffIsoDF.sh
+sbatch runChimpDiffIsoDF.sh
+```
+
+
+##Human Results:
+
+Results are in  ../Human/data/DiffIso_Human_DF/ 
+
+```{bash,eval=F}
+awk '{if(NR>1)print}' ../Human/data/DiffIso_Human_DF/TN_diff_isoform_chr*.txt_effect_sizes.txt > ../Human/data/DiffIso_Human_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk '{if(NR>1)print}' ../Human/data/DiffIso_Human_DF/TN_diff_isoform_chr*.txt_cluster_significance.txt > ../Human/data/DiffIso_Human_DF/TN_diff_isoform_allChrom.txt_significance.txt
+```
+
+```{r}
+sigH=read.table("../Human/data/DiffIso_Human_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sigH$p.adjust=as.numeric(as.character(sigH$p.adjust))
+sigH_genes=sigH %>% filter(p.adjust<.05)
+number_sigH_genes=nrow(sigH_genes)
+number_sigH_genes
+
+effectsizeH=read.table("../Human/data/DiffIso_Human_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Nuclear', 'Total','deltaPAU')) %>% filter(intron != "intron")
+
+effectsizeH$deltaPAU=as.numeric(as.character(effectsizeH$deltaPAU))
+effectsizeH$logef=as.numeric(as.character(effectsizeH$logef))
+
+effectsizeH_deltaPAU= effectsizeH %>% mutate(SigDPAU2=ifelse(abs(deltaPAU) > .2, "Yes", "No"))  %>% separate(intron, into=c('chr','start','end','gene'), sep=":") %>% mutate(cluster=paste(chr,gene, sep=":")) %>% inner_join(sigH_genes,by="cluster")
+
+
+nrow(effectsizeH_deltaPAU %>% filter(SigDPAU2=="Yes"))
+```
+
+3500 differentially used PAS.  
+
+```{r}
+plot(sort(effectsizeH$deltaPAU),main="Human Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
+
+effectsizeH_deltaPAU_col= effectsizeH_deltaPAU %>% arrange(deltaPAU) %>%  mutate(diffuse=ifelse(abs(deltaPAU)>=.2,"Yes", "No"))
+effectsizeH_deltaPAU_col$color <- ifelse(effectsizeH_deltaPAU_col$diffuse=="Yes", "red", "black")
+
+plot(sort(effectsizeH_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Human", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeH_deltaPAU_col$color, 0.6))
+```
+##Chimp results  
+
+Results are in  ../Chimp/data/DiffIso_Chimp_DF/ 
+
+```{bash,eval=F}
+awk '{if(NR>1)print}' ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_chr*.txt_effect_sizes.txt > ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt
+
+
+awk '{if(NR>1)print}' ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_chr*.txt_cluster_significance.txt > ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_allChrom.txt_significance.txt
+```
+
+```{r}
+sigC=read.table("../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") 
+
+sigC$p.adjust=as.numeric(as.character(sigC$p.adjust))
+sigC_genes=sigC %>% filter(p.adjust<.05)
+number_sigC_genes=nrow(sigC_genes)
+number_sigC_genes
+
+effectsizeC=read.table("../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Nuclear', 'Total','deltaPAU')) %>% filter(intron != "intron")
+
+effectsizeC$deltaPAU=as.numeric(as.character(effectsizeC$deltaPAU))
+effectsizeC$logef=as.numeric(as.character(effectsizeC$logef))
+
+effectsizeC_deltaPAU= effectsizeC %>% mutate(SigDPAU2=ifelse(abs(deltaPAU) > .2, "Yes", "No"))  %>% separate(intron, into=c('chr','start','end','gene'), sep=":") %>% mutate(cluster=paste(chr,gene, sep=":")) %>% inner_join(sigC_genes,by="cluster")
+
+
+nrow(effectsizeC_deltaPAU %>% filter(SigDPAU2=="Yes"))
+``` 
+
+
+```{r}
+plot(sort(effectsizeC$deltaPAU),main="Chimp Leafcutter delta PAU", ylab="Delta PAU", xlab="PAS Index")
+effectsizeC_deltaPAU_col= effectsizeC_deltaPAU %>% arrange(deltaPAU) %>%  mutate(diffuse=ifelse(abs(deltaPAU)>=.2,"Yes", "No"))
+effectsizeC_deltaPAU_col$color <- ifelse(effectsizeC_deltaPAU_col$diffuse=="Yes", "red", "black")
+
+plot(sort(effectsizeC_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Chimp", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeC_deltaPAU_col$color, 0.6))
+```
+
+1291 differentially used 
+
+
+This doesnt seem right. Let me check it.  
+
+```{r}
+
+plot(sort(effectsizeH_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Human", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeH_deltaPAU_col$color, 0.6))
+plot(sort(effectsizeC_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Chimp", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeC_deltaPAU_col$color, 0.6))
+
+```
+

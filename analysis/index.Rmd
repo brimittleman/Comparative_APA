@@ -93,6 +93,10 @@ From here on, I did everything double filtered:
 
 * [Protein interactions](PTM_analysis.html)  
 
+##Human v Chimp fraction differences  
+
+* [Differential isoform between fractons by species](TotalVNuclearBothSpecies.html)
+
 ##Quantify Phenotypes with RNA:   
 
 * [Differential Splicing](diffSplicing.html) 
