@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-07
+<strong>Last updated:</strong> 2020-03-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec6a11f00dbcd38e20964f4a8d82d690d2004ae12targetblankc6a11f0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c6a11f00dbcd38e20964f4a8d82d690d2004ae12" target="_blank">c6a11f0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6146c33f9ba72174362e4d0c4a51b2861f9c61a4targetblank6146c33a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6146c33f9ba72174362e4d0c4a51b2861f9c61a4" target="_blank">6146c33</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec6a11f00dbcd38e20964f4a8d82d690d2004ae12targetblankc6a11f0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6146c33f9ba72174362e4d0c4a51b2861f9c61a4targetblank6146c33a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1095,6 +1095,7 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/OppositeMap.Rmd
@@ -1148,6 +1149,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6146c33f9ba72174362e4d0c4a51b2861f9c61a4/analysis/dAPAdPnotE.Rmd" target="_blank">6146c33</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-08
+</td>
+<td>
+add effect corr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/25a479024019e85622f53af5b0feb82c735785b3/docs/dAPAdPnotE.html" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1209,6 +1244,43 @@ NucAPA=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclea
 
 upset(fromList(listInput_nucOnly), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;, queries = list(list(query=intersects, params=list(&quot;DAPA&quot;, &quot;DP&quot;), color=&quot;darkorchid4&quot;, active=T,query.name=&quot;APA, Protein&quot;)))</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-4-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>113 of these genes.</p>
 <p>Learn about these genes.</p>
 <p>Selection:</p>
@@ -1225,6 +1297,43 @@ APAandPnotE_sel= APAandPnotE %&gt;% inner_join(KhanData,by=&quot;gene&quot;)</co
 APAandPnotE_sel_g$Model= as.factor(APAandPnotE_sel_g$Model)
 ggplot(APAandPnotE_sel_g,aes(x=Model, by=Set, fill=Set)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-6-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Plot protein only:</p>
 <pre class="r"><code>APAandPnotE_sel_gOnlyP= APAandPnotE_sel_g %&gt;% filter(Set==&quot;Protein&quot;)
 
@@ -1232,6 +1341,43 @@ APAandPnotE_sel_gOnlyP$Model= as.factor(APAandPnotE_sel_gOnlyP$Model)
 
 ggplot(APAandPnotE_sel_gOnlyP,aes(x=Model)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;, fill=&quot;darkorchid4&quot;) + labs(y=&quot;Number of Genes&quot;, x=&quot;Protein Selection Model&quot;, title=&quot;Protein and APA differences\n no difference in Expression&quot;) + scale_x_discrete( labels=c(&quot;Selection Human&quot;,&quot;Selection Chimp&quot;,&quot;Undetermined&quot;,&quot;No mean difference&quot;,&quot;Relaxation in Chimp&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16)) </code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-7-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The genes in 1,2,5,6 are interesting.</p>
 <pre class="r"><code>APAandPnotE_selCalled= APAandPnotE_sel_g %&gt;% filter(Set==&quot;Protein&quot;, Model %in% c(1,2,5,6))</code></pre>
 <p>There are 27 of these genes:</p>
@@ -1279,6 +1425,43 @@ NucAPAresSig=NucAPAres %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <p>THere are 152 PAS in this set:</p>
 <pre class="r"><code>ggplot(NucAPAres_DP,aes(x=loc,fill=loc))+ geom_bar(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-11-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Enrichment for this:</p>
 <p>Compare to all of the significant in that location.</p>
 <pre class="r"><code>NucAPAres_sig= NucAPAres %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% mutate(dPnotE=ifelse(PAS %in% NucAPAres_DP$PAS,&quot;Yes&quot;, &quot;No&quot;))
@@ -1306,6 +1489,43 @@ enrich</code></pre>
 
 ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,2), sep=&quot;&quot;), vjust=2))</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Interactions:</p>
 <p>Are there differences in protien interactions for these.</p>
 <pre class="r"><code>Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,stringsAsFactors = F, header = T)
@@ -1315,6 +1535,43 @@ InteractionsAPA=Interactions %&gt;%filter(gene %in% NucAPAresSig$gene) %&gt;% mu
 
 ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(Number of Protein Interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>More likly to have one:</p>
 <pre class="r"><code>InteractionsAPA %&gt;% mutate(HasInteraction=ifelse(nInt&gt;0, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% group_by(dPnotE, HasInteraction) %&gt;% summarise(nWithSet=n())</code></pre>
 <pre><code># A tibble: 2 x 3
@@ -1331,6 +1588,69 @@ geneAPAPnotEG=APAandPnotE %&gt;% dplyr::select(gene)
 GenesMatter= Alldiff %&gt;% bind_rows(geneAPAPnotEG) %&gt;% mutate(Ex=ifelse(gene %in% geneAPAPnotEG$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;DE gene&quot;, y=&quot;Number of protein protein interactions&quot;, title=&quot;dAPA, DP, and DE&quot;)</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" target="_blank">25a4790</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Effect sizes :</p>
+<p>Look at the 152 PAS effect sizes here and in protien, translation, and expression.</p>
+<pre class="r"><code>NucAPAres_sig_dpnotE = NucAPAres_sig %&gt;% filter(dPnotE ==&quot;Yes&quot;)
+
+#nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
+#DE data
+DE=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFactors = F,header = F, col.names = c(&quot;Gene_stable_ID&quot; ,&quot;logFC&quot; ,&quot;AveExpr&quot; , &quot;t&quot; ,  &quot;P.Value&quot; ,  &quot;adj.P.Val&quot;, &quot;B&quot;  )) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::rename(&#39;gene&#39;=Gene.name) %&gt;% dplyr::select(-Gene_stable_ID)
+#translation
+Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% dplyr::rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% dplyr::rename(&quot;gene&quot;=Gene.name)
+#prot  
+Prot=read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;, header = T, stringsAsFactors = F)</code></pre>
+<pre class="r"><code>APAandE=NucAPAres_sig_dpnotE %&gt;% inner_join(DE, by=&quot;gene&quot;)
+
+ggplot(APAandE, aes(x=logFC, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(APAandE, aes(x=logFC, y=deltaPAU, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  +stat_cor(label.x = 1)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>APAandRibo=NucAPAres_sig_dpnotE %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
+ggplot(APAandRibo, aes(x=HvC.beta, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>APAandprot=NucAPAres_sig_dpnotE %&gt;% inner_join(Prot, by=&quot;gene&quot;)
+
+ggplot(APAandprot, aes(x=logEf, y=deltaPAU))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(APAandprot, aes(x=logEf, y=deltaPAU, col=loc))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-5.png" width="672" style="display: block; margin: auto;" /> None of these are significant.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
