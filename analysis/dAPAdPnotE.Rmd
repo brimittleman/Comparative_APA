@@ -192,3 +192,37 @@ GenesMatter= Alldiff %>% bind_rows(geneAPAPnotEG) %>% mutate(Ex=ifelse(gene %in%
 ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="DE gene", y="Number of protein protein interactions", title="dAPA, DP, and DE")
 ```
 
+
+Effect sizes : 
+
+Look at the 152 PAS effect sizes here and in protien, translation, and expression. 
+```{r}
+NucAPAres_sig_dpnotE = NucAPAres_sig %>% filter(dPnotE =="Yes")
+
+#nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+#DE data
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
+#translation
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% dplyr::rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% dplyr::rename("gene"=Gene.name)
+#prot  
+Prot=read.table("../data/Khan_prot/ProtData_effectSize.txt", header = T, stringsAsFactors = F)
+```
+
+
+```{r}
+APAandE=NucAPAres_sig_dpnotE %>% inner_join(DE, by="gene")
+
+ggplot(APAandE, aes(x=logFC, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method="lm") +stat_cor()
+
+
+ggplot(APAandE, aes(x=logFC, y=deltaPAU, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  +stat_cor(label.x = 1)
+
+APAandRibo=NucAPAres_sig_dpnotE %>% inner_join(Ribo, by="gene")
+ggplot(APAandRibo, aes(x=HvC.beta, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method="lm") +stat_cor()
+
+APAandprot=NucAPAres_sig_dpnotE %>% inner_join(Prot, by="gene")
+
+ggplot(APAandprot, aes(x=logEf, y=deltaPAU))+ geom_point(alpha=.3) + geom_smooth(method="lm") +stat_cor( )
+ggplot(APAandprot, aes(x=logEf, y=deltaPAU, col=loc))+ geom_point(alpha=.3) + geom_smooth(method="lm") +stat_cor( )
+```
+None of these are significant.  
