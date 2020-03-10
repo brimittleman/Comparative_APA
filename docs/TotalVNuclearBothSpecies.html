@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree552842c2e00d7ca66f9b4426a834cb0c8e7c7a3atargetblank552842ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/552842c2e00d7ca66f9b4426a834cb0c8e7c7a3a" target="_blank">552842c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6316829b6a05e96ce5e9dd97a757b63c3498fa1etargetblank6316829a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6316829b6a05e96ce5e9dd97a757b63c3498fa1e" target="_blank">6316829</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree552842c2e00d7ca66f9b4426a834cb0c8e7c7a3atargetblank552842ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6316829b6a05e96ce5e9dd97a757b63c3498fa1etargetblank6316829a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1161,6 +1161,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6316829b6a05e96ce5e9dd97a757b63c3498fa1e/analysis/TotalVNuclearBothSpecies.Rmd" target="_blank">6316829</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+<td>
+2 qqplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/TotalVNuclearBothSpecies.html" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/552842c2e00d7ca66f9b4426a834cb0c8e7c7a3a/analysis/TotalVNuclearBothSpecies.Rmd" target="_blank">552842c</a>
 </td>
 <td>
@@ -1301,11 +1335,88 @@ nrow(effectsizeH_deltaPAU %&gt;% filter(SigDPAU2==&quot;Yes&quot;))</code></pre>
 <p>3500 differentially used PAS.</p>
 <pre class="r"><code>plot(sort(effectsizeH$deltaPAU),main=&quot;Human Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
 <p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-8-1.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>effectsizeH_deltaPAU_col= effectsizeH_deltaPAU %&gt;% arrange(deltaPAU) %&gt;%  mutate(diffuse=ifelse(abs(deltaPAU)&gt;=.2,&quot;Yes&quot;, &quot;No&quot;))
 effectsizeH_deltaPAU_col$color &lt;- ifelse(effectsizeH_deltaPAU_col$diffuse==&quot;Yes&quot;, &quot;red&quot;, &quot;black&quot;)
 
 plot(sort(effectsizeH_deltaPAU_col$deltaPAU),main=&quot;Leafcutter delta PAU Human&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;,col=alpha(effectsizeH_deltaPAU_col$color, 0.6))</code></pre>
-<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /> ##Chimp results</p>
+<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-8-2.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="chimp-results" class="section level2">
+<h2>Chimp results</h2>
 <p>Results are in ../Chimp/data/DiffIso_Chimp_DF/</p>
 <pre class="bash"><code>awk &#39;{if(NR&gt;1)print}&#39; ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_chr*.txt_effect_sizes.txt &gt; ../Chimp/data/DiffIso_Chimp_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt
 
@@ -1330,17 +1441,211 @@ nrow(effectsizeC_deltaPAU %&gt;% filter(SigDPAU2==&quot;Yes&quot;))</code></pre>
 <pre><code>[1] 1291</code></pre>
 <pre class="r"><code>plot(sort(effectsizeC$deltaPAU),main=&quot;Chimp Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
 <p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-11-1.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>effectsizeC_deltaPAU_col= effectsizeC_deltaPAU %&gt;% arrange(deltaPAU) %&gt;%  mutate(diffuse=ifelse(abs(deltaPAU)&gt;=.2,&quot;Yes&quot;, &quot;No&quot;))
 effectsizeC_deltaPAU_col$color &lt;- ifelse(effectsizeC_deltaPAU_col$diffuse==&quot;Yes&quot;, &quot;red&quot;, &quot;black&quot;)
 
 plot(sort(effectsizeC_deltaPAU_col$deltaPAU),main=&quot;Leafcutter delta PAU Chimp&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;,col=alpha(effectsizeC_deltaPAU_col$color, 0.6))</code></pre>
 <p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-11-2.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>1291 differentially used</p>
 <p>This doesnt seem right. Let me check it.</p>
 <pre class="r"><code>plot(sort(effectsizeH_deltaPAU_col$deltaPAU),main=&quot;Leafcutter delta PAU Human&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;,col=alpha(effectsizeH_deltaPAU_col$color, 0.6))</code></pre>
 <p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-12-1.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(sort(effectsizeC_deltaPAU_col$deltaPAU),main=&quot;Leafcutter delta PAU Chimp&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;,col=alpha(effectsizeC_deltaPAU_col$color, 0.6))</code></pre>
 <p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f1ec3e0777a070010b8894f265fdc3936c2bc95e/docs/figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-12-2.png" target="_blank">f1ec3e0</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="explore-dpau" class="section level3">
+<h3>Explore dPAU</h3>
+<p>I will graph the number of significant PAS by the dPAU in each species.</p>
+<pre class="r"><code>dPAUVals=seq(0,0.6,.05)
+SigPASHuman=c()
+SigPASHumanProp=c()
+SigPASChimp=c()
+SigPASChimpProp=c()
+for (i in dPAUVals){
+  sigatiH= nrow(effectsizeH_deltaPAU %&gt;% filter(abs(deltaPAU)&gt;=i))
+  SigPASHuman=c(SigPASHuman, sigatiH)
+  propH=sigatiH/nrow(effectsizeH_deltaPAU)
+  SigPASHumanProp=c(SigPASHumanProp,propH )
+  sigatiC= nrow(effectsizeC_deltaPAU %&gt;% filter(abs(deltaPAU)&gt;=i))
+  propC=sigatiC/nrow(effectsizeC_deltaPAU)
+  SigPASChimpProp=c(SigPASChimpProp,propC )
+  SigPASChimp=c(SigPASChimp,sigatiC)
+}
+
+AllPASdf=as.data.frame(cbind(dPAU=dPAUVals, Human=SigPASHuman,HumanProp=SigPASHumanProp,Chimp=SigPASChimp, ChimpProp=SigPASChimpProp))</code></pre>
+<pre class="r"><code>AllPASdf_g= AllPASdf %&gt;% dplyr::select(-Human, -Chimp) %&gt;% gather(&quot;Species&quot;, &quot;Value&quot;, -dPAU)
+AllPASdf_g$Value= as.numeric(AllPASdf_g$Value)
+ggplot(AllPASdf_g,aes(x=dPAU, by=Species, fill=Species, y=Value))+ geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&quot;Proportion of PAS&quot;)</code></pre>
+<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>AllPASdf_gN= AllPASdf %&gt;% dplyr::select(-HumanProp, -ChimpProp) %&gt;% gather(&quot;Species&quot;, &quot;Value&quot;, -dPAU)
+AllPASdf_gN$Value= as.numeric(AllPASdf_gN$Value)
+ggplot(AllPASdf_gN,aes(x=dPAU, by=Species, fill=Species, y=Value))+ geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Nubmer of significant PAS&quot;)</code></pre>
+<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Looks like the number of signifiacant genes are different.</p>
+<pre class="r"><code>#human
+sigH_genes %&gt;% nrow()</code></pre>
+<pre><code>[1] 6133</code></pre>
+<pre class="r"><code>#chimp
+sigC_genes %&gt;% nrow()</code></pre>
+<pre><code>[1] 4414</code></pre>
+<p>QQ plots:</p>
+<pre class="r"><code>qqplot(-log10(runif(nrow(sigH))), -log10(sigH$p.adjust),ylab=&quot;-log10 Total v Nuclear Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter differencial isoform analysis between fractions&quot;)
+points(sort(-log10(runif(nrow(sigC)))),sort(-log10(sigC$p.adjust)),col=alpha(&quot;blue&quot;))
+abline(0,1)
+legend(&quot;topleft&quot;, legend=c(&quot;Human&quot;, &quot;Chimp&quot;),col=c(&quot;black&quot;,&quot;blue&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
+<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qqplot(-log10(runif(nrow(sigC))), -log10(sigC$p.adjust),ylab=&quot;-log10 Total v Nuclear Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter differencial isoform analysis between fractions&quot;)
+points(sort(-log10(runif(nrow(sigH)))),sort(-log10(sigH$p.adjust)),col=alpha(&quot;blue&quot;))
+abline(0,1)
+legend(&quot;topleft&quot;, legend=c(&quot;Chimp&quot;,&quot;Human&quot;),col=c(&quot;black&quot;,&quot;blue&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
+<p><img src="figure/TotalVNuclearBothSpecies.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1373,19 +1678,25 @@ other attached packages:
  [9] tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
- [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     tools_3.5.1     
- [9] digest_0.6.18    lubridate_1.7.4  jsonlite_1.6     evaluate_0.12   
-[13] nlme_3.1-137     gtable_0.2.0     lattice_0.20-38  pkgconfig_2.0.2 
-[17] rlang_0.4.0      cli_1.1.0        rstudioapi_0.10  yaml_2.2.0      
-[21] haven_1.1.2      withr_2.1.2      xml2_1.2.0       httr_1.3.1      
-[25] knitr_1.20       hms_0.4.2        generics_0.0.2   fs_1.3.1        
-[29] rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5 glue_1.3.0      
-[33] R6_2.3.0         readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2    
-[37] magrittr_1.5     whisker_0.3-2    backports_1.1.2  scales_1.0.0    
-[41] promises_1.0.1   htmltools_0.3.6  rvest_0.3.2      assertthat_0.2.0
-[45] colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4    lazyeval_0.2.1  
-[49] munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
+[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
+[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
+[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
+[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
+[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
+[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
+[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+</div>
 </div>
 </div>
 
