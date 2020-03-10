@@ -205,7 +205,72 @@ This doesnt seem right. Let me check it.
 ```{r}
 
 plot(sort(effectsizeH_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Human", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeH_deltaPAU_col$color, 0.6))
+
+
 plot(sort(effectsizeC_deltaPAU_col$deltaPAU),main="Leafcutter delta PAU Chimp", ylab="Delta PAU", xlab="PAS Index",col=alpha(effectsizeC_deltaPAU_col$color, 0.6))
 
+```
+
+###Explore dPAU  
+
+I will graph the number of significant PAS by the dPAU in each species.  
+
+
+```{r}
+dPAUVals=seq(0,0.6,.05)
+SigPASHuman=c()
+SigPASHumanProp=c()
+SigPASChimp=c()
+SigPASChimpProp=c()
+for (i in dPAUVals){
+  sigatiH= nrow(effectsizeH_deltaPAU %>% filter(abs(deltaPAU)>=i))
+  SigPASHuman=c(SigPASHuman, sigatiH)
+  propH=sigatiH/nrow(effectsizeH_deltaPAU)
+  SigPASHumanProp=c(SigPASHumanProp,propH )
+  sigatiC= nrow(effectsizeC_deltaPAU %>% filter(abs(deltaPAU)>=i))
+  propC=sigatiC/nrow(effectsizeC_deltaPAU)
+  SigPASChimpProp=c(SigPASChimpProp,propC )
+  SigPASChimp=c(SigPASChimp,sigatiC)
+}
+
+AllPASdf=as.data.frame(cbind(dPAU=dPAUVals, Human=SigPASHuman,HumanProp=SigPASHumanProp,Chimp=SigPASChimp, ChimpProp=SigPASChimpProp))
+```
+
+
+```{r}
+AllPASdf_g= AllPASdf %>% dplyr::select(-Human, -Chimp) %>% gather("Species", "Value", -dPAU)
+AllPASdf_g$Value= as.numeric(AllPASdf_g$Value)
+ggplot(AllPASdf_g,aes(x=dPAU, by=Species, fill=Species, y=Value))+ geom_bar(stat="identity", position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(y="Proportion of PAS")
+```
+
+```{r}
+AllPASdf_gN= AllPASdf %>% dplyr::select(-HumanProp, -ChimpProp) %>% gather("Species", "Value", -dPAU)
+AllPASdf_gN$Value= as.numeric(AllPASdf_gN$Value)
+ggplot(AllPASdf_gN,aes(x=dPAU, by=Species, fill=Species, y=Value))+ geom_bar(stat="identity", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(y="Nubmer of significant PAS")
+```
+
+Looks like the number of signifiacant genes are different.  
+
+```{r}
+#human
+sigH_genes %>% nrow()
+#chimp
+sigC_genes %>% nrow()
+```
+
+QQ plots:  
+
+```{r}
+qqplot(-log10(runif(nrow(sigH))), -log10(sigH$p.adjust),ylab="-log10 Total v Nuclear Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter differencial isoform analysis between fractions")
+points(sort(-log10(runif(nrow(sigC)))),sort(-log10(sigC$p.adjust)),col=alpha("blue"))
+abline(0,1)
+legend("topleft", legend=c("Human", "Chimp"),col=c("black","blue"), pch=16,bty = 'n')
+```
+
+```{r}
+qqplot(-log10(runif(nrow(sigC))), -log10(sigC$p.adjust),ylab="-log10 Total v Nuclear Adjusted Leafcutter pvalue", xlab="-log 10 Uniform expectation", main="Leafcutter differencial isoform analysis between fractions")
+points(sort(-log10(runif(nrow(sigH)))),sort(-log10(sigH$p.adjust)),col=alpha("blue"))
+abline(0,1)
+legend("topleft", legend=c("Chimp","Human"),col=c("black","blue"), pch=16,bty = 'n')
 ```
 
