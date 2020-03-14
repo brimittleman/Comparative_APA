@@ -1,0 +1,79 @@
+---
+title: "Change Misprimming to exclude reads with Ns"
+author: "Briana Mittleman"
+date: "3/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The chimp genome has more reads with N's. In order to make sure this is not biasing the results I will reimpliment the pipeline with a new restriction for any reads with an N. I will see if the number of reads are significantly different after this or if the top PAS distribution.  
+```{r}
+library(tidyverse)
+```
+
+
+```{bash,eval=F}
+mkdir ../../Comparative_NoNs
+cd Comparative_NoNs
+mkdir Human
+mkdir Human/data
+mkdir Human/data/fastq
+
+mkdir Chimp
+mkdir Chimp/data
+mkdir Chimp/data/fastq
+
+#copy fastqs 
+```
+
+Files to copy over from code.  
+
+cluster.json
+Config_chimp.yaml
+Config_human.yaml
+filterBamforMP.pysam2_gen.py
+filterMissprimingInNuc10_gen.py
+filterSortBedbyCleanedBed_gen.R
+Snakefile
+snakemake_chimp.batch
+snakemake_human.batch
+submit-snakemake-chimp.sh
+submit-snakemake-human.sh
+Upstream10Bases_general.py
+
+Change the general upstream clean to remove reads with any Ns.  
+
+Change config files to new dir.  
+
+Remove RNA seq rules.  
+
+New filter code:  
+Add a output with the number of reads filtered due to number of Ns 
+
+```{bash,eval=F}
+filterMissprimingInNuc10_genNoNs.py
+```
+Create a log dir.  
+
+```{bash,eval=F}
+sbatch snakemake_chimp.batch
+sbatch snakemake_human.batch
+```
+
+First Pass will be quantifing how many reads are lost due to this.  
+
+Look at the results  
+```{r}
+Mapping=read.csv("../../Comparative_NoNs/data/HC_metadataNoNs.csv", header = T) %>% mutate(PercMap=NewClean/Reads)
+```
+
+```{r}
+ggplot(Mapping,aes(x=Line, fill=Species, y=PercMap)) + geom_bar(stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Map proportion", title="Map Stats") + scale_fill_brewer(palette = "Dark2")
+```
+```{r}
+ggplot(Mapping,aes(x=Line, fill=Species, y=ReadsLost)) + geom_bar(stat="identity") + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= "Number Reads", title="Reads filtered due to N's") + scale_fill_brewer(palette = "Dark2")
+```
+

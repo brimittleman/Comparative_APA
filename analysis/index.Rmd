@@ -36,6 +36,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Make PAS bed for 5% peaks](fixPeak2PAS.html)
 
+* [Look at number of reads lost if you exclude reads with N](index.html)
+
 
 ### Choosing cuttoffs for usage and expression level  
 
