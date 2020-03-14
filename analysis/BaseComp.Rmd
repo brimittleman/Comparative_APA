@@ -1,0 +1,123 @@
+---
+title: "LogoPlot for Base compositions"
+author: "Briana Mittleman"
+date: "3/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(stringr)
+library(cowplot)
+library(workflowr)
+require(ggseqlogo)
+require(tidyverse)
+options(scipen = 999)
+```
+
+I want to look at the basecomposition of the PAS. I do not have 1 basepair here like I did for the previous project. First Ill look at how long the PAS are.  
+
+```{r}
+PAS_Human=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed",col.names = c("chr","start","end", "PAS", "humanUsage", "strand")) %>% mutate(length=end-start)
+
+plot(sort(PAS_Human$length))
+
+PAS_Chimp=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed",col.names = c("chr","start","end", "PAS", "chimpUsage", "strand")) %>% mutate(length=end-start)
+
+plot(sort(PAS_Chimp$length))
+```
+
+All around 200. There is a little more variabilty in chimp size. The merge will make them a little longer and storter.  I will pick 20 basepairs in the middle first. This should be near the start of most read. For the oiginal PAS I made them 200 basepairs by taking the original called PAS in both species and adding 100 on each side for the lift.  add to the start 90 and end at base 110. I don't need to worry about strand because this is nearly semetric. 
+
+
+I can do this in each species because I will get the nucleotides in a species specific way.
+
+
+```{bash,eval=F}
+mkdir ../data/BaseComp
+```
+
+```{r}
+PAS_Human_middles= PAS_Human %>% mutate(newStart=start+90, newEnd=start+110) %>% select(chr,newStart,newEnd, PAS, humanUsage, strand)
+
+write.table(PAS_Human_middles,"../data/BaseComp/PAS_Human_mid.bed", col.names = F, row.names = F, quote = F, sep="\t")
+
+PAS_Chimp_middles= PAS_Chimp %>% mutate(newStart=start+90, newEnd=start+110) %>% select(chr,newStart,newEnd, PAS, chimpUsage, strand)
+
+write.table(PAS_Chimp_middles,"../data/BaseComp/PAS_Chimp_mid.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+
+Run bedtools nuc to get the bases.  
+
+```{bash,eval=F}
+bedtools nuc -s -seq -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/BaseComp/PAS_Human_mid.bed > ../data/BaseComp/PAS_Human_mid_seq.bed
+
+bedtools nuc -s -seq -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/BaseComp/PAS_Chimp_mid.bed > ../data/BaseComp/PAS_Chimp_mid_seq.bed
+
+```
+
+```{r}
+cs1 = make_col_scheme(chars=c('A', 'T', 'C', 'G', 'N'), groups=c('A', 'T', 'C', 'G', 'N'), cols=c( "#1B9E77", "#D95F02" ,"#7570B3" ,"#E7298A", "#66A61E"))
+```
+
+
+```{r}
+HumanPASseq=read.table("../data/BaseComp/PAS_Human_mid_seq.bed", col.names = c(colnames(PAS_Human_middles),"AT",'GC','As','Cs','Gs','Ts','N',"other","length","seq"),stringsAsFactors = F) %>% 
+  mutate(seqUP=toupper(seq))
+
+SeqsHuman=HumanPASseq$seqUP
+
+ggseqlogo(SeqsHuman, col_scheme=cs1, method = 'prob')
+```
+
+```{r}
+ChimpPASseq=read.table("../data/BaseComp/PAS_Chimp_mid_seq.bed", col.names = c(colnames(PAS_Chimp_middles),"AT",'GC','As','Cs','Gs','Ts','N',"other","length","seq"),stringsAsFactors = F) %>% 
+  mutate(seqUP=toupper(seq))
+
+SeqsChimp=ChimpPASseq$seqUP
+
+ggseqlogo(SeqsChimp, col_scheme=cs1, method = 'prob')
+```
+Looks like these are the same and not biased.  
+
+Seperate these by location:  
+
+```{r}
+MetaData=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F) %>% select(PAS,loc)
+
+
+HumanPASseq_meta= HumanPASseq %>% inner_join(MetaData, by="PAS")
+
+HumanPASseq_meta_utr= HumanPASseq_meta %>% filter(loc=="utr3")
+HumanPASseq_meta_intron= HumanPASseq_meta %>% filter(loc=="intron")
+
+
+humanUTR=ggseqlogo(HumanPASseq_meta_utr$seqUP, col_scheme=cs1, method = 'prob')
+humanintron=ggseqlogo(HumanPASseq_meta_intron$seqUP, col_scheme=cs1, method = 'prob')
+
+plot_grid(humanUTR, humanintron, ncol = 1, align = 'v',labels = c('Human 3 UTR', 'Human Intronic'))
+```
+
+```{r}
+ChimpPASseq_meta= ChimpPASseq %>% inner_join(MetaData, by="PAS")
+
+ChimpPASseq_meta_utr= ChimpPASseq_meta %>% filter(loc=="utr3")
+ChimpPASseq_meta_intron= ChimpPASseq_meta %>% filter(loc=="intron")
+
+
+ChimpUTR=ggseqlogo(ChimpPASseq_meta_utr$seqUP, col_scheme=cs1, method = 'prob')
+Chimpintron=ggseqlogo(ChimpPASseq_meta_intron$seqUP, col_scheme=cs1, method = 'prob')
+
+plot_grid(ChimpUTR, Chimpintron, ncol = 1, align = 'v',labels = c('Chimp 3 UTR', 'Chimp Intronic'))
+```
+
+
+```{r}
+plot_grid(humanUTR,humanintron,ChimpUTR, Chimpintron, ncol = 2, align = 'v')
+```
+

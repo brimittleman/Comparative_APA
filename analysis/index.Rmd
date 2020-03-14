@@ -38,6 +38,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at number of reads lost if you exclude reads with N](index.html)
 
+* [Base composition](BaseComp.html)
+
 
 ### Choosing cuttoffs for usage and expression level  
 
