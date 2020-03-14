@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-13
+<strong>Last updated:</strong> 2020-03-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree044572086797f9e3dd039853277deb0ed08fb7c3targetblank0445720a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/044572086797f9e3dd039853277deb0ed08fb7c3" target="_blank">0445720</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree28558a846fd3c71fd2a4b7dc8c02de95c2531f16targetblank28558a8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/28558a846fd3c71fd2a4b7dc8c02de95c2531f16" target="_blank">28558a8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree044572086797f9e3dd039853277deb0ed08fb7c3targetblank0445720a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree28558a846fd3c71fd2a4b7dc8c02de95c2531f16targetblank28558a8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1164,6 +1164,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/28558a846fd3c71fd2a4b7dc8c02de95c2531f16/analysis/removeChimpNreads.Rmd" target="_blank">28558a8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-14
+</td>
+<td>
+add number of Ts and Ns
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d1e93513b0e0e6fea308ede3b1dff88f7d275d98/docs/removeChimpNreads.html" target="_blank">d1e9351</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/044572086797f9e3dd039853277deb0ed08fb7c3/analysis/removeChimpNreads.Rmd" target="_blank">0445720</a>
 </td>
 <td>
@@ -1220,8 +1254,118 @@ sbatch snakemake_human.batch</code></pre>
 <pre class="r"><code>Mapping=read.csv(&quot;../../Comparative_NoNs/data/HC_metadataNoNs.csv&quot;, header = T) %&gt;% mutate(PercMap=NewClean/Reads)</code></pre>
 <pre class="r"><code>ggplot(Mapping,aes(x=Line, fill=Species, y=PercMap)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= &quot;Map proportion&quot;, title=&quot;Map Stats&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d1e93513b0e0e6fea308ede3b1dff88f7d275d98/docs/figure/removeChimpNreads.Rmd/unnamed-chunk-6-1.png" target="_blank">d1e9351</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(Mapping,aes(x=Line, fill=Species, y=ReadsLost)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= &quot;Number Reads&quot;, title=&quot;Reads filtered due to N&#39;s&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d1e93513b0e0e6fea308ede3b1dff88f7d275d98/docs/figure/removeChimpNreads.Rmd/unnamed-chunk-7-1.png" target="_blank">d1e9351</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Look at the number of Ns in the reads.</p>
+<p>I will run bedtools nuc on the full reads.</p>
+<p>Do this for the clean bed and not</p>
+<pre class="bash"><code>mkdir ../Chimp/data/readSeq
+mkdir ../Chimp/data/readSeqClean
+mkdir ../Human/data/readSeq
+mkdir ../Human/data/readSeqClean
+sbatch NucForAllReads.sh
+</code></pre>
+<p>I will want to plot the number of reads with an N I can write a python script that writes a line the name of the sample and the number of reads with an N (remember .upper)</p>
+<p>Run this script on all of the files.</p>
+<pre class="bash"><code>sbatch runCountNs.sh</code></pre>
+<pre class="r"><code>type=c(rep(&quot;Pre&quot;, 12), rep(&quot;Post&quot;, 12 ),rep(&quot;Pre&quot;, 12), rep(&quot;Post&quot;, 12 ))
+
+Nres=read.table(&quot;../../Comparative_NoNs/data/CountsforNs.txt&quot;, col.names = c(&quot;library&quot;,&quot;NumNs&quot;, &quot;NumReads&quot;),stringsAsFactors = F) %&gt;% separate(library, into=c(&quot;species&quot;, &quot;comb&quot;, &quot;line&quot;, &quot;fraction&quot;),sep=&quot;_&quot;)  %&gt;% mutate(PropReadsN=NumNs/NumReads) %&gt;% bind_cols(&quot;type&quot;=type)
+
+ggplot(Nres, aes(x=line,y=PropReadsN,fill=species))+ geom_bar(stat=&quot;identity&quot;) + facet_grid(type~fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= &quot;Proprotion of Reads&quot;, title=&quot;Proportion of Reads with N&#39;s&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(Nres, aes(x=line,y=NumNs,fill=species))+ geom_bar(stat=&quot;identity&quot;) + facet_grid(type~fraction) +theme(axis.text.x = element_text(angle = 90)) + labs(y= &quot;Reads&quot;, title=&quot; Reads with N&#39;s&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is interesting because it is opposite of the expectation. When I compared the 2 genomes I looked at Ns vs Ts in the upstream 10. I will make the same plots here.</p>
+<pre class="sbatch"><code>sbatch runCountNucleotides.sh</code></pre>
+<pre class="r"><code>countRes=read.table(&quot;../../Comparative_NoNs/data/CountsforNucleotides.txt&quot;, stringsAsFactors = F, header = F, col.names = c(&quot;library&quot;, &quot;Nucleotide&quot;, &quot;numLetter&quot;,&quot;NumReads&quot;)) %&gt;% separate(library, into=c(&quot;species&quot;, &quot;com&quot;, &quot;individual&quot;, &quot;fraction&quot;)) %&gt;% mutate(NormN=numLetter/(NumReads*10), Fraction=ifelse(fraction==&quot;N&quot;, &quot;Nuclear&quot;, &quot;Total&quot;)) 
+
+countRes_N= countRes %&gt;% filter(Nucleotide==&quot;N&quot;)
+countRes_T= countRes %&gt;% filter(Nucleotide==&quot;T&quot;)
+
+
+ggplot(countRes_N, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title=&quot;N nucleotides per base&quot;,y=&quot;N nucleotide per base&quot;)+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(countRes_N, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title=&quot;N nucleotides per base&quot;,y=&quot;N nucleotide per base&quot;) +scale_y_log10()+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(countRes_T, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction) + theme(axis.text.x = element_text(angle = 90)) + labs(title=&quot;T nucleotides per base&quot;, y=&quot;T nucleotide per base&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(countRes_N, aes(x=individual, y=numLetter, fill=species)) + geom_bar(stat=&quot;identity&quot;) + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title=&quot;N nucleotides per base&quot;,y=&quot;N nucleotide per base&quot;)+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/removeChimpNreads.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
