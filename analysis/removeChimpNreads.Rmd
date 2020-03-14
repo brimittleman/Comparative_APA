@@ -137,6 +137,8 @@ ggplot(countRes_T, aes(x=individual, y=NormN, fill=species)) + geom_bar(stat="id
 ```
 
 ```{r}
-ggplot(countRes_N, aes(x=individual, y=numLetter, fill=species)) + geom_bar(stat="identity") + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title="N nucleotides per base",y="N nucleotide per base")+scale_fill_brewer(palette = "Dark2")
+ggplot(countRes_N, aes(x=individual, y=numLetter, fill=species)) + geom_bar(stat="identity") + facet_grid(~Fraction)+ theme(axis.text.x = element_text(angle = 90)) +  labs(title="N nucleotides",y="N nucleotide")+scale_fill_brewer(palette = "Dark2")
 ```
+
+
 
