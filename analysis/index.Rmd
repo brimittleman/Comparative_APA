@@ -42,6 +42,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Change misprimming parameters](changeMisprimcut.html)
 
+* [Test for annotation bias](annotationBias.html)
+
 
 ### Choosing cuttoffs for usage and expression level  
 

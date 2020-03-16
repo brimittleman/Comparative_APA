@@ -1,0 +1,390 @@
+---
+title: "Are Most used PAS dAPA"
+author: "Briana Mittleman"
+date: "3/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to see if the most used PAS are also the differentially used.  
+
+```{r}
+library(tidyverse)
+library(workflowr)
+library(cowplot)
+```
+Caveat- ties.  
+
+Dominant PAS
+```{r}
+allPAS= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T) 
+ChimpPASwMean =allPAS %>% dplyr::select(-Human)
+HumanPASwMean =allPAS %>% dplyr::select(-Chimp)
+
+
+Chimp_Dom= ChimpPASwMean %>%
+  group_by(gene) %>%
+  arrange(desc(Chimp)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+
+Chimp_Dom2= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) 
+nrow(Chimp_Dom2%>% filter(nPer>1) )
+
+
+  
+
+Human_Dom= HumanPASwMean %>%
+  group_by(gene) %>%
+  arrange(desc(Human)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+Human_Dom2= HumanPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Human) %>% 
+  mutate(nPer=n()) 
+
+nrow(Human_Dom2 %>% filter(nPer>1) )
+
+```
+
+198 genes with a tie in chimp and 161 with a tie in human. Picks top for both for analysis. 
+
+
+##No PAS usage cutoff for dominant  
+
+```{r}
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+
+SameDom= BothDom %>% filter(ChimpPAS==HumanPAS,HumanLoc!="008559")
+nrow(SameDom)
+
+
+SameDom_g= SameDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(SameDom_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat="count",position = "Dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species")
+
+
+ggplot(SameDom, aes(x=HumanLoc))+ geom_bar(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species")
+```
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(DiffDom)
+
+DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plotnones=ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS") + scale_fill_brewer(palette = "Dark2")
+```
+
+Diff dominant different locations:  
+
+```{r}
+DiffDomDiffLoc=BothDom %>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(DiffDomDiffLoc)
+
+DiffDomDiffLoc_g= DiffDomDiffLoc %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plotnone=ggplot(DiffDomDiffLoc_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations") + scale_fill_brewer(palette = "Dark2")
+```
+
+##Implement filters  
+
+I want to filter these and see if these distribution changes. First I will say the most used has to be over 50% in both species.   
+
+```{r}
+BothDom_50= BothDom %>% filter(Chimp>=.5, Human>.5)
+nrow(BothDom_50)
+BothDom_40= BothDom %>% filter(Chimp>=.4, Human>.4)
+nrow(BothDom_40)
+BothDom_30= BothDom %>% filter(Chimp>=.3, Human>.3)
+nrow(BothDom_30)
+BothDom_20= BothDom %>% filter(Chimp>=.2, Human>.2)
+nrow(BothDom_20)
+BothDom_10= BothDom %>% filter(Chimp>=.1, Human>.1)
+nrow(BothDom_10)
+
+cutoffs=c(".5",'.4','.3','.2','.1', "0")
+nPAS=c(nrow(BothDom_50),nrow(BothDom_40),nrow(BothDom_30),nrow(BothDom_20),nrow(BothDom_10), nrow(BothDom))
+nPAS
+
+
+
+```
+###Different Dominant, different Location 
+```{r}
+BothDom_50_diff=BothDom_50%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(BothDom_50_diff)
+
+BothDom_50_diff_g= BothDom_50_diff %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot50=ggplot(BothDom_50_diff_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations (50%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_40_diff=BothDom_40%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(BothDom_40_diff)
+
+BothDom_40_diff_g= BothDom_40_diff %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot40=ggplot(BothDom_40_diff_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations (40%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+
+
+```{r}
+BothDom_30_diff=BothDom_30%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(BothDom_30_diff)
+
+BothDom_30_diff_g= BothDom_30_diff %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot30=ggplot(BothDom_30_diff_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations (30%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_20_diff=BothDom_20%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(BothDom_20_diff)
+
+BothDom_20_diff_g= BothDom_20_diff %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot20=ggplot(BothDom_20_diff_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations (20%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_10_diff=BothDom_10%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559", ChimpLoc!=HumanLoc)
+nrow(BothDom_10_diff)
+
+BothDom_10_diff_g= BothDom_10_diff %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot10=ggplot(BothDom_10_diff_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS in different locations (10%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+```{r}
+plot_grid(plot50, plot40, plot30, plot20, plot10,plotnone)
+```
+
+
+###Filters in same loc ok  
+
+```{r}
+BothDom_50_same=BothDom_50%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(BothDom_50_same)
+
+BothDom_50_same_g= BothDom_50_same %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot50s=ggplot(BothDom_50_same_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant (50%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_40_same=BothDom_40%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(BothDom_40_same)
+BothDom_40_same_g= BothDom_40_same %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot40s=ggplot(BothDom_40_same_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant (40%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+
+
+```{r}
+BothDom_30_same=BothDom_30%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(BothDom_30_same)
+BothDom_30_same_g= BothDom_30_same %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot30s=ggplot(BothDom_30_same_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant (30%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_20_same=BothDom_20%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(BothDom_20_same)
+BothDom_20_same_g= BothDom_20_same %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot20s=ggplot(BothDom_20_same_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant (20%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+BothDom_10_same=BothDom_10%>% filter(ChimpPAS!=HumanPAS,HumanLoc!="008559")
+nrow(BothDom_10_same)
+BothDom_10_same_g= BothDom_10_same %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+plot10s=ggplot(BothDom_10_same_g,aes(by=Species, x=Location, fill=Species))+ geom_bar(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant (10%)") + scale_fill_brewer(palette = "Dark2")
+```
+
+
+```{r}
+plot_grid(plot50s, plot40s, plot30s, plot20s, plot10s,plotnones)
+```
+
+Plot numbers:  
+
+```{r}
+cutoffs=c("0.5",'0.4','0.3','0.2','0.1', "0")
+#nPAS=c(nrow(BothDom_50),nrow(BothDom_40),nrow(BothDom_30),nrow(BothDom_20),nrow(BothDom_10), nrow(BothDom))
+nPASDiff=c(nrow(BothDom_50_diff),nrow(BothDom_40_diff),nrow(BothDom_30_diff),nrow(BothDom_20_diff),nrow(BothDom_10_diff), nrow(DiffDomDiffLoc))
+nPASSameLoc=c(nrow(BothDom_50_same),nrow(BothDom_40_same),nrow(BothDom_30_same),nrow(BothDom_20_same),nrow(BothDom_10_same), nrow(DiffDom))
+
+NumberDF= as.data.frame(cbind(cutoffs, Genes=nPAS, DifferentPASandLoc=nPASDiff, DifferentPAS=nPASSameLoc)) %>% gather("Set", "count",-cutoffs )
+NumberDF$count=as.numeric(NumberDF$count)
+
+ggplot(NumberDF,aes(x=cutoffs, y=count, by=Set, fill=Set)) + geom_bar(stat="identity",position = "dodge" ) +geom_text(stat='identity', aes(label=count), vjust=0,position = position_dodge(width = 1)) + labs(x="Cutoff for PAS to be dominant (Both Species)", y="Number of genes")+ scale_fill_brewer(palette = "Dark2", labels=c("Different PAS Same Location", "Different PAS and Location", "All Genes"),name="") + theme(legend.position = "top")
+
+```
+
+
+##Compare to differencially used  
+
+```{r}
+
+
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(PAS, gene, chr, start,end,loc)
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F) %>% inner_join(PASMeta, by=c("chr",'start','end',"gene"))
+
+DiffIso_sig= DiffIso %>% filter(SigPAU2=="Yes") 
+
+
+DiffIsowDom=DiffIso %>% mutate(ChimpDom=ifelse(PAS %in% Chimp_Dom2$PAS, "Yes", "No"),HumanDom=ifelse(PAS %in% Human_Dom2$PAS, "Yes", "No") ) 
+
+
+ggplot(DiffIsowDom,aes(x=loc,fill=ChimpDom)) + geom_bar(stat = "count") + facet_grid(~SigPAU2) +labs(x="", y="Number of PAS", title="Differentially used PAS colored by Dominant Status in Chimp")+ scale_fill_brewer(palette = "Dark2",name="Is PAS Dominant in Chimp") + theme(legend.position = "top")
+
+
+ggplot(DiffIsowDom,aes(x=loc,fill=HumanDom)) + geom_bar(stat = "count") + facet_grid(~SigPAU2) +labs(x="", y="Number of PAS", title="Differentially used PAS colored by Dominant Status in Human")+ scale_fill_brewer(palette = "Dark2",name="Is PAS Dominant in Chimp") + theme(legend.position = "top")
+
+```
+
+Of the 3076 how many are in the dominant set.  
+
+I need to use the set that includes ties here:  
+```{r}
+SiginChimp_Dom2= Chimp_Dom2 %>% ungroup %>% select(PAS) %>% inner_join(DiffIso_sig, by="PAS")
+nrow(SiginChimp_Dom2)
+
+
+SiginHuman_Dom2= Human_Dom2 %>% ungroup %>% select(PAS) %>% inner_join(DiffIso_sig, by="PAS")
+nrow(SiginHuman_Dom2)
+
+
+
+```
+
+Enrichemnt:   
+  
+
+```{r}
+EnrichChimp=c()
+PvalueChimp=c()
+
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(DiffIsowDom %>% filter(ChimpDom=="Yes", SigPAU2=="Yes", loc==i))
+  m=nrow(DiffIsowDom %>% filter(SigPAU2=="Yes", loc==i))
+  n=nrow(DiffIsowDom %>% filter(SigPAU2=="No", loc==i))
+  k=nrow(DiffIsowDom %>% filter(loc==i,ChimpDom=="Yes"))
+  N=nrow(DiffIsowDom %>% filter(loc==i))
+  PvalueChimp=c(PvalueChimp, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichChimp=c(EnrichChimp, round(enrich,2))
+}
+
+
+EnrichHuman=c()
+PvalueHuman=c()
+
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(DiffIsowDom %>% filter(HumanDom=="Yes", SigPAU2=="Yes", loc==i))
+  m=nrow(DiffIsowDom %>% filter(SigPAU2=="Yes", loc==i))
+  n=nrow(DiffIsowDom %>% filter(SigPAU2=="No", loc==i))
+  k=nrow(DiffIsowDom %>% filter(loc==i,HumanDom=="Yes"))
+  N=nrow(DiffIsowDom %>% filter(loc==i))
+  PvalueHuman=c(PvalueHuman, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichHuman=c(EnrichHuman, round(enrich,2))
+}
+
+locations=c('cds', 'end', 'intron', 'utr3', 'utr5')
+
+
+EnrichDF=as.data.frame(cbind(locations, EnrichChimp,EnrichHuman ))
+colnames(EnrichDF)=c("GenicLoc", "Chimp", "Human")
+
+EnrichDF
+```
+
+##diff dominance and discovery  
+DiffDom
+```{r}
+
+SamDomLoc=SameDom %>% ungroup() %>% select(ChimpPAS) %>% rename("PAS"=ChimpPAS) %>% inner_join(allPAS, by="PAS")
+ggplot(SamDomLoc, aes(x=disc, fill=disc)) +geom_bar(stat="count") + labs(title="Same dominant")
+
+DiffDomChimp= DiffDom %>% ungroup() %>% select(ChimpPAS) %>% rename("PAS"=ChimpPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomChimp, aes(x=disc, fill=disc)) +geom_bar(stat="count") + labs(title="Different dominant, Chimp PAS")
+
+
+
+DiffDomHuman= DiffDom %>% ungroup() %>% select(HumanPAS) %>% rename("PAS"=HumanPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomHuman, aes(x=disc, fill=disc)) +geom_bar(stat="count") +  labs(title="Different dominant, Human PAS")
+```
+
+```{r}
+#DiffDomDiffLoc
+
+DiffDomDiffLocChimp= DiffDomDiffLoc %>% ungroup() %>% select(ChimpPAS) %>% rename("PAS"=ChimpPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomDiffLocChimp, aes(x=disc, fill=disc)) +geom_bar(stat="count") +  labs(title="Different dominant, different Loc, Chimp PAS")
+
+
+
+DiffDomDiffLocHuman= DiffDomDiffLoc %>% ungroup() %>% select(HumanPAS) %>% rename("PAS"=HumanPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomDiffLocHuman, aes(x=disc, fill=disc)) +geom_bar(stat="count") +  labs(title="Different dominant, different Loc, Human PAS")
+```
+
+Does this go away if we say has to be 50%  
+```{r}
+
+DiffDomChimp50= BothDom_50_same %>% ungroup() %>% select(ChimpPAS) %>% rename("PAS"=ChimpPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomChimp50, aes(x=disc, fill=disc)) +geom_bar(stat="count") + labs(title="Different dominant, Chimp PAS")
+
+
+
+DiffDomHuman50= BothDom_50_same %>% ungroup() %>% select(HumanPAS) %>% rename("PAS"=HumanPAS) %>% inner_join(allPAS, by="PAS")
+
+ggplot(DiffDomHuman50, aes(x=disc, fill=disc)) +geom_bar(stat="count") +  labs(title="Different dominant, Human PAS")
+```
+
+Problems:
+
+- snorna (need to be removed)
+- mispriming? 
+- why not disovered in the right species 
+
