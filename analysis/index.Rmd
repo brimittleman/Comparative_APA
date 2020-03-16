@@ -40,6 +40,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Base composition](BaseComp.html)
 
+* [Change misprimming parameters](changeMisprimcut.html)
+
 
 ### Choosing cuttoffs for usage and expression level  
 

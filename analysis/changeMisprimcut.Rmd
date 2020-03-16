@@ -1,0 +1,82 @@
+---
+title: "Change stringency rules"
+author: "Briana Mittleman"
+date: "3/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am trying to figure out why the most used PAS distributions are different when the major PAS does not mach between species.  It is not the number of Ns in the genome. I will now try to change the misprimming filters to see if that makes a difference. 
+
+Right now I use 70% T or 6 in a row. I will change the filters to the following as a test:   
+
+60% Ts 
+
+50% Ts
+
+40% Ts
+
+I will make new directories. I do not want to copy the files too many times. I will point to the original data by changing the fastq directory in the snakefile and then add the data dir to the configs.  
+
+
+
+```{bash,eval=F}
+mkdir ../../Misprime6
+mkdir ../../Misprime5
+mkdir ../../Misprime4
+
+#add all of these 
+mkdir data
+mkdir code
+
+mkdir Human
+mkdir Human/data
+mkdir Human/data/fastq
+
+mkdir Chimp
+mkdir Chimp/data
+mkdir Chimp/data/fastq
+
+
+#copy all code for snakemake, code is in Comparative_noNs
+
+cp -r * ../../Misprime4/code/
+cp -r * ../../Misprime5/code/
+cp -r * ../../Misprime6/code/ 
+
+#change the config files for the correct directory  for base 
+
+```
+
+
+File to change is: 
+
+filterMissprimingInNuc10_gen.py
+
+For Ns. I do change all Ns to Ts for sake of the proportion of Ts in the read.   
+
+
+Start with 4.
+
+
+
+Call peaks: 
+Code I need:  
+
+SnakefilePAS
+* bg_to_cov.py
+* callPeaksYL.py
+
+SnakefilePASfilt  
+* bed2saf.py
+* filterpeaks.py
+* namePeaks.py
+* bed215upbed.py  
+* filterPASforMP.py (change the cutoff for this as well- still do 6 in a row from the snape but change the proportion)
+* cleanbed2saf.py  
+
+
+

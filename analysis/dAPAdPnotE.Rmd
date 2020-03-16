@@ -226,3 +226,72 @@ ggplot(APAandprot, aes(x=logEf, y=deltaPAU))+ geom_point(alpha=.3) + geom_smooth
 ggplot(APAandprot, aes(x=logEf, y=deltaPAU, col=loc))+ geom_point(alpha=.3) + geom_smooth(method="lm") +stat_cor( )
 ```
 None of these are significant.  
+
+
+Check if any of these are genes with QTLs.  
+
+I will pull in the genes with nuclear apaQTLs first.  
+
+```{r}
+apaQTLs=read.table("../../apaQTL/data/apaQTLs/Nuclear_apaQTLs4pc_5fdr.sort.bed",col.names = c('chr','start','end', 'PASid','score', 'strand')) %>% separate(PASid, into=c("gene", "PAS", "loc"),sep=":")
+
+apaQTLGenes= apaQTLs %>% select(gene) %>% unique()
+```
+
+
+```{r}
+APAandPnotE_apaQTL=APAandPnotE %>% mutate(apaQTL=ifelse(gene %in% apaQTLGenes$gene, "Yes", "No"))
+
+
+APAandPnotE_apaQTL %>% group_by(apaQTL) %>% summarize(n=n())
+
+
+APAandPnotE_apaQTL %>% filter(apaQTL=="Yes")
+```
+
+Background for enrichment is all of the dAPA genes.  
+```{r}
+x= nrow(APAandPnotE_apaQTL %>% filter(apaQTL =="Yes"))
+m= nrow(APAandPnotE_apaQTL)
+n=nrow(NucAPA)- nrow(APAandPnotE_apaQTL)
+k=nrow(apaQTLGenes)
+x
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+phyper(x,m, n , k,lower.tail=F)
+
+```
+Not enriched for apaQTL.
+
+pQTLs  
+
+Using protien specific QTLs from Battle et al. 
+```{r}
+pQTLs=read.table("../../apaQTL/data/Battle_pQTL/psQTLGeneNames.txt")
+
+APAandPnotE_pQTL=APAandPnotE %>% mutate(pQTL=ifelse(gene %in% pQTLs$V1, "Yes", "No"))
+
+
+APAandPnotE_pQTL %>% group_by(pQTL) %>% summarize(n=n())
+
+APAandPnotE_pQTL %>% filter(pQTL=="Yes")
+```
+
+
+```{r}
+x= nrow(APAandPnotE_pQTL %>% filter(pQTL =="Yes"))
+m= nrow(APAandPnotE_pQTL)
+n=nrow(NucAPA)- nrow(APAandPnotE_pQTL)
+k=nrow(pQTLs)
+x
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+phyper(x,m, n , k,lower.tail=F)
+
+```
+
+
