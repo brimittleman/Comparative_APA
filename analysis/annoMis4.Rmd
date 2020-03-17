@@ -1,0 +1,304 @@
+---
+title: "Annotate Misprime 4"
+author: "Briana Mittleman"
+date: "3/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library("gplots")
+library("R.utils")
+library("edgeR")
+library("limma")
+library("scales")
+library("RColorBrewer")
+library(reshape2)
+```
+
+
+##Annotate and make phenotype  
+I am recreating the code from the [annotation](annotatePAS.Rmd) Like the PAS liftover, R code is from the compapa directory and bash code is done in the specific misprime directory.  
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_anno
+bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+
+cp ../../Comparative_APA/code/chooseAnno2Bed.py .
+
+python chooseAnno2Bed.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed 
+
+cp ../../Comparative_APA/code/LiftOrthoPAS2chimp.sh . #new dir  ../../Comparative_APA/data/chainFiles/
+
+sbatch LiftOrthoPAS2chimp.sh
+
+cp ../../Comparative_APA/code/bed2SAF_gen.py .
+
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED.SAF
+
+python bed2SAF_gen.py ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.bed  ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnnoPARSED_chimpLoc.SAF
+
+
+mkdir  ../Human/data/CleanLiftedPeaks_FC/
+mkdir ../Chimp/data/CleanLiftedPeaks_FC/
+
+cp ../../Comparative_APA/code/quantLiftedPAS.sh .
+
+
+sbatch quantLiftedPAS.sh 
+
+
+cp ../../Comparative_APA/code/fixFChead_bothfrac.py .
+
+
+python fixFChead_bothfrac.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc
+
+
+python fixFChead_bothfrac.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc
+
+#make file ID
+cp ../../Comparative_APA/code/makeFileID.py .
+
+python makeFileID.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt
+
+python makeFileID.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt
+
+
+mkdir ../Human/data/phenotype/
+mkdir ../Chimp/data/phenotype/
+
+cp ../../Comparative_APA/code/makePheno.py .
+
+python makePheno.py  ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt
+
+python makePheno.py  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt
+
+
+cp ../../Comparative_APA/code/pheno2countonly.R .
+
+Rscript pheno2countonly.R -I ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt -O ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt
+
+Rscript pheno2countonly.R -I ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt -O ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt
+
+cp ../../Comparative_APA/code/convertNumeric.py .
+
+python convertNumeric.py ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnly.txt ../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt
+
+python convertNumeric.py ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnly.txt ../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt
+
+```
+
+##Expression cutoff. 
+
+I will use the same cutoff as I used in the original data.  
+
+```{r}
+humanPAS=read.table("../../Misprime4/Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc", header=T, stringsAsFactors = F) %>% 
+  separate(Geneid, into=c("disc","PAS","chrom", "start","end","strand","geneid"), sep=":") %>%
+  separate(geneid,into=c("gene","loc"),sep="_") %>%
+  dplyr::select(gene,contains("_N")) %>%
+  gather(key="ind", value="count", -gene) %>% 
+  group_by(ind, gene) %>%
+  summarize(GeneCount=sum(count)) %>% 
+  spread(ind, GeneCount)
+
+chimpPAS=read.table("../../Misprime4/Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc", header=T, stringsAsFactors = F) %>% 
+  separate(Geneid, into=c("disc","PAS","chrom", "start","end","strand","geneid"), sep=":") %>%
+  separate(geneid,into=c("gene","loc"),sep="_") %>%
+  dplyr::select(gene,contains("_N")) %>%
+  gather(key="ind", value="count", -gene) %>% 
+  group_by(ind, gene) %>%
+  summarize(GeneCount=sum(count)) %>% 
+  spread(ind, GeneCount)
+
+#can use the same meta becuase it is ordered the same  
+metadata=read.table("../data/metadata_HCpanel.txt",header = T) %>% mutate(id2=ifelse(grepl("pt", ID), ID, paste("X", ID, sep=""))) %>% filter(Fraction=="Nuclear")
+
+order=c(metadata$id2[1:10], "pt30_N", "pt91_N")
+
+BothbyGene= chimpPAS %>% inner_join(humanPAS,by="gene") %>% dplyr::select(gene,order)
+
+#count matrix:
+Genematrix=as.matrix(BothbyGene %>% column_to_rownames(var="gene"))
+```
+
+```{r}
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(metadata$Species,metadata$Line, sep=" ")
+
+# Clustering (original code from Julien Roux)
+cors <- cor(Genematrix, method="spearman", use="pairwise.complete.obs")
+
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels, ColSideColors=pal[as.integer(as.factor(metadata$Species))], RowSideColors=pal[as.integer(as.factor(metadata$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+
+```{r}
+log_counts_genes <- as.data.frame(log2(Genematrix))
+plotDensities(log_counts_genes, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+
+```{r}
+cpm <- cpm(Genematrix, log=TRUE)
+plotDensities(cpm, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+```{r}
+## Create edgeR object (dge) to calculate TMM normalization  
+dge_original <- DGEList(counts=as.matrix(Genematrix), genes=rownames(Genematrix), group = as.character(t(labels)))
+dge_original <- calcNormFactors(dge_original)
+
+tmm_cpm <- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm)
+```
+log2cpm plot  
+
+
+```{r}
+plotDensities(tmm_cpm, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+
+```{r}
+keep.exprs=rowSums(tmm_cpm>2) >8
+
+counts_filtered= Genematrix[keep.exprs,]
+
+
+
+
+plotDensities(counts_filtered, col=pal[as.numeric(metadata$Species)], legend="topright")
+```
+```{r}
+labels <- paste(metadata$Species, metadata$Line, sep=" ")
+dge_in_cutoff <- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
+dge_in_cutoff <- calcNormFactors(dge_in_cutoff)
+
+cpm_in_cutoff <- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
+head(cpm_in_cutoff)
+```
+
+```{r}
+GenesCutoff=rownames(cpm_in_cutoff)
+NormalizedGenesCuttoff=as.data.frame(cbind(Gene_stable_ID=GenesCutoff, cpm_in_cutoff))
+```
+
+```{r}
+hist(cpm_in_cutoff, xlab = "Log2(CPM)", main = "Log2(CPM) values for genes meeting the filtering criteria", breaks = 100 )
+```
+
+```{r}
+Species <- factor(metadata$Species)
+design <- model.matrix(~ 0 + Species)
+head(design)
+
+colnames(design) <- gsub("Species", "", dput(colnames(design)))
+cpm.voom<- voom(counts_filtered, design, normalize.method="quantile", plot=T)
+boxplot(cpm.voom$E, col = pal[as.numeric(metadata$Species)],las=2)
+plotDensities(cpm.voom, col =  pal[as.numeric(metadata$Species)], legend = "topleft") 
+```
+```{r}
+length(GenesCutoff)
+```
+
+```{r}
+GenesCutoffDF=as.data.frame(GenesCutoff) %>% rename("genes"=GenesCutoff)
+#mkdir ../data/OverlapBenchmark
+write.table(GenesCutoffDF,"../../Misprime4/data/OverlapBenchmark/genesPassingCuttoff.txt", col.names = T, row.names = F,quote = F)
+```
+
+##Filter PAS on these genes and 5%  
+
+
+```{r}
+HumanAnno=read.table("../../Misprime4/Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../../Misprime4/Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+```
+
+```{r}
+ChimpAnno=read.table("../../Misprime4/Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../../Misprime4//Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+```
+
+```{r}
+BothMean=ChimpMean %>% full_join(HumanMean, by=c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" )) 
+
+BothMeanM=melt(BothMean,id.vars =c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ),variable.name = "Species", value.name = "MeanUsage" ) %>% filter(loc !="008559", loc != "009911")
+```
+
+```{r}
+ggplot(BothMeanM, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = "Dark2")
+```
+```{r}
+ggplot(BothMeanM, aes(x=MeanUsage,by=Species,col=Species)) + stat_ecdf(geom = "point", alpha=.25)  + scale_color_brewer(palette = "Dark2") + labs(title="Cumulative Distribution plot for PAS Usage", x="Mean Usage- both fractions", y="F(Mean Usage)")
+```
+
+Implement cutoffs for gene expression and usage.  
+```{r}
+BothMean_5= BothMean %>% filter(Chimp >=0.05 | Human >= 0.05,gene %in% GenesCutoffDF$genes)  
+```
+
+
+
+
+```{r}
+BothMean_5M=melt(BothMean_5,id.vars =c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ),variable.name = "Species", value.name = "MeanUsage" ) %>% filter(loc !="008559")
+
+ggplot(BothMean_5M, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = "Dark2")
+```
+```{r}
+ggplot(BothMean_5M, aes(x=MeanUsage,by=Species,col=Species)) + stat_ecdf(geom = "point", alpha=.25)  + scale_color_brewer(palette = "Dark2") + labs(title="Cumulative Distribution plot for PAS Usage at 5%", x="Mean Usage- both fractions", y="F(Mean Usage)") 
+```
+```{r}
+ggplot(BothMean_5M, aes(x=MeanUsage,by=Species,fill=Species)) + geom_histogram(alpha=.5, bins=30, position = "dodge")  + scale_fill_brewer(palette = "Dark2")
+```
+
+```{bash,eval=F}
+mkdir ../data/Peaks_5perc
+mkdir ../data/Pheno_5perc
+```
+
+```{r}
+BothMean_5_out=BothMean_5 %>% dplyr::select(PAS,disc, gene, loc,chr, start, end,Chimp, Human)
+write.table(BothMean_5_out, "../../Misprime4/data/Peaks_5perc/Peaks_5perc_either_bothUsage.txt", row.names = F, col.names = T, quote = F)
+
+BothMean_5_out_noUN=BothMean_5 %>% dplyr::select(PAS,disc, gene, loc,chr, start, end,Chimp, Human) %>% filter(!grepl("Un",chr))
+
+write.table(BothMean_5_out_noUN, "../../Misprime4/data/Peaks_5perc/Peaks_5perc_either_bothUsage_noUnchr.txt", row.names = F, col.names = T, quote = F)
+#write bed with human coord for igv
+BothMean_5_bed=BothMean_5 %>% dplyr::select(chr, start, end, PAS, Human, strand)
+write.table(BothMean_5_bed,"../../Misprime4/data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed", row.names = F, col.names = T, quote = F)
+
+ggplot(BothMean_5_out, aes(x=disc, fill=disc))+  geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+```
+```{r}
+BothMean_5_outmean= BothMean_5_out %>% mutate(meanUsage=(Human+Chimp)/2)
+ggplot(BothMean_5M, aes(x=disc, by= Species, fill=Species, y=MeanUsage)) + geom_boxplot() + scale_y_log10()+ scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+ChimpUsage_anno_5perc= ChimpUsage_anno %>% filter(PAS %in% BothMean_5$PAS)
+
+write.table(ChimpUsage_anno_5perc, "../../Misprime4/data/Pheno_5perc/Chimp_Pheno_5perc.txt", row.names = F, col.names = T, quote = F)
+
+HumaUsage_anno_5perc= HumanUsage_anno %>% filter(PAS %in% BothMean_5$PAS)
+
+write.table(HumaUsage_anno_5perc, "../../Misprime4/data/Pheno_5perc/Human_Pheno_5perc.txt", row.names = F, col.names = T, quote = F)
+```
+

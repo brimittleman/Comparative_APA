@@ -180,6 +180,13 @@ Liftover
 
 * [Liftover for 6](liftMis6.html)  
 
+Annotate and make phenotype  
+
+* [Annotation for 4](annoMis4.html)
+
+* [Annotation for 5](annoMis5.html)
+
+* [Annotation for 6](annoMis6.html)
 
 ###Visualization  
 
