@@ -36,14 +36,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Make PAS bed for 5% peaks](fixPeak2PAS.html)
 
-* [Look at number of reads lost if you exclude reads with N](index.html)
 
-* [Base composition](BaseComp.html)
-
-* [Test for annotation bias](annotationBias.html)
-
-
-### Choosing cuttoffs for usage and expression level  
+## Choosing cuttoffs for usage and expression level  
 
   * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
 
@@ -168,8 +162,18 @@ From here on, I did everything double filtered:
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
 
-###Evaluate mispriming  
+##Evaluate Reasons for inconsistant dominance structure 
 
+* [Add usage cutoffs for the dominant PAS](DomPASDiffUsed.html)  
+
+###Number of Ns  
+
+* [Look at number of reads lost if you exclude reads with N](index.html)
+
+* [Base composition](BaseComp.html)
+
+
+###Misprimming  
 * [Change misprimming parameters](changeMisprimcut.html)  
 
 Liftover  
@@ -188,7 +192,17 @@ Annotate and make phenotype
 
 * [Annotation for 6](annoMis6.html)
 
-###Visualization  
+Evaluate results:  
+
+* [Dominant PAS distribution after adjusting filters](NewFilterDomPAS.html)
+
+
+###Annotation differences  
+
+* [Test for annotation bias](annotationBias.html)
+
+
+##Visualization  
 
 * [Try to use gviz](GvizPlots.html)
 
