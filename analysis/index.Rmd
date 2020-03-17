@@ -40,8 +40,6 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Base composition](BaseComp.html)
 
-* [Change misprimming parameters](changeMisprimcut.html)
-
 * [Test for annotation bias](annotationBias.html)
 
 
@@ -170,6 +168,17 @@ From here on, I did everything double filtered:
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
 
+###Evaluate mispriming  
+
+* [Change misprimming parameters](changeMisprimcut.html)  
+
+Liftover  
+
+* [Liftover for 4](liftMis4.html)  
+
+* [Liftover for 5](liftMis5.html)  
+
+* [Liftover for 6](liftMis6.html)  
 
 
 ###Visualization  

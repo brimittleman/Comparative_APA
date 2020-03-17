@@ -1,0 +1,181 @@
+---
+title: "Liftover Misprime 5"
+author: "Briana Mittleman"
+date: "3/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will run my liftover pipeline for the misprime5 data. I am using the code from the original [liftover](analysis/liftoverPAS.html)  
+
+
+Do all of the bash from the misprime5 directory, R script comes from the comparative APA dir. Copy necessary code and fix direction to chain files.  
+```{r}
+library(tidyverse)
+
+```
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_byspecies/
+
+cp ../../Comparative_APA/code/preparePAS4lift.py .
+
+python preparePAS4lift.py ../Human/data/cleanPeaks/human_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+
+python preparePAS4lift.py ../Chimp/data/cleanPeaks/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned.bed ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed
+```
+
+lift:  
+
+```{bash,eval=F}
+mkdir ../data/primaryLift
+mkdir ../data/reverseLift
+
+cp ../../Misprime4/code/primaryLift.sh . #new dir  ../../Comparative_APA/data/chainFiles/
+cp ../../Misprime4/code/reverseLift.sh . #new dir  ../../Comparative_APA/data/chainFiles/
+
+
+sbatch primaryLift.sh
+sbatch reverseLift.sh
+```
+
+Results from primary:  
+
+```{r}
+unliftedH=read.table("../../Misprime6/data/primaryLift/human_APApeaks_primarylift2Chimp_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+unliftedC=read.table("../../Misprime6/data/primaryLift/chimp_APApeaks_primarylift2Human_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+
+liftedH=read.table("../../Misprime6/data/primaryLift/human_APApeaks_primarylift2Chimp.bed",stringsAsFactors = F) %>% nrow()
+liftedC=read.table("../../Misprime6/data/primaryLift/chimp_APApeaks_primarylift2Human.bed",stringsAsFactors = F) %>% nrow()
+
+primaryUnC=c("Chimp","Unlifted", unliftedC)
+primaryUnH=c("Human","Unlifted", unliftedH)
+
+primaryLH=c("Human","Lifted", liftedH)
+primaryLC=c("Chimp","Lifted", liftedC)
+
+header=c("species", "liftStat", "PAS")
+primaryDF= as.data.frame(rbind(primaryLH,primaryLC, primaryUnH,primaryUnC)) 
+colnames(primaryDF)=header
+
+
+primaryDF$PAS=as.numeric(as.character(primaryDF$PAS)) 
+
+
+
+primaryDF= primaryDF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+
+ggplot(primaryDF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+
+ggplot(primaryDF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Primary Liftover Results")
+```
+
+
+```{r}
+re_unliftedH=read.table("../../Misprime6/data/reverseLift/human_APApeaks_primarylift2Human_rev2Human_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+re_unliftedC=read.table("../../Misprime6/data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp_UNLIFTED.bed",stringsAsFactors = F) %>% nrow()
+
+re_liftedH=read.table("../../Misprime6/data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed",stringsAsFactors = F) %>% nrow()
+re_liftedC=read.table("../../Misprime6/data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed",stringsAsFactors = F) %>% nrow()
+
+re_UnC=c("Chimp","Unlifted", re_unliftedC)
+re_UnH=c("Human","Unlifted", re_unliftedH)
+
+re_LH=c("Human","Lifted", re_liftedH)
+re_LC=c("Chimp","Lifted", re_liftedC)
+
+header=c("species", "liftStat", "PAS")
+re_DF= as.data.frame(rbind(re_LH,re_LC, re_UnH,re_UnC)) 
+colnames(re_DF)=header
+
+
+re_DF$PAS=as.numeric(as.character(re_DF$PAS)) 
+
+
+
+re_DF= re_DF %>% group_by(species) %>% mutate(nPAS=sum(PAS)) %>% ungroup() %>% mutate(proportion=PAS/nPAS)
+
+ggplot(re_DF,aes(x=species, y=PAS, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Reverse Liftover Results")
+
+ggplot(re_DF,aes(x=species, y=proportion, fill=liftStat)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2")+ labs(title="Reverse Liftover Results")
+```
+
+```{bash,eval=F}
+mkdir ../data/cleanPeaks_lifted
+
+cp ../../Comparative_APA/code/filterPostLift.py .
+
+
+python filterPostLift.py ../data/cleanPeaks_byspecies/human_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed ../data/reverseLift/human_APApeaks_primarylift2Chimp_rev2Human.bed ../data/cleanPeaks_lifted/Human_PASregions.bed
+
+python filterPostLift.py ../data/cleanPeaks_byspecies/chimp_APApeaks.ALLChrom.Filtered.Named.Cleaned_100bpreg.bed  ../data/reverseLift/chimp_APApeaks_primarylift2Human_rev2Chimp.bed ../data/cleanPeaks_lifted/Chimp_PASregions.bed
+
+```
+
+
+```{r}
+Human_recLift=read.table("../../Misprime6/data/cleanPeaks_lifted/Human_PASregions.bed",stringsAsFactors = F, col.names = c("chr", "start","end", "name", "score", "strand")) 
+Chimp_recLift=read.table("../../Misprime6/data/cleanPeaks_lifted/Chimp_PASregions.bed",stringsAsFactors = F,col.names = c("chr", "start","end", "name", "score", "strand"))
+
+originalH=unliftedH + liftedH
+originalC=unliftedC + liftedC
+
+#human
+nrow(Human_recLift)/originalH
+
+nrow(Chimp_recLift)/originalC
+```
+```{bash,eval=F}
+cp ../../Misprime4/code/recLiftchim2human.sh . # ../../Comparative_APA/data/chainFiles/
+
+sbatch recLiftchim2human.sh
+
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.bed > ../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.sort.bed
+
+
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/Human_PASregions.bed > ../data/cleanPeaks_lifted/Human_PASregions.sort.bed
+
+
+cp ../../Misprime4/code/intersectLiftedPAS.sh .
+sbatch intersectLiftedPAS.sh
+ 
+ 
+```
+
+```{r}
+OverlapBoth=read.table("../../Misprime6/data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"), Bothname=paste(Hname, Cname, sep=":"))
+
+overlap2= OverlapBoth %>% group_by(name) %>% filter(n()>1) %>%  mutate(id = row_number()) %>% filter(id==2)
+
+OverlapBoth_format=read.table("../../Misprime6/data/cleanPeaks_lifted/PASregions_identifiedboth.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "Hscore", "Hstrand", "Cchr", "Cstart", "Cend", "Cname", "Cscore", "Cstrand", "overlap"),stringsAsFactors = F) %>% mutate(meanScore=(Hscore+Cscore)/2, name=paste("Both", Hname, sep=":"),Bothname=paste(Hname, Cname, sep=":")) %>% filter(!Bothname %in% overlap2$Bothname) %>% dplyr::select(Hchr,Hstart,Hend,name,meanScore,Hstrand) 
+
+
+
+HumanSpec=read.table("../../Misprime6/data/cleanPeaks_lifted/PASregions_identifiedHuman.txt", col.names = c("Hchr", "Hstart","Hend", "Hname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Human", Hname, sep=":")) %>% dplyr::select(Hchr, Hstart,Hend, name, meanScore, Hstrand) 
+
+
+ChimpSpec=read.table("../../Misprime6/data/cleanPeaks_lifted/PASregions_identifiedChimp.txt", col.names = c("Hchr", "Hstart","Hend", "Cname", "meanScore", 'Hstrand'),stringsAsFactors = F) %>% mutate(name=paste("Chimp", Cname, sep=":")) %>% dplyr::select(Hchr, Hstart,Hend, name, meanScore, Hstrand)
+
+AllPAS=as.data.frame(rbind(OverlapBoth_format,HumanSpec,ChimpSpec)) %>% separate(name, into=c("discovery", "PAS"))
+
+
+ggplot(AllPAS, aes(x=discovery, fill=discovery)) + geom_bar(stat="count")+ scale_fill_brewer(palette = "Dark2")
+
+ggplot(AllPAS, aes(x=discovery, fill=discovery)) +  geom_bar(aes(y = (..count..)/sum(..count..)))+ scale_fill_brewer(palette = "Dark2")
+
+ggplot(AllPAS, aes(x=discovery, fill=discovery, y=meanScore)) + geom_boxplot() + scale_y_log10()+ scale_fill_brewer(palette = "Dark2")
+
+AllPAS_use=as.data.frame(rbind(OverlapBoth_format,HumanSpec,ChimpSpec))
+
+write.table(AllPAS_use,  "../../Misprime6/data/cleanPeaks_lifted/AllPAS_postLift.bed", col.names = F, row.names = F, quote = F, sep = "\t")
+
+
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/cleanPeaks_lifted/AllPAS_postLift.bed > ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed
+```
+
