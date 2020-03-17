@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebec8ae9758b7e17349f2f939a0432eebfd9e9a6ftargetblankbec8ae9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/bec8ae9758b7e17349f2f939a0432eebfd9e9a6f" target="_blank">bec8ae9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee85defb5bb6deb2b7516cb7f0746ca3d30a83636targetblanke85defba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/e85defb5bb6deb2b7516cb7f0746ca3d30a83636" target="_blank">e85defb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebec8ae9758b7e17349f2f939a0432eebfd9e9a6ftargetblankbec8ae9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee85defb5bb6deb2b7516cb7f0746ca3d30a83636targetblanke85defba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1003,6 +1003,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e85defb5bb6deb2b7516cb7f0746ca3d30a83636/analysis/index.Rmd" target="_blank">e85defb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+add res from diff mis prime filters
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/63212bb9e42efe9dfd1130e0f1c992c260061b08/docs/index.html" target="_blank">63212bb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3592,18 +3626,15 @@ Start workflowr project.
 <li><p><a href="EnrichmentEndofGenes.html">3’ Seq enrichement along gene bodies</a></p></li>
 <li><p><a href="CrossChimpThreePrime.html">Cross map and prepare Chimp 3’ for Viz in IGV</a></p></li>
 <li><p><a href="fixPeak2PAS.html">Make PAS bed for 5% peaks</a></p></li>
-<li><p><a href="index.html">Look at number of reads lost if you exclude reads with N</a></p></li>
-<li><p><a href="BaseComp.html">Base composition</a></p></li>
-<li><p><a href="annotationBias.html">Test for annotation bias</a></p></li>
 </ul>
-<div id="choosing-cuttoffs-for-usage-and-expression-level" class="section level3">
-<h3>Choosing cuttoffs for usage and expression level</h3>
+</div>
+<div id="choosing-cuttoffs-for-usage-and-expression-level" class="section level2">
+<h2>Choosing cuttoffs for usage and expression level</h2>
 <ul>
 <li><p><a href="expressioncutoff.html">Use merged 3’ at gene level to look for a data quantity cutoff</a></p></li>
 <li><p><a href="establishCutoffs.html">Establish cutoffs by subsampleing apaQTL lines</a></p></li>
 <li><p><a href="compareFilter.html">Compare before and after cutoff</a></p></li>
 </ul>
-</div>
 </div>
 <div id="catalog-pas" class="section level2">
 <h2>Catalog PAS:</h2>
@@ -3720,8 +3751,21 @@ All with double filter:</li>
 <li><p><a href="DiffUsedIntronic.html">Apa and expression relationship for seperated by location of PAS</a></p></li>
 <li><p><a href="dAPAdPnotE.html">Look at genes that have differences in protein levels and APA levels but not mRNA expression</a></p></li>
 </ul>
-<div id="evaluate-mispriming" class="section level3">
-<h3>Evaluate mispriming</h3>
+</div>
+<div id="evaluate-reasons-for-inconsistant-dominance-structure" class="section level2">
+<h2>Evaluate Reasons for inconsistant dominance structure</h2>
+<ul>
+<li><a href="DomPASDiffUsed.html">Add usage cutoffs for the dominant PAS</a></li>
+</ul>
+<div id="number-of-ns" class="section level3">
+<h3>Number of Ns</h3>
+<ul>
+<li><p><a href="index.html">Look at number of reads lost if you exclude reads with N</a></p></li>
+<li><p><a href="BaseComp.html">Base composition</a></p></li>
+</ul>
+</div>
+<div id="misprimming" class="section level3">
+<h3>Misprimming</h3>
 <ul>
 <li><a href="changeMisprimcut.html">Change misprimming parameters</a></li>
 </ul>
@@ -3737,13 +3781,23 @@ All with double filter:</li>
 <li><p><a href="annoMis5.html">Annotation for 5</a></p></li>
 <li><p><a href="annoMis6.html">Annotation for 6</a></p></li>
 </ul>
+<p>Evaluate results:</p>
+<ul>
+<li><a href="NewFilterDomPAS.html">Dominant PAS distribution after adjusting filters</a></li>
+</ul>
 </div>
-<div id="visualization" class="section level3">
-<h3>Visualization</h3>
+<div id="annotation-differences" class="section level3">
+<h3>Annotation differences</h3>
+<ul>
+<li><a href="annotationBias.html">Test for annotation bias</a></li>
+</ul>
+</div>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
 <ul>
 <li><a href="GvizPlots.html">Try to use gviz</a></li>
 </ul>
-</div>
 </div>
 <div id="extra-qc-and-analysis" class="section level2">
 <h2>Extra QC and Analysis</h2>
