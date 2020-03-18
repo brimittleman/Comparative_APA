@@ -94,7 +94,9 @@ NucReswPhy_meta_group=NucReswPhy_meta %>% group_by(loc,SigPAU2) %>% summarise(n=
 NucReswPhy_meta_group
 ```
 
-##Control sequence (upstream 200): 
+###Control sequence:upstream 
+
+(upstream 200)
 
 Look at the 200 basepairs upstream of each PAS as a control. 
 
@@ -136,7 +138,7 @@ ggplot(NucReswPhyandCsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_b
 ```{r}
 NucReswPhyandCsmall_noc= NucReswPhyandCsmall %>% filter(set!="UpstreamControl_Phylop")
 
-ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Dark2")
+ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "OrRd") + labs(title="Significant PAS are less conserved",x="")+ scale_x_discrete(labels=c("Not Significant", "Signficant"))+ theme(legend.position = "none",text= element_text(size=16))
 ```
 
 Significant are lower than not significant:  
@@ -149,8 +151,9 @@ wilcox.test(NucReswPhyandCsmall_nocYES$Phylop, NucReswPhyandCsmall_nocNO$Phylop,
 ```
 
 Significant have lower scores.  
+ 
 
-
+##Negative enrichment 
 
 Number of negative in each set?
 
@@ -224,7 +227,7 @@ Phylo200downCont=read.table("../data/PhyloP/PAS_phyloP_200downstream.txt",string
 
 NucReswPhyandbothC=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr", "start","end")) %>% inner_join(metaStrand,by=c("chr", "start", "end"))%>% inner_join(Phylo200UpContron, by="PAS")  %>% drop_na() %>%  inner_join(Phylo200downCont, by="PAS")  %>% drop_na()
 
-NucReswPhyandCbothsmall=NucReswPhyandbothC %>% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) %>% gather("set", "Phylop", -PAS, -SigPAU2)
+NucReswPhyandCbothsmall=NucReswPhyandbothC %>% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) %>% gather("set", "Phylop", -PAS, -SigPAU2) %>% drop_na()
 
 
 #difference in controls? 
@@ -235,37 +238,97 @@ wilcox.test(NucReswPhyandbothC$DownstreamControl_Phylop, NucReswPhyandbothC$Upst
 
 
 ```{r}
+
+levels=NucReswPhyandCbothsmall$set %>% unique()
+NucReswPhyandCbothsmall$set= factor(NucReswPhyandCbothsmall$set, levels = c("UpstreamControl_Phylop", "phyloP", "DownstreamControl_Phylop"))
+
+my_comparisons <- list( c("DownsreamControl_Pylop", "phylopP"), c("DownsreamControl_Pylop", "UpstreamControl_Phylop"), c("phylopP", "UpstreamControl_Phylop") )
+ggplot(NucReswPhyandCbothsmall, aes(x=set, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2",labels=c("Upstream Control", "PAS", "Downstream Control") ) + stat_compare_means(ref.group = "phyloP",paired = FALSE,label = "p.signif")  + labs(x="", title="PAS conserved compared to surrounding regions" ) + scale_x_discrete( labels=c("Upstream Control", "PAS", "Downstream Control"))+ theme(legend.position = "none",text= element_text(size=16))
+```
+
+Same here. The actual region looks more conserved. 
+
+```{r}
 ggplot(NucReswPhyandCbothsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2",labels=c("Downstream Control", "PAS", "Upstream Control") )
 ```
 
-Same here. The actual region looks more conserved.  
 
-Enrichemnt for negative in this control:  
+
+
+###Extend 
+2 more blocks up and downstream to add to plot. 
+
+Extend downstream: 
+```{r}
+
+NucReswPhy_downstream2=NucReswPhy_downstream %>% mutate(newStart2=ifelse(strandFix=="+",  newEnd, newStart-200), newEnd2=ifelse(strandFix=="+", newEnd+200, newStart))
+
+NucReswPhy_downstream2bed=NucReswPhy_downstream2 %>% select(chr, newStart2, newEnd2, PAS, Human, strandFix)
+
+write.table(NucReswPhy_downstream2bed,"../data/PhyloP/PAS_200downpregions2.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+NucReswPhy_downstream3=NucReswPhy_downstream2 %>% mutate(newStart3=ifelse(strandFix=="+",  newEnd2, newStart2-200), newEnd3=ifelse(strandFix=="+", newEnd2+200, newStart2))
+
+NucReswPhy_downstream3bed=NucReswPhy_downstream3 %>% select(chr, newStart3, newEnd3, PAS, Human, strandFix)
+
+write.table(NucReswPhy_downstream3bed,"../data/PhyloP/PAS_200downpregions3.bed",col.names = F,row.names = F,quote = F,sep="\t")
+```
+
+Extend upstream:  
+
 
 ```{r}
-x=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes", DownstreamControl_Phylop<0))
-m= nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop<0))
-n=nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop>=0))
-k=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes"))
+NucReswPhy_upstream2=NucReswPhy_upstream %>%  mutate(newStart2=ifelse(strandFix=="+", newStart - 200, newEnd), newEnd2=ifelse(strandFix=="+", newStart, newEnd +200))
+
+NucReswPhy_upstreambed2=NucReswPhy_upstream2 %>% select(chr, newStart2, newEnd2, PAS, Human, strandFix)
+
+write.table(NucReswPhy_upstreambed2,"../data/PhyloP/PAS_200upregions2.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+NucReswPhy_upstream3=NucReswPhy_upstream2 %>%  mutate(newStart3=ifelse(strandFix=="+", newStart2 - 200, newEnd2), newEnd3=ifelse(strandFix=="+", newStart2, newEnd2 +200))
+
+NucReswPhy_upstreambed3=NucReswPhy_upstream3 %>% select(chr, newStart3, newEnd3, PAS, Human, strandFix)
+
+write.table(NucReswPhy_upstreambed3,"../data/PhyloP/PAS_200upregions3.bed",col.names = F,row.names = F,quote = F,sep="\t")
+```
+
+Run phylop for each of these:  
+
+```{bash,eval=F}
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200downpregions2.bed ../data/PhyloP/PAS_phyloP_200downstream2.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200downpregions3.bed ../data/PhyloP/PAS_phyloP_200downstream3.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200upregions2.bed ../data/PhyloP/PAS_phyloP_200upstream2.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200upregions3.bed ../data/PhyloP/PAS_phyloP_200upstream3.txt
+
+```
 
 
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
 
-#actual:
-x
+```{r}
+ResUpdown=NucReswPhyandbothC %>% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) 
 
-#pval
-phyper(x,m,n,k,lower.tail=F)
+
+Down2=read.table("../data/PhyloP/PAS_phyloP_200downstream2.txt",col.names = c("chr", "start", "end", "PAS", "Down2"),stringsAsFactors = F) %>% select(PAS, Down2)%>% drop_na()
+Down3=read.table("../data/PhyloP/PAS_phyloP_200downstream3.txt",col.names = c("chr", "start", "end", "PAS", "Down3"),stringsAsFactors = F) %>% select(PAS, Down3)%>% drop_na()
+
+Up2=read.table("../data/PhyloP/PAS_phyloP_200upstream2.txt",col.names = c("chr", "start", "end", "PAS", "Up2"),stringsAsFactors = F) %>% select(PAS, Up2)%>% drop_na()
+Up3=read.table("../data/PhyloP/PAS_phyloP_200upstream3.txt",col.names = c("chr", "start", "end", "PAS", "Up3"),stringsAsFactors = F) %>% select(PAS, Up3)%>% drop_na()
+
+ResUpdownAll= ResUpdown %>% inner_join(Down2, by="PAS")%>% inner_join(Down3, by="PAS") %>% inner_join(Up2, by="PAS") %>% inner_join(Up3, by="PAS")
+
+ResUpdownAll_gather= ResUpdownAll %>% gather("Set", "PhyloP", -PAS, -SigPAU2)
+
+ResUpdownAll_gather$Set=factor(ResUpdownAll_gather$Set, levels=c("Up3", "Up2","UpstreamControl_Phylop", "phyloP","DownstreamControl_Phylop", "Down2", "Down3" ))
+
 ```
 
 ```{r}
-b=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes", DownstreamControl_Phylop<0))
-n=nrow(NucReswPhyandbothC %>% filter(SigPAU2=="Yes"))
-B=nrow(NucReswPhyandbothC %>% filter(DownstreamControl_Phylop<0))
-N=nrow(NucReswPhyandbothC)
-
-(b/n)/(B/N)
+ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + theme(legend.position = "none")
 ```
 
-Most enrichment for negative in this set.  Maybe an annotation bias still. 
+```{r}
+ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + facet_grid(~SigPAU2)+ scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + theme(legend.position = "none")
+```
+
