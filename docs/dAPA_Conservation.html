@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-05
+<strong>Last updated:</strong> 2020-03-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0665ddaa668fb1ef85c0dcd37128484bcee979a0targetblank0665ddaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/0665ddaa668fb1ef85c0dcd37128484bcee979a0" target="_blank">0665dda</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed48135047648856077a2638a501ca5b68afdf2d5targetblankd481350a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d48135047648856077a2638a501ca5b68afdf2d5" target="_blank">d481350</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0665ddaa668fb1ef85c0dcd37128484bcee979a0targetblank0665ddaa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed48135047648856077a2638a501ca5b68afdf2d5targetblankd481350a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,6 +450,7 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
@@ -461,9 +462,14 @@ Untracked files:
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
+    Untracked:  analysis/GvizPlots.Rmd
+    Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  analysis/orthoexonAnno.Rmd
+    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -500,6 +506,7 @@ Untracked files:
     Untracked:  code/._RunNegMCMediationDF.sh
     Untracked:  code/._RunPosMCMediationDF.err
     Untracked:  code/._RunPosMCMediationDF.sh
+    Untracked:  code/._SAF2Bed.py
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
@@ -527,6 +534,8 @@ Untracked files:
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._extractPhyloReg.py
     Untracked:  code/._extractPhyloRegGene.py
+    Untracked:  code/._extractPhylopGeneral.ph
+    Untracked:  code/._extractPhylopGeneral.py
     Untracked:  code/._extractPhylopReg200down.py
     Untracked:  code/._extractPhylopReg200up.py
     Untracked:  code/._filter5percPAS.py
@@ -723,6 +732,7 @@ Untracked files:
     Untracked:  code/RunPosMCMediationDF.sh
     Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
+    Untracked:  code/SAF2Bed.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
@@ -783,6 +793,7 @@ Untracked files:
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
+    Untracked:  code/extractPhylopGeneral.py
     Untracked:  code/extractPhylopReg200down.py
     Untracked:  code/extractPhylopReg200up.py
     Untracked:  code/filter5perc.R
@@ -903,6 +914,7 @@ Untracked files:
     Untracked:  code/reverseLift.sh
     Untracked:  code/runCheckReverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runChimpDiffIsoDF.sh
     Untracked:  code/runCountNucleotides.err
     Untracked:  code/runCountNucleotides.out
     Untracked:  code/runCountNucleotides.sh
@@ -911,6 +923,7 @@ Untracked files:
     Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runHumanDiffIsoDF.sh
     Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
@@ -918,6 +931,8 @@ Untracked files:
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Chimpverifybam.err
     Untracked:  code/run_Chimpverifybam.out
+    Untracked:  code/run_Humanleafcutter_dF.err
+    Untracked:  code/run_Humanleafcutter_dF.out
     Untracked:  code/run_Humanleafcutter_ds.err
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
@@ -965,11 +980,14 @@ Untracked files:
     Untracked:  code/submit-snakemakefiltPAS-human.sh
     Untracked:  code/subset_diffisopheno.py
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN_DF.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN_DF.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC_DF.py
     Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
+    Untracked:  code/test.txt
     Untracked:  code/threeprimeOrthoFC.out
     Untracked:  code/threeprimeOrthoFC.sh
     Untracked:  code/threeprimeOrthoFCcd.err
@@ -1009,6 +1027,8 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
     Untracked:  data/._RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/._TrialFiltersMeta.txt
+    Untracked:  data/._TrialFiltersMeta.txt.sb-9845453e-R58Y0Q
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
@@ -1018,6 +1038,7 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/BaseComp/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
@@ -1043,7 +1064,9 @@ Untracked files:
     Untracked:  data/NuclearHvC_DF/
     Untracked:  data/OppositeSpeciesMap.txt
     Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/OrthoExonBed/
     Untracked:  data/OverlapBenchmark/
+    Untracked:  data/OverlappingPAS/
     Untracked:  data/PAS/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
@@ -1064,15 +1087,18 @@ Untracked files:
     Untracked:  data/SpliceSite/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
+    Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
+    Untracked:  data/bioGRID/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gviz/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1092,9 +1118,14 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/SpliceSiteStrength.Rmd
+    Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/dAPAandapaQTL_DF.Rmd
@@ -1142,6 +1173,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d48135047648856077a2638a501ca5b68afdf2d5/analysis/dAPA_Conservation.Rmd" target="_blank">d481350</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+<td>
+add more upand down controll
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/0bbaafe7c9da12c25aca52a8ebb91a4ccfa34ba2/docs/dAPA_Conservation.html" target="_blank">0bbaafe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1202,12 +1267,12 @@ add upstream control
 </div>
 <p>In my initial exploration of dAPA PAS I saw they are enriched for negative phylop scores. I will explore this trend further here. I will see if intron location explain the differences.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1396,8 +1461,9 @@ NucReswPhy_meta_group</code></pre>
  8 utr3   Yes      1659    0.933 
  9 utr5   No       1151    0.300 
 10 utr5   Yes        95    0.230 </code></pre>
-<div id="control-sequence-upstream-200" class="section level2">
-<h2>Control sequence (upstream 200):</h2>
+<div id="control-sequenceupstream" class="section level3">
+<h3>Control sequence:upstream</h3>
+<p>(upstream 200)</p>
 <p>Look at the 200 basepairs upstream of each PAS as a control.</p>
 <pre class="r"><code>metaStrand=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% select(chr, start,end, strandFix, PAS)
 
@@ -1463,7 +1529,7 @@ brimittleman
 </div>
 <pre class="r"><code>NucReswPhyandCsmall_noc= NucReswPhyandCsmall %&gt;% filter(set!=&quot;UpstreamControl_Phylop&quot;)
 
-ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;OrRd&quot;) + labs(title=&quot;Significant PAS are less conserved&quot;,x=&quot;&quot;)+ scale_x_discrete(labels=c(&quot;Not Significant&quot;, &quot;Signficant&quot;))+ theme(legend.position = &quot;none&quot;,text= element_text(size=16))</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1514,6 +1580,9 @@ data:  NucReswPhyandCsmall_nocYES$Phylop and NucReswPhyandCsmall_nocNO$Phylop
 W = 55118000, p-value = 6.843e-06
 alternative hypothesis: true location shift is less than 0</code></pre>
 <p>Significant have lower scores.</p>
+</div>
+<div id="negative-enrichment" class="section level2">
+<h2>Negative enrichment</h2>
 <p>Number of negative in each set?</p>
 <pre class="r"><code>neg=NucReswPhyandCsmall %&gt;% filter(Phylop &lt;0) %&gt;% group_by(set, SigPAU2) %&gt;% summarise(nNeg=n())
 
@@ -1570,7 +1639,7 @@ write.table(NucReswPhy_downstreambed,&quot;../data/PhyloP/PAS_200downpregions.be
 
 NucReswPhyandbothC=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(phylores, by=c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;)) %&gt;% inner_join(metaStrand,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))%&gt;% inner_join(Phylo200UpContron, by=&quot;PAS&quot;)  %&gt;% drop_na() %&gt;%  inner_join(Phylo200downCont, by=&quot;PAS&quot;)  %&gt;% drop_na()
 
-NucReswPhyandCbothsmall=NucReswPhyandbothC %&gt;% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) %&gt;% gather(&quot;set&quot;, &quot;Phylop&quot;, -PAS, -SigPAU2)
+NucReswPhyandCbothsmall=NucReswPhyandbothC %&gt;% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) %&gt;% gather(&quot;set&quot;, &quot;Phylop&quot;, -PAS, -SigPAU2) %&gt;% drop_na()
 
 
 #difference in controls? 
@@ -1581,33 +1650,106 @@ wilcox.test(NucReswPhyandbothC$DownstreamControl_Phylop, NucReswPhyandbothC$Upst
 data:  NucReswPhyandbothC$DownstreamControl_Phylop and NucReswPhyandbothC$UpstreamControl_Phylop
 W = 771760000, p-value = 1
 alternative hypothesis: true location shift is greater than 0</code></pre>
-<pre class="r"><code>ggplot(NucReswPhyandCbothsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Downstream Control&quot;, &quot;PAS&quot;, &quot;Upstream Control&quot;) )</code></pre>
+<pre class="r"><code>levels=NucReswPhyandCbothsmall$set %&gt;% unique()
+NucReswPhyandCbothsmall$set= factor(NucReswPhyandCbothsmall$set, levels = c(&quot;UpstreamControl_Phylop&quot;, &quot;phyloP&quot;, &quot;DownstreamControl_Phylop&quot;))
+
+my_comparisons &lt;- list( c(&quot;DownsreamControl_Pylop&quot;, &quot;phylopP&quot;), c(&quot;DownsreamControl_Pylop&quot;, &quot;UpstreamControl_Phylop&quot;), c(&quot;phylopP&quot;, &quot;UpstreamControl_Phylop&quot;) )
+ggplot(NucReswPhyandCbothsmall, aes(x=set, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Upstream Control&quot;, &quot;PAS&quot;, &quot;Downstream Control&quot;) ) + stat_compare_means(ref.group = &quot;phyloP&quot;,paired = FALSE,label = &quot;p.signif&quot;)  + labs(x=&quot;&quot;, title=&quot;PAS conserved compared to surrounding regions&quot; ) + scale_x_discrete( labels=c(&quot;Upstream Control&quot;, &quot;PAS&quot;, &quot;Downstream Control&quot;))+ theme(legend.position = &quot;none&quot;,text= element_text(size=16))</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/0bbaafe7c9da12c25aca52a8ebb91a4ccfa34ba2/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-22-1.png" target="_blank">0bbaafe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Same here. The actual region looks more conserved.</p>
-<p>Enrichemnt for negative in this control:</p>
-<pre class="r"><code>x=nrow(NucReswPhyandbothC %&gt;% filter(SigPAU2==&quot;Yes&quot;, DownstreamControl_Phylop&lt;0))
-m= nrow(NucReswPhyandbothC %&gt;% filter(DownstreamControl_Phylop&lt;0))
-n=nrow(NucReswPhyandbothC %&gt;% filter(DownstreamControl_Phylop&gt;=0))
-k=nrow(NucReswPhyandbothC %&gt;% filter(SigPAU2==&quot;Yes&quot;))
+<pre class="r"><code>ggplot(NucReswPhyandCbothsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Downstream Control&quot;, &quot;PAS&quot;, &quot;Upstream Control&quot;) )</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="extend" class="section level3">
+<h3>Extend</h3>
+<p>2 more blocks up and downstream to add to plot.</p>
+<p>Extend downstream:</p>
+<pre class="r"><code>NucReswPhy_downstream2=NucReswPhy_downstream %&gt;% mutate(newStart2=ifelse(strandFix==&quot;+&quot;,  newEnd, newStart-200), newEnd2=ifelse(strandFix==&quot;+&quot;, newEnd+200, newStart))
+
+NucReswPhy_downstream2bed=NucReswPhy_downstream2 %&gt;% select(chr, newStart2, newEnd2, PAS, Human, strandFix)
+
+write.table(NucReswPhy_downstream2bed,&quot;../data/PhyloP/PAS_200downpregions2.bed&quot;,col.names = F,row.names = F,quote = F,sep=&quot;\t&quot;)
+
+NucReswPhy_downstream3=NucReswPhy_downstream2 %&gt;% mutate(newStart3=ifelse(strandFix==&quot;+&quot;,  newEnd2, newStart2-200), newEnd3=ifelse(strandFix==&quot;+&quot;, newEnd2+200, newStart2))
+
+NucReswPhy_downstream3bed=NucReswPhy_downstream3 %&gt;% select(chr, newStart3, newEnd3, PAS, Human, strandFix)
+
+write.table(NucReswPhy_downstream3bed,&quot;../data/PhyloP/PAS_200downpregions3.bed&quot;,col.names = F,row.names = F,quote = F,sep=&quot;\t&quot;)</code></pre>
+<p>Extend upstream:</p>
+<pre class="r"><code>NucReswPhy_upstream2=NucReswPhy_upstream %&gt;%  mutate(newStart2=ifelse(strandFix==&quot;+&quot;, newStart - 200, newEnd), newEnd2=ifelse(strandFix==&quot;+&quot;, newStart, newEnd +200))
+
+NucReswPhy_upstreambed2=NucReswPhy_upstream2 %&gt;% select(chr, newStart2, newEnd2, PAS, Human, strandFix)
+
+write.table(NucReswPhy_upstreambed2,&quot;../data/PhyloP/PAS_200upregions2.bed&quot;,col.names = F,row.names = F,quote = F,sep=&quot;\t&quot;)
+
+NucReswPhy_upstream3=NucReswPhy_upstream2 %&gt;%  mutate(newStart3=ifelse(strandFix==&quot;+&quot;, newStart2 - 200, newEnd2), newEnd3=ifelse(strandFix==&quot;+&quot;, newStart2, newEnd2 +200))
+
+NucReswPhy_upstreambed3=NucReswPhy_upstream3 %&gt;% select(chr, newStart3, newEnd3, PAS, Human, strandFix)
+
+write.table(NucReswPhy_upstreambed3,&quot;../data/PhyloP/PAS_200upregions3.bed&quot;,col.names = F,row.names = F,quote = F,sep=&quot;\t&quot;)</code></pre>
+<p>Run phylop for each of these:</p>
+<pre class="bash"><code>python extractPhylopGeneral.py ../data/PhyloP/PAS_200downpregions2.bed ../data/PhyloP/PAS_phyloP_200downstream2.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200downpregions3.bed ../data/PhyloP/PAS_phyloP_200downstream3.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200upregions2.bed ../data/PhyloP/PAS_phyloP_200upstream2.txt
+
+python extractPhylopGeneral.py ../data/PhyloP/PAS_200upregions3.bed ../data/PhyloP/PAS_phyloP_200upstream3.txt
+</code></pre>
+<pre class="r"><code>ResUpdown=NucReswPhyandbothC %&gt;% select(PAS,SigPAU2,phyloP ,UpstreamControl_Phylop,DownstreamControl_Phylop ) 
 
 
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 1070</code></pre>
-<pre class="r"><code>#actual:
-x</code></pre>
-<pre><code>[1] 1244</code></pre>
-<pre class="r"><code>#pval
-phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 4.759846e-12</code></pre>
-<pre class="r"><code>b=nrow(NucReswPhyandbothC %&gt;% filter(SigPAU2==&quot;Yes&quot;, DownstreamControl_Phylop&lt;0))
-n=nrow(NucReswPhyandbothC %&gt;% filter(SigPAU2==&quot;Yes&quot;))
-B=nrow(NucReswPhyandbothC %&gt;% filter(DownstreamControl_Phylop&lt;0))
-N=nrow(NucReswPhyandbothC)
+Down2=read.table(&quot;../data/PhyloP/PAS_phyloP_200downstream2.txt&quot;,col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Down2&quot;),stringsAsFactors = F) %&gt;% select(PAS, Down2)%&gt;% drop_na()
+Down3=read.table(&quot;../data/PhyloP/PAS_phyloP_200downstream3.txt&quot;,col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Down3&quot;),stringsAsFactors = F) %&gt;% select(PAS, Down3)%&gt;% drop_na()
 
-(b/n)/(B/N)</code></pre>
-<pre><code>[1] 1.162799</code></pre>
-<p>Most enrichment for negative in this set. Maybe an annotation bias still.</p>
+Up2=read.table(&quot;../data/PhyloP/PAS_phyloP_200upstream2.txt&quot;,col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Up2&quot;),stringsAsFactors = F) %&gt;% select(PAS, Up2)%&gt;% drop_na()
+Up3=read.table(&quot;../data/PhyloP/PAS_phyloP_200upstream3.txt&quot;,col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;Up3&quot;),stringsAsFactors = F) %&gt;% select(PAS, Up3)%&gt;% drop_na()
+
+ResUpdownAll= ResUpdown %&gt;% inner_join(Down2, by=&quot;PAS&quot;)%&gt;% inner_join(Down3, by=&quot;PAS&quot;) %&gt;% inner_join(Up2, by=&quot;PAS&quot;) %&gt;% inner_join(Up3, by=&quot;PAS&quot;)
+
+ResUpdownAll_gather= ResUpdownAll %&gt;% gather(&quot;Set&quot;, &quot;PhyloP&quot;, -PAS, -SigPAU2)
+
+ResUpdownAll_gather$Set=factor(ResUpdownAll_gather$Set, levels=c(&quot;Up3&quot;, &quot;Up2&quot;,&quot;UpstreamControl_Phylop&quot;, &quot;phyloP&quot;,&quot;DownstreamControl_Phylop&quot;, &quot;Down2&quot;, &quot;Down3&quot; ))</code></pre>
+<pre class="r"><code>ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + facet_grid(~SigPAU2)+ scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1659,6 +1801,7 @@ loaded via a namespace (and not attached):
 [49] rmarkdown_1.10     httr_1.3.1         rstudioapi_0.10   
 [52] R6_2.3.0           nlme_3.1-137       git2r_0.26.1      
 [55] compiler_3.5.1    </code></pre>
+</div>
 </div>
 </div>
 
