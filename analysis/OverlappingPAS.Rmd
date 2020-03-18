@@ -1,0 +1,62 @@
+---
+title: "Look at overlapping PAS"
+author: "Briana Mittleman"
+date: "3/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+It looks like there are overlapping PAS discovered in human and chimp that do not get merged. Let me look at how many.  
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F)
+```
+
+```{bash,eval=F}
+mkdir ../data/OverlappingPAS
+bedtools merge -i ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -s -c 4,4 -o distinct,count > ../data/OverlappingPAS/MergedPAS_HumanCords.txt
+```
+
+Overlap  
+
+```{r}
+overlapres=read.table("../data/OverlappingPAS/MergedPAS_HumanCords.txt", col.names = c("chr", "start", "end", "name", "numb")) %>% mutate(length=end-start)
+overlapmore=overlapres %>% filter(numb>1)
+overlap2=overlapres %>% filter(numb==2)
+```
+
+
+```{r}
+ggplot(overlapres, aes(x=numb)) + geom_bar(stat="count")
+ggplot(overlapmore, aes(x=numb)) + geom_bar(stat="count") + labs(title="Number of overlapping sets of PAS \n (n=3957)", x="Number of PAS in set")
+
+```
+
+```{r}
+plot(sort(overlapres$length))
+
+plot(sort(overlap2$length))
+```
+
+```{r}
+Overlap2Spread=overlap2 %>% separate(name, into=c("pas1", "pas2"),sep=",")
+
+Overlap2SpreadHuman= Overlap2Spread %>% filter(grepl("human",pas1),grepl("human",pas2))
+nrow(Overlap2SpreadHuman)
+
+Overlap2SpreadChimp= Overlap2Spread %>% filter(grepl("chimp",pas1),grepl("chimp",pas2))
+nrow(Overlap2SpreadChimp)
+
+
+nrow(Overlap2Spread)- nrow(Overlap2SpreadHuman)-nrow(Overlap2SpreadChimp)
+```
+
