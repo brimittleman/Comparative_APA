@@ -1,0 +1,39 @@
+---
+title: "Coding Sequence DPAS"
+author: "Briana Mittleman"
+date: "3/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am interested in looking at the PAS that are differentially used and are annotated in coding regions. Are these likely real? What else can I learn about them.  
+```{r}
+library(tidyverse)
+```
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F) %>% select(PAS, chr, start, end, loc,disc,Human,Chimp)  %>% rename('Usage_human'=Human, 'Usage_chimp'=Chimp)
+DPAS_coding=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", "start","end")) %>% filter(loc=="cds", SigPAU2=="Yes")
+```
+
+```{r}
+nrow(DPAS_coding)
+
+nrow(DPAS_coding %>% filter(deltaPAU>0))
+nrow(DPAS_coding %>% filter(deltaPAU<0))
+```
+
+333 of these. 207 up in chimp, 126 up in human  
+
+Count this be a difference in annotations  
+
+
+Look at examples after sorting strongest.  
+
+```{r}
+DPAS_coding %>% arrange(desc(abs(deltaPAU))) %>% select(gene, Usage_human, Usage_chimp, deltaPAU,PAS, disc) %>% head()
+```
+

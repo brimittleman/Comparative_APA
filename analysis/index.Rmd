@@ -27,7 +27,7 @@ I am interesting in understanding differential APA between human and chimpanzees
       
 * [Correlation between individuals](CorrbetweenInd.html)
       
-* [Verify sample identity](verifyBAM.Rmd)
+* [Verify sample identity](verifyBAM.html)
 
 * [3' Seq enrichement along gene bodies](EnrichmentEndofGenes.html)
 
@@ -91,6 +91,10 @@ From here on, I did everything double filtered:
 * [Does presence or absense of signal explain differential usage](SS_diffUsage.html)
 
 * [Protein interactions](PTM_analysis.html)  
+
+* [Explore coding dPAS](CodingdPAS.html)  
+
+
 
 ##Human v Chimp fraction differences  
 
