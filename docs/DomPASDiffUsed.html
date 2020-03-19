@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-18
+<strong>Last updated:</strong> 2020-03-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree565dd6acd0c4abd0a411643ae9f1d9cd79d087c2targetblank565dd6aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/565dd6acd0c4abd0a411643ae9f1d9cd79d087c2" target="_blank">565dd6a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree06ad3f9cc8dfbf9464e03c839cee40b6b6fb0973targetblank06ad3f9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/06ad3f9cc8dfbf9464e03c839cee40b6b6fb0973" target="_blank">06ad3f9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree565dd6acd0c4abd0a411643ae9f1d9cd79d087c2targetblank565dd6aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree06ad3f9cc8dfbf9464e03c839cee40b6b6fb0973targetblank06ad3f9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1178,6 +1178,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/06ad3f9cc8dfbf9464e03c839cee40b6b6fb0973/analysis/DomPASDiffUsed.Rmd" target="_blank">06ad3f9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-19
+</td>
+<td>
+look at counts
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/DomPASDiffUsed.html" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/565dd6acd0c4abd0a411643ae9f1d9cd79d087c2/analysis/DomPASDiffUsed.Rmd" target="_blank">565dd6a</a>
 </td>
 <td>
@@ -1899,6 +1933,43 @@ EnrichDataDFBoth$Set=as.factor(EnrichDataDFBoth$Set)
 
 ggplot(EnrichDataDFBoth, aes(x=loc, y=Enrichment, by=Set, fill=Set)) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) + geom_hline(yintercept = 1) + facet_grid(~species)+ scale_fill_brewer(palette = &quot;Dark2&quot;,name=&quot;&quot;) + theme(legend.position = &quot;bottom&quot;) + labs(x=&quot;Genic Location&quot;, title=&quot;Dominant PAS are more enriched for dPAS \nthan all PAS used at same level&quot;) </code></pre>
 <p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/figure/DomPASDiffUsed.Rmd/unnamed-chunk-30-1.png" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>test opposite</p>
 <pre class="r"><code>EnrichChimpDomOpp=c()
 for (i in c(&#39;cds&#39;, &#39;end&#39;, &#39;intron&#39;, &#39;utr3&#39;, &#39;utr5&#39;)){
@@ -1915,39 +1986,212 @@ EnrichChimpDomOpp</code></pre>
 <pre><code>[1] 22.54 15.80 15.40 10.98 13.32</code></pre>
 <pre class="r"><code>EnrichChimpDom</code></pre>
 <pre><code>[1] 22.54 15.80 15.40 10.98 13.32</code></pre>
-<p>ok test. its the same.<br />
-##diff dominance and discovery<br />
-DiffDom</p>
+<p>ok test. its the same.</p>
+<p>Make sure this isnt driven by counts:</p>
+<p>I can do this with raw counts.</p>
+<pre class="r"><code>#allPAS_anno= allPAS %&gt;% select(PAS,loc) %&gt;% mutate(SigDPAU=ifelse(PAS %in% DiffIso_sig$PAS, &quot;Yes&quot;,&quot;No&quot;), HumanUse30=ifelse(PAS %in% HumanUsed30$PAS, &quot;Yes&quot;, &quot;No&quot;), ChimpUse30=ifelse(PAS %in% ChimpUsed30$PAS, &quot;Yes&quot;,&quot;No&quot;), DomHuman=ifelse(PAS %in% SiginHuman_Dom2_30$PAS, &quot;Yes&quot;, &quot;No&quot;), DomChimp=ifelse(PAS %in%SiginChimp_Dom2_30$PAS, &quot;Yes&quot;, &quot;No&quot; ))
+PASMetaloc= PASMeta %&gt;% select(PAS,loc)
+
+
+HumanCounts=read.table(&quot;../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc&quot;, header = T)%&gt;% separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;)  %&gt;% select(PAS, contains(&quot;_N&quot;))  %&gt;% gather(&quot;ind&quot;, &quot;count&quot;, -PAS) %&gt;% group_by(PAS) %&gt;% summarise(meanCount=mean(count))
+
+HumanCounts_use30= HumanCounts %&gt;% filter(PAS %in% HumanUsed30$PAS) %&gt;% mutate(Set=&quot;Use30&quot;, species=&quot;Human&quot;) %&gt;% inner_join(PASMetaloc, by=&quot;PAS&quot;)
+HumanCounts_Dom= HumanCounts %&gt;% filter(PAS %in% SiginHuman_Dom2_30$PAS)  %&gt;% mutate(Set=&quot;Dominant&quot;, species=&quot;Human&quot;) %&gt;% inner_join(PASMetaloc, by=&quot;PAS&quot;)
+
+ChimpCounts=read.table(&quot;../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc&quot;, header = T)%&gt;% separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;)  %&gt;% select(PAS, contains(&quot;_N&quot;))  %&gt;% gather(&quot;ind&quot;, &quot;count&quot;, -PAS) %&gt;% group_by(PAS) %&gt;% summarise(meanCount=mean(count))
+
+
+ChimpCounts_use30= ChimpCounts %&gt;% filter(PAS %in%ChimpUsed30$PAS) %&gt;% mutate(Set=&quot;Use30&quot;, species=&quot;Chimp&quot;) %&gt;% inner_join(PASMetaloc, by=&quot;PAS&quot;)
+ChimpCounts_Dom= ChimpCounts %&gt;% filter(PAS %in% SiginChimp_Dom2_30$PAS)  %&gt;% mutate(Set=&quot;Dominant&quot;, species=&quot;Chimp&quot;) %&gt;% inner_join(PASMetaloc, by=&quot;PAS&quot;)
+
+
+AllCountsDF= HumanCounts_use30 %&gt;% bind_rows(HumanCounts_Dom) %&gt;% bind_rows(ChimpCounts_use30) %&gt;% bind_rows(ChimpCounts_Dom)</code></pre>
+<pre class="r"><code>ggplot(AllCountsDF, aes(y=log10(meanCount), x=Set, fill=Set)) +geom_boxplot() +facet_grid(~species) +scale_fill_brewer(palette = &quot;Dark2&quot;,name=&quot;&quot;) + theme(legend.position = &quot;none&quot;) + labs(title=&quot;Counts for Dominant PAS at 30% vs Usage at 30%&quot;, y=&quot;log10(Mean Counts)&quot;) </code></pre>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-1.png" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(AllCountsDF, aes(y=log10(meanCount), by=Set, fill=Set, x=loc)) +geom_boxplot() +facet_grid(~species) +scale_fill_brewer(palette = &quot;Dark2&quot;,name=&quot;&quot;) + theme(legend.position = &quot;none&quot;) + labs(title=&quot;Counts for Dominant PAS at 30% vs Usage at 30%&quot;, y=&quot;log10(Mean Counts)&quot;) </code></pre>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-2">
+Past versions of unnamed-chunk-33-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-2.png" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="diff-dominance-and-discovery" class="section level2">
+<h2>diff dominance and discovery</h2>
+<p>DiffDom</p>
 <pre class="r"><code>SamDomLoc=SameDom %&gt;% ungroup() %&gt;% select(ChimpPAS) %&gt;% rename(&quot;PAS&quot;=ChimpPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 ggplot(SamDomLoc, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) + labs(title=&quot;Same dominant&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-1.png" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DiffDomChimp= DiffDom %&gt;% ungroup() %&gt;% select(ChimpPAS) %&gt;% rename(&quot;PAS&quot;=ChimpPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomChimp, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) + labs(title=&quot;Different dominant, Chimp PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-32-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-2">
+Past versions of unnamed-chunk-34-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d8ae388507b19c268c13c6a190632e2eb52cb8fb/docs/figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-2.png" target="_blank">d8ae388</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DiffDomHuman= DiffDom %&gt;% ungroup() %&gt;% select(HumanPAS) %&gt;% rename(&quot;PAS&quot;=HumanPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomHuman, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) +  labs(title=&quot;Different dominant, Human PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-32-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#DiffDomDiffLoc
 
 DiffDomDiffLocChimp= DiffDomDiffLoc %&gt;% ungroup() %&gt;% select(ChimpPAS) %&gt;% rename(&quot;PAS&quot;=ChimpPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomDiffLocChimp, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) +  labs(title=&quot;Different dominant, different Loc, Chimp PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DiffDomDiffLocHuman= DiffDomDiffLoc %&gt;% ungroup() %&gt;% select(HumanPAS) %&gt;% rename(&quot;PAS&quot;=HumanPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomDiffLocHuman, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) +  labs(title=&quot;Different dominant, different Loc, Human PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Does this go away if we say has to be 50%</p>
 <pre class="r"><code>DiffDomChimp50= BothDom_50_same %&gt;% ungroup() %&gt;% select(ChimpPAS) %&gt;% rename(&quot;PAS&quot;=ChimpPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomChimp50, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) + labs(title=&quot;Different dominant, Chimp PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DiffDomHuman50= BothDom_50_same %&gt;% ungroup() %&gt;% select(HumanPAS) %&gt;% rename(&quot;PAS&quot;=HumanPAS) %&gt;% inner_join(allPAS, by=&quot;PAS&quot;)
 
 ggplot(DiffDomHuman50, aes(x=disc, fill=disc)) +geom_bar(stat=&quot;count&quot;) +  labs(title=&quot;Different dominant, Human PAS&quot;)</code></pre>
-<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-34-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/DomPASDiffUsed.Rmd/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Problems:</p>
 <ul>
 <li>snorna (need to be removed)</li>
