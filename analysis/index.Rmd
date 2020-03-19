@@ -272,3 +272,8 @@ From the original nuclear dominant
 
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
 
+
+###Test quant  
+
+* [Test quantification methods](TrynewQuantMethods.html)
+

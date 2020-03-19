@@ -1,0 +1,120 @@
+---
+title: "Try different quantification methods"
+author: "Briana Mittleman"
+date: "3/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+I am worried about using featureCounts. It looks like there are reads that are not counted.  In this analysis, I will look at correlation between counts as well as the specific locations I have been worried about.  
+
+First,  I will do this in human nuclear with the final PAS.  
+
+This is the fixed strand. The 
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T)
+ChimpMeta=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed", col.names = c("chr","start","end", "PAS", "score", "strand"),stringsAsFactors = F) %>% select(PAS)
+HumanCountsFeatureCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc", header = T) %>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")  %>% select(-contains("_T")) %>% filter(PAS %in% Meta$PAS) 
+
+ChimpCountsFeatureCounts=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc", header = T) %>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")  %>% select(-contains("_T")) %>% right_join(ChimpMeta,by="PAS")
+```
+First use the bedtools method:  
+
+
+```{bash,eval=F}
+mkdir ../data/testQuant
+
+sbatch humanMultiCov.sh
+
+sbatch chimpMultiCov.sh
+```
+
+```{r}
+HumanDFMulticov=read.table("../data/testQuant/Human_DF_PAS.txt")
+```
+
+Compare:  
+
+```{r}
+# cor(a,b)
+
+HumanCountsFeatureCounts_mat= as.matrix(HumanCountsFeatureCounts %>% select(contains("_N")))
+
+HumanDFMulticov_mat=as.matrix(HumanDFMulticov[,7:12])
+#PAS correlation 
+Human_DFcor= cor(HumanCountsFeatureCounts_mat,HumanDFMulticov_mat)
+```
+I care about the diagonal for the matrix.  
+
+```{r}
+Human_DFcordiag= diag(Human_DFcor)
+
+Human_DFcordiag
+```
+There are the correlations for individual. 
+
+```{r}
+ChimpDFMulticov=read.table("../data/testQuant/Chimp_DF_PAS.txt")
+
+ChimpCountsFeatureCounts_mat= as.matrix(ChimpCountsFeatureCounts %>% select(contains("_N")))
+
+ChimpDFMulticov_mat=as.matrix(ChimpDFMulticov[,7:12])
+#PAS correlation 
+Chimp_DFcor= cor(ChimpCountsFeatureCounts_mat,ChimpDFMulticov_mat)
+
+Chimp_DFcordiag= diag(Chimp_DFcor)
+
+Chimp_DFcordiag
+
+```
+Compare species  
+```{r}
+DF_Multi=as.data.frame(cbind(Chimp=Chimp_DFcordiag,Human=Human_DFcordiag)) %>% gather("Species", "Correlation")
+
+
+ggplot(DF_Multi,aes(x=Species, y=Correlation, fill=Species)) + geom_boxplot() + geom_jitter() + stat_compare_means() + labs(title="Double filtered Final PAS correlation \nbetween feature counts and multiCov")
+```
+
+Chimp example:  
+
+human188040 
+```{r}
+Meta %>% filter(PAS=="human188040")
+
+ChimpDFMulticov %>% filter(V4=="human188040")
+ChimpCountsFeatureCounts %>% filter(PAS=="human188040")
+
+
+HumanDFMulticov %>% filter(V4=="human188040")
+HumanCountsFeatureCounts %>% filter(PAS=="human188040")
+```
+Same counts here. This is why it was not found in chimp. It seems it wouldnt pass the non zero filter.   
+
+
+Test also on the original calls. To see if it can handle this one.  
+
+I need to change bed to include both positive and negative. I can do this with python. 
+
+```{bash,eval=F}
+python bed2Bedbothstrand.py ../Human/data/inclusivePeaks/human_APApeaks.ALLChrom.bed ../data/testQuant/Human_ALLpeaks.Bothstrand.bed
+
+python bed2Bedbothstrand.py ../Chimp/data/inclusivePeaks/chimp_APApeaks.ALLChrom.bed ../data/testQuant/Chimp_ALLpeaks.Bothstrand.bed
+
+sbatch humanMultiCov_inclusive.sh
+sbatch chimpMultiCovInclusive.sh
+
+
+
+```
+
+
+
