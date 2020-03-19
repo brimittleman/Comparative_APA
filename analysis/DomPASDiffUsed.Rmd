@@ -336,6 +336,184 @@ colnames(EnrichDF)=c("GenicLoc", "Chimp", "Human")
 EnrichDF
 ```
 
+Compare this result to a set of PAS by usage:  
+
+For this I will use dominant at 30%, I will then use, used at 30%
+
+```{r}
+SiginChimp_Dom2_30= Chimp_Dom2 %>% ungroup%>% filter(Chimp>=.3)  %>% select(PAS) %>% inner_join(DiffIso_sig, by="PAS")
+nrow(SiginChimp_Dom2)
+
+
+SiginHuman_Dom2_30= Human_Dom2 %>% ungroup %>% filter(Human>=.3) %>% select(PAS) %>% inner_join(DiffIso_sig, by="PAS")
+nrow(SiginHuman_Dom2)
+
+HumanUsed30= allPAS %>% filter(Human>=.3)
+nrow(HumanUsed30)
+ChimpUsed30= allPAS %>% filter(Chimp>=.3)
+nrow(ChimpUsed30)
+
+
+allPAS_anno= allPAS %>% select(PAS,loc) %>% mutate(SigDPAU=ifelse(PAS %in% DiffIso_sig$PAS, "Yes","No"), HumanUse30=ifelse(PAS %in% HumanUsed30$PAS, "Yes", "No"), ChimpUse30=ifelse(PAS %in% ChimpUsed30$PAS, "Yes","No"), DomHuman=ifelse(PAS %in% SiginHuman_Dom2_30$PAS, "Yes", "No"), DomChimp=ifelse(PAS %in%SiginChimp_Dom2_30$PAS, "Yes", "No" ))
+
+
+
+```
+
+
+Enrichment of dominant in diff used human: 
+
+
+```{r}
+x=nrow(allPAS_anno %>% filter(DomHuman=="Yes", SigDPAU=="Yes"))
+m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes"))
+n=nrow(allPAS_anno %>% filter(SigDPAU=="No"))
+k=nrow(allPAS_anno %>% filter(DomHuman=="Yes"))
+N=nrow(allPAS_anno)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+Compare to human  just used at 30%
+```{r}
+x=nrow(allPAS_anno %>% filter(HumanUse30=="Yes", SigDPAU=="Yes"))
+m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes"))
+n=nrow(allPAS_anno %>% filter(SigDPAU=="No"))
+k=nrow(allPAS_anno %>% filter(HumanUse30=="Yes"))
+N=nrow(allPAS_anno)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+Enrichment of dominant in diff used chimp:
+
+
+
+```{r}
+x=nrow(allPAS_anno %>% filter(DomChimp=="Yes", SigDPAU=="Yes"))
+m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes"))
+n=nrow(allPAS_anno %>% filter(SigDPAU=="No"))
+k=nrow(allPAS_anno %>% filter(DomChimp=="Yes"))
+N=nrow(allPAS_anno)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+Enrichment of used at 30%  
+
+```{r}
+x=nrow(allPAS_anno %>% filter(ChimpUse30=="Yes", SigDPAU=="Yes"))
+m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes"))
+n=nrow(allPAS_anno %>% filter(SigDPAU=="No"))
+k=nrow(allPAS_anno %>% filter(ChimpUse30=="Yes"))
+N=nrow(allPAS_anno)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+At the 30% cutoff in the domiant PAS has 13.8X enrichement and 30% used has 2.49X enrichment. Is this based on the dominant at 30% always being in the other set?  
+
+Do by location:  
+
+
+```{r}
+EnrichChimpDom=c()
+PvalueChimpDom=c()
+
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(allPAS_anno %>% filter(DomChimp=="Yes", SigDPAU=="Yes", loc==i))
+  m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes", loc==i))
+  n=nrow(allPAS_anno %>% filter(SigDPAU=="No", loc==i))
+  k=nrow(allPAS_anno %>% filter(loc==i,DomChimp=="Yes"))
+  N=nrow(allPAS_anno %>% filter(loc==i))
+  PvalueChimpDom=c(PvalueChimpDom, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichChimpDom=c(EnrichChimpDom, round(enrich,2))
+}
+
+EnrichChimp30=c()
+PvalueChimp30=c()
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(allPAS_anno %>% filter(ChimpUse30=="Yes", SigDPAU=="Yes", loc==i))
+  m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes", loc==i))
+  n=nrow(allPAS_anno %>% filter(SigDPAU=="No", loc==i))
+  k=nrow(allPAS_anno %>% filter(loc==i,ChimpUse30=="Yes"))
+  N=nrow(allPAS_anno %>% filter(loc==i))
+  PvalueChimp30=c(PvalueChimp30, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichChimp30=c(EnrichChimp30, round(enrich,2))
+}
+```
+
+```{r}
+EnrichHumanDom=c()
+PvalueHumanDom=c()
+
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(allPAS_anno %>% filter(DomHuman=="Yes", SigDPAU=="Yes", loc==i))
+  m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes", loc==i))
+  n=nrow(allPAS_anno %>% filter(SigDPAU=="No", loc==i))
+  k=nrow(allPAS_anno %>% filter(loc==i,DomHuman=="Yes"))
+  N=nrow(allPAS_anno %>% filter(loc==i))
+  PvalueHumanDom=c(PvalueHumanDom, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichHumanDom=c(EnrichHumanDom, round(enrich,2))
+}
+
+EnrichHuman30=c()
+PvalueHuman30=c()
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(allPAS_anno %>% filter(HumanUse30=="Yes", SigDPAU=="Yes", loc==i))
+  m=nrow(allPAS_anno %>% filter(SigDPAU=="Yes", loc==i))
+  n=nrow(allPAS_anno %>% filter(SigDPAU=="No", loc==i))
+  k=nrow(allPAS_anno %>% filter(loc==i,HumanUse30=="Yes"))
+  N=nrow(allPAS_anno %>% filter(loc==i))
+  PvalueHuman30=c(PvalueHuman30, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichHuman30=c(EnrichHuman30, round(enrich,2))
+}
+```
+
+```{r}
+EnrichDataDFHuman=as.data.frame(cbind(loc=c('cds', 'end', 'intron', 'utr3', 'utr5'), Used30= EnrichHuman30,Dominant=EnrichHumanDom)) %>% gather("Set", "Enrichment", -loc)%>% mutate(species="Human")
+
+EnrichDataDFChimp=as.data.frame(cbind(loc=c('cds', 'end', 'intron', 'utr3', 'utr5'), Used30= EnrichChimp30,Dominant=EnrichChimpDom)) %>% gather("Set", "Enrichment", -loc) %>% mutate(species="Chimp")
+
+EnrichDataDFBoth= EnrichDataDFHuman %>% bind_rows(EnrichDataDFChimp)
+
+
+EnrichDataDFBoth$Enrichment=as.numeric(EnrichDataDFBoth$Enrichment)
+EnrichDataDFBoth$Set=as.factor(EnrichDataDFBoth$Set)
+
+
+
+
+ggplot(EnrichDataDFBoth, aes(x=loc, y=Enrichment, by=Set, fill=Set)) + geom_bar(stat="identity", position="dodge") + geom_hline(yintercept = 1) + facet_grid(~species)+ scale_fill_brewer(palette = "Dark2",name="") + theme(legend.position = "bottom") + labs(x="Genic Location", title="Dominant PAS are more enriched for dPAS \nthan all PAS used at same level") 
+```
+
+test opposite
+
+```{r}
+
+EnrichChimpDomOpp=c()
+for (i in c('cds', 'end', 'intron', 'utr3', 'utr5')){
+  x=nrow(allPAS_anno %>% filter(DomChimp=="Yes", SigDPAU=="Yes", loc==i))
+  m=nrow(allPAS_anno %>% filter(DomChimp=="Yes", loc==i))
+  n=nrow(allPAS_anno %>% filter(DomChimp=="No", loc==i))
+  k=nrow(allPAS_anno %>% filter(loc==i,SigDPAU=="Yes"))
+  N=nrow(allPAS_anno %>% filter(loc==i))
+  enrich=(x/k)/(m/N)
+  EnrichChimpDomOpp=c(EnrichChimpDomOpp, round(enrich,2))
+}
+
+EnrichChimpDomOpp
+EnrichChimpDom
+```
+ok test. its the same.  
 ##diff dominance and discovery  
 DiffDom
 ```{r}
