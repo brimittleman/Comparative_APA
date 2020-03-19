@@ -514,6 +514,41 @@ EnrichChimpDomOpp
 EnrichChimpDom
 ```
 ok test. its the same.  
+
+Make sure this isnt driven by counts:  
+
+I can do this with raw counts.  
+
+```{r}
+#allPAS_anno= allPAS %>% select(PAS,loc) %>% mutate(SigDPAU=ifelse(PAS %in% DiffIso_sig$PAS, "Yes","No"), HumanUse30=ifelse(PAS %in% HumanUsed30$PAS, "Yes", "No"), ChimpUse30=ifelse(PAS %in% ChimpUsed30$PAS, "Yes","No"), DomHuman=ifelse(PAS %in% SiginHuman_Dom2_30$PAS, "Yes", "No"), DomChimp=ifelse(PAS %in%SiginChimp_Dom2_30$PAS, "Yes", "No" ))
+PASMetaloc= PASMeta %>% select(PAS,loc)
+
+
+HumanCounts=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc", header = T)%>% separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")  %>% select(PAS, contains("_N"))  %>% gather("ind", "count", -PAS) %>% group_by(PAS) %>% summarise(meanCount=mean(count))
+
+HumanCounts_use30= HumanCounts %>% filter(PAS %in% HumanUsed30$PAS) %>% mutate(Set="Use30", species="Human") %>% inner_join(PASMetaloc, by="PAS")
+HumanCounts_Dom= HumanCounts %>% filter(PAS %in% SiginHuman_Dom2_30$PAS)  %>% mutate(Set="Dominant", species="Human") %>% inner_join(PASMetaloc, by="PAS")
+
+ChimpCounts=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc", header = T)%>% separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")  %>% select(PAS, contains("_N"))  %>% gather("ind", "count", -PAS) %>% group_by(PAS) %>% summarise(meanCount=mean(count))
+
+
+ChimpCounts_use30= ChimpCounts %>% filter(PAS %in%ChimpUsed30$PAS) %>% mutate(Set="Use30", species="Chimp") %>% inner_join(PASMetaloc, by="PAS")
+ChimpCounts_Dom= ChimpCounts %>% filter(PAS %in% SiginChimp_Dom2_30$PAS)  %>% mutate(Set="Dominant", species="Chimp") %>% inner_join(PASMetaloc, by="PAS")
+
+
+AllCountsDF= HumanCounts_use30 %>% bind_rows(HumanCounts_Dom) %>% bind_rows(ChimpCounts_use30) %>% bind_rows(ChimpCounts_Dom)
+
+```
+
+
+
+```{r}
+ggplot(AllCountsDF, aes(y=log10(meanCount), x=Set, fill=Set)) +geom_boxplot() +facet_grid(~species) +scale_fill_brewer(palette = "Dark2",name="") + theme(legend.position = "none") + labs(title="Counts for Dominant PAS at 30% vs Usage at 30%", y="log10(Mean Counts)") 
+
+ggplot(AllCountsDF, aes(y=log10(meanCount), by=Set, fill=Set, x=loc)) +geom_boxplot() +facet_grid(~species) +scale_fill_brewer(palette = "Dark2",name="") + theme(legend.position = "none") + labs(title="Counts for Dominant PAS at 30% vs Usage at 30%", y="log10(Mean Counts)") 
+```
+
+
 ##diff dominance and discovery  
 DiffDom
 ```{r}
