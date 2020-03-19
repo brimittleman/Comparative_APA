@@ -32,9 +32,20 @@ This is a lot better. This is down from 2500 and 4000 respecively.
 Look at the distribution of these accross the gene. 
 
 ```{r}
-ggplot(HumanSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Human Specific PAS")
+ggplot(HumanSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Human Specific PAS") + scale_fill_brewer(palette = "Dark2")
 
-ggplot(ChimpSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Chimp Specific PAS")
+
+ggplot(HumanSpec,aes(x=loc, y=Human, ,fill=loc)) + geom_boxplot()  + labs(x="Genic location", y="Human Average Usage", title="Human Specific PAS") + scale_fill_brewer(palette = "Dark2")
+
+```
+
+
+
+```{r}
+ggplot(ChimpSpec,aes(x=loc,fill=loc)) + geom_bar(stat="count")  + labs(x="Genic location", y="Number of PAS", title="Location of Chimp Specific PAS")+ scale_fill_brewer(palette = "Dark2")
+
+
+ggplot(ChimpSpec,aes(x=loc, y=Chimp, ,fill=loc)) + geom_boxplot()  + labs(x="Genic location", y="Chimp Average Usage", title="Chimp Specific PAS") + scale_fill_brewer(palette = "Dark2")
 ```
 
 Next I will see if these are due to low expression. I will pull in the average normalized expression and rerun the filter.  
@@ -67,3 +78,97 @@ ggplot(PAS_exp_spe,aes(x=HumanSpec,y=HumanExp)) + geom_boxplot() + stat_compare_
 ggplot(PAS_exp_spe,aes(x=ChimpSpec,y=ChimpExp)) + geom_boxplot() + stat_compare_means(method = "t.test") + labs(x="Presence of Chimp Specific PAS", y="Average Normalized Expression", title="Expression in Genes with Chimp Specific PAS")
 ```
 Still a difference but not as strong.  
+
+Ask if signal sites account for this:
+
+
+
+```{r}
+PASSS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS,HumanTopSS ,ChimpTopSS)
+
+HumanSpec_SS=HumanSpec %>% inner_join(PASSS, by="PAS")  %>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>% mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS=="No" & ChimpSS=="Yes", "Yes", "No"))
+ChimpSpec_SS=ChimpSpec %>% inner_join(PASSS, by="PAS")%>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>%  mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS =="No" & ChimpSS=="Yes", "Yes", "No"))
+
+
+
+```
+Summary:  
+
+```{r}
+HumanSpec_SS$OnlyHuman= as.factor(HumanSpec_SS$OnlyHuman)
+
+summary(HumanSpec_SS$OnlyHuman)
+
+
+HumanSpec_SS$OnlyChimp= as.factor(HumanSpec_SS$OnlyChimp)
+
+summary(HumanSpec_SS$OnlyChimp)
+
+HumanSpec_SS %>% filter(OnlyHuman=="Yes") 
+```
+
+
+
+Look at usage of these:
+
+```{r}
+HumanSpec_SSexp=HumanSpec_SS  %>% filter(OnlyHuman=="Yes") 
+
+ggplot(HumanSpec_SSexp,aes(x=loc, y=Human,fill=loc))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")
+```
+
+13 sites where there is a gain of a signal site in the human specific.  I can look at them in IGV
+
+13 of 233 
+
+
+```{r}
+ChimpSpec_SS$OnlyHuman= as.factor(ChimpSpec_SS$OnlyHuman)
+
+summary(ChimpSpec_SS$OnlyHuman)
+
+
+ChimpSpec_SS$OnlyChimp= as.factor(ChimpSpec_SS$OnlyChimp)
+
+summary(ChimpSpec_SS$OnlyChimp)
+
+
+ChimpSpec_SS %>% filter(OnlyChimp=="Yes")
+
+
+```
+
+
+
+
+11 sites where there is a gain of a signal site in the chimp specific.   
+
+
+11 of 226
+
+
+
+Look at usage of these:
+
+```{r}
+ChimpSpec_SSexp=ChimpSpec_SS  %>% filter(OnlyChimp=="Yes") 
+
+ggplot(ChimpSpec_SSexp,aes(x=loc, y=Chimp,fill=loc))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2") + labs(title="Chimp location for Chimp specific PAS with added Signal",x="Genic Location", y="Chimp Mean Usage")
+```
+
+
+About 5 percent in both.  
+
+
+interesting chimp specific in MAN2b2, there is an AATAAA
+
+
+Number with opposite relationship. 
+
+```{r}
+ HumanSpec_SS  %>% filter(OnlyChimp=="Yes")
+
+
+ChimpSpec_SS %>% filter(OnlyHuman=="Yes")
+```
+2 in the opposite for human, 4 opposite for chimp.  

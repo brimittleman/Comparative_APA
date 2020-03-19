@@ -117,5 +117,13 @@ It does not look like presence of a signal within the upregulated matters.
 
 Overall it does not look like presense of a signal site or not can explain the differences.   
 
+Opposite direction:  
+
+```{r}
+nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+
+nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+```
+
 
 
