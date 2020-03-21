@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-19
+<strong>Last updated:</strong> 2020-03-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1ctargetblankb6ccdbca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1c" target="_blank">b6ccdbc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea4d172b4808bc19df1fbbde4bd5f90907c1ff465targetblanka4d172ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a4d172b4808bc19df1fbbde4bd5f90907c1ff465" target="_blank">a4d172b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1ctargetblankb6ccdbca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea4d172b4808bc19df1fbbde4bd5f90907c1ff465targetblanka4d172ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -470,6 +470,9 @@ Untracked files:
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/orthoexonAnno.Rmd
     Untracked:  analysis/pol2.Rmd
+    Untracked:  analysis/removeSNOfromAnno.Rmd
+    Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCnewOInclusive.sh
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -523,6 +526,7 @@ Untracked files:
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._chimpMultiCov.sh
+    Untracked:  code/._chimpMultiCov255.sh
     Untracked:  code/._chimpMultiCovInclusive.sh
     Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
@@ -555,6 +559,7 @@ Untracked files:
     Untracked:  code/._hg19MapStats.sh
     Untracked:  code/._humanChromorder.sh
     Untracked:  code/._humanMultiCov.sh
+    Untracked:  code/._humanMultiCov255.sh
     Untracked:  code/._humanMultiCov_inclusive.sh
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftJunctionFiles.sh
@@ -628,6 +633,12 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/BothFCMM.err
+    Untracked:  code/BothFCMM.out
+    Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCnewOInclusive.sh
+    Untracked:  code/BothFCnewOInclusive.sh.err
+    Untracked:  code/BothFCnewOInclusive.sh.out
     Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
@@ -778,6 +789,7 @@ Untracked files:
     Untracked:  code/chimpMultiCov.err
     Untracked:  code/chimpMultiCov.out
     Untracked:  code/chimpMultiCov.sh
+    Untracked:  code/chimpMultiCov255.sh
     Untracked:  code/chimpMultiCovInclusive.err
     Untracked:  code/chimpMultiCovInclusive.out
     Untracked:  code/chimpMultiCovInclusive.sh
@@ -841,6 +853,9 @@ Untracked files:
     Untracked:  code/humanMultiCov.err
     Untracked:  code/humanMultiCov.out
     Untracked:  code/humanMultiCov.sh
+    Untracked:  code/humanMultiCov255.err
+    Untracked:  code/humanMultiCov255.out
+    Untracked:  code/humanMultiCov255.sh
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
@@ -1196,6 +1211,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a4d172b4808bc19df1fbbde4bd5f90907c1ff465/analysis/TrynewQuantMethods.Rmd" target="_blank">a4d172b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-20
+</td>
+<td>
+add mm res
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/246d60c22c9418dce848d46bf9ce2808ad3386e4/docs/TrynewQuantMethods.html" target="_blank">246d60c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/b6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1c/analysis/TrynewQuantMethods.Rmd" target="_blank">b6ccdbc</a>
 </td>
 <td>
@@ -1216,12 +1265,12 @@ add new quat
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1234,6 +1283,20 @@ Attaching package: &#39;magrittr&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
     extract</code></pre>
+<pre class="r"><code>library(VennDiagram)</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Loading required package: futile.logger</code></pre>
+<pre><code>
+Attaching package: &#39;VennDiagram&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    rotate</code></pre>
+<pre class="r"><code>library(Matrix)</code></pre>
+<pre><code>
+Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    expand</code></pre>
 <p>I am worried about using featureCounts. It looks like there are reads that are not counted. In this analysis, I will look at correlation between counts as well as the specific locations I have been worried about.</p>
 <p>First, I will do this in human nuclear with the final PAS.</p>
 <p>This is the fixed strand. The</p>
@@ -1281,7 +1344,97 @@ Chimp_DFcordiag</code></pre>
 
 ggplot(DF_Multi,aes(x=Species, y=Correlation, fill=Species)) + geom_boxplot() + geom_jitter() + stat_compare_means() + labs(title=&quot;Double filtered Final PAS correlation \nbetween feature counts and multiCov&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Chimp example:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/246d60c22c9418dce848d46bf9ce2808ad3386e4/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-8-1.png" target="_blank">246d60c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Difference in the matricies:</p>
+<pre class="r"><code>HumanDiff= HumanCountsFeatureCounts_mat-HumanDFMulticov_mat
+ChimpDiff=ChimpCountsFeatureCounts_mat-ChimpDFMulticov_mat</code></pre>
+<p>Extract the non</p>
+<pre class="r"><code>nnzero(HumanDiff)</code></pre>
+<pre><code>[1] 110127</code></pre>
+<pre class="r"><code>sum(HumanDiff)</code></pre>
+<pre><code>[1] -1787591</code></pre>
+<pre class="r"><code>HumanDiff_g=as.data.frame(HumanDiff) %&gt;% gather(&quot;Ind&quot;, &quot;count&quot;)
+
+ggplot(HumanDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y=&quot;FeatureCount - MultiCov&quot;, title=&quot;Human Difference in Counts for final PAS&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at the examples with the min values.</p>
+<pre class="r"><code>HumanDiff_rowS= rowSums(HumanDiff)
+#min:  
+minDiff=which(HumanDiff_rowS==min(HumanDiff_rowS))
+
+#36964 (look at this row in the df)
+HumanCountsFeatureCounts[minDiff,]</code></pre>
+<pre><code>      disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
+36964 Both human299134 chr7 5527138 5527338      + ACTB_utr3 chr7 5527138
+          End Strand Length X18498_N X18499_N X18502_N X18504_N X18510_N
+36964 5527338      +    201     3833     4635     3328     2983     3460
+      X18523_N
+36964     4132</code></pre>
+<pre class="r"><code>HumanDFMulticov[minDiff,]</code></pre>
+<pre><code>        V1      V2      V3          V4        V5 V6    V7    V8    V9
+36964 chr7 5527138 5527338 human299134 0.9833333  - 36243 45135 31796
+        V10   V11   V12
+36964 32458 33604 39187</code></pre>
+<pre class="r"><code>nnzero(ChimpDiff)</code></pre>
+<pre><code>[1] 112291</code></pre>
+<pre class="r"><code>sum(ChimpDiff)</code></pre>
+<pre><code>[1] -1904816</code></pre>
+<pre class="r"><code>ChimpDiff_g=as.data.frame(ChimpDiff) %&gt;% gather(&quot;Ind&quot;, &quot;count&quot;)
+
+ggplot(ChimpDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y=&quot;FeatureCount - MultiCov&quot;, title=&quot;Chimp Difference in Counts for final PAS&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /> Look at the examples with the min values.</p>
+<pre class="r"><code>ChimpDiff_rowS= rowSums(ChimpDiff)
+#min:  
+minDiffChimp=which(ChimpDiff_rowS==min(ChimpDiff_rowS))
+
+ChimpCountsFeatureCounts[minDiffChimp,]</code></pre>
+<pre><code>      disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
+36910 Both human299134 chr7 5527138 5527338      + ACTB_utr3 chr7 5663709
+          End Strand Length X18358_N X3622_N X3659_N X4973_N pt30_N pt91_N
+36910 5663909      +    201     3626    7146    5153    6572   8693   7306</code></pre>
+<pre class="r"><code>ChimpDFMulticov[minDiffChimp,]</code></pre>
+<pre><code>        V1      V2      V3          V4    V5 V6    V7    V8    V9   V10
+36910 chr7 5663709 5663909 human299134 0.985  - 31910 63880 44470 49514
+        V11   V12
+36910 73935 60607</code></pre>
+<p>This shows that in general counts are lower in the features counts.</p>
+<p>Examples:</p>
 <p>human188040</p>
 <pre class="r"><code>Meta %&gt;% filter(PAS==&quot;human188040&quot;)</code></pre>
 <pre><code>          PAS  disc  gene loc  chr     start       end Chimp Human
@@ -1308,7 +1461,166 @@ ggplot(DF_Multi,aes(x=Species, y=Correlation, fill=Species)) + geom_boxplot() + 
 1 198084933 198085133      -    201        0        2        6        3
   X18510_N X18523_N
 1        0        2</code></pre>
-<p>Same counts here. This is why it was not found in chimp. It seems it wouldnt pass the non zero filter.</p>
+<p>Same counts here. This is why it was not found in chimp. It seems it wouldnt pass the non zero filter.<br />
+chimp171173</p>
+<pre class="r"><code>Meta %&gt;% filter(PAS==&quot;chimp171173&quot;)</code></pre>
+<pre><code>          PAS  disc gene  loc  chr   start     end     Chimp        Human
+1 chimp171173 Chimp ADI1 utr3 chr2 3498436 3498639 0.5358333 0.0008333333
+  strandFix
+1         -</code></pre>
+<pre class="r"><code>HumanDFMulticov %&gt;% filter(V4==&quot;chimp171173&quot;) </code></pre>
+<pre><code>    V1      V2      V3          V4           V5 V6  V7 V8  V9 V10 V11 V12
+1 chr2 3498436 3498639 chimp171173 0.0008333333  - 140 87 105  47 250 525</code></pre>
+<pre class="r"><code>HumanCountsFeatureCounts %&gt;% filter(PAS==&quot;chimp171173&quot;)</code></pre>
+<pre><code>   disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
+1 Chimp chimp171173 chr2 3498436 3498639      + ADI1_utr3 chr2 3498436
+      End Strand Length X18498_N X18499_N X18502_N X18504_N X18510_N
+1 3498639      +    204        0        0        0        0        0
+  X18523_N
+1        0</code></pre>
+<p>chimp171172</p>
+<pre class="r"><code>Meta %&gt;% filter(PAS==&quot;chimp171172&quot;)</code></pre>
+<pre><code>          PAS  disc gene  loc  chr   start     end Chimp Human strandFix
+1 chimp171172 Chimp ADI1 utr3 chr2 3497907 3498106 0.155     0         -</code></pre>
+<pre class="r"><code>HumanDFMulticov %&gt;% filter(V4==&quot;chimp171172&quot;) </code></pre>
+<pre><code>    V1      V2      V3          V4 V5 V6 V7 V8 V9 V10 V11 V12
+1 chr2 3497907 3498106 chimp171172  0  - 24  9 10  15  27 110</code></pre>
+<pre class="r"><code>HumanCountsFeatureCounts %&gt;% filter(PAS==&quot;chimp171172&quot;)</code></pre>
+<pre><code>   disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
+1 Chimp chimp171172 chr2 3497907 3498106      + ADI1_utr3 chr2 3497907
+      End Strand Length X18498_N X18499_N X18502_N X18504_N X18510_N
+1 3498106      +    200        0        0        0        0        0
+  X18523_N
+1        0</code></pre>
+<p>This is fixed. (ADI1)</p>
+<p>LAT human124355</p>
+<pre class="r"><code>Meta %&gt;% filter(PAS==&quot;human124355&quot;)</code></pre>
+<pre><code>          PAS  disc gene  loc   chr    start      end     Chimp Human
+1 human124355 Human  LAT utr3 chr16 28990265 28990465 0.4241667  0.52
+  strandFix
+1         +</code></pre>
+<pre class="r"><code>ChimpDFMulticov %&gt;% filter(V4==&quot;human124355&quot;)</code></pre>
+<pre><code>                    V1     V2     V3          V4        V5 V6 V7 V8 V9 V10
+1 chrUn_NW_019937196v1 380529 380729 human124355 0.4241667  - 19 26 43  23
+  V11 V12
+1  34  25</code></pre>
+<pre class="r"><code>ChimpCountsFeatureCounts %&gt;% filter(PAS==&quot;human124355&quot;)</code></pre>
+<pre><code>   disc         PAS  chr2   start2     end2 strand   geneid
+1 Human human124355 chr16 28990265 28990465      - LAT_utr3
+                   Chr  Start    End Strand Length X18358_N X3622_N
+1 chrUn_NW_019937196v1 380529 380729      +    201       19      23
+  X3659_N X4973_N pt30_N pt91_N
+1      43      23     32     24</code></pre>
+<pre class="r"><code>HumanDFMulticov %&gt;% filter(V4==&quot;human124355&quot;)</code></pre>
+<pre><code>     V1       V2       V3          V4   V5 V6 V7 V8 V9 V10 V11 V12
+1 chr16 28990265 28990465 human124355 0.52  + 50 10 28  18  33  32</code></pre>
+<pre class="r"><code>HumanCountsFeatureCounts %&gt;% filter(PAS==&quot;human124355&quot;)</code></pre>
+<pre><code>   disc         PAS  chr2   start2     end2 strand   geneid   Chr    Start
+1 Human human124355 chr16 28990265 28990465      - LAT_utr3 chr16 28990265
+       End Strand Length X18498_N X18499_N X18502_N X18504_N X18510_N
+1 28990465      -    201       50       10       28       16       32
+  X18523_N
+1       31</code></pre>
+<p>Makes sense. Discovered only in human because on contig. Counting is ok.</p>
+<p>Compare the PAS discovered in human:</p>
+<pre class="r"><code>humanDisc=Meta %&gt;% filter(disc==&quot;Human&quot;)
+
+ChimpFC_human= ChimpCountsFeatureCounts %&gt;% filter(PAS %in% humanDisc$PAS)
+ChimpMC_human= ChimpDFMulticov %&gt;% filter(V4 %in% humanDisc$PAS)
+
+#correlation  
+ChimpFC_human_mat= as.matrix(ChimpFC_human[,13:18])
+ChimpMC_human_mat=as.matrix(ChimpMC_human[,7:12])
+#PAS correlation 
+Chimp_DFcor_Humandisc= cor(ChimpFC_human_mat,ChimpMC_human_mat)
+
+Chimp_DFcor_Humandiscdiag= diag(Chimp_DFcor_Humandisc)
+
+Chimp_DFcor_Humandiscdiag</code></pre>
+<pre><code>[1] 0.9994462 0.9949149 0.9990672 0.9974558 0.9984791 0.9988820</code></pre>
+<p>Is the multicov higher?</p>
+<pre class="r"><code>ChimpHumanDiscDiff= ChimpFC_human_mat-ChimpMC_human_mat
+
+nnzero(ChimpHumanDiscDiff)</code></pre>
+<pre><code>[1] 12166</code></pre>
+<pre class="r"><code>sum(ChimpHumanDiscDiff)</code></pre>
+<pre><code>[1] -212818</code></pre>
+<pre class="r"><code>summary(ChimpHumanDiscDiff)</code></pre>
+<pre><code>    X18358_N            X3622_N             X3659_N         
+ Min.   :-2248.000   Min.   :-2444.000   Min.   :-1658.000  
+ 1st Qu.:   -1.000   1st Qu.:   -2.000   1st Qu.:   -1.000  
+ Median :    0.000   Median :    0.000   Median :    0.000  
+ Mean   :   -8.554   Mean   :   -8.259   Mean   :   -6.238  
+ 3rd Qu.:    0.000   3rd Qu.:    0.000   3rd Qu.:    0.000  
+ Max.   :  345.000   Max.   :  198.000   Max.   :  213.000  
+    X4973_N             pt30_N              pt91_N         
+ Min.   :-2526.00   Min.   :-2935.000   Min.   :-2713.000  
+ 1st Qu.:   -2.00   1st Qu.:   -2.000   1st Qu.:   -2.000  
+ Median :    0.00   Median :    0.000   Median :    0.000  
+ Mean   :   -6.81   Mean   :   -8.015   Mean   :   -8.682  
+ 3rd Qu.:    0.00   3rd Qu.:    0.000   3rd Qu.:    0.000  
+ Max.   :  192.00   Max.   :  134.000   Max.   :  119.000  </code></pre>
+<pre class="r"><code>ChimpHumanDiscDiff_rowS= rowSums(ChimpHumanDiscDiff)
+#min:  
+minDiffChimpinH=which(ChimpHumanDiscDiff_rowS==min(ChimpHumanDiscDiff_rowS))
+
+ChimpFC_human[minDiffChimpinH,]</code></pre>
+<pre><code>     disc       PAS chr2   start2     end2 strand    geneid  Chr    Start
+113 Human human8304 chr1 44778707 44778907      - RPS8_utr3 chr1 43588450
+         End Strand Length X18358_N X3622_N X3659_N X4973_N pt30_N pt91_N
+113 43588650      -    201      400     421     239     448    627    602</code></pre>
+<pre class="r"><code>ChimpMC_human[minDiffChimpinH,]</code></pre>
+<pre><code>      V1       V2       V3        V4  V5 V6   V7   V8   V9  V10  V11  V12
+113 chr1 43588450 43588650 human8304 0.5  + 2648 2534 1757 2974 3562 3315</code></pre>
+<p>chr 1 (.5X) RPS8 (snoRNAs near- could be problem )</p>
+<p>Redo with different map quality</p>
+<p>-q 255 this will not count multimapping reads.</p>
+<pre class="bash"><code>sbatch chimpMultiCov255.sh
+sbatch humanMultiCov255.sh
+</code></pre>
+<pre class="r"><code>HumanDFMulticov255=read.table(&quot;../data/testQuant/Human_DF_PAS_255.txt&quot;)
+
+
+HumanDFMulticov255_mat=as.matrix(HumanDFMulticov255[,7:12])
+
+
+#compare this to the earlier one    
+
+HumanDiffMulti=HumanDFMulticov_mat- HumanDFMulticov255_mat
+
+HumanDiffMulti_g=as.data.frame(HumanDiffMulti) %&gt;% gather(&quot;Ind&quot;, &quot;Count&quot;)
+
+ggplot(HumanDiffMulti_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() </code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#compare to FC  
+
+HumanDiffw225= HumanCountsFeatureCounts_mat - HumanDFMulticov255_mat
+HumanDiffw225_g=as.data.frame(HumanDiffw225) %&gt;% gather(&quot;Ind&quot;, &quot;Count&quot;)
+ggplot(HumanDiffw225_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() </code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /> Check examples:</p>
+<pre class="r"><code>Meta %&gt;% filter(PAS==&quot;chimp171172&quot;)</code></pre>
+<pre><code>          PAS  disc gene  loc  chr   start     end Chimp Human strandFix
+1 chimp171172 Chimp ADI1 utr3 chr2 3497907 3498106 0.155     0         -</code></pre>
+<pre class="r"><code>HumanDFMulticov %&gt;% filter(V4==&quot;chimp171172&quot;) </code></pre>
+<pre><code>    V1      V2      V3          V4 V5 V6 V7 V8 V9 V10 V11 V12
+1 chr2 3497907 3498106 chimp171172  0  - 24  9 10  15  27 110</code></pre>
+<pre class="r"><code>HumanDFMulticov255 %&gt;% filter(V4==&quot;chimp171172&quot;) </code></pre>
+<pre><code>    V1      V2      V3          V4 V5 V6 V7 V8 V9 V10 V11 V12
+1 chr2 3497907 3498106 chimp171172  0  -  1  3  0   0   0   0</code></pre>
+<pre class="r"><code>HumanCountsFeatureCounts %&gt;% filter(PAS==&quot;chimp171172&quot;)</code></pre>
+<pre><code>   disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
+1 Chimp chimp171172 chr2 3497907 3498106      + ADI1_utr3 chr2 3497907
+      End Strand Length X18498_N X18499_N X18502_N X18504_N X18510_N
+1 3498106      +    200        0        0        0        0        0
+  X18523_N
+1        0</code></pre>
+<p>Ok it seems like maybe multimapping accounts for some of the differece.</p>
+<p>Try including the multi map reads in feature counts. I will test the -M flag and the –primary flag to compare. The SAF file has all of the PAS.</p>
+<pre class="bash"><code>sbatch BothFCMM.sh </code></pre>
+<p>Grep the results: Chimp:chimp171172:chr2:3497907:3498106:+:ADI1_utr3 chr2 3497907 3498106 + 200 23 6 10 15 27 110</p>
+<p>So this is the problem. The IGV.</p>
+<div id="inclusive" class="section level2">
+<h2>Inclusive</h2>
 <p>Test also on the original calls. To see if it can handle this one.</p>
 <p>I need to change bed to include both positive and negative. I can do this with python.</p>
 <pre class="bash"><code>python bed2Bedbothstrand.py ../Human/data/inclusivePeaks/human_APApeaks.ALLChrom.bed ../data/testQuant/Human_ALLpeaks.Bothstrand.bed
@@ -1317,7 +1629,79 @@ python bed2Bedbothstrand.py ../Chimp/data/inclusivePeaks/chimp_APApeaks.ALLChrom
 
 sbatch humanMultiCov_inclusive.sh
 sbatch chimpMultiCovInclusive.sh
+
+
+#look at difference with the -O flag  
+
+
+sbatch BothFCnewOInclusive.sh</code></pre>
+<p>All counts are 0. Fix this.</p>
+</div>
+<div id="address-multimaping-problem" class="section level2">
+<h2>Address multimaping problem</h2>
+<p>it looks like the problem is multimapping. I want to get rid of PAS that multi map in one species only. To do this I want to compare the featurecounts with and without the -M flag.</p>
+<pre class="bash"><code>
+sbatch BothFCMM.sh 
+
+
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag ../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag_fixed.fc  
 </code></pre>
+<p>Only look at the PAS in the double filtered for now. I want to know how many I would lose in both frac.</p>
+<pre class="r"><code>HumanCountsNoMM=read.table(&quot;../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc&quot;, header = T) %&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;)%&gt;% filter(PAS %in% Meta$PAS) 
+
+HC_noMM=rowSums(as.matrix(HumanCountsNoMM[,13:24]) )
+
+HumanCountMM=read.table(&quot;../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag&quot;, header = T)%&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;) %&gt;% filter(PAS %in% Meta$PAS) 
+
+
+HC_MM=rowSums(as.matrix(HumanCountMM[,13:24]) )
+
+HC_diff=HC_MM-HC_noMM</code></pre>
+<pre class="r"><code>plot(HC_diff)
+abline(120,0,col=&quot;red&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /> 12 libraries. Lets say it needs to have at least 10 in each or 120</p>
+<pre class="r"><code>sum(HC_diff&gt;120)</code></pre>
+<pre><code>[1] 999</code></pre>
+<pre class="r"><code>ChimpCountsNoMM=read.table(&quot;../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc&quot;, header = T)  %&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;) %&gt;% right_join(ChimpMeta,by=&quot;PAS&quot;)
+
+CC_noMM=rowSums(as.matrix(ChimpCountsNoMM[,13:24]) )
+
+ChimpCountMM=read.table(&quot;../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_BothFrac_Mflag&quot;, header = T) %&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;)  %&gt;% right_join(ChimpMeta,by=&quot;PAS&quot;)
+
+
+CC_MM=rowSums(as.matrix(ChimpCountMM[,13:24]) )
+
+
+
+CC_diff=CC_MM-CC_noMM</code></pre>
+<pre class="r"><code>plot(CC_diff)
+abline(120,0,col=&quot;red&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>sum(HC_diff&gt;120)</code></pre>
+<pre><code>[1] 999</code></pre>
+<pre class="r"><code>humanMM=Human=HumanCountsNoMM[which(HC_diff&gt;120),2]
+chimpMM=ChimpCountsNoMM[which(CC_diff&gt;120),2]
+
+bothMM=intersect(humanMM,chimpMM)
+
+overlap &lt;- intersect(humanMM, chimpMM) 
+H.unique &lt;- setdiff(humanMM,chimpMM) # n 1st NOT 2nd
+C.unique &lt;- setdiff(chimpMM,humanMM)
+full.list &lt;- unique(c(humanMM,chimpMM))</code></pre>
+<pre class="r"><code>grid.newpage()
+venn.plot &lt;- draw.pairwise.venn(area1 = length(humanMM),
+                           area2 = length(chimpMM),
+                           cross.area = length(overlap),
+                           c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
+                           fill = c(&quot;green&quot;, &quot;blue&quot;),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) </code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>total remove if this filter:</p>
+<pre class="r"><code>length(full.list)</code></pre>
+<pre><code>[1] 1528</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1342,27 +1726,36 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] ggpubr_0.2      magrittr_1.5    forcats_0.3.0   stringr_1.3.1  
- [5] dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
- [9] tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
+ [1] Matrix_1.2-15       VennDiagram_1.6.20  futile.logger_1.4.3
+ [4] ggpubr_0.2          magrittr_1.5        forcats_0.3.0      
+ [7] stringr_1.3.1       dplyr_0.8.0.1       purrr_0.3.2        
+[10] readr_1.3.1         tidyr_0.8.3         tibble_2.1.1       
+[13] ggplot2_3.1.1       tidyverse_1.2.1    
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     workflowr_1.6.0  cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] broom_0.5.1      Rcpp_1.0.2       promises_1.0.1   scales_1.0.0    
-[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
-[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
-[37] cli_1.1.0        tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4    
-[41] whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
-[45] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
-[49] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5     haven_1.1.2          lattice_0.20-38     
+ [4] colorspace_1.3-2     generics_0.0.2       htmltools_0.3.6     
+ [7] yaml_2.2.0           rlang_0.4.0          later_0.7.5         
+[10] pillar_1.3.1         glue_1.3.0           withr_2.1.2         
+[13] lambda.r_1.2.3       modelr_0.1.2         readxl_1.1.0        
+[16] plyr_1.8.4           munsell_0.5.0        gtable_0.2.0        
+[19] workflowr_1.6.0      cellranger_1.1.0     rvest_0.3.2         
+[22] evaluate_0.12        labeling_0.3         knitr_1.20          
+[25] httpuv_1.4.5         broom_0.5.1          Rcpp_1.0.2          
+[28] formatR_1.5          promises_1.0.1       scales_1.0.0        
+[31] backports_1.1.2      jsonlite_1.6         fs_1.3.1            
+[34] hms_0.4.2            digest_0.6.18        stringi_1.2.4       
+[37] rprojroot_1.3-2      cli_1.1.0            tools_3.5.1         
+[40] lazyeval_0.2.1       futile.options_1.0.1 crayon_1.3.4        
+[43] whisker_0.3-2        pkgconfig_2.0.2      xml2_1.2.0          
+[46] lubridate_1.7.4      assertthat_0.2.0     rmarkdown_1.10      
+[49] httr_1.3.1           rstudioapi_0.10      R6_2.3.0            
+[52] nlme_3.1-137         git2r_0.26.1         compiler_3.5.1      </code></pre>
+</div>
 </div>
 
 
