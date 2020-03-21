@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(ggpubr)
+library(VennDiagram)
+library(Matrix)
 ```
 
 I am worried about using featureCounts. It looks like there are reads that are not counted.  In this analysis, I will look at correlation between counts as well as the specific locations I have been worried about.  
@@ -76,6 +78,8 @@ Chimp_DFcordiag= diag(Chimp_DFcor)
 Chimp_DFcordiag
 
 ```
+
+
 Compare species  
 ```{r}
 DF_Multi=as.data.frame(cbind(Chimp=Chimp_DFcordiag,Human=Human_DFcordiag)) %>% gather("Species", "Correlation")
@@ -83,8 +87,60 @@ DF_Multi=as.data.frame(cbind(Chimp=Chimp_DFcordiag,Human=Human_DFcordiag)) %>% g
 
 ggplot(DF_Multi,aes(x=Species, y=Correlation, fill=Species)) + geom_boxplot() + geom_jitter() + stat_compare_means() + labs(title="Double filtered Final PAS correlation \nbetween feature counts and multiCov")
 ```
+Difference in the matricies:  
 
-Chimp example:  
+```{r}
+HumanDiff= HumanCountsFeatureCounts_mat-HumanDFMulticov_mat
+ChimpDiff=ChimpCountsFeatureCounts_mat-ChimpDFMulticov_mat
+```
+Extract the non
+```{r}
+nnzero(HumanDiff)
+sum(HumanDiff)
+HumanDiff_g=as.data.frame(HumanDiff) %>% gather("Ind", "count")
+
+ggplot(HumanDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - MultiCov", title="Human Difference in Counts for final PAS")
+```
+
+Look at the examples with the min values.  
+
+```{r}
+HumanDiff_rowS= rowSums(HumanDiff)
+#min:  
+minDiff=which(HumanDiff_rowS==min(HumanDiff_rowS))
+
+#36964 (look at this row in the df)
+HumanCountsFeatureCounts[minDiff,]
+HumanDFMulticov[minDiff,]
+
+```
+
+
+
+```{r}
+nnzero(ChimpDiff)
+sum(ChimpDiff)
+ChimpDiff_g=as.data.frame(ChimpDiff) %>% gather("Ind", "count")
+
+ggplot(ChimpDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - MultiCov", title="Chimp Difference in Counts for final PAS")
+```
+Look at the examples with the min values.  
+
+```{r}
+ChimpDiff_rowS= rowSums(ChimpDiff)
+#min:  
+minDiffChimp=which(ChimpDiff_rowS==min(ChimpDiff_rowS))
+
+ChimpCountsFeatureCounts[minDiffChimp,]
+ChimpDFMulticov[minDiffChimp,]
+
+```
+
+
+This shows that in general counts are lower in the features counts.  
+
+
+Examples:  
 
 human188040 
 ```{r}
@@ -98,8 +154,140 @@ HumanDFMulticov %>% filter(V4=="human188040")
 HumanCountsFeatureCounts %>% filter(PAS=="human188040")
 ```
 Same counts here. This is why it was not found in chimp. It seems it wouldnt pass the non zero filter.   
+chimp171173
+```{r}
+Meta %>% filter(PAS=="chimp171173")
 
 
+HumanDFMulticov %>% filter(V4=="chimp171173") 
+HumanCountsFeatureCounts %>% filter(PAS=="chimp171173")
+```
+chimp171172
+
+```{r}
+Meta %>% filter(PAS=="chimp171172")
+
+
+HumanDFMulticov %>% filter(V4=="chimp171172") 
+HumanCountsFeatureCounts %>% filter(PAS=="chimp171172")
+```
+This is fixed. (ADI1)  
+
+LAT  human124355  
+
+```{r}
+Meta %>% filter(PAS=="human124355")
+
+ChimpDFMulticov %>% filter(V4=="human124355")
+ChimpCountsFeatureCounts %>% filter(PAS=="human124355")
+
+
+HumanDFMulticov %>% filter(V4=="human124355")
+HumanCountsFeatureCounts %>% filter(PAS=="human124355")
+```
+
+Makes sense. Discovered only in human because on contig. Counting is ok.  
+
+Compare the PAS discovered in human:  
+
+```{r}
+humanDisc=Meta %>% filter(disc=="Human")
+
+ChimpFC_human= ChimpCountsFeatureCounts %>% filter(PAS %in% humanDisc$PAS)
+ChimpMC_human= ChimpDFMulticov %>% filter(V4 %in% humanDisc$PAS)
+
+#correlation  
+ChimpFC_human_mat= as.matrix(ChimpFC_human[,13:18])
+ChimpMC_human_mat=as.matrix(ChimpMC_human[,7:12])
+#PAS correlation 
+Chimp_DFcor_Humandisc= cor(ChimpFC_human_mat,ChimpMC_human_mat)
+
+Chimp_DFcor_Humandiscdiag= diag(Chimp_DFcor_Humandisc)
+
+Chimp_DFcor_Humandiscdiag
+```
+
+Is the multicov higher?  
+
+```{r}
+ChimpHumanDiscDiff= ChimpFC_human_mat-ChimpMC_human_mat
+
+nnzero(ChimpHumanDiscDiff)
+
+sum(ChimpHumanDiscDiff)
+
+summary(ChimpHumanDiscDiff)
+
+
+```
+
+```{r}
+ChimpHumanDiscDiff_rowS= rowSums(ChimpHumanDiscDiff)
+#min:  
+minDiffChimpinH=which(ChimpHumanDiscDiff_rowS==min(ChimpHumanDiscDiff_rowS))
+
+ChimpFC_human[minDiffChimpinH,]
+ChimpMC_human[minDiffChimpinH,]
+
+```
+chr 1 (.5X) RPS8 (snoRNAs near- could be problem )
+
+Redo with different map quality  
+
+-q 255 this will not count multimapping reads.  
+```{bash,eval=F}
+sbatch chimpMultiCov255.sh
+sbatch humanMultiCov255.sh
+
+```
+
+```{r}
+HumanDFMulticov255=read.table("../data/testQuant/Human_DF_PAS_255.txt")
+
+
+HumanDFMulticov255_mat=as.matrix(HumanDFMulticov255[,7:12])
+
+
+#compare this to the earlier one    
+
+HumanDiffMulti=HumanDFMulticov_mat- HumanDFMulticov255_mat
+
+HumanDiffMulti_g=as.data.frame(HumanDiffMulti) %>% gather("Ind", "Count")
+
+ggplot(HumanDiffMulti_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() 
+
+
+#compare to FC  
+
+HumanDiffw225= HumanCountsFeatureCounts_mat - HumanDFMulticov255_mat
+HumanDiffw225_g=as.data.frame(HumanDiffw225) %>% gather("Ind", "Count")
+ggplot(HumanDiffw225_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() 
+
+```
+Check examples:  
+
+```{r}
+Meta %>% filter(PAS=="chimp171172")
+
+HumanDFMulticov %>% filter(V4=="chimp171172") 
+HumanDFMulticov255 %>% filter(V4=="chimp171172") 
+HumanCountsFeatureCounts %>% filter(PAS=="chimp171172")
+```
+
+Ok it seems like maybe multimapping accounts for some of the differece.  
+
+
+Try including the multi map reads in feature counts.  I will test the -M flag and the --primary flag to compare. The SAF file has all of the PAS.
+
+```{bash,eval=F}
+sbatch BothFCMM.sh 
+```
+
+Grep the results:  Chimp:chimp171172:chr2:3497907:3498106:+:ADI1_utr3	chr2	3497907	3498106	+	200	23	6	10	15	27	110
+
+So this is the problem. The IGV. 
+
+##Inclusive 
 Test also on the original calls. To see if it can handle this one.  
 
 I need to change bed to include both positive and negative. I can do this with python. 
@@ -113,8 +301,116 @@ sbatch humanMultiCov_inclusive.sh
 sbatch chimpMultiCovInclusive.sh
 
 
+#look at difference with the -O flag  
+
+
+sbatch BothFCnewOInclusive.sh
+```
+All counts are 0. Fix this. 
+
+
+
+##Address multimaping problem  
+it looks like the problem is multimapping. I want to get rid of PAS that multi map in one species only. To do this I want to compare the featurecounts with and without the -M flag.  
+
+```{bash,eval=F}
+
+sbatch BothFCMM.sh 
+
+
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag ../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag_fixed.fc  
 
 ```
 
 
+Only look at the PAS in the double filtered for now. I want to know how many I would lose in both frac.  
+```{r}
+HumanCountsNoMM=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc", header = T) %>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")%>% filter(PAS %in% Meta$PAS) 
+
+HC_noMM=rowSums(as.matrix(HumanCountsNoMM[,13:24]) )
+
+HumanCountMM=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag", header = T)%>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":") %>% filter(PAS %in% Meta$PAS) 
+
+
+HC_MM=rowSums(as.matrix(HumanCountMM[,13:24]) )
+
+HC_diff=HC_MM-HC_noMM
+
+
+```
+
+```{r}
+plot(HC_diff)
+abline(120,0,col="red")
+```
+12 libraries. Lets say it needs to have at least 10 in each or 120
+```{r}
+sum(HC_diff>120)
+```
+
+
+
+
+```{r}
+
+ChimpCountsNoMM=read.table("../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc", header = T)  %>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":") %>% right_join(ChimpMeta,by="PAS")
+
+CC_noMM=rowSums(as.matrix(ChimpCountsNoMM[,13:24]) )
+
+ChimpCountMM=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_BothFrac_Mflag", header = T) %>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")  %>% right_join(ChimpMeta,by="PAS")
+
+
+CC_MM=rowSums(as.matrix(ChimpCountMM[,13:24]) )
+
+
+
+CC_diff=CC_MM-CC_noMM
+
+
+```
+
+
+```{r}
+plot(CC_diff)
+abline(120,0,col="red")
+```
+```{r}
+
+sum(HC_diff>120)
+
+
+
+```
+
+```{r}
+humanMM=Human=HumanCountsNoMM[which(HC_diff>120),2]
+chimpMM=ChimpCountsNoMM[which(CC_diff>120),2]
+
+bothMM=intersect(humanMM,chimpMM)
+
+overlap <- intersect(humanMM, chimpMM) 
+H.unique <- setdiff(humanMM,chimpMM) # n 1st NOT 2nd
+C.unique <- setdiff(chimpMM,humanMM)
+full.list <- unique(c(humanMM,chimpMM))
+
+```
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(humanMM),
+                           area2 = length(chimpMM),
+                           cross.area = length(overlap),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("green", "blue"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+total remove if this filter: 
+
+```{r}
+length(full.list)
+```
 
