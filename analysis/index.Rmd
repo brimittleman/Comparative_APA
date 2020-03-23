@@ -208,6 +208,11 @@ Evaluate results:
 
 * [Overlapping PAS](OverlappingPAS.html)
 
+* [Test quantification methods](TrynewQuantMethods.html)  
+
+* [Remove SNORNAs from the annotations](removeSNOfromAnno.html)
+
+
 
 ##Visualization  
 
@@ -271,9 +276,4 @@ From the original nuclear dominant
 * [Enrichment for differencial APA and eQTL](DapaineQTL.html)  
 
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
-
-
-###Test quant  
-
-* [Test quantification methods](TrynewQuantMethods.html)
 

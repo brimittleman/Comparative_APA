@@ -1,0 +1,51 @@
+---
+title: "Remove SNORNAs from Annotation"
+author: "Briana Mittleman"
+date: "3/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I have noticied SNORNAs are in the annoation and PAS are assigned to them. This is not real because SNORNAs do not have polyA tails. I will remove these from the annotation for the next run.  
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+
+```{r}
+Annotation= read.table("../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed",col.names = c("chr", "start", "end", "ID", "score","strand")) %>% separate(ID, into=c("loc", "gene"), sep=":")
+
+Annotation_sno= Annotation %>% filter(grepl("SNO", gene))
+
+Annotation_snUniq= Annotation_sno %>% group_by(gene) %>% summarise()
+
+```
+
+There are 1262 snoRNAs (from 540 uniq ) in the annotation. Let me see how many of these have an annotated PAS.  
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T)
+PAS_sno= PAS %>% filter(grepl("SNO", gene))
+nrow(PAS_sno)
+
+PAS_sno_uniq= PAS_sno %>% group_by(gene) %>% summarise()
+nrow(PAS_sno_uniq)
+```
+There are 348 PAS in 112 SNOrnas.  
+
+Write New annotation:  
+```{r}
+Annotation_NOsno= Annotation %>% filter(!grepl("SNO", gene)) %>% mutate(ID=paste(loc, gene, sep=":")) %>% select(chr, start, end, ID, score, strand)
+
+write.table(Annotation_NOsno, "../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.sort.bed", col.names = F, row.names = F, quote = F,sep="\t")
+```
+
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.sort.bed > ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed
+```
+
