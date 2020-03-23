@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-19
+<strong>Last updated:</strong> 2020-03-23
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1ctargetblankb6ccdbca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1c" target="_blank">b6ccdbc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree81d06e8f872581c03c2c4d78e0798cdf02b09c0btargetblank81d06e8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/81d06e8f872581c03c2c4d78e0798cdf02b09c0b" target="_blank">81d06e8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb6ccdbcbc61bfb23d707cbf1be10f9a6b23e0b1ctargetblankb6ccdbca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree81d06e8f872581c03c2c4d78e0798cdf02b09c0btargetblank81d06e8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -309,6 +309,8 @@ Untracked files:
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/orthoexonAnno.Rmd
     Untracked:  analysis/pol2.Rmd
+    Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCnewOInclusive.sh
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -362,6 +364,7 @@ Untracked files:
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
     Untracked:  code/._chimpMultiCov.sh
+    Untracked:  code/._chimpMultiCov255.sh
     Untracked:  code/._chimpMultiCovInclusive.sh
     Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
@@ -394,6 +397,7 @@ Untracked files:
     Untracked:  code/._hg19MapStats.sh
     Untracked:  code/._humanChromorder.sh
     Untracked:  code/._humanMultiCov.sh
+    Untracked:  code/._humanMultiCov255.sh
     Untracked:  code/._humanMultiCov_inclusive.sh
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftJunctionFiles.sh
@@ -467,6 +471,12 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/BothFCMM.err
+    Untracked:  code/BothFCMM.out
+    Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCnewOInclusive.sh
+    Untracked:  code/BothFCnewOInclusive.sh.err
+    Untracked:  code/BothFCnewOInclusive.sh.out
     Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
@@ -617,6 +627,7 @@ Untracked files:
     Untracked:  code/chimpMultiCov.err
     Untracked:  code/chimpMultiCov.out
     Untracked:  code/chimpMultiCov.sh
+    Untracked:  code/chimpMultiCov255.sh
     Untracked:  code/chimpMultiCovInclusive.err
     Untracked:  code/chimpMultiCovInclusive.out
     Untracked:  code/chimpMultiCovInclusive.sh
@@ -680,6 +691,9 @@ Untracked files:
     Untracked:  code/humanMultiCov.err
     Untracked:  code/humanMultiCov.out
     Untracked:  code/humanMultiCov.sh
+    Untracked:  code/humanMultiCov255.err
+    Untracked:  code/humanMultiCov255.out
+    Untracked:  code/humanMultiCov255.sh
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
@@ -982,6 +996,7 @@ Unstaged changes:
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/TrynewQuantMethods.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1030,6 +1045,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81d06e8f872581c03c2c4d78e0798cdf02b09c0b/analysis/index.Rmd" target="_blank">81d06e8</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+<td>
+add remove sno analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/246d60c22c9418dce848d46bf9ce2808ad3386e4/docs/index.html" target="_blank">246d60c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3927,7 +3976,9 @@ All with double filter:</li>
 <div id="other-ideas" class="section level3">
 <h3>Other ideas:</h3>
 <ul>
-<li><a href="OverlappingPAS.html">Overlapping PAS</a></li>
+<li><p><a href="OverlappingPAS.html">Overlapping PAS</a></p></li>
+<li><p><a href="TrynewQuantMethods.html">Test quantification methods</a></p></li>
+<li><p><a href="removeSNOfromAnno.html">Remove SNORNAs from the annotations</a></p></li>
 </ul>
 </div>
 </div>
@@ -3986,12 +4037,6 @@ All with double filter:</li>
 <li><p><a href="HumanIntronicDominant.html">Look at Intronic Dominant with DPAU and DE</a></p></li>
 <li><p><a href="DapaineQTL.html">Enrichment for differencial APA and eQTL</a></p></li>
 <li><p><a href="DominatPASandDIffAPA.html">Look at dAPA and genes from Dominant PAS analysis</a></p></li>
-</ul>
-</div>
-<div id="test-quant" class="section level3">
-<h3>Test quant</h3>
-<ul>
-<li><a href="TrynewQuantMethods.html">Test quantification methods</a></li>
 </ul>
 </div>
 </div>
