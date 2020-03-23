@@ -414,3 +414,225 @@ total remove if this filter:
 length(full.list)
 ```
 
+Test a range of filters:  
+
+I will test how many PAS we would lose if we filtered at each value. I will see if there is natural cuttoff.  
+```{r}
+filterRange=seq(0,500000,by=100)
+ChimpDiffN=c()
+HumanDiffN=c()
+
+for (i in filterRange){
+  ChimpDiffN= c(ChimpDiffN, sum(CC_diff>i))
+  HumanDiffN= c(HumanDiffN, sum(HC_diff>i))
+}
+
+
+LostPASdf=as.data.frame(cbind(Filter=filterRange, Chimp=ChimpDiffN, Human=HumanDiffN))
+#%>% mutate(All=42318)
+LostPASdf_g= LostPASdf %>% gather("Species","PAS_lost", -Filter)
+
+```
+
+
+Plot:  
+
+```{r}
+ggplot(LostPASdf_g, aes(x=Filter, y=log10(PAS_lost),col=Species)) + geom_point(alpha=.5) + labs(y="log10(PAS lost due to filter)", x="Filter for difference in read count due to multimapping", title="PAS lost due to multimap filter by different filter") + scale_color_brewer(palette = "Dark2")+geom_vline(xintercept = 20000) + annotate("text", label="Difference of 20,000 \ncounts across individuals", x=120000,y=3)
+
+```
+
+```{r}
+ggplot(LostPASdf_g, aes(x=log10(Filter), y=log10(PAS_lost),col=Species)) + geom_point(alpha=.5) + labs(y="log10(PAS lost due to filter)", x="log10(Filter for difference in read count due to multimapping)", title="PAS lost due to multimap filter by different filter") + scale_color_brewer(palette = "Dark2")
+
+```
+
+
+
+Look at proportion.  
+
+
+```{r}
+LostPASdfPROP=LostPASdf_g%>% mutate(All=42318, propLeft=PAS_lost/All, PropRemain=1-propLeft)
+```
+```{r}
+ggplot(LostPASdfPROP, aes(x=Filter, y=PropRemain,col=Species)) + geom_point(alpha=.3)
+```
+
+Zoom in.  Look at filter over 1000 
+ 
+```{r}
+LostPASdfPROP_filt=LostPASdfPROP %>% filter(Filter>1000)
+
+
+ggplot(LostPASdfPROP_filt, aes(x=Filter, y=PropRemain,col=Species)) + geom_point(alpha=.3) + geom_vline(xintercept = 20000) +  annotate("text", label="Difference of 20,000 \ncounts across individuals", x=120000,y=.998) + scale_color_brewer(palette = "Dark2") + labs(x="Filter for difference in reads", y="Proportion of PAS remaining", title="Proportion of PAS remaining by species after multimap filter")
+
+```
+
+Use this filter to make the boxplot  
+
+
+
+```{r}
+humanMM2=Human=HumanCountsNoMM[which(HC_diff>20000),2]
+chimpMM2=ChimpCountsNoMM[which(CC_diff>20000),2]
+
+bothMM2=intersect(humanMM2,chimpMM2)
+overlap2 <- intersect(humanMM2, chimpMM2) 
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(humanMM2),
+                           area2 = length(chimpMM2),
+                           cross.area = length(overlap2),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+expect to loose chimp171173 in human  
+
+```{r}
+HumanCountsNoMM[HumanCountsNoMM$PAS=="chimp171173",]
+HC_diff[22206]
+
+```
+
+Should it be the proportion of reads lost?  
+
+I need the sum for the reads with and without multimapping at each PAS.  Proportion of reads in the mulimap set 
+
+```{r}
+HumanPASMultiMap=as.data.frame(cbind(PAS=HumanCountMM$PAS,WithMultiMap=HC_MM, NoMultiMap=HC_noMM)) 
+HumanPASMultiMap$WithMultiMap=as.numeric(as.character(HumanPASMultiMap$WithMultiMap))
+HumanPASMultiMap$NoMultiMap=as.numeric(as.character(HumanPASMultiMap$NoMultiMap))
+HumanPASMultiMapProp= HumanPASMultiMap%>% mutate(Difference=WithMultiMap-NoMultiMap, PercentLost=Difference/WithMultiMap)
+
+```
+
+check chimp171173 
+
+```{r}
+HumanPASMultiMapProp %>% filter(PAS=="chimp171173")
+```
+
+Plot  
+Color top 10% 
+
+```{r}
+x=quantile(HumanPASMultiMapProp$PercentLost, seq(0,1, by=.05),na.rm = T)[20]
+
+HumanPASMultiMapPropcol=HumanPASMultiMapProp %>% mutate(color=ifelse(PercentLost>=x, "red", "black")) %>% arrange(PercentLost)
+```
+
+
+```{r}
+plot(HumanPASMultiMapPropcol$PercentLost,col=HumanPASMultiMapPropcol$color,ylab = "Percent of reads multimapping",main="Percent of reads lost to multimap filter in each human PAS",xlab="42,318 PAS Sorted")
+legend("topleft", legend=c("Bottom 95%", "Top 5%"),col=c("black", "red"), pch=16,bty = 'n')
+```
+Look at this in chimp  
+
+
+```{r}
+ChimpPASMultiMap=as.data.frame(cbind(PAS=ChimpCountMM$PAS,WithMultiMap=CC_MM, NoMultiMap=CC_noMM)) 
+ChimpPASMultiMap$WithMultiMap=as.numeric(as.character(ChimpPASMultiMap$WithMultiMap))
+ChimpPASMultiMap$NoMultiMap=as.numeric(as.character(ChimpPASMultiMap$NoMultiMap))
+ChimpPASMultiMapProp= ChimpPASMultiMap%>% mutate(Difference=WithMultiMap-NoMultiMap, PercentLost=Difference/WithMultiMap)
+
+
+```
+
+Plot  
+Color top 5% 
+
+```{r}
+y=quantile(ChimpPASMultiMapProp$PercentLost, seq(0,1, by=.05),na.rm = T)[20]
+
+ChimpPASMultiMapPropcol=ChimpPASMultiMapProp %>% mutate(color=ifelse(PercentLost>=y, "red", "black")) %>% arrange(PercentLost)
+```
+```{r}
+plot(ChimpPASMultiMapPropcol$PercentLost,col=ChimpPASMultiMapPropcol$color,ylab = "Percent of reads multimapping",main="Percent of reads lost to multimap filter in each chimp PAS",xlab="42,318 PAS Sorted")
+legend("topleft", legend=c("Bottom 95%", "Top 5%"),col=c("black", "red"), pch=16,bty = 'n')
+```
+
+
+Are these the same PAS :  
+
+Look at example.  
+
+```{r}
+ChimpPASMultiMapProp %>% filter(PAS=="chimp171173")
+```
+
+So this shows that this PAS would not be lost in chimp    
+
+```{r}
+ChimpTop5=ChimpPASMultiMapPropcol %>% filter(color=="red") %>% select(PAS)
+HumanTop5=HumanPASMultiMapPropcol %>% filter(color=="red") %>% select(PAS)
+
+bothLostProp=intersect(HumanTop5$PAS,ChimpTop5$PAS)
+OverlapProp <-intersect(HumanTop5$PAS, ChimpTop5$PAS) 
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanTop5$PAS),
+                           area2 = length(ChimpTop5$PAS),
+                           cross.area = length(OverlapProp),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("darkorange", "darkgreen"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+
+This shows that multimapping is not equivalent between.  
+
+
+Color top  2% (get up to 13% difference  )  
+
+```{r}
+y=quantile(ChimpPASMultiMapProp$PercentLost, seq(0,1, by=.01),na.rm = T)[99]
+
+ChimpPASMultiMapPropcol2=ChimpPASMultiMapProp %>% mutate(color=ifelse(PercentLost>=y, "red", "black")) %>% arrange(PercentLost)
+
+x=quantile(HumanPASMultiMapProp$PercentLost, seq(0,1, by=.01),na.rm = T)[99]
+
+HumanPASMultiMapPropcol2=HumanPASMultiMapProp %>% mutate(color=ifelse(PercentLost>=y, "red", "black")) %>% arrange(PercentLost)
+
+```
+
+
+
+```{r}
+plot(HumanPASMultiMapPropcol2$PercentLost,col=HumanPASMultiMapPropcol2$color,ylab = "Percent of reads multimapping",main="Percent of reads lost to multimap filter in each human PAS",xlab="42,318 PAS Sorted")
+legend("topleft", legend=c("Bottom 98%", "Top 2%"),col=c("black", "red"), pch=16,bty = 'n')
+```
+
+
+```{r}
+plot(ChimpPASMultiMapPropcol2$PercentLost,col=ChimpPASMultiMapPropcol2$color,ylab = "Percent of reads multimapping",main="Percent of reads lost to multimap filter in each chimp PAS",xlab="42,318 PAS Sorted")
+legend("topleft", legend=c("Bottom 98%", "Top 2%"),col=c("black", "red"), pch=16,bty = 'n')
+```
+
+```{r}
+ChimpTop2=ChimpPASMultiMapPropcol2 %>% filter(color=="red") %>% select(PAS)
+HumanTop2=HumanPASMultiMapPropcol2 %>% filter(color=="red") %>% select(PAS)
+
+bothLostProp=intersect(HumanTop2$PAS,ChimpTop2$PAS)
+OverlapProp <-intersect(HumanTop2$PAS, ChimpTop2$PAS) 
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanTop2$PAS),
+                           area2 = length(ChimpTop2$PAS),
+                           cross.area = length(OverlapProp),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("darkorange", "darkgreen"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+In this set there are more on the chimp side. 
+
+Will need to choose a cutoff.  
