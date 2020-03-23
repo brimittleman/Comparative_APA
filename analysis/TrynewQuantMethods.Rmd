@@ -635,4 +635,127 @@ venn.plot <- draw.pairwise.venn(area1 = length(HumanTop2$PAS),
 
 In this set there are more on the chimp side. 
 
-Will need to choose a cutoff.  
+Look at where these are to see if this could explain the different distribution:  
+
+```{r}
+Chimp2PerMeta= Meta %>% filter(PAS %in% ChimpTop2$PAS) %>% mutate(MultiMap="Chimp")
+
+ggplot(Chimp2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat="count")
+```
+
+```{r}
+Human2PerMeta= Meta %>% filter(PAS %in% HumanTop2$PAS) %>% mutate(MultiMap="Human")
+
+ggplot(Human2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat="count")
+```
+
+Filterout the PAS with multimapping in both:  
+
+```{r}
+Human.unique <- setdiff(HumanTop2$PAS, ChimpTop2$PAS) # n 1st NOT 2nd
+
+Chimp.unique <- setdiff(ChimpTop2$PAS, HumanTop2$PAS) # n 1st NOT 2nd
+```
+
+plot
+
+```{r}
+Human2PerUniqMeta= Meta %>% filter(PAS %in% Human.unique) %>% mutate(MultiMap="Human")
+
+Chimp2PerUniqMeta= Meta %>% filter(PAS %in% Chimp.unique) %>%  mutate(MultiMap="Chimp")
+
+Both2PerUniq=Human2PerUniqMeta %>% bind_rows(Chimp2PerUniqMeta)
+
+
+ggplot(Both2PerUniq, aes(x=loc, by=MultiMap, fill=MultiMap)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(y="Number of PAS", title="PAS likely wrong due to multimapping in 1 species \n 2% filter")
+```
+Plot average usage in each species for these:  
+
+```{r}
+Both2PerUniq_g= Both2PerUniq %>%select(Chimp, Human, MultiMap, loc) %>% gather("Species", "Usage", -MultiMap, -loc )
+ggplot(Both2PerUniq_g, aes(x=loc, y=Usage, by=Species, fill=Species)) + geom_boxplot() + facet_grid(~MultiMap)
+```
+Where were they discovered:  
+```{r}
+ggplot(Both2PerUniq, aes(x=loc, by=disc,fill=disc)) + geom_bar(stat="count", position="dodge")+ facet_grid(~MultiMap) + scale_fill_brewer(palette = "Dark2")
+```
+
+
+Check to see if these are in the dominant set 
+
+Get the dominant and allow ties:  
+
+```{r}
+allPAS= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T) 
+ChimpPASwMean =allPAS %>% dplyr::select(-Human)
+HumanPASwMean =allPAS %>% dplyr::select(-Chimp)
+
+Chimp_Dom2= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) 
+nrow(Chimp_Dom2%>% filter(nPer>1) )
+
+Human_Dom2= HumanPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Human) %>% 
+  mutate(nPer=n()) 
+
+```
+
+
+
+Is there an enrichment for dominant in these:  
+
+
+```{r}
+allPAS_annoDomandMM= allPAS %>% mutate(DomHuman=ifelse(PAS %in% Human_Dom2$PAS, "Yes", "No"),DomChimp=ifelse(PAS %in% Chimp_Dom2$PAS, "Yes", "No"), MM_human=ifelse(PAS %in% HumanTop2$PAS, "Yes", "No"), MM_Chimp=ifelse(PAS %in% ChimpTop2$PAS, "Yes", "No"), MMuniq_human=ifelse(PAS %in% Human.unique, "Yes", "No"),MMuniq_chimp=ifelse(PAS %in% Chimp.unique, "Yes", "No"))
+
+```
+
+Enrichments:  
+
+
+Dom Human and MM human uniq
+```{r}
+x= nrow(allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_human=="Yes" ))
+m= nrow(allPAS_annoDomandMM %>% filter(DomHuman =="Yes"))
+n=nrow(allPAS_annoDomandMM%>% filter(DomHuman =="No"))
+k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_human =="Yes"))
+x
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+phyper(x,m, n , k,lower.tail=F)
+
+```
+
+
+```{r}
+x= nrow(allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_chimp=="Yes" ))
+m= nrow(allPAS_annoDomandMM %>% filter(DomChimp =="Yes"))
+n=nrow(allPAS_annoDomandMM%>% filter(DomChimp =="No"))
+k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_chimp =="Yes"))
+x
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+phyper(x,m, n , k,lower.tail=F)
+
+```
+
+Not enriched but 79 and 62 still means something.  Lets see where these are.  
+
+```{r}
+ChimpDomandMM=allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_chimp=="Yes") %>% mutate(Species="Chimp")
+HumanDomandMM=allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_human=="Yes")%>% mutate(Species="Human")
+
+
+bothDomandMM= ChimpDomandMM %>% bind_rows(HumanDomandMM)
+
+
+ggplot(bothDomandMM,aes(x=loc, fill=Species,by=Species)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(x="", y="Number of PAS", title="Location of Multimapping PAS condition on dominance")
+```
+
