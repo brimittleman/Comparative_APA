@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0e5531891c4b65ebbc9ae088c63cd4909559312dtargetblank0e55318a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/0e5531891c4b65ebbc9ae088c63cd4909559312d" target="_blank">0e55318</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11a628267f91ffe25509d8245bd587b282f92c4targetblankf11a628a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f11a628267f91ffe25509d8245bd587b282f92c4" target="_blank">f11a628</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0e5531891c4b65ebbc9ae088c63cd4909559312dtargetblank0e55318a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11a628267f91ffe25509d8245bd587b282f92c4targetblankf11a628a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -470,7 +470,6 @@ Untracked files:
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/orthoexonAnno.Rmd
     Untracked:  analysis/pol2.Rmd
-    Untracked:  analysis/removeSNOfromAnno.Rmd
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCnewOInclusive.sh
     Untracked:  code/._ClassifyLeafviz.sh
@@ -1211,6 +1210,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f11a628267f91ffe25509d8245bd587b282f92c4/analysis/TrynewQuantMethods.Rmd" target="_blank">f11a628</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+<td>
+plots for multimap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/TrynewQuantMethods.html" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/0e5531891c4b65ebbc9ae088c63cd4909559312d/analysis/TrynewQuantMethods.Rmd" target="_blank">0e55318</a>
 </td>
 <td>
@@ -1299,12 +1332,12 @@ add new quat
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -2016,18 +2049,166 @@ LostPASdf_g= LostPASdf %&gt;% gather(&quot;Species&quot;,&quot;PAS_lost&quot;, -
 <p>Plot:</p>
 <pre class="r"><code>ggplot(LostPASdf_g, aes(x=Filter, y=log10(PAS_lost),col=Species)) + geom_point(alpha=.5) + labs(y=&quot;log10(PAS lost due to filter)&quot;, x=&quot;Filter for difference in read count due to multimapping&quot;, title=&quot;PAS lost due to multimap filter by different filter&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+geom_vline(xintercept = 20000) + annotate(&quot;text&quot;, label=&quot;Difference of 20,000 \ncounts across individuals&quot;, x=120000,y=3)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
+Past versions of unnamed-chunk-37-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-37-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-37-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(LostPASdf_g, aes(x=log10(Filter), y=log10(PAS_lost),col=Species)) + geom_point(alpha=.5) + labs(y=&quot;log10(PAS lost due to filter)&quot;, x=&quot;log10(Filter for difference in read count due to multimapping)&quot;, title=&quot;PAS lost due to multimap filter by different filter&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
+Past versions of unnamed-chunk-38-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-38-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-38-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at proportion.</p>
 <pre class="r"><code>LostPASdfPROP=LostPASdf_g%&gt;% mutate(All=42318, propLeft=PAS_lost/All, PropRemain=1-propLeft)</code></pre>
 <pre class="r"><code>ggplot(LostPASdfPROP, aes(x=Filter, y=PropRemain,col=Species)) + geom_point(alpha=.3)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-40-1">
+Past versions of unnamed-chunk-40-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-40-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-40-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Zoom in. Look at filter over 1000</p>
 <pre class="r"><code>LostPASdfPROP_filt=LostPASdfPROP %&gt;% filter(Filter&gt;1000)
 
 
 ggplot(LostPASdfPROP_filt, aes(x=Filter, y=PropRemain,col=Species)) + geom_point(alpha=.3) + geom_vline(xintercept = 20000) +  annotate(&quot;text&quot;, label=&quot;Difference of 20,000 \ncounts across individuals&quot;, x=120000,y=.998) + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;Filter for difference in reads&quot;, y=&quot;Proportion of PAS remaining&quot;, title=&quot;Proportion of PAS remaining by species after multimap filter&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-41-1">
+Past versions of unnamed-chunk-41-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-41-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-41-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Use this filter to make the boxplot</p>
 <pre class="r"><code>humanMM2=Human=HumanCountsNoMM[which(HC_diff&gt;20000),2]
 chimpMM2=ChimpCountsNoMM[which(CC_diff&gt;20000),2]
@@ -2045,6 +2226,43 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(humanMM2),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-42-1">
+Past versions of unnamed-chunk-42-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-42-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-42-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>expect to loose chimp171173 in human</p>
 <pre class="r"><code>HumanCountsNoMM[HumanCountsNoMM$PAS==&quot;chimp171173&quot;,]</code></pre>
 <pre><code>       disc         PAS chr2  start2    end2 strand    geneid  Chr   Start
@@ -2072,7 +2290,45 @@ Color top 10%</p>
 HumanPASMultiMapPropcol=HumanPASMultiMapProp %&gt;% mutate(color=ifelse(PercentLost&gt;=x, &quot;red&quot;, &quot;black&quot;)) %&gt;% arrange(PercentLost)</code></pre>
 <pre class="r"><code>plot(HumanPASMultiMapPropcol$PercentLost,col=HumanPASMultiMapPropcol$color,ylab = &quot;Percent of reads multimapping&quot;,main=&quot;Percent of reads lost to multimap filter in each human PAS&quot;,xlab=&quot;42,318 PAS Sorted&quot;)
 legend(&quot;topleft&quot;, legend=c(&quot;Bottom 95%&quot;, &quot;Top 5%&quot;),col=c(&quot;black&quot;, &quot;red&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
-<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /> Look at this in chimp</p>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-47-1">
+Past versions of unnamed-chunk-47-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-47-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-47-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Look at this in chimp</p>
 <pre class="r"><code>ChimpPASMultiMap=as.data.frame(cbind(PAS=ChimpCountMM$PAS,WithMultiMap=CC_MM, NoMultiMap=CC_noMM)) 
 ChimpPASMultiMap$WithMultiMap=as.numeric(as.character(ChimpPASMultiMap$WithMultiMap))
 ChimpPASMultiMap$NoMultiMap=as.numeric(as.character(ChimpPASMultiMap$NoMultiMap))
@@ -2085,6 +2341,43 @@ ChimpPASMultiMapPropcol=ChimpPASMultiMapProp %&gt;% mutate(color=ifelse(PercentL
 <pre class="r"><code>plot(ChimpPASMultiMapPropcol$PercentLost,col=ChimpPASMultiMapPropcol$color,ylab = &quot;Percent of reads multimapping&quot;,main=&quot;Percent of reads lost to multimap filter in each chimp PAS&quot;,xlab=&quot;42,318 PAS Sorted&quot;)
 legend(&quot;topleft&quot;, legend=c(&quot;Bottom 95%&quot;, &quot;Top 5%&quot;),col=c(&quot;black&quot;, &quot;red&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-50-1">
+Past versions of unnamed-chunk-50-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-50-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-50-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Are these the same PAS :</p>
 <p>Look at example.</p>
 <pre class="r"><code>ChimpPASMultiMapProp %&gt;% filter(PAS==&quot;chimp171173&quot;)</code></pre>
@@ -2107,6 +2400,43 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanTop5$PAS),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-52-1">
+Past versions of unnamed-chunk-52-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-52-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-52-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This shows that multimapping is not equivalent between.</p>
 <p>Color top 2% (get up to 13% difference )</p>
 <pre class="r"><code>y=quantile(ChimpPASMultiMapProp$PercentLost, seq(0,1, by=.01),na.rm = T)[99]
@@ -2119,9 +2449,83 @@ HumanPASMultiMapPropcol2=HumanPASMultiMapProp %&gt;% mutate(color=ifelse(Percent
 <pre class="r"><code>plot(HumanPASMultiMapPropcol2$PercentLost,col=HumanPASMultiMapPropcol2$color,ylab = &quot;Percent of reads multimapping&quot;,main=&quot;Percent of reads lost to multimap filter in each human PAS&quot;,xlab=&quot;42,318 PAS Sorted&quot;)
 legend(&quot;topleft&quot;, legend=c(&quot;Bottom 98%&quot;, &quot;Top 2%&quot;),col=c(&quot;black&quot;, &quot;red&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-54-1">
+Past versions of unnamed-chunk-54-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-54-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-54-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(ChimpPASMultiMapPropcol2$PercentLost,col=ChimpPASMultiMapPropcol2$color,ylab = &quot;Percent of reads multimapping&quot;,main=&quot;Percent of reads lost to multimap filter in each chimp PAS&quot;,xlab=&quot;42,318 PAS Sorted&quot;)
 legend(&quot;topleft&quot;, legend=c(&quot;Bottom 98%&quot;, &quot;Top 2%&quot;),col=c(&quot;black&quot;, &quot;red&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-55-1">
+Past versions of unnamed-chunk-55-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-55-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-55-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ChimpTop2=ChimpPASMultiMapPropcol2 %&gt;% filter(color==&quot;red&quot;) %&gt;% select(PAS)
 HumanTop2=HumanPASMultiMapPropcol2 %&gt;% filter(color==&quot;red&quot;) %&gt;% select(PAS)
 
@@ -2138,8 +2542,124 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanTop2$PAS),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-56-1">
+Past versions of unnamed-chunk-56-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-56-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/cd2bced4f0f75c4e1611c95c547084f8faa4a620/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-56-1.png" target="_blank">cd2bced</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In this set there are more on the chimp side.</p>
-<p>Will need to choose a cutoff.</p>
+<p>Look at where these are to see if this could explain the different distribution:</p>
+<pre class="r"><code>Chimp2PerMeta= Meta %&gt;% filter(PAS %in% ChimpTop2$PAS) %&gt;% mutate(MultiMap=&quot;Chimp&quot;)
+
+ggplot(Chimp2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Human2PerMeta= Meta %&gt;% filter(PAS %in% HumanTop2$PAS) %&gt;% mutate(MultiMap=&quot;Human&quot;)
+
+ggplot(Human2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Filterout the PAS with multimapping in both:</p>
+<pre class="r"><code>Human.unique &lt;- setdiff(HumanTop2$PAS, ChimpTop2$PAS) # n 1st NOT 2nd
+
+Chimp.unique &lt;- setdiff(ChimpTop2$PAS, HumanTop2$PAS) # n 1st NOT 2nd</code></pre>
+<p>plot</p>
+<pre class="r"><code>Human2PerUniqMeta= Meta %&gt;% filter(PAS %in% Human.unique) %&gt;% mutate(MultiMap=&quot;Human&quot;)
+
+Chimp2PerUniqMeta= Meta %&gt;% filter(PAS %in% Chimp.unique) %&gt;%  mutate(MultiMap=&quot;Chimp&quot;)
+
+Both2PerUniq=Human2PerUniqMeta %&gt;% bind_rows(Chimp2PerUniqMeta)
+
+
+ggplot(Both2PerUniq, aes(x=loc, by=MultiMap, fill=MultiMap)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Number of PAS&quot;, title=&quot;PAS likely wrong due to multimapping in 1 species \n 2% filter&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /> Plot average usage in each species for these:</p>
+<pre class="r"><code>Both2PerUniq_g= Both2PerUniq %&gt;%select(Chimp, Human, MultiMap, loc) %&gt;% gather(&quot;Species&quot;, &quot;Usage&quot;, -MultiMap, -loc )
+ggplot(Both2PerUniq_g, aes(x=loc, y=Usage, by=Species, fill=Species)) + geom_boxplot() + facet_grid(~MultiMap)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /> Where were they discovered:</p>
+<pre class="r"><code>ggplot(Both2PerUniq, aes(x=loc, by=disc,fill=disc)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;)+ facet_grid(~MultiMap) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Check to see if these are in the dominant set</p>
+<p>Get the dominant and allow ties:</p>
+<pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
+ChimpPASwMean =allPAS %&gt;% dplyr::select(-Human)
+HumanPASwMean =allPAS %&gt;% dplyr::select(-Chimp)
+
+Chimp_Dom2= ChimpPASwMean %&gt;%
+  group_by(gene) %&gt;%
+  top_n(1,Chimp) %&gt;% 
+  mutate(nPer=n()) 
+nrow(Chimp_Dom2%&gt;% filter(nPer&gt;1) )</code></pre>
+<pre><code>[1] 198</code></pre>
+<pre class="r"><code>Human_Dom2= HumanPASwMean %&gt;%
+  group_by(gene) %&gt;%
+  top_n(1,Human) %&gt;% 
+  mutate(nPer=n()) </code></pre>
+<p>Is there an enrichment for dominant in these:</p>
+<pre class="r"><code>allPAS_annoDomandMM= allPAS %&gt;% mutate(DomHuman=ifelse(PAS %in% Human_Dom2$PAS, &quot;Yes&quot;, &quot;No&quot;),DomChimp=ifelse(PAS %in% Chimp_Dom2$PAS, &quot;Yes&quot;, &quot;No&quot;), MM_human=ifelse(PAS %in% HumanTop2$PAS, &quot;Yes&quot;, &quot;No&quot;), MM_Chimp=ifelse(PAS %in% ChimpTop2$PAS, &quot;Yes&quot;, &quot;No&quot;), MMuniq_human=ifelse(PAS %in% Human.unique, &quot;Yes&quot;, &quot;No&quot;),MMuniq_chimp=ifelse(PAS %in% Chimp.unique, &quot;Yes&quot;, &quot;No&quot;))</code></pre>
+<p>Enrichments:</p>
+<p>Dom Human and MM human uniq</p>
+<pre class="r"><code>x= nrow(allPAS_annoDomandMM %&gt;% filter(DomHuman ==&quot;Yes&quot;,MMuniq_human==&quot;Yes&quot; ))
+m= nrow(allPAS_annoDomandMM %&gt;% filter(DomHuman ==&quot;Yes&quot;))
+n=nrow(allPAS_annoDomandMM%&gt;% filter(DomHuman ==&quot;No&quot;))
+k=nrow(allPAS_annoDomandMM%&gt;% filter(MMuniq_human ==&quot;Yes&quot;))
+x</code></pre>
+<pre><code>[1] 62</code></pre>
+<pre class="r"><code>#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 62</code></pre>
+<pre class="r"><code>phyper(x,m, n , k,lower.tail=F)</code></pre>
+<pre><code>[1] 1</code></pre>
+<pre class="r"><code>x= nrow(allPAS_annoDomandMM %&gt;% filter(DomChimp ==&quot;Yes&quot;,MMuniq_chimp==&quot;Yes&quot; ))
+m= nrow(allPAS_annoDomandMM %&gt;% filter(DomChimp ==&quot;Yes&quot;))
+n=nrow(allPAS_annoDomandMM%&gt;% filter(DomChimp ==&quot;No&quot;))
+k=nrow(allPAS_annoDomandMM%&gt;% filter(MMuniq_chimp ==&quot;Yes&quot;))
+x</code></pre>
+<pre><code>[1] 79</code></pre>
+<pre class="r"><code>#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
+<pre><code>[1] 79</code></pre>
+<pre class="r"><code>phyper(x,m, n , k,lower.tail=F)</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>Not enriched but 79 and 62 still means something. Lets see where these are.</p>
+<pre class="r"><code>ChimpDomandMM=allPAS_annoDomandMM %&gt;% filter(DomChimp ==&quot;Yes&quot;,MMuniq_chimp==&quot;Yes&quot;) %&gt;% mutate(Species=&quot;Chimp&quot;)
+HumanDomandMM=allPAS_annoDomandMM %&gt;% filter(DomHuman ==&quot;Yes&quot;,MMuniq_human==&quot;Yes&quot;)%&gt;% mutate(Species=&quot;Human&quot;)
+
+
+bothDomandMM= ChimpDomandMM %&gt;% bind_rows(HumanDomandMM)
+
+
+ggplot(bothDomandMM,aes(x=loc, fill=Species,by=Species)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Location of Multimapping PAS condition on dominance&quot;)</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2175,25 +2695,25 @@ other attached packages:
 [13] ggplot2_3.1.1       tidyverse_1.2.1    
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5     haven_1.1.2          lattice_0.20-38     
- [4] colorspace_1.3-2     generics_0.0.2       htmltools_0.3.6     
- [7] yaml_2.2.0           rlang_0.4.0          later_0.7.5         
-[10] pillar_1.3.1         glue_1.3.0           withr_2.1.2         
-[13] RColorBrewer_1.1-2   lambda.r_1.2.3       modelr_0.1.2        
-[16] readxl_1.1.0         plyr_1.8.4           munsell_0.5.0       
-[19] gtable_0.2.0         workflowr_1.6.0      cellranger_1.1.0    
-[22] rvest_0.3.2          evaluate_0.12        labeling_0.3        
-[25] knitr_1.20           httpuv_1.4.5         broom_0.5.1         
-[28] Rcpp_1.0.2           formatR_1.5          promises_1.0.1      
-[31] scales_1.0.0         backports_1.1.2      jsonlite_1.6        
-[34] fs_1.3.1             hms_0.4.2            digest_0.6.18       
-[37] stringi_1.2.4        rprojroot_1.3-2      cli_1.1.0           
-[40] tools_3.5.1          lazyeval_0.2.1       futile.options_1.0.1
-[43] crayon_1.3.4         whisker_0.3-2        pkgconfig_2.0.2     
-[46] xml2_1.2.0           lubridate_1.7.4      assertthat_0.2.0    
-[49] rmarkdown_1.10       httr_1.3.1           rstudioapi_0.10     
-[52] R6_2.3.0             nlme_3.1-137         git2r_0.26.1        
-[55] compiler_3.5.1      </code></pre>
+ [1] tidyselect_0.2.5     reshape2_1.4.3       haven_1.1.2         
+ [4] lattice_0.20-38      colorspace_1.3-2     generics_0.0.2      
+ [7] htmltools_0.3.6      yaml_2.2.0           rlang_0.4.0         
+[10] later_0.7.5          pillar_1.3.1         glue_1.3.0          
+[13] withr_2.1.2          RColorBrewer_1.1-2   lambda.r_1.2.3      
+[16] modelr_0.1.2         readxl_1.1.0         plyr_1.8.4          
+[19] munsell_0.5.0        gtable_0.2.0         workflowr_1.6.0     
+[22] cellranger_1.1.0     rvest_0.3.2          evaluate_0.12       
+[25] labeling_0.3         knitr_1.20           httpuv_1.4.5        
+[28] broom_0.5.1          Rcpp_1.0.2           formatR_1.5         
+[31] promises_1.0.1       scales_1.0.0         backports_1.1.2     
+[34] jsonlite_1.6         fs_1.3.1             hms_0.4.2           
+[37] digest_0.6.18        stringi_1.2.4        rprojroot_1.3-2     
+[40] cli_1.1.0            tools_3.5.1          lazyeval_0.2.1      
+[43] futile.options_1.0.1 crayon_1.3.4         whisker_0.3-2       
+[46] pkgconfig_2.0.2      xml2_1.2.0           lubridate_1.7.4     
+[49] assertthat_0.2.0     rmarkdown_1.10       httr_1.3.1          
+[52] rstudioapi_0.10      R6_2.3.0             nlme_3.1-137        
+[55] git2r_0.26.1         compiler_3.5.1      </code></pre>
 </div>
 </div>
 
