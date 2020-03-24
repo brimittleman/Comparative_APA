@@ -759,3 +759,24 @@ bothDomandMM= ChimpDomandMM %>% bind_rows(HumanDomandMM)
 ggplot(bothDomandMM,aes(x=loc, fill=Species,by=Species)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(x="", y="Number of PAS", title="Location of Multimapping PAS condition on dominance")
 ```
 
+
+
+Write out these PAS to pull out in other analysis.  
+
+```{bash,eval=F}
+mkdir ../data/multimap
+
+```
+
+```{r}
+allPAS_overlap= allPAS %>% filter(PAS %in% OverlapProp) %>% mutate(MultiMap="Both")
+
+
+write.table(Chimp2PerUniqMeta, "../data/multimap/Chimp_Uniq_multimapPAS.txt", col.names=T, row.names=F, quote=F)
+
+write.table(Human2PerUniqMeta, "../data/multimap/Human_Uniq_multimapPAS.txt", col.names=T, row.names=F, quote=F)
+write.table(allPAS_overlap, "../data/multimap/Both_multimapPAS.txt", col.names=T, row.names=F, quote=F)
+```
+
+
+
