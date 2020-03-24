@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-23
+<strong>Last updated:</strong> 2020-03-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11a628267f91ffe25509d8245bd587b282f92c4targetblankf11a628a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f11a628267f91ffe25509d8245bd587b282f92c4" target="_blank">f11a628</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree646844c41c822c5a0f471cab08180de22a6e741etargetblank646844ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/646844c41c822c5a0f471cab08180de22a6e741e" target="_blank">646844c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11a628267f91ffe25509d8245bd587b282f92c4targetblankf11a628a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree646844c41c822c5a0f471cab08180de22a6e741etargetblank646844ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -459,6 +459,7 @@ Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/ConsandDom.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -1139,6 +1140,7 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/multimap/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1205,6 +1207,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/646844c41c822c5a0f471cab08180de22a6e741e/analysis/TrynewQuantMethods.Rmd" target="_blank">646844c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-24
+</td>
+<td>
+add write out
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/TrynewQuantMethods.html" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2585,10 +2621,84 @@ brimittleman
 
 ggplot(Chimp2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-57-1">
+Past versions of unnamed-chunk-57-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-57-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-57-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Human2PerMeta= Meta %&gt;% filter(PAS %in% HumanTop2$PAS) %&gt;% mutate(MultiMap=&quot;Human&quot;)
 
 ggplot(Human2PerMeta,aes(x=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-58-1">
+Past versions of unnamed-chunk-58-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-58-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-58-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Filterout the PAS with multimapping in both:</p>
 <pre class="r"><code>Human.unique &lt;- setdiff(HumanTop2$PAS, ChimpTop2$PAS) # n 1st NOT 2nd
 
@@ -2602,12 +2712,125 @@ Both2PerUniq=Human2PerUniqMeta %&gt;% bind_rows(Chimp2PerUniqMeta)
 
 
 ggplot(Both2PerUniq, aes(x=loc, by=MultiMap, fill=MultiMap)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Number of PAS&quot;, title=&quot;PAS likely wrong due to multimapping in 1 species \n 2% filter&quot;)</code></pre>
-<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /> Plot average usage in each species for these:</p>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-60-1">
+Past versions of unnamed-chunk-60-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-60-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-60-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plot average usage in each species for these:</p>
 <pre class="r"><code>Both2PerUniq_g= Both2PerUniq %&gt;%select(Chimp, Human, MultiMap, loc) %&gt;% gather(&quot;Species&quot;, &quot;Usage&quot;, -MultiMap, -loc )
 ggplot(Both2PerUniq_g, aes(x=loc, y=Usage, by=Species, fill=Species)) + geom_boxplot() + facet_grid(~MultiMap)</code></pre>
-<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /> Where were they discovered:</p>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-61-1">
+Past versions of unnamed-chunk-61-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-61-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-61-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Where were they discovered:</p>
 <pre class="r"><code>ggplot(Both2PerUniq, aes(x=loc, by=disc,fill=disc)) + geom_bar(stat=&quot;count&quot;, position=&quot;dodge&quot;)+ facet_grid(~MultiMap) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-62-1">
+Past versions of unnamed-chunk-62-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-62-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-62-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Check to see if these are in the dominant set</p>
 <p>Get the dominant and allow ties:</p>
 <pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
@@ -2660,6 +2883,53 @@ bothDomandMM= ChimpDomandMM %&gt;% bind_rows(HumanDomandMM)
 
 ggplot(bothDomandMM,aes(x=loc, fill=Species,by=Species)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Location of Multimapping PAS condition on dominance&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-67-1">
+Past versions of unnamed-chunk-67-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-67-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f0c8049f4ef5f1802bbfe198a505bf8589f4b29a/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-67-1.png" target="_blank">f0c8049</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Write out these PAS to pull out in other analysis.</p>
+<pre class="bash"><code>mkdir ../data/multimap
+</code></pre>
+<pre class="r"><code>allPAS_overlap= allPAS %&gt;% filter(PAS %in% OverlapProp) %&gt;% mutate(MultiMap=&quot;Both&quot;)
+
+
+write.table(Chimp2PerUniqMeta, &quot;../data/multimap/Chimp_Uniq_multimapPAS.txt&quot;, col.names=T, row.names=F, quote=F)
+
+write.table(Human2PerUniqMeta, &quot;../data/multimap/Human_Uniq_multimapPAS.txt&quot;, col.names=T, row.names=F, quote=F)
+write.table(allPAS_overlap, &quot;../data/multimap/Both_multimapPAS.txt&quot;, col.names=T, row.names=F, quote=F)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
