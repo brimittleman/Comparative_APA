@@ -1,0 +1,148 @@
+---
+title: "Conservation and dominance structure"
+author: "Briana Mittleman"
+date: "3/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here I can combine 2 lines of analysis. I will look to see if hte dominant PAS are more conserved than the non dominant PAS.   
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+```
+
+Load results on conservation with phylop.  
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc, Human, Chimp)
+phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na() %>% inner_join(PASMeta, by=c("chr", "start", "end"))
+```
+
+For the domiant PAS I will be inclusive on ties. 
+```{r}
+
+allPAS= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T) 
+ChimpPASwMean =allPAS %>% dplyr::select(-Human)
+HumanPASwMean =allPAS %>% dplyr::select(-Chimp)
+
+Chimp_Dom2= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) 
+nrow(Chimp_Dom2%>% filter(nPer>1) )
+
+Human_Dom2= HumanPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Human) %>% 
+  mutate(nPer=n()) 
+```
+
+Add this information.  
+
+```{r}
+phylores_dom = phylores %>% mutate(ChimpDom=ifelse(PAS %in% Chimp_Dom2$PAS, "Yes","No"), HumanDom=ifelse(PAS %in% Human_Dom2$PAS, "Yes", "No"))
+```
+
+
+Plot:  
+
+```{r}
+ggplot(phylores_dom, aes(x=ChimpDom,y=phyloP, fill=ChimpDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means() + labs(x="Is PAS dominant in Chimp?", title="Chimp Dominant PAS are more conserved than non dominant PAS") + theme(legend.position = "none")
+```
+
+```{r}
+ggplot(phylores_dom, aes(x=HumanDom,y=phyloP, fill=HumanDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means() + labs(x="Is PAS dominant in Human?", title="Human Dominant PAS are more conserved than non dominant PAS") + theme(legend.position = "none")
+
+```
+
+Seperate this by mean usage. 
+
+Use the mean usag for human with dominance for human and vice versa 
+```{r}
+
+ggplot(phylores_dom, aes(x=Human, y=phyloP, by=HumanDom, color=HumanDom)) + geom_point(alpha=.3) + geom_smooth(method="lm") +  scale_color_brewer(palette = "Dark2") + labs(title="Human Dominance and Usage")
+
+ggplot(phylores_dom, aes(x=Chimp, y=phyloP, by=ChimpDom, color=ChimpDom)) + geom_point(alpha=.3) + geom_smooth(method="lm") +  scale_color_brewer(palette = "Dark2")+ labs(title="Chimp Dominance and Usage")
+```
+This is not the best way to visualize this I should group it by deciles. 
+```{r}
+phylores_domDec= phylores_dom %>% mutate(decileHuman = ntile(Human, 10),decileChimp = ntile(Chimp, 10))
+
+phylores_domDec$decileHuman=as.factor(phylores_domDec$decileHuman)
+phylores_domDec$decileChimp=as.factor(phylores_domDec$decileChimp)
+
+
+ggplot(phylores_domDec, aes(x=decileHuman, y=phyloP, by=HumanDom, fill=HumanDom)) + geom_boxplot() +  scale_fill_brewer(palette = "Dark2") + labs(title="Human Dominance and Usage") 
+
+ggplot(phylores_domDec, aes(x=decileChimp, y=phyloP, by=ChimpDom, fill=ChimpDom)) + geom_boxplot() +  scale_fill_brewer(palette = "Dark2")+ labs(title="Chimp Dominance and Usage") 
+```
+This is decile but I want up to the decile.
+
+I can do this with cumulative ifelse statements first. I will start with up to certain cutoffs. 
+
+
+```{r}
+phylores_dom_cumulative= phylores_dom %>% mutate(CutoffHuman=ifelse(Human <=.1, "ten", ifelse(Human<=.2, "twenty", ifelse(Human <=.3, "thirty", ifelse(Human <=.4 , "fourty", ifelse(Human <=.5, "fifty", ifelse(Human<=.6, "sixty", ifelse(Human <=.7, "seventy", ifelse(Human <=.8, "eighty", ifelse(Human <=.9, "neinty", "onehundred"))))))))))%>% mutate(CutoffChimp=ifelse(Chimp <=.1, "ten", ifelse(Chimp<=.2, "twenty", ifelse(Chimp <=.3, "thirty", ifelse(Chimp <=.4 , "fourty", ifelse(Chimp <=.5, "fifty", ifelse(Chimp<=.6, "sixty", ifelse(Chimp <=.7, "seventy", ifelse(Chimp <=.8, "eighty", ifelse(Chimp <=.9, "neinty", "onehundred"))))))))))
+
+phylores_dom_cumulative$CutoffHuman=factor(phylores_dom_cumulative$CutoffHuman, levels=c("ten", "twenty", "thirty", "fourty","fifty", "sixty", "seventy", "eighty", "neinty", "onehundred"))
+phylores_dom_cumulative$CutoffChimp=factor(phylores_dom_cumulative$CutoffChimp,levels=c("ten", "twenty", "thirty", "fourty","fifty", "sixty", "seventy", "eighty", "neinty", "onehundred"))
+```
+
+```{r}
+ggplot(phylores_dom_cumulative, aes(x=CutoffHuman, y=phyloP, by=HumanDom, fill=HumanDom)) + geom_boxplot() +  scale_fill_brewer(palette = "Dark2", name="PAS Dominant \nin Human") + labs(title="Conservation of Human Dominant PAS \n by different usage cutoffs",x="Human Usage Cutoff, PAS with usage up to X%") 
+
+ggplot(phylores_dom_cumulative, aes(x=CutoffChimp, y=phyloP, by=ChimpDom, fill=ChimpDom)) + geom_boxplot() +  scale_fill_brewer(palette = "Dark2", name="PAS Dominant \nin Chimp") + labs(title="Conservation of Chimp Dominant PAS \n by different usage cutoffs",x="Chimp Usage Cutoff, PAS with usage up to X%") 
+```
+
+Remove the multimapping PAS (I will recall the dominant PAS eventhugh this isnt the best way because I am not recalculating the ratios. )
+
+```{r}
+ChimpMM=read.table("../data/multimap/Chimp_Uniq_multimapPAS.txt", stringsAsFactors = F, header = T)
+HumanMM=read.table("../data/multimap/Human_Uniq_multimapPAS.txt", stringsAsFactors = F, header = T)
+BothMM=read.table("../data/multimap/Both_multimapPAS.txt",stringsAsFactors = F, header = T)
+
+
+AllMM=ChimpMM %>% bind_rows(HumanMM) %>% bind_rows(BothMM)
+
+```
+Redo Dom  
+
+
+```{r}
+allPAS_filt= allPAS %>% anti_join(AllMM,by="PAS")
+ChimpPASwMean_filt =allPAS_filt %>% dplyr::select(-Human)
+HumanPASwMean_filt =allPAS_filt %>% dplyr::select(-Chimp)
+
+Chimp_Dom2_filt= ChimpPASwMean_filt %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) 
+nrow(Chimp_Dom2%>% filter(nPer>1) )
+
+Human_Dom2_filt= HumanPASwMean_filt %>%
+  group_by(gene) %>%
+  top_n(1,Human) %>% 
+  mutate(nPer=n()) 
+```
+```{r}
+phylores_filt= phylores %>% anti_join(AllMM,by="PAS")
+
+
+phylores_dom_filt = phylores_filt %>% mutate(ChimpDom=ifelse(PAS %in% Chimp_Dom2_filt$PAS, "Yes","No"), HumanDom=ifelse(PAS %in% Human_Dom2_filt$PAS, "Yes", "No"))
+```
+Plot  
+
+```{r}
+ggplot(phylores_dom_filt, aes(x=ChimpDom,y=phyloP, fill=ChimpDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means() + labs(x="Is PAS dominant in Chimp?", title="Chimp Dominant PAS are more conserved than non dominant PAS\nfilter multimap") + theme(legend.position = "none")
+```
+
+```{r}
+ggplot(phylores_dom_filt, aes(x=HumanDom,y=phyloP, fill=HumanDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means() + labs(x="Is PAS dominant in Human?", title="Human Dominant PAS are more conserved than non dominant PAS\n filter multimap PAS") + theme(legend.position = "none")
+```
+
