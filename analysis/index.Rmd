@@ -214,6 +214,8 @@ Evaluate results:
 
 * [Remove SNORNAs from the annotations](removeSNOfromAnno.html)
 
+* [Look at dominance sturcture without multimapping and SNOrnas](checkResnoMM.html)
+
 
 
 ##Visualization  
