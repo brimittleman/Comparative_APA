@@ -100,6 +100,61 @@ ggplot(phylores_dom_cumulative, aes(x=CutoffHuman, y=phyloP, by=HumanDom, fill=H
 ggplot(phylores_dom_cumulative, aes(x=CutoffChimp, y=phyloP, by=ChimpDom, fill=ChimpDom)) + geom_boxplot() +  scale_fill_brewer(palette = "Dark2", name="PAS Dominant \nin Chimp") + labs(title="Conservation of Chimp Dominant PAS \n by different usage cutoffs",x="Chimp Usage Cutoff, PAS with usage up to X%") 
 ```
 
+When they have the same dominant:  
+
+I need to do the no ties version for this.  
+```{r}
+Chimp_Dom= ChimpPASwMean %>%
+  group_by(gene) %>%
+  arrange(desc(Chimp)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= HumanPASwMean %>%
+  group_by(gene) %>%
+  arrange(desc(Human)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+SameDom= BothDom %>% filter(ChimpPAS==HumanPAS)
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS) 
+
+
+```
+
+same domiant:  
+```{r}
+phylores_dom_samediff=phylores_dom %>% mutate(SameDom=ifelse(PAS %in%SameDom$ChimpPAS, "Yes", "No"), DiffDomChimp=ifelse(PAS %in% DiffDom$ChimpPAS, "Yes", "No" ), DiffDomHuman=ifelse(PAS %in% DiffDom$HumanPAS, "Yes","No"))
+```
+
+```{r}
+ggplot(phylores_dom_samediff, aes(x=SameDom, y=phyloP, fill=SameDom)) + geom_boxplot() +stat_compare_means()+ scale_fill_brewer(palette = "Dark2")+ labs(x="Is PAS the same dominant in both species?", title="Same dominant are more conserved") + theme(legend.position = "none")
+```
+Plot 3 plot- same dominant, diff dom in chimp, diff dom human  
+
+```{r}
+BothDomPhy= BothDom %>%ungroup() %>%  select(HumanPAS) %>% rename("PAS"=HumanPAS) %>% inner_join(phylores_dom, by="PAS") %>% mutate(set="SameDominant")
+DiffHumanPhy=DiffDom %>%ungroup() %>%  select(HumanPAS) %>% rename("PAS"=HumanPAS) %>% inner_join(phylores_dom, by="PAS") %>% mutate(set="DiffDominant_Human")
+DiffChimpPhy=DiffDom %>%ungroup() %>%  select(ChimpPAS) %>% rename("PAS"=ChimpPAS) %>% inner_join(phylores_dom, by="PAS") %>% mutate(set="DiffDominant_Chimp")
+NotDom=phylores_dom %>% filter(ChimpDom=="No", HumanDom=="Yes") %>% mutate(set="NotDominant")
+
+
+AlldomrePhy=BothDomPhy %>% bind_rows(DiffHumanPhy) %>% bind_rows(DiffChimpPhy) %>% bind_rows(NotDom)
+
+ggplot(AlldomrePhy, aes(x=set, y=phyloP, fill=set)) + geom_boxplot()  +stat_compare_means() + scale_fill_brewer(palette ="Dark2") + labs(x="", title="PAS that are dominant in both species are most conserved") +theme(legend.position = "none")
+
+
+AlldomrePhy %>% group_by(set) %>% summarise(meanPhylop=round(mean(phyloP),2))
+```
+
+
 Remove the multimapping PAS (I will recall the dominant PAS eventhugh this isnt the best way because I am not recalculating the ratios. )
 
 ```{r}
@@ -111,6 +166,8 @@ BothMM=read.table("../data/multimap/Both_multimapPAS.txt",stringsAsFactors = F, 
 AllMM=ChimpMM %>% bind_rows(HumanMM) %>% bind_rows(BothMM)
 
 ```
+
+
 Redo Dom  
 
 
