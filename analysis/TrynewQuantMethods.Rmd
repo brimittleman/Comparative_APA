@@ -99,7 +99,7 @@ nnzero(HumanDiff)
 sum(HumanDiff)
 HumanDiff_g=as.data.frame(HumanDiff) %>% gather("Ind", "count")
 
-ggplot(HumanDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - MultiCov", title="Human Difference in Counts for final PAS")
+ggplot(HumanDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - Bedtools", title="Human Difference in Counts for final PAS")+ theme(legend.position = "none")
 ```
 
 Look at the examples with the min values.  
@@ -122,7 +122,7 @@ nnzero(ChimpDiff)
 sum(ChimpDiff)
 ChimpDiff_g=as.data.frame(ChimpDiff) %>% gather("Ind", "count")
 
-ggplot(ChimpDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - MultiCov", title="Chimp Difference in Counts for final PAS")
+ggplot(ChimpDiff_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="FeatureCount - Bedtools", title="Chimp Difference in Counts for final PAS") + theme(legend.position = "none")
 ```
 Look at the examples with the min values.  
 
@@ -243,6 +243,7 @@ sbatch humanMultiCov255.sh
 
 ```{r}
 HumanDFMulticov255=read.table("../data/testQuant/Human_DF_PAS_255.txt")
+ChimpDFMulticov255=read.table("../data/testQuant/Chimp_DF_PAS_255.txt")
 
 
 HumanDFMulticov255_mat=as.matrix(HumanDFMulticov255[,7:12])
@@ -254,16 +255,20 @@ HumanDiffMulti=HumanDFMulticov_mat- HumanDFMulticov255_mat
 
 HumanDiffMulti_g=as.data.frame(HumanDiffMulti) %>% gather("Ind", "Count")
 
-ggplot(HumanDiffMulti_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() 
+ggplot(HumanDiffMulti_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() + labs(y="With Multimap - No multimap", title="Difference in PAS read count with bedtools multimap filters", x="Human Individuals") +theme(legend.position = "none")
 
 
+
+```
+```{r}
 #compare to FC  
 
 HumanDiffw225= HumanCountsFeatureCounts_mat - HumanDFMulticov255_mat
 HumanDiffw225_g=as.data.frame(HumanDiffw225) %>% gather("Ind", "Count")
-ggplot(HumanDiffw225_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() 
-
+ggplot(HumanDiffw225_g,aes(x=Ind, y=Count, col=Ind)) + geom_boxplot() + labs(x="Human Individual", y="Feature counts = Bedtools (no multimap)", title="Difference in PAS read count between featurecounts\n and bedtools without multimap") + theme(legend.position = "none")
 ```
+
+
 Check examples:  
 
 ```{r}
@@ -273,6 +278,13 @@ HumanDFMulticov %>% filter(V4=="chimp171172")
 HumanDFMulticov255 %>% filter(V4=="chimp171172") 
 HumanCountsFeatureCounts %>% filter(PAS=="chimp171172")
 ```
+
+```{r}
+ChimpDFMulticov %>% filter(V4=="chimp171172") 
+ChimpDFMulticov255 %>% filter(V4=="chimp171172") 
+ChimpCountsFeatureCounts %>% filter(PAS=="chimp171172")
+```
+
 
 Ok it seems like maybe multimapping accounts for some of the differece.  
 
@@ -340,8 +352,8 @@ HC_diff=HC_MM-HC_noMM
 ```
 
 ```{r}
-plot(HC_diff)
-abline(120,0,col="red")
+plot(HC_diff,  main="Difference between featurecounts with and without -M flag", ylab="Sum Human multimap - Sum Human no multimap")
+
 ```
 12 libraries. Lets say it needs to have at least 10 in each or 120
 ```{r}
@@ -371,8 +383,7 @@ CC_diff=CC_MM-CC_noMM
 
 
 ```{r}
-plot(CC_diff)
-abline(120,0,col="red")
+plot(CC_diff,main="Difference between featurecounts with and without -M flag", ylab="Sum Chimp multimap - Sum Chimp no multimap")
 ```
 ```{r}
 
@@ -673,7 +684,7 @@ Plot average usage in each species for these:
 
 ```{r}
 Both2PerUniq_g= Both2PerUniq %>%select(Chimp, Human, MultiMap, loc) %>% gather("Species", "Usage", -MultiMap, -loc )
-ggplot(Both2PerUniq_g, aes(x=loc, y=Usage, by=Species, fill=Species)) + geom_boxplot() + facet_grid(~MultiMap)
+ggplot(Both2PerUniq_g, aes(x=loc, y=Usage, by=Species, fill=Species)) + geom_boxplot() + facet_grid(~MultiMap) + scale_fill_brewer(palette = "Dark2")
 ```
 Where were they discovered:  
 ```{r}
@@ -718,10 +729,10 @@ Enrichments:
 
 Dom Human and MM human uniq
 ```{r}
-x= nrow(allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_human=="Yes" ))
+x= nrow(allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_chimp=="Yes" ))
 m= nrow(allPAS_annoDomandMM %>% filter(DomHuman =="Yes"))
 n=nrow(allPAS_annoDomandMM%>% filter(DomHuman =="No"))
-k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_human =="Yes"))
+k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_chimp =="Yes"))
 x
 
 #expected
@@ -733,10 +744,10 @@ phyper(x,m, n , k,lower.tail=F)
 
 
 ```{r}
-x= nrow(allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_chimp=="Yes" ))
+x= nrow(allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_human=="Yes" ))
 m= nrow(allPAS_annoDomandMM %>% filter(DomChimp =="Yes"))
 n=nrow(allPAS_annoDomandMM%>% filter(DomChimp =="No"))
-k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_chimp =="Yes"))
+k=nrow(allPAS_annoDomandMM%>% filter(MMuniq_human =="Yes"))
 x
 
 #expected
@@ -749,14 +760,14 @@ phyper(x,m, n , k,lower.tail=F)
 Not enriched but 79 and 62 still means something.  Lets see where these are.  
 
 ```{r}
-ChimpDomandMM=allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_chimp=="Yes") %>% mutate(Species="Chimp")
-HumanDomandMM=allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_human=="Yes")%>% mutate(Species="Human")
+ChimpDomandMM=allPAS_annoDomandMM %>% filter(DomChimp =="Yes",MMuniq_human=="Yes") %>% mutate(DominantSpecies ="Chimp")
+HumanDomandMM=allPAS_annoDomandMM %>% filter(DomHuman =="Yes",MMuniq_chimp=="Yes")%>% mutate(DominantSpecies="Human")
 
 
 bothDomandMM= ChimpDomandMM %>% bind_rows(HumanDomandMM)
+#plot the location of dominant 
 
-
-ggplot(bothDomandMM,aes(x=loc, fill=Species,by=Species)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(x="", y="Number of PAS", title="Location of Multimapping PAS condition on dominance")
+ggplot(bothDomandMM,aes(x=loc, fill=DominantSpecies,by=DominantSpecies)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(x="", y="Number of PAS", title="Location of Dominant PAS conditioned on multimapping problem in other species ")
 ```
 
 
