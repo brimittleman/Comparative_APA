@@ -216,6 +216,10 @@ Evaluate results:
 
 * [Look at dominance sturcture without multimapping and SNOrnas](checkResnoMM.html)
 
+* [Look at new parameters for multimapping](multimapParameters.html)
+
+* [Assess which PAS are in orthoexon file](orthoexonAnno.html)
+
 
 
 ##Visualization  

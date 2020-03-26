@@ -791,3 +791,69 @@ write.table(allPAS_overlap, "../data/multimap/Both_multimapPAS.txt", col.names=T
 
 
 
+###Try the primary map read  
+
+```{bash,eval=F}
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_Primary ../data/testQuant/ALLPAS_postLift_LocParsed_Human_Primary.fixed.fc 
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_Primary ../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_Primary.fixed.fc 
+```
+
+
+```{r}
+HumanNPrimary=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Human_Primary.fixed.fc",header = T, stringsAsFactors = F) %>% separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")%>% filter(PAS %in% Meta$PAS) 
+ChimpNPrimary=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_Primary.fixed.fc", header = T, stringsAsFactors = F) %>% separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")%>% filter(PAS %in% ChimpMeta$PAS) 
+```
+
+Compare this to the original FC.  
+
+
+```{r}
+#HumanCountsFeatureCounts_mat
+
+HumanPrimary_mat=as.matrix(HumanNPrimary %>% select(contains("_N")))
+
+HumanFCP=HumanPrimary_mat- HumanCountsFeatureCounts_mat
+
+
+
+HumanFCP_g=as.data.frame(HumanFCP) %>% gather("Ind", "count")
+
+ggplot(HumanFCP_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="Primary - No MM", title="Human Difference in Counts for final PAS")+ theme(legend.position = "none")
+
+```
+Ok so the primary flag doesn't change anything for these.  
+
+try priamry and -m  
+
+```{bash,eval=F}
+sbatch BothFCMMPrim.sh
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_PrimaryandM ../data/testQuant/ALLPAS_postLift_LocParsed_Human_PrimaryandM.fixed.fc 
+python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_PrimaryandM ../data/testQuant/ALLPAS_postLift_LocParsed_Chimp_PrimaryandM.fixed.fc 
+```
+
+
+```{r}
+HumanNPrimaryandM=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Human_PrimaryandM.fixed.fc",header = T, stringsAsFactors = F) %>% separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":")%>% filter(PAS %in% Meta$PAS) 
+
+HumanPrimaryandM_mat=as.matrix(HumanNPrimaryandM %>% select(contains("_N")))
+
+HumanFCPM=HumanPrimaryandM_mat- HumanCountsFeatureCounts_mat
+
+
+
+HumanFCPM_g=as.data.frame(HumanFCPM) %>% gather("Ind", "count")
+
+ggplot(HumanFCPM_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y="Primary with M - No MM", title="Human Difference in Counts for final PAS")+ theme(legend.position = "none")
+```
+
+Look at how many are not zero here. This tells me how many PAS have multimap.  
+
+```{r}
+nrow(HumanFCPM)
+sum(rowSums(HumanFCPM) !=0)
+
+10693/42318
+```
+25% have some MM. 
+
+I need the scores for the primary and secondary maps.  

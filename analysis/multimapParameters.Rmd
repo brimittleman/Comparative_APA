@@ -1,0 +1,38 @@
+---
+title: "Cutoffs for multimapping"
+author: "Briana Mittleman"
+date: "3/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+I want to look at the parameters for multimapping. I will look at the paremeters such as include a read when the first vs second map difference is 10%, 5% ect. I want to get to a cutoff where the PAS lost are not in the ortho exon. 
+
+I will look at the featurecounts documentation for this or I can look directly at the star info.   
+
+
+−−primary: If specified, only primary alignments will be counted. Primary and secondary alignments are identified using bit 0x100 in the Flag field of SAM/BAM files. All primary alignments in a dataset will be counted no matter they are from multi- mapping reads or not (ie. ‘-M’ is ignored).
+
+For multi-mappers, all alignments except one are marked with 0x100 (secondary alignment) in the FLAG (column 2 of the SAM
+
+I used options:
+
+ --outFilterMultimapNmax 10 --outSAMmultNmax 1 
+ 
+ 
+ --outSAMmultNmax 1 will output exactly one SAM line for each mapped read
+ 
+ I only allowed for 1 read to be mapped. I want the secondary one as well. I want to mess with the secondary read.  
+ 
+ Remap human and chimp reads with the new filter. Just to look first, don't worry about misspriming.  
+ 
+```{bash,eval=F}
+mkdir ../data/TestMM2/
+sbatch StarMM2.sh
+```
+ 
+ 

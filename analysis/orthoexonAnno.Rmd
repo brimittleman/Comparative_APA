@@ -1,0 +1,96 @@
+---
+title: "Ortho Exon evaluation as an annotation"
+author: "Briana Mittleman"
+date: "3/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+I am still concerned about annotation. I want to see if using the ortho exon file as an annotation tool would be more appropriate. I want to look at it and see if there is a way to combine exons by gene and see if the spaces inbetween could be introns.  
+
+First look at the human one.  
+
+```{r}
+HumanOrtho=read.table("/project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf", sep="\t")
+```
+
+Parse this into a bed file with a python script.  
+
+```{bash,eval=F}
+mkdir ../data/OrthoExonBed
+python SAF2Bed.py /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf ../data/OrthoExonBed/human.noM.bed
+
+sort -k1,1 -k2,2n ../data/OrthoExonBed/human.noM.bed > ../data/OrthoExonBed/human.noM.sort.bed 
+```
+
+I will check if some of the problem genes, I found in my pipeline are in this.  
+
+```{r}
+ChimpMM=read.table("../data/multimap/Chimp_Uniq_multimapPAS.txt", stringsAsFactors = F, header = T)
+HumanMM=read.table("../data/multimap/Human_Uniq_multimapPAS.txt", stringsAsFactors = F, header = T)
+BothMM=read.table("../data/multimap/Both_multimapPAS.txt",stringsAsFactors = F, header = T)
+
+
+AllMM=ChimpMM %>% bind_rows(HumanMM) %>% bind_rows(BothMM)
+
+```
+
+
+I will overlap this with the ortho exon file. I will look at those that overlap and those that do not. I need a bed file    
+
+
+```{r}
+AllMM_bed=AllMM %>% mutate(Name=paste(gene, PAS,loc, MultiMap, sep=":")) %>% select(chr, start,end, Name, Human, strandFix)
+
+write.table(AllMM_bed,"../data/multimap/allMM.bed",col.names = F, quote = F, row.names = F, sep="\t")
+```
+
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/multimap/allMM.bed > ../data/multimap/allMM.sort.bed
+```
+
+
+Overlap.  
+
+
+```{bash,eval=F}
+sbatch overlapMMandOrthoexon.sh 
+```
+
+
+Results:  
+```{r}
+InOrtho=read.table("../data/OrthoExonBed/allMMinOrtho.bed", col.names = c("chr", "start", "end", "name", "score", "strand")) %>% group_by(name) %>% summarize(n=n())%>% separate(name, into=c("gene", "PAS","loc", "MM"),sep=":") %>% mutate(OE="In")
+NotInOrtho=read.table("../data/OrthoExonBed/allMM_NOT_inOrtho.bed", col.names = c("chr", "start", "end", "name", "score", "strand")) %>% group_by(name) %>% summarize(n=n()) %>% separate(name, into=c("gene", "PAS","loc", "MM"),sep=":")  %>% mutate(OE="Out")
+
+AllOrthores=InOrtho %>% bind_rows(NotInOrtho)
+
+ggplot(AllOrthores, aes(x=OE, by=loc,fill=loc)) +geom_bar(stat="count",position = "dodge") + labs(x="Is PAS overlapping ortho exon", title="PAS impacted by multimapping and ortho exon",y="Number of PAS")+ scale_fill_brewer(palette = "Dark2")
+
+```
+
+Proportion:  
+
+```{r}
+AllOrthores %>% group_by(OE) %>% summarise(n=n())
+
+#look only at utr  
+
+AllOrthores %>% filter(loc=="utr3") %>% group_by(OE) %>% summarise(n=n())
+```
+
+Look at the UTR sequences that are in:  
+
+```{r}
+AllOrthores %>% filter(OE=="In", loc=="utr3")
+```
+
