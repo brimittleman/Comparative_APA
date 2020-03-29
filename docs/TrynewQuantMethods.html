@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-27
+<strong>Last updated:</strong> 2020-03-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef92b89c48e3cdd34486ac237f56bef2d9e8acd5ftargetblankf92b89ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f92b89c48e3cdd34486ac237f56bef2d9e8acd5f" target="_blank">f92b89c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree706fa0d50038656a0ed1504362f62640173ba444targetblank706fa0da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/706fa0d50038656a0ed1504362f62640173ba444" target="_blank">706fa0d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef92b89c48e3cdd34486ac237f56bef2d9e8acd5ftargetblankf92b89ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree706fa0d50038656a0ed1504362f62640173ba444targetblank706fa0da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -472,6 +472,7 @@ Untracked files:
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
     Untracked:  code/._BothFCnewOInclusive.sh
+    Untracked:  code/._ChimpStarMM2.sh
     Untracked:  code/._ClassifyLeafviz.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
@@ -514,6 +515,7 @@ Untracked files:
     Untracked:  code/._SnakefilePASfilt
     Untracked:  code/._SortIndexBadSamples.sh
     Untracked:  code/._StarMM2.sh
+    Untracked:  code/._TestFC.sh
     Untracked:  code/._assignPeak2Intronicregion
     Untracked:  code/._assignPeak2Intronicregion.sh
     Untracked:  code/._bed215upbed.py
@@ -549,6 +551,8 @@ Untracked files:
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._filterPrimaryread.py
+    Untracked:  code/._filterSecondaryread.py
     Untracked:  code/._fixExonFC.py
     Untracked:  code/._fixLeafCluster.py
     Untracked:  code/._fixLiftedJunc.py
@@ -643,6 +647,9 @@ Untracked files:
     Untracked:  code/BothFCnewOInclusive.sh
     Untracked:  code/BothFCnewOInclusive.sh.err
     Untracked:  code/BothFCnewOInclusive.sh.out
+    Untracked:  code/ChimpStarMM2.err
+    Untracked:  code/ChimpStarMM2.out
+    Untracked:  code/ChimpStarMM2.sh
     Untracked:  code/ClassifyLeafviz.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
@@ -764,6 +771,9 @@ Untracked files:
     Untracked:  code/StarMM2.err
     Untracked:  code/StarMM2.out
     Untracked:  code/StarMM2.sh
+    Untracked:  code/TestFC.err
+    Untracked:  code/TestFC.out
+    Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
@@ -839,7 +849,9 @@ Untracked files:
     Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
+    Untracked:  code/filterPrimaryread.py
     Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSecondaryread.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixExonFC.py
@@ -1111,6 +1123,7 @@ Untracked files:
     Untracked:  data/OverlapBenchmark/
     Untracked:  data/OverlappingPAS/
     Untracked:  data/PAS/
+    Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
@@ -1129,6 +1142,10 @@ Untracked files:
     Untracked:  data/SignalSites_doublefilter/
     Untracked:  data/SpliceSite/
     Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_PrimaryRead/
+    Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_quality/
+    Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
@@ -1218,6 +1235,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/706fa0d50038656a0ed1504362f62640173ba444/analysis/TrynewQuantMethods.Rmd" target="_blank">706fa0d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-28
+</td>
+<td>
+add mm exp code
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3d4dd4722d951a6205c8db1fdf2d6a513b4b402e/docs/TrynewQuantMethods.html" target="_blank">3d4dd47</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2028,7 +2079,7 @@ python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_B
 
 HC_noMM=rowSums(as.matrix(HumanCountsNoMM[,13:24]) )
 
-HumanCountMM=read.table(&quot;../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag&quot;, header = T)%&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;) %&gt;% filter(PAS %in% Meta$PAS) 
+HumanCountMM=read.table(&quot;../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag_fixed.fc&quot;, header = T)%&gt;%  separate(Geneid, into=c(&quot;disc&quot;, &quot;PAS&quot;, &quot;chr2&quot;, &quot;start2&quot;, &quot;end2&quot;, &#39;strand&#39;, &#39;geneid&#39;), sep=&quot;:&quot;) %&gt;% filter(PAS %in% Meta$PAS) 
 
 
 HC_MM=rowSums(as.matrix(HumanCountMM[,13:24]) )
@@ -3169,7 +3220,45 @@ HumanFCP=HumanPrimary_mat- HumanCountsFeatureCounts_mat
 HumanFCP_g=as.data.frame(HumanFCP) %&gt;% gather(&quot;Ind&quot;, &quot;count&quot;)
 
 ggplot(HumanFCP_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y=&quot;Primary - No MM&quot;, title=&quot;Human Difference in Counts for final PAS&quot;)+ theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /> Ok so the primary flag doesn’t change anything for these.</p>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-74-1">
+Past versions of unnamed-chunk-74-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-74-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3d4dd4722d951a6205c8db1fdf2d6a513b4b402e/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-74-1.png" target="_blank">3d4dd47</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Ok so the primary flag doesn’t change anything for these.</p>
 <p>try priamry and -m</p>
 <pre class="bash"><code>sbatch BothFCMMPrim.sh
 python fixFChead_bothfrac.py ../data/testQuant/ALLPAS_postLift_LocParsed_Human_PrimaryandM ../data/testQuant/ALLPAS_postLift_LocParsed_Human_PrimaryandM.fixed.fc 
@@ -3186,6 +3275,43 @@ HumanFCPM_g=as.data.frame(HumanFCPM) %&gt;% gather(&quot;Ind&quot;, &quot;count&
 
 ggplot(HumanFCPM_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y=&quot;Primary with M - No MM&quot;, title=&quot;Human Difference in Counts for final PAS&quot;)+ theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-76-1">
+Past versions of unnamed-chunk-76-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-76-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3d4dd4722d951a6205c8db1fdf2d6a513b4b402e/docs/figure/TrynewQuantMethods.Rmd/unnamed-chunk-76-1.png" target="_blank">3d4dd47</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at how many are not zero here. This tells me how many PAS have multimap.</p>
 <pre class="r"><code>nrow(HumanFCPM)</code></pre>
 <pre><code>[1] 42318</code></pre>
@@ -3195,6 +3321,34 @@ ggplot(HumanFCPM_g, aes(x=Ind, y=count,col=Ind))+ geom_boxplot() + labs(y=&quot;
 <pre><code>[1] 0.2526821</code></pre>
 <p>25% have some MM.</p>
 <p>I need the scores for the primary and secondary maps.</p>
+<p>I will look at the mean for each PAS across individuals in each set. Then I can see the differences between the 3 sets. regular, -m, –primary</p>
+<pre class="r"><code>#reg
+HumanOriginal=HumanCountsFeatureCounts %&gt;% select(PAS,contains(&quot;_N&quot;)) %&gt;% gather(&quot;Ind&quot;, &quot;Counts&quot;, -PAS) %&gt;%group_by(PAS) %&gt;%  summarise(meanCount=mean(Counts)) %&gt;% mutate(Set=&quot;Original&quot;)
+
+#multimap  
+
+HumanPAS_MM=HumanCountMM %&gt;% select(PAS,contains(&quot;_N&quot;)) %&gt;% gather(&quot;Ind&quot;, &quot;Counts&quot;, -PAS) %&gt;%group_by(PAS) %&gt;%  summarise(meanCount=mean(Counts)) %&gt;% mutate(Set=&quot;MultiMap&quot;)
+
+
+#Primary  
+
+HumanPAS_primary=HumanNPrimaryandM  %&gt;% select(PAS,contains(&quot;_N&quot;)) %&gt;% gather(&quot;Ind&quot;, &quot;Counts&quot;, -PAS) %&gt;%group_by(PAS) %&gt;%  summarise(meanCount=mean(Counts)) %&gt;% mutate(Set=&quot;Primary&quot;)
+
+
+ThreeCriteriaHuman=HumanOriginal %&gt;% bind_rows(HumanPAS_MM) %&gt;% bind_rows(HumanPAS_primary) %&gt;% spread(Set, meanCount) 
+
+ThreeCriteriaHuman_var= HumanOriginal %&gt;% bind_rows(HumanPAS_MM) %&gt;% bind_rows(HumanPAS_primary) %&gt;% group_by(PAS) %&gt;% summarise(VarSet=var(meanCount))
+
+ThreeCriteriaHuman_varnot0= ThreeCriteriaHuman_var %&gt;%  filter(VarSet!=0)</code></pre>
+<pre class="r"><code>plot(sort(ThreeCriteriaHuman_varnot0$VarSet))</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(ThreeCriteriaHuman,aes(x=Original,y=Primary)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col=&quot;blue&quot;)+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(ThreeCriteriaHuman,aes(x=Original,y=MultiMap)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col=&quot;blue&quot;)+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(ThreeCriteriaHuman,aes(x=Primary,y=MultiMap)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col=&quot;blue&quot;)+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))</code></pre>
+<p><img src="figure/TrynewQuantMethods.Rmd/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I only let one location read. Multimap will be the same as primary.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3245,10 +3399,10 @@ loaded via a namespace (and not attached):
 [37] digest_0.6.18        stringi_1.2.4        rprojroot_1.3-2     
 [40] cli_1.1.0            tools_3.5.1          lazyeval_0.2.1      
 [43] futile.options_1.0.1 crayon_1.3.4         whisker_0.3-2       
-[46] pkgconfig_2.0.2      xml2_1.2.0           lubridate_1.7.4     
-[49] assertthat_0.2.0     rmarkdown_1.10       httr_1.3.1          
-[52] rstudioapi_0.10      R6_2.3.0             nlme_3.1-137        
-[55] git2r_0.26.1         compiler_3.5.1      </code></pre>
+[46] pkgconfig_2.0.2      MASS_7.3-51.1        xml2_1.2.0          
+[49] lubridate_1.7.4      assertthat_0.2.0     rmarkdown_1.10      
+[52] httr_1.3.1           rstudioapi_0.10      R6_2.3.0            
+[55] nlme_3.1-137         git2r_0.26.1         compiler_3.5.1      </code></pre>
 </div>
 </div>
 </div>
