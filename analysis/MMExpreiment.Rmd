@@ -1,0 +1,61 @@
+---
+title: "Multmap Experiment"
+author: "Briana Mittleman"
+date: "3/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+standard featureCounts (no multimapped reads)
+featureCounts with -M flag (includes all alignments of multimapped reads)
+featureCounts with --primary flag (includes multimapped reads, but only their primary alignment)
+Stringent samtools quality filter followed by featureCounts with -M flag
+Permissive samtools quality filter followed by featureCounts with -M flag  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+```{bash,eval=F}
+mkdir ../data/PAS_SAF
+mkdir ../data/Test_FC_methods
+```
+
+
+PAS  
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T)
+ChimpMeta=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed", col.names = c("chr","start","end", "PAS", "score", "strand"),stringsAsFactors = F)
+
+#GeneID\tChr\tStart\tEnd\tStrand\n"
+#peak_chr10_53894_53985_+	10	53894	53985	+
+
+HumanSAF= Meta %>% rename("GeneID"=PAS, "Chr"=chr, "Start"=start, "End"=end,"Strand"=strandFix) %>% select(GeneID, Chr, Start, End, Strand)
+write.table(HumanSAF,"../data/PAS_SAF/Human_PASdoublefilter.SAF", col.names = T,row.names = F, quote = F, sep="\t" )
+
+ChimpSAF= ChimpMeta%>% rename("GeneID"=PAS, "Chr"=chr, "Start"=start, "End"=end,"Strand"=strand) %>% select(GeneID, Chr, Start, End, Strand)
+write.table(ChimpSAF,"../data/PAS_SAF/Chimp_PASdoublefilter.SAF", col.names = T,row.names = F, quote = F, sep="\t" )
+
+```
+
+
+Fearture counts 5 ways:  
+
+
+standard featureCounts (no multimapped reads)
+featureCounts with -M flag (includes all alignments of multimapped reads)
+featureCounts with --primary flag (includes multimapped reads, but only their primary alignment)
+Stringent samtools quality filter followed by featureCounts with -M flag (-M, -Q 5)
+medium samtools quality filter followed by featureCounts with -M flag (-M, -Q 15)
+Permissive samtools quality filter followed by featureCounts with -M flag (-M, -Q 20)
+
+
+```{bash,eval=F}
+sbatch TestFC.sh
+```
+ 
+

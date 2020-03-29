@@ -341,7 +341,7 @@ HumanCountsNoMM=read.table("../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_Lo
 
 HC_noMM=rowSums(as.matrix(HumanCountsNoMM[,13:24]) )
 
-HumanCountMM=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag", header = T)%>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":") %>% filter(PAS %in% Meta$PAS) 
+HumanCountMM=read.table("../data/testQuant/ALLPAS_postLift_LocParsed_Human_BothFrac_Mflag_fixed.fc", header = T)%>%  separate(Geneid, into=c("disc", "PAS", "chr2", "start2", "end2", 'strand', 'geneid'), sep=":") %>% filter(PAS %in% Meta$PAS) 
 
 
 HC_MM=rowSums(as.matrix(HumanCountMM[,13:24]) )
@@ -857,3 +857,45 @@ sum(rowSums(HumanFCPM) !=0)
 25% have some MM. 
 
 I need the scores for the primary and secondary maps.  
+
+
+
+I will look at the mean for each PAS across individuals in each set. Then I can see the differences between the 3 sets. regular, -m, --primary  
+
+```{r}
+#reg
+HumanOriginal=HumanCountsFeatureCounts %>% select(PAS,contains("_N")) %>% gather("Ind", "Counts", -PAS) %>%group_by(PAS) %>%  summarise(meanCount=mean(Counts)) %>% mutate(Set="Original")
+
+#multimap  
+
+HumanPAS_MM=HumanCountMM %>% select(PAS,contains("_N")) %>% gather("Ind", "Counts", -PAS) %>%group_by(PAS) %>%  summarise(meanCount=mean(Counts)) %>% mutate(Set="MultiMap")
+
+
+#Primary  
+
+HumanPAS_primary=HumanNPrimaryandM  %>% select(PAS,contains("_N")) %>% gather("Ind", "Counts", -PAS) %>%group_by(PAS) %>%  summarise(meanCount=mean(Counts)) %>% mutate(Set="Primary")
+
+
+ThreeCriteriaHuman=HumanOriginal %>% bind_rows(HumanPAS_MM) %>% bind_rows(HumanPAS_primary) %>% spread(Set, meanCount) 
+
+ThreeCriteriaHuman_var= HumanOriginal %>% bind_rows(HumanPAS_MM) %>% bind_rows(HumanPAS_primary) %>% group_by(PAS) %>% summarise(VarSet=var(meanCount))
+
+ThreeCriteriaHuman_varnot0= ThreeCriteriaHuman_var %>%  filter(VarSet!=0)
+```
+
+```{r}
+plot(sort(ThreeCriteriaHuman_varnot0$VarSet))
+```
+```{r}
+ggplot(ThreeCriteriaHuman,aes(x=Original,y=Primary)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col="blue")+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))
+```
+
+
+```{r}
+ggplot(ThreeCriteriaHuman,aes(x=Original,y=MultiMap)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col="blue")+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))
+```
+```{r}
+ggplot(ThreeCriteriaHuman,aes(x=Primary,y=MultiMap)) + geom_point() + geom_abline(slope=1, intercept = 0) + geom_density2d(col="blue")+ coord_cartesian(xlim=c(0,2500),ylim=c(0,2500))
+```
+
+I only let one location read. Multimap will be the same as primary.
