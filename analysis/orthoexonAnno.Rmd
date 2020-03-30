@@ -31,6 +31,145 @@ python SAF2Bed.py /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf 
 sort -k1,1 -k2,2n ../data/OrthoExonBed/human.noM.bed > ../data/OrthoExonBed/human.noM.sort.bed 
 ```
 
+##All PAS
+
+```{bash,eval=F}
+sbatch overlapPASandOrthoexon.sh 
+```
+
+Results:  
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% select(PAS, gene,loc)
+OverlapPAS=read.table("../data/OrthoExonBed/allPASinOrtho.bed", col.names = c("chr", "start", "end", "PAS", "score", "strand"),stringsAsFactors = F)%>% group_by(PAS) %>% summarize(n=n())%>%  mutate(OE="In") %>% inner_join(PASMeta,by="PAS")
+nrow(OverlapPAS)
+
+
+NotOverlapPAS=read.table("../data/OrthoExonBed/allPAS_NOT_inOrtho.bed", col.names = c("chr", "start", "end", "PAS", "score", "strand"),stringsAsFactors = F)%>% group_by(PAS) %>% summarize(n=n())%>%  mutate(OE="OUT") %>% inner_join(PASMeta,by="PAS")
+nrow(NotOverlapPAS)
+
+
+ALLPAS_ortho=OverlapPAS %>% bind_rows(NotOverlapPAS)
+
+ggplot(ALLPAS_ortho, aes(x=OE, by=loc,fill=loc)) +geom_bar(stat="count",position = "dodge") + labs(x="Is PAS overlapping ortho exon", title="All PAS in OrthoExon",y="Number of PAS")+ scale_fill_brewer(palette = "Dark2")
+
+```
+Ok this is the expected distribution, We expect the coding and 3' UTRs to be in the ortho exon file. What is more interesting is genes with and without exons in the ortho exon.  
+
+
+
+Take this to the gene level. 
+
+```{r}
+OrthoBed=read.table("../data/OrthoExonBed/human.noM.sort.bed", col.names = c("chr","start","end","gene", "nExon","strand"),stringsAsFactors = F) %>% group_by(gene) %>% summarise(nExon=n())
+```
+
+Now I look to see which of the PAS are in genes not in the ortho exon.  
+
+```{r}
+PASMeta_GeneOE= PASMeta %>% mutate(OE=ifelse(gene %in% OrthoBed$gene, "Yes", "No"))
+
+PASMeta_GeneOEgene= PASMeta_GeneOE %>% group_by(gene, OE) %>% summarise()
+
+ggplot(PASMeta_GeneOEgene, aes(x=OE, fill=OE))+ geom_histogram(stat="count") + labs(x="Is gene in Ortho Exon", y="Genes") + scale_fill_brewer(palette = "Dark2")
+```
+Look at the genes without:  
+
+```{r}
+PASMeta_GeneOE_NO= PASMeta_GeneOE %>% filter(OE=="No")
+nrow(PASMeta_GeneOE_NO)
+
+ggplot(PASMeta_GeneOE_NO,aes(x=loc, fill=OE)) + geom_bar(stat="count")
+
+
+```
+```{r}
+Genesnotin=PASMeta_GeneOE_NO %>% group_by(gene) %>% summarise(n=n())
+```
+
+1000 genes not in ortho exons.  
+
+
+
+```{r}
+#sno
+Genesnotin %>% filter(grepl("SNO",gene)) %>% nrow()
+#linc
+Genesnotin %>% filter(grepl("LINC",gene)) %>% nrow()
+#loc
+Genesnotin %>% filter(grepl("LOC",gene)) %>% nrow()
+```
+
+Are these the genes with different dominant PAS.  
+
+```{r}
+allPAS= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T) 
+ChimpPASwMean =allPAS %>% dplyr::select(-Human)
+HumanPASwMean =allPAS %>% dplyr::select(-Chimp)
+
+Chimp_Dom= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= HumanPASwMean %>% 
+  group_by(gene) %>% 
+  top_n(1, Human) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+#merge
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+DifDom= BothDom %>% filter(ChimpPAS!=HumanPAS)
+
+
+```
+Plot this before I remove those genes.  
+```{r}
+DifDom_before=DifDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("species","loc",-gene)
+
+ggplot(DifDom_before, aes(x=loc, by=species, fill=species))+geom_histogram(position = "dodge",stat = "count")+ labs(title="Location of PAS with different Dominant",y="PAS")+scale_fill_brewer(palette = "Dark2")
+```
+Remove the not ortho genes:  
+
+```{r}
+DifDom_after=DifDom_before %>% anti_join(Genesnotin,by="gene")
+ggplot(DifDom_after, aes(x=loc, by=species, fill=species))+geom_histogram(position = "dodge",stat = "count")+ labs(title="Location of PAS with different Dominant\n after removing genes not in orthoexon",y="PAS")+scale_fill_brewer(palette = "Dark2")
+```
+That didnt help.  
+
+Check the matching ones (are these in ortho exon)
+
+```{r}
+SameDom= BothDom %>% filter(ChimpPAS==HumanPAS)
+nrow(SameDom)
+SameDom_after=SameDom %>% anti_join(Genesnotin,by="gene")
+nrow(SameDom_after)
+```
+Where did I lose genes.  
+
+```{r}
+6906/7638
+3432/4028
+```
+Lose more in the different dominant than in the same dominant. 
+Percent lost=
+
+```{r}
+(7638-6906)/7638
+(4028-3432)/4028
+```
+
+
+
+##MultiMap  
+
 I will check if some of the problem genes, I found in my pipeline are in this.  
 
 ```{r}
