@@ -1,0 +1,174 @@
+---
+title: "Dominant pattern with Primary read"
+author: "Briana Mittleman"
+date: "3/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(workflowr)
+library(tidyverse)
+library(reshape2)
+library(VennDiagram)
+library(ggpubr)
+```
+
+If I take the primary reads and get the dominant do we fix the problem?
+
+
+I am going to start with the full annotation then filter the 5% based on this.  
+
+```{bash,eval=F}
+#do this in home data not in seperate by species 
+mkdir ../data/CleanLiftedPeaks_FC_primary/
+sbatch quantLiftedPASPrimary.sh
+```
+I can follow the code from [the annotation and pheno analysis](annotatePAS.html)  
+
+
+```{bash,eval=F}
+mkdir ../data/phenotype_Primary/
+
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_fixed.fc
+
+
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_fixed.fc
+
+#../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt
+#../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt
+
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt
+
+Rscript pheno2countonly.R -I ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt -O ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonly.txt
+
+Rscript pheno2countonly.R -I ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt -O ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonly.txt
+
+
+python convertNumeric.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonly.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonlyNumeric.txt
+
+python convertNumeric.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonly.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonlyNumeric.txt
+```
+
+Human usage:  
+
+```{r}
+HumanAnno=read.table("../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonlyNumeric.txt", col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+```
+
+```{r}
+ChimpAnno=read.table("../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonlyNumeric.txt", col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+```
+
+Both mean:  
+
+```{r}
+BothMean=ChimpMean %>% full_join(HumanMean, by=c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" )) 
+
+BothMeanM=melt(BothMean,id.vars =c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ),variable.name = "Species", value.name = "MeanUsage" )
+
+#filter 5% either species and double filter  
+
+GenesOk=read.table("../data/OverlapBenchmark/genesPassingCuttoff.txt",header = T,stringsAsFactors = F)
+
+BothMean_5= BothMean %>% filter(Chimp >=0.05 | Human >= 0.05) %>% filter(gene %in% GenesOk$genes)
+
+
+
+BothMean_5M=melt(BothMean_5,id.vars =c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ),variable.name = "Species", value.name = "MeanUsage" ) %>% filter(loc !="008559")
+
+ggplot(BothMean_5M, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = "Dark2")+ stat_compare_means(aes(label = ..p.signif..)) +labs("Human and Chimp Usage for 5% filter PAS")
+```
+
+Are these the same PAS as those before. 
+
+```{r}
+NewPAS= BothMean_5$PAS
+OldPASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F)
+OldPAS= OldPASMeta$PAS
+overlap <- intersect(NewPAS, OldPAS) 
+```
+
+```{r}
+
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(NewPAS),
+                           area2 = length(OldPAS),
+                           cross.area = length(overlap),
+                           c("Primary", "Original"), scaled = TRUE,
+                           fill = c("green", "blue"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+Ok most are the same. This is good.  
+
+
+Dominance structure:  
+
+```{r}
+ChimpPASwMean =BothMean_5 %>% dplyr::select(-Human)
+HumanPASwMean =BothMean_5 %>% dplyr::select(-Chimp)
+```
+
+```{r}
+Chimp_Dom= ChimpPASwMean %>%
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= HumanPASwMean %>% 
+  group_by(gene) %>% 
+  top_n(1, Human) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+#merge
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+```
+
+```{r}
+SameDom=BothDom %>% filter(ChimpPAS==HumanPAS) 
+
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species")
+```
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS) 
+nrow(DiffDom)
+
+
+DiffDom_loc= DiffDom %>% select(gene,ChimpLoc, HumanLoc) %>% gather("Species", "Loc", -gene)
+
+
+ggplot(DiffDom_loc, aes(x=Loc, by=Species, fill=Species))+geom_histogram(position = "dodge",stat = "count")+ labs(title="Location of PAS with different Dominant\nInclude Primary read",y="PAS")+scale_fill_brewer(palette = "Dark2")
+```
+
+Doesnt help.  

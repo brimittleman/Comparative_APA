@@ -225,6 +225,8 @@ Evaluate results:
 
 * [Experiemnt with quality and FC](MMExpreiment.html)
 
+* [Redo the quantification with primary reads](DomwithPrimary.html)
+
 
 
 ##Visualization  
