@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Ortho Exon evaluation as an annotation</title>
+<title>Dominant pattern with Primary read</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Ortho Exon evaluation as an annotation</h1>
+<h1 class="title toc-ignore">Dominant pattern with Primary read</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>3/17/2020</em></h4>
+<h4 class="date"><em>3/28/2020</em></h4>
 
 </div>
 
@@ -1250,10 +1250,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
+Rmd
 </td>
 <td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/orthoexonAnno.html" target="_blank">469010e</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/205249491f9d1af116829c18a7bb728c810402af/analysis/DomwithPrimary.Rmd" target="_blank">2052494</a>
 </td>
 <td>
 brimittleman
@@ -1262,58 +1262,7 @@ brimittleman
 2020-03-30
 </td>
 <td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ef52dfcc1435117e83144672628ada47b2ffb313/analysis/orthoexonAnno.Rmd" target="_blank">ef52dfc</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-<td>
-add all overlap orthoexon
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3d4dd4722d951a6205c8db1fdf2d6a513b4b402e/docs/orthoexonAnno.html" target="_blank">3d4dd47</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f92b89c48e3cdd34486ac237f56bef2d9e8acd5f/analysis/orthoexonAnno.Rmd" target="_blank">f92b89c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-26
-</td>
-<td>
-add ortho exon and new mm
+add dom with primary
 </td>
 </tr>
 </tbody>
@@ -1323,6 +1272,9 @@ add ortho exon and new mm
 </div>
 </div>
 </div>
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.6.0
+Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1332,185 +1284,114 @@ add ortho exon and new mm
 <pre><code>── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>I am still concerned about annotation. I want to see if using the ortho exon file as an annotation tool would be more appropriate. I want to look at it and see if there is a way to combine exons by gene and see if the spaces inbetween could be introns.</p>
-<p>First look at the human one.</p>
-<pre class="r"><code>HumanOrtho=read.table(&quot;/project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf&quot;, sep=&quot;\t&quot;)</code></pre>
-<p>Parse this into a bed file with a python script.</p>
-<pre class="bash"><code>mkdir ../data/OrthoExonBed
-python SAF2Bed.py /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf ../data/OrthoExonBed/human.noM.bed
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
-sort -k1,1 -k2,2n ../data/OrthoExonBed/human.noM.bed &gt; ../data/OrthoExonBed/human.noM.sort.bed </code></pre>
-<div id="all-pas" class="section level2">
-<h2>All PAS</h2>
-<pre class="bash"><code>sbatch overlapPASandOrthoexon.sh </code></pre>
-<p>Results:</p>
-<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T,stringsAsFactors = F) %&gt;% select(PAS, gene,loc)
-OverlapPAS=read.table(&quot;../data/OrthoExonBed/allPASinOrtho.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;score&quot;, &quot;strand&quot;),stringsAsFactors = F)%&gt;% group_by(PAS) %&gt;% summarize(n=n())%&gt;%  mutate(OE=&quot;In&quot;) %&gt;% inner_join(PASMeta,by=&quot;PAS&quot;)
-nrow(OverlapPAS)</code></pre>
-<pre><code>[1] 25621</code></pre>
-<pre class="r"><code>NotOverlapPAS=read.table(&quot;../data/OrthoExonBed/allPAS_NOT_inOrtho.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;score&quot;, &quot;strand&quot;),stringsAsFactors = F)%&gt;% group_by(PAS) %&gt;% summarize(n=n())%&gt;%  mutate(OE=&quot;OUT&quot;) %&gt;% inner_join(PASMeta,by=&quot;PAS&quot;)
-nrow(NotOverlapPAS)</code></pre>
-<pre><code>[1] 16697</code></pre>
-<pre class="r"><code>ALLPAS_ortho=OverlapPAS %&gt;% bind_rows(NotOverlapPAS)
+    smiths</code></pre>
+<pre class="r"><code>library(VennDiagram)</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Loading required package: futile.logger</code></pre>
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
 
-ggplot(ALLPAS_ortho, aes(x=OE, by=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Is PAS overlapping ortho exon&quot;, title=&quot;All PAS in OrthoExon&quot;,y=&quot;Number of PAS&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-5-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Ok this is the expected distribution, We expect the coding and 3’ UTRs to be in the ortho exon file. What is more interesting is genes with and without exons in the ortho exon.</p>
-<p>Take this to the gene level.</p>
-<pre class="r"><code>OrthoBed=read.table(&quot;../data/OrthoExonBed/human.noM.sort.bed&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;, &quot;nExon&quot;,&quot;strand&quot;),stringsAsFactors = F) %&gt;% group_by(gene) %&gt;% summarise(nExon=n())</code></pre>
-<p>Now I look to see which of the PAS are in genes not in the ortho exon.</p>
-<pre class="r"><code>PASMeta_GeneOE= PASMeta %&gt;% mutate(OE=ifelse(gene %in% OrthoBed$gene, &quot;Yes&quot;, &quot;No&quot;))
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
-PASMeta_GeneOEgene= PASMeta_GeneOE %&gt;% group_by(gene, OE) %&gt;% summarise()
+    extract</code></pre>
+<pre><code>
+Attaching package: &#39;ggpubr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:VennDiagram&#39;:
 
-ggplot(PASMeta_GeneOEgene, aes(x=OE, fill=OE))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Is gene in Ortho Exon&quot;, y=&quot;Genes&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-7-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Look at the genes without:</p>
-<pre class="r"><code>PASMeta_GeneOE_NO= PASMeta_GeneOE %&gt;% filter(OE==&quot;No&quot;)
-nrow(PASMeta_GeneOE_NO)</code></pre>
-<pre><code>[1] 5293</code></pre>
-<pre class="r"><code>ggplot(PASMeta_GeneOE_NO,aes(x=loc, fill=OE)) + geom_bar(stat=&quot;count&quot;)</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-8-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3d4dd4722d951a6205c8db1fdf2d6a513b4b402e/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-8-1.png" target="_blank">3d4dd47</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>Genesnotin=PASMeta_GeneOE_NO %&gt;% group_by(gene) %&gt;% summarise(n=n())</code></pre>
-<p>1000 genes not in ortho exons.</p>
-<pre class="r"><code>#sno
-Genesnotin %&gt;% filter(grepl(&quot;SNO&quot;,gene)) %&gt;% nrow()</code></pre>
-<pre><code>[1] 112</code></pre>
-<pre class="r"><code>#linc
-Genesnotin %&gt;% filter(grepl(&quot;LINC&quot;,gene)) %&gt;% nrow()</code></pre>
-<pre><code>[1] 63</code></pre>
-<pre class="r"><code>#loc
-Genesnotin %&gt;% filter(grepl(&quot;LOC&quot;,gene)) %&gt;% nrow()</code></pre>
-<pre><code>[1] 327</code></pre>
-<p>Are these the genes with different dominant PAS.</p>
-<pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
-ChimpPASwMean =allPAS %&gt;% dplyr::select(-Human)
-HumanPASwMean =allPAS %&gt;% dplyr::select(-Chimp)
+    rotate</code></pre>
+<p>If I take the primary reads and get the dominant do we fix the problem?</p>
+<p>I am going to start with the full annotation then filter the 5% based on this.</p>
+<pre class="bash"><code>#do this in home data not in seperate by species 
+mkdir ../data/CleanLiftedPeaks_FC_primary/
+sbatch quantLiftedPASPrimary.sh</code></pre>
+<p>I can follow the code from <a href="annotatePAS.html">the annotation and pheno analysis</a></p>
+<pre class="bash"><code>mkdir ../data/phenotype_Primary/
 
-Chimp_Dom= ChimpPASwMean %&gt;%
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_fixed.fc
+
+
+python fixFChead_bothfrac.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_fixed.fc
+
+#../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt
+#../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt
+
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_fixed.fc ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt
+
+python makePheno.py  ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_fixed.fc ../Chimp/data/CleanLiftedPeaks_FC/ChimpFileID.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt
+
+Rscript pheno2countonly.R -I ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt -O ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonly.txt
+
+Rscript pheno2countonly.R -I ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt -O ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonly.txt
+
+
+python convertNumeric.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonly.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonlyNumeric.txt
+
+python convertNumeric.py ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonly.txt ../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonlyNumeric.txt</code></pre>
+<p>Human usage:</p>
+<pre class="r"><code>HumanAnno=read.table(&quot;../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table(&quot;../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Human_Pheno_countonlyNumeric.txt&quot;, col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))</code></pre>
+<pre class="r"><code>ChimpAnno=read.table(&quot;../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table(&quot;../data/CleanLiftedPeaks_FC_primary/ALLPAS_postLift_LocParsed_Primary_Chimp_Pheno_countonlyNumeric.txt&quot;, col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))</code></pre>
+<p>Both mean:</p>
+<pre class="r"><code>BothMean=ChimpMean %&gt;% full_join(HumanMean, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; )) 
+
+BothMeanM=melt(BothMean,id.vars =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ),variable.name = &quot;Species&quot;, value.name = &quot;MeanUsage&quot; )
+
+#filter 5% either species and double filter  
+
+GenesOk=read.table(&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;,header = T,stringsAsFactors = F)
+
+BothMean_5= BothMean %&gt;% filter(Chimp &gt;=0.05 | Human &gt;= 0.05) %&gt;% filter(gene %in% GenesOk$genes)
+
+
+
+BothMean_5M=melt(BothMean_5,id.vars =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ),variable.name = &quot;Species&quot;, value.name = &quot;MeanUsage&quot; ) %&gt;% filter(loc !=&quot;008559&quot;)
+
+ggplot(BothMean_5M, aes(x=loc, y=MeanUsage,by=Species,fill=Species)) + geom_boxplot()  + scale_fill_brewer(palette = &quot;Dark2&quot;)+ stat_compare_means(aes(label = ..p.signif..)) +labs(&quot;Human and Chimp Usage for 5% filter PAS&quot;)</code></pre>
+<p><img src="figure/DomwithPrimary.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Are these the same PAS as those before.</p>
+<pre class="r"><code>NewPAS= BothMean_5$PAS
+OldPASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T,stringsAsFactors = F)
+OldPAS= OldPASMeta$PAS
+overlap &lt;- intersect(NewPAS, OldPAS) </code></pre>
+<pre class="r"><code>grid.newpage()
+venn.plot &lt;- draw.pairwise.venn(area1 = length(NewPAS),
+                           area2 = length(OldPAS),
+                           cross.area = length(overlap),
+                           c(&quot;Primary&quot;, &quot;Original&quot;), scaled = TRUE,
+                           fill = c(&quot;green&quot;, &quot;blue&quot;),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) </code></pre>
+<p><img src="figure/DomwithPrimary.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Ok most are the same. This is good.</p>
+<p>Dominance structure:</p>
+<pre class="r"><code>ChimpPASwMean =BothMean_5 %&gt;% dplyr::select(-Human)
+HumanPASwMean =BothMean_5 %&gt;% dplyr::select(-Chimp)</code></pre>
+<pre class="r"><code>Chimp_Dom= ChimpPASwMean %&gt;%
   group_by(gene) %&gt;%
   top_n(1,Chimp) %&gt;% 
   mutate(nPer=n()) %&gt;% 
@@ -1529,208 +1410,22 @@ Human_Dom= HumanPASwMean %&gt;%
 
 #merge
 
-BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)
-DifDom= BothDom %&gt;% filter(ChimpPAS!=HumanPAS)</code></pre>
-<p>Plot this before I remove those genes.</p>
-<pre class="r"><code>DifDom_before=DifDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;species&quot;,&quot;loc&quot;,-gene)
+BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>SameDom=BothDom %&gt;% filter(ChimpPAS==HumanPAS) 
 
-ggplot(DifDom_before, aes(x=loc, by=species, fill=species))+geom_histogram(position = &quot;dodge&quot;,stat = &quot;count&quot;)+ labs(title=&quot;Location of PAS with different Dominant&quot;,y=&quot;PAS&quot;)+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-12-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Remove the not ortho genes:</p>
-<pre class="r"><code>DifDom_after=DifDom_before %&gt;% anti_join(Genesnotin,by=&quot;gene&quot;)</code></pre>
-<pre><code>Warning: Column `gene` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre class="r"><code>ggplot(DifDom_after, aes(x=loc, by=species, fill=species))+geom_histogram(position = &quot;dodge&quot;,stat = &quot;count&quot;)+ labs(title=&quot;Location of PAS with different Dominant\n after removing genes not in orthoexon&quot;,y=&quot;PAS&quot;)+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/DomwithPrimary.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS) 
+nrow(DiffDom)</code></pre>
+<pre><code>[1] 1932</code></pre>
+<pre class="r"><code>DiffDom_loc= DiffDom %&gt;% select(gene,ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Loc&quot;, -gene)
+
+
+ggplot(DiffDom_loc, aes(x=Loc, by=Species, fill=Species))+geom_histogram(position = &quot;dodge&quot;,stat = &quot;count&quot;)+ labs(title=&quot;Location of PAS with different Dominant\nInclude Primary read&quot;,y=&quot;PAS&quot;)+scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-13-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>That didnt help.</p>
-<p>Check the matching ones (are these in ortho exon)</p>
-<pre class="r"><code>SameDom= BothDom %&gt;% filter(ChimpPAS==HumanPAS)
-nrow(SameDom)</code></pre>
-<pre><code>[1] 7638</code></pre>
-<pre class="r"><code>SameDom_after=SameDom %&gt;% anti_join(Genesnotin,by=&quot;gene&quot;)</code></pre>
-<pre><code>Warning: Column `gene` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre class="r"><code>nrow(SameDom_after)</code></pre>
-<pre><code>[1] 6906</code></pre>
-<p>Where did I lose genes.</p>
-<pre class="r"><code>6906/7638</code></pre>
-<pre><code>[1] 0.9041634</code></pre>
-<pre class="r"><code>3432/4028</code></pre>
-<pre><code>[1] 0.8520357</code></pre>
-<p>Lose more in the different dominant than in the same dominant. Percent lost=</p>
-<pre class="r"><code>(7638-6906)/7638</code></pre>
-<pre><code>[1] 0.09583661</code></pre>
-<pre class="r"><code>(4028-3432)/4028</code></pre>
-<pre><code>[1] 0.1479643</code></pre>
-</div>
-<div id="multimap" class="section level2">
-<h2>MultiMap</h2>
-<p>I will check if some of the problem genes, I found in my pipeline are in this.</p>
-<pre class="r"><code>ChimpMM=read.table(&quot;../data/multimap/Chimp_Uniq_multimapPAS.txt&quot;, stringsAsFactors = F, header = T)
-HumanMM=read.table(&quot;../data/multimap/Human_Uniq_multimapPAS.txt&quot;, stringsAsFactors = F, header = T)
-BothMM=read.table(&quot;../data/multimap/Both_multimapPAS.txt&quot;,stringsAsFactors = F, header = T)
-
-
-AllMM=ChimpMM %&gt;% bind_rows(HumanMM) %&gt;% bind_rows(BothMM)</code></pre>
-<p>I will overlap this with the ortho exon file. I will look at those that overlap and those that do not. I need a bed file</p>
-<pre class="r"><code>AllMM_bed=AllMM %&gt;% mutate(Name=paste(gene, PAS,loc, MultiMap, sep=&quot;:&quot;)) %&gt;% select(chr, start,end, Name, Human, strandFix)
-
-write.table(AllMM_bed,&quot;../data/multimap/allMM.bed&quot;,col.names = F, quote = F, row.names = F, sep=&quot;\t&quot;)</code></pre>
-<pre class="bash"><code>sort -k1,1 -k2,2n ../data/multimap/allMM.bed &gt; ../data/multimap/allMM.sort.bed</code></pre>
-<p>Overlap.</p>
-<pre class="bash"><code>sbatch overlapMMandOrthoexon.sh </code></pre>
-<p>Results:</p>
-<pre class="r"><code>InOrtho=read.table(&quot;../data/OrthoExonBed/allMMinOrtho.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;name&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% group_by(name) %&gt;% summarize(n=n())%&gt;% separate(name, into=c(&quot;gene&quot;, &quot;PAS&quot;,&quot;loc&quot;, &quot;MM&quot;),sep=&quot;:&quot;) %&gt;% mutate(OE=&quot;In&quot;)
-NotInOrtho=read.table(&quot;../data/OrthoExonBed/allMM_NOT_inOrtho.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;name&quot;, &quot;score&quot;, &quot;strand&quot;)) %&gt;% group_by(name) %&gt;% summarize(n=n()) %&gt;% separate(name, into=c(&quot;gene&quot;, &quot;PAS&quot;,&quot;loc&quot;, &quot;MM&quot;),sep=&quot;:&quot;)  %&gt;% mutate(OE=&quot;Out&quot;)
-
-AllOrthores=InOrtho %&gt;% bind_rows(NotInOrtho)
-
-ggplot(AllOrthores, aes(x=OE, by=loc,fill=loc)) +geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Is PAS overlapping ortho exon&quot;, title=&quot;PAS impacted by multimapping and ortho exon&quot;,y=&quot;Number of PAS&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
-Past versions of unnamed-chunk-21-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-21-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/469010e6c1613cf9e7b8ac0ce155a4e6d77887d6/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-21-1.png" target="_blank">469010e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-30
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Proportion:</p>
-<pre class="r"><code>AllOrthores %&gt;% group_by(OE) %&gt;% summarise(n=n())</code></pre>
-<pre><code># A tibble: 2 x 2
-  OE        n
-  &lt;chr&gt; &lt;int&gt;
-1 In      831
-2 Out     578</code></pre>
-<pre class="r"><code>#look only at utr  
-
-AllOrthores %&gt;% filter(loc==&quot;utr3&quot;) %&gt;% group_by(OE) %&gt;% summarise(n=n())</code></pre>
-<pre><code># A tibble: 2 x 2
-  OE        n
-  &lt;chr&gt; &lt;int&gt;
-1 In      492
-2 Out     120</code></pre>
-<p>Look at the UTR sequences that are in:</p>
-<pre class="r"><code>AllOrthores %&gt;% filter(OE==&quot;In&quot;, loc==&quot;utr3&quot;)</code></pre>
-<pre><code># A tibble: 492 x 6
-   gene    PAS         loc   MM        n OE   
-   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;
- 1 AARS2   human285010 utr3  Human     2 In   
- 2 ABCB10  human30678  utr3  Both      2 In   
- 3 ABHD17A human153108 utr3  Both      8 In   
- 4 ABR     chimp125493 utr3  Human    10 In   
- 5 ACAD8   chimp63259  utr3  Chimp     6 In   
- 6 ACAD8   human66039  utr3  Chimp     6 In   
- 7 ACTB    human299134 utr3  Both      7 In   
- 8 ADAM9   chimp303728 utr3  Human     8 In   
- 9 ADAM9   chimp303729 utr3  Human     8 In   
-10 ADH5    human247010 utr3  Chimp     2 In   
-# … with 482 more rows</code></pre>
+<p><img src="figure/DomwithPrimary.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Doesnt help.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1755,34 +1450,35 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
-[1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
-[5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
-[9] tidyverse_1.2.1
+ [1] ggpubr_0.2          magrittr_1.5        VennDiagram_1.6.20 
+ [4] futile.logger_1.4.3 reshape2_1.4.3      forcats_0.3.0      
+ [7] stringr_1.3.1       dplyr_0.8.0.1       purrr_0.3.2        
+[10] readr_1.3.1         tidyr_0.8.3         tibble_2.1.1       
+[13] ggplot2_3.1.1       tidyverse_1.2.1     workflowr_1.6.0    
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
-[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
-[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
-[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
-[19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
-[22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
-[25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
-[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[34] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[37] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[40] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[43] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[46] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[55] git2r_0.26.1       compiler_3.5.1    </code></pre>
-</div>
+ [1] tidyselect_0.2.5     haven_1.1.2          lattice_0.20-38     
+ [4] colorspace_1.3-2     generics_0.0.2       htmltools_0.3.6     
+ [7] yaml_2.2.0           rlang_0.4.0          later_0.7.5         
+[10] pillar_1.3.1         glue_1.3.0           withr_2.1.2         
+[13] RColorBrewer_1.1-2   lambda.r_1.2.3       modelr_0.1.2        
+[16] readxl_1.1.0         plyr_1.8.4           munsell_0.5.0       
+[19] gtable_0.2.0         cellranger_1.1.0     rvest_0.3.2         
+[22] evaluate_0.12        labeling_0.3         knitr_1.20          
+[25] httpuv_1.4.5         broom_0.5.1          Rcpp_1.0.2          
+[28] formatR_1.5          promises_1.0.1       scales_1.0.0        
+[31] backports_1.1.2      jsonlite_1.6         fs_1.3.1            
+[34] hms_0.4.2            digest_0.6.18        stringi_1.2.4       
+[37] rprojroot_1.3-2      cli_1.1.0            tools_3.5.1         
+[40] lazyeval_0.2.1       futile.options_1.0.1 crayon_1.3.4        
+[43] whisker_0.3-2        pkgconfig_2.0.2      xml2_1.2.0          
+[46] lubridate_1.7.4      assertthat_0.2.0     rmarkdown_1.10      
+[49] httr_1.3.1           rstudioapi_0.10      R6_2.3.0            
+[52] nlme_3.1-137         git2r_0.26.1         compiler_3.5.1      </code></pre>
 </div>
 
 

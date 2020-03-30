@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-28
+<strong>Last updated:</strong> 2020-03-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree706fa0d50038656a0ed1504362f62640173ba444targetblank706fa0da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/706fa0d50038656a0ed1504362f62640173ba444" target="_blank">706fa0d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree205249491f9d1af116829c18a7bb728c810402aftargetblank2052494a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/205249491f9d1af116829c18a7bb728c810402af" target="_blank">2052494</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree706fa0d50038656a0ed1504362f62640173ba444targetblank706fa0da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree205249491f9d1af116829c18a7bb728c810402aftargetblank2052494a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -393,6 +393,7 @@ Untracked files:
     Untracked:  code/._filterPrimaryread.py
     Untracked:  code/._filterSecondaryread.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixFCheadforExp.py
     Untracked:  code/._fixLeafCluster.py
     Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
@@ -424,6 +425,7 @@ Untracked files:
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
     Untracked:  code/._overlapMMandOrthoexon.sh
+    Untracked:  code/._overlapPASandOrthoexon.sh
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
@@ -435,6 +437,7 @@ Untracked files:
     Untracked:  code/._quantJunc.sh
     Untracked:  code/._quantJunc_TEST.sh
     Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantLiftedPASPrimary.sh
     Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
@@ -528,6 +531,8 @@ Untracked files:
     Untracked:  code/HchromOrder.out
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
+    Untracked:  code/IntersectPASandOrtho.err
+    Untracked:  code/IntersectPASandOrtho.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
@@ -696,6 +701,7 @@ Untracked files:
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixFCheadforExp.py
     Untracked:  code/fixLeafCluster.py
     Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
@@ -773,6 +779,7 @@ Untracked files:
     Untracked:  code/overlapMMandOrthoexon.sh
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapPASandOrthoexon.sh
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
@@ -797,6 +804,9 @@ Untracked files:
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quantLiftedPASPrimary.err
+    Untracked:  code/quantLiftedPASPrimary.out
+    Untracked:  code/quantLiftedPASPrimary.sh
     Untracked:  code/quatJunc.err
     Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
@@ -933,6 +943,7 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/BaseComp/
+    Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
@@ -1023,6 +1034,7 @@ Unstaged changes:
     Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
+    Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
@@ -1034,6 +1046,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/multimapParameters.Rmd
     Modified:   analysis/speciesSpecific.Rmd
     Modified:   analysis/upsetter_DF.Rmd
 
@@ -1074,6 +1087,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/205249491f9d1af116829c18a7bb728c810402af/analysis/index.Rmd" target="_blank">2052494</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-30
+</td>
+<td>
+add dom with primary
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a70f2fe686bf3bdfef8a251dbef22938f9d6d33d/docs/index.html" target="_blank">a70f2fe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4154,6 +4201,7 @@ All with double filter:</li>
 <li><p><a href="multimapParameters.html">Look at new parameters for multimapping</a></p></li>
 <li><p><a href="orthoexonAnno.html">Assess which PAS are in orthoexon file</a></p></li>
 <li><p><a href="MMExpreiment.html">Experiemnt with quality and FC</a></p></li>
+<li><p><a href="DomwithPrimary.html">Redo the quantification with primary reads</a></p></li>
 </ul>
 </div>
 </div>
