@@ -35,6 +35,8 @@ AllMM=ChimpMM %>% bind_rows(HumanMM) %>% bind_rows(BothMM)
 
 ##Dominant PAS  
 
+###Remove MM PAS 
+
 I will remove these and reasess shared dominant PAS.  
 
 ```{r}
@@ -96,6 +98,36 @@ nrow(DiffDom)
 
 ```{r}
 DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
-ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS \n (n=1937)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS \n no MM PAS (n=1937)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+###Remove MM genes  
+
+```{r}
+genewithMM= AllMM %>% group_by(gene) %>% summarise(nPAS=n())
+nrow(genewithMM)
+```
+
+```{r}
+BothDom_noMM= BothDom %>% anti_join(genewithMM, by="gene")
+
+SameDom_noMM= BothDom_noMM %>% filter(ChimpPAS==HumanPAS)
+
+nrow(SameDom_noMM)
+```
+
+```{r}
+ggplot(SameDom_noMM, aes(x=HumanLoc))+ geom_histogram(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species\no genes with MM")
+```
+```{r}
+DiffDom_noMM=BothDom_noMM %>% filter(ChimpPAS!=HumanPAS)
+
+nrow(DiffDom_noMM)
+```
+remove about 200  
+
+```{r}
+DiffDom_noMM_g= DiffDom_noMM %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffDom_noMM_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS \n No MM gene (n=1707)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
 
