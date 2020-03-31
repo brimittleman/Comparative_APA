@@ -229,9 +229,216 @@ ggplot(BothMAPScore, aes(x=Score, y=PropReads, by=set, fill=set))+ geom_bar(stat
 
 ```
 
-secondary score in column 2  
+Mapping reads with the Fc.  
+
+18358: 
+
+Standard: 9195763
+Primary: 9440757
+Multimap: 9650073
+9195763 for each score. 
+
+
+##Mismatch scores for all primary and secondary  
+
+I want to compare the primary and secondary reads for all libraries. I can then look at the mismatch distribution.  
+
+First I need to wrap the primary and secondary read code.  
 
 ```{bash,eval=F}
-samtools view ../data/TestMM2_SeondaryRead/chimp_combined_18358_N.MM2_secondary.sort.bam | cut -f2 | sort -n | uniq -c > ../data/TestMM2_quality/chimp18358_secondaryExtraScores.txt
+sbatch FilterPrimSec.sh
+mkdir ../data/TestMM2_mismatch
+sbatch MismatchNumbers.sh
 ```
 
+Load in results:
+
+Chimp
+```{r}
+Chimp_18358_primary=read.table("../data/TestMM2_mismatch/chimp_combined_18358_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp", line="18358")
+
+Chimp_18358_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_18358_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp", line="18358")
+
+Chimp_3622_primary=read.table("../data/TestMM2_mismatch/chimp_combined_3622_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp", line="3622")
+
+Chimp_3622_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_3622_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp", line="3622")
+
+Chimp_3659_primary=read.table("../data/TestMM2_mismatch/chimp_combined_3659_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp", line="3659")
+
+Chimp_3659_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_3659_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp", line="3659")
+
+Chimp_4973_primary=read.table("../data/TestMM2_mismatch/chimp_combined_4973_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp",line="4973")
+
+Chimp_4973_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_4973_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp",line="4973")
+
+Chimp_pt30_primary=read.table("../data/TestMM2_mismatch/chimp_combined_pt30_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp", line="pt30")
+
+Chimp_pt30_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_pt30_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp",line="pt30")
+
+Chimp_pt91_primary=read.table("../data/TestMM2_mismatch/chimp_combined_pt91_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Chimp",line="pt91")
+
+Chimp_pt91_secondary=read.table("../data/TestMM2_mismatch/chimp_combined_pt91_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Chimp", line="pt91")
+```
+
+
+```{r}
+allChimpmismatch=Chimp_18358_primary %>% 
+  bind_rows(Chimp_18358_secondary)  %>% 
+  bind_rows(Chimp_3622_primary) %>% 
+  bind_rows(Chimp_3622_secondary) %>% 
+  bind_rows(Chimp_3659_primary) %>% 
+  bind_rows(Chimp_3659_secondary) %>% 
+  bind_rows(Chimp_4973_primary) %>% 
+  bind_rows(Chimp_4973_secondary) %>% 
+  bind_rows(Chimp_pt30_primary) %>% 
+  bind_rows(Chimp_pt30_secondary) %>% 
+  bind_rows(Chimp_pt91_primary) %>% 
+  bind_rows(Chimp_pt91_secondary) %>% 
+  group_by(line, set) %>% 
+  mutate(TotalReads=sum(Reads)) %>%
+  ungroup() %>% 
+  mutate(PropReads=Reads/TotalReads)
+
+allChimpmismatch$Mis=factor(allChimpmismatch$Mis, levels=c("nM:i:0",  "nM:i:1" , "nM:i:2", "nM:i:3" , "nM:i:4", "nM:i:5" , "nM:i:6",  "nM:i:7" , "nM:i:8" , "nM:i:9","nM:i:10"))
+
+
+ggplot(allChimpmismatch, aes(x=Mis,y=PropReads,by=set, fill=set)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  +labs(title="Chimp Mismatch in primary and secondary")
+ggplot(allChimpmismatch, aes(x=Mis,y=Reads,by=set, fill=set)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  +labs(title="Chimp Mismatch in primary and secondary")
+  
+```
+
+Human: 
+
+```{r}
+Human_18498_primary=read.table("../data/TestMM2_mismatch/human_combined_18498_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18498")
+
+Human_18498_secondary=read.table("../data/TestMM2_mismatch/human_combined_18498_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18498")
+
+
+Human_18499_primary=read.table("../data/TestMM2_mismatch/human_combined_18499_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18499")
+
+Human_18499_secondary=read.table("../data/TestMM2_mismatch/human_combined_18499_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18499")
+
+Human_18502_primary=read.table("../data/TestMM2_mismatch/human_combined_18502_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18502")
+
+Human_18502_secondary=read.table("../data/TestMM2_mismatch/human_combined_18502_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18502")
+
+Human_18504_primary=read.table("../data/TestMM2_mismatch/human_combined_18504_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18504")
+
+Human_18504_secondary=read.table("../data/TestMM2_mismatch/human_combined_18504_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18504")
+
+Human_18510_primary=read.table("../data/TestMM2_mismatch/human_combined_18510_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18510")
+
+Human_18510_secondary=read.table("../data/TestMM2_mismatch/human_combined_18510_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18510")
+
+Human_18523_primary=read.table("../data/TestMM2_mismatch/human_combined_18523_N_primary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Primary", species="Human", line="18523")
+
+Human_18523_secondary=read.table("../data/TestMM2_mismatch/human_combined_18523_N_secondary_mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Secondary", species="Human", line="18523")
+```
+All human:  
+
+```{r}
+allHumanmismatch=Human_18498_primary %>% 
+  bind_rows(Human_18498_secondary)  %>% 
+  bind_rows(Human_18499_primary) %>% 
+  bind_rows(Human_18499_secondary) %>% 
+  bind_rows(Human_18502_primary) %>% 
+  bind_rows(Human_18502_secondary) %>% 
+  bind_rows(Human_18504_primary) %>% 
+  bind_rows(Human_18504_secondary) %>% 
+  bind_rows(Human_18510_primary) %>% 
+  bind_rows(Human_18510_secondary) %>% 
+  bind_rows(Human_18523_primary) %>% 
+  bind_rows(Human_18523_secondary)%>% 
+  group_by(line, set) %>% 
+  mutate(TotalReads=sum(Reads)) %>% 
+  ungroup() %>%
+  mutate(PropReads=Reads/TotalReads)
+  
+allHumanmismatch$Mis=factor(allHumanmismatch$Mis, levels=c("nM:i:0",  "nM:i:1" , "nM:i:2", "nM:i:3" , "nM:i:4", "nM:i:5" , "nM:i:6",  "nM:i:7" , "nM:i:8" , "nM:i:9","nM:i:10"))
+```
+
+Plot:  
+```{r}
+ggplot(allHumanmismatch, aes(x=Mis,y=PropReads,by=set, fill=set)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  +labs(title="Human Mismatch in primary and secondary")
+ggplot(allHumanmismatch, aes(x=Mis,y=Reads,by=set, fill=set)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1))  +labs(title="Human Mismatch in primary and secondary")
+```
+
+This shows there is not an easy way to seperate the reads. Primary and secondary reads have mistmatches.  
+
+##Mismatch score for unique reads. 
+Seperate the reads map uniq. 
+```{bash,eval=F}
+sbatch Filter255MM.sh
+```
+Look at the results:  
+
+```{r}
+Chimp_18358_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_18358_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp", line="18358")
+
+
+Chimp_3622_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_3622_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp", line="3622")
+
+
+
+Chimp_3659_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_3659_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp", line="3659")
+
+
+Chimp_4973_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_4973_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp",line="4973")
+
+
+Chimp_pt30_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_pt30_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp", line="pt30")
+
+
+Chimp_pt91_Unique=read.table("../data/TestMM2_mismatch/chimp_combined_pt91_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Chimp",line="pt91")
+
+```
+
+```{r}
+Human_18498_Unique=read.table("../data/TestMM2_mismatch/human_combined_18498_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18498")
+
+
+Human_18499_Unique=read.table("../data/TestMM2_mismatch/human_combined_18499_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18499")
+
+
+Human_18502_Unique=read.table("../data/TestMM2_mismatch/human_combined_18502_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18502")
+
+
+Human_18504_Unique=read.table("../data/TestMM2_mismatch/human_combined_18504_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18504")
+
+
+Human_18510_Unique=read.table("../data/TestMM2_mismatch/human_combined_18510_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18510")
+
+
+Human_18523_Unique=read.table("../data/TestMM2_mismatch/human_combined_18523_N_255mismatch.txt", stringsAsFactors = F, col.names = c("Reads", "Mis")) %>% mutate(set="Unique", species="Human", line="18523")
+
+```
+
+Look at these.  
+
+```{r}
+allUniqmismatch=Human_18498_Unique %>% 
+  bind_rows(Human_18499_Unique)  %>% 
+  bind_rows(Human_18502_Unique) %>% 
+  bind_rows(Human_18504_Unique) %>% 
+  bind_rows(Human_18510_Unique) %>% 
+  bind_rows(Human_18523_Unique) %>% 
+  bind_rows(Chimp_18358_Unique) %>% 
+  bind_rows(Chimp_3622_Unique) %>% 
+  bind_rows(Chimp_3659_Unique) %>% 
+  bind_rows(Chimp_4973_Unique) %>% 
+  bind_rows(Chimp_pt30_Unique)%>% 
+  bind_rows(Chimp_pt91_Unique)%>% 
+  group_by(line, set) %>% 
+  mutate(TotalReads=sum(Reads)) %>% 
+  ungroup() %>%
+  mutate(PropReads=Reads/TotalReads)
+
+allUniqmismatch$Mis=factor(allUniqmismatch$Mis, levels=c("nM:i:0",  "nM:i:1" , "nM:i:2", "nM:i:3" , "nM:i:4", "nM:i:5" , "nM:i:6",  "nM:i:7" , "nM:i:8" , "nM:i:9","nM:i:10"))
+```
+```{r}
+ggplot(allUniqmismatch, aes(x=Mis,y=Reads,by=species, fill=species)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title="Unique Read mismatch")
+
+ggplot(allUniqmismatch, aes(x=Mis,y=PropReads,by=species, fill=species)) + geom_bar(stat="identity",position = "dodge") + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title="Unique Read mismatch")
+```
+So even uniq reads have mismatches.  
