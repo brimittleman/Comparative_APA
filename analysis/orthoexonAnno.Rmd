@@ -352,3 +352,34 @@ BothSpeciesDistance_dom_TopDiffUp=BothSpeciesDistance_dom %>% mutate(Updiff=abs(
 head(BothSpeciesDistance_dom_TopDiffUp)
 ```
 
+###Proportion of intron
+
+I can look at where these are in the "intron". Here I am calling the space between 2 orthologous exons in the same genes introns. I will remove PAS that have 0 distance on either side in either species first.  
+
+```{r}
+BothSpeciesDistance_dom_remove0= BothSpeciesDistance_dom %>% filter(UpstreamHuman!=0,DownstreamHuman!=0,UpstreamChimp!=0, DownstreamChimp!=0 )
+
+nrow(BothSpeciesDistance_dom)-nrow(BothSpeciesDistance_dom_remove0)
+nrow(BothSpeciesDistance_dom_remove0)
+```
+Lose 1123. Looking at 8229.  
+
+```{r}
+BothSpeciesDistance_dom_remove0_dist= BothSpeciesDistance_dom_remove0 %>% mutate(HumanLength=abs(UpstreamHuman)+ DownstreamHuman, HumanProp=abs(UpstreamHuman)/HumanLength, ChimpLength=abs(UpstreamChimp)+DownstreamChimp, ChimpProp=abs(UpstreamChimp)/ChimpLength)
+```
+
+```{r}
+ggplot(BothSpeciesDistance_dom_remove0_dist,aes(x=HumanProp, y=ChimpProp,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm") + labs(x="Proportion of Human Intron",y= "Proportion of Chimp Intron", title="Intronic PAS between ortho exons")
+```
+```{r}
+BothSpeciesDistance_dom_remove0_dist_filt=BothSpeciesDistance_dom_remove0_dist %>% filter(Dominance !="Neither")
+
+
+ggplot(BothSpeciesDistance_dom_remove0_dist_filt,aes(x=HumanProp, y=ChimpProp,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm") + labs(x="Proportion of Human Intron", y="Proportion of Chimp Intron", title="Intronic PAS between ortho exons")
+```
+What about just length:  
+
+```{r}
+ggplot(BothSpeciesDistance_dom_remove0_dist,aes(x=HumanLength, y=ChimpLength,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm") + labs(x="Human Distance between ortho exon", "Chimp Distance between ortho exon", title="Intronic PAS between ortho exons")
+```
+
