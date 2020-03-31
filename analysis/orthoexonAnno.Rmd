@@ -231,5 +231,124 @@ Look at the UTR sequences that are in:
 
 ```{r}
 AllOrthores %>% filter(OE=="In", loc=="utr3")
+``` 
+
+##distance to next annotated ortho exon boundry  
+
+I can look at the intronic PAS in both species to see how far they are from an ortho exon.  
+
+I need to merge exons.  
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/OrthoExonBed/chimp.noM.bed >  ../data/OrthoExonBed/chimp.noM.sort.bed 
+bedtools merge -s -c 4,5,6 -o distinct,count,distinct  -i  ../data/OrthoExonBed/chimp.noM.sort.bed >  ../data/OrthoExonBed/chimp.noM.sort.merged.bed 
+bedtools merge -s -c 4,5,6 -o distinct,count,distinct  -i  ../data/OrthoExonBed/human.noM.sort.bed >  ../data/OrthoExonBed/human.noM.sort.merged.bed 
+
+mkdir ../data/TestAnnoBiasOE
+```
+
+Now I can map all of the intronic PAS  
+
+For intronic PAS in genes in the ortho exon, filter the bed files 
+```{r}
+PASMeta_GeneOE_intronYes= PASMeta_GeneOE %>% filter(loc=="intron", OE=="Yes")
+
+HumanBed=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed", col.names = c("chr", 'start','end','PAS','usage','strand'),stringsAsFactors = F) %>% semi_join(PASMeta_GeneOE_intronYes, by="PAS")
+
+write.table(HumanBed, "../data/TestAnnoBiasOE/HumanIntronicGeneinOE.bed",col.names = F, row.names = F, quote = F, sep="\t")
+
+ChimpBed=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed", col.names = c("chr", 'start','end','PAS','usage','strand'),stringsAsFactors = F) %>% semi_join(PASMeta_GeneOE_intronYes, by="PAS")
+
+write.table(ChimpBed, "../data/TestAnnoBiasOE/ChimpIntronicGeneinOE.bed",col.names = F, row.names = F, quote = F, sep="\t")
+
+
+```
+
+Find the closest:  
+
+same strand. look only upstream (-id) to say closest annotated 5' splice site.  then do only downstream to say closest annotated 3' splice site.  
+
+```{bash,eval=F}
+sbatch ClosestorthoEx.sh
+```
+
+Look at upstream  
+
+
+If the gene is a different gene, make it 0
+
+```{r}
+HumanUpstream=read.table("../data/TestAnnoBiasOE/HumanUpstream.intronic.txt",stringsAsFactors = F, col.names = c("chrPAS", "startPAS", "endPAS", "PAS", "HumanUsage", "strandPAS", "chrExon","startExon","endExon", "Orthogene", "n","strandIntron", "UpstreamdistancePAS2Exon")) %>% inner_join(PASMeta,by="PAS") %>% mutate(Fixed=ifelse(gene==Orthogene, UpstreamdistancePAS2Exon,0))
+HumanDownstream=read.table("../data/TestAnnoBiasOE/HumanDownstream.intronic.txt",stringsAsFactors = F, col.names = c("chrPAS", "startPAS", "endPAS", "PAS", "HumanUsage", "strandPAS", "chrExon","startExon","endExon", "Orthogene", "n","strandIntron", "DownstreamdistancePAS2Exon")) %>% inner_join(PASMeta,by="PAS") %>% mutate(Fixed=ifelse(gene==Orthogene, DownstreamdistancePAS2Exon,0))
+
+
+
+HumanBoth=as.data.frame(cbind(HumanUpstream[,1:6],gene=HumanUpstream[,14], "UpstreamHuman"=HumanUpstream[,16],"DownstreamHuman"=HumanDownstream[,16])) %>% 
+  mutate(DominanceHuman=ifelse(PAS %in% BothDom$HumanPAS, "yes","no"))
+```
+
+Chimp:
+
+```{r}
+ChimpUpstream=read.table("../data/TestAnnoBiasOE/ChimpUpstream.intronic.txt",stringsAsFactors = F, col.names = c("chrPAS", "startPAS", "endPAS", "PAS", "ChimpUsage", "strandPAS", "chrExon","startExon","endExon", "Orthogene", "n","strandIntron", "UpstreamdistancePAS2Exon"))  %>% inner_join(PASMeta,by="PAS") %>% mutate(Fixed=ifelse(gene==Orthogene, UpstreamdistancePAS2Exon,0))
+ChimpDownstream=read.table("../data/TestAnnoBiasOE/ChimpDownstream.intronic.txt",stringsAsFactors = F, col.names = c("chrPAS", "startPAS", "endPAS", "PAS", "ChimpUsage", "strandPAS", "chrExon","startExon","endExon", "Orthogene", "n","strandIntron", "DownstreamdistancePAS2Exon"))  %>% inner_join(PASMeta,by="PAS") %>% mutate(Fixed=ifelse(gene==Orthogene, DownstreamdistancePAS2Exon,0))
+ChimpBoth=as.data.frame(cbind(PAS=ChimpUpstream[,4], 'UpstreamChimp'=ChimpUpstream[,16],'DownstreamChimp'=ChimpDownstream[,16])) %>% 
+  mutate(DominanceChimp=ifelse(PAS %in% BothDom$ChimpPAS, "yes","no"))
+```
+
+
+Join together:  
+
+```{r}
+BothSpeciesDistance= HumanBoth %>% inner_join(ChimpBoth, by="PAS")
+
+BothSpeciesDistance$UpstreamChimp=as.numeric(as.character(BothSpeciesDistance$UpstreamChimp))
+BothSpeciesDistance$DownstreamChimp=as.numeric(as.character(BothSpeciesDistance$DownstreamChimp))
+```
+
+Look at distance based on human dominance then chimp dominance  
+
+```{r}
+ggplot(BothSpeciesDistance, aes(x=UpstreamHuman, y=UpstreamChimp, col=DominanceHuman)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))
+
+```
+
+```{r}
+ggplot(BothSpeciesDistance, aes(x=UpstreamHuman, y=UpstreamChimp, col=DominanceHuman)) + geom_point(alpha=.3) + ylim(c(-10000,0)) +xlim(c(-10000,0)) + geom_abline(aes(slope=1,intercept=0)) + scale_color_brewer(palette = "Dark2")
+
+```
+
+
+I want to color by dominant in human, chimp, both neither 
+
+```{r}
+BothSpeciesDistance_dom=BothSpeciesDistance %>% mutate(Dominance=ifelse(DominanceHuman=="yes", ifelse(DominanceChimp=="yes", "Both", "human"), ifelse(DominanceChimp=="yes", "chimp", "Neither")))
+```
+
+Upstream Plots:  
+
+```{r}
+ggplot(BothSpeciesDistance_dom, aes(x=UpstreamHuman, y=UpstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0)) + geom_smooth(method="lm", alpha=.1)+scale_color_brewer(palette = "Dark2") 
+```
+```{r}
+ggplot(BothSpeciesDistance_dom, aes(x=UpstreamHuman, y=UpstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))+ylim(c(-50000,0)) +xlim(c(-50000,0)) + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm", alpha=.1)
+```
+
+Downstream  
+
+```{r}
+ggplot(BothSpeciesDistance_dom, aes(x=DownstreamHuman, y=DownstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0)) + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm", alpha=.1) + geom_smooth(method="lm", alpha=.1)
+```
+There are a lot of PAS that are far from an exon on the human side. 
+```{r}
+ggplot(BothSpeciesDistance_dom, aes(x=DownstreamHuman, y=DownstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))+ylim(c(0,50000)) +xlim(c(0,50000)) + scale_color_brewer(palette = "Dark2") + geom_smooth(method="lm", alpha=.01)
+```
+
+Look at the top examples:  
+
+```{r}
+BothSpeciesDistance_dom_TopDiffUp=BothSpeciesDistance_dom %>% mutate(Updiff=abs(UpstreamHuman-UpstreamChimp)) %>% select(PAS, gene, Updiff) %>% arrange(desc(Updiff))
+
+head(BothSpeciesDistance_dom_TopDiffUp)
 ```
 
