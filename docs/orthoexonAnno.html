@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8280da5a6a1be88ee6f6acb129df9c64aa76ed5ftargetblank8280da5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8280da5a6a1be88ee6f6acb129df9c64aa76ed5f" target="_blank">8280da5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree721b56f7ac2829b1d9bd5cf288f94edb495d3c9ctargetblank721b56fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/721b56f7ac2829b1d9bd5cf288f94edb495d3c9c" target="_blank">721b56f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8280da5a6a1be88ee6f6acb129df9c64aa76ed5ftargetblank8280da5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree721b56f7ac2829b1d9bd5cf288f94edb495d3c9ctargetblank721b56fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1270,6 +1270,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/721b56f7ac2829b1d9bd5cf288f94edb495d3c9c/analysis/orthoexonAnno.Rmd" target="_blank">721b56f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+<td>
+add prop
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/orthoexonAnno.html" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8280da5a6a1be88ee6f6acb129df9c64aa76ed5f/analysis/orthoexonAnno.Rmd" target="_blank">8280da5</a>
 </td>
 <td>
@@ -1829,27 +1863,250 @@ BothSpeciesDistance$DownstreamChimp=as.numeric(as.character(BothSpeciesDistance$
 <p>Look at distance based on human dominance then chimp dominance</p>
 <pre class="r"><code>ggplot(BothSpeciesDistance, aes(x=UpstreamHuman, y=UpstreamChimp, col=DominanceHuman)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))</code></pre>
 <p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-30-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothSpeciesDistance, aes(x=UpstreamHuman, y=UpstreamChimp, col=DominanceHuman)) + geom_point(alpha=.3) + ylim(c(-10000,0)) +xlim(c(-10000,0)) + geom_abline(aes(slope=1,intercept=0)) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <pre><code>Warning: Removed 1651 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-31-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>I want to color by dominant in human, chimp, both neither</p>
 <pre class="r"><code>BothSpeciesDistance_dom=BothSpeciesDistance %&gt;% mutate(Dominance=ifelse(DominanceHuman==&quot;yes&quot;, ifelse(DominanceChimp==&quot;yes&quot;, &quot;Both&quot;, &quot;human&quot;), ifelse(DominanceChimp==&quot;yes&quot;, &quot;chimp&quot;, &quot;Neither&quot;)))</code></pre>
 <p>Upstream Plots:</p>
 <pre class="r"><code>ggplot(BothSpeciesDistance_dom, aes(x=UpstreamHuman, y=UpstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0)) + geom_smooth(method=&quot;lm&quot;, alpha=.1)+scale_color_brewer(palette = &quot;Dark2&quot;) </code></pre>
 <p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-33-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothSpeciesDistance_dom, aes(x=UpstreamHuman, y=UpstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))+ylim(c(-50000,0)) +xlim(c(-50000,0)) + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;, alpha=.1)</code></pre>
 <pre><code>Warning: Removed 122 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 122 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_smooth).</code></pre>
 <p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-34-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Downstream</p>
 <pre class="r"><code>ggplot(BothSpeciesDistance_dom, aes(x=DownstreamHuman, y=DownstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0)) + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;, alpha=.1) + geom_smooth(method=&quot;lm&quot;, alpha=.1)</code></pre>
-<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /> There are a lot of PAS that are far from an exon on the human side.</p>
+<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-35-1">
+Past versions of unnamed-chunk-35-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-35-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-35-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>There are a lot of PAS that are far from an exon on the human side.</p>
 <pre class="r"><code>ggplot(BothSpeciesDistance_dom, aes(x=DownstreamHuman, y=DownstreamChimp, col=Dominance)) + geom_point(alpha=.3)+ geom_abline(aes(slope=1,intercept=0))+ylim(c(0,50000)) +xlim(c(0,50000)) + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;, alpha=.01)</code></pre>
 <pre><code>Warning: Removed 395 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 395 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 3 rows containing missing values (geom_smooth).</code></pre>
 <p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4d772b10fcd8b21b9052294664bb51a68d3afa41/docs/figure/orthoexonAnno.Rmd/unnamed-chunk-36-1.png" target="_blank">4d772b1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at the top examples:</p>
 <pre class="r"><code>BothSpeciesDistance_dom_TopDiffUp=BothSpeciesDistance_dom %&gt;% mutate(Updiff=abs(UpstreamHuman-UpstreamChimp)) %&gt;% select(PAS, gene, Updiff) %&gt;% arrange(desc(Updiff))
 
@@ -1861,6 +2118,26 @@ head(BothSpeciesDistance_dom_TopDiffUp)</code></pre>
 4 human175470 ANKRD36  31986
 5 chimp298752  ACTR3C  31871
 6 human175469 ANKRD36  31766</code></pre>
+<div id="proportion-of-intron" class="section level3">
+<h3>Proportion of intron</h3>
+<p>I can look at where these are in the “intron”. Here I am calling the space between 2 orthologous exons in the same genes introns. I will remove PAS that have 0 distance on either side in either species first.</p>
+<pre class="r"><code>BothSpeciesDistance_dom_remove0= BothSpeciesDistance_dom %&gt;% filter(UpstreamHuman!=0,DownstreamHuman!=0,UpstreamChimp!=0, DownstreamChimp!=0 )
+
+nrow(BothSpeciesDistance_dom)-nrow(BothSpeciesDistance_dom_remove0)</code></pre>
+<pre><code>[1] 1123</code></pre>
+<pre class="r"><code>nrow(BothSpeciesDistance_dom_remove0)</code></pre>
+<pre><code>[1] 8229</code></pre>
+<p>Lose 1123. Looking at 8229.</p>
+<pre class="r"><code>BothSpeciesDistance_dom_remove0_dist= BothSpeciesDistance_dom_remove0 %&gt;% mutate(HumanLength=abs(UpstreamHuman)+ DownstreamHuman, HumanProp=abs(UpstreamHuman)/HumanLength, ChimpLength=abs(UpstreamChimp)+DownstreamChimp, ChimpProp=abs(UpstreamChimp)/ChimpLength)</code></pre>
+<pre class="r"><code>ggplot(BothSpeciesDistance_dom_remove0_dist,aes(x=HumanProp, y=ChimpProp,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;) + labs(x=&quot;Proportion of Human Intron&quot;,y= &quot;Proportion of Chimp Intron&quot;, title=&quot;Intronic PAS between ortho exons&quot;)</code></pre>
+<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>BothSpeciesDistance_dom_remove0_dist_filt=BothSpeciesDistance_dom_remove0_dist %&gt;% filter(Dominance !=&quot;Neither&quot;)
+
+
+ggplot(BothSpeciesDistance_dom_remove0_dist_filt,aes(x=HumanProp, y=ChimpProp,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;) + labs(x=&quot;Proportion of Human Intron&quot;, y=&quot;Proportion of Chimp Intron&quot;, title=&quot;Intronic PAS between ortho exons&quot;)</code></pre>
+<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /> What about just length:</p>
+<pre class="r"><code>ggplot(BothSpeciesDistance_dom_remove0_dist,aes(x=HumanLength, y=ChimpLength,col=Dominance)) + geom_point(alpha=.3)  + scale_color_brewer(palette = &quot;Dark2&quot;) + geom_smooth(method=&quot;lm&quot;) + labs(x=&quot;Human Distance between ortho exon&quot;, &quot;Chimp Distance between ortho exon&quot;, title=&quot;Intronic PAS between ortho exons&quot;)</code></pre>
+<p><img src="figure/orthoexonAnno.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1912,6 +2189,7 @@ loaded via a namespace (and not attached):
 [49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
 [52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
 [55] git2r_0.26.1       compiler_3.5.1    </code></pre>
+</div>
 </div>
 </div>
 
