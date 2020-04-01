@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-31
+<strong>Last updated:</strong> 2020-04-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8901b9b1ff75b6121d089ae70c72b45a8189fa76targetblank8901b9ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8901b9b1ff75b6121d089ae70c72b45a8189fa76" target="_blank">8901b9b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f78c105dc5ee527f17bef8bb928c59798372a90targetblank8f78c10a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8f78c105dc5ee527f17bef8bb928c59798372a90" target="_blank">8f78c10</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8901b9b1ff75b6121d089ae70c72b45a8189fa76targetblank8901b9ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f78c105dc5ee527f17bef8bb928c59798372a90targetblank8f78c10a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1275,6 +1275,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f78c105dc5ee527f17bef8bb928c59798372a90/analysis/multimapParameters.Rmd" target="_blank">8f78c10</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+<td>
+add facet plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9d7982197b0dde48101130d1035bab088fadf720/docs/multimapParameters.html" target="_blank">9d79821</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8901b9b1ff75b6121d089ae70c72b45a8189fa76/analysis/multimapParameters.Rmd" target="_blank">8901b9b</a>
 </td>
 <td>
@@ -1400,12 +1434,12 @@ add ortho exon and new mm
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>I want to look at the parameters for multimapping. I will look at the paremeters such as include a read when the first vs second map difference is 10%, 5% ect. I want to get to a cutoff where the PAS lost are not in the ortho exon.</p>
@@ -2007,6 +2041,10 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>allMismatch=allUniqmismatch %&gt;% bind_rows(allHumanmismatch)%&gt;% bind_rows(allChimpmismatch) %&gt;% group_by( species, set, Mis) %&gt;% summarise(MeanProp=mean(PropReads), SD=sd(PropReads))
+
+ggplot(allMismatch,aes(x=Mis, by=set,fill=set, y=MeanProp))+ geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Mismatch scores for Human 18523&quot;,x=&quot;&quot;,y=&quot;proportion of reads&quot;) + facet_grid(~species)+ geom_errorbar(aes(ymin=MeanProp-SD, ymax=MeanProp+SD), width=.2, position=position_dodge(.9))</code></pre>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>So even uniq reads have mismatches.<br />
 ##Alignment scores<br />
 “AS” SAM tag express the “Alignment score generated by aligner”, 14th column</p>
@@ -2076,11 +2114,49 @@ Chimp_pt91_ASuniq=read.table(&quot;../data/TestMM2_AS/chimp_combined_pt91_N_255_
   ungroup() %&gt;%
   mutate(PropReads=Reads/TotalReads)</code></pre>
 <pre class="r"><code>ggplot(ChimpAS, aes(x=AS,y=PropReads,by=set, fill=set)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + facet_grid(~line)+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title=&quot;Alignment scores&quot;)</code></pre>
-<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /> Filter 1 individual to see better:</p>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d7982197b0dde48101130d1035bab088fadf720/docs/figure/multimapParameters.Rmd/unnamed-chunk-27-1.png" target="_blank">9d79821</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Filter 1 individual to see better:</p>
 <pre class="r"><code>ChimpAS18358= ChimpAS %&gt;% filter(line==&quot;18358&quot;)
 
 ggplot(ChimpAS18358, aes(x=AS,y=PropReads,by=set, fill=set)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(tite=&quot;Alignment scores for Chimp 18358&quot;,x=&quot;&quot;,y=&quot;proportion of reads&quot;)</code></pre>
-<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Try human:</p>
 <pre class="r"><code>Human_18498_ASprimary=read.table(&quot;../data/TestMM2_AS/human_combined_18498_N_Primary.txt&quot;, stringsAsFactors = F, col.names = c(&quot;Reads&quot;, &quot;AS&quot;)) %&gt;% mutate(set=&quot;Primary&quot;, species=&quot;Human&quot;, line=&quot;18498&quot;)
 
@@ -2145,12 +2221,56 @@ Human_18523_ASuniq=read.table(&quot;../data/TestMM2_AS/human_combined_18523_N_25
    ungroup() %&gt;%
     mutate(PropReads=Reads/TotalReads)</code></pre>
 <pre class="r"><code>ggplot(Human_AS, aes(x=AS,y=PropReads,by=set, fill=set)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(tite=&quot;Alignment scores for Human Lines&quot;,x=&quot;&quot;,y=&quot;proportion of reads&quot;)+facet_grid(~line)</code></pre>
-<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9d7982197b0dde48101130d1035bab088fadf720/docs/figure/multimapParameters.Rmd/unnamed-chunk-31-1.png" target="_blank">9d79821</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>One line:</p>
 <pre class="r"><code>HumanAS18523= Human_AS %&gt;% filter(line==&quot;18523&quot;)
 
 ggplot(HumanAS18523, aes(x=AS,y=PropReads,by=set, fill=set)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(tite=&quot;Alignment scores for Human 18523&quot;,x=&quot;&quot;,y=&quot;proportion of reads&quot;)</code></pre>
-<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /> This does not differentiate good and bad reads either.</p>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /> This does not differentiate good and bad reads either.</p>
+<pre class="r"><code>Human_AS_g= Human_AS %&gt;% group_by( set, AS) %&gt;% summarise(MeanProp=mean(PropReads), SD=sd(PropReads)) %&gt;% mutate(species=&quot;human&quot;)
+Chimp_AS_g= ChimpAS %&gt;% group_by( set, AS) %&gt;% summarise(MeanProp=mean(PropReads), SD=sd(PropReads)) %&gt;% mutate(species=&quot;chimp&quot;)
+BothASG=Human_AS_g %&gt;% bind_rows(Chimp_AS_g)
+
+ggplot(BothASG,aes(x=AS, by=set,fill=set, y=MeanProp))+ geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Alignment scores for Human 18523&quot;,x=&quot;&quot;,y=&quot;proportion of reads&quot;) + facet_grid(~species)+ geom_errorbar(aes(ymin=MeanProp-SD, ymax=MeanProp+SD), width=.2, position=position_dodge(.9))</code></pre>
+<pre><code>Warning: Removed 5 rows containing missing values (geom_errorbar).</code></pre>
+<p><img src="figure/multimapParameters.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
