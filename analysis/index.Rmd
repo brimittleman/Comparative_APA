@@ -218,6 +218,8 @@ Evaluate results:
 
 * [Distribution with normalized usage](DominantPAS_usingNorm.html)
 
+* [Filter out ties and genes with 1 PAS](DominantNoTies.html)
+
 ###Test multimapping and FC criteria
 
 * [Look at new parameters for multimapping](multimapParameters.html)
