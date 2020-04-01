@@ -1,0 +1,153 @@
+---
+title: "Dominant PAS after Normalization"
+author: "Briana Mittleman"
+date: "4/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I am worried that the different dominance structure is effected by mena and variance differences. To get around this. I want to use the normalized values for each PAS from the leafcutter model. I will use the nuclear differences.  
+
+```{r}
+library(reshape2)
+library(tidyverse)
+```
+
+Load PAS
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
+```
+
+```{r}
+effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('chrom',  'logef' ,'HumanNorm', 'ChimpNorm','deltaPAU')) %>% filter(chrom != "intron") %>% inner_join(PAS, by="chrom")
+
+effectsize$HumanNorm=as.numeric(effectsize$HumanNorm)
+
+
+effectsize$ChimpNorm=as.numeric(effectsize$ChimpNorm)
+```
+
+Look at the correlation between raw usage and normalized  
+
+```{r}
+ggplot(effectsize,aes(x=HumanNorm, y=Human)) + geom_point(alpha=.5) + geom_abline(aes(slope=1, intercept=0),col="red")
+
+summary(lm(effectsize$HumanNorm~effectsize$Human))
+```
+
+```{r}
+ggplot(effectsize,aes(x=ChimpNorm, y=Chimp)) + geom_point(alpha=.5) + geom_abline(aes(slope=1, intercept=0),col="red")
+
+summary(lm(effectsize$ChimpNorm~effectsize$Chimp))
+```
+
+Looks like more change in the chimps.  
+
+
+##Pick dominant PAS  
+
+```{r}
+Chimp_Dom= effectsize %>%
+  group_by(gene) %>%
+  arrange(desc(ChimpNorm)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,ChimpNorm) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= effectsize %>%
+  group_by(gene) %>%
+  arrange(desc(HumanNorm)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,HumanNorm) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+```
+
+I am looking at 8544 genes in this set.  
+
+```{r}
+SameDom= BothDom %>% filter(ChimpPAS==HumanPAS)
+nrow(SameDom)
+```
+
+5848 have the same dominant PAS  
+
+```{r}
+SameDom_g= SameDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(SameDom_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat="count",position = "Dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species\normalized usage")+ scale_fill_brewer(palette = "Dark2")
+```
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom)
+```
+
+This gives more genes with different dominant PAS  
+
+```{r}
+DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS using normalized usage\n (n=2698)") + scale_fill_brewer(palette = "Dark2")
+```
+This flips the distribution. It over corrects.  
+
+
+###Dominant from original usage in filtered set  
+
+```{r}
+Chimp_Dom_Nonnorm= effectsize %>%
+  group_by(gene) %>%
+  arrange(desc(Chimp)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom_Nonnorm= effectsize %>%
+  group_by(gene) %>%
+  arrange(desc(Human)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+BothDom_Nonnorm= Chimp_Dom_Nonnorm %>% inner_join(Human_Dom_Nonnorm,by="gene")
+```
+
+```{r}
+SameDom_Nonnorm= BothDom_Nonnorm %>% filter(ChimpPAS==HumanPAS)
+nrow(SameDom_Nonnorm)
+```
+
+6477 have the same dominant PAS  
+
+```{r}
+SameDom_Nonnorm_g= SameDom_Nonnorm %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(SameDom_Nonnorm_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat="count",position = "Dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species\non normalized usage")+ scale_fill_brewer(palette = "Dark2")
+```
+
+
+```{r}
+DiffDom_Nonnorm=BothDom_Nonnorm %>% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom_Nonnorm)
+```
+
+2067 PAS 
+
+```{r}
+DiffDom_Nonnorm_g= DiffDom_Nonnorm %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+ggplot(DiffDom_Nonnorm_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS using non normalized usage (n=2067)") + scale_fill_brewer(palette = "Dark2")
+```

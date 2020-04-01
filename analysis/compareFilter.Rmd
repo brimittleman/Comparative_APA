@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+library(ggpubr)
 library(workflowr)
 library(tidyverse)
 ```
@@ -40,7 +41,7 @@ ggplot(prebygene, aes(x=n))+ geom_bar() + labs(x="Number of PAS per gene", title
 Post:  
 
 ```{r}
-post=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt",header = T, stringsAsFactors = F)%>% filter(loc != "008559")
+post=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
 
 nrow(post)
 
@@ -55,3 +56,55 @@ ggplot(post,aes(x=loc,fill=loc) ) + geom_bar(stat="count")+ scale_fill_brewer(pa
 ggplot(postbygene, aes(x=n))+ geom_bar() + labs(x="Number of PAS per gene", title="Number of PAS per gene after filter")
 ```
 
+Look at the usage distribution:  
+
+```{r}
+post_loc=post %>% select(PAS,loc,Chimp,Human) %>% gather("species", "MeanUsage",-PAS, -loc)
+
+ggplot(post_loc, aes(x=loc, y=MeanUsage, by=species, fill=species)) + geom_boxplot() + stat_compare_means(label = 'p.signif') + scale_fill_brewer(palette = "Dark2") + labs(y="Mean PAS Usage", x="", title="Difference in mean usage for PAS\n 5% Usage and Expression filter")
+```
+
+Cummulative distribution plot:  
+
+```{r}
+ggplot(post_loc, aes(x=MeanUsage,col=species)) + stat_ecdf() +labs(x="Mean Usage", y="CDF", title="Cumulative distribution for filtered PAS") + scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+wilcox.test(post$Human, post$Chimp, paired = F, alternative = "greater")
+```
+
+Is it a problem with counts:  
+
+Indivdual Usage:
+
+```{r}
+post_chrom=post%>% mutate(chrom=paste(chr,start,end,gene, sep=":")) %>% select(chrom,PAS)
+
+human=read.table("../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc", stringsAsFactors = F, header = T) %>% rownames_to_column(var="chrom") %>% inner_join(post_chrom, by="chrom")
+human_meanCount=human %>% gather("ind","count", -PAS,-chrom) %>% group_by(PAS) %>% summarise(MeanCountHuman=mean(count), VarCountHuman=var(count))
+
+chimp=read.table("../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc", stringsAsFactors = F, header = T)%>% rownames_to_column(var="chrom")%>%  inner_join(post_chrom, by="chrom")
+chimp_meanCount=chimp %>% gather("ind","count", -PAS,-chrom) %>% group_by(PAS) %>% summarise(MeanCountChimp=mean(count), VarCountChimp=var(count))
+
+BothMeanVar=human_meanCount %>% inner_join(chimp_meanCount, by="PAS")
+
+BothMean= BothMeanVar %>% select(-contains("Var")) %>% gather("Species", "Mean", -PAS)
+
+BothVar= BothMeanVar %>% select(-contains("Mean")) %>% gather("Species", "Var", -PAS)
+```
+
+
+```{r}
+
+ggplot(BothMean, aes(x=log10(Mean+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = "Dark2") + labs(title="log10(Mean Count) for filtered PAS",y="CDF")
+
+wilcox.test(BothMeanVar$MeanCountHuman, BothMeanVar$MeanCountChimp, paired = F, alternative = "greater")
+```
+
+```{r}
+
+ggplot(BothVar, aes(x=log10(Var+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = "Dark2") + labs(title="log10(Mean Variance) for filtered PAS",y="CDF")
+
+wilcox.test(BothMeanVar$VarCountHuman, BothMeanVar$VarCountChimp, paired = F, alternative = "greater")
+```

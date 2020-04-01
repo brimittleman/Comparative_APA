@@ -216,6 +216,7 @@ Evaluate results:
 
 * [Look at dominance sturcture without multimapping and SNOrnas](checkResnoMM.html)
 
+* [Distribution with normalized usage](DominantPAS_usingNorm.html)
 
 ###Test multimapping and FC criteria
 
