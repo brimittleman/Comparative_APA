@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-30
+<strong>Last updated:</strong> 2020-04-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree205249491f9d1af116829c18a7bb728c810402aftargetblank2052494a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/205249491f9d1af116829c18a7bb728c810402af" target="_blank">2052494</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7447f2ddc3110b73a8cc2409a58eb38d7869754ftargetblank7447f2da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7447f2ddc3110b73a8cc2409a58eb38d7869754f" target="_blank">7447f2d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree205249491f9d1af116829c18a7bb728c810402aftargetblank2052494a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7447f2ddc3110b73a8cc2409a58eb38d7869754ftargetblank7447f2da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -308,11 +308,13 @@ Untracked files:
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/pol2.Rmd
+    Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
     Untracked:  code/._BothFCnewOInclusive.sh
     Untracked:  code/._ChimpStarMM2.sh
     Untracked:  code/._ClassifyLeafviz.sh
+    Untracked:  code/._ClosestorthoEx.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
@@ -325,6 +327,8 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._Filter255MM.sh
+    Untracked:  code/._FilterPrimSec.sh
     Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
@@ -333,6 +337,7 @@ Untracked files:
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MismatchNumbers.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
     Untracked:  code/._PAS_seqExpanded.sh
@@ -480,6 +485,9 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/AlignmentScores.err
+    Untracked:  code/AlignmentScores.out
+    Untracked:  code/AlignmentScores.sh
     Untracked:  code/BothFCMM.err
     Untracked:  code/BothFCMM.out
     Untracked:  code/BothFCMM.sh
@@ -493,6 +501,9 @@ Untracked files:
     Untracked:  code/ChimpStarMM2.out
     Untracked:  code/ChimpStarMM2.sh
     Untracked:  code/ClassifyLeafviz.sh
+    Untracked:  code/ClosestorthoEx.err
+    Untracked:  code/ClosestorthoEx.out
+    Untracked:  code/ClosestorthoEx.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
@@ -517,6 +528,12 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/Filter255.err
+    Untracked:  code/Filter255.out
+    Untracked:  code/Filter255MM.sh
+    Untracked:  code/FilterPrimSec.err
+    Untracked:  code/FilterPrimSec.out
+    Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
     Untracked:  code/FindIntronForDomPAS.err
@@ -562,6 +579,9 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/MismatchNumbers.err
+    Untracked:  code/MismatchNumbers.out
+    Untracked:  code/MismatchNumbers.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -991,9 +1011,12 @@ Untracked files:
     Untracked:  data/SignalSites/
     Untracked:  data/SignalSites_doublefilter/
     Untracked:  data/SpliceSite/
+    Untracked:  data/TestAnnoBiasOE/
     Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_AS/
     Untracked:  data/TestMM2_PrimaryRead/
     Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_mismatch/
     Untracked:  data/TestMM2_quality/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
@@ -1046,7 +1069,6 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
-    Modified:   analysis/multimapParameters.Rmd
     Modified:   analysis/speciesSpecific.Rmd
     Modified:   analysis/upsetter_DF.Rmd
 
@@ -1087,6 +1109,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7447f2ddc3110b73a8cc2409a58eb38d7869754f/analysis/index.Rmd" target="_blank">7447f2d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+<td>
+add norm dom and add filter comp plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/1274a02b6e4dc91f6b42eb08ea4ffcee9fccc857/docs/index.html" target="_blank">1274a02</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4193,6 +4249,7 @@ All with double filter:</li>
 <li><p><a href="TrynewQuantMethods.html">Test quantification methods</a></p></li>
 <li><p><a href="removeSNOfromAnno.html">Remove SNORNAs from the annotations</a></p></li>
 <li><p><a href="checkResnoMM.html">Look at dominance sturcture without multimapping and SNOrnas</a></p></li>
+<li><p><a href="DominantPAS_usingNorm.html">Distribution with normalized usage</a></p></li>
 </ul>
 </div>
 <div id="test-multimapping-and-fc-criteria" class="section level3">

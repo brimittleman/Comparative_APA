@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Compare pre and post filtered PAS</title>
+<title>Dominant PAS after Normalization</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Compare pre and post filtered PAS</h1>
+<h1 class="title toc-ignore">Dominant PAS after Normalization</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>1/23/2020</em></h4>
+<h4 class="date"><em>4/1/2020</em></h4>
 
 </div>
 
@@ -1275,7 +1275,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/7447f2ddc3110b73a8cc2409a58eb38d7869754f/analysis/compareFilter.Rmd" target="_blank">7447f2d</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7447f2ddc3110b73a8cc2409a58eb38d7869754f/analysis/DominantPAS_usingNorm.Rmd" target="_blank">7447f2d</a>
 </td>
 <td>
 brimittleman
@@ -1287,40 +1287,6 @@ brimittleman
 add norm dom and add filter comp plots
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2d84fb1cc3b71c3f710c07e4b29bcf9dfb3c59b8/docs/compareFilter.html" target="_blank">2d84fb1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/908f02d60a4a84b5ace4dd57246881825135d217/analysis/compareFilter.Rmd" target="_blank">908f02d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-<td>
-add compare filter and write out for top SS
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1328,245 +1294,146 @@ add compare filter and write out for top SS
 </div>
 </div>
 </div>
-<pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>Loading required package: magrittr</code></pre>
-<pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.6.0
-Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
+<p>I am worried that the different dominance structure is effected by mena and variance differences. To get around this. I want to use the normalized values for each PAS from the leafcutter model. I will use the nuclear differences.</p>
+<pre class="r"><code>library(reshape2)
+library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()</code></pre>
-<p>Prefilter:</p>
-<pre class="r"><code>pre=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,header = T, stringsAsFactors = F) %&gt;% filter(loc != &quot;008559&quot;)
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>Load PAS</p>
+<pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% mutate(chrom=paste(chr,start,end,gene, sep=&quot;:&quot;))</code></pre>
+<pre class="r"><code>effectsize=read.table(&quot;../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;chrom&#39;,  &#39;logef&#39; ,&#39;HumanNorm&#39;, &#39;ChimpNorm&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(chrom != &quot;intron&quot;) %&gt;% inner_join(PAS, by=&quot;chrom&quot;)
 
-nrow(pre)</code></pre>
-<pre><code>[1] 73095</code></pre>
-<pre class="r"><code>prebygene=pre %&gt;% group_by(gene) %&gt;% summarise(n=n())
-nrow(prebygene)</code></pre>
-<pre><code>[1] 20042</code></pre>
-<pre class="r"><code>ggplot(pre,aes(x=loc,fill=loc) ) + geom_bar(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&quot;Number of PAS&quot;, title=&quot;Pre filter location of PAS&quot;,x=&quot;&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2d84fb1cc3b71c3f710c07e4b29bcf9dfb3c59b8/docs/figure/compareFilter.Rmd/unnamed-chunk-3-1.png" target="_blank">2d84fb1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>nrow(prebygene)</code></pre>
-<pre><code>[1] 20042</code></pre>
-<pre class="r"><code>ggplot(prebygene, aes(x=n))+ geom_bar() + labs(x=&quot;Number of PAS per gene&quot;, title=&quot;Number of PAS per gene before filter&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2d84fb1cc3b71c3f710c07e4b29bcf9dfb3c59b8/docs/figure/compareFilter.Rmd/unnamed-chunk-4-1.png" target="_blank">2d84fb1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Post:</p>
-<pre class="r"><code>post=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T, stringsAsFactors = F)
+effectsize$HumanNorm=as.numeric(effectsize$HumanNorm)
 
-nrow(post)</code></pre>
-<pre><code>[1] 42318</code></pre>
-<pre class="r"><code>postbygene=post %&gt;% group_by(gene) %&gt;% summarise(n=n())
-nrow(postbygene)</code></pre>
-<pre><code>[1] 9810</code></pre>
-<pre class="r"><code>ggplot(post,aes(x=loc,fill=loc) ) + geom_bar(stat=&quot;count&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Number of PAS&quot;, title=&quot;Post filter location of PAS&quot;, x=&quot;&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2d84fb1cc3b71c3f710c07e4b29bcf9dfb3c59b8/docs/figure/compareFilter.Rmd/unnamed-chunk-6-1.png" target="_blank">2d84fb1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(postbygene, aes(x=n))+ geom_bar() + labs(x=&quot;Number of PAS per gene&quot;, title=&quot;Number of PAS per gene after filter&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2d84fb1cc3b71c3f710c07e4b29bcf9dfb3c59b8/docs/figure/compareFilter.Rmd/unnamed-chunk-7-1.png" target="_blank">2d84fb1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Look at the usage distribution:</p>
-<pre class="r"><code>post_loc=post %&gt;% select(PAS,loc,Chimp,Human) %&gt;% gather(&quot;species&quot;, &quot;MeanUsage&quot;,-PAS, -loc)
 
-ggplot(post_loc, aes(x=loc, y=MeanUsage, by=species, fill=species)) + geom_boxplot() + stat_compare_means(label = &#39;p.signif&#39;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Mean PAS Usage&quot;, x=&quot;&quot;, title=&quot;Difference in mean usage for PAS\n 5% Usage and Expression filter&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Cummulative distribution plot:</p>
-<pre class="r"><code>ggplot(post_loc, aes(x=MeanUsage,col=species)) + stat_ecdf() +labs(x=&quot;Mean Usage&quot;, y=&quot;CDF&quot;, title=&quot;Cumulative distribution for filtered PAS&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>wilcox.test(post$Human, post$Chimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
+effectsize$ChimpNorm=as.numeric(effectsize$ChimpNorm)</code></pre>
+<p>Look at the correlation between raw usage and normalized</p>
+<pre class="r"><code>ggplot(effectsize,aes(x=HumanNorm, y=Human)) + geom_point(alpha=.5) + geom_abline(aes(slope=1, intercept=0),col=&quot;red&quot;)</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(lm(effectsize$HumanNorm~effectsize$Human))</code></pre>
 <pre><code>
-    Wilcoxon rank sum test with continuity correction
+Call:
+lm(formula = effectsize$HumanNorm ~ effectsize$Human)
 
-data:  post$Human and post$Chimp
-W = 911790000, p-value = 2.015e-06
-alternative hypothesis: true location shift is greater than 0</code></pre>
-<p>Is it a problem with counts:</p>
-<p>Indivdual Usage:</p>
-<pre class="r"><code>post_chrom=post%&gt;% mutate(chrom=paste(chr,start,end,gene, sep=&quot;:&quot;)) %&gt;% select(chrom,PAS)
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.94439 -0.06041 -0.01453  0.04418  0.93021 
 
-human=read.table(&quot;../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc&quot;, stringsAsFactors = F, header = T) %&gt;% rownames_to_column(var=&quot;chrom&quot;) %&gt;% inner_join(post_chrom, by=&quot;chrom&quot;)
-human_meanCount=human %&gt;% gather(&quot;ind&quot;,&quot;count&quot;, -PAS,-chrom) %&gt;% group_by(PAS) %&gt;% summarise(MeanCountHuman=mean(count), VarCountHuman=var(count))
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      0.055551   0.000751   73.97   &lt;2e-16 ***
+effectsize$Human 0.974386   0.003173  307.08   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-chimp=read.table(&quot;../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc&quot;, stringsAsFactors = F, header = T)%&gt;% rownames_to_column(var=&quot;chrom&quot;)%&gt;%  inner_join(post_chrom, by=&quot;chrom&quot;)
-chimp_meanCount=chimp %&gt;% gather(&quot;ind&quot;,&quot;count&quot;, -PAS,-chrom) %&gt;% group_by(PAS) %&gt;% summarise(MeanCountChimp=mean(count), VarCountChimp=var(count))
-
-BothMeanVar=human_meanCount %&gt;% inner_join(chimp_meanCount, by=&quot;PAS&quot;)
-
-BothMean= BothMeanVar %&gt;% select(-contains(&quot;Var&quot;)) %&gt;% gather(&quot;Species&quot;, &quot;Mean&quot;, -PAS)
-
-BothVar= BothMeanVar %&gt;% select(-contains(&quot;Mean&quot;)) %&gt;% gather(&quot;Species&quot;, &quot;Var&quot;, -PAS)</code></pre>
-<pre class="r"><code>ggplot(BothMean, aes(x=log10(Mean+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;log10(Mean Count) for filtered PAS&quot;,y=&quot;CDF&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>wilcox.test(BothMeanVar$MeanCountHuman, BothMeanVar$MeanCountChimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
+Residual standard error: 0.1129 on 40774 degrees of freedom
+Multiple R-squared:  0.6981,    Adjusted R-squared:  0.6981 
+F-statistic: 9.43e+04 on 1 and 40774 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>ggplot(effectsize,aes(x=ChimpNorm, y=Chimp)) + geom_point(alpha=.5) + geom_abline(aes(slope=1, intercept=0),col=&quot;red&quot;)</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(lm(effectsize$ChimpNorm~effectsize$Chimp))</code></pre>
 <pre><code>
-    Wilcoxon rank sum test with continuity correction
+Call:
+lm(formula = effectsize$ChimpNorm ~ effectsize$Chimp)
 
-data:  BothMeanVar$MeanCountHuman and BothMeanVar$MeanCountChimp
-W = 912300000, p-value = 9.989e-07
-alternative hypothesis: true location shift is greater than 0</code></pre>
-<pre class="r"><code>ggplot(BothVar, aes(x=log10(Var+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;log10(Mean Variance) for filtered PAS&quot;,y=&quot;CDF&quot;)</code></pre>
-<p><img src="figure/compareFilter.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>wilcox.test(BothMeanVar$VarCountHuman, BothMeanVar$VarCountChimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
-<pre><code>
-    Wilcoxon rank sum test with continuity correction
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.83040 -0.07120 -0.01598  0.05501  0.91349 
 
-data:  BothMeanVar$VarCountHuman and BothMeanVar$VarCountChimp
-W = 950190000, p-value &lt; 2.2e-16
-alternative hypothesis: true location shift is greater than 0</code></pre>
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      0.0791791  0.0007917     100   &lt;2e-16 ***
+effectsize$Chimp 0.7999860  0.0031747     252   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.121 on 40774 degrees of freedom
+Multiple R-squared:  0.609, Adjusted R-squared:  0.609 
+F-statistic: 6.35e+04 on 1 and 40774 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Looks like more change in the chimps.</p>
+<div id="pick-dominant-pas" class="section level2">
+<h2>Pick dominant PAS</h2>
+<pre class="r"><code>Chimp_Dom= effectsize %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(ChimpNorm)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,ChimpNorm) %&gt;% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= effectsize %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(HumanNorm)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,HumanNorm) %&gt;% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)</code></pre>
+<p>I am looking at 8544 genes in this set.</p>
+<pre class="r"><code>SameDom= BothDom %&gt;% filter(ChimpPAS==HumanPAS)
+nrow(SameDom)</code></pre>
+<pre><code>[1] 5846</code></pre>
+<p>5848 have the same dominant PAS</p>
+<pre class="r"><code>SameDom_g= SameDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+ggplot(SameDom_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;Dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species\normalized usage&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom)</code></pre>
+<pre><code>[1] 2698</code></pre>
+<p>This gives more genes with different dominant PAS</p>
+<pre class="r"><code>DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+
+
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS using normalized usage\n (n=2698)&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /> This flips the distribution. It over corrects.</p>
+<div id="dominant-from-original-usage-in-filtered-set" class="section level3">
+<h3>Dominant from original usage in filtered set</h3>
+<pre class="r"><code>Chimp_Dom_Nonnorm= effectsize %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(Chimp)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,Chimp) %&gt;% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom_Nonnorm= effectsize %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(Human)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,Human) %&gt;% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+BothDom_Nonnorm= Chimp_Dom_Nonnorm %&gt;% inner_join(Human_Dom_Nonnorm,by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>SameDom_Nonnorm= BothDom_Nonnorm %&gt;% filter(ChimpPAS==HumanPAS)
+nrow(SameDom_Nonnorm)</code></pre>
+<pre><code>[1] 6477</code></pre>
+<p>6477 have the same dominant PAS</p>
+<pre class="r"><code>SameDom_Nonnorm_g= SameDom_Nonnorm %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+ggplot(SameDom_Nonnorm_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;Dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species\non normalized usage&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DiffDom_Nonnorm=BothDom_Nonnorm %&gt;% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom_Nonnorm)</code></pre>
+<pre><code>[1] 2067</code></pre>
+<p>2067 PAS</p>
+<pre class="r"><code>DiffDom_Nonnorm_g= DiffDom_Nonnorm %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+
+
+ggplot(DiffDom_Nonnorm_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS using non normalized usage (n=2067)&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/DominantPAS_usingNorm.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1595,8 +1462,8 @@ attached base packages:
 
 other attached packages:
  [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] workflowr_1.6.0 ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1  
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+ [9] tidyverse_1.2.1 reshape2_1.4.3 
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
@@ -1605,18 +1472,20 @@ loaded via a namespace (and not attached):
 [10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
 [13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
 [16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        lazyeval_0.2.1    
-[40] crayon_1.3.4       whisker_0.3-2      pkgconfig_2.0.2   
-[43] xml2_1.2.0         lubridate_1.7.4    assertthat_0.2.0  
-[46] rmarkdown_1.10     httr_1.3.1         rstudioapi_0.10   
-[49] R6_2.3.0           nlme_3.1-137       git2r_0.26.1      
-[52] compiler_3.5.1    </code></pre>
+[19] workflowr_1.6.0    cellranger_1.1.0   rvest_0.3.2       
+[22] evaluate_0.12      labeling_0.3       knitr_1.20        
+[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
+[28] promises_1.0.1     backports_1.1.2    scales_1.0.0      
+[31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[37] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
+</div>
+</div>
 </div>
 
 
