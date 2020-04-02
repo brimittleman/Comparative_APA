@@ -60,3 +60,5 @@ I will use this file to list everything that I did to try to fix the different l
   * intronic PAS upstream distance of ortho exon 
   * intronic PAS downstream distance of ortho exon 
   * intronic PAS proportion of distance between ortho exons  
+  
+10. Remove PAS that overlap

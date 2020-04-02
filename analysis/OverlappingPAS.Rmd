@@ -60,3 +60,71 @@ nrow(Overlap2SpreadChimp)
 nrow(Overlap2Spread)- nrow(Overlap2SpreadHuman)-nrow(Overlap2SpreadChimp)
 ```
 
+
+Remove any of the overlapping PAS before calling dominance:  
+
+I need to get all of these. I am going to use a python script for this.  
+```{r}
+write.table(overlapmore,"../data/OverlappingPAS/FileMoreThan1Overlapping.txt", quote = F, col.names = F, row.names = F)
+
+
+```
+
+```{bash,eval=F}
+ python getAlloverlap.py 
+```
+
+
+```{r}
+Overlaps=read.table("../data/OverlappingPAS/ListOverlappingPAS.txt", col.names = c("PAS"),stringsAsFactors = F) %>% group_by(PAS) %>% summarise(numover=n())
+```
+
+Remove these: 
+
+```{r}
+PAS_noOverlap=PAS %>% anti_join(Overlaps, by="PAS")
+```
+
+
+```{r}
+Chimp_Dom= PAS_noOverlap %>%
+  group_by(gene) %>%
+  arrange(desc(Chimp)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Chimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+
+Human_Dom= PAS_noOverlap %>%
+  group_by(gene) %>%
+  arrange(desc(Human)) %>% 
+  slice(1) %>% 
+  group_by(gene) %>% 
+  mutate(npas=n()) %>% 
+  dplyr::select(gene,loc,PAS,Human) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+BothDom=Human_Dom %>% inner_join(Chimp_Dom, by="gene")
+```
+```{r}
+SameDom= BothDom %>%  filter(ChimpPAS==HumanPAS)
+nrow(SameDom)
+SameDom_g= SameDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(SameDom_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat="count",position = "Dodge") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species \nremove overlapping (n=7,688)") + scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom)
+```
+
+```{r}
+DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+
+
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS \n remove any overlap (n= 1883)") + scale_fill_brewer(palette = "Dark2")
+```
+
