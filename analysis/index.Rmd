@@ -220,6 +220,8 @@ Evaluate results:
 
 * [Filter out ties and genes with 1 PAS](DominantNoTies.html)
 
+* [Quantile Normalzie](PPASqauntnorm.html)
+
 ###Test multimapping and FC criteria
 
 * [Look at new parameters for multimapping](multimapParameters.html)
