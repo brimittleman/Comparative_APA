@@ -1,0 +1,62 @@
+---
+title: "List Everything we tried to fix dominance problem"
+author: "Briana Mittleman"
+date: "4/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will use this file to list everything that I did to try to fix the different location for dominance problem.  
+
+1. Various cutoffs for level of dominance:  
+ 
+  * 10%   
+  * 20%  
+  * 30%  
+  * 40%  
+  * 50%  
+  * Checked that dominance is not driven by counts at 30%    
+  
+2. Remove all reads with N's  
+
+3. Change misprime filter:
+
+  * 60% T's in 10 bases upstream  
+  * 50% T's in 10 bases upstream (flips distribution)
+  * 40% T's in 10 basesupstream (flips distribution) 
+  
+4. Multimapping variation:  
+
+  * Inclue primary reads
+  * Remove PAS most effected by multimapping (top 2%)
+  * Remove genes with PAS most effected  
+  
+5. Ways to call dominance:  
+
+  * Different dominant PAS in different locations 
+  * Remove genes with ties in dominant PAS 
+  * Remove genes with 1 PAS  
+  
+6. Normalization Methods: 
+
+  * Quantile normalize 
+  * Leafcutter normalization (flips distribution)
+  
+7. Orthologous exons:
+
+  * Remove genes without at least 1 orthologous exon  
+  
+8. Test to seperate read quality: 
+  * MAPQ scores
+  * Mismatch 
+  * Star alignment scores 
+  
+9. Tests for annotation bias:  
+
+  * intronic location with human annotation
+  * intronic PAS upstream distance of ortho exon 
+  * intronic PAS downstream distance of ortho exon 
+  * intronic PAS proportion of distance between ortho exons  

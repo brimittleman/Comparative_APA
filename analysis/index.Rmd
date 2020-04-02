@@ -169,7 +169,9 @@ From here on, I did everything double filtered:
 
 ##Evaluate Reasons for inconsistant dominance structure 
 
-* [Add usage cutoffs for the dominant PAS](DomPASDiffUsed.html)  
+List of everything we tried for this section:  
+
+* [List of Test dominance structure](listFixes.html)
 
 ###Number of Ns  
 
@@ -208,6 +210,8 @@ Evaluate results:
 
 ###Other ideas:  
 
+* [Add usage cutoffs for the dominant PAS](DomPASDiffUsed.html)  
+
 * [Overlapping PAS](OverlappingPAS.html)
 
 * [Test quantification methods](TrynewQuantMethods.html)  
@@ -221,6 +225,7 @@ Evaluate results:
 * [Filter out ties and genes with 1 PAS](DominantNoTies.html)
 
 * [Quantile Normalzie](PPASqauntnorm.html)
+
 
 ###Test multimapping and FC criteria
 
