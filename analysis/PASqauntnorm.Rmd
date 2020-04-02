@@ -13,6 +13,7 @@ Try quantile normalization on the PAS between species. See how this affects the 
 
 
 ```{r}
+library(ggpubr)
 library(tidyverse)
 library(gplots)
 library("scales")
@@ -117,5 +118,42 @@ nrow(DiffDom)
 ```{r}
 DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
 ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS \n Quantile Normalized (n=2753)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+
+Plot PAS mean usage by location: 
+
+
+```{r}
+
+```
+
+look at mean usage for all PAS by location: 
+
+```{r}
+NormCountsHumanAll= as.data.frame(Counts.voom$E) %>%
+  select("X18498_N", "X18499_N", "X18502_N" ,"X18504_N", "X18510_N" ,"X18523_N" ) %>% 
+  mutate(PAS=rownames(BothPAScountsM)) %>% 
+  gather("Ind","NormCount", -PAS) %>% 
+  group_by(PAS) %>% 
+  summarise(Human=mean(NormCount))
+
+NormCountsChimpAll= as.data.frame(Counts.voom$E) %>%
+  select("X18358_N", "X3622_N" , "X3659_N", "X4973_N",  "pt30_N",   "pt91_N" ) %>% 
+  mutate(PAS=rownames(BothPAScountsM)) %>% 
+  gather("Ind","NormCount", -PAS) %>% 
+  group_by(PAS) %>% 
+  summarise(Chimp=mean(NormCount))
+
+
+AllPASNorm=NormCountsChimpAll %>% inner_join(NormCountsHumanAll, by="PAS") %>% inner_join(PASGene,by="PAS")
+```
+
+
+```{r}
+
+AllPASNorm_g= AllPASNorm %>% gather("Species", "NormPASMean",-PAS,-gene,-loc)
+
+ggplot(AllPASNorm_g,aes(x=loc, by=Species, y=NormPASMean,fill=Species)) +geom_boxplot()+scale_fill_brewer(palette = "Dark2") +stat_compare_means(label = "p.signif")+ labs(title="Quantile Normalized mean usage for all PAS")
 ```
 
