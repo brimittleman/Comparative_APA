@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-18
+<strong>Last updated:</strong> 2020-04-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree536958cb0ce8b0d05d99eee60c601330c578092btargetblank536958ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/536958cb0ce8b0d05d99eee60c601330c578092b" target="_blank">536958c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree725ee5466c507c9da3a22ef050ee4740688d8babtargetblank725ee54a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/725ee5466c507c9da3a22ef050ee4740688d8bab" target="_blank">725ee54</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree536958cb0ce8b0d05d99eee60c601330c578092btargetblank536958ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree725ee5466c507c9da3a22ef050ee4740688d8babtargetblank725ee54a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -464,13 +464,19 @@ Untracked files:
     Untracked:  analysis/DiffUsedUTR.Rmd
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
+    Untracked:  analysis/MergePASwithin.Rmd
     Untracked:  analysis/PhenotypeOverlap10.Rmd
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/orthoexonAnno.Rmd
     Untracked:  analysis/pol2.Rmd
+    Untracked:  code/._AlignmentScores.sh
+    Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCMMPrim.sh
+    Untracked:  code/._BothFCnewOInclusive.sh
+    Untracked:  code/._ChimpStarMM2.sh
     Untracked:  code/._ClassifyLeafviz.sh
+    Untracked:  code/._ClosestorthoEx.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
@@ -483,6 +489,8 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._Filter255MM.sh
+    Untracked:  code/._FilterPrimSec.sh
     Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
@@ -491,6 +499,7 @@ Untracked files:
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MismatchNumbers.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
     Untracked:  code/._PAS_seqExpanded.sh
@@ -511,9 +520,12 @@ Untracked files:
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
     Untracked:  code/._SortIndexBadSamples.sh
+    Untracked:  code/._StarMM2.sh
+    Untracked:  code/._TestFC.sh
     Untracked:  code/._assignPeak2Intronicregion
     Untracked:  code/._assignPeak2Intronicregion.sh
     Untracked:  code/._bed215upbed.py
+    Untracked:  code/._bed2Bedbothstrand.py
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
@@ -521,6 +533,9 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chimpMultiCov.sh
+    Untracked:  code/._chimpMultiCov255.sh
+    Untracked:  code/._chimpMultiCovInclusive.sh
     Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
@@ -534,13 +549,18 @@ Untracked files:
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._extractPhyloReg.py
     Untracked:  code/._extractPhyloRegGene.py
+    Untracked:  code/._extractPhylopGeneral.ph
+    Untracked:  code/._extractPhylopGeneral.py
     Untracked:  code/._extractPhylopReg200down.py
     Untracked:  code/._extractPhylopReg200up.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._filterPrimaryread.py
+    Untracked:  code/._filterSecondaryread.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixFCheadforExp.py
     Untracked:  code/._fixLeafCluster.py
     Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
@@ -549,6 +569,9 @@ Untracked files:
     Untracked:  code/._getRNAseqMapStats.sh
     Untracked:  code/._hg19MapStats.sh
     Untracked:  code/._humanChromorder.sh
+    Untracked:  code/._humanMultiCov.sh
+    Untracked:  code/._humanMultiCov255.sh
+    Untracked:  code/._humanMultiCov_inclusive.sh
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
@@ -568,6 +591,8 @@ Untracked files:
     Untracked:  code/._negativeMediation_montecarlo.R
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
+    Untracked:  code/._overlapMMandOrthoexon.sh
+    Untracked:  code/._overlapPASandOrthoexon.sh
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
@@ -579,6 +604,7 @@ Untracked files:
     Untracked:  code/._quantJunc.sh
     Untracked:  code/._quantJunc_TEST.sh
     Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantLiftedPASPrimary.sh
     Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
@@ -621,7 +647,25 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/AlignmentScores.err
+    Untracked:  code/AlignmentScores.out
+    Untracked:  code/AlignmentScores.sh
+    Untracked:  code/BothFCMM.err
+    Untracked:  code/BothFCMM.out
+    Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCMMPrim.err
+    Untracked:  code/BothFCMMPrim.out
+    Untracked:  code/BothFCMMPrim.sh
+    Untracked:  code/BothFCnewOInclusive.sh
+    Untracked:  code/BothFCnewOInclusive.sh.err
+    Untracked:  code/BothFCnewOInclusive.sh.out
+    Untracked:  code/ChimpStarMM2.err
+    Untracked:  code/ChimpStarMM2.out
+    Untracked:  code/ChimpStarMM2.sh
     Untracked:  code/ClassifyLeafviz.sh
+    Untracked:  code/ClosestorthoEx.err
+    Untracked:  code/ClosestorthoEx.out
+    Untracked:  code/ClosestorthoEx.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
@@ -646,6 +690,12 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/Filter255.err
+    Untracked:  code/Filter255.out
+    Untracked:  code/Filter255MM.sh
+    Untracked:  code/FilterPrimSec.err
+    Untracked:  code/FilterPrimSec.out
+    Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
     Untracked:  code/FindIntronForDomPAS.err
@@ -658,6 +708,10 @@ Untracked files:
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/IntersectMMandOrtho.err
+    Untracked:  code/IntersectMMandOrtho.out
+    Untracked:  code/IntersectPASandOrtho.err
+    Untracked:  code/IntersectPASandOrtho.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
@@ -687,6 +741,9 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/MismatchNumbers.err
+    Untracked:  code/MismatchNumbers.out
+    Untracked:  code/MismatchNumbers.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -737,6 +794,12 @@ Untracked files:
     Untracked:  code/SortIndexBadSamples.err
     Untracked:  code/SortIndexBadSamples.out
     Untracked:  code/SortIndexBadSamples.sh
+    Untracked:  code/StarMM2.err
+    Untracked:  code/StarMM2.out
+    Untracked:  code/StarMM2.sh
+    Untracked:  code/TestFC.err
+    Untracked:  code/TestFC.out
+    Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
@@ -753,6 +816,7 @@ Untracked files:
     Untracked:  code/bam2junc_remove.err
     Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
+    Untracked:  code/bed2Bedbothstrand.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
     Untracked:  code/bg_to_cov.py
@@ -767,6 +831,13 @@ Untracked files:
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
     Untracked:  code/chimpChromprder.sh
+    Untracked:  code/chimpMultiCov.err
+    Untracked:  code/chimpMultiCov.out
+    Untracked:  code/chimpMultiCov.sh
+    Untracked:  code/chimpMultiCov255.sh
+    Untracked:  code/chimpMultiCovInclusive.err
+    Untracked:  code/chimpMultiCovInclusive.out
+    Untracked:  code/chimpMultiCovInclusive.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
     Untracked:  code/chooseSignalSite.py
@@ -791,6 +862,7 @@ Untracked files:
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
+    Untracked:  code/extractPhylopGeneral.py
     Untracked:  code/extractPhylopReg200down.py
     Untracked:  code/extractPhylopReg200up.py
     Untracked:  code/filter5perc.R
@@ -803,12 +875,15 @@ Untracked files:
     Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
+    Untracked:  code/filterPrimaryread.py
     Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSecondaryread.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixFCheadforExp.py
     Untracked:  code/fixLeafCluster.py
     Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
@@ -817,12 +892,22 @@ Untracked files:
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getAlloverlap.py
     Untracked:  code/getRNAseqMapStats.sh
     Untracked:  code/hg19MapStats.err
     Untracked:  code/hg19MapStats.out
     Untracked:  code/hg19MapStats.sh
     Untracked:  code/humanChromorder.sh
     Untracked:  code/humanFiles
+    Untracked:  code/humanMultiCov.err
+    Untracked:  code/humanMultiCov.out
+    Untracked:  code/humanMultiCov.sh
+    Untracked:  code/humanMultiCov255.err
+    Untracked:  code/humanMultiCov255.out
+    Untracked:  code/humanMultiCov255.sh
+    Untracked:  code/humanMultiCovInclusive.err
+    Untracked:  code/humanMultiCovInclusive.out
+    Untracked:  code/humanMultiCov_inclusive.sh
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -874,8 +959,10 @@ Untracked files:
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
+    Untracked:  code/overlapMMandOrthoexon.sh
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapPASandOrthoexon.sh
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
@@ -900,6 +987,9 @@ Untracked files:
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quantLiftedPASPrimary.err
+    Untracked:  code/quantLiftedPASPrimary.out
+    Untracked:  code/quantLiftedPASPrimary.sh
     Untracked:  code/quatJunc.err
     Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
@@ -1036,6 +1126,7 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/BaseComp/
+    Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
@@ -1065,6 +1156,7 @@ Untracked files:
     Untracked:  data/OverlapBenchmark/
     Untracked:  data/OverlappingPAS/
     Untracked:  data/PAS/
+    Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
@@ -1082,6 +1174,14 @@ Untracked files:
     Untracked:  data/SignalSites/
     Untracked:  data/SignalSites_doublefilter/
     Untracked:  data/SpliceSite/
+    Untracked:  data/TestAnnoBiasOE/
+    Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_AS/
+    Untracked:  data/TestMM2_PrimaryRead/
+    Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_mismatch/
+    Untracked:  data/TestMM2_quality/
+    Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
@@ -1104,8 +1204,10 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/multimap/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  data/testQuant/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
@@ -1118,6 +1220,7 @@ Unstaged changes:
     Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
+    Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
@@ -1125,13 +1228,11 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPA_Conservation.Rmd
     Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/speciesSpecific_DF.Rmd
     Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
@@ -1176,6 +1277,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/725ee5466c507c9da3a22ef050ee4740688d8bab/analysis/OverlappingPAS.Rmd" target="_blank">725ee54</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-02
+</td>
+<td>
+add test for overlap
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/050da80aac2ecbabd17af86f27b46355390c6291/docs/OverlappingPAS.html" target="_blank">050da80</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/536958cb0ce8b0d05d99eee60c601330c578092b/analysis/OverlappingPAS.Rmd" target="_blank">536958c</a>
 </td>
 <td>
@@ -1197,12 +1332,12 @@ add res for overlapping PAS
 </div>
 <p>It looks like there are overlapping PAS discovered in human and chimp that do not get merged. Let me look at how many.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T,stringsAsFactors = F)</code></pre>
@@ -1214,12 +1349,160 @@ overlapmore=overlapres %&gt;% filter(numb&gt;1)
 overlap2=overlapres %&gt;% filter(numb==2)</code></pre>
 <pre class="r"><code>ggplot(overlapres, aes(x=numb)) + geom_bar(stat=&quot;count&quot;)</code></pre>
 <p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/050da80aac2ecbabd17af86f27b46355390c6291/docs/figure/OverlappingPAS.Rmd/unnamed-chunk-5-1.png" target="_blank">050da80</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(overlapmore, aes(x=numb)) + geom_bar(stat=&quot;count&quot;) + labs(title=&quot;Number of overlapping sets of PAS \n (n=3957)&quot;, x=&quot;Number of PAS in set&quot;)</code></pre>
 <p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
+Past versions of unnamed-chunk-5-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/050da80aac2ecbabd17af86f27b46355390c6291/docs/figure/OverlappingPAS.Rmd/unnamed-chunk-5-2.png" target="_blank">050da80</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(sort(overlapres$length))</code></pre>
 <p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/050da80aac2ecbabd17af86f27b46355390c6291/docs/figure/OverlappingPAS.Rmd/unnamed-chunk-6-1.png" target="_blank">050da80</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(sort(overlap2$length))</code></pre>
 <p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-2">
+Past versions of unnamed-chunk-6-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/050da80aac2ecbabd17af86f27b46355390c6291/docs/figure/OverlappingPAS.Rmd/unnamed-chunk-6-2.png" target="_blank">050da80</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Overlap2Spread=overlap2 %&gt;% separate(name, into=c(&quot;pas1&quot;, &quot;pas2&quot;),sep=&quot;,&quot;)
 
 Overlap2SpreadHuman= Overlap2Spread %&gt;% filter(grepl(&quot;human&quot;,pas1),grepl(&quot;human&quot;,pas2))
@@ -1230,6 +1513,49 @@ nrow(Overlap2SpreadChimp)</code></pre>
 <pre><code>[1] 47</code></pre>
 <pre class="r"><code>nrow(Overlap2Spread)- nrow(Overlap2SpreadHuman)-nrow(Overlap2SpreadChimp)</code></pre>
 <pre><code>[1] 1231</code></pre>
+<p>Remove any of the overlapping PAS before calling dominance:</p>
+<p>I need to get all of these. I am going to use a python script for this.</p>
+<pre class="r"><code>write.table(overlapmore,&quot;../data/OverlappingPAS/FileMoreThan1Overlapping.txt&quot;, quote = F, col.names = F, row.names = F)</code></pre>
+<pre class="bash"><code> python getAlloverlap.py </code></pre>
+<pre class="r"><code>Overlaps=read.table(&quot;../data/OverlappingPAS/ListOverlappingPAS.txt&quot;, col.names = c(&quot;PAS&quot;),stringsAsFactors = F) %&gt;% group_by(PAS) %&gt;% summarise(numover=n())</code></pre>
+<p>Remove these:</p>
+<pre class="r"><code>PAS_noOverlap=PAS %&gt;% anti_join(Overlaps, by=&quot;PAS&quot;)</code></pre>
+<pre class="r"><code>Chimp_Dom= PAS_noOverlap %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(Chimp)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,Chimp) %&gt;% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+
+Human_Dom= PAS_noOverlap %&gt;%
+  group_by(gene) %&gt;%
+  arrange(desc(Human)) %&gt;% 
+  slice(1) %&gt;% 
+  group_by(gene) %&gt;% 
+  mutate(npas=n()) %&gt;% 
+  dplyr::select(gene,loc,PAS,Human) %&gt;% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+BothDom=Human_Dom %&gt;% inner_join(Chimp_Dom, by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>SameDom= BothDom %&gt;%  filter(ChimpPAS==HumanPAS)
+nrow(SameDom)</code></pre>
+<pre><code>[1] 7688</code></pre>
+<pre class="r"><code>SameDom_g= SameDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+ggplot(SameDom_g, aes(x=Location, by=Species, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;Dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species \nremove overlapping (n=7,688)&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS)
+nrow(DiffDom)</code></pre>
+<pre><code>[1] 1883</code></pre>
+<pre class="r"><code>DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+
+
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS \n remove any overlap (n= 1883)&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/OverlappingPAS.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1262,20 +1588,24 @@ other attached packages:
 [9] tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
- [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     workflowr_1.6.0 
- [9] tools_3.5.1      digest_0.6.18    lubridate_1.7.4  jsonlite_1.6    
-[13] evaluate_0.12    nlme_3.1-137     gtable_0.2.0     lattice_0.20-38 
-[17] pkgconfig_2.0.2  rlang_0.4.0      cli_1.1.0        rstudioapi_0.10 
-[21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
-[25] httr_1.3.1       knitr_1.20       hms_0.4.2        generics_0.0.2  
-[29] fs_1.3.1         rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5
-[33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
-[37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    backports_1.1.2 
-[41] scales_1.0.0     promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
-[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     labeling_0.3    
-[49] stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1     
-[53] crayon_1.3.4    </code></pre>
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
+[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
+[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
+[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[19] workflowr_1.6.0    cellranger_1.1.0   rvest_0.3.2       
+[22] evaluate_0.12      labeling_0.3       knitr_1.20        
+[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
+[28] promises_1.0.1     scales_1.0.0       backports_1.1.2   
+[31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[37] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
