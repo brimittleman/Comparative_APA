@@ -246,6 +246,8 @@ Evaluate results:
 
 ##Extra QC and Analysis   
 
+* [Test for overlaps within species](MergePASwithin.html)
+
 ### Sample switch analysis  
 
 * [Investigate bad RNA seq samples](InvestigateBadSamples.html)  
@@ -301,4 +303,6 @@ From the original nuclear dominant
 * [Enrichment for differencial APA and eQTL](DapaineQTL.html)  
 
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
+
+
 

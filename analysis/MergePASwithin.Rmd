@@ -1,0 +1,70 @@
+---
+title: "Test Methods to Merge Within Species"
+author: "Briana Mittleman"
+date: "4/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+
+```
+
+I noticed there are overlapping PAS within species. I deal with overlapping PAS between species by merging the PAS into one when 125 of the bases overlap. 
+
+For the within species I will look at a merge on the PAS that pass [liftover](liftoverPAS.html). 
+
+../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.sort.bed
+../data/cleanPeaks_lifted/Chimp_PASregions.bed
+../data/cleanPeaks_lifted/Human_PASregions.sort.bed
+
+I will test the human coordinates and the chimp coordinates for the chimp pas. 
+
+I will use bedtools merge 
+
+```{bash, eval=F}
+mkdir ../data/TestWithinMergePAS
+bedtools merge -s -c 4,4 -o distinct,count -i ../data/cleanPeaks_lifted/Chimp_PASregions_humanCoord.sort.bed > ../data/TestWithinMergePAS/Chimp_PASregions_humanCoord.merge.bed
+
+sort -k1,1 -k2,2n  ../data/cleanPeaks_lifted/Chimp_PASregions.bed >  ../data/cleanPeaks_lifted/Chimp_PASregions.sort.bed
+
+bedtools merge -s -c 4,4 -o distinct,count  -i ../data/cleanPeaks_lifted/Chimp_PASregions.sort.bed > ../data/TestWithinMergePAS/Chimp_PASregions_chimpCoord.merge.bed
+
+bedtools merge -s -c 4,4 -o distinct,count  -i ../data/cleanPeaks_lifted/Human_PASregions.sort.bed > ../data/TestWithinMergePAS/Human_PASregions.merge.bed
+
+
+```
+
+Compare 2 chimp conditions:  
+
+```{r}
+ChimpHumanCoord=read.table("../data/TestWithinMergePAS/Chimp_PASregions_humanCoord.merge.bed",col.names = c("chr",'start','end','PAS', 'nPAS'),stringsAsFactors = F)
+
+
+ChimpPAS=read.table("../data/TestWithinMergePAS/Chimp_PASregions_chimpCoord.merge.bed",col.names = c("chr",'start','end','PAS', 'nPAS'),stringsAsFactors = F)
+```
+
+
+```{r}
+ChimpHumanCoord %>% group_by(nPAS) %>% summarise(n())
+ggplot(ChimpHumanCoord,aes(x=nPAS)) + geom_bar(stat="count")
+```
+```{r}
+ChimpPAS %>% group_by(nPAS) %>% summarise(n())
+ggplot(ChimpPAS,aes(x=nPAS)) + geom_bar(stat="count")
+```
+Numbers are the same. Hopfully they are the same overlaps.  
+
+```{r}
+length(intersect(ChimpHumanCoord$PAS,ChimpPAS$PAS))
+```
+Ok these are the same. I can do it all in human coordinate.  
+
+
+
