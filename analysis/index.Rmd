@@ -15,6 +15,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Prepare annotation files for mapping ](annotationInfo.html)  
 
+* [Remove SNORNAs from the annotations](removeSNOfromAnno.html)
+
 * [Mapping statistics and plots](mapStats.html)
 
 * [Liftover PAS](liftoverPAS.html)
@@ -46,47 +48,27 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 ##Catalog PAS:
 
-* [Number of PAS in each species](PASnumperSpecies.html)   
+* [Number of PAS in each species double filter](PASnumberSpecies_doubleFilter.html)   
 
-    * [Number of PAS in each species double filter](PASnumberSpecies_doubleFilter.html)   
+* [Top 2 signal sites double filter](signalsites_doublefilter.html)  
 
-* [Pressence of top 2 signal sites](signalsites.html)  
+* [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
 
-    * [Top 2 signal sites double filter](signalsites_doublefilter.html)  
-
-* [Dominant PAS in Nuclear Fraction](dominantPAS.html)  
-
-    * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
-
-* [Intronic location for dominant PAS](DominantPASintronLoc.html)  
-      
-    * [Intronic location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
+* [Intronic location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
     
-* [Species Specificity in PAS](speciesSpecific.html)  
-
-     * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
+* [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
   
 
 
 ##Differential Isoform Analysis:
 
-* [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)  
+* [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)  
 
-     * [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)  
+* [Explore nuclear differential APA PAS and genes Double filter](Explore_DF.html)  
 
-* [Explore nuclear differential APA PAS and genes](Explore.html)  
+* [Enrichment for differencial APA and apaQTL double filter](dAPAandapaQTL_DF.html)   
 
-     * [Explore nuclear differential APA PAS and genes Double filter](Explore_DF.html)  
-
-* [Enrichment for differencial APA and apaQTL](andapaQTL.html)  
-
-     * [Enrichment for differencial APA and apaQTL double filter](dAPAandapaQTL_DF.html)   
-
-* [Visualization for all Nuclear DAPA genes](visualizePASUsage.html)  
-   
-     * [Visualization for all Nuclear DAPA genes double filter](visualizePASUsage_DF.html)  
-
-From here on, I did everything double filtered:  
+* [Visualization for all Nuclear DAPA genes double filter](visualizePASUsage_DF.html)  
 
 * [Does presence or absense of signal explain differential usage](SS_diffUsage.html)
 
@@ -117,18 +99,11 @@ From here on, I did everything double filtered:
 
 * [Download data from differential protein and ribosomes](dProtanddRibo.html)  
 
-* [Compare to nuclear differential APA](DiffTransProtvsNuclearAPA.html)   
+* [Compare to nuclear differential APA with Double filter](DiffTransProtvsNuclearAPA_DF.html)  
 
-     * [Compare to nuclear differential APA with Double filter](DiffTransProtvsNuclearAPA_DF.html)  
+* [Use UpSetR to vizualize intersections Double filter](upsetter_DF.html)  
 
-* [Use UpSetR to vizualize intersections](upsetter.html)  
-
-    * [Use UpSetR to vizualize intersections Double filter](upsetter_DF.html)  
-
-* [Effect size correlations](correlationPhenos.html)  
-
-    * [Effect size correlations double filter](correlationPhenos_DF.html)  
-All with double filter:  
+* [Effect size correlations double filter](correlationPhenos_DF.html)  
 
 * [Compare species 5' splice site strength](SpliceSiteStrength.html)  
 
@@ -144,17 +119,12 @@ All with double filter:
 
 ##Mediation  
 
-* [Normalize Nuclear Fraction](NormalizePheno_nuclear.html)  
 
-    * [Normalize (qqnrom) Nuclear Fraction double filter](NormalizePheno_nuclear_DF.html)    
+* [Normalize (qqnrom) Nuclear Fraction double filter](NormalizePheno_nuclear_DF.html)    
 
 * [Normalize clusters from splicing analysis](normalizeClusters.html)
 
-* [Mediation analysis](mediation.html)    
-
-    * [Mediation analysis double filter](mediation_DF.html)  
-    
-From here on, I did everything double filtered:  
+* [Mediation analysis double filter](mediation_DF.html)  
     
 * [Mediation with protein](mediation_prot.html)
 
@@ -215,8 +185,6 @@ Evaluate results:
 * [Overlapping PAS](OverlappingPAS.html)
 
 * [Test quantification methods](TrynewQuantMethods.html)  
-
-* [Remove SNORNAs from the annotations](removeSNOfromAnno.html)
 
 * [Look at dominance sturcture without multimapping and SNOrnas](checkResnoMM.html)
 
@@ -305,4 +273,34 @@ From the original nuclear dominant
 * [Look at dAPA and genes from Dominant PAS analysis](DominatPASandDIffAPA.html)
 
 
+###PreDouble filter analysis  
+
+
+* [Number of PAS in each species](PASnumperSpecies.html)  
+
+* [Pressence of top 2 signal sites](signalsites.html)  
+
+* [Dominant PAS in Nuclear Fraction](dominantPAS.html)  
+
+* [Intronic location for dominant PAS](DominantPASintronLoc.html)  
+
+* [Species Specificity in PAS](speciesSpecific.html)  
+
+* [Nuclear Human vs. Chimp Analysis](Nuclear_HvC.html)  
+
+* [Explore nuclear differential APA PAS and genes](Explore.html)  
+
+* [Enrichment for differencial APA and apaQTL](andapaQTL.html)  
+
+* [Visualization for all Nuclear DAPA genes](visualizePASUsage.html)  
+
+* [Compare to nuclear differential APA](DiffTransProtvsNuclearAPA.html)   
+
+* [Use UpSetR to vizualize intersections](upsetter.html)  
+
+* [Effect size correlations](correlationPhenos.html)  
+
+* [Normalize Nuclear Fraction](NormalizePheno_nuclear.html)  
+
+* [Mediation analysis](mediation.html)    
 

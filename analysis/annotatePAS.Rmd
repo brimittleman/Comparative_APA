@@ -23,7 +23,7 @@ Map PAS to these annoations:
 
 ```{bash,eval=F}
 mkdir ../data/cleanPeaks_anno
-bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation.sort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
 ```
 
 Chose annotation if PAS in multiple and create bed. I will have to lift this back to chimp then make saf files for both to do the feature count  
@@ -108,28 +108,39 @@ HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Ph
 IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
 
 HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+#seperate total and nuclear  
+HumanUsage_total= HumanUsage %>% select(contains("_T"))
+HumanUsage_nuclear= HumanUsage %>% select(contains("_N"))
 
-HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage_nuclear),HumanTot=rowMeans(HumanUsage_total) ))
 
 HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
 ```
+
 
 ```{r}
 ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
 IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
 ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage_total= ChimpUsage %>% select(contains("_T"))
+ChimpUsage_nuclear= ChimpUsage %>% select(contains("_N"))
 
-ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage), ChimpTot=rowMeans(ChimpUsage_nuclear)))
 
 ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
 ```
 
 
-Mean both: 
+Mean both:
+
+
 
 ```{r}
-BothMean=ChimpMean %>% full_join(HumanMean, by=c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" )) 
+BothMeanboth=ChimpMean %>% full_join(HumanMean, by=c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" )) 
+
+BothMean =BothMeanboth %>% select(-ChimpTot, -HumanTot)
 
 BothMeanM=melt(BothMean,id.vars =c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ),variable.name = "Species", value.name = "MeanUsage" ) %>% filter(loc !="008559")
 ```
@@ -159,7 +170,7 @@ ggplot(BothMeanM, aes(x=log10(MeanUsage + .00001),by=Species,fill=Species)) + ge
 Looks like 5% in either species is a good set.  
 
 
-Filter to PAS with 5% usage  
+Filter to PAS with 5% usage in the nuclear fraction.  
 
 
 BothMean mean in human or chimp > 0.5 
