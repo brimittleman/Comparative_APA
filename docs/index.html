@@ -224,7 +224,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -233,7 +233,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -242,10 +242,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-02
+<strong>Last updated:</strong> 2020-04-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -261,22 +261,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ba1428b897204366c9b0ffada85650e8110abd1targetblank9ba1428a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9ba1428b897204366c9b0ffada85650e8110abd1" target="_blank">9ba1428</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree767bb782152fa84112ee7560fdc8a3df2bbbff93targetblank767bb78a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/767bb782152fa84112ee7560fdc8a3df2bbbff93" target="_blank">767bb78</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ba1428b897204366c9b0ffada85650e8110abd1targetblank9ba1428a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree767bb782152fa84112ee7560fdc8a3df2bbbff93targetblank767bb78a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1069,6 +1069,7 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1111,6 +1112,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/767bb782152fa84112ee7560fdc8a3df2bbbff93/analysis/index.Rmd" target="_blank">767bb78</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+<td>
+update anno
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4722051162d1da99151a9e122e69c5a63f3ea488/docs/index.html" target="_blank">4722051</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4200,10 +4235,10 @@ Start workflowr project.
 <h2>Preparation and QC:</h2>
 <ul>
 <li><p><a href="annotationInfo.html">Prepare annotation files for mapping</a></p></li>
+<li><p><a href="removeSNOfromAnno.html">Remove SNORNAs from the annotations</a></p></li>
 <li><p><a href="mapStats.html">Mapping statistics and plots</a></p></li>
 <li><p><a href="liftoverPAS.html">Liftover PAS</a></p></li>
 <li><p><a href="annotatePAS.html">Annotated PAS and make APA phenotype</a></p></li>
-<li><p><a href="comp2apaQTLPAS.html">Compare identified PAS with apaQTL PAS</a></p></li>
 <li><p><a href="NromalizePhenos.html">PCA plot to look at variation in data</a></p></li>
 <li><p><a href="CorrbetweenInd.html">Correlation between individuals</a></p></li>
 <li><p><a href="verifyBAM.html">Verify sample identity</a></p></li>
@@ -4223,50 +4258,20 @@ Start workflowr project.
 <div id="catalog-pas" class="section level2">
 <h2>Catalog PAS:</h2>
 <ul>
-<li><p><a href="PASnumperSpecies.html">Number of PAS in each species</a></p>
-<ul>
-<li><a href="PASnumberSpecies_doubleFilter.html">Number of PAS in each species double filter</a></li>
-</ul></li>
-<li><p><a href="signalsites.html">Pressence of top 2 signal sites</a></p>
-<ul>
-<li><a href="signalsites_doublefilter.html">Top 2 signal sites double filter</a></li>
-</ul></li>
-<li><p><a href="dominantPAS.html">Dominant PAS in Nuclear Fraction</a></p>
-<ul>
-<li><a href="dominantPAS_DF.html">Dominant PAS in Nuclear Fraction double filter</a></li>
-</ul></li>
-<li><p><a href="DominantPASintronLoc.html">Intronic location for dominant PAS</a></p>
-<ul>
-<li><a href="DominantPASintronLoc_DF.html">Intronic location for dominant PAS double filter</a></li>
-</ul></li>
-<li><p><a href="speciesSpecific.html">Species Specificity in PAS</a></p>
-<ul>
-<li><a href="speciesSpecific_DF.html">Species Specificity in PAS double filter</a></li>
-</ul></li>
+<li><p><a href="PASnumberSpecies_doubleFilter.html">Number of PAS in each species double filter</a></p></li>
+<li><p><a href="signalsites_doublefilter.html">Top 2 signal sites double filter</a></p></li>
+<li><p><a href="dominantPAS_DF.html">Dominant PAS in Nuclear Fraction double filter</a></p></li>
+<li><p><a href="DominantPASintronLoc_DF.html">Intronic location for dominant PAS double filter</a></p></li>
+<li><p><a href="speciesSpecific_DF.html">Species Specificity in PAS double filter</a></p></li>
 </ul>
 </div>
 <div id="differential-isoform-analysis" class="section level2">
 <h2>Differential Isoform Analysis:</h2>
 <ul>
-<li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p>
-<ul>
-<li><a href="Nuclear_HvC_DF.html">Nuclear Human vs. Chimp Analysis Double filter</a></li>
-</ul></li>
-<li><p><a href="Explore.html">Explore nuclear differential APA PAS and genes</a></p>
-<ul>
-<li><a href="Explore_DF.html">Explore nuclear differential APA PAS and genes Double filter</a></li>
-</ul></li>
-<li><p><a href="andapaQTL.html">Enrichment for differencial APA and apaQTL</a></p>
-<ul>
-<li><a href="dAPAandapaQTL_DF.html">Enrichment for differencial APA and apaQTL double filter</a></li>
-</ul></li>
-<li><p><a href="visualizePASUsage.html">Visualization for all Nuclear DAPA genes</a></p>
-<ul>
-<li><a href="visualizePASUsage_DF.html">Visualization for all Nuclear DAPA genes double filter</a></li>
-</ul></li>
-</ul>
-<p>From here on, I did everything double filtered:</p>
-<ul>
+<li><p><a href="Nuclear_HvC_DF.html">Nuclear Human vs. Chimp Analysis Double filter</a></p></li>
+<li><p><a href="Explore_DF.html">Explore nuclear differential APA PAS and genes Double filter</a></p></li>
+<li><p><a href="dAPAandapaQTL_DF.html">Enrichment for differencial APA and apaQTL double filter</a></p></li>
+<li><p><a href="visualizePASUsage_DF.html">Visualization for all Nuclear DAPA genes double filter</a></p></li>
 <li><p><a href="SS_diffUsage.html">Does presence or absense of signal explain differential usage</a></p></li>
 <li><p><a href="PTM_analysis.html">Protein interactions</a></p></li>
 <li><p><a href="CodingdPAS.html">Explore coding dPAS</a></p></li>
@@ -4294,19 +4299,9 @@ Start workflowr project.
 <h2>Intersect with outside molecular phenotypes:</h2>
 <ul>
 <li><p><a href="dProtanddRibo.html">Download data from differential protein and ribosomes</a></p></li>
-<li><p><a href="DiffTransProtvsNuclearAPA.html">Compare to nuclear differential APA</a></p>
-<ul>
-<li><a href="DiffTransProtvsNuclearAPA_DF.html">Compare to nuclear differential APA with Double filter</a></li>
-</ul></li>
-<li><p><a href="upsetter.html">Use UpSetR to vizualize intersections</a></p>
-<ul>
-<li><a href="upsetter_DF.html">Use UpSetR to vizualize intersections Double filter</a></li>
-</ul></li>
-<li><p><a href="correlationPhenos.html">Effect size correlations</a></p>
-<ul>
-<li><a href="correlationPhenos_DF.html">Effect size correlations double filter</a><br />
-All with double filter:</li>
-</ul></li>
+<li><p><a href="DiffTransProtvsNuclearAPA_DF.html">Compare to nuclear differential APA with Double filter</a></p></li>
+<li><p><a href="upsetter_DF.html">Use UpSetR to vizualize intersections Double filter</a></p></li>
+<li><p><a href="correlationPhenos_DF.html">Effect size correlations double filter</a></p></li>
 <li><p><a href="SpliceSiteStrength.html">Compare species 5’ splice site strength</a></p></li>
 </ul>
 </div>
@@ -4321,18 +4316,9 @@ All with double filter:</li>
 <div id="mediation" class="section level2">
 <h2>Mediation</h2>
 <ul>
-<li><p><a href="NormalizePheno_nuclear.html">Normalize Nuclear Fraction</a></p>
-<ul>
-<li><a href="NormalizePheno_nuclear_DF.html">Normalize (qqnrom) Nuclear Fraction double filter</a></li>
-</ul></li>
+<li><p><a href="NormalizePheno_nuclear_DF.html">Normalize (qqnrom) Nuclear Fraction double filter</a></p></li>
 <li><p><a href="normalizeClusters.html">Normalize clusters from splicing analysis</a></p></li>
-<li><p><a href="mediation.html">Mediation analysis</a></p>
-<ul>
-<li><a href="mediation_DF.html">Mediation analysis double filter</a></li>
-</ul></li>
-</ul>
-<p>From here on, I did everything double filtered:</p>
-<ul>
+<li><p><a href="mediation_DF.html">Mediation analysis double filter</a></p></li>
 <li><p><a href="mediation_prot.html">Mediation with protein</a></p></li>
 <li><p><a href="ExploreAPAexpression.html">Explore more about APA expression relationship</a></p></li>
 <li><p><a href="ExploreAPAexpressionOverlap.html">Explore more about APA expression relationship with overlaping significant genes</a></p></li>
@@ -4387,7 +4373,6 @@ All with double filter:</li>
 <li><p><a href="DomPASDiffUsed.html">Add usage cutoffs for the dominant PAS</a></p></li>
 <li><p><a href="OverlappingPAS.html">Overlapping PAS</a></p></li>
 <li><p><a href="TrynewQuantMethods.html">Test quantification methods</a></p></li>
-<li><p><a href="removeSNOfromAnno.html">Remove SNORNAs from the annotations</a></p></li>
 <li><p><a href="checkResnoMM.html">Look at dominance sturcture without multimapping and SNOrnas</a></p></li>
 <li><p><a href="DominantPAS_usingNorm.html">Distribution with normalized usage</a></p></li>
 <li><p><a href="DominantNoTies.html">Filter out ties and genes with 1 PAS</a></p></li>
@@ -4413,7 +4398,8 @@ All with double filter:</li>
 <div id="extra-qc-and-analysis" class="section level2">
 <h2>Extra QC and Analysis</h2>
 <ul>
-<li><a href="MergePASwithin.html">Test for overlaps within species</a></li>
+<li><p><a href="comp2apaQTLPAS.html">Compare identified PAS with apaQTL PAS</a></p></li>
+<li><p><a href="MergePASwithin.html">Test for overlaps within species</a></p></li>
 </ul>
 <div id="sample-switch-analysis" class="section level3">
 <h3>Sample switch analysis</h3>
@@ -4462,6 +4448,25 @@ All with double filter:</li>
 <li><p><a href="HumanIntronicDominant.html">Look at Intronic Dominant with DPAU and DE</a></p></li>
 <li><p><a href="DapaineQTL.html">Enrichment for differencial APA and eQTL</a></p></li>
 <li><p><a href="DominatPASandDIffAPA.html">Look at dAPA and genes from Dominant PAS analysis</a></p></li>
+</ul>
+</div>
+<div id="predouble-filter-analysis" class="section level3">
+<h3>PreDouble filter analysis</h3>
+<ul>
+<li><p><a href="PASnumperSpecies.html">Number of PAS in each species</a></p></li>
+<li><p><a href="signalsites.html">Pressence of top 2 signal sites</a></p></li>
+<li><p><a href="dominantPAS.html">Dominant PAS in Nuclear Fraction</a></p></li>
+<li><p><a href="DominantPASintronLoc.html">Intronic location for dominant PAS</a></p></li>
+<li><p><a href="speciesSpecific.html">Species Specificity in PAS</a></p></li>
+<li><p><a href="Nuclear_HvC.html">Nuclear Human vs. Chimp Analysis</a></p></li>
+<li><p><a href="Explore.html">Explore nuclear differential APA PAS and genes</a></p></li>
+<li><p><a href="andapaQTL.html">Enrichment for differencial APA and apaQTL</a></p></li>
+<li><p><a href="visualizePASUsage.html">Visualization for all Nuclear DAPA genes</a></p></li>
+<li><p><a href="DiffTransProtvsNuclearAPA.html">Compare to nuclear differential APA</a></p></li>
+<li><p><a href="upsetter.html">Use UpSetR to vizualize intersections</a></p></li>
+<li><p><a href="correlationPhenos.html">Effect size correlations</a></p></li>
+<li><p><a href="NormalizePheno_nuclear.html">Normalize Nuclear Fraction</a></p></li>
+<li><p><a href="mediation.html">Mediation analysis</a></p></li>
 </ul>
 </div>
 </div>
