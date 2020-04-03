@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Establish Expression cutoff with 3’ Seq</title>
+<title>Apply double filter</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Establish Expression cutoff with 3’ Seq</h1>
+<h1 class="title toc-ignore">Apply double filter</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>1/16/2020</em></h4>
+<h4 class="date"><em>4/3/2020</em></h4>
 
 </div>
 
@@ -1275,70 +1275,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/expressioncutoff.html" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/289ba9b9edf3b85315d51b48a9125c97180cd6ea/analysis/expressioncutoff.Rmd" target="_blank">289ba9b</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8269a9ae272c6d13ffce9d80b2da7781cac29526/analysis/applyDoubleFilt.Rmd" target="_blank">8269a9a</a>
 </td>
 <td>
 brimittleman
 </td>
 <td>
-2020-01-18
+2020-04-03
 </td>
 <td>
-add expression cutoff code
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5eef3eb638ca2bf1784cce27cdf859279202a165/docs/expressioncutoff.html" target="_blank">5eef3eb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5c24c0cad611959f9d9c0266b270a52242768642/analysis/expressioncutoff.Rmd" target="_blank">5c24c0c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-16
-</td>
-<td>
-add cutoff code files
+update post sno
 </td>
 </tr>
 </tbody>
@@ -1348,38 +1297,7 @@ add cutoff code files
 </div>
 </div>
 </div>
-<p>In this analysis I will use feature counts to count all the 3’ seq reads in each gene. I will then use a similar pipeline to the RNA seq to establish a cutoff for normalized expression. This will be used as a data filter on the pas for the humans and chimps.</p>
-<pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.6.0
-Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(&quot;gplots&quot;)</code></pre>
-<pre><code>
-Attaching package: &#39;gplots&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:stats&#39;:
-
-    lowess</code></pre>
-<pre class="r"><code>library(&quot;R.utils&quot;)</code></pre>
-<pre><code>Loading required package: R.oo</code></pre>
-<pre><code>Loading required package: R.methodsS3</code></pre>
-<pre><code>R.methodsS3 v1.7.1 (2016-02-15) successfully loaded. See ?R.methodsS3 for help.</code></pre>
-<pre><code>R.oo v1.22.0 (2018-04-21) successfully loaded. See ?R.oo for help.</code></pre>
-<pre><code>
-Attaching package: &#39;R.oo&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:methods&#39;:
-
-    getClasses, getMethods</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    attach, detach, gc, load, save</code></pre>
-<pre><code>R.utils v2.7.0 successfully loaded. See ?R.utils for help.</code></pre>
-<pre><code>
-Attaching package: &#39;R.utils&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:utils&#39;:
-
-    timestamp</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    cat, commandArgs, getOption, inherits, isOpen, parse, warnings</code></pre>
+<p>Apply double filter with expression cuttoff.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1387,677 +1305,24 @@ Attaching package: &#39;R.utils&#39;</code></pre>
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract() masks R.utils::extract()
-✖ dplyr::filter()  masks stats::filter()
-✖ dplyr::lag()     masks stats::lag()</code></pre>
-<pre class="r"><code>library(&quot;edgeR&quot;)</code></pre>
-<pre><code>Loading required package: limma</code></pre>
-<pre class="r"><code>library(&quot;limma&quot;)
-library(&quot;scales&quot;)</code></pre>
-<pre><code>
-Attaching package: &#39;scales&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
-
-    discard</code></pre>
-<pre><code>The following object is masked from &#39;package:readr&#39;:
-
-    col_factor</code></pre>
-<pre class="r"><code>library(&quot;RColorBrewer&quot;)</code></pre>
-<p>I will sum over all PAS for a psuedo gene count. I will use the full set of PAS before cutting to 5%.</p>
-<p>Human nuclear only</p>
-<pre class="r"><code>humanPAS=read.table(&quot;../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc&quot;, header=T, stringsAsFactors = F) %&gt;% 
-  separate(Geneid, into=c(&quot;disc&quot;,&quot;PAS&quot;,&quot;chrom&quot;, &quot;start&quot;,&quot;end&quot;,&quot;strand&quot;,&quot;geneid&quot;), sep=&quot;:&quot;) %&gt;%
-  separate(geneid,into=c(&quot;gene&quot;,&quot;loc&quot;),sep=&quot;_&quot;) %&gt;%
-  dplyr::select(gene,contains(&quot;_N&quot;)) %&gt;%
-  gather(key=&quot;ind&quot;, value=&quot;count&quot;, -gene) %&gt;% 
-  group_by(ind, gene) %&gt;%
-  summarize(GeneCount=sum(count)) %&gt;% 
-  spread(ind, GeneCount)</code></pre>
-<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [48528,
-48529, 48530, 92432].</code></pre>
-<pre class="r"><code>chimpPAS=read.table(&quot;../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc&quot;, header=T, stringsAsFactors = F) %&gt;% 
-  separate(Geneid, into=c(&quot;disc&quot;,&quot;PAS&quot;,&quot;chrom&quot;, &quot;start&quot;,&quot;end&quot;,&quot;strand&quot;,&quot;geneid&quot;), sep=&quot;:&quot;) %&gt;%
-  separate(geneid,into=c(&quot;gene&quot;,&quot;loc&quot;),sep=&quot;_&quot;) %&gt;%
-  dplyr::select(gene,contains(&quot;_N&quot;)) %&gt;%
-  gather(key=&quot;ind&quot;, value=&quot;count&quot;, -gene) %&gt;% 
-  group_by(ind, gene) %&gt;%
-  summarize(GeneCount=sum(count)) %&gt;% 
-  spread(ind, GeneCount)</code></pre>
-<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [48528,
-48529, 48530, 92432].</code></pre>
-<p>Join these together:</p>
-<pre class="r"><code>metadata=read.table(&quot;../data/metadata_HCpanel.txt&quot;,header = T) %&gt;% mutate(id2=ifelse(grepl(&quot;pt&quot;, ID), ID, paste(&quot;X&quot;, ID, sep=&quot;&quot;))) %&gt;% filter(Fraction==&quot;Nuclear&quot;)
-
-order=c(metadata$id2[1:10], &quot;pt30_N&quot;, &quot;pt91_N&quot;)
-
-BothbyGene= chimpPAS %&gt;% inner_join(humanPAS,by=&quot;gene&quot;) %&gt;% dplyr::select(gene,order)
-
-#count matrix:
-Genematrix=as.matrix(BothbyGene %&gt;% column_to_rownames(var=&quot;gene&quot;))</code></pre>
-<pre class="r"><code>colors &lt;- colorRampPalette(c(brewer.pal(9, &quot;Blues&quot;)[1],brewer.pal(9, &quot;Blues&quot;)[9]))(100)
-
-pal &lt;- c(brewer.pal(9, &quot;Set1&quot;), brewer.pal(8, &quot;Set2&quot;), brewer.pal(12, &quot;Set3&quot;))
-labels &lt;- paste(metadata$Species,metadata$Line, sep=&quot; &quot;)</code></pre>
-<pre class="r"><code># Clustering (original code from Julien Roux)
-cors &lt;- cor(Genematrix, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>PassingGenes=read.table(&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;, header = T, stringsAsFactors = F)
 
 
-heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;, denscol=&quot;white&quot;, labCol=labels, ColSideColors=pal[as.integer(as.factor(metadata$Species))], RowSideColors=pal[as.integer(as.factor(metadata$Collection))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-5-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Look at the correlation between this and expression:</p>
-<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F,col.names = c(&quot;Geneid&quot;,&quot;gene&quot;,&quot;source&quot;)) %&gt;% dplyr::select(-source)
+PAS_use=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,header = T,stringsAsFactors = F) %&gt;% filter(gene %in% PassingGenes$genes) %&gt;% filter(Chimp &gt;=.05 | Human &gt;= .05)
 
 
-HumanCounts=read.table(&quot;../Human/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+write.table(PAS_use, &quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,col.names = T,row.names = F, quote = F)</code></pre>
+<p>Filter the bed files as well.</p>
+<pre class="r"><code>humanPAS=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.bed&quot;,header=F, col.names =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;PAS&quot;, &quot;score&quot;, &quot;strand&quot;) ,stringsAsFactors = F) %&gt;% filter(PAS %in% PAS_use$PAS )
 
-ChimpCounts=read.table(&quot;../Chimp/data/RNAseq/ExonCounts/RNAseqOrthoExon.fixed.fc&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(-Chr,-Start,-End,-Strand, -Length)
+chimpPAS=read.table(&quot;../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.bed&quot;,header=F, col.names =c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;PAS&quot;, &quot;score&quot;, &quot;strand&quot;) ,stringsAsFactors = F) %&gt;% filter(PAS %in% PAS_use$PAS )</code></pre>
+<pre class="r"><code>write.table(humanPAS,&quot;../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed&quot;,col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)
+write.table(chimpPAS,&quot;../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.bed&quot;,col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+<pre class="bash"><code>sort -k1,1 -k2,2n ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed &gt; ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed
 
-
-counts_genes=HumanCounts %&gt;% inner_join(ChimpCounts,by=&quot;Geneid&quot;) %&gt;% inner_join(nameID, by=&quot;Geneid&quot;) %&gt;% dplyr::select(-Geneid)
-
-counts_genes_nog=counts_genes %&gt;% dplyr::select(-gene)
-
-ExpMean=as.data.frame(cbind(gene=counts_genes$gene, meanExp=rowMeans(counts_genes_nog)))
-
-
-ThreeMean=as.data.frame(cbind(gene=BothbyGene$gene, meanThree=rowMeans(Genematrix)))
-
-
-ExpandThree=ExpMean %&gt;% inner_join(ThreeMean,by=&quot;gene&quot;)  </code></pre>
-<pre><code>Warning: Column `gene` joining factors with different levels, coercing to
-character vector</code></pre>
-<p>Plot this:</p>
-<pre class="r"><code>ExpandThree$meanExp=as.numeric(as.character(ExpandThree$meanExp))
-ExpandThree$meanThree=as.numeric(as.character(ExpandThree$meanThree))
-
-
-ggplot(ExpandThree,aes(x=log10(meanExp),y=log10(meanThree)))+ geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
-<pre><code>Warning: Removed 85 rows containing non-finite values (stat_smooth).</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-7-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This looks pretty good. I can treat the psuedo threeprime as expression to find an expression cuttoff. Next I will normalize and standardize the sum gene counts.</p>
-<p>Log2</p>
-<pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(Genematrix))
-head(log_counts_genes)</code></pre>
-<pre><code>         X18498_N X18499_N X18502_N X18504_N X18510_N X18523_N X18358_N
-A1BG     8.651052 6.906891 7.826548 6.339850 7.098032 8.184875 9.348728
-A1BG-AS1 6.906891 5.209453 6.686501 5.087463 6.491853 6.189825 7.257388
-A2M      4.807355 1.584963 1.000000 4.169925 2.000000 2.000000 9.257388
-A4GALT   8.348728 3.000000 5.426265 4.807355 6.643856 7.434628 6.629357
-AAAS     7.189825 5.285402 7.149747 6.930737 7.169925 6.539159 7.044394
-AACS     9.211888 9.084808 8.455327 9.038919 9.721099 9.539159 9.449149
-          X3622_N   X3659_N  X4973_N   pt30_N   pt91_N
-A1BG     7.055282  8.581201 6.044394 8.379378 7.693487
-A1BG-AS1 4.700440  6.658211 3.321928 4.643856 3.807355
-A2M      9.881114 10.090112 8.392317 8.588715 8.134426
-A4GALT   2.000000  6.714246 1.584963 2.000000 2.000000
-AAAS     7.357552  7.599913 6.965784 7.539159 7.139551
-AACS     8.607330  8.535275 8.422065 8.562242 8.483816</code></pre>
-<pre class="r"><code>plotDensities(log_counts_genes, col=pal[as.numeric(metadata$Species)], legend=&quot;topright&quot;)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-8-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>CPM</p>
-<pre class="r"><code>cpm &lt;- cpm(Genematrix, log=TRUE)
-plotDensities(cpm, col=pal[as.numeric(metadata$Species)], legend=&quot;topright&quot;)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-9-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Use log2 cmp:</p>
-<pre class="r"><code>## Create edgeR object (dge) to calculate TMM normalization  
-dge_original &lt;- DGEList(counts=as.matrix(Genematrix), genes=rownames(Genematrix), group = as.character(t(labels)))
-dge_original &lt;- calcNormFactors(dge_original)
-
-tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
-head(cpm)</code></pre>
-<pre><code>         X18498_N   X18499_N  X18502_N X18504_N  X18510_N   X18523_N
-A1BG     5.341650  4.5993068  4.825291 3.911623  3.751466  4.9774440
-A1BG-AS1 3.615999  2.9313152  3.698829 2.688464  3.157697  3.0125468
-A2M      1.600132 -0.2806202 -1.087332 1.814585 -0.714223 -0.6153132
-A4GALT   5.041173  0.8670626  2.472727 2.419003  3.306094  4.2341398
-AAAS     3.894256  3.0051013  4.155261 4.495314  3.822198  3.3532893
-AACS     5.899931  6.7668568  5.450058 6.592507  6.354400  6.3255013
-         X18358_N    X3622_N  X3659_N    X4973_N     pt30_N     pt91_N
-A1BG     5.865947  3.8087270 5.334818  2.9688165  5.0434796  4.3424445
-A1BG-AS1 3.792472  1.5453264 3.433898  0.4596994  1.4233049  0.6597173
-A2M      5.774967  6.6147191 6.838555  5.2833627  5.2514988  4.7792050
-A4GALT   3.177039 -0.6493577 3.488798 -0.8146537 -0.6983404 -0.7119011
-AAAS     3.583164  4.1066540 4.361269  3.8706954  4.2109429  3.7959070
-AACS     5.965997  5.3455790 5.289151  5.3129416  5.2251829  5.1260744</code></pre>
-<p>Look at a PCA plot of the log2cpm</p>
-<pre class="r"><code>#PCA function (original code from Julien Roux)
-#Load in the plot_scores function
-plot_scores &lt;- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
-  xmin &lt;- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
-  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
-    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
-  }
-  else {
-    xmax &lt;- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
-  }
-  ymin &lt;- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
-  ymax &lt;- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
-  plot(scores[,n], scores[,m], xlab=paste(&quot;PC&quot;, n, &quot;: &quot;, round(summary(pca)$importance[2,n],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), ylab=paste(&quot;PC&quot;, m, &quot;: &quot;, round(summary(pca)$importance[2,m],3)*100, &quot;% variance explained&quot;, sep=&quot;&quot;), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type=&quot;n&quot;)
-  if (points == F){
-    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
-  }
-  else {
-    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
-  }
-}</code></pre>
-<pre class="r"><code>pca_genes &lt;- prcomp(t(tmm_cpm), scale = F)
-scores &lt;- pca_genes$x
-
-for (n in 1:2){
-  col.v &lt;- pal[as.integer(metadata$Species)]
-  plot_scores(pca_genes, scores, n, n+1, col.v)
-}</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
-Past versions of unnamed-chunk-12-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-2.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Plot the log2cpm</p>
-<pre class="r"><code>plotDensities(tmm_cpm, col=pal[as.numeric(metadata$Species)], legend=&quot;topright&quot;)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-13-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>I will need to filter out the lowly expressed genes. This will also be the gene filter I use for the PAS.</p>
-<p>Start with log2cpm&gt;2 for 8 of the 12 indiv. Filter the counts</p>
-<pre class="r"><code>keep.exprs=rowSums(tmm_cpm&gt;2) &gt;8
-
-counts_filtered= Genematrix[keep.exprs,]
-
-
-
-
-plotDensities(counts_filtered, col=pal[as.numeric(metadata$Species)], legend=&quot;topright&quot;)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-14-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Make a new dge list and filter:</p>
-<pre class="r"><code>labels &lt;- paste(metadata$Species, metadata$Line, sep=&quot; &quot;)
-dge_in_cutoff &lt;- DGEList(counts=as.matrix(counts_filtered), genes=rownames(counts_filtered), group = as.character(t(labels)))
-dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
-
-cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
-head(cpm_in_cutoff)</code></pre>
-<pre><code>      X18498_N X18499_N X18502_N X18504_N X18510_N X18523_N X18358_N
-A1BG  5.329663 4.631635 4.907843 3.908975 3.666584 5.080271 5.914427
-AAAS  3.870285 3.013698 4.231888 4.498912 3.738314 3.437223 3.612862
-AACS  5.890160 6.808219 5.536123 6.605652 6.286849 6.433791 6.014800
-AAGAB 6.897081 6.540471 6.287438 6.708810 6.727998 5.851978 6.571066
-AAK1  7.173705 7.038504 7.187389 6.461596 6.756658 7.299552 7.137050
-AAMDC 3.918769 4.452891 4.589439 4.375697 3.310955 3.994837 4.211144
-       X3622_N  X3659_N  X4973_N   pt30_N   pt91_N
-A1BG  3.940920 5.403320 3.058774 5.219852 4.475256
-AAAS  4.242667 4.423008 3.977759 4.380532 3.922213
-AACS  5.491146 5.357427 5.432327 5.402580 5.264779
-AAGAB 6.138503 6.203235 5.949545 5.997346 5.922666
-AAK1  6.458894 6.673281 7.758506 6.217116 6.284230
-AAMDC 4.838552 4.741566 5.398303 4.879696 5.346957</code></pre>
-<pre class="r"><code>GenesCutoff=rownames(cpm_in_cutoff)
-NormalizedGenesCuttoff=as.data.frame(cbind(Gene_stable_ID=GenesCutoff, cpm_in_cutoff))</code></pre>
-<p>Plot the historgram:</p>
-<pre class="r"><code>hist(cpm_in_cutoff, xlab = &quot;Log2(CPM)&quot;, main = &quot;Log2(CPM) values for genes meeting the filtering criteria&quot;, breaks = 100 )</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
-Past versions of unnamed-chunk-17-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-17-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-17-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This looks relatively normal. I will next look at the voom transformed values with quantile normalization.</p>
-<pre class="r"><code>Species &lt;- factor(metadata$Species)
-design &lt;- model.matrix(~ 0 + Species)
-head(design)</code></pre>
-<pre><code>  SpeciesChimp SpeciesHuman
-1            0            1
-2            0            1
-3            0            1
-4            0            1
-5            0            1
-6            0            1</code></pre>
-<pre class="r"><code>colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
-<pre><code>c(&quot;SpeciesChimp&quot;, &quot;SpeciesHuman&quot;)</code></pre>
-<pre class="r"><code>cpm.voom&lt;- voom(counts_filtered, design, normalize.method=&quot;quantile&quot;, plot=T)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
-Past versions of unnamed-chunk-19-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-1.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>boxplot(cpm.voom$E, col = pal[as.numeric(metadata$Species)],las=2)</code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-2">
-Past versions of unnamed-chunk-19-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-2.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plotDensities(cpm.voom, col =  pal[as.numeric(metadata$Species)], legend = &quot;topleft&quot;) </code></pre>
-<p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-3">
-Past versions of unnamed-chunk-19-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-3.png" target="_blank">f161386</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This looks like a good cuttoff. I will make a list of the genes that pass the cutoff.</p>
-<pre class="r"><code>length(GenesCutoff)</code></pre>
-<pre><code>[1] 9731</code></pre>
-<pre class="r"><code>GenesCutoffDF=as.data.frame(GenesCutoff) %&gt;% rename(&quot;genes&quot;=GenesCutoff)
-#mkdir ../data/OverlapBenchmark
-write.table(GenesCutoffDF,&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;, col.names = T, row.names = F,quote = F)</code></pre>
+sort -k1,1 -k2,2n ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.bed &gt; ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2085,33 +1350,24 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] RColorBrewer_1.1-2 scales_1.0.0       edgeR_3.24.0      
- [4] limma_3.38.2       forcats_0.3.0      stringr_1.3.1     
- [7] dplyr_0.8.0.1      purrr_0.3.2        readr_1.3.1       
-[10] tidyr_0.8.3        tibble_2.1.1       ggplot2_3.1.1     
-[13] tidyverse_1.2.1    R.utils_2.7.0      R.oo_1.22.0       
-[16] R.methodsS3_1.7.1  gplots_3.0.1       workflowr_1.6.0   
+[1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+[5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+[9] tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] locfit_1.5-9.1     Rcpp_1.0.2         lubridate_1.7.4   
- [4] lattice_0.20-38    gtools_3.8.1       assertthat_0.2.0  
- [7] rprojroot_1.3-2    digest_0.6.18      R6_2.3.0          
-[10] cellranger_1.1.0   plyr_1.8.4         backports_1.1.2   
-[13] evaluate_0.12      httr_1.3.1         pillar_1.3.1      
-[16] rlang_0.4.0        lazyeval_0.2.1     readxl_1.1.0      
-[19] rstudioapi_0.10    gdata_2.18.0       whisker_0.3-2     
-[22] rmarkdown_1.10     labeling_0.3       munsell_0.5.0     
-[25] broom_0.5.1        compiler_3.5.1     httpuv_1.4.5      
-[28] modelr_0.1.2       pkgconfig_2.0.2    htmltools_0.3.6   
-[31] tidyselect_0.2.5   crayon_1.3.4       withr_2.1.2       
-[34] later_0.7.5        bitops_1.0-6       grid_3.5.1        
-[37] nlme_3.1-137       jsonlite_1.6       gtable_0.2.0      
-[40] git2r_0.26.1       magrittr_1.5       KernSmooth_2.23-15
-[43] cli_1.1.0          stringi_1.2.4      fs_1.3.1          
-[46] promises_1.0.1     xml2_1.2.0         generics_0.0.2    
-[49] tools_3.5.1        glue_1.3.0         hms_0.4.2         
-[52] yaml_2.2.0         colorspace_1.3-2   caTools_1.17.1.1  
-[55] rvest_0.3.2        knitr_1.20         haven_1.1.2       </code></pre>
+ [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
+ [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     workflowr_1.6.0 
+ [9] tools_3.5.1      digest_0.6.18    lubridate_1.7.4  jsonlite_1.6    
+[13] evaluate_0.12    nlme_3.1-137     gtable_0.2.0     lattice_0.20-38 
+[17] pkgconfig_2.0.2  rlang_0.4.0      cli_1.1.0        rstudioapi_0.10 
+[21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
+[25] httr_1.3.1       knitr_1.20       hms_0.4.2        generics_0.0.2  
+[29] fs_1.3.1         rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5
+[33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
+[37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    backports_1.1.2 
+[41] scales_1.0.0     promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
+[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4   
+[49] lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
 </div>
 
 

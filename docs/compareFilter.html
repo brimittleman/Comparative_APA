@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-01
+<strong>Last updated:</strong> 2020-04-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7447f2ddc3110b73a8cc2409a58eb38d7869754ftargetblank7447f2da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7447f2ddc3110b73a8cc2409a58eb38d7869754f" target="_blank">7447f2d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8269a9ae272c6d13ffce9d80b2da7781cac29526targetblank8269a9aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8269a9ae272c6d13ffce9d80b2da7781cac29526" target="_blank">8269a9a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7447f2ddc3110b73a8cc2409a58eb38d7869754ftargetblank7447f2da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8269a9ae272c6d13ffce9d80b2da7781cac29526targetblank8269a9aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -457,6 +457,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  ._.DS_Store
+    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -891,6 +892,7 @@ Untracked files:
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getAlloverlap.py
     Untracked:  code/getRNAseqMapStats.sh
     Untracked:  code/hg19MapStats.err
     Untracked:  code/hg19MapStats.out
@@ -1179,6 +1181,7 @@ Untracked files:
     Untracked:  data/TestMM2_SeondaryRead/
     Untracked:  data/TestMM2_mismatch/
     Untracked:  data/TestMM2_quality/
+    Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
@@ -1275,6 +1278,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8269a9ae272c6d13ffce9d80b2da7781cac29526/analysis/compareFilter.Rmd" target="_blank">8269a9a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+<td>
+update post sno
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8cb8b0a9d222c13d8de89c686209c47931ce085b/docs/compareFilter.html" target="_blank">8cb8b0a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7447f2ddc3110b73a8cc2409a58eb38d7869754f/analysis/compareFilter.Rmd" target="_blank">7447f2d</a>
 </td>
 <td>
@@ -1349,10 +1386,10 @@ Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>pre=read.table(&quot;../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt&quot;,header = T, stringsAsFactors = F) %&gt;% filter(loc != &quot;008559&quot;)
 
 nrow(pre)</code></pre>
-<pre><code>[1] 73095</code></pre>
+<pre><code>[1] 77148</code></pre>
 <pre class="r"><code>prebygene=pre %&gt;% group_by(gene) %&gt;% summarise(n=n())
 nrow(prebygene)</code></pre>
-<pre><code>[1] 20042</code></pre>
+<pre><code>[1] 19704</code></pre>
 <pre class="r"><code>ggplot(pre,aes(x=loc,fill=loc) ) + geom_bar(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&quot;Number of PAS&quot;, title=&quot;Pre filter location of PAS&quot;,x=&quot;&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1393,7 +1430,7 @@ brimittleman
 </div>
 </div>
 <pre class="r"><code>nrow(prebygene)</code></pre>
-<pre><code>[1] 20042</code></pre>
+<pre><code>[1] 19704</code></pre>
 <pre class="r"><code>ggplot(prebygene, aes(x=n))+ geom_bar() + labs(x=&quot;Number of PAS per gene&quot;, title=&quot;Number of PAS per gene before filter&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1434,13 +1471,13 @@ brimittleman
 </div>
 </div>
 <p>Post:</p>
-<pre class="r"><code>post=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T, stringsAsFactors = F)
+<pre class="r"><code>post=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T, stringsAsFactors = F)
 
 nrow(post)</code></pre>
-<pre><code>[1] 42318</code></pre>
+<pre><code>[1] 46494</code></pre>
 <pre class="r"><code>postbygene=post %&gt;% group_by(gene) %&gt;% summarise(n=n())
 nrow(postbygene)</code></pre>
-<pre><code>[1] 9810</code></pre>
+<pre><code>[1] 9717</code></pre>
 <pre class="r"><code>ggplot(post,aes(x=loc,fill=loc) ) + geom_bar(stat=&quot;count&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Number of PAS&quot;, title=&quot;Post filter location of PAS&quot;, x=&quot;&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1524,15 +1561,89 @@ brimittleman
 
 ggplot(post_loc, aes(x=loc, y=MeanUsage, by=species, fill=species)) + geom_boxplot() + stat_compare_means(label = &#39;p.signif&#39;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(y=&quot;Mean PAS Usage&quot;, x=&quot;&quot;, title=&quot;Difference in mean usage for PAS\n 5% Usage and Expression filter&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cb8b0a9d222c13d8de89c686209c47931ce085b/docs/figure/compareFilter.Rmd/unnamed-chunk-8-1.png" target="_blank">8cb8b0a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Cummulative distribution plot:</p>
 <pre class="r"><code>ggplot(post_loc, aes(x=MeanUsage,col=species)) + stat_ecdf() +labs(x=&quot;Mean Usage&quot;, y=&quot;CDF&quot;, title=&quot;Cumulative distribution for filtered PAS&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cb8b0a9d222c13d8de89c686209c47931ce085b/docs/figure/compareFilter.Rmd/unnamed-chunk-9-1.png" target="_blank">8cb8b0a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>wilcox.test(post$Human, post$Chimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
 data:  post$Human and post$Chimp
-W = 911790000, p-value = 2.015e-06
+W = 1133500000, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <p>Is it a problem with counts:</p>
 <p>Indivdual Usage:</p>
@@ -1551,21 +1662,95 @@ BothMean= BothMeanVar %&gt;% select(-contains(&quot;Var&quot;)) %&gt;% gather(&q
 BothVar= BothMeanVar %&gt;% select(-contains(&quot;Mean&quot;)) %&gt;% gather(&quot;Species&quot;, &quot;Var&quot;, -PAS)</code></pre>
 <pre class="r"><code>ggplot(BothMean, aes(x=log10(Mean+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;log10(Mean Count) for filtered PAS&quot;,y=&quot;CDF&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cb8b0a9d222c13d8de89c686209c47931ce085b/docs/figure/compareFilter.Rmd/unnamed-chunk-12-1.png" target="_blank">8cb8b0a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>wilcox.test(BothMeanVar$MeanCountHuman, BothMeanVar$MeanCountChimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
 data:  BothMeanVar$MeanCountHuman and BothMeanVar$MeanCountChimp
-W = 912300000, p-value = 9.989e-07
+W = 836210000, p-value = 0.003147
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <pre class="r"><code>ggplot(BothVar, aes(x=log10(Var+1), by=Species, color=Species))+ stat_ecdf()+ scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;log10(Mean Variance) for filtered PAS&quot;,y=&quot;CDF&quot;)</code></pre>
 <p><img src="figure/compareFilter.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cb8b0a9d222c13d8de89c686209c47931ce085b/docs/figure/compareFilter.Rmd/unnamed-chunk-13-1.png" target="_blank">8cb8b0a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>wilcox.test(BothMeanVar$VarCountHuman, BothMeanVar$VarCountChimp, paired = F, alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
 data:  BothMeanVar$VarCountHuman and BothMeanVar$VarCountChimp
-W = 950190000, p-value &lt; 2.2e-16
+W = 870680000, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <br>
 <p>
