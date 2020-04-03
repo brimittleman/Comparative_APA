@@ -66,7 +66,7 @@ ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + lab
 Look at location data and bring this in.  
 
 ```{r}
-Loc=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% rename("X4_usercol"=PAS) %>% dplyr::select(X4_usercol,loc)
+Loc=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% rename("X4_usercol"=PAS) %>% dplyr::select(X4_usercol,loc)
 
 ChimpRawout_withloc=ChimpRawout %>% inner_join(Loc, by="X4_usercol") %>% filter(loc!="008559")
 humanRawout_withloc=humanRawout%>% inner_join(Loc, by="X4_usercol") %>% filter(loc!="008559")
@@ -145,8 +145,28 @@ write.table(chimp_write,"../data/SignalSites_doublefilter/ChimpPresenceofSS_DF.t
 ```
 
 ##Expand  
-
+**REDO THESE**
 I previously just looked at the top 2 signal sites. Now I will write a loop to run this on the remaining 10.  
+
+
+
+```{bash,eval=F}
+
+#../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_AAAAAG.txt
+for i in AAAAAG AATACA AATAGA AATATA ACTAAA AGTAAA CATAAA GATAAA TATAAA AAAAAA  
+do
+echo $i
+bedtools nuc -s -pattern $i -C -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed > ../data/SignalSites_doublefilter/PAS_doublefilter_either_HumanCoordHummanUsage_${i}.txt
+done 
+
+for i in AAAAAG AATACA AATAGA AATATA ACTAAA AGTAAA CATAAA GATAAA TATAAA AAAAAA  
+do
+echo $i
+bedtools nuc -s  -pattern $i  -C -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed > ../data/SignalSites_doublefilter/PAS_doublefilter_either_ChimpCoordChimpUsage_${i}.txt
+done
+
+sbatch allPASSeq_df.sh
+```
 
 AAAAAG AATACA AATAGA AATATA ACTAAA AGTAAA CATAAA GATAAA TATAAA AAAAAA  
 
@@ -357,7 +377,7 @@ ggplot(HumanNone,aes(x=Chimp))+ geom_bar(stat="count")+ theme(axis.text.x = elem
 Now I want to add usage:  
 
 ```{r}
-PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T)
 
 MetaPASwSS=Both1perJoin %>% rename("ChimpPAS"=Chimp, "HumanPAS"=Human) %>%  full_join(PASMeta,by="PAS") %>% mutate(ChimpPAS = replace_na(ChimpPAS, "None"),HumanPAS = replace_na(HumanPAS, "None"))
 
@@ -431,7 +451,7 @@ ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar
 I will write out the metadata with signal site info for downstream analysis.  
 
 ```{r}
-write.table(MetaPASwSS, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt", col.names = T, quote = F, row.names = F)
+write.table(MetaPASwSS, "../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt", col.names = T, quote = F, row.names = F)
 ```
 
 In another analysis I can ask if the differentially used PAS are those that have a SS in one and not another or different SS.  

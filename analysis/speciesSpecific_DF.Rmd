@@ -20,7 +20,7 @@ library(ggpubr)
 
 
 ```{r}
-PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
 
 HumanSpec= PAS %>% filter(Chimp==0)
 nrow(HumanSpec)
@@ -84,7 +84,7 @@ Ask if signal sites account for this:
 
 
 ```{r}
-PASSS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS,HumanTopSS ,ChimpTopSS)
+PASSS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS,HumanTopSS ,ChimpTopSS)
 
 HumanSpec_SS=HumanSpec %>% inner_join(PASSS, by="PAS")  %>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>% mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS=="No" & ChimpSS=="Yes", "Yes", "No"))
 ChimpSpec_SS=ChimpSpec %>% inner_join(PASSS, by="PAS")%>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>%  mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS =="No" & ChimpSS=="Yes", "Yes", "No"))
@@ -119,7 +119,7 @@ ggplot(HumanSpec_SSexp,aes(x=loc, y=Human,fill=loc))+ geom_boxplot() + scale_fil
 
 13 sites where there is a gain of a signal site in the human specific.  I can look at them in IGV
 
-13 of 233 
+13 of 303
 
 
 ```{r}
@@ -140,11 +140,6 @@ ChimpSpec_SS %>% filter(OnlyChimp=="Yes")
 
 
 
-
-11 sites where there is a gain of a signal site in the chimp specific.   
-
-
-11 of 226
 
 
 
@@ -171,4 +166,4 @@ Number with opposite relationship.
 
 ChimpSpec_SS %>% filter(OnlyHuman=="Yes")
 ```
-2 in the opposite for human, 4 opposite for chimp.  
+ 

@@ -27,8 +27,8 @@ SameDomIntron=read.table("../data/DominantPAS_DF/SameDominantIntronic.txt",heade
 ```
 
 ```{r}
-HumanMetadata= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% rename("HumanPAS"=PAS) %>% dplyr::select(-Chimp)
-ChimpMetadata= read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% rename("ChimpPAS"=PAS) %>% dplyr::select(-Human)
+HumanMetadata= read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% rename("HumanPAS"=PAS) %>% dplyr::select(-Chimp)
+ChimpMetadata= read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% rename("ChimpPAS"=PAS) %>% dplyr::select(-Human)
 ```
 
 Subset this file by those in the set and select it as a bed file for overlap with intron file. I will use the human mean as the score for now.    

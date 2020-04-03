@@ -22,7 +22,7 @@ library(workflowr)
 In this analysis I will look at thenumber of PAS per species at a gene level. I am only including PAS in chr1-22. These results use mean usage accross fraction.  
 
 ```{r}
-PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T)
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T)
 ```
 
 
