@@ -41,7 +41,7 @@ ggplot(prebygene, aes(x=n))+ geom_bar() + labs(x="Number of PAS per gene", title
 Post:  
 
 ```{r}
-post=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
+post=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
 
 nrow(post)
 

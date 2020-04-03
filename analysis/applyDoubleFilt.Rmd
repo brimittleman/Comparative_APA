@@ -1,0 +1,49 @@
+---
+title: "Apply double filter"
+author: "Briana Mittleman"
+date: "4/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Apply double filter with expression cuttoff.  
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+PassingGenes=read.table("../data/OverlapBenchmark/genesPassingCuttoff.txt", header = T, stringsAsFactors = F)
+
+
+PAS_use=read.table("../data/PAS/PAS_5perc_either_HumanCoord_BothUsage_meta.txt",header = T,stringsAsFactors = F) %>% filter(gene %in% PassingGenes$genes) %>% filter(Chimp >=.05 | Human >= .05)
+
+
+write.table(PAS_use, "../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",col.names = T,row.names = F, quote = F)
+```
+
+
+
+Filter the bed files as well.  
+
+```{r}
+humanPAS=read.table("../data/PAS/PAS_5perc_either_HumanCoordHummanUsage.bed",header=F, col.names =c("chr","start","end","PAS", "score", "strand") ,stringsAsFactors = F) %>% filter(PAS %in% PAS_use$PAS )
+
+chimpPAS=read.table("../data/PAS/PAS_5perc_either_ChimpCoordChimpUsage.bed",header=F, col.names =c("chr","start","end","PAS", "score", "strand") ,stringsAsFactors = F) %>% filter(PAS %in% PAS_use$PAS )
+```
+```{r}
+write.table(humanPAS,"../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed",col.names = F, row.names = F, quote = F, sep="\t")
+write.table(chimpPAS,"../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed > ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed
+
+sort -k1,1 -k2,2n ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.bed > ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed
+```
+
+
+

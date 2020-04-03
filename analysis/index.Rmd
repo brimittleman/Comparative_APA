@@ -23,8 +23,6 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Annotated PAS and make APA phenotype](annotatePAS.html)
 
-* [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)
-
 * [PCA plot to look at variation in data](NromalizePhenos.html)
       
 * [Correlation between individuals](CorrbetweenInd.html)
@@ -42,7 +40,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
   * [Use merged 3' at gene level to look for a data quantity cutoff](expressioncutoff.html)  
 
-  * [Establish cutoffs by subsampleing apaQTL lines](establishCutoffs.html)  
+  * [Subsampleing apaQTL lines (not redone)](establishCutoffs.html)  
+  
+  * [Apply the expression filter](applyDoubleFilt.html)
   
   * [Compare before and after cutoff](compareFilter.html)  
 
@@ -213,6 +213,8 @@ Evaluate results:
 
 
 ##Extra QC and Analysis   
+
+* [Compare identified PAS with apaQTL PAS](comp2apaQTLPAS.html)
 
 * [Test for overlaps within species](MergePASwithin.html)
 
