@@ -11,11 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+library(scales)
 library(workflowr)
 library(tidyverse)
-
+library(cowplot)
 ```
-
+##Exploration  
 I noticed there are overlapping PAS within species. I deal with overlapping PAS between species by merging the PAS into one when 125 of the bases overlap. 
 
 For the within species I will look at a merge on the PAS that pass [liftover](liftoverPAS.html). 
@@ -41,6 +42,8 @@ bedtools merge -s -c 4,4 -o distinct,count  -i ../data/cleanPeaks_lifted/Human_P
 
 ```
 
+
+###Chimp  
 Compare 2 chimp conditions:  
 
 ```{r}
@@ -66,5 +69,71 @@ length(intersect(ChimpHumanCoord$PAS,ChimpPAS$PAS))
 ```
 Ok these are the same. I can do it all in human coordinate.  
 
+Explore the size of these bins.  
+
+```{r}
+ChimpHumanCoord_details= ChimpHumanCoord %>% mutate(size=end-start)
+ChimpHumanCoord_details$nPAS=as.factor(ChimpHumanCoord_details$nPAS)
+```
 
 
+```{r}
+hue_pal()(7)
+
+```
+
+```{r}
+chimpsize=ggplot(ChimpHumanCoord_details, aes(x=nPAS, y=size,fill=nPAS))+ geom_boxplot() + geom_hline(yintercept = 200,col="#F8766D")+  geom_hline(yintercept = 400,col="#C49A00") + geom_hline(yintercept = 600,col="#53B400") + geom_hline(yintercept = 800,col="#00C094") + geom_hline(yintercept = 1000,col="#00B6EB") + geom_hline(yintercept = 1200,col="#A58AFF")+ geom_hline(yintercept = 1400,col="#FB61D7")+ labs(title="Size of chimp overlap PAS, colored by expected if overlap = 1 base")
+```
+
+Look at some of the top examples in the data. Is there evidence that high level groups should be filtered out?  I can also decide whether I take the middle 200 or use the full region.  
+
+```{r}
+ChimpHumanCoord_details %>% arrange(desc(nPAS)) %>% head()
+```
+This is before I do any combination with the human PAS. 
+
+
+###Human  
+
+```{r}
+HumanPAS=read.table("../data/TestWithinMergePAS/Human_PASregions.merge.bed",col.names = c("chr",'start','end','PAS', 'nPAS'),stringsAsFactors = F)
+```
+
+
+```{r}
+HumanPAS %>% group_by(nPAS) %>% summarise(n())
+ggplot(HumanPAS,aes(x=nPAS)) + geom_bar(stat="count")
+```
+
+There are more overlaps in the human set.  
+
+```{r}
+
+HumanPAS_details= HumanPAS %>% mutate(size=end-start)
+HumanPAS_details$nPAS=as.factor(HumanPAS_details$nPAS)
+
+
+humansize=ggplot(HumanPAS_details, aes(x=nPAS, y=size,fill=nPAS))+ geom_boxplot() + geom_hline(yintercept = 200,col="#F8766D")+  geom_hline(yintercept = 400,col="#C49A00") + geom_hline(yintercept = 600,col="#53B400") + geom_hline(yintercept = 800,col="#00C094") + geom_hline(yintercept = 1000,col="#00B6EB") + geom_hline(yintercept = 1200,col="#A58AFF")+ geom_hline(yintercept = 1400,col="#FB61D7")+ labs(title="Size of human overlap PAS, colored by expected if overlap = 1 base")
+```
+
+
+```{r}
+plot_grid(chimpsize,humansize)
+```
+This shows that the human overlaps at the higher numbers are closer together.  
+```{r}
+HumanPAS_details %>% arrange(desc(nPAS)) %>% head()
+
+```
+
+###Passing filters 
+Focus on examples that make it in the final set.  
+
+```{r}
+overlapres=read.table("../data/OverlappingPAS/MergedPAS_HumanCords.txt", col.names = c("chr", "start", "end", "name", "numb")) %>% mutate(length=end-start) 
+
+overlapres %>% arrange(desc(numb)) %>% head()
+```
+
+After looking at examples, it does not seem like merging is the right way to handle this. It would lead to inflatted numbers in regions and I do not want that. I will leave this for now.  
