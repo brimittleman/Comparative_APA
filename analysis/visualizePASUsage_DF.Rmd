@@ -53,7 +53,7 @@ I will double filter here as well.
 ```{r}
 NuclearUsage=read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz", header = T)
 
-PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::rename("PASnum" = PAS)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::rename("PASnum" = PAS)
 
 Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_") %>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-") %>% filter(PASnum %in% PASMeta$PASnum) %>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(chr,start,end, strand, PAS, species,Gene, sample,numUsage)
 ```
@@ -92,7 +92,6 @@ genes are in ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt
 
 ```{bash,eval=F}
 sed '1d' ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt > ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear_noHead.txt
-
 sbatch makeNuclearDapaplots_DF.sh
 ```
 

@@ -64,7 +64,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)  
 
-* [Explore nuclear differential APA PAS and genes Double filter](Explore_DF.html)  
+* [Explore nuclear differential APA PAS and genes Double filter](ExploredAPA_DF.html)  
 
 * [Enrichment for differencial APA and apaQTL double filter](dAPAandapaQTL_DF.html)   
 

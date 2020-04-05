@@ -35,7 +35,7 @@ mkdir ../data/NuclearHvC_DF
 
 
 ```{r}
-PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
 ```
 
 
@@ -172,7 +172,7 @@ legend("topleft", legend=c("abs(DPAU) > .2, (n=3103)", "Not differentially used 
 Are those discovered used more in chimp those discovered in chimp?
 
 ```{r}
-PASinfo=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
+PASinfo=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
 ```
 
 Join this with the effect sizes.  

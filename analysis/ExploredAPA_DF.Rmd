@@ -25,7 +25,7 @@ Do genes with differential APA have different numbers of PAS in each species?
 ```{r}
 DiffUsage=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
 
-PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
 
 DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
 ```
@@ -33,7 +33,7 @@ DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"
 Number of PAS in each species: 
 
 ```{r}
-PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T)
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T)
 PAS_sm=PAS %>% dplyr::select(gene, Chimp, Human) 
 PAS_m= melt(PAS_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.1) %>% group_by(species, gene) %>% summarise(nPAS=n())
 ```
@@ -51,7 +51,8 @@ ggplot(PAS_m_dAPA,aes(by=dAPA, y=nPAS,x=species, fill=dAPA)) + geom_boxplot()  +
 Question 2: Where are the differentially used PAS?
 
 ```{r}
-ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") 
+ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") +  theme(text= element_text(size=16), legend.position = "none") + scale_fill_brewer(palette = "Dark2") + labs(x="Genic Region", y="Number of dAPA PAS", title="Location of dAPA PAS") 
+
 ```
 
 Seperate by location:  
@@ -60,7 +61,7 @@ Seperate by location:
 #negative deltaPAU is used more in human 
 DiffUsagePAS_dir= DiffUsagePAS %>% mutate(direction=ifelse(deltaPAU >=0, "Chimp", "Human"))
 
-ggplot(DiffUsagePAS_dir,aes(x=loc, fill=loc)) + geom_bar(stat="count")  + facet_grid(~direction)
+ggplot(DiffUsagePAS_dir,aes(x=loc, fill=loc)) + geom_bar(stat="count")  + facet_grid(~direction)+ scale_fill_brewer(palette = "Dark2") + labs(x="Genic Region", y="Number of dAPA PAS", title="Location of dAPA PAS")+ theme(text= element_text(size=16), legend.position = "none") 
 ```
 This is opposite of the results using just the dominant PAS.  I probably shouldn't put too much into that.  
 
@@ -98,7 +99,7 @@ python extractPhyloReg.py
 phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na()
 NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr","start","end"))
 ```
-40756 have results of the 40776
+
 Plot:  
 
 ```{r}
@@ -185,7 +186,7 @@ phyloresG=read.table("../data/PhyloP/PAS_phyloP_genes.txt", col.names = c("chr",
 GenesPhy=genesWithSig %>% inner_join(phyloresG, by=c("chr","start","end"))
 ```
 
-I lose 2237 from NAs in the values. 
+
 
 ```{r}
 ggplot(GenesPhy,aes(x=phyloP, by=Sig, fill=Sig)) + geom_density(alpha=.5)+ scale_fill_brewer(palette = "Dark2", name="Gene with \nSignificant PAS") + labs(title="Mean PhyloP scores for tested Genes") + annotate("text",label="Wilcoxan, p=2.6.4e -12",x=4,y=1.5)
