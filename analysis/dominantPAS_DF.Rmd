@@ -95,6 +95,12 @@ ggplot(DiffDom,aes(x=HumanLoc)) +  geom_histogram(stat="count") + labs(x="PAS Lo
 DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
 ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
+```{r}
+nrow(SameDom)
+nrow(SameDom)/nrow(BothDom)
+nrow(DiffDom)
+nrow(DiffDom)/nrow(BothDom)
+```
 
 
 
@@ -126,5 +132,6 @@ I will look to see if these genes are those I see with differential APA.
 write.table(DiffDom_humanIntronChimpUTR, "../data/DominantPAS_DF/Nuclear_HumanIntronicChimpUTR.txt", col.names = T, row.names = F, quote = F)
 write.table(DiffDom_humanUTRChimpInton, "../data/DominantPAS_DF/Nuclear_HumanUTRChimpIntronic.txt", col.names = T, row.names = F, quote = F)
 
+write.table(DiffDom, "../data/DominantPAS_DF/Nuclear_DiffDom.txt", col.names = T, row.names = F, quote = F)
 write.table(SameDom, "../data/DominantPAS_DF/Nuclear_SameDom.txt", col.names = T, row.names = F, quote = F)
 ```

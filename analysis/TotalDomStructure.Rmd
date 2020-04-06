@@ -1,0 +1,161 @@
+---
+title: "Dominance Structure with total usage"
+author: "Briana Mittleman"
+date: "4/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+The dominant PAS when you look at the nuclear fraction show an interesting result. I want to refilter the PAS with 5% in total fraction then look to see if the genes with the different dominant PAS have the same pattern.  
+
+
+I am starting the lifted and annotated PAS before I filter for 5%.  I will do this filter then the same gene expression filter.  
+```{r}
+
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+#seperate total and nuclear  
+HumanUsage_total= HumanUsage %>% select(contains("_T"))
+HumanUsage_nuclear= HumanUsage %>% select(contains("_N"))
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage_nuclear),HumanTot=rowMeans(HumanUsage_total) ))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage_total= ChimpUsage %>% select(contains("_T"))
+ChimpUsage_nuclear= ChimpUsage %>% select(contains("_N"))
+
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage), ChimpTot=rowMeans(ChimpUsage_nuclear)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+```
+
+Both together:  
+
+```{r}
+BothMeanboth=ChimpMean %>% full_join(HumanMean, by=c("chr","start","end","gene"   ,"strand", "loc", "disc","PAS" ))
+
+BothMean =BothMeanboth %>% select(-Chimp, -Human)
+
+BothMean_5= BothMean %>% filter(ChimpTot >=0.05 | HumanTot >= 0.05)  
+```
+
+Filter passing gene  
+
+```{r}
+PassingGenes=read.table("../data/OverlapBenchmark/genesPassingCuttoff.txt", header = T, stringsAsFactors = F, col.names = c("gene"))
+
+
+BothMean_5_genefilt= BothMean_5 %>% semi_join(PassingGenes,by="gene")
+```
+
+
+Get the dominant PAS:  
+
+```{r}
+Chimp_Dom= BothMean_5_genefilt %>%
+  group_by(gene) %>%
+  top_n(1,ChimpTot) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  select(gene,loc,PAS,ChimpTot) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS, Chimp=ChimpTot)
+
+Human_Dom= BothMean_5_genefilt %>% 
+  group_by(gene) %>% 
+  top_n(1, HumanTot) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,HumanTot) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS,Human=HumanTot)
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+```
+
+
+```{r}
+SameDom=BothDom %>% filter(ChimpPAS==HumanPAS) 
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species \n Total Usage ")
+
+```
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS) 
+DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+Proportion of genes with same and different:  
+of  9458 
+```{r}
+nrow(SameDom)
+nrow(SameDom)/nrow(BothDom)
+nrow(DiffDom)
+nrow(DiffDom)/nrow(BothDom)
+```
+
+
+numbers in nuclear (of 9479):  
+
+[1] 6558
+[1] 0.6918451
+[1] 2921
+[1] 0.3081549
+
+Difference of proportion test  for different dominance:  
+```{r}
+prop.test(x=c(2304,2921), n=c(9458,9479))
+```
+Difference of proportion test for same dominance:  
+```{r}
+prop.test(x=c(7154,6558), n=c(9458,9479))
+```
+
+Find the genes with the same dominant in total but different in nuclear.  
+
+```{r}
+NuclearDiffDom=read.table("../data/DominantPAS_DF/Nuclear_DiffDom.txt",header = T,stringsAsFactors = F)
+NuclearSameDom=read.table("../data/DominantPAS_DF/Nuclear_SameDom.txt",header = T,stringsAsFactors = F)
+```
+
+I want genes in same dom for total and different for nuclear. First make sure it is in the tested set.  
+```{r}
+NuclearDiffDom_sameTot= NuclearDiffDom %>% semi_join(BothDom,by="gene") %>% anti_join(SameDom, by="gene")
+
+nrow(NuclearDiffDom_sameTot)
+```
+
+Plot location of these:  
+
+
+```{r}
+NuclearDiffDom_sameTot_g= NuclearDiffDom_sameTot %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(NuclearDiffDom_sameTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS in nuclear only") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+Compare this to those that are different in both: 
+```{r}
+NuclearDiffDom_diffTot= NuclearDiffDom %>% semi_join(BothDom,by="gene") %>% semi_join(SameDom, by="gene")
+nrow(NuclearDiffDom_diffTot)
+```
+
+```{r}
+NuclearDiffDom_diffTot_g= NuclearDiffDom_diffTot %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(NuclearDiffDom_diffTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS in both fractions") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+Seems pretty similar. 

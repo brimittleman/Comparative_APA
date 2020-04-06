@@ -55,6 +55,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Dominant PAS in Nuclear Fraction double filter](dominantPAS_DF.html)  
 
 * [Intronic location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
+
+* [Test for dominant PAS for total fraction](TotalDomStructure.html)
     
 * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
   
