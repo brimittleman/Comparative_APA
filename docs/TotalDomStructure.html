@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Dominant PAS Location Nuclear Double Filter</title>
+<title>Dominance Structure with total usage</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Dominant PAS Location Nuclear Double Filter</h1>
+<h1 class="title toc-ignore">Dominance Structure with total usage</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>1/21/2020</em></h4>
+<h4 class="date"><em>4/6/2020</em></h4>
 
 </div>
 
@@ -1275,7 +1275,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/637094ae060a6fd09f126b8f516b20197fbbbeff/analysis/dominantPAS_DF.Rmd" target="_blank">637094a</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/637094ae060a6fd09f126b8f516b20197fbbbeff/analysis/TotalDomStructure.Rmd" target="_blank">637094a</a>
 </td>
 <td>
 brimittleman
@@ -1287,74 +1287,6 @@ brimittleman
 look at total dominance
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/dominantPAS_DF.html" target="_blank">a7536f9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/bf79d5ed1e6fe64b47a139b186cbb21ce1c1f900/analysis/dominantPAS_DF.Rmd" target="_blank">bf79d5e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-<td>
-update catalot
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/48db342468338de2ec45be8692fa7ff7aee80118/docs/dominantPAS_DF.html" target="_blank">48db342</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/414b47c494215de92521c0276f3847bd092ae798/analysis/dominantPAS_DF.Rmd" target="_blank">414b47c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-<td>
-update dominant PAS
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1362,8 +1294,6 @@ update dominant PAS
 </div>
 </div>
 </div>
-<p>In this analysis I want to find the most dominant PAS for each gene in each species. I am interested in genes where the dominant PAS in human and chimp are intronic vs utr respectively. I will do this first in the nuclear fraction.</p>
-<p>I will compare these genes with those identified in the differential APA analysis. This will be helpful to narrow down the genes I want to visualize.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
@@ -1376,285 +1306,131 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>These are the PAS</p>
-<pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
-ChimpPASwMean =allPAS %&gt;% dplyr::select(-Human)
-HumanPASwMean =allPAS %&gt;% dplyr::select(-Chimp)</code></pre>
-<p>Find the dominant PAS per gene:</p>
-<p>I will remove genes with ties for now</p>
-<pre class="r"><code>Chimp_Dom= ChimpPASwMean %&gt;%
+<p>The dominant PAS when you look at the nuclear fraction show an interesting result. I want to refilter the PAS with 5% in total fraction then look to see if the genes with the different dominant PAS have the same pattern.</p>
+<p>I am starting the lifted and annotated PAS before I filter for 5%. I will do this filter then the same gene expression filter.</p>
+<pre class="r"><code>HumanAnno=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = IndH)
+#seperate total and nuclear  
+HumanUsage_total= HumanUsage %&gt;% select(contains(&quot;_T&quot;))
+HumanUsage_nuclear= HumanUsage %&gt;% select(contains(&quot;_N&quot;))
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage_nuclear),HumanTot=rowMeans(HumanUsage_total) ))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+ChimpAnno=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt&quot;, col.names = IndC)
+ChimpUsage_total= ChimpUsage %&gt;% select(contains(&quot;_T&quot;))
+ChimpUsage_nuclear= ChimpUsage %&gt;% select(contains(&quot;_N&quot;))
+
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage), ChimpTot=rowMeans(ChimpUsage_nuclear)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))</code></pre>
+<p>Both together:</p>
+<pre class="r"><code>BothMeanboth=ChimpMean %&gt;% full_join(HumanMean, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ))
+
+BothMean =BothMeanboth %&gt;% select(-Chimp, -Human)
+
+BothMean_5= BothMean %&gt;% filter(ChimpTot &gt;=0.05 | HumanTot &gt;= 0.05)  </code></pre>
+<p>Filter passing gene</p>
+<pre class="r"><code>PassingGenes=read.table(&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;, header = T, stringsAsFactors = F, col.names = c(&quot;gene&quot;))
+
+
+BothMean_5_genefilt= BothMean_5 %&gt;% semi_join(PassingGenes,by=&quot;gene&quot;)</code></pre>
+<p>Get the dominant PAS:</p>
+<pre class="r"><code>Chimp_Dom= BothMean_5_genefilt %&gt;%
   group_by(gene) %&gt;%
-  top_n(1,Chimp) %&gt;% 
+  top_n(1,ChimpTot) %&gt;% 
   mutate(nPer=n()) %&gt;% 
   filter(nPer==1) %&gt;% 
-  dplyr::select(gene,loc,PAS,Chimp) %&gt;% 
-  rename(ChimpLoc=loc, ChimpPAS=PAS)
+  select(gene,loc,PAS,ChimpTot) %&gt;% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS, Chimp=ChimpTot)
 
-Human_Dom= HumanPASwMean %&gt;% 
+Human_Dom= BothMean_5_genefilt %&gt;% 
   group_by(gene) %&gt;% 
-  top_n(1, Human) %&gt;% 
+  top_n(1, HumanTot) %&gt;% 
   mutate(nPer=n()) %&gt;% 
   filter(nPer==1) %&gt;% 
-  dplyr::select(gene,loc,PAS,Human) %&gt;% 
-  rename(HumanLoc=loc, HumanPAS=PAS)
-
-
-#merge
+  dplyr::select(gene,loc,PAS,HumanTot) %&gt;% 
+  rename(HumanLoc=loc, HumanPAS=PAS,Human=HumanTot)
 
 BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)</code></pre>
-<p>Look at how many have the same dominat and where these are:</p>
 <pre class="r"><code>SameDom=BothDom %&gt;% filter(ChimpPAS==HumanPAS) 
-
-ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species&quot;)</code></pre>
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species \n Total Usage &quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS_DF.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-4-1.png" target="_blank">a7536f9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/48db342468338de2ec45be8692fa7ff7aee80118/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-4-1.png" target="_blank">48db342</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Plot this as boxplots as well.</p>
-<pre class="r"><code>SameDom_gather=SameDom %&gt;% dplyr::select(gene, HumanLoc, Chimp,Human) %&gt;% gather(species, value, -c(gene,HumanLoc))
-
-ggplot(SameDom_gather,aes(x=HumanLoc, y=value,fill=species)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;PAS Location&quot;, y=&quot;Mean Usage accross individuals&quot;, title=&quot;Mean usage for Genes with matching Dominant PAS&quot;)</code></pre>
-<p><img src="figure/dominantPAS_DF.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-5-1.png" target="_blank">a7536f9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/48db342468338de2ec45be8692fa7ff7aee80118/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-5-1.png" target="_blank">48db342</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Write out the intronic for location analysis.</p>
-<pre class="bash"><code>mkdir ../data/DominantPAS_DF</code></pre>
-<pre class="r"><code>SameDom_intron=SameDom %&gt;% filter(ChimpLoc==&quot;intron&quot;)
-write.table(SameDom_intron, &quot;../data/DominantPAS_DF/SameDominantIntronic.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
-<p>Different PAS but in the same location:</p>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS) 
-
-ggplot(DiffDom,aes(x=HumanLoc)) +  geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;PAS Location&quot;, y= &quot;Number of Genes&quot;, title=&quot;Dominat PAS in same genic location but different PAS&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS_DF.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-8-1.png" target="_blank">a7536f9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/48db342468338de2ec45be8692fa7ff7aee80118/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-8-1.png" target="_blank">48db342</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
 ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/dominantPAS_DF.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-9-1.png" target="_blank">a7536f9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-03
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/48db342468338de2ec45be8692fa7ff7aee80118/docs/figure/dominantPAS_DF.Rmd/unnamed-chunk-9-1.png" target="_blank">48db342</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Proportion of genes with same and different:<br />
+of 9458</p>
 <pre class="r"><code>nrow(SameDom)</code></pre>
-<pre><code>[1] 6558</code></pre>
+<pre><code>[1] 7154</code></pre>
 <pre class="r"><code>nrow(SameDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.6918451</code></pre>
+<pre><code>[1] 0.7563967</code></pre>
 <pre class="r"><code>nrow(DiffDom)</code></pre>
-<pre><code>[1] 2921</code></pre>
+<pre><code>[1] 2304</code></pre>
 <pre class="r"><code>nrow(DiffDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.3081549</code></pre>
-<p>This is interesting but could be based on the annotations. I will look at the genes with human in intron and chimp in 3’ UTR.</p>
-<pre class="r"><code>DiffDom_humanIntronChimpUTR= DiffDom %&gt;% filter(ChimpLoc==&quot;utr3&quot;, HumanLoc==&quot;intron&quot;)
-
-nrow(DiffDom_humanIntronChimpUTR)</code></pre>
-<pre><code>[1] 921</code></pre>
-<p>Opposite Direction</p>
-<pre class="r"><code>DiffDom_humanUTRChimpInton= DiffDom %&gt;% filter(ChimpLoc==&quot;intron&quot;, HumanLoc==&quot;utr3&quot;)
-nrow(DiffDom_humanUTRChimpInton)</code></pre>
-<pre><code>[1] 40</code></pre>
-<pre class="r"><code>prop.test(x=c(nrow(DiffDom_humanIntronChimpUTR),nrow(DiffDom_humanUTRChimpInton)), n=c(nrow(DiffDom), nrow(DiffDom)))</code></pre>
+<pre><code>[1] 0.2436033</code></pre>
+<p>numbers in nuclear (of 9479):</p>
+<p>[1] 6558 [1] 0.6918451 [1] 2921 [1] 0.3081549</p>
+<p>Difference of proportion test for different dominance:</p>
+<pre class="r"><code>prop.test(x=c(2304,2921), n=c(9458,9479))</code></pre>
 <pre><code>
     2-sample test for equality of proportions with continuity
     correction
 
-data:  c(nrow(DiffDom_humanIntronChimpUTR), nrow(DiffDom_humanUTRChimpInton)) out of c(nrow(DiffDom), nrow(DiffDom))
-X-squared = 964.48, df = 1, p-value &lt; 2.2e-16
+data:  c(2304, 2921) out of c(9458, 9479)
+X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided
 95 percent confidence interval:
- 0.2838978 0.3193203
+ -0.07735517 -0.05174797
 sample estimates:
-    prop 1     prop 2 
-0.31530298 0.01369394 </code></pre>
-<p>I will look to see if these genes are those I see with differential APA.</p>
-<pre class="r"><code>write.table(DiffDom_humanIntronChimpUTR, &quot;../data/DominantPAS_DF/Nuclear_HumanIntronicChimpUTR.txt&quot;, col.names = T, row.names = F, quote = F)
-write.table(DiffDom_humanUTRChimpInton, &quot;../data/DominantPAS_DF/Nuclear_HumanUTRChimpIntronic.txt&quot;, col.names = T, row.names = F, quote = F)
+   prop 1    prop 2 
+0.2436033 0.3081549 </code></pre>
+<p>Difference of proportion test for same dominance:</p>
+<pre class="r"><code>prop.test(x=c(7154,6558), n=c(9458,9479))</code></pre>
+<pre><code>
+    2-sample test for equality of proportions with continuity
+    correction
 
-write.table(DiffDom, &quot;../data/DominantPAS_DF/Nuclear_DiffDom.txt&quot;, col.names = T, row.names = F, quote = F)
-write.table(SameDom, &quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
+data:  c(7154, 6558) out of c(9458, 9479)
+X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.05174797 0.07735517
+sample estimates:
+   prop 1    prop 2 
+0.7563967 0.6918451 </code></pre>
+<p>Find the genes with the same dominant in total but different in nuclear.</p>
+<pre class="r"><code>NuclearDiffDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_DiffDom.txt&quot;,header = T,stringsAsFactors = F)
+NuclearSameDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;,header = T,stringsAsFactors = F)</code></pre>
+<p>I want genes in same dom for total and different for nuclear. First make sure it is in the tested set.</p>
+<pre class="r"><code>NuclearDiffDom_sameTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% anti_join(SameDom, by=&quot;gene&quot;)
+
+nrow(NuclearDiffDom_sameTot)</code></pre>
+<pre><code>[1] 1678</code></pre>
+<p>Plot location of these:</p>
+<pre class="r"><code>NuclearDiffDom_sameTot_g= NuclearDiffDom_sameTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+ggplot(NuclearDiffDom_sameTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in nuclear only&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Compare this to those that are different in both:</p>
+<pre class="r"><code>NuclearDiffDom_diffTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% semi_join(SameDom, by=&quot;gene&quot;)
+nrow(NuclearDiffDom_diffTot)</code></pre>
+<pre><code>[1] 1133</code></pre>
+<pre class="r"><code>NuclearDiffDom_diffTot_g= NuclearDiffDom_diffTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
+ggplot(NuclearDiffDom_diffTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in both fractions&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Seems pretty similar.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
