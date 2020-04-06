@@ -24,7 +24,7 @@ I will start with a full correlation matrix using the counts for the top used PA
 
 
 ```{r}
-TopUsedPAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header=T,stringsAsFactors = F) %>% mutate(MeanUsage=(Chimp+Human)/2) %>% group_by(gene) %>% arrange(desc(MeanUsage)) %>% slice(1) %>% ungroup() %>% dplyr::select(PAS, chr, start, end) %>% rename("Chr"= chr,"Start"= start, "End"= end)
+TopUsedPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header=T,stringsAsFactors = F) %>% mutate(MeanUsage=(Chimp+Human)/2) %>% group_by(gene) %>% arrange(desc(MeanUsage)) %>% slice(1) %>% ungroup() %>% dplyr::select(PAS, chr, start, end) %>% rename("Chr"= chr,"Start"= start, "End"= end)
 ```
 
 Filter these in the counts file:  
@@ -190,4 +190,3 @@ cor(APA_varDE$VarLogef, APA_varDE$logFC, method = "spearman")
 
 ```
 
-Im stuck here. I will get suggestiions/keep thinking 

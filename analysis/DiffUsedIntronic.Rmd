@@ -23,25 +23,22 @@ For this analysis I will look at the differentially used PAS in introns and ask 
 
 
 ```{r}
-Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% select(PAS, chr, start,end, loc)
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
 DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
 DiffIsoSig= DiffIso %>% filter(SigPAU2=="Yes")
 
 
 ```
 
-742 of the 11228 intronic PAS are significant. 
-
-1659 of the 17012 3' UTR PAS are significant. 
 
 I can compare the effect sizes with these genes in the DE.  
 
 ##Compare with expression
 ```{r}
 
-nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% select(Gene_stable_ID, Gene.name)
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
 
-DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% rename('gene'=Gene.name) %>% select(-Gene_stable_ID)
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
 
 ```
 
@@ -115,13 +112,6 @@ nrow(DeandAPA_topPAS %>% filter(loc=="utr3", SigPAU2=="Yes"))
 
 
 
-from  11228 intronic to 1358 PAS (12%)
-from 742 to 221 significant (30%)
-
-
-from  17012 to 5993 3' UTR PAS. (35%)
-from 1659 to 1088 significant (66%)
-
 Plot the correlation in effect size  
 
 ```{r}
@@ -189,7 +179,7 @@ plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)
 ##Ribosome occupancy  
 
 ```{r}
-Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
 ```
 
 Join with APA  
@@ -261,13 +251,7 @@ nrow(RiboandAPA_topPAS %>% filter(loc=="intron"))
 nrow(RiboandAPA %>% filter(loc=="utr3"))
 nrow(RiboandAPA_topPAS %>% filter(loc=="utr3"))
 ```
-UTR and ribo:
-- All 13754
-- in top used set- 5179
 
-itron and ribo:
-- All- 7405
-- in top used set- 1180
 
 Plot the correlation in effect size  
 
@@ -291,7 +275,7 @@ nrow(RiboandAPA_topPASsigAPA %>% filter(loc=="intron"))
 nrow(RiboandAPA_topPASsigAPA %>% filter(loc=="utr3"))
 
 ```
-192 intronic significant, 908 significant 3' utr
+199 intronic significant, 910 significant 3' utr
 
 ```{r}
 ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
@@ -314,7 +298,7 @@ nrow(RiboandAPA_topPASsigAPAandR %>% filter(loc=="intron"))
 
 nrow(RiboandAPA_topPASsigAPAandR %>% filter(loc=="utr3"))
 ```
-43 PAS for intrnic 227 for 3' UTR
+47 PAS for intrnic 229 for 3' UTR
 
 ```{r}
 ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
@@ -407,7 +391,9 @@ top.table <- topTable(HvC.prot, n = Inf)
 
 volcanoplot(HvC.prot,coef=2,highlight=2)
 
-effectsizeDF= as.data.frame(cbind(Gene_stable_ID=rownames(protein.expressed.data.HC),logEf=HvC.prot$coefficients[,2], pval=top.table$adj.P.Val))  %>% inner_join(nameID,by="Gene_stable_ID") %>% rename('gene'=Gene.name) %>% select(-Gene_stable_ID)
+effectsizeDF= as.data.frame(cbind(Gene_stable_ID=rownames(protein.expressed.data.HC),logEf=HvC.prot$coefficients[,2], pval=top.table$adj.P.Val))  %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
+
+write.table(effectsizeDF, "../data/Khan_prot/ProtData_effectSize.txt",col.names = T, row.names = F, quote = F)
 ```
 
 ```{r}
@@ -419,13 +405,13 @@ DPandAPA$logEf= as.numeric(as.character(DPandAPA$logEf))
 DPandAPA$pval= as.numeric(as.character(DPandAPA$pval))
 ```
 
-Looking at 2568 common genes.  
+Looking at 2557 common genes.  
 
 
 ```{r}
-ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 2)
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 1)
 
-ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 2)
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = 1)
 ```
 Just the genes with significant differences in PAS  
 
@@ -522,7 +508,7 @@ deltaPandAPA %>% group_by(gene) %>% summarise(n()) %>% nrow()
 
 ```
 
-2620 genes  
+2607 genes  
 
 ```{r}
 ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 2)

@@ -97,7 +97,7 @@ The genes in 1,2,5,6 are interesting.
 ```{r}
 APAandPnotE_selCalled= APAandPnotE_sel_g %>% filter(Set=="Protein", Model %in% c(1,2,5,6))
 ```
-There are 27 of these genes: 
+There are 28 of these genes: 
 
 ```{r}
 APAandPnotE_selCalled
@@ -108,7 +108,7 @@ Where are the differential PAS in these genes:
 
 ```{r}
 #APAandPnotE_sel_gOnlyP
-Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = T) %>% dplyr::rename("ChimpUsage"=Chimp, "HumanUsage"=Human)
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = T) %>% dplyr::rename("ChimpUsage"=Chimp, "HumanUsage"=Human)
 NucAPAres=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", "start","end", "gene"))
 
 
@@ -118,7 +118,7 @@ NucAPAres_DP= NucAPAres %>% filter(gene %in%APAandPnotE_sel_gOnlyP$gene ) %>% fi
 NucAPAresSig=NucAPAres %>% filter(SigPAU2=="Yes")
 ```
 
-THere are 152 PAS in this set:
+THere are 154 PAS in this set:
 
 
 ```{r}
@@ -163,7 +163,7 @@ Interactions:
 
 Are there differences in protien interactions for these. 
 ```{r}
-Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T)
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) 
 
 InteractionsAPA=Interactions %>%filter(gene %in% NucAPAresSig$gene) %>% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, "Yes", "No"))
 
@@ -195,7 +195,7 @@ ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_m
 
 Effect sizes : 
 
-Look at the 152 PAS effect sizes here and in protien, translation, and expression. 
+Look at the 154 PAS effect sizes here and in protien, translation, and expression. 
 ```{r}
 NucAPAres_sig_dpnotE = NucAPAres_sig %>% filter(dPnotE =="Yes")
 

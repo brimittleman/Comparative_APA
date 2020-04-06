@@ -115,16 +115,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Conservation based on dominance structure](ConsandDom.html)
 
-##Mediation  
-
-
-* [Normalize (qqnrom) Nuclear Fraction double filter](NormalizePheno_nuclear_DF.html)    
-
-* [Normalize clusters from splicing analysis](normalizeClusters.html)
-
-* [Mediation analysis double filter](mediation_DF.html)  
-    
-* [Mediation with protein](mediation_prot.html)
+##Explore effect size relationships  
 
 * [Explore more about APA expression relationship](ExploreAPAexpression.html)
 
@@ -135,7 +126,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
 
-##Evaluate Reasons for inconsistant dominance structure 
+##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 
 List of everything we tried for this section:  
 
@@ -307,3 +298,13 @@ From the original nuclear dominant
 ###Human v Chimp fraction differences - pre- march rerun 
 
 * [Differential isoform between fractons by species](TotalVNuclearBothSpecies.html)
+
+####Mediation tests  
+
+* [Normalize (qqnrom) Nuclear Fraction double filter](NormalizePheno_nuclear_DF.html)    
+
+* [Normalize clusters from splicing analysis](normalizeClusters.html)
+
+* [Mediation analysis double filter](mediation_DF.html)  
+    
+* [Mediation with protein](mediation_prot.html)

@@ -33,7 +33,7 @@ I will start with a full correlation matrix using the counts for the top used PA
 
 
 ```{r}
-TopUsedPAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header=T,stringsAsFactors = F) %>% mutate(MeanUsage=(Chimp+Human)/2) %>% group_by(gene) %>% arrange(desc(MeanUsage)) %>% slice(1) %>% ungroup() %>% dplyr::select(PAS, chr, start, end) %>% rename("Chr"= chr,"Start"= start, "End"= end)
+TopUsedPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header=T,stringsAsFactors = F) %>% mutate(MeanUsage=(Chimp+Human)/2) %>% group_by(gene) %>% arrange(desc(MeanUsage)) %>% slice(1) %>% ungroup() %>% dplyr::select(PAS, chr, start, end) %>% rename("Chr"= chr,"Start"= start, "End"= end)
 ```
 
 Filter these in the counts file:  
@@ -116,7 +116,7 @@ Correlation between effect sizes:
 ```{r}
 ggplot(DEandAPA,aes(x=logFC, y=logef)) + geom_point() + labs(x="DE log Effect size", y="APA effect size",title="Relationship between effect sizes") + geom_density2d()
 
-ggplot(DEandAPA,aes(x=abs(logFC), y=abs(logef))) + geom_point()+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.27 , R2= 0.03",y=40,x=5)
+ggplot(DEandAPA,aes(x=abs(logFC), y=abs(logef))) + geom_point()+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.28 , R2= 0.03",y=40,x=5)
 
 summary(lm(abs(DEandAPA$logef)~abs(DEandAPA$logFC)))
 ```
@@ -139,7 +139,7 @@ Correlation between effect sizes:
 ```{r}
 ggplot(DEandAPA_filt,aes(x=logFC, y=logef)) + geom_point() + labs(x="DE log Effect size", y="APA effect size", title="Relationship between effect sizes \n most used PAS") 
 
-ggplot(DEandAPA_filt,aes(x=abs(logFC), y=abs(logef))) + geom_point( )+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes \n most used PAS") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.28 , R2= 0.03",y=20,x=5)
+ggplot(DEandAPA_filt,aes(x=abs(logFC), y=abs(logef))) + geom_point( )+ labs(x="abs(DE log Effect size)", y="abs(APA effect size)",title="Relationship between absolute values of effect sizes \n most used PAS") + geom_smooth(method="lm") +annotate("text", label="Beta= 0.3 , R2= 0.04",y=20,x=5)
 
 
 summary(lm(abs(DEandAPA_filt$logef)~abs(DEandAPA_filt$logFC)))
@@ -155,7 +155,7 @@ DEandAPA_sigWithDE= DE %>% inner_join(DEandAPA_sig,by="gene" )
 
 
 summary(lm(data=DEandAPA_sigWithDE, abs(logFC)~NsigPAS))
-ggplot(DEandAPA_sigWithDE, aes(x=NsigPAS, y=abs(logFC))) +geom_point() + geom_smooth(method = "lm") + annotate("text",label="beta=.2, r2=0.017, pvalue=0.0002248",x=4, y=6) + labs(x="Number of differentially used PAS 20%",title="Relationship between DE effect size and dAPA PAS")
+ggplot(DEandAPA_sigWithDE, aes(x=NsigPAS, y=abs(logFC))) +geom_point() + geom_smooth(method = "lm") + annotate("text",label="beta=.2, r2=0.018, pvalue=0.0006",x=4, y=6) + labs(x="Number of differentially used PAS 20%",title="Relationship between DE effect size and dAPA PAS")
 
 cor( DEandAPA_sigWithDE$NsigPAS, DEandAPA_sigWithDE$logFC, method = "spearman")
 cor(DEandAPA_sigWithDE$B, DEandAPA_sigWithDE$NsigPAS, method = "spearman")

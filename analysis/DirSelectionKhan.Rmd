@@ -64,7 +64,7 @@ nrow(DiffIso %>% select(gene) %>% unique())
 
 
 ```
-We have data for 11,203 PAS in 2,485 genes.  
+We have data for 10980 PAS in 2,485 genes.  
 
 I want to get this down to gene level
 
@@ -95,13 +95,6 @@ DirSelectionProt=KhanData_gwAPA %>% filter(Set=="Protein", Model %in% c(1,2))
 
 DirSelectionProt %>% group_by(Model,dAPA) %>% summarise(n())
 ```
-RNA 
--84 genes directional to human  
--64 genes directional to chimp    
-
-Protein  
--32 genes directional in human  
--27 genes directional in chimp  
 
 Relaxed selection:  
 
@@ -114,15 +107,8 @@ RelSelectionProt=KhanData_gwAPA %>% filter(Set=="Protein", Model %in% c(5,6))
 
 RelSelectionProt %>% group_by(Model,dAPA) %>% summarise(n())
 ```
-9/57, 5/13
 
-RNA 
--9 genes relax to human  (9/66) 13%
--5 genes relax to chimp   (5/18) 27%
 
-Protein  
--0 genes relax in human  
--6 genes relax in chimp  
 
 
 

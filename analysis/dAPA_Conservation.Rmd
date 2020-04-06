@@ -20,7 +20,7 @@ library(reshape2)
 ```{r}
 DiffUsage=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
 
-PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
 
 DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
 ```
@@ -102,7 +102,7 @@ Look at the 200 basepairs upstream of each PAS as a control.
 
 
 ```{r}
-metaStrand=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(chr, start,end, strandFix, PAS)
+metaStrand=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(chr, start,end, strandFix, PAS)
 
 NucReswPhy_upstream=NucReswPhy %>% inner_join(metaStrand,by=c("chr", "start", "end")) %>% mutate(newStart=ifelse(strandFix=="+", start - 200, end), newEnd=ifelse(strandFix=="+", start, end +200))
 
