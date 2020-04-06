@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-22
+<strong>Last updated:</strong> 2020-04-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7e2fb38f68a759f89511cd9354eb245204cc78fctargetblank7e2fb38a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7e2fb38f68a759f89511cd9354eb245204cc78fc" target="_blank">7e2fb38</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree92f06e4499cd41e5172d560e481c51065573db7ctargetblank92f06e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/92f06e4499cd41e5172d560e481c51065573db7c" target="_blank">92f06e4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7e2fb38f68a759f89511cd9354eb245204cc78fctargetblank7e2fb38a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree92f06e4499cd41e5172d560e481c51065573db7ctargetblank92f06e4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,20 +450,33 @@ Ignored files:
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
+    Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
+    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/DiffUsedUTR.Rmd
+    Untracked:  analysis/GvizPlots.Rmd
+    Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  analysis/pol2.Rmd
+    Untracked:  code/._AlignmentScores.sh
+    Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCMMPrim.sh
+    Untracked:  code/._BothFCnewOInclusive.sh
+    Untracked:  code/._ChimpStarMM2.sh
     Untracked:  code/._ClassifyLeafviz.sh
+    Untracked:  code/._ClosestorthoEx.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
@@ -476,6 +489,8 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._Filter255MM.sh
+    Untracked:  code/._FilterPrimSec.sh
     Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
@@ -484,6 +499,7 @@ Untracked files:
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MismatchNumbers.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
     Untracked:  code/._PAS_seqExpanded.sh
@@ -499,13 +515,17 @@ Untracked files:
     Untracked:  code/._RunNegMCMediationDF.sh
     Untracked:  code/._RunPosMCMediationDF.err
     Untracked:  code/._RunPosMCMediationDF.sh
+    Untracked:  code/._SAF2Bed.py
     Untracked:  code/._Snakefile
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
     Untracked:  code/._SortIndexBadSamples.sh
+    Untracked:  code/._StarMM2.sh
+    Untracked:  code/._TestFC.sh
     Untracked:  code/._assignPeak2Intronicregion
     Untracked:  code/._assignPeak2Intronicregion.sh
     Untracked:  code/._bed215upbed.py
+    Untracked:  code/._bed2Bedbothstrand.py
     Untracked:  code/._bed2SAF_gen.py
     Untracked:  code/._buildIndecpantro5
     Untracked:  code/._buildIndecpantro5.sh
@@ -513,6 +533,9 @@ Untracked files:
     Untracked:  code/._buildLeafviz_leadAnno.sh
     Untracked:  code/._buildStarIndex.sh
     Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chimpMultiCov.sh
+    Untracked:  code/._chimpMultiCov255.sh
+    Untracked:  code/._chimpMultiCovInclusive.sh
     Untracked:  code/._chooseSignalSite.py
     Untracked:  code/._cleanbed2saf.py
     Untracked:  code/._cluster.json
@@ -526,11 +549,18 @@ Untracked files:
     Untracked:  code/._extraSnakefiltpas
     Untracked:  code/._extractPhyloReg.py
     Untracked:  code/._extractPhyloRegGene.py
+    Untracked:  code/._extractPhylopGeneral.ph
+    Untracked:  code/._extractPhylopGeneral.py
+    Untracked:  code/._extractPhylopReg200down.py
+    Untracked:  code/._extractPhylopReg200up.py
     Untracked:  code/._filter5percPAS.py
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._filterPrimaryread.py
+    Untracked:  code/._filterSecondaryread.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixFCheadforExp.py
     Untracked:  code/._fixLeafCluster.py
     Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
@@ -539,6 +569,9 @@ Untracked files:
     Untracked:  code/._getRNAseqMapStats.sh
     Untracked:  code/._hg19MapStats.sh
     Untracked:  code/._humanChromorder.sh
+    Untracked:  code/._humanMultiCov.sh
+    Untracked:  code/._humanMultiCov255.sh
+    Untracked:  code/._humanMultiCov_inclusive.sh
     Untracked:  code/._intersectLiftedPAS.sh
     Untracked:  code/._liftJunctionFiles.sh
     Untracked:  code/._liftPAS19to38.sh
@@ -558,6 +591,8 @@ Untracked files:
     Untracked:  code/._negativeMediation_montecarlo.R
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
+    Untracked:  code/._overlapMMandOrthoexon.sh
+    Untracked:  code/._overlapPASandOrthoexon.sh
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
@@ -569,6 +604,7 @@ Untracked files:
     Untracked:  code/._quantJunc.sh
     Untracked:  code/._quantJunc_TEST.sh
     Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantLiftedPASPrimary.sh
     Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
@@ -611,7 +647,27 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ALLPAS_sequenceDF.err
+    Untracked:  code/ALLPAS_sequenceDF.out
+    Untracked:  code/AlignmentScores.err
+    Untracked:  code/AlignmentScores.out
+    Untracked:  code/AlignmentScores.sh
+    Untracked:  code/BothFCMM.err
+    Untracked:  code/BothFCMM.out
+    Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCMMPrim.err
+    Untracked:  code/BothFCMMPrim.out
+    Untracked:  code/BothFCMMPrim.sh
+    Untracked:  code/BothFCnewOInclusive.sh
+    Untracked:  code/BothFCnewOInclusive.sh.err
+    Untracked:  code/BothFCnewOInclusive.sh.out
+    Untracked:  code/ChimpStarMM2.err
+    Untracked:  code/ChimpStarMM2.out
+    Untracked:  code/ChimpStarMM2.sh
     Untracked:  code/ClassifyLeafviz.sh
+    Untracked:  code/ClosestorthoEx.err
+    Untracked:  code/ClosestorthoEx.out
+    Untracked:  code/ClosestorthoEx.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
@@ -636,6 +692,12 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/Filter255.err
+    Untracked:  code/Filter255.out
+    Untracked:  code/Filter255MM.sh
+    Untracked:  code/FilterPrimSec.err
+    Untracked:  code/FilterPrimSec.out
+    Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
     Untracked:  code/FindIntronForDomPAS.err
@@ -648,6 +710,10 @@ Untracked files:
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/IntersectMMandOrtho.err
+    Untracked:  code/IntersectMMandOrtho.out
+    Untracked:  code/IntersectPASandOrtho.err
+    Untracked:  code/IntersectPASandOrtho.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
@@ -677,6 +743,9 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/MismatchNumbers.err
+    Untracked:  code/MismatchNumbers.out
+    Untracked:  code/MismatchNumbers.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -720,15 +789,23 @@ Untracked files:
     Untracked:  code/RunPosMCMediationDF.sh
     Untracked:  code/RunPosMCMediationr.out
     Untracked:  code/SAF215upbed_gen.py
+    Untracked:  code/SAF2Bed.py
     Untracked:  code/Snakefile
     Untracked:  code/SnakefilePAS
     Untracked:  code/SnakefilePASfilt
     Untracked:  code/SortIndexBadSamples.err
     Untracked:  code/SortIndexBadSamples.out
     Untracked:  code/SortIndexBadSamples.sh
+    Untracked:  code/StarMM2.err
+    Untracked:  code/StarMM2.out
+    Untracked:  code/StarMM2.sh
+    Untracked:  code/TestFC.err
+    Untracked:  code/TestFC.out
+    Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
     Untracked:  code/apaQTLsnake.out
     Untracked:  code/apaQTLsnakePAS.err
@@ -742,6 +819,7 @@ Untracked files:
     Untracked:  code/bam2junc_remove.err
     Untracked:  code/bam2junc_remove.out
     Untracked:  code/bed215upbed.py
+    Untracked:  code/bed2Bedbothstrand.py
     Untracked:  code/bed2SAF_gen.py
     Untracked:  code/bed2saf.py
     Untracked:  code/bg_to_cov.py
@@ -756,6 +834,13 @@ Untracked files:
     Untracked:  code/buildStarIndex.sh
     Untracked:  code/callPeaksYL.py
     Untracked:  code/chimpChromprder.sh
+    Untracked:  code/chimpMultiCov.err
+    Untracked:  code/chimpMultiCov.out
+    Untracked:  code/chimpMultiCov.sh
+    Untracked:  code/chimpMultiCov255.sh
+    Untracked:  code/chimpMultiCovInclusive.err
+    Untracked:  code/chimpMultiCovInclusive.out
+    Untracked:  code/chimpMultiCovInclusive.sh
     Untracked:  code/chooseAnno2Bed.py
     Untracked:  code/chooseAnno2SAF.py
     Untracked:  code/chooseSignalSite.py
@@ -780,6 +865,9 @@ Untracked files:
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
+    Untracked:  code/extractPhylopGeneral.py
+    Untracked:  code/extractPhylopReg200down.py
+    Untracked:  code/extractPhylopReg200up.py
     Untracked:  code/filter5perc.R
     Untracked:  code/filter5percPAS.py
     Untracked:  code/filter5percPheno.py
@@ -790,12 +878,15 @@ Untracked files:
     Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
+    Untracked:  code/filterPrimaryread.py
     Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSecondaryread.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixFCheadforExp.py
     Untracked:  code/fixLeafCluster.py
     Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
@@ -804,12 +895,22 @@ Untracked files:
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getAlloverlap.py
     Untracked:  code/getRNAseqMapStats.sh
     Untracked:  code/hg19MapStats.err
     Untracked:  code/hg19MapStats.out
     Untracked:  code/hg19MapStats.sh
     Untracked:  code/humanChromorder.sh
     Untracked:  code/humanFiles
+    Untracked:  code/humanMultiCov.err
+    Untracked:  code/humanMultiCov.out
+    Untracked:  code/humanMultiCov.sh
+    Untracked:  code/humanMultiCov255.err
+    Untracked:  code/humanMultiCov255.out
+    Untracked:  code/humanMultiCov255.sh
+    Untracked:  code/humanMultiCovInclusive.err
+    Untracked:  code/humanMultiCovInclusive.out
+    Untracked:  code/humanMultiCov_inclusive.sh
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -861,8 +962,10 @@ Untracked files:
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
+    Untracked:  code/overlapMMandOrthoexon.sh
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapPASandOrthoexon.sh
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
@@ -887,6 +990,9 @@ Untracked files:
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quantLiftedPASPrimary.err
+    Untracked:  code/quantLiftedPASPrimary.out
+    Untracked:  code/quantLiftedPASPrimary.sh
     Untracked:  code/quatJunc.err
     Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
@@ -898,6 +1004,7 @@ Untracked files:
     Untracked:  code/reverseLift.sh
     Untracked:  code/runCheckReverseLift.sh
     Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runChimpDiffIsoDF.sh
     Untracked:  code/runCountNucleotides.err
     Untracked:  code/runCountNucleotides.out
     Untracked:  code/runCountNucleotides.sh
@@ -906,6 +1013,7 @@ Untracked files:
     Untracked:  code/runCountNucleotides_pantro6.sh
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runHumanDiffIsoDF.sh
     Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
@@ -913,6 +1021,8 @@ Untracked files:
     Untracked:  code/run_Chimpleafcutter_ds.out
     Untracked:  code/run_Chimpverifybam.err
     Untracked:  code/run_Chimpverifybam.out
+    Untracked:  code/run_Humanleafcutter_dF.err
+    Untracked:  code/run_Humanleafcutter_dF.out
     Untracked:  code/run_Humanleafcutter_ds.err
     Untracked:  code/run_Humanleafcutter_ds.out
     Untracked:  code/run_Nuclearleafcutter_ds.err
@@ -960,11 +1070,14 @@ Untracked files:
     Untracked:  code/submit-snakemakefiltPAS-human.sh
     Untracked:  code/subset_diffisopheno.py
     Untracked:  code/subset_diffisopheno_Chimp_tvN.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN_DF.py
     Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN_DF.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
     Untracked:  code/subset_diffisopheno_Nuclear_HvC_DF.py
     Untracked:  code/subset_diffisopheno_Total_HvC.py
     Untracked:  code/test
+    Untracked:  code/test.txt
     Untracked:  code/threeprimeOrthoFC.out
     Untracked:  code/threeprimeOrthoFC.sh
     Untracked:  code/threeprimeOrthoFCcd.err
@@ -1004,6 +1117,8 @@ Untracked files:
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
     Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
     Untracked:  data/._RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/._TrialFiltersMeta.txt
+    Untracked:  data/._TrialFiltersMeta.txt.sb-9845453e-R58Y0Q
     Untracked:  data/._metadata_HCpanel.txt
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
@@ -1013,6 +1128,8 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/BaseComp/
+    Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
@@ -1038,8 +1155,11 @@ Untracked files:
     Untracked:  data/NuclearHvC_DF/
     Untracked:  data/OppositeSpeciesMap.txt
     Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/OrthoExonBed/
     Untracked:  data/OverlapBenchmark/
+    Untracked:  data/OverlappingPAS/
     Untracked:  data/PAS/
+    Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
@@ -1057,17 +1177,29 @@ Untracked files:
     Untracked:  data/SignalSites/
     Untracked:  data/SignalSites_doublefilter/
     Untracked:  data/SpliceSite/
+    Untracked:  data/TestAnnoBiasOE/
+    Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_AS/
+    Untracked:  data/TestMM2_PrimaryRead/
+    Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_mismatch/
+    Untracked:  data/TestMM2_quality/
+    Untracked:  data/TestWithinMergePAS/
+    Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
+    Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
+    Untracked:  data/bioGRID/
     Untracked:  data/chainFiles/
     Untracked:  data/cleanPeaks_anno/
     Untracked:  data/cleanPeaks_byspecies/
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gviz/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1076,28 +1208,32 @@ Untracked files:
     Untracked:  data/metadata_HCpanel.xlsx
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/multimap/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
+    Untracked:  data/testQuant/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
+    Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/speciesSpecific_DF.Rmd
-    Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
 <p>
@@ -1136,6 +1272,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/92f06e4499cd41e5172d560e481c51065573db7c/analysis/SpliceSiteStrength.Rmd" target="_blank">92f06e4</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+update anno
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/SpliceSiteStrength.html" target="_blank">5e2ad6d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1198,12 +1368,12 @@ add Splice site strength
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>There is a hypothesis that increased 5’ splice site strength is assocaited with decreased usage of intronic PAS. This is relate to competition and binding of the U1 snurp. I will ask if there are differences in 5’ splcie sites for humans and chimp.</p>
@@ -1216,7 +1386,7 @@ liftOver /project2/gilad/briana/apaQTL/data/intron_analysis/transcriptsMinusExon
 </code></pre>
 <p>These look really good, they line up well.</p>
 <p>Pull out intronic PAS</p>
-<pre class="r"><code>PAS_metaIntron=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% filter(loc==&quot;intron&quot;)
+<pre class="r"><code>PAS_metaIntron=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% filter(loc==&quot;intron&quot;)
 PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;PAS&quot;, &quot;score&quot;, &quot;strand&quot;),stringsAsFactors = F) %&gt;% semi_join(PAS_metaIntron, by=&quot;PAS&quot;)
 
 write.table(PAS, &quot;../data/SpliceSite/IntronicPAS_humanCoord.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
@@ -1248,30 +1418,28 @@ bedtools intersect -a ../data/SpliceSite/IntronicPAS_SS_humanCoord.sort.bed  -b 
 
 IntersectRes_group= IntersectRes %&gt;% group_by(PAS) %&gt;% summarise(nExon=n())
 nrow(IntersectRes_group)</code></pre>
-<pre><code>[1] 8146</code></pre>
-<p>From 11060 to 8146.</p>
-<p>I will only look at the 8146 intronic PAS that map intersect 3 basepairs of the 5’ splice site to an ortho exon.</p>
+<pre><code>[1] 11381</code></pre>
 <p>Filter :</p>
 <pre class="r"><code>PAS_5SS_both_filt= PAS_5SS_both %&gt;% semi_join(IntersectRes_group, by=&quot;PAS&quot;) 
 
 PAS_5SS_both_filt %&gt;% group_by(PAS) %&gt;% summarise(n=n()) %&gt;% filter(n&gt;1)</code></pre>
-<pre><code># A tibble: 171 x 2
+<pre><code># A tibble: 228 x 2
    PAS             n
    &lt;chr&gt;       &lt;int&gt;
  1 chimp10327      2
  2 chimp108153     2
- 3 chimp130492     2
- 4 chimp130494     2
- 5 chimp132166     2
- 6 chimp13702      2
- 7 chimp13703      2
- 8 chimp13858      2
- 9 chimp147711     2
-10 chimp151277     2
-# … with 161 more rows</code></pre>
+ 3 chimp12642      2
+ 4 chimp130492     2
+ 5 chimp130494     2
+ 6 chimp132166     2
+ 7 chimp13702      2
+ 8 chimp13703      2
+ 9 chimp13858      2
+10 chimp147711     2
+# … with 218 more rows</code></pre>
 <pre class="r"><code>PAS_5SS_both_filt %&gt;% group_by(PAS) %&gt;% summarise(n=n()) %&gt;% filter(n&gt;1) %&gt;% nrow()</code></pre>
-<pre><code>[1] 171</code></pre>
-<p>171 map to 2 introns. Count each site for now.</p>
+<pre><code>[1] 228</code></pre>
+<p>228 map to 2 introns. Count each site for now.</p>
 <p>Write these out to sort and liftover.</p>
 <pre class="r"><code>write.table(PAS_5SS_both_filt, &quot;../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
 <pre class="bash"><code>sort -k1,1 -k2,2n ../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.bed &gt; ../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.sort.bed
@@ -1287,20 +1455,19 @@ liftedSS_wrongsize= liftedSS %&gt;%  filter(legnth!=9)
 
 
 nrow(liftedSS_wrongsize)</code></pre>
-<pre><code>[1] 13</code></pre>
+<pre><code>[1] 14</code></pre>
 <pre class="r"><code>nrow(unliftedSS)</code></pre>
-<pre><code>[1] 18</code></pre>
+<pre><code>[1] 22</code></pre>
 <pre class="r"><code>BADSS= as.data.frame(cbind(PAS=c(liftedSS_wrongsize$PAS,unliftedSS$PAS)))</code></pre>
-<p>Remove the 31 that to not lift or lift to the wrong size.</p>
+<p>Remove the 36 that to not lift or lift to the wrong size.</p>
 <pre class="r"><code>ChimpSS=liftedSS %&gt;% filter(legnth==9) %&gt;% select(-legnth)
 nrow(ChimpSS)</code></pre>
-<pre><code>[1] 8298</code></pre>
+<pre><code>[1] 11590</code></pre>
 <pre class="r"><code>HumanSS=PAS_5SS_both_filt %&gt;% anti_join(BADSS, by=&quot;PAS&quot;)</code></pre>
 <pre><code>Warning: Column `PAS` joining character vector and factor, coercing into
 character vector</code></pre>
 <pre class="r"><code>nrow(HumanSS)</code></pre>
-<pre><code>[1] 8298</code></pre>
-<p>I will look at 8298 PAS.</p>
+<pre><code>[1] 11590</code></pre>
 <p>Next step is to use bedtools nuc to get the strand specific basepairs.</p>
 <pre class="r"><code>write.table(ChimpSS, &quot;../data/SpliceSite/Chimp_SS.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)
 
@@ -1340,46 +1507,176 @@ BothSSandRes= ChimpSSandRes %&gt;% inner_join(HumanSSandRes, by=c(&#39;PAS&#39;,
 BothSSandReswUsage=BothSSandRes %&gt;% inner_join(ChimpPASUsage,by=&#39;PAS&#39;)</code></pre>
 <pre class="r"><code>ggplot(BothSSandReswUsage, aes(x=HumanScore, y=HumanUsage)) +geom_point(col=&quot;blue&quot;, alpha=.3) + geom_point(data=BothSSandReswUsage, aes(x=ChimpScore, y=ChimpUsage), alpha=.3,col=&quot;orange&quot;) </code></pre>
 <p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(BothSSandReswUsage,aes(x=ChimpScore, y=HumanScore)) + geom_point() + geom_density2d(col=&quot;green&quot;) + geom_smooth(method=&quot;lm&quot;,col=&quot;orange&quot;) + annotate(&quot;text&quot;,label=&quot;Pearsons Correlation = .98&quot;, x=-10, y=10)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-18-1.png" target="_blank">5e2ad6d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(BothSSandReswUsage,aes(x=ChimpScore, y=HumanScore)) + geom_point() + geom_density2d(col=&quot;green&quot;) + geom_smooth(method=&quot;lm&quot;,col=&quot;orange&quot;) + annotate(&quot;text&quot;,label=&quot;Pearsons Correlation = .98&quot;, x=-10, y=10) + labs(title=&quot;5&#39; Splice Site Strength for Intronic PAS&quot;)+ theme(text= element_text(size=16))</code></pre>
 <p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore )</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-19-1.png" target="_blank">5e2ad6d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore)</code></pre>
 <pre><code>
     Pearson&#39;s product-moment correlation
 
 data:  BothSSandReswUsage$ChimpScore and BothSSandReswUsage$HumanScore
-t = 446.07, df = 8688, p-value &lt; 2.2e-16
+t = 489.38, df = 12120, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.9779605 0.9797205
+ 0.9747456 0.9764612
 sample estimates:
       cor 
-0.9788586 </code></pre>
-<pre class="r"><code>ggplot(BothSSandReswUsage,aes(x=ChimpUsage, y=HumanUsage)) + geom_point() + geom_density2d(col=&quot;green&quot;) + geom_smooth(method=&quot;lm&quot;,col=&quot;orange&quot;) + annotate(&quot;text&quot;, label=&quot;Pearsons Correlation= 0.58&quot;, x=.65,y=.8)</code></pre>
-<p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+0.9756183 </code></pre>
+<p>Plot this by if the PAS is signfiicantly different</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene, loc)
+
+DiffUsagePAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(PASMeta, by=c(&quot;gene&quot;,&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))  %&gt;% select(PAS, SigPAU2)
+BothSSandReswUsage_withSig=BothSSandReswUsage %&gt;% inner_join(DiffUsagePAS, by=&quot;PAS&quot;)</code></pre>
+<pre class="r"><code>ggplot(BothSSandReswUsage_withSig,aes(x=ChimpScore, y=HumanScore, col=SigPAU2)) + geom_point(alpha=.5) + annotate(&quot;text&quot;,label=&quot;Pearsons Correlation = .98&quot;, x=-10, y=10) + labs(title=&quot;5&#39; Splice Site Strength for Intronic PAS&quot;,col=&quot;Differentially \nused PAS&quot;)+ theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore)</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BothSSandReswUsage$ChimpScore and BothSSandReswUsage$HumanScore
+t = 489.38, df = 12120, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9747456 0.9764612
+sample estimates:
+      cor 
+0.9756183 </code></pre>
+<pre class="r"><code>ggplot(BothSSandReswUsage_withSig,aes(x=ChimpUsage, y=HumanUsage,col=SigPAU2)) + geom_point(alpha=.5)  + geom_smooth(method=&quot;lm&quot;,col=&quot;orange&quot;) + annotate(&quot;text&quot;, label=&quot;Pearsons Correlation= 0.54&quot;, x=.65,y=.8) + theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Usage of PAS by species&quot;,col=&quot;Differentially \nused PAS&quot;) </code></pre>
+<p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" target="_blank">5e2ad6d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-02-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cor.test(BothSSandReswUsage$ChimpUsage,BothSSandReswUsage$HumanUsage )</code></pre>
 <pre><code>
     Pearson&#39;s product-moment correlation
 
 data:  BothSSandReswUsage$ChimpUsage and BothSSandReswUsage$HumanUsage
-t = 65.703, df = 8688, p-value &lt; 2.2e-16
+t = 70.368, df = 12120, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.5619293 0.5900259
+ 0.5258034 0.5510827
 sample estimates:
       cor 
-0.5761478 </code></pre>
+0.5385643 </code></pre>
 <p>How many have different score:</p>
-<pre class="r"><code>BothSSandReswUsage_diff= BothSSandReswUsage %&gt;% filter(ChimpScore!=HumanScore)
+<pre class="r"><code>BothSSandReswUsage_diff= BothSSandReswUsage_withSig %&gt;% filter(ChimpScore!=HumanScore)
 
 nrow(BothSSandReswUsage_diff)</code></pre>
-<pre><code>[1] 229</code></pre>
+<pre><code>[1] 220</code></pre>
 <p>229/8298 PAS have different scores in human and chimp</p>
 <p>I expect higher scores to have lower usage</p>
 <p>Plot difference in score and diff in usage</p>
 <pre class="r"><code>BothSSandReswUsage_diff_score= BothSSandReswUsage_diff %&gt;% mutate(DiffScore=HumanScore-ChimpScore, DiffUsage=HumanUsage-ChimpUsage)
 
-ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
-<p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point(aes(col=SigPAU2)) + geom_smooth(method=&quot;lm&quot;) +theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Relationship between differene in \nusage and difference in 5&#39; SS score&quot;,col=&quot;Differentially \nused PAS&quot;) </code></pre>
+<p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>summary(lm(BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_score$DiffUsage))</code></pre>
 <pre><code>
 Call:
@@ -1387,57 +1684,26 @@ lm(formula = BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_s
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--10.6097  -1.5064  -0.4609   0.6594  12.9320 
+-10.6012  -1.5470  -0.5127   0.5640  12.8121 
 
 Coefficients:
                                         Estimate Std. Error t value
-(Intercept)                               0.7341     0.1951   3.762
-BothSSandReswUsage_diff_score$DiffUsage   1.4361     3.1798   0.452
+(Intercept)                               0.7741     0.2104   3.680
+BothSSandReswUsage_diff_score$DiffUsage   0.7280     2.8263   0.258
                                         Pr(&gt;|t|)    
-(Intercept)                             0.000215 ***
-BothSSandReswUsage_diff_score$DiffUsage 0.651963    
+(Intercept)                             0.000294 ***
+BothSSandReswUsage_diff_score$DiffUsage 0.796965    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 2.94 on 227 degrees of freedom
-Multiple R-squared:  0.0008978, Adjusted R-squared:  -0.003504 
-F-statistic: 0.204 on 1 and 227 DF,  p-value: 0.652</code></pre>
+Residual standard error: 2.907 on 218 degrees of freedom
+Multiple R-squared:  0.0003043, Adjusted R-squared:  -0.004281 
+F-statistic: 0.06635 on 1 and 218 DF,  p-value: 0.797</code></pre>
 <p>No correlation</p>
 <p>Are any of these the differentially used PAS.</p>
-<pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% select(PAS,chr, loc, start, end)
+<pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% select(PAS,chr, loc, start, end)
 
 DiffIsoRes=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% select(PAS,SigPAU2 )</code></pre>
-<p>Join:</p>
-<pre class="r"><code>BothSSandReswUsage_diff_score_iso=BothSSandReswUsage_diff_score %&gt;% inner_join(DiffIsoRes, by=&quot;PAS&quot;)
-
-
-BothSSandReswUsage_diff_score_iso %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% select(PAS,HumanScore, HumanUsage, ChimpScore,ChimpUsage)</code></pre>
-<pre><code>           PAS HumanScore HumanUsage ChimpScore  ChimpUsage
-1   human34001       9.44 0.11000000       8.27 0.000000000
-2   human43606       7.21 0.06833333       7.94 0.115000000
-3   human43627       7.21 0.12333333       7.94 0.023333333
-4   human70865      10.90 0.07833333      -1.48 0.042500000
-5   human86581       6.49 0.08500000       7.31 0.049166667
-6   human95658       7.40 0.12666667       7.96 0.028333333
-7  human100575       9.46 0.08250000      11.08 0.036666667
-8  human114714       8.95 0.06750000      10.03 0.040000000
-9  human201213       7.07 0.20583333      -0.68 0.104166667
-10 human182838      10.47 0.09250000       8.40 0.166666667
-11 human183710       6.62 0.07750000      -1.56 0.055000000
-12 human183711       6.62 0.06083333      -1.56 0.047500000
-13 human183867       9.46 0.00500000       9.79 0.229166667
-14 human213120       7.64 0.07583333       7.23 0.042500000
-15 human238691       7.63 0.01666667       3.78 0.243333333
-16 human303540       9.72 0.06416667      11.00 0.013333333
-17 human324822       9.13 0.58083333       1.37 0.379166667
-18 human324822       9.13 0.58083333       1.37 0.379166667
-19 human324822       9.13 0.58083333       1.37 0.379166667
-20 human324822       9.13 0.58083333       1.37 0.379166667
-21 human338065      11.81 0.09916667      11.45 0.009166667</code></pre>
-<pre class="r"><code>nrow(BothSSandReswUsage_diff_score_iso %&gt;% filter(SigPAU2==&quot;Yes&quot;))</code></pre>
-<pre><code>[1] 21</code></pre>
-<p>Examples conforming to expectation :</p>
-<p>human100575 human86581 human114714 human182838 human238691 human303540</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1470,20 +1736,25 @@ other attached packages:
  [9] tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       utf8_1.1.4      
- [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
-[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
-[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.2       promises_1.0.1  
-[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
-[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
-[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      magrittr_1.5    
-[41] lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2 
-[45] MASS_7.3-51.1    xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
-[49] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10  R6_2.3.0        
-[53] nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
+ [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
+ [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
+[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
+[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
+[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
+[19] gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
+[22] evaluate_0.12      labeling_0.3       knitr_1.20        
+[25] httpuv_1.4.5       fansi_0.4.0        broom_0.5.1       
+[28] Rcpp_1.0.2         promises_1.0.1     scales_1.0.0      
+[31] backports_1.1.2    jsonlite_1.6       fs_1.3.1          
+[34] hms_0.4.2          digest_0.6.18      stringi_1.2.4     
+[37] grid_3.5.1         rprojroot_1.3-2    cli_1.1.0         
+[40] tools_3.5.1        magrittr_1.5       lazyeval_0.2.1    
+[43] crayon_1.3.4       whisker_0.3-2      pkgconfig_2.0.2   
+[46] MASS_7.3-51.1      xml2_1.2.0         lubridate_1.7.4   
+[49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[55] git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
