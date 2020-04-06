@@ -78,9 +78,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 
 
-##Human v Chimp fraction differences  
 
-* [Differential isoform between fractons by species](TotalVNuclearBothSpecies.html)
 
 ##Quantify Phenotypes with RNA:   
 
@@ -306,3 +304,6 @@ From the original nuclear dominant
 
 * [Mediation analysis](mediation.html)    
 
+###Human v Chimp fraction differences - pre- march rerun 
+
+* [Differential isoform between fractons by species](TotalVNuclearBothSpecies.html)

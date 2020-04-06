@@ -28,7 +28,7 @@ ExpRes=read.table("../data/DiffExpression/DEtested_allres.txt", header = F, stri
 
 
 #apa  - = upreg in human
-PASMeta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene)
 apaRes= read.table("../data/DiffIso_Nuclear_DF//TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr","gene"),sep=":")
 apaPASres=read.table("../data/DiffIso_Nuclear_DF//TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron") %>% separate(intron, into=c("chr","start", "end","gene"), sep=":") 
 apaPASres$start=as.integer(apaPASres$start)

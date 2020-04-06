@@ -19,7 +19,7 @@ library(tidyverse)
 ```
 
 ```{r}
-MetaPAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F)
+MetaPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F)
 ```
 
 Pull in the differentiall used PAS:  
@@ -52,7 +52,7 @@ nrow(DiffUsed_anno_chimpup)
 nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
 ```
 
-This means that of the 3076 only 19 are in PAS where signal site could account for it.  
+This means that of the 3132 only 18 are in PAS where signal site could account for it.  
 
 Significance:  
 
@@ -65,15 +65,15 @@ chimpOnly=nrow(MetaPAS %>%  filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
 humanOnly+chimpOnly
 
 ```
-Of the 42318 we see that 638 have the pattern of interest. We choose 3076 of them and 19 come out.  Look to see if it is more than expected by change 
+Of the 46494 we see that 768 have the pattern of interest. We choose 3076 of them and 19 come out.  Look to see if it is more than expected by change 
 
 phyper(success in sample, sucesss in possible, failure possible, sample size)
 
 ```{r}
-x= 19
-m= 638
-n=41680
-k=3076
+x= 18
+m= 768
+n=46494
+k=3132
 
 
 #expected
@@ -82,7 +82,7 @@ which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
 
 
 
-phyper(19,638, 41680 , 3076,lower.tail=F)
+phyper(18,768, 46494 , 3132,lower.tail=F)
 ```
 No significant enrichment for the pattern.  
 
@@ -95,7 +95,7 @@ Plot dPAU by presence and absense:
 ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title="Human upregualted PAS by presence of Signal")
 
 
-ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title="Human upregualted PAS by presence of Signal") + scale_fill_discrete(name="Human Signal Site Detected") + annotate("text",label="Wilcoxon, p=0.73",x=.8,y=6)
+ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title="Human upregualted PAS by presence of Signal") + scale_fill_discrete(name="Human Signal Site Detected")
 
 
 ```
@@ -110,7 +110,7 @@ There is a shift.
 ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title="Chimp upregualted PAS by presence of Signal")
 
 
-ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title="Chimp upregualted PAS by presence of Signal") + scale_fill_discrete(name="Chimp Signal Site Detected") + annotate("text",label="Wilcoxon, p=0.025",x=.8,y=7.5)
+ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title="Chimp upregualted PAS by presence of Signal") + scale_fill_discrete(name="Chimp Signal Site Detected") + annotate("text",label="Wilcoxon, p=0.035",x=.8,y=7.5)
 ```
 
 It does not look like presence of a signal within the upregulated matters.  

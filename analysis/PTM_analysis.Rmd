@@ -109,8 +109,8 @@ NucResAll_g
 
 
 ```{r}
-5581/(5581+814)
-1869/(1869+280)
+5487/(5487+755)
+1901/(1901+274)
 ```
 
 Doesnt look like differentail are more likely to have an interaction.  

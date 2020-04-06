@@ -37,7 +37,7 @@ These look really good, they line up well.
 
 Pull out intronic PAS  
 ```{r}
-PAS_metaIntron=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% filter(loc=="intron")
+PAS_metaIntron=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% filter(loc=="intron")
 PAS=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed", col.names = c("chr", "start", "end", "PAS", "score", "strand"),stringsAsFactors = F) %>% semi_join(PAS_metaIntron, by="PAS")
 
 write.table(PAS, "../data/SpliceSite/IntronicPAS_humanCoord.bed", col.names = F, row.names = F, quote = F, sep="\t")
@@ -98,9 +98,7 @@ IntersectRes_group= IntersectRes %>% group_by(PAS) %>% summarise(nExon=n())
 nrow(IntersectRes_group)
 ```
 
-From 11060 to 8146.
 
-I will only look at the 8146 intronic PAS that map intersect 3 basepairs of the 5' splice site to an ortho exon. 
 
 
 Filter :  
@@ -113,7 +111,7 @@ PAS_5SS_both_filt %>% group_by(PAS) %>% summarise(n=n()) %>% filter(n>1)
 
 PAS_5SS_both_filt %>% group_by(PAS) %>% summarise(n=n()) %>% filter(n>1) %>% nrow()
 ```
-171 map to 2 introns. Count each site for now.  
+228 map to 2 introns. Count each site for now.  
 
 
 Write these out to sort and liftover.
@@ -144,15 +142,16 @@ nrow(unliftedSS)
 
 BADSS= as.data.frame(cbind(PAS=c(liftedSS_wrongsize$PAS,unliftedSS$PAS)))
 ```
-Remove the 31 that to not lift or lift to the wrong size. 
+Remove the 36 that to not lift or lift to the wrong size. 
 
 ```{r}
 ChimpSS=liftedSS %>% filter(legnth==9) %>% select(-legnth)
 nrow(ChimpSS)
+
 HumanSS=PAS_5SS_both_filt %>% anti_join(BADSS, by="PAS")
 nrow(HumanSS)
 ```
-I will look at 8298 PAS.  
+  
 
 Next step is to use bedtools nuc to get the strand specific basepairs.  
 
@@ -215,14 +214,30 @@ ggplot(BothSSandReswUsage, aes(x=HumanScore, y=HumanUsage)) +geom_point(col="blu
 ```
 
 ```{r}
-ggplot(BothSSandReswUsage,aes(x=ChimpScore, y=HumanScore)) + geom_point() + geom_density2d(col="green") + geom_smooth(method="lm",col="orange") + annotate("text",label="Pearsons Correlation = .98", x=-10, y=10)
+ggplot(BothSSandReswUsage,aes(x=ChimpScore, y=HumanScore)) + geom_point() + geom_density2d(col="green") + geom_smooth(method="lm",col="orange") + annotate("text",label="Pearsons Correlation = .98", x=-10, y=10) + labs(title="5' Splice Site Strength for Intronic PAS")+ theme(text= element_text(size=16))
 
-cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore )
+cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore)
 
 ```
 
+Plot this by if the PAS is signfiicantly different
 ```{r}
-ggplot(BothSSandReswUsage,aes(x=ChimpUsage, y=HumanUsage)) + geom_point() + geom_density2d(col="green") + geom_smooth(method="lm",col="orange") + annotate("text", label="Pearsons Correlation= 0.58", x=.65,y=.8)
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+
+DiffUsagePAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))  %>% select(PAS, SigPAU2)
+BothSSandReswUsage_withSig=BothSSandReswUsage %>% inner_join(DiffUsagePAS, by="PAS")
+```
+
+```{r}
+ggplot(BothSSandReswUsage_withSig,aes(x=ChimpScore, y=HumanScore, col=SigPAU2)) + geom_point(alpha=.5) + annotate("text",label="Pearsons Correlation = .98", x=-10, y=10) + labs(title="5' Splice Site Strength for Intronic PAS",col="Differentially \nused PAS")+ theme(text= element_text(size=16)) + scale_color_brewer(palette = "Dark2")
+
+cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore)
+```
+
+
+```{r}
+ggplot(BothSSandReswUsage_withSig,aes(x=ChimpUsage, y=HumanUsage,col=SigPAU2)) + geom_point(alpha=.5)  + geom_smooth(method="lm",col="orange") + annotate("text", label="Pearsons Correlation= 0.54", x=.65,y=.8) + theme(text= element_text(size=16)) + scale_color_brewer(palette = "Dark2") + labs(title="Usage of PAS by species",col="Differentially \nused PAS") 
+
 
 
 cor.test(BothSSandReswUsage$ChimpUsage,BothSSandReswUsage$HumanUsage )
@@ -231,7 +246,7 @@ cor.test(BothSSandReswUsage$ChimpUsage,BothSSandReswUsage$HumanUsage )
 How many have different score: 
 
 ```{r}
-BothSSandReswUsage_diff= BothSSandReswUsage %>% filter(ChimpScore!=HumanScore)
+BothSSandReswUsage_diff= BothSSandReswUsage_withSig %>% filter(ChimpScore!=HumanScore)
 
 nrow(BothSSandReswUsage_diff)
 ```
@@ -245,7 +260,7 @@ Plot difference in score and diff in usage
 ```{r}
 BothSSandReswUsage_diff_score= BothSSandReswUsage_diff %>% mutate(DiffScore=HumanScore-ChimpScore, DiffUsage=HumanUsage-ChimpUsage)
 
-ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point() + geom_smooth(method="lm")
+ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point(aes(col=SigPAU2)) + geom_smooth(method="lm") +theme(text= element_text(size=16)) + scale_color_brewer(palette = "Dark2") + labs(title="Relationship between differene in \nusage and difference in 5' SS score",col="Differentially \nused PAS") 
 
 summary(lm(BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_score$DiffUsage))
 
@@ -258,29 +273,11 @@ Are any of these the differentially used PAS.
 ```{r}
 
 
-Meta=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(PAS,chr, loc, start, end)
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(PAS,chr, loc, start, end)
 
 DiffIsoRes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% select(PAS,SigPAU2 )
 ```
 
-Join:  
-
-```{r}
-BothSSandReswUsage_diff_score_iso=BothSSandReswUsage_diff_score %>% inner_join(DiffIsoRes, by="PAS")
-
-
-BothSSandReswUsage_diff_score_iso %>% filter(SigPAU2=="Yes") %>% select(PAS,HumanScore, HumanUsage, ChimpScore,ChimpUsage)
-
-nrow(BothSSandReswUsage_diff_score_iso %>% filter(SigPAU2=="Yes"))
-```
-Examples conforming to expectation :  
-
-human100575
-human86581
-human114714
-human182838
-human238691
-human303540
 
 
 

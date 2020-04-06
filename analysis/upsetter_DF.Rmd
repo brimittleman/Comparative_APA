@@ -254,3 +254,9 @@ listInput_Splice <- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DT=Translation$Gen
 upset(fromList(listInput_Splice), order.by = "freq", keep.order = T,empty.intersections = "on")
 ```
 
+```{r}
+DeandAPAList=NucAPA %>%rename("Gene.name"=gene) %>%  inner_join(DEgenes, by="Gene.name") %>% rename("gene"=Gene.name)
+
+write.table(DeandAPAList,"../data/DiffIso_Nuclear_DF/GeneswithDEanddAPA.txt", col.names = T,row.names = F,quote = F)
+```
+
