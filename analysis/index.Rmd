@@ -107,6 +107,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Compare species 5' splice site strength](SpliceSiteStrength.html)  
 
+* [Compare dominance structure and DE genes](DomPatternandDE.html)
 
 
 ##Selection exploration  

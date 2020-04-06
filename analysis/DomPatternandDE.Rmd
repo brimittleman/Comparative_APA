@@ -1,0 +1,195 @@
+---
+title: "Dominant PAS and DE"
+author: "Briana Mittleman"
+date: "4/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to look at genes with the same or different dominant PAS. I can ask if they are more or less likely to be differential expressed.  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+```
+
+First load the dominance structure. I want same and different PAS genes.  
+```{r}
+NuclearDiffDom=read.table("../data/DominantPAS_DF/Nuclear_DiffDom.txt",header = T,stringsAsFactors = F) %>% mutate(Dominance="Different") %>% select(gene, Dominance)
+NuclearSameDom=read.table("../data/DominantPAS_DF/Nuclear_SameDom.txt",header = T,stringsAsFactors = F)  %>% mutate(Dominance="Same")%>% select(gene, Dominance)
+
+Domiance=NuclearDiffDom %>% bind_rows(NuclearSameDom)
+
+```
+
+Call DE at 5% fdr for now. 
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+```
+
+
+Join both:  
+Look at genes we have data for both: 
+
+```{r}
+DomandDE=Domiance %>% inner_join(DE,by="gene")
+nrow(DomandDE)
+```
+
+Group and summarize
+```{r}
+DomandDE %>% group_by(DE, Dominance) %>% summarise(nSet=n())
+```
+
+Enrichment for DE and same:  
+
+```{r}
+x=nrow(DomandDE %>% filter(Dominance=="Same", DE=="Yes"))
+m=nrow(DomandDE %>% filter(DE=="Yes"))
+n=nrow(DomandDE %>% filter(DE=="No"))
+k=nrow(DomandDE %>% filter(Dominance=="Same"))
+N=nrow(DomandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+Opposite direction. Different dominance and DE  
+
+```{r}
+x=nrow(DomandDE %>% filter(Dominance=="Different", DE=="Yes"))
+m=nrow(DomandDE %>% filter(DE=="Yes"))
+n=nrow(DomandDE %>% filter(DE=="No"))
+k=nrow(DomandDE %>% filter(Dominance=="Different"))
+N=nrow(DomandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+
+```
+
+Ok so this is not significant but differentially used are. Maybe when I look to see the differential when one pas is intronic and one is 3'UTR  
+
+Compare these to the other ones with a different dominant gene first.  
+```{r}
+NuclearDiffDom_pattern=read.table("../data/DominantPAS_DF/Nuclear_DiffDom.txt",header = T,stringsAsFactors = F) %>% mutate(Dominance="Different", HumanIntChimpUTR=ifelse(ChimpLoc=="utr3" & HumanLoc=="intron", "Yes", "No"), HumanUTRChimpInt=ifelse(ChimpLoc=="intron" & HumanLoc=="utr3", "Yes", "No"), Pattern=ifelse(HumanIntChimpUTR=="Yes" | HumanUTRChimpInt=="Yes", "Yes","No")) %>% select(gene,HumanIntChimpUTR,HumanUTRChimpInt,Pattern )
+
+PatternandDE= NuclearDiffDom_pattern %>% inner_join(DE,by="gene")
+nrow(PatternandDE)
+```
+First do Human Intronic chimp UTR
+```{r}
+x=nrow(PatternandDE %>% filter(HumanIntChimpUTR=="Yes", DE=="Yes"))
+m=nrow(PatternandDE %>% filter(DE=="Yes"))
+n=nrow(PatternandDE %>% filter(DE=="No"))
+k=nrow(PatternandDE %>% filter(HumanIntChimpUTR=="No"))
+N=nrow(PatternandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+
+```
+Opposite direction:  
+
+```{r}
+x=nrow(PatternandDE %>% filter(HumanUTRChimpInt=="Yes", DE=="Yes"))
+m=nrow(PatternandDE %>% filter(DE=="Yes"))
+n=nrow(PatternandDE %>% filter(DE=="No"))
+k=nrow(PatternandDE %>% filter(HumanUTRChimpInt=="No"))
+N=nrow(PatternandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+
+```
+
+
+Either pattern:  
+
+```{r}
+x=nrow(PatternandDE %>% filter(Pattern=="Yes", DE=="Yes"))
+m=nrow(PatternandDE %>% filter(DE=="Yes"))
+n=nrow(PatternandDE %>% filter(DE=="No"))
+k=nrow(PatternandDE %>% filter(Pattern=="No"))
+N=nrow(PatternandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+
+```
+
+
+Not significant. I need to use the full set to have power:  
+
+```{r}
+NuclearDiffDom_patternonly=NuclearDiffDom_pattern %>% select(gene,Pattern )
+NuclearSameDom_pattern=read.table("../data/DominantPAS_DF/Nuclear_SameDom.txt",header = T,stringsAsFactors = F)  %>% mutate(Dominance="Same", Pattern ="No")%>% select(gene, Pattern)
+BothPattern=bind_rows(NuclearDiffDom_patternonly,NuclearSameDom_pattern)
+
+PatternbothandDE= BothPattern %>% inner_join(DE,by="gene")
+nrow(PatternbothandDE)
+```
+```{r}
+x=nrow(PatternbothandDE %>% filter(Pattern=="Yes", DE=="Yes"))
+m=nrow(PatternbothandDE %>% filter(DE=="Yes"))
+n=nrow(PatternbothandDE %>% filter(DE=="No"))
+k=nrow(PatternbothandDE %>% filter(Pattern=="No"))
+N=nrow(PatternbothandDE)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+
+```
+
+
+No significance here.  
+
+Look at effect sizes. Are DE with different dominant stronger than DE without same dominant 
+
+```{r}
+DEfull= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% inner_join(Domiance,by="gene")
+
+DEfullsig= DEfull %>% filter(DE=="Yes") %>% rename(dom=Dominance)
+DEfullsig$dom=as.factor(DEfullsig$dom)
+```
+Plot by dominance:  
+
+
+```{r}
+ggplot(DEfullsig,aes(x=dom,y=abs(logFC),fill=dom)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2") + labs(x="Dominance Structure", y="abs(eQTL log effect size)", title="Larger effect sizes in genes with different domianant PAS") + theme(legend.position = "none")
+```
+```{r}
+DEfullsigdiff=DEfullsig %>% filter(dom=="Different")
+DEfullsigSame=DEfullsig %>% filter(dom=="Same")
+
+summary(abs(DEfullsigdiff$logFC))
+summary(abs(DEfullsigSame$logFC))
+```
+
+```{r}
+wilcox.test(abs(DEfullsigdiff$logFC),abs(DEfullsigSame$logFC),alternative = "greater")
+```
+
+I could make a qq plot to look at the pvalues.  
+
+
+```{r}
+DEfull_dom= DEfull %>% filter(Dominance=="Same")
+DEfull_not= DEfull %>% filter(Dominance=="Different")
+
+wilcox.test(DEfull_dom$adj.P.Val,DEfull_not$adj.P.Val)
+```
+
+```{r}
+qqplot(-log10(runif(nrow(DEfull_dom))), -log10(DEfull_dom$adj.P.Val), xlab="-log10(Uniform)", ylab="-log10(pval)", main="")
+points(sort(-log10(runif(nrow(DEfull_not)))), sort(-log10(DEfull_not$adj.P.Val)),col= alpha("Red"))
+abline(0,1)
+
+legend("topleft", legend=c("Different Dominant","Same Dominant"),col=c("black", "red"), pch=16,bty = 'n')
+```
+No difference here and qq plot is not a good way to look at it. 
