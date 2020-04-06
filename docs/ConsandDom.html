@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-25
+<strong>Last updated:</strong> 2020-04-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree34a535859bc3d52da6cdd9a0d54b882fc909fc35targetblank34a5358a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/34a535859bc3d52da6cdd9a0d54b882fc909fc35" target="_blank">34a5358</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9676d72d60e2f9c82d2bfed1d7634d306b9ef956" target="_blank">9676d72</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree34a535859bc3d52da6cdd9a0d54b882fc909fc35targetblank34a5358a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -457,6 +457,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  ._.DS_Store
+    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -468,11 +469,14 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/orthoexonAnno.Rmd
     Untracked:  analysis/pol2.Rmd
+    Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCMMPrim.sh
     Untracked:  code/._BothFCnewOInclusive.sh
+    Untracked:  code/._ChimpStarMM2.sh
     Untracked:  code/._ClassifyLeafviz.sh
+    Untracked:  code/._ClosestorthoEx.sh
     Untracked:  code/._Config_chimp.yaml
     Untracked:  code/._Config_chimp_full.yaml
     Untracked:  code/._Config_human.yaml
@@ -485,6 +489,8 @@ Untracked files:
     Untracked:  code/._DiffSplicePlots_gencode.sh
     Untracked:  code/._DiffSplice_gencode.sh
     Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._Filter255MM.sh
+    Untracked:  code/._FilterPrimSec.sh
     Untracked:  code/._FindIntronForDomPAS.sh
     Untracked:  code/._FindIntronForDomPAS_DF.sh
     Untracked:  code/._GetMAPQscore.py
@@ -493,6 +499,7 @@ Untracked files:
     Untracked:  code/._LiftFinalChimpJunc2Human.sh
     Untracked:  code/._LiftOrthoPAS2chimp.sh
     Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MismatchNumbers.sh
     Untracked:  code/._PAS_ATTAAA.sh
     Untracked:  code/._PAS_ATTAAA_df.sh
     Untracked:  code/._PAS_seqExpanded.sh
@@ -513,6 +520,8 @@ Untracked files:
     Untracked:  code/._SnakefilePAS
     Untracked:  code/._SnakefilePASfilt
     Untracked:  code/._SortIndexBadSamples.sh
+    Untracked:  code/._StarMM2.sh
+    Untracked:  code/._TestFC.sh
     Untracked:  code/._assignPeak2Intronicregion
     Untracked:  code/._assignPeak2Intronicregion.sh
     Untracked:  code/._bed215upbed.py
@@ -548,7 +557,10 @@ Untracked files:
     Untracked:  code/._filterNumChroms.py
     Untracked:  code/._filterPASforMP.py
     Untracked:  code/._filterPostLift.py
+    Untracked:  code/._filterPrimaryread.py
+    Untracked:  code/._filterSecondaryread.py
     Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixFCheadforExp.py
     Untracked:  code/._fixLeafCluster.py
     Untracked:  code/._fixLiftedJunc.py
     Untracked:  code/._fixUTRexonanno.py
@@ -579,6 +591,8 @@ Untracked files:
     Untracked:  code/._negativeMediation_montecarlo.R
     Untracked:  code/._negativeMediation_montecarloDF.R
     Untracked:  code/._numMultimap.py
+    Untracked:  code/._overlapMMandOrthoexon.sh
+    Untracked:  code/._overlapPASandOrthoexon.sh
     Untracked:  code/._overlapapaQTLPAS.sh
     Untracked:  code/._parseHg38.py
     Untracked:  code/._postiveMediation_montecarlo_DF.R
@@ -590,6 +604,7 @@ Untracked files:
     Untracked:  code/._quantJunc.sh
     Untracked:  code/._quantJunc_TEST.sh
     Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantLiftedPASPrimary.sh
     Untracked:  code/._quantMerged_seperatly.sh
     Untracked:  code/._recLiftchim2human.sh
     Untracked:  code/._revLiftPAShg38to19.sh
@@ -632,13 +647,27 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ALLPAS_sequenceDF.err
+    Untracked:  code/ALLPAS_sequenceDF.out
+    Untracked:  code/AlignmentScores.err
+    Untracked:  code/AlignmentScores.out
+    Untracked:  code/AlignmentScores.sh
     Untracked:  code/BothFCMM.err
     Untracked:  code/BothFCMM.out
     Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCMMPrim.err
+    Untracked:  code/BothFCMMPrim.out
+    Untracked:  code/BothFCMMPrim.sh
     Untracked:  code/BothFCnewOInclusive.sh
     Untracked:  code/BothFCnewOInclusive.sh.err
     Untracked:  code/BothFCnewOInclusive.sh.out
+    Untracked:  code/ChimpStarMM2.err
+    Untracked:  code/ChimpStarMM2.out
+    Untracked:  code/ChimpStarMM2.sh
     Untracked:  code/ClassifyLeafviz.sh
+    Untracked:  code/ClosestorthoEx.err
+    Untracked:  code/ClosestorthoEx.out
+    Untracked:  code/ClosestorthoEx.sh
     Untracked:  code/Config_chimp.yaml
     Untracked:  code/Config_chimp_full.yaml
     Untracked:  code/Config_human.yaml
@@ -663,6 +692,12 @@ Untracked files:
     Untracked:  code/DiffSplice_removebad.err
     Untracked:  code/DiffSplice_removebad.out
     Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/Filter255.err
+    Untracked:  code/Filter255.out
+    Untracked:  code/Filter255MM.sh
+    Untracked:  code/FilterPrimSec.err
+    Untracked:  code/FilterPrimSec.out
+    Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
     Untracked:  code/FindIntronForDomPAS.err
@@ -675,6 +710,10 @@ Untracked files:
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/IntersectMMandOrtho.err
+    Untracked:  code/IntersectMMandOrtho.out
+    Untracked:  code/IntersectPASandOrtho.err
+    Untracked:  code/IntersectPASandOrtho.out
     Untracked:  code/JunctionLift.err
     Untracked:  code/JunctionLift.out
     Untracked:  code/JunctionLiftFinalChimp.err
@@ -704,6 +743,9 @@ Untracked files:
     Untracked:  code/MergeClusters.err
     Untracked:  code/MergeClusters.out
     Untracked:  code/MergeClusters.sh
+    Untracked:  code/MismatchNumbers.err
+    Untracked:  code/MismatchNumbers.out
+    Untracked:  code/MismatchNumbers.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -754,9 +796,16 @@ Untracked files:
     Untracked:  code/SortIndexBadSamples.err
     Untracked:  code/SortIndexBadSamples.out
     Untracked:  code/SortIndexBadSamples.sh
+    Untracked:  code/StarMM2.err
+    Untracked:  code/StarMM2.out
+    Untracked:  code/StarMM2.sh
+    Untracked:  code/TestFC.err
+    Untracked:  code/TestFC.out
+    Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
     Untracked:  code/apaQTLsnake.out
     Untracked:  code/apaQTLsnakePAS.err
@@ -829,12 +878,15 @@ Untracked files:
     Untracked:  code/filterNumChroms.py
     Untracked:  code/filterPASforMP.py
     Untracked:  code/filterPostLift.py
+    Untracked:  code/filterPrimaryread.py
     Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSecondaryread.py
     Untracked:  code/filterSortBedbyCleanedBed_gen.R
     Untracked:  code/filterpeaks.py
     Untracked:  code/fixExonFC.py
     Untracked:  code/fixFChead.py
     Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixFCheadforExp.py
     Untracked:  code/fixLeafCluster.py
     Untracked:  code/fixLiftedJunc.py
     Untracked:  code/fixUTRexonanno.py
@@ -843,6 +895,7 @@ Untracked files:
     Untracked:  code/generateStarIndex.out
     Untracked:  code/generateStarIndexHuman.err
     Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getAlloverlap.py
     Untracked:  code/getRNAseqMapStats.sh
     Untracked:  code/hg19MapStats.err
     Untracked:  code/hg19MapStats.out
@@ -909,8 +962,10 @@ Untracked files:
     Untracked:  code/nuclearTranscriptDTplot.err
     Untracked:  code/nuclearTranscriptDTplot.out
     Untracked:  code/numMultimap.py
+    Untracked:  code/overlapMMandOrthoexon.sh
     Untracked:  code/overlapPAS.err
     Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapPASandOrthoexon.sh
     Untracked:  code/overlapapaQTLPAS.sh
     Untracked:  code/overlapapaQTLPAS_extended.sh
     Untracked:  code/overlapapaQTLPAS_samples.sh
@@ -935,6 +990,9 @@ Untracked files:
     Untracked:  code/quantLiftedPAS.err
     Untracked:  code/quantLiftedPAS.out
     Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quantLiftedPASPrimary.err
+    Untracked:  code/quantLiftedPASPrimary.out
+    Untracked:  code/quantLiftedPASPrimary.sh
     Untracked:  code/quatJunc.err
     Untracked:  code/quatJunc.out
     Untracked:  code/recChimpback2Human.err
@@ -1071,6 +1129,7 @@ Untracked files:
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
     Untracked:  data/BaseComp/
+    Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
@@ -1100,6 +1159,7 @@ Untracked files:
     Untracked:  data/OverlapBenchmark/
     Untracked:  data/OverlappingPAS/
     Untracked:  data/PAS/
+    Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
     Untracked:  data/Pheno_5perc/
@@ -1117,6 +1177,15 @@ Untracked files:
     Untracked:  data/SignalSites/
     Untracked:  data/SignalSites_doublefilter/
     Untracked:  data/SpliceSite/
+    Untracked:  data/TestAnnoBiasOE/
+    Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_AS/
+    Untracked:  data/TestMM2_PrimaryRead/
+    Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_mismatch/
+    Untracked:  data/TestMM2_quality/
+    Untracked:  data/TestWithinMergePAS/
+    Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
@@ -1152,22 +1221,18 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
+    Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
-    Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
 <p>
@@ -1206,6 +1271,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9676d72d60e2f9c82d2bfed1d7634d306b9ef956/analysis/ConsandDom.Rmd" target="_blank">9676d72</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+updated anno
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7d4c86218af19864bcb1b880225d587c239a8af3/docs/ConsandDom.html" target="_blank">7d4c862</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1269,12 +1368,12 @@ add con and dom
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1288,10 +1387,10 @@ Attaching package: &#39;magrittr&#39;</code></pre>
 
     extract</code></pre>
 <p>Load results on conservation with phylop.</p>
-<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene, loc, Human, Chimp)
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene, loc, Human, Chimp)
 phylores=read.table(&quot;../data/PhyloP/PAS_phyloP.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP&quot;), stringsAsFactors = F) %&gt;% drop_na() %&gt;% inner_join(PASMeta, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))</code></pre>
 <p>For the domiant PAS I will be inclusive on ties.</p>
-<pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
+<pre class="r"><code>allPAS= read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T) 
 ChimpPASwMean =allPAS %&gt;% dplyr::select(-Human)
 HumanPASwMean =allPAS %&gt;% dplyr::select(-Chimp)
 
@@ -1300,7 +1399,7 @@ Chimp_Dom2= ChimpPASwMean %&gt;%
   top_n(1,Chimp) %&gt;% 
   mutate(nPer=n()) 
 nrow(Chimp_Dom2%&gt;% filter(nPer&gt;1) )</code></pre>
-<pre><code>[1] 198</code></pre>
+<pre><code>[1] 200</code></pre>
 <pre class="r"><code>Human_Dom2= HumanPASwMean %&gt;%
   group_by(gene) %&gt;%
   top_n(1,Human) %&gt;% 
@@ -1661,7 +1760,45 @@ DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS) </code></pre>
 <p>same domiant:</p>
 <pre class="r"><code>phylores_dom_samediff=phylores_dom %&gt;% mutate(SameDom=ifelse(PAS %in%SameDom$ChimpPAS, &quot;Yes&quot;, &quot;No&quot;), DiffDomChimp=ifelse(PAS %in% DiffDom$ChimpPAS, &quot;Yes&quot;, &quot;No&quot; ), DiffDomHuman=ifelse(PAS %in% DiffDom$HumanPAS, &quot;Yes&quot;,&quot;No&quot;))</code></pre>
 <pre class="r"><code>ggplot(phylores_dom_samediff, aes(x=SameDom, y=phyloP, fill=SameDom)) + geom_boxplot() +stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(x=&quot;Is PAS the same dominant in both species?&quot;, title=&quot;Same dominant are more conserved&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/ConsandDom.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> Plot 3 plot- same dominant, diff dom in chimp, diff dom human</p>
+<p><img src="figure/ConsandDom.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7d4c86218af19864bcb1b880225d587c239a8af3/docs/figure/ConsandDom.Rmd/unnamed-chunk-13-1.png" target="_blank">7d4c862</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plot 3 plot- same dominant, diff dom in chimp, diff dom human</p>
 <pre class="r"><code>BothDomPhy= BothDom %&gt;%ungroup() %&gt;%  select(HumanPAS) %&gt;% rename(&quot;PAS&quot;=HumanPAS) %&gt;% inner_join(phylores_dom, by=&quot;PAS&quot;) %&gt;% mutate(set=&quot;SameDominant&quot;)</code></pre>
 <pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
 character vector</code></pre>
@@ -1702,6 +1839,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7d4c86218af19864bcb1b880225d587c239a8af3/docs/figure/ConsandDom.Rmd/unnamed-chunk-14-1.png" target="_blank">7d4c862</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-14-1.png" target="_blank">f180064</a>
 </td>
 <td>
@@ -1719,43 +1867,11 @@ brimittleman
 <pre><code># A tibble: 4 x 2
   set                meanPhylop
   &lt;chr&gt;                   &lt;dbl&gt;
-1 DiffDominant_Chimp       1.02
-2 DiffDominant_Human       0.89
-3 NotDominant              0.91
-4 SameDominant             1.06</code></pre>
-<p>Remove the multimapping PAS (I will recall the dominant PAS eventhugh this isnt the best way because I am not recalculating the ratios. )</p>
-<pre class="r"><code>ChimpMM=read.table(&quot;../data/multimap/Chimp_Uniq_multimapPAS.txt&quot;, stringsAsFactors = F, header = T)
-HumanMM=read.table(&quot;../data/multimap/Human_Uniq_multimapPAS.txt&quot;, stringsAsFactors = F, header = T)
-BothMM=read.table(&quot;../data/multimap/Both_multimapPAS.txt&quot;,stringsAsFactors = F, header = T)
-
-
-AllMM=ChimpMM %&gt;% bind_rows(HumanMM) %&gt;% bind_rows(BothMM)</code></pre>
-<p>Redo Dom</p>
-<pre class="r"><code>allPAS_filt= allPAS %&gt;% anti_join(AllMM,by=&quot;PAS&quot;)</code></pre>
-<pre><code>Warning: Column `PAS` joining factor and character vector, coercing into
-character vector</code></pre>
-<pre class="r"><code>ChimpPASwMean_filt =allPAS_filt %&gt;% dplyr::select(-Human)
-HumanPASwMean_filt =allPAS_filt %&gt;% dplyr::select(-Chimp)
-
-Chimp_Dom2_filt= ChimpPASwMean_filt %&gt;%
-  group_by(gene) %&gt;%
-  top_n(1,Chimp) %&gt;% 
-  mutate(nPer=n()) 
-nrow(Chimp_Dom2%&gt;% filter(nPer&gt;1) )</code></pre>
-<pre><code>[1] 198</code></pre>
-<pre class="r"><code>Human_Dom2_filt= HumanPASwMean_filt %&gt;%
-  group_by(gene) %&gt;%
-  top_n(1,Human) %&gt;% 
-  mutate(nPer=n()) </code></pre>
-<pre class="r"><code>phylores_filt= phylores %&gt;% anti_join(AllMM,by=&quot;PAS&quot;)
-
-
-phylores_dom_filt = phylores_filt %&gt;% mutate(ChimpDom=ifelse(PAS %in% Chimp_Dom2_filt$PAS, &quot;Yes&quot;,&quot;No&quot;), HumanDom=ifelse(PAS %in% Human_Dom2_filt$PAS, &quot;Yes&quot;, &quot;No&quot;))</code></pre>
-<p>Plot</p>
-<pre class="r"><code>ggplot(phylores_dom_filt, aes(x=ChimpDom,y=phyloP, fill=ChimpDom)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means() + labs(x=&quot;Is PAS dominant in Chimp?&quot;, title=&quot;Chimp Dominant PAS are more conserved than non dominant PAS\nfilter multimap&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/ConsandDom.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(phylores_dom_filt, aes(x=HumanDom,y=phyloP, fill=HumanDom)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means() + labs(x=&quot;Is PAS dominant in Human?&quot;, title=&quot;Human Dominant PAS are more conserved than non dominant PAS\n filter multimap PAS&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/ConsandDom.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+1 DiffDominant_Chimp       1.16
+2 DiffDominant_Human       0.65
+3 NotDominant              0.66
+4 SameDominant             0.9 </code></pre>
+<p>This is interesting. the chimp dominant.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
