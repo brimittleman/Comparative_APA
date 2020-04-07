@@ -1,0 +1,125 @@
+---
+title: "Human chimp Pol2"
+author: "Briana Mittleman"
+date: "3/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The human ChIPSeq data is deposited at this location (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE47991) while the chimp and rhesus data are deposited at this location (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE60269). The bed files there contain peak calls, and are the result of the two-step filtering process described in the paper, to focus on only the high-confidence MACS peaks. The columns in the bed files correspond to MACS output; column headers are listed below:
+chr    start   end     length  summit  tags    -10*log10(pvalue)       fold_enrichment FDR(%)
+
+The deposited bed files on GEO are copied/renamed from the original files and the original file names are in the following format: H3K27ac_H_18522_111025_peaks.full.5.15.map.bed. All these original bed files are available at this location on the PPS cluster (/mnt/lustre/data/share/HCR_Chipseq/.Mapped_nb/H3K27ac/MACS/Full_Output/Datafreeze_20130122). All original data (e.g. fastq files) and all processing scripts used in the GB paper are available at /mnt/lustre/data/share/HCR_Chipseq/. 
+
+Downloading the human and chimp files:  
+
+My goal will be to get mean enrichemnt values for the peaks.  I want the files with *C_Pol_* and _____
+
+```{bash,eval=F}
+mkdir ../data/Pol2Chip
+```
+
+I will have to lift these peaks to hg38.  Chimp at pantro3.  Human are HG19.  
+
+put pantro3tog38 chain file in ../data/chainFiles
+
+Join the bedfiles  
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+polHead=c('chr','start' , 'end','length','summit','tags' , 'nedlog10p', 'Enrich',"FDR")
+Pol2_18358=read.table("../data/Pol2Chip/GSM1468890_C_PolII_18358.bed", col.names = polHead, stringsAsFactors = F)
+Pol2_18359=read.table("../data/Pol2Chip/GSM1468891_C_PolII_18359.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_3610=read.table("../data/Pol2Chip/GSM1468892_C_PolII_3610.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_3659=read.table("../data/Pol2Chip/GSM1468894_C_PolII_3659.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_3641=read.table("../data/Pol2Chip/GSM1468893_C_PolII_3641.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_4973=read.table("../data/Pol2Chip/GSM1468895_C_PolII_4973.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_pt30=read.table("../data/Pol2Chip/GSM1468896_C_PolII_Pt30.bed", col.names = polHead,stringsAsFactors = F)
+Pol2_pt91=read.table("../data/Pol2Chip/GSM1468897_C_PolII_Pt91.bed", col.names = polHead,stringsAsFactors = F)
+
+```
+I will only consider high quality sites in all species.  
+See if I can do this with inner join. 
+
+```{r}
+Pol2_18359_small=Pol2_18359 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="18359")
+Pol2_18358_small=Pol2_18358 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="18358")
+Pol2_3610_small=Pol2_3610 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="3610")
+Pol2_3659_small=Pol2_3659 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="3659")
+Pol2_3641_small=Pol2_3641 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="3641")
+Pol2_4973_small=Pol2_4973 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="4973")
+Pol2_pt30_small=Pol2_pt30 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="pt30")
+Pol2_pt91_small=Pol2_pt91 %>% select('chr','start' , 'end') %>% mutate(size=end-start, Ind="pt91")
+
+AllChimp=Pol2_18359_small %>%
+  bind_rows(Pol2_18358_small)%>%
+  bind_rows(Pol2_18358_small)%>% 
+  bind_rows(Pol2_3610_small)%>%
+  bind_rows(Pol2_3659_small)%>%
+  bind_rows(Pol2_3641_small)%>% 
+  bind_rows(Pol2_4973_small)%>% 
+  bind_rows(Pol2_pt30_small)%>% 
+  bind_rows(Pol2_pt91_small)
+```
+This doesnt work....
+```{r}
+test=Pol2_18359_small %>% inner_join(Pol2_18358_small,by = c("chr", "start", "end"))
+```
+
+I will have to intersect and get regions.  
+
+
+
+```{bash,eval=F}
+bedtools multiinter -header -i ../data/Pol2Chip/GSM*_C_PolII* > ../data/Pol2Chip/IntersectionChimpPol2.txt 
+```
+
+
+```{r}
+ChimpInter=read.table("../data/Pol2Chip/IntersectionChimpPol2.txt",header = T,stringsAsFactors = F)
+```
+
+Plot how many PAS are in overlaps 1-7  
+
+```{r}
+Individaul=seq(1,7)
+Peaks=c()
+size=c()
+sizesd=c()
+for (i in Individaul){
+  df=ChimpInter %>% filter(num==i) %>% mutate(size=end-start)
+  val= df %>% nrow()
+  sizei=mean(df$size)
+  sdsize=sd(df$size)
+  Peaks=c(Peaks, val)
+  size=c(size, sizei)
+  sizesd=c(sizesd, sdsize)
+}
+
+ChimpDF=as.data.frame(cbind(Individaul,Peaks,size,sizesd))
+ChimpDF$Individaul=as.factor(ChimpDF$Individaul)
+
+
+ggplot(ChimpDF, aes(x=Individaul,y=Peaks,fill=Individaul)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2") + labs(x="Number of Chimps",y="PolII Peaks",title="Chimp PolII interlap") + theme(legend.position = "none")
+```
+
+```{r}
+ggplot(ChimpDF, aes(x=Individaul,y=size,fill=Individaul)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2") +geom_errorbar(aes(ymin=size-sizesd, ymax=size+sizesd),width=.2,position=position_dodge(.9)) + labs(x="Number of Chimps",y="Mean Peak Size",title="Chimp PolII peak size") + theme(legend.position = "none")
+```
+Compare this to original:
+
+```{r}
+
+AllChimp_sum= AllChimp %>% group_by(Ind ) %>% summarise(mean=mean(size), sd=sd(size))
+ggplot(AllChimp,aes(x=Ind,y=size,fill=Ind)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2")
+
+ggplot(AllChimp_sum, aes(x=Ind,y=mean,fill=Ind)) + geom_bar(stat="identity")+ scale_fill_brewer(palette = "Dark2") +geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),width=.2,position=position_dodge(.9)) + labs(x="Chimps",y="Mean Peak Size",title="Chimp PolII peak size") + theme(legend.position = "none")
+```
+
+Is this even what I want to do. I want the differentially used PAS between species. I am interested to know if these are in genes with dAPA.
