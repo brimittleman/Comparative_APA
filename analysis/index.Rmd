@@ -59,7 +59,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Test for dominant PAS for total fraction](TotalDomStructure.html)
     
 * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
-  
+
+* [PAS number distribution according to dominance](ConservationofPASNumber.Rmd)
 
 
 ##Differential Isoform Analysis:
