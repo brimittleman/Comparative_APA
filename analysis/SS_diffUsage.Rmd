@@ -126,4 +126,122 @@ nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
 ```
 
 
+Look at the regions that have a non cononical signal site.  
 
+I choose these is the original SS analysis. I used the chooseSignalSite.py it was a hierarchical model 
+```{r}
+MetaAllSS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt",stringsAsFactors = F,header = T)
+MetaAllSSsmall=MetaAllSS %>% select(chr, start,end,PAS)
+```
+
+This has every PAS with a signal site. I will add information about if the PAS is differentially used.  
+
+```{r}
+DiffUsed_small= DiffUsed %>% select(chr,start,end, gene, deltaPAU, p.adjust) %>% inner_join(MetaAllSSsmall,by=c("chr",'start','end'))
+
+DiffUsed_small_human= DiffUsed_small %>% filter(deltaPAU<0)
+DiffUsed_small_chimp= DiffUsed_small %>% filter(deltaPAU>0)
+
+MetaAllSS_diffUsage=MetaAllSS %>% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, "yes","no"), HumanUp=ifelse(PAS %in% DiffUsed_small_human$PAS, "yes","no"), ChimpUp=ifelse(PAS %in% DiffUsed_small_chimp$PAS, "yes","no"))
+```
+
+First question: 
+Are there cononical in one and non connonical in the other species
+
+```{r}
+con=c("AATAAA", "ATTAAA")
+non=c('AAAAAG', 'AAAAAA', 'TATAAA', 'AATATA', 'AGTAAA', 'AATACA', 'GATAAA', 'AATAGA', 'CATAAA', 'ACTAAA')
+ChimpConHumanNon=MetaAllSS_diffUsage %>% filter(ChimpPAS %in% con, HumanPAS %in% non) 
+nrow(ChimpConHumanNon)
+
+#number up in chim
+ChimpConHumanNon %>% filter(ChimpUp=="yes") %>% nrow()
+
+#number up in human  
+
+ChimpConHumanNon %>% filter(HumanUp=="yes") %>% nrow()
+
+```
+
+Opposite direction: 
+
+```{r}
+ChimpNonHumanCon=MetaAllSS_diffUsage %>% filter(ChimpPAS %in% non, HumanPAS %in% con) 
+nrow(ChimpNonHumanCon)
+
+#number up in chim
+ChimpNonHumanCon %>% filter(ChimpUp=="yes") %>% nrow()
+
+#number up in human  
+
+ChimpNonHumanCon %>% filter(HumanUp=="yes") %>% nrow()
+
+```
+This doesnt make a lot of sense.  
+
+
+Question 2: any signal site vs no signal site?  
+
+
+```{r}
+MetaAllSS_diffUsage_add=MetaAllSS_diffUsage %>% mutate(HumanNone=ifelse(ChimpPAS!="None" & HumanPAS=="None", "yes", "no"),ChimpNone=ifelse(ChimpPAS=="None" & HumanPAS!="None", "yes", "no"), EitherNonePatter=ifelse(ChimpNone=="yes" | HumanNone =="yes", "yes","no"))
+```
+
+Enrichment for either:  
+
+```{r}
+x=nrow(MetaAllSS_diffUsage_add %>% filter(EitherNonePatter=="yes", DiffUsed=="yes"))
+m=nrow(MetaAllSS_diffUsage_add %>% filter(DiffUsed=="yes"))
+n=nrow(MetaAllSS_diffUsage_add %>% filter(DiffUsed=="no"))
+k=nrow(MetaAllSS_diffUsage_add %>% filter(EitherNonePatter=="no"))
+N=nrow(MetaAllSS_diffUsage_add)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+Human dir  
+
+
+```{r}
+x=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpNone=="yes", HumanUp=="yes"))
+m=nrow(MetaAllSS_diffUsage_add %>% filter(HumanUp=="yes"))
+n=nrow(MetaAllSS_diffUsage_add %>% filter(HumanUp=="no"))
+k=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpNone=="no"))
+N=nrow(MetaAllSS_diffUsage_add)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+Chimp direction  
+
+```{r}
+x=nrow(MetaAllSS_diffUsage_add %>% filter(HumanNone=="yes", ChimpUp=="yes"))
+m=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpUp=="yes"))
+n=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpUp=="no"))
+k=nrow(MetaAllSS_diffUsage_add %>% filter(HumanNone=="no"))
+N=nrow(MetaAllSS_diffUsage_add)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+None of these are enriched  
+```{r}
+MetaPAS_diff= MetaPAS %>% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, "yes","no"), HumanNoChimpYes=ifelse(HumanTopSS=="No" & ChimpTopSS=="Yes", "Yes","No"), HumanYesChimpNo=ifelse(HumanTopSS=="Yes" & ChimpTopSS=="No", "Yes","No"), EitherPattern=ifelse(HumanYesChimpNo=="Yes" | HumanNoChimpYes =="Yes", "Yes","No"))
+```
+
+Either pattern  
+
+```{r}
+x=nrow(MetaPAS_diff %>% filter(EitherPattern=="Yes", DiffUsed=="yes"))
+m=nrow(MetaPAS_diff %>% filter(DiffUsed=="yes"))
+n=nrow(MetaPAS_diff %>% filter(DiffUsed=="no"))
+k=nrow(MetaPAS_diff %>% filter(EitherPattern=="No"))
+N=nrow(MetaPAS_diff)
+phyper(x,m,n,k,lower.tail=F)
+enrich=(x/k)/(m/N)
+enrich
+```
+
+No enrichment for any of the patterns  
