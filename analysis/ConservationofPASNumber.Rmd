@@ -174,7 +174,7 @@ ggplot(PASMeta_ChimpDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title=
 ```
 
 ```{r}
-ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill="#D95F02",alpha=.5) + labs(title="Human Usage - Chimp Chimp \n Colored by dominant") + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col="#1B9E77")+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col="#D95F02") + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill="#D95F02",alpha=.5) + labs(title="Human Usage - Chimp Usage \n Colored by dominant") + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col="#1B9E77")+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col="#D95F02") + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))
 
 
 ```
