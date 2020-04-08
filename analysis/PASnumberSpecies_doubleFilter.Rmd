@@ -26,7 +26,7 @@ PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_m
 ```
 
 
-I am looking at PAS at .1 or greater in either species. 
+I am looking at PAS at .05 or greater in either species. 
 ```{r}
 PAS_sm=PAS %>% dplyr::select(gene, Chimp, Human) 
 
@@ -69,6 +69,16 @@ HumanNPAS=PAS_m %>% filter(species=="Human")
 wilcox.test(HumanNPAS$nPAS,ChimpNPAS$nPAS )
 ```
 ```{r}
-ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_density(stat="count",alpha=.5) +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS >= 10%", x="Number of PAS",y="Genes")
+
+PAS_m$nPAS=as.factor(PAS_m$nPAS)
+ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat="count",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS at 10% ", x="Number of PAS",y="Genes")
+```
+
+Look at number without a filter: 
+
+```{r}
+PAS_m5= melt(PAS_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.05) %>% group_by(species, gene) %>% summarise(nPAS=n())
+PAS_m5$nPAS=as.factor(PAS_m5$nPAS)
+ggplot(PAS_m5,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat="count",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS at 5% Nuclear Fraction ", x="Number of PAS",y="Genes")
 ```
 

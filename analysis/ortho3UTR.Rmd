@@ -1,0 +1,167 @@
+---
+title: "Establish Ortho 3' UTRs"
+author: "Briana Mittleman"
+date: "4/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+I want to get a list of ortho 3' UTRs. This is important because I want to look at the differentially used PAS and see if they make longer or shorter 3' UTRs. This could point to regulatory variation.  
+
+
+I will start with the ortho exon file. Convert these to bed files to be able to merge 
+
+```{bash,eval=F}
+grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf > ../data/OrthoExonBed/Human3UTR.gtf
+grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/chimp.noM.gtf > ../data/OrthoExonBed/Chimp3UTR.gtf
+
+python SAF2Bed.py ../data/OrthoExonBed/Human3UTR.gtf ../data/OrthoExonBed/Human3UTR.bed
+python SAF2Bed.py ../data/OrthoExonBed/Chimp3UTR.gtf ../data/OrthoExonBed/Chimp3UTR.bed
+
+
+sort -k1,1 -k2,2n ../data/OrthoExonBed/Human3UTR.bed >  ../data/OrthoExonBed/Human3UTR.sort.bed
+sort -k1,1 -k2,2n ../data/OrthoExonBed/Chimp3UTR.bed >  ../data/OrthoExonBed/Chimp3UTR.sort.bed
+
+#mrge by strand and gene 
+
+bedtools merge -s -i ../data/OrthoExonBed/Human3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct > ../data/OrthoExonBed/Human3UTR.merged.sort.bed
+
+bedtools merge -s -i ../data/OrthoExonBed/Chimp3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct > ../data/OrthoExonBed/Chimp3UTR.merged.sort.bed
+```
+
+Look at the human one and the annotation in humans:  
+
+```{bash,eval=F}
+mkdir ../data/orthoUTR
+
+grep utr3 ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed > ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed
+```
+
+There are a lot of exons in this set that look like they are not utrs.  
+
+For this analsis. I need one 3' UTR per gene. I can look at the most distal one first.  
+
+I can do this here with if else statements:  
+
++ strand: max start  
+
+- strand:
+
+```{r}
+humanMergeutr= read.table("../data/OrthoExonBed/Human3UTR.merged.sort.bed", col.names = c('chr','start','end','gene','score','strand'), stringsAsFactors = F) %>% group_by(gene)
+
+humanMergeutrpos= humanMergeutr %>% filter(strand=="+") %>% group_by(gene) %>% top_n(1,start)
+
+humanMergeutrneg= humanMergeutr %>% filter(strand=="-") %>% group_by(gene) %>% top_n(-1,start)
+
+humanDistalboth=humanMergeutrpos %>% bind_rows(humanMergeutrneg)
+write.table(humanDistalboth, "../data/orthoUTR/HumanDistal3UTR.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/orthoUTR/HumanDistal3UTR.bed > ../data/orthoUTR/HumanDistal3UTR.sort.bed
+```
+
+Looks like that worked.  
+
+Do it with an intercect with the anno and see if the results are similar:  
+
+```{bash,eval=F}
+bedtools intersect -s -wa -a ../data/OrthoExonBed/Human3UTR.merged.sort.bed -b ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed > ../data/OrthoExonBed/Human3UTR.merged.sort.overlapHumanannno.bed
+```
+overlap has 
+135340
+17680
+
+
+I will now work with the most distal PAS. I want to see how many of the PAS fall in these regions. 
+
+```{bash,eval=F}
+bedtools intersect -s -wa -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed > ../data/orthoUTR/PASOverlapinDistal3UTR.bed
+
+bedtools intersect -s -wa -wb -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed > ../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed
+```
+
+```{r}
+metaPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F, header = T) %>% select(gene, PAS, loc)
+Overlapping= read.table("../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed", col.names = c("chrpas", "startpas", "endpas","PAS", "humanusage", "strandpas", "chrutr", "startutr", "endutr","geneUTR", "score","strand"),stringsAsFactors = F) %>% select(-strandpas, -chrutr, -startutr, -endutr)  %>% inner_join(metaPAS, by=c("PAS"))
+
+ Overlapping %>% filter(gene != geneUTR) %>% nrow()
+ 
+ 
+ Overlapping %>% filter(loc!="utr3") %>% nrow()
+ 
+ Overlappingfilt= Overlapping%>% filter(gene == geneUTR)
+```
+
+190 of these are in different genes. check these.  
+431 not annotated as UTR3  (31 diff gene)
+
+
+```{r}
+NotUTRanno= Overlapping %>% filter(loc!="utr3") %>% filter(gene == geneUTR)
+nrow(NotUTRanno)
+ggplot(NotUTRanno,aes(x=loc, fill=loc) ) + geom_histogram(stat="count") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of 400 PAS overlapping PAS but not annotated 3' UTR")
+```
+This is good. It looks like most of the time the problem is just that the ortho utr extends the original annotation. We call it an end or cds.  
+
+```{r}
+nrow(Overlapping)/nrow(metaPAS)
+
+nrow(Overlapping)/nrow(metaPAS %>% filter(loc=="utr3"))
+```
+almost 70% of the 3' UTR pas are represented.
+
+Look at how many genes are represented  
+```{r}
+
+OverlappingGenes= Overlapping %>% filter(gene == geneUTR)  %>% group_by(gene) %>% summarise(nPAS=n())
+nrow(OverlappingGenes)
+nrow(OverlappingGenes %>% filter(nPAS>1))
+
+OverlappingGenes$nPAS= as.factor(OverlappingGenes$nPAS)
+
+ggplot(OverlappingGenes, aes(x=nPAS)) + geom_histogram(stat="count") + labs(x="Number of PAS", y="Genes", title="Number of PAS per gene with PAS in ortho 3' UTR")
+```
+
+There is at least one pas in 7023 genes. Thats pretty good.  There are 3142 with at least 2.  
+
+
+Look to see if these represent any of those differenctially used:  
+
+```{r}
+PASGene=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T) %>% select(PAS, chr, start, end,loc)
+DiffUsed=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T,stringsAsFactors = F) %>% inner_join(PASGene, by=c("chr",'start','end')) %>% mutate(OrthoUTR=ifelse(PAS %in% Overlappingfilt$PAS, "Yes","No"))
+DiffUsed_sig =DiffUsed %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+ggplot(DiffUsed_sig,aes(x=OrthoUTR)) +geom_histogram(stat="count")
+
+
+```
+
+Proportion: 
+
+```{r}
+DiffUsed_sig %>% group_by(OrthoUTR) %>% summarise(nEach=n()) %>% mutate(prop=nEach/nrow(DiffUsed_sig))
+```
+
+37% of the differentially used are in the 3' UTR.  
+
+Filter to utr  
+
+```{r}
+DiffUsed_sig %>% filter(loc=="utr3")%>%group_by(OrthoUTR) %>% summarise(nEach=n()) %>% mutate(prop=nEach/nrow(DiffUsed_sig%>% filter(loc=="utr3")))
+
+```
+
+1678 sig ar in the 3' UTR

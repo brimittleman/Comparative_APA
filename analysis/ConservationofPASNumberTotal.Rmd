@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(workflowr)
 library(tidyverse)
+library(reshape2)
 ```
 Recreate the conservation of PAS number analysis but with the means from the total fraction.  
 ```{r}
@@ -157,5 +158,14 @@ ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.
 ```{r}
 ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species \n Total fraction")
 
+```
+
+Does what is the dist for number here: 
+
+```{r}
+PASMeta_sm=PASMeta %>% dplyr::select(gene, Chimp, Human)
+PASMeta_m5= melt(PASMeta_sm, id.var="gene", variable.name="species", value.name="meanUsage") %>% filter(meanUsage >=0.05) %>% group_by(species, gene) %>% summarise(nPAS=n())
+PASMeta_m5$nPAS=as.factor(PASMeta_m5$nPAS)
+ggplot(PASMeta_m5,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat="count",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS at 5% Total", x="Number of PAS",y="Genes")
 ```
 
