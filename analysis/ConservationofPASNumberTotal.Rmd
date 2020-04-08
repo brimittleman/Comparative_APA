@@ -1,0 +1,161 @@
+---
+title: "PAS number and dominance in total"
+author: "Briana Mittleman"
+date: "4/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+Recreate the conservation of PAS number analysis but with the means from the total fraction.  
+```{r}
+PASMeta=read.table("../data/TotalFractionPAS/TotalFraction_PASmeta.txt", header = T, stringsAsFactors = F) %>% rename(Human=HumanTot, Chimp=ChimpTot)
+PASpregene=PASMeta %>% group_by(gene) %>% summarize(nPAS=n())
+PASmore2=PASpregene %>% filter(nPAS>1)
+DiffDom=read.table("../data/TotalFractionPAS/TotalFraction_DiffDominant.txt",header = T,stringsAsFactors = F) %>% filter(gene %in% PASmore2$gene)
+SameDom=read.table("../data/TotalFractionPAS/TotalFraction_sameDominant.txt",header = T,stringsAsFactors = F) %>% mutate(DiffinDom=Chimp-Human) %>% filter(gene %in% PASmore2$gene)
+```
+
+```{r}
+ggplot(SameDom,aes(x=DiffinDom))+ geom_histogram(bins=100)
+summary(SameDom$DiffinDom)
+```
+
+```{r}
+Cutoff=seq(0,.5,.1)
+cutoffCol=c()
+nPAS=seq(1,5,1)
+ChimpGenes=c()
+HumanGenes=c()
+nPAScol=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMeta %>% filter(gene %in% PASmore2$gene, Human >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    HumanGenes=c(HumanGenes,human)
+    chimp= PASMeta %>% filter(gene %in% PASmore2$gene,Chimp >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    ChimpGenes=c(ChimpGenes,chimp)
+    nPAScol=c(nPAScol,n)
+    cutoffCol=c(cutoffCol,i)
+  }
+}
+
+DFdata=as.data.frame(cbind(nPAScol,cutoffCol,ChimpGenes, HumanGenes))
+DFdata_gather=DFdata %>% gather("Species", "NGene", -nPAScol, -cutoffCol)
+DFdata_gather$nPAScol=as.factor(DFdata_gather$nPAScol)
+DFdata_gather$cutoffCol=as.factor(DFdata_gather$cutoffCol)
+ggplot(DFdata_gather,aes(x=cutoffCol, by=nPAScol, y=NGene,fill=nPAScol))+ geom_bar(position = "dodge", stat="identity") +facet_grid(~Species) + scale_fill_brewer(palette="Dark2", name="Number of PAS") + labs(title="Number of PAS per gene by usage",y="Number of Genes", x="Usage is at least")
+```
+For saem dominant:  
+
+```{r}
+PASMetaSame= PASMeta %>% filter(gene %in% SameDom$gene)
+cutoffCol_same=c()
+ChimpGenes_same=c()
+HumanGenes_same=c()
+nPAScol_same=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMetaSame %>% filter( Human >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    HumanGenes_same=c(HumanGenes_same,human)
+    chimp= PASMetaSame %>% filter(Chimp >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    ChimpGenes_same=c(ChimpGenes_same,chimp)
+    nPAScol_same=c(nPAScol_same,n)
+    cutoffCol_same=c(cutoffCol_same,i)
+  }
+}
+
+DFdata_same=as.data.frame(cbind(nPAScol_same,cutoffCol_same,ChimpGenes_same, HumanGenes_same))
+DFdata_gather_same=DFdata_same %>% gather("Species", "NGene", -nPAScol_same, -cutoffCol_same)
+DFdata_gather_same$nPAScol_same=as.factor(DFdata_gather_same$nPAScol_same)
+DFdata_gather_same$cutoffCol_same=as.factor(DFdata_gather_same$cutoffCol_same)
+```
+```{r}
+ggplot(DFdata_gather_same,aes(x=cutoffCol_same, by=nPAScol_same, y=NGene,fill=nPAScol_same))+ geom_bar(position = "dodge", stat="identity") +facet_grid(~Species) + scale_fill_brewer(palette="Dark2", name="Number of PAS") + labs(title="Number of PAS per gene by usage \n same domiant",y="Number of Genes", x="Usage is at least")
+
+```
+
+Different dominant:  
+
+```{r}
+PASMetaDiff= PASMeta %>% filter(gene %in% DiffDom$gene)
+cutoffCol_Diff=c()
+ChimpGenes_Diff=c()
+HumanGenes_Diff=c()
+nPAScol_Diff=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMetaDiff %>% filter( Human >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    HumanGenes_Diff=c(HumanGenes_Diff,human)
+    chimp= PASMetaDiff %>% filter(Chimp >= i) %>% group_by(gene) %>% summarise(nPASingene=n()) %>% filter(nPASingene==n) %>% nrow() 
+    ChimpGenes_Diff=c(ChimpGenes_Diff,chimp)
+    nPAScol_Diff=c(nPAScol_Diff,n)
+    cutoffCol_Diff=c(cutoffCol_Diff,i)
+  }
+}
+
+DFdata_Diff=as.data.frame(cbind(nPAScol_Diff,cutoffCol_Diff,ChimpGenes_Diff, HumanGenes_Diff))
+DFdata_gather_Diff=DFdata_Diff %>% gather("Species", "NGene", -nPAScol_Diff, -cutoffCol_Diff)
+DFdata_gather_Diff$nPAScol_Diff=as.factor(DFdata_gather_Diff$nPAScol_Diff)
+DFdata_gather_Diff$cutoffCol_Diff=as.factor(DFdata_gather_Diff$cutoffCol_Diff)
+```
+
+```{r}
+ggplot(DFdata_gather_Diff,aes(x=cutoffCol_Diff, by=nPAScol_Diff, y=NGene,fill=nPAScol_Diff))+ geom_bar(position = "dodge", stat="identity") +facet_grid(~Species) + scale_fill_brewer(palette="Dark2", name="Number of PAS") + labs(title="Number of PAS per gene by usage \n different domiant",y="Number of Genes", x="Usage is at least")
+
+```
+
+Number of PAS in same and different 
+
+```{r}
+NpasSame=PASMetaSame%>% group_by(gene) %>% summarise(nPAS=n()) %>% group_by(nPAS) %>% summarise(Same=n(),PropSame=Same/nrow(PASMetaSame)) %>% select(-Same)
+NpasDiff=PASMetaDiff %>% group_by(gene) %>% summarise(nPAS=n()) %>% group_by(nPAS) %>% summarise(Different=n(), PropDiff=Different/nrow(PASMetaDiff)) %>% select(-Different)
+
+NpasBoth= NpasSame %>% inner_join(NpasDiff) %>% gather("GeneSet", "Prop", -nPAS)
+
+
+NpasBoth$nPAS=as.factor(NpasBoth$nPAS)
+
+ggplot(NpasBoth,aes(fill=GeneSet, y=Prop, x=nPAS))+ geom_bar(position = "dodge", stat="identity") + scale_fill_brewer(palette="Dark2", labels=c("Different Dominant", "Same Dominant"),name="") + labs(y="Proportion of Genes", x="Number of PAS", title="Number of PAS distribution by Dominance structure \n Total Fraction")
+```
+
+```{r}
+PASMeta_humanDom_diff=PASMeta %>% filter(PAS%in%DiffDom$HumanPAS) %>% mutate(Diff=Human-Chimp)
+
+ggplot(PASMeta_humanDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col="red") +labs(title="PAS usage for different dominant, condition on Human")
+```
+
+```{r}
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title="Difference in Human - Chimp for Human Dominant")
+```
+```{r}
+PASMeta_ChimpDom_diff=PASMeta %>% filter(PAS%in%DiffDom$ChimpPAS) %>% mutate(Diff=Human-Chimp)
+
+ggplot(PASMeta_ChimpDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col="red") +labs(title="PAS usage for different dominant, condition on Chimp")
+```
+```{r}
+ggplot(PASMeta_ChimpDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title="Difference in Human - Chimp for Chimp Dominant")
+```
+```{r}
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill="#D95F02",alpha=.5) + labs(title="Human Usage - Chimp Chimp \n Colored by dominant \n Total fraction") + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col="#1B9E77")+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col="#D95F02") + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))
+```
+
+```{r}
+DiffDomfromH= DiffDom %>% select(Human, ChimpPAS) %>% rename(PAS=ChimpPAS, humanDom=Human) %>% inner_join(PASMeta, by="PAS")%>% mutate(Diff=humanDom-Human,Dom="Human") %>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene")%>% filter(nPAS<6)
+
+DiffDomfromC= DiffDom %>% select(Chimp, HumanPAS) %>% rename(PAS=HumanPAS, ChimpDom=Chimp) %>% inner_join(PASMeta, by="PAS")%>% mutate(Diff=ChimpDom-Chimp,Dom="Chimp")%>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene") %>% filter(nPAS<6)
+
+
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + facet_grid(~nPAS) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species \n Total fraction")
+```
+
+```{r}
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species \n Total fraction")
+
+```
+
