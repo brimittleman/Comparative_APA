@@ -153,3 +153,70 @@ NpasBoth$nPAS=as.factor(NpasBoth$nPAS)
 ggplot(NpasBoth,aes(fill=GeneSet, y=Prop, x=nPAS))+ geom_bar(position = "dodge", stat="identity") + scale_fill_brewer(palette="Dark2", labels=c("Different Dominant", "Same Dominant"),name="") + labs(y="Proportion of Genes", x="Number of PAS", title="Number of PAS distribution by Dominance structure")
 ```
 
+When the dominant are diff:  
+
+
+```{r}
+PASMeta_humanDom_diff=PASMeta %>% filter(PAS%in%DiffDom$HumanPAS) %>% mutate(Diff=Human-Chimp)
+
+ggplot(PASMeta_humanDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col="red") +labs(title="PAS usage for different dominant, condition on Human")
+
+
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title="Difference in Human - Chimp for Human Dominant")
+```
+```{r}
+PASMeta_ChimpDom_diff=PASMeta %>% filter(PAS%in%DiffDom$ChimpPAS) %>% mutate(Diff=Human-Chimp)
+
+ggplot(PASMeta_ChimpDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col="red") +labs(title="PAS usage for different dominant, condition on Chimp")
+
+
+ggplot(PASMeta_ChimpDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title="Difference in Human - Chimp for Chimp Dominant")
+```
+
+```{r}
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill="#D95F02",alpha=.5) + labs(title="Human Usage - Chimp Chimp \n Colored by dominant") + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col="#1B9E77")+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col="#D95F02") + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))
+
+
+```
+
+
+```{r}
+mean(PASMeta_humanDom_diff$Diff)
+mean(PASMeta_ChimpDom_diff$Diff)
+```
+
+Do this same analysis but by number of PAS in the gene.  
+
+```{r}
+PASMeta_humanDom_diffsmall= PASMeta_humanDom_diff %>% select(gene, Diff) %>% mutate(Species="Human")%>% full_join(PASpregene, by="gene")
+
+PASMeta_ChimpDom_diffsmall= PASMeta_ChimpDom_diff %>% select(gene, Diff) %>% mutate(Species="Chimp")%>% full_join(PASpregene, by="gene")
+
+SameDomSmall=SameDom %>% rename(Diff=DiffinDom) %>% select(gene, Diff) %>% mutate(Species="Both")%>% full_join(PASpregene, by="gene")
+
+
+
+Alldiff=PASMeta_humanDom_diffsmall %>% bind_rows(PASMeta_ChimpDom_diffsmall) %>% bind_rows(SameDomSmall) %>% full_join(PASpregene, by="gene")
+
+
+
+ggplot(PASMeta_humanDom_diffsmall,aes(x=Diff)) +geom_histogram(bins=100, fill="#D95F02",alpha=.5) + geom_histogram(data=PASMeta_ChimpDom_diffsmall,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_histogram(bins=100, data=SameDomSmall, aes(x=Diff), alpha=.3)+ facet_grid(~nPAS)
+```
+
+I want something a bit different  dominant PAS in human  - human value for dominant PAS in chimp
+```{r}
+
+DiffDomfromH= DiffDom %>% select(Human, ChimpPAS) %>% rename(PAS=ChimpPAS, humanDom=Human) %>% inner_join(PASMeta, by="PAS")%>% mutate(Diff=humanDom-Human,Dom="Human") %>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene")%>% filter(nPAS<6)
+
+DiffDomfromC= DiffDom %>% select(Chimp, HumanPAS) %>% rename(PAS=HumanPAS, ChimpDom=Chimp) %>% inner_join(PASMeta, by="PAS")%>% mutate(Diff=ChimpDom-Chimp,Dom="Chimp")%>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene") %>% filter(nPAS<6)
+
+
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + facet_grid(~nPAS) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species")
+
+
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species")
+
+
+
+```
+
