@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Dominance Structure with total usage</title>
+<title>PAS number and dominance in total</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Dominance Structure with total usage</h1>
+<h1 class="title toc-ignore">PAS number and dominance in total</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/6/2020</em></h4>
+<h4 class="date"><em>4/7/2020</em></h4>
 
 </div>
 
@@ -1277,7 +1277,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/87bde36f3d14aa0925a7bfeea19b821cc31239e8/analysis/TotalDomStructure.Rmd" target="_blank">87bde36</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/87bde36f3d14aa0925a7bfeea19b821cc31239e8/analysis/ConservationofPASNumberTotal.Rmd" target="_blank">87bde36</a>
 </td>
 <td>
 brimittleman
@@ -1287,40 +1287,6 @@ brimittleman
 </td>
 <td>
 cons and dom in total
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a2818491b8228361248ac5ce624fbfbce3d22d0f/docs/TotalDomStructure.html" target="_blank">a281849</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/637094ae060a6fd09f126b8f516b20197fbbbeff/analysis/TotalDomStructure.Rmd" target="_blank">637094a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-<td>
-look at total dominance
 </td>
 </tr>
 </tbody>
@@ -1342,176 +1308,118 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>The dominant PAS when you look at the nuclear fraction show an interesting result. I want to refilter the PAS with 5% in total fraction then look to see if the genes with the different dominant PAS have the same pattern.</p>
-<p>I am starting the lifted and annotated PAS before I filter for 5%. I will do this filter then the same gene expression filter.</p>
-<pre class="bash"><code>mkdir ../data/TotalFractionPAS</code></pre>
-<pre class="r"><code>HumanAnno=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
-IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+<p>Recreate the conservation of PAS number analysis but with the means from the total fraction.</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/TotalFractionPAS/TotalFraction_PASmeta.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(Human=HumanTot, Chimp=ChimpTot)
+PASpregene=PASMeta %&gt;% group_by(gene) %&gt;% summarize(nPAS=n())
+PASmore2=PASpregene %&gt;% filter(nPAS&gt;1)
+DiffDom=read.table(&quot;../data/TotalFractionPAS/TotalFraction_DiffDominant.txt&quot;,header = T,stringsAsFactors = F) %&gt;% filter(gene %in% PASmore2$gene)
+SameDom=read.table(&quot;../data/TotalFractionPAS/TotalFraction_sameDominant.txt&quot;,header = T,stringsAsFactors = F) %&gt;% mutate(DiffinDom=Chimp-Human) %&gt;% filter(gene %in% PASmore2$gene)</code></pre>
+<pre class="r"><code>ggplot(SameDom,aes(x=DiffinDom))+ geom_histogram(bins=100)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(SameDom$DiffinDom)</code></pre>
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-0.74667 -0.12500 -0.05000 -0.05759  0.01333  0.50667 </code></pre>
+<pre class="r"><code>Cutoff=seq(0,.5,.1)
+cutoffCol=c()
+nPAS=seq(1,5,1)
+ChimpGenes=c()
+HumanGenes=c()
+nPAScol=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMeta %&gt;% filter(gene %in% PASmore2$gene, Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    HumanGenes=c(HumanGenes,human)
+    chimp= PASMeta %&gt;% filter(gene %in% PASmore2$gene,Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    ChimpGenes=c(ChimpGenes,chimp)
+    nPAScol=c(nPAScol,n)
+    cutoffCol=c(cutoffCol,i)
+  }
+}
 
-HumanUsage=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = IndH)
-#seperate total and nuclear  
-HumanUsage_total= HumanUsage %&gt;% select(contains(&quot;_T&quot;))
-HumanUsage_nuclear= HumanUsage %&gt;% select(contains(&quot;_N&quot;))
+DFdata=as.data.frame(cbind(nPAScol,cutoffCol,ChimpGenes, HumanGenes))
+DFdata_gather=DFdata %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol, -cutoffCol)
+DFdata_gather$nPAScol=as.factor(DFdata_gather$nPAScol)
+DFdata_gather$cutoffCol=as.factor(DFdata_gather$cutoffCol)
+ggplot(DFdata_gather,aes(x=cutoffCol, by=nPAScol, y=NGene,fill=nPAScol))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /> For saem dominant:</p>
+<pre class="r"><code>PASMetaSame= PASMeta %&gt;% filter(gene %in% SameDom$gene)
+cutoffCol_same=c()
+ChimpGenes_same=c()
+HumanGenes_same=c()
+nPAScol_same=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMetaSame %&gt;% filter( Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    HumanGenes_same=c(HumanGenes_same,human)
+    chimp= PASMetaSame %&gt;% filter(Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    ChimpGenes_same=c(ChimpGenes_same,chimp)
+    nPAScol_same=c(nPAScol_same,n)
+    cutoffCol_same=c(cutoffCol_same,i)
+  }
+}
 
-HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage_nuclear),HumanTot=rowMeans(HumanUsage_total) ))
+DFdata_same=as.data.frame(cbind(nPAScol_same,cutoffCol_same,ChimpGenes_same, HumanGenes_same))
+DFdata_gather_same=DFdata_same %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol_same, -cutoffCol_same)
+DFdata_gather_same$nPAScol_same=as.factor(DFdata_gather_same$nPAScol_same)
+DFdata_gather_same$cutoffCol_same=as.factor(DFdata_gather_same$cutoffCol_same)</code></pre>
+<pre class="r"><code>ggplot(DFdata_gather_same,aes(x=cutoffCol_same, by=nPAScol_same, y=NGene,fill=nPAScol_same))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage \n same domiant&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Different dominant:</p>
+<pre class="r"><code>PASMetaDiff= PASMeta %&gt;% filter(gene %in% DiffDom$gene)
+cutoffCol_Diff=c()
+ChimpGenes_Diff=c()
+HumanGenes_Diff=c()
+nPAScol_Diff=c()
+for (i in Cutoff){
+  for (n in nPAS){
+    human= PASMetaDiff %&gt;% filter( Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    HumanGenes_Diff=c(HumanGenes_Diff,human)
+    chimp= PASMetaDiff %&gt;% filter(Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
+    ChimpGenes_Diff=c(ChimpGenes_Diff,chimp)
+    nPAScol_Diff=c(nPAScol_Diff,n)
+    cutoffCol_Diff=c(cutoffCol_Diff,i)
+  }
+}
 
-HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+DFdata_Diff=as.data.frame(cbind(nPAScol_Diff,cutoffCol_Diff,ChimpGenes_Diff, HumanGenes_Diff))
+DFdata_gather_Diff=DFdata_Diff %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol_Diff, -cutoffCol_Diff)
+DFdata_gather_Diff$nPAScol_Diff=as.factor(DFdata_gather_Diff$nPAScol_Diff)
+DFdata_gather_Diff$cutoffCol_Diff=as.factor(DFdata_gather_Diff$cutoffCol_Diff)</code></pre>
+<pre class="r"><code>ggplot(DFdata_gather_Diff,aes(x=cutoffCol_Diff, by=nPAScol_Diff, y=NGene,fill=nPAScol_Diff))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage \n different domiant&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Number of PAS in same and different</p>
+<pre class="r"><code>NpasSame=PASMetaSame%&gt;% group_by(gene) %&gt;% summarise(nPAS=n()) %&gt;% group_by(nPAS) %&gt;% summarise(Same=n(),PropSame=Same/nrow(PASMetaSame)) %&gt;% select(-Same)
+NpasDiff=PASMetaDiff %&gt;% group_by(gene) %&gt;% summarise(nPAS=n()) %&gt;% group_by(nPAS) %&gt;% summarise(Different=n(), PropDiff=Different/nrow(PASMetaDiff)) %&gt;% select(-Different)
 
-ChimpAnno=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
-IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+NpasBoth= NpasSame %&gt;% inner_join(NpasDiff) %&gt;% gather(&quot;GeneSet&quot;, &quot;Prop&quot;, -nPAS)</code></pre>
+<pre><code>Joining, by = &quot;nPAS&quot;</code></pre>
+<pre class="r"><code>NpasBoth$nPAS=as.factor(NpasBoth$nPAS)
 
-ChimpUsage=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt&quot;, col.names = IndC)
-ChimpUsage_total= ChimpUsage %&gt;% select(contains(&quot;_T&quot;))
-ChimpUsage_nuclear= ChimpUsage %&gt;% select(contains(&quot;_N&quot;))
+ggplot(NpasBoth,aes(fill=GeneSet, y=Prop, x=nPAS))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) + scale_fill_brewer(palette=&quot;Dark2&quot;, labels=c(&quot;Different Dominant&quot;, &quot;Same Dominant&quot;),name=&quot;&quot;) + labs(y=&quot;Proportion of Genes&quot;, x=&quot;Number of PAS&quot;, title=&quot;Number of PAS distribution by Dominance structure \n Total Fraction&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>PASMeta_humanDom_diff=PASMeta %&gt;% filter(PAS%in%DiffDom$HumanPAS) %&gt;% mutate(Diff=Human-Chimp)
 
+ggplot(PASMeta_humanDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col=&quot;red&quot;) +labs(title=&quot;PAS usage for different dominant, condition on Human&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title=&quot;Difference in Human - Chimp for Human Dominant&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>PASMeta_ChimpDom_diff=PASMeta %&gt;% filter(PAS%in%DiffDom$ChimpPAS) %&gt;% mutate(Diff=Human-Chimp)
 
-ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage), ChimpTot=rowMeans(ChimpUsage_nuclear)))
+ggplot(PASMeta_ChimpDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col=&quot;red&quot;) +labs(title=&quot;PAS usage for different dominant, condition on Chimp&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMeta_ChimpDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title=&quot;Difference in Human - Chimp for Chimp Dominant&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill=&quot;#D95F02&quot;,alpha=.5) + labs(title=&quot;Human Usage - Chimp Chimp \n Colored by dominant \n Total fraction&quot;) + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill=&quot;#1B9E77&quot;, alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col=&quot;#1B9E77&quot;)+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col=&quot;#D95F02&quot;) + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DiffDomfromH= DiffDom %&gt;% select(Human, ChimpPAS) %&gt;% rename(PAS=ChimpPAS, humanDom=Human) %&gt;% inner_join(PASMeta, by=&quot;PAS&quot;)%&gt;% mutate(Diff=humanDom-Human,Dom=&quot;Human&quot;) %&gt;% select(gene,Dom, Diff) %&gt;% inner_join(PASpregene, by=&quot;gene&quot;)%&gt;% filter(nPAS&lt;6)
 
-ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))</code></pre>
-<p>Both together:</p>
-<pre class="r"><code>BothMeanboth=ChimpMean %&gt;% full_join(HumanMean, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;gene&quot;   ,&quot;strand&quot;, &quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot; ))
-
-BothMean =BothMeanboth %&gt;% select(-Chimp, -Human)
-
-BothMean_5= BothMean %&gt;% filter(ChimpTot &gt;=0.05 | HumanTot &gt;= 0.05)  </code></pre>
-<p>Filter passing gene</p>
-<pre class="r"><code>PassingGenes=read.table(&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;, header = T, stringsAsFactors = F, col.names = c(&quot;gene&quot;))
-
-
-BothMean_5_genefilt= BothMean_5 %&gt;% semi_join(PassingGenes,by=&quot;gene&quot;)
-
-write.table(BothMean_5_genefilt, &quot;../data/TotalFractionPAS/TotalFraction_PASmeta.txt&quot;,col.names = T, row.names = F, quote=F)</code></pre>
-<p>Get the dominant PAS:</p>
-<pre class="r"><code>Chimp_Dom= BothMean_5_genefilt %&gt;%
-  group_by(gene) %&gt;%
-  top_n(1,ChimpTot) %&gt;% 
-  mutate(nPer=n()) %&gt;% 
-  filter(nPer==1) %&gt;% 
-  select(gene,loc,PAS,ChimpTot) %&gt;% 
-  rename(ChimpLoc=loc, ChimpPAS=PAS, Chimp=ChimpTot)
-
-Human_Dom= BothMean_5_genefilt %&gt;% 
-  group_by(gene) %&gt;% 
-  top_n(1, HumanTot) %&gt;% 
-  mutate(nPer=n()) %&gt;% 
-  filter(nPer==1) %&gt;% 
-  dplyr::select(gene,loc,PAS,HumanTot) %&gt;% 
-  rename(HumanLoc=loc, HumanPAS=PAS,Human=HumanTot)
-
-BothDom= Chimp_Dom %&gt;% inner_join(Human_Dom,by=&quot;gene&quot;)</code></pre>
-<pre class="r"><code>SameDom=BothDom %&gt;% filter(ChimpPAS==HumanPAS) 
-ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Dominant PAS for genes with matching by species \n Total Usage &quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a2818491b8228361248ac5ce624fbfbce3d22d0f/docs/figure/TotalDomStructure.Rmd/unnamed-chunk-7-1.png" target="_blank">a281849</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>write.table(SameDom, &quot;../data/TotalFractionPAS/TotalFraction_sameDominant.txt&quot;,col.names = T, row.names = F, quote=F)</code></pre>
-<pre class="r"><code>DiffDom=BothDom %&gt;% filter(ChimpPAS!=HumanPAS) 
-
-write.table(DiffDom, &quot;../data/TotalFractionPAS/TotalFraction_DiffDominant.txt&quot;,col.names = T, row.names = F, quote=F)
+DiffDomfromC= DiffDom %&gt;% select(Chimp, HumanPAS) %&gt;% rename(PAS=HumanPAS, ChimpDom=Chimp) %&gt;% inner_join(PASMeta, by=&quot;PAS&quot;)%&gt;% mutate(Diff=ChimpDom-Chimp,Dom=&quot;Chimp&quot;)%&gt;% select(gene,Dom, Diff) %&gt;% inner_join(PASpregene, by=&quot;gene&quot;) %&gt;% filter(nPAS&lt;6)
 
 
-DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
-ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Proportion of genes with same and different:<br />
-of 9458</p>
-<pre class="r"><code>nrow(SameDom)</code></pre>
-<pre><code>[1] 7154</code></pre>
-<pre class="r"><code>nrow(SameDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.7563967</code></pre>
-<pre class="r"><code>nrow(DiffDom)</code></pre>
-<pre><code>[1] 2304</code></pre>
-<pre class="r"><code>nrow(DiffDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.2436033</code></pre>
-<p>numbers in nuclear (of 9479):</p>
-<p>[1] 6558 [1] 0.6918451 [1] 2921 [1] 0.3081549</p>
-<p>Difference of proportion test for different dominance:</p>
-<pre class="r"><code>prop.test(x=c(2304,2921), n=c(9458,9479))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(2304, 2921) out of c(9458, 9479)
-X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- -0.07735517 -0.05174797
-sample estimates:
-   prop 1    prop 2 
-0.2436033 0.3081549 </code></pre>
-<p>Difference of proportion test for same dominance:</p>
-<pre class="r"><code>prop.test(x=c(7154,6558), n=c(9458,9479))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(7154, 6558) out of c(9458, 9479)
-X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.05174797 0.07735517
-sample estimates:
-   prop 1    prop 2 
-0.7563967 0.6918451 </code></pre>
-<p>Find the genes with the same dominant in total but different in nuclear.</p>
-<pre class="r"><code>NuclearDiffDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_DiffDom.txt&quot;,header = T,stringsAsFactors = F)
-NuclearSameDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;,header = T,stringsAsFactors = F)</code></pre>
-<p>I want genes in same dom for total and different for nuclear. First make sure it is in the tested set.</p>
-<pre class="r"><code>NuclearDiffDom_sameTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% anti_join(SameDom, by=&quot;gene&quot;)
-
-nrow(NuclearDiffDom_sameTot)</code></pre>
-<pre><code>[1] 1678</code></pre>
-<p>Plot location of these:</p>
-<pre class="r"><code>NuclearDiffDom_sameTot_g= NuclearDiffDom_sameTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
-ggplot(NuclearDiffDom_sameTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in nuclear only&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Compare this to those that are different in both:</p>
-<pre class="r"><code>NuclearDiffDom_diffTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% semi_join(SameDom, by=&quot;gene&quot;)
-nrow(NuclearDiffDom_diffTot)</code></pre>
-<pre><code>[1] 1133</code></pre>
-<pre class="r"><code>NuclearDiffDom_diffTot_g= NuclearDiffDom_diffTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
-ggplot(NuclearDiffDom_diffTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in both fractions&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Seems pretty similar.</p>
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill=&quot;#D95F02&quot;,alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill=&quot;#1B9E77&quot;, alpha=.5 ) + facet_grid(~nPAS) + labs(x=&quot;Difference in Mean usage&quot;, title=&quot;Dominant PAS in species - same species value for \nthe &#39;dominant&#39; in other species \n Total fraction&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill=&quot;#D95F02&quot;,alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill=&quot;#1B9E77&quot;, alpha=.5 ) + labs(x=&quot;Difference in Mean usage&quot;, title=&quot;Dominant PAS in species - same species value for \nthe &#39;dominant&#39; in other species \n Total fraction&quot;)</code></pre>
+<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1544,24 +1452,24 @@ other attached packages:
  [9] tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
-[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
-[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] tidyselect_0.2.5   reshape2_1.4.3     haven_1.1.2       
+ [4] lattice_0.20-38    colorspace_1.3-2   generics_0.0.2    
+ [7] htmltools_0.3.6    yaml_2.2.0         rlang_0.4.0       
+[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
+[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
+[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
+[19] gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
+[22] evaluate_0.12      labeling_0.3       knitr_1.20        
+[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
+[28] promises_1.0.1     scales_1.0.0       backports_1.1.2   
+[31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[37] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[40] magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
