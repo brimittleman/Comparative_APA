@@ -1,0 +1,197 @@
+---
+title: "Results without 18499"
+author: "Briana Mittleman"
+date: "4/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+It looks like NA18499 nuclear fraction data is of poor quality. I will run some of the analysis without this individual.  
+
+```{r}
+library(reshape2)
+library(tidyverse)
+library(workflowr)
+```
+
+
+```{r}
+Nuclear=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% select(PAS, Chimp, Human) %>% rename(ChimpNuclear=Chimp, HumanNuclear=Human)
+Total=read.table("../data/TotalFractionPAS/TotalFraction_PASmeta.txt",header = T, stringsAsFactors = F)%>% select(PAS, ChimpTot, HumanTot) %>% rename(ChimpTotal=ChimpTot, HumanTotal=HumanTot)
+
+
+BothFrac= Nuclear %>% inner_join(Total,by="PAS")
+
+```
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage )) %>% select(-chr,-start,-end, -gene, -strand, -loc, -disc,-NA18499_N, -NA18499_T) %>% filter(PAS %in% Nuclear$PAS)
+
+
+HumanUsageGather= HumanUsage_anno%>% gather("Line", "Usage", -PAS) %>% mutate(fraction=ifelse(grepl("_N", Line),"NuclearHuman", "TotalHuman"),indiv=substr(Line,1,nchar(Line)-2))
+HumanUsageGatherMeans=HumanUsageGather %>% group_by(PAS, fraction) %>% summarise(meanUsage=mean(Usage)) %>% spread( fraction, meanUsage) 
+
+```
+
+chimp 
+
+```{r}
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))%>% select(-chr,-start,-end, -gene, -strand, -loc, -disc ) %>% filter(PAS %in% Nuclear$PAS)
+
+ChimpUsageGather= ChimpUsage_anno%>% gather("Line", "Usage", -PAS) %>% mutate(fraction=ifelse(grepl("_N", Line),"NuclearChimp", "TotalChimp"),indiv=substr(Line,1,nchar(Line)-2))
+ChimpUsageGatherMeans=ChimpUsageGather %>% group_by(PAS, fraction) %>% summarise(meanUsage=mean(Usage)) %>% spread( fraction, meanUsage) 
+
+```
+
+
+Both fractions: 
+
+```{r}
+BothMean=ChimpUsageGatherMeans %>% inner_join(HumanUsageGatherMeans,by="PAS")
+```
+
+Look recalculate the mean usage for these.
+
+
+```{r}
+ggplot(BothMean,aes(x=NuclearHuman, y=TotalHuman)) + geom_point() + geom_smooth(method="lm") + labs(title="Human mean usage correlation between fractions",x= "Nuclear", y="Total")
+
+```
+
+```{r}
+cor.test(BothMean$NuclearHuman, BothMean$TotalHuman)
+
+summary(lm(BothMean$NuclearHuman~BothMean$TotalHuman))
+```
+
+```{r}
+ggplot(BothMean,aes(x=NuclearChimp, y=TotalChimp)) + geom_point() + geom_smooth(method="lm") + labs(title="Chimp mean usage correlation between fractions",x= "Nuclear", y="Total")
+
+```
+
+
+```{r}
+cor.test(BothMean$NuclearChimp, BothMean$TotalChimp)
+
+summary(lm(BothMean$NuclearChimp~BothMean$TotalChimp))
+```
+```{r}
+
+NA18358= cor(ChimpUsage_anno$NA18358_N, ChimpUsage_anno$NA18358_T)
+NA3622= cor(ChimpUsage_anno$NA3622_N, ChimpUsage_anno$NA3622_T)
+NA3659= cor(ChimpUsage_anno$NA3659_N, ChimpUsage_anno$NA3659_T)
+NA4973= cor(ChimpUsage_anno$NA4973_N, ChimpUsage_anno$NA4973_T)
+NApt30= cor(ChimpUsage_anno$NApt30_N, ChimpUsage_anno$NApt30_T)
+NApt91= cor(ChimpUsage_anno$NApt91_N, ChimpUsage_anno$NApt91_T)
+
+NA18498= cor(HumanUsage_anno$NA18498_N, HumanUsage_anno$NA18498_T)
+NA18502= cor(HumanUsage_anno$NA18502_N, HumanUsage_anno$NA18502_T)
+NA18504= cor(HumanUsage_anno$NA18504_N, HumanUsage_anno$NA18504_T)
+NA18510= cor(HumanUsage_anno$NA18510_N, HumanUsage_anno$NA18510_T)
+NA18523= cor(HumanUsage_anno$NA18523_N, HumanUsage_anno$NA18523_T)
+
+
+AllTvN=as.data.frame(cbind(Species=c(rep("Chimp",6), rep("Human",5)), Val=c(NA18358,NA3622,NA3659, NA4973,NApt30, NApt91,NA18498,NA18502,NA18504,  NA18510,NA18523), Ind=c('NA18358','NA3622','NA3659', 'NA4973','NApt30', 'NApt91','NA18498','NA18502','NA18504',  'NA18510','NA18523')))
+
+AllTvN$Val=as.numeric(as.character(AllTvN$Val))
+ggplot(AllTvN, aes(x=Ind, y=Val, fill=Species)) + geom_bar(stat = "identity") + scale_fill_brewer(palette = "Dark2")+ theme(axis.text.x = element_text(angle = 90)) + labs(x="",y="Correlation between Total and Nuclear Usage", title="Correlation between total and nuclear usage \nfor PAS over 5% in both fractions: Remove 18499")
+```
+
+
+```{r}
+allPheno=ChimpUsage_anno %>%inner_join(HumanUsage_anno,by="PAS")
+
+
+allPheno_nuc= allPheno %>% select(contains("_N"))
+allPhenoNuc_matrix=as.matrix(allPheno_nuc)
+
+Count_corrNuc= round(cor(allPhenoNuc_matrix),2)
+
+Count_corrNuc_melt=melt(Count_corrNuc)
+
+
+ggplot(data = Count_corrNuc_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)+ geom_text(aes(label = value))
+```
+This is more balanced.  
+
+
+Redo dominance:  
+```{r}
+allPAS= read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F) %>% inner_join(BothMean,by="PAS")
+```
+
+```{r}
+Chimp_Dom= allPAS %>%
+  group_by(gene) %>%
+  top_n(1,NuclearChimp) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,NuclearChimp) %>% 
+  rename(ChimpLoc=loc, ChimpPAS=PAS)
+
+Human_Dom= allPAS %>% 
+  group_by(gene) %>% 
+  top_n(1, NuclearHuman) %>% 
+  mutate(nPer=n()) %>% 
+  filter(nPer==1) %>% 
+  dplyr::select(gene,loc,PAS,NuclearHuman) %>% 
+  rename(HumanLoc=loc, HumanPAS=PAS)
+
+
+#merge
+
+BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
+```
+
+```{r}
+SameDom=BothDom %>% filter(ChimpPAS==HumanPAS) 
+
+ggplot(SameDom, aes(x=HumanLoc))+ geom_histogram(stat="count") + labs(x="Location", y="Number of Genes", title="Dominant PAS for genes with matching by species : Remove 18499")
+```
+```{r}
+DiffDom=BothDom %>% filter(ChimpPAS!=HumanPAS) 
+
+DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS: Remove 18499") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+```{r}
+PASpregene=allPAS %>% group_by(gene) %>% summarize(nPAS=n())
+PASmore2=PASpregene %>% filter(nPAS>1)
+SameDom=SameDom %>% mutate(DiffinDom=NuclearChimp-NuclearHuman) %>% filter(gene %in% PASmore2$gene)
+```
+
+```{r}
+ggplot(SameDom,aes(x=DiffinDom))+ geom_histogram(bins=100)
+```
+```{r}
+PASMeta_humanDom_diff=allPAS %>% filter(PAS %in% DiffDom$HumanPAS) %>% mutate(Diff=NuclearHuman-NuclearChimp)
+
+PASMeta_ChimpDom_diff=allPAS %>% filter(PAS%in%DiffDom$ChimpPAS) %>% mutate(Diff=NuclearHuman-NuclearChimp)
+
+
+ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill="#D95F02",alpha=.5) + labs(title="Human Usage - Chimp Usage \n Colored by dominant : Remove 18499") + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill="#1B9E77", alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col="#1B9E77")+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col="#D95F02") + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))
+
+```
+```{r}
+DiffDomfromH= DiffDom %>% select(NuclearHuman, ChimpPAS) %>% rename(PAS=ChimpPAS, humanDom=NuclearHuman) %>% inner_join(allPAS, by=c("gene","PAS"))%>% mutate(Diff=humanDom-NuclearHuman,Dom="Human") %>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene")%>% filter(nPAS<6)
+
+DiffDomfromC= DiffDom %>% select(NuclearChimp, HumanPAS) %>% rename(PAS=HumanPAS, ChimpDom=NuclearChimp) %>% inner_join(allPAS,  by=c("gene","PAS"))%>% mutate(Diff=ChimpDom-NuclearChimp,Dom="Chimp")%>% select(gene,Dom, Diff) %>% inner_join(PASpregene, by="gene") %>% filter(nPAS<6)
+
+
+ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill="#D95F02",alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill="#1B9E77", alpha=.5 ) + facet_grid(~nPAS) + labs(x="Difference in Mean usage", title="Dominant PAS in species - same species value for \nthe 'dominant' in other species : Remove 18499")
+```
+
+Ok this looks good. Seems like a lot of this 

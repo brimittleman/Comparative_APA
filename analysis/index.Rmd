@@ -218,6 +218,8 @@ Evaluate results:
 
 * [Test for overlaps within species](MergePASwithin.html)
 
+* [Check res after removing 18499](resultswo18499.html)
+
 ### Sample switch analysis  
 
 * [Investigate bad RNA seq samples](InvestigateBadSamples.html)  
