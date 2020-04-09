@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+library(reshape2)
 library(tidyverse)
 library(workflowr)
 ```
@@ -43,5 +44,90 @@ ggplot(BothFrac,aes(x=ChimpNuclear, y=ChimpTotal)) + geom_point() + geom_smooth(
 cor.test(BothFrac$ChimpNuclear, BothFrac$ChimpTotal)
 
 summary(lm(BothFrac$ChimpNuclear~BothFrac$ChimpTotal))
+```
+
+Look at the pairwise correlation: (similar to the original correlations i did)
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage )) %>% select(-chr,-start,-end, -gene, -strand, -loc, -disc ) %>% filter(PAS %in% BothFrac$PAS)
+
+
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))%>% select(-chr,-start,-end, -gene, -strand, -loc, -disc ) %>% filter(PAS %in% BothFrac$PAS)
+
+
+allPheno=ChimpUsage_anno %>%inner_join(HumanUsage_anno,by="PAS")
+
+allPheno_matrix=as.matrix(allPheno %>% select(-PAS))
+
+
+```
+
+```{r}
+Count_corr= round(cor(allPheno_matrix),2)
+
+Count_corr_melt=melt(Count_corr)
+
+ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)
+```
+```{r}
+allPheno_nuc= allPheno %>% select(contains("_N"))
+allPhenoNuc_matrix=as.matrix(allPheno_nuc)
+
+Count_corrNuc= round(cor(allPhenoNuc_matrix),2)
+
+Count_corrNuc_melt=melt(Count_corrNuc)
+
+
+ggplot(data = Count_corrNuc_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)+ geom_text(aes(label = value))
+```
+
+
+```{r}
+allPheno_tot= allPheno %>% select(contains("_T"))
+allPheno_tot_matrix=as.matrix(allPheno_tot)
+
+Count_corrTot= round(cor(allPheno_tot_matrix),2)
+
+Count_corrTot_melt=melt(Count_corrTot)
+
+
+ggplot(data = Count_corrTot_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "Blues", direction=1)+ geom_text(aes(label = value))
+
+```
+
+
+Do this for individual t vs n
+
+```{r}
+NA18358= cor(ChimpUsage_anno$NA18358_N, ChimpUsage_anno$NA18358_T)
+NA3622= cor(ChimpUsage_anno$NA3622_N, ChimpUsage_anno$NA3622_T)
+NA3659= cor(ChimpUsage_anno$NA3659_N, ChimpUsage_anno$NA3659_T)
+NA4973= cor(ChimpUsage_anno$NA4973_N, ChimpUsage_anno$NA4973_T)
+NApt30= cor(ChimpUsage_anno$NApt30_N, ChimpUsage_anno$NApt30_T)
+NApt91= cor(ChimpUsage_anno$NApt91_N, ChimpUsage_anno$NApt91_T)
+
+NA18498= cor(HumanUsage_anno$NA18498_N, HumanUsage_anno$NA18498_T)
+NA18499= cor(HumanUsage_anno$NA18499_N, HumanUsage_anno$NA18499_T)
+NA18502= cor(HumanUsage_anno$NA18502_N, HumanUsage_anno$NA18502_T)
+NA18504= cor(HumanUsage_anno$NA18504_N, HumanUsage_anno$NA18504_T)
+NA18510= cor(HumanUsage_anno$NA18510_N, HumanUsage_anno$NA18510_T)
+NA18523= cor(HumanUsage_anno$NA18523_N, HumanUsage_anno$NA18523_T)
+
+
+AllTvN=as.data.frame(cbind(Species=c(rep("Chimp",6), rep("Human",6)), Val=c(NA18358,NA3622,NA3659, NA4973,NApt30, NApt91,NA18498, NA18499,NA18502,NA18504,  NA18510,NA18523), Ind=c('NA18358','NA3622','NA3659', 'NA4973','NApt30', 'NApt91','NA18498', 'NA18499','NA18502','NA18504',  'NA18510','NA18523')))
+
+AllTvN$Val=as.numeric(as.character(AllTvN$Val))
+ggplot(AllTvN, aes(x=Ind, y=Val, fill=Species)) + geom_bar(stat = "identity") + scale_fill_brewer(palette = "Dark2")+ theme(axis.text.x = element_text(angle = 90)) + labs(x="",y="Correlation between Total and Nuclear Usage", title="Correlation between total and nuclear usage \nfor PAS over 5% in both fractions")
 ```
 
