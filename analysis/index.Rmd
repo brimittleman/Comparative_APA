@@ -115,7 +115,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Compare dominance structure and DE genes](DomPatternandDE.html)
 
-* [PolII from Zhou](pol2.html)
+* [PolII](pol2.html)
 
 
 ##Selection exploration  
