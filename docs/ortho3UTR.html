@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>PAS number and dominance in total</title>
+<title>Establish Ortho 3’ UTRs</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">PAS number and dominance in total</h1>
+<h1 class="title toc-ignore">Establish Ortho 3’ UTRs</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/7/2020</em></h4>
+<h4 class="date"><em>4/8/2020</em></h4>
 
 </div>
 
@@ -1278,7 +1278,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2f5d4d5ce06bcc8615008906ad97f1e0d1376607/analysis/ConservationofPASNumberTotal.Rmd" target="_blank">2f5d4d5</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2f5d4d5ce06bcc8615008906ad97f1e0d1376607/analysis/ortho3UTR.Rmd" target="_blank">2f5d4d5</a>
 </td>
 <td>
 brimittleman
@@ -1290,74 +1290,6 @@ brimittleman
 change number and add 3; utr
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/e45850ef849995805158ec801c9e05c97bfa4942/docs/ConservationofPASNumberTotal.html" target="_blank">e45850e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/856c506b99e9f2d20389f0254dc02a5409dd8a08/analysis/ConservationofPASNumberTotal.Rmd" target="_blank">856c506</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-fix labels
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/ConservationofPASNumberTotal.html" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/87bde36f3d14aa0925a7bfeea19b821cc31239e8/analysis/ConservationofPASNumberTotal.Rmd" target="_blank">87bde36</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-cons and dom in total
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1365,9 +1297,6 @@ cons and dom in total
 </div>
 </div>
 </div>
-<pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.6.0
-Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1377,609 +1306,107 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(reshape2)</code></pre>
-<pre><code>
-Attaching package: &#39;reshape2&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+<p>I want to get a list of ortho 3’ UTRs. This is important because I want to look at the differentially used PAS and see if they make longer or shorter 3’ UTRs. This could point to regulatory variation.</p>
+<p>I will start with the ortho exon file. Convert these to bed files to be able to merge</p>
+<pre class="bash"><code>grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf &gt; ../data/OrthoExonBed/Human3UTR.gtf
+grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/chimp.noM.gtf &gt; ../data/OrthoExonBed/Chimp3UTR.gtf
 
-    smiths</code></pre>
-<p>Recreate the conservation of PAS number analysis but with the means from the total fraction.</p>
-<pre class="r"><code>PASMeta=read.table(&quot;../data/TotalFractionPAS/TotalFraction_PASmeta.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(Human=HumanTot, Chimp=ChimpTot)
-PASpregene=PASMeta %&gt;% group_by(gene) %&gt;% summarize(nPAS=n())
-PASmore2=PASpregene %&gt;% filter(nPAS&gt;1)
-DiffDom=read.table(&quot;../data/TotalFractionPAS/TotalFraction_DiffDominant.txt&quot;,header = T,stringsAsFactors = F) %&gt;% filter(gene %in% PASmore2$gene)
-SameDom=read.table(&quot;../data/TotalFractionPAS/TotalFraction_sameDominant.txt&quot;,header = T,stringsAsFactors = F) %&gt;% mutate(DiffinDom=Chimp-Human) %&gt;% filter(gene %in% PASmore2$gene)</code></pre>
-<pre class="r"><code>ggplot(SameDom,aes(x=DiffinDom))+ geom_histogram(bins=100)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-3-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>summary(SameDom$DiffinDom)</code></pre>
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
--0.74667 -0.12500 -0.05000 -0.05759  0.01333  0.50667 </code></pre>
-<pre class="r"><code>Cutoff=seq(0,.5,.1)
-cutoffCol=c()
-nPAS=seq(1,5,1)
-ChimpGenes=c()
-HumanGenes=c()
-nPAScol=c()
-for (i in Cutoff){
-  for (n in nPAS){
-    human= PASMeta %&gt;% filter(gene %in% PASmore2$gene, Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    HumanGenes=c(HumanGenes,human)
-    chimp= PASMeta %&gt;% filter(gene %in% PASmore2$gene,Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    ChimpGenes=c(ChimpGenes,chimp)
-    nPAScol=c(nPAScol,n)
-    cutoffCol=c(cutoffCol,i)
-  }
-}
-
-DFdata=as.data.frame(cbind(nPAScol,cutoffCol,ChimpGenes, HumanGenes))
-DFdata_gather=DFdata %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol, -cutoffCol)
-DFdata_gather$nPAScol=as.factor(DFdata_gather$nPAScol)
-DFdata_gather$cutoffCol=as.factor(DFdata_gather$cutoffCol)
-ggplot(DFdata_gather,aes(x=cutoffCol, by=nPAScol, y=NGene,fill=nPAScol))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-4-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>For saem dominant:</p>
-<pre class="r"><code>PASMetaSame= PASMeta %&gt;% filter(gene %in% SameDom$gene)
-cutoffCol_same=c()
-ChimpGenes_same=c()
-HumanGenes_same=c()
-nPAScol_same=c()
-for (i in Cutoff){
-  for (n in nPAS){
-    human= PASMetaSame %&gt;% filter( Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    HumanGenes_same=c(HumanGenes_same,human)
-    chimp= PASMetaSame %&gt;% filter(Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    ChimpGenes_same=c(ChimpGenes_same,chimp)
-    nPAScol_same=c(nPAScol_same,n)
-    cutoffCol_same=c(cutoffCol_same,i)
-  }
-}
-
-DFdata_same=as.data.frame(cbind(nPAScol_same,cutoffCol_same,ChimpGenes_same, HumanGenes_same))
-DFdata_gather_same=DFdata_same %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol_same, -cutoffCol_same)
-DFdata_gather_same$nPAScol_same=as.factor(DFdata_gather_same$nPAScol_same)
-DFdata_gather_same$cutoffCol_same=as.factor(DFdata_gather_same$cutoffCol_same)</code></pre>
-<pre class="r"><code>ggplot(DFdata_gather_same,aes(x=cutoffCol_same, by=nPAScol_same, y=NGene,fill=nPAScol_same))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage \n same domiant&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-6-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Different dominant:</p>
-<pre class="r"><code>PASMetaDiff= PASMeta %&gt;% filter(gene %in% DiffDom$gene)
-cutoffCol_Diff=c()
-ChimpGenes_Diff=c()
-HumanGenes_Diff=c()
-nPAScol_Diff=c()
-for (i in Cutoff){
-  for (n in nPAS){
-    human= PASMetaDiff %&gt;% filter( Human &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    HumanGenes_Diff=c(HumanGenes_Diff,human)
-    chimp= PASMetaDiff %&gt;% filter(Chimp &gt;= i) %&gt;% group_by(gene) %&gt;% summarise(nPASingene=n()) %&gt;% filter(nPASingene==n) %&gt;% nrow() 
-    ChimpGenes_Diff=c(ChimpGenes_Diff,chimp)
-    nPAScol_Diff=c(nPAScol_Diff,n)
-    cutoffCol_Diff=c(cutoffCol_Diff,i)
-  }
-}
-
-DFdata_Diff=as.data.frame(cbind(nPAScol_Diff,cutoffCol_Diff,ChimpGenes_Diff, HumanGenes_Diff))
-DFdata_gather_Diff=DFdata_Diff %&gt;% gather(&quot;Species&quot;, &quot;NGene&quot;, -nPAScol_Diff, -cutoffCol_Diff)
-DFdata_gather_Diff$nPAScol_Diff=as.factor(DFdata_gather_Diff$nPAScol_Diff)
-DFdata_gather_Diff$cutoffCol_Diff=as.factor(DFdata_gather_Diff$cutoffCol_Diff)</code></pre>
-<pre class="r"><code>ggplot(DFdata_gather_Diff,aes(x=cutoffCol_Diff, by=nPAScol_Diff, y=NGene,fill=nPAScol_Diff))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) +facet_grid(~Species) + scale_fill_brewer(palette=&quot;Dark2&quot;, name=&quot;Number of PAS&quot;) + labs(title=&quot;Number of PAS per gene by usage \n different domiant&quot;,y=&quot;Number of Genes&quot;, x=&quot;Usage is at least&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-8-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Number of PAS in same and different</p>
-<pre class="r"><code>NpasSame=PASMetaSame%&gt;% group_by(gene) %&gt;% summarise(nPAS=n()) %&gt;% group_by(nPAS) %&gt;% summarise(Same=n(),PropSame=Same/nrow(PASMetaSame)) %&gt;% select(-Same)
-NpasDiff=PASMetaDiff %&gt;% group_by(gene) %&gt;% summarise(nPAS=n()) %&gt;% group_by(nPAS) %&gt;% summarise(Different=n(), PropDiff=Different/nrow(PASMetaDiff)) %&gt;% select(-Different)
-
-NpasBoth= NpasSame %&gt;% inner_join(NpasDiff) %&gt;% gather(&quot;GeneSet&quot;, &quot;Prop&quot;, -nPAS)</code></pre>
-<pre><code>Joining, by = &quot;nPAS&quot;</code></pre>
-<pre class="r"><code>NpasBoth$nPAS=as.factor(NpasBoth$nPAS)
-
-ggplot(NpasBoth,aes(fill=GeneSet, y=Prop, x=nPAS))+ geom_bar(position = &quot;dodge&quot;, stat=&quot;identity&quot;) + scale_fill_brewer(palette=&quot;Dark2&quot;, labels=c(&quot;Different Dominant&quot;, &quot;Same Dominant&quot;),name=&quot;&quot;) + labs(y=&quot;Proportion of Genes&quot;, x=&quot;Number of PAS&quot;, title=&quot;Number of PAS distribution by Dominance structure \n Total Fraction&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-9-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>PASMeta_humanDom_diff=PASMeta %&gt;% filter(PAS%in%DiffDom$HumanPAS) %&gt;% mutate(Diff=Human-Chimp)
-
-ggplot(PASMeta_humanDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col=&quot;red&quot;) +labs(title=&quot;PAS usage for different dominant, condition on Human&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e45850ef849995805158ec801c9e05c97bfa4942/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-10-1.png" target="_blank">e45850e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-10-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title=&quot;Difference in Human - Chimp for Human Dominant&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-11-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>PASMeta_ChimpDom_diff=PASMeta %&gt;% filter(PAS%in%DiffDom$ChimpPAS) %&gt;% mutate(Diff=Human-Chimp)
-
-ggplot(PASMeta_ChimpDom_diff,aes(x=Human, y=Chimp))+geom_point() + geom_abline(slope=1, intercept = 0,col=&quot;red&quot;) +labs(title=&quot;PAS usage for different dominant, condition on Chimp&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e45850ef849995805158ec801c9e05c97bfa4942/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-12-1.png" target="_blank">e45850e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-12-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(PASMeta_ChimpDom_diff,aes(x=Diff))+geom_histogram(bins=100) + labs(title=&quot;Difference in Human - Chimp for Chimp Dominant&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-13-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(PASMeta_humanDom_diff,aes(x=Diff))+geom_histogram(bins=100, fill=&quot;#D95F02&quot;,alpha=.5) + labs(title=&quot;Human Usage - Chimp Usage \n Colored by dominant \n Total fraction&quot;) + geom_histogram(data=PASMeta_ChimpDom_diff,aes(x=Diff), bins = 100, fill=&quot;#1B9E77&quot;, alpha=.5) + geom_vline(xintercept = mean(PASMeta_ChimpDom_diff$Diff), col=&quot;#1B9E77&quot;)+ geom_vline(xintercept = mean(PASMeta_humanDom_diff$Diff), col=&quot;#D95F02&quot;) + geom_histogram(bins=100, data=SameDom, aes(x=DiffinDom), alpha=.3)+ geom_vline(xintercept = mean(SameDom$DiffinDom))</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e45850ef849995805158ec801c9e05c97bfa4942/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-14-1.png" target="_blank">e45850e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-14-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>DiffDomfromH= DiffDom %&gt;% select(Human, ChimpPAS) %&gt;% rename(PAS=ChimpPAS, humanDom=Human) %&gt;% inner_join(PASMeta, by=&quot;PAS&quot;)%&gt;% mutate(Diff=humanDom-Human,Dom=&quot;Human&quot;) %&gt;% select(gene,Dom, Diff) %&gt;% inner_join(PASpregene, by=&quot;gene&quot;)%&gt;% filter(nPAS&lt;6)
-
-DiffDomfromC= DiffDom %&gt;% select(Chimp, HumanPAS) %&gt;% rename(PAS=HumanPAS, ChimpDom=Chimp) %&gt;% inner_join(PASMeta, by=&quot;PAS&quot;)%&gt;% mutate(Diff=ChimpDom-Chimp,Dom=&quot;Chimp&quot;)%&gt;% select(gene,Dom, Diff) %&gt;% inner_join(PASpregene, by=&quot;gene&quot;) %&gt;% filter(nPAS&lt;6)
+python SAF2Bed.py ../data/OrthoExonBed/Human3UTR.gtf ../data/OrthoExonBed/Human3UTR.bed
+python SAF2Bed.py ../data/OrthoExonBed/Chimp3UTR.gtf ../data/OrthoExonBed/Chimp3UTR.bed
 
 
-ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill=&quot;#D95F02&quot;,alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill=&quot;#1B9E77&quot;, alpha=.5 ) + facet_grid(~nPAS) + labs(x=&quot;Difference in Mean usage&quot;, title=&quot;Dominant PAS in species - same species value for \nthe &#39;dominant&#39; in other species \n Total fraction&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-15-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DiffDomfromH,aes(x=Diff))+ geom_histogram(bins=50, fill=&quot;#D95F02&quot;,alpha=.5) + geom_histogram(data=DiffDomfromC, bins=50,fill=&quot;#1B9E77&quot;, alpha=.5 ) + labs(x=&quot;Difference in Mean usage&quot;, title=&quot;Dominant PAS in species - same species value for \nthe &#39;dominant&#39; in other species \n Total fraction&quot;)</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-16-1.png" target="_blank">5e58f03</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Does what is the dist for number here:</p>
-<pre class="r"><code>PASMeta_sm=PASMeta %&gt;% dplyr::select(gene, Chimp, Human)
-PASMeta_m5= melt(PASMeta_sm, id.var=&quot;gene&quot;, variable.name=&quot;species&quot;, value.name=&quot;meanUsage&quot;) %&gt;% filter(meanUsage &gt;=0.05) %&gt;% group_by(species, gene) %&gt;% summarise(nPAS=n())
-PASMeta_m5$nPAS=as.factor(PASMeta_m5$nPAS)
-ggplot(PASMeta_m5,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Distribution for number of PAS at 5% Total&quot;, x=&quot;Number of PAS&quot;,y=&quot;Genes&quot;)</code></pre>
+sort -k1,1 -k2,2n ../data/OrthoExonBed/Human3UTR.bed &gt;  ../data/OrthoExonBed/Human3UTR.sort.bed
+sort -k1,1 -k2,2n ../data/OrthoExonBed/Chimp3UTR.bed &gt;  ../data/OrthoExonBed/Chimp3UTR.sort.bed
+
+#mrge by strand and gene 
+
+bedtools merge -s -i ../data/OrthoExonBed/Human3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct &gt; ../data/OrthoExonBed/Human3UTR.merged.sort.bed
+
+bedtools merge -s -i ../data/OrthoExonBed/Chimp3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct &gt; ../data/OrthoExonBed/Chimp3UTR.merged.sort.bed</code></pre>
+<p>Look at the human one and the annotation in humans:</p>
+<pre class="bash"><code>mkdir ../data/orthoUTR
+
+grep utr3 ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed &gt; ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed</code></pre>
+<p>There are a lot of exons in this set that look like they are not utrs.</p>
+<p>For this analsis. I need one 3’ UTR per gene. I can look at the most distal one first.</p>
+<p>I can do this here with if else statements:</p>
+<ul>
+<li><p>strand: max start</p></li>
+<li><p>strand:</p></li>
+</ul>
+<pre class="r"><code>humanMergeutr= read.table(&quot;../data/OrthoExonBed/Human3UTR.merged.sort.bed&quot;, col.names = c(&#39;chr&#39;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;), stringsAsFactors = F) %&gt;% group_by(gene)
+
+humanMergeutrpos= humanMergeutr %&gt;% filter(strand==&quot;+&quot;) %&gt;% group_by(gene) %&gt;% top_n(1,start)
+
+humanMergeutrneg= humanMergeutr %&gt;% filter(strand==&quot;-&quot;) %&gt;% group_by(gene) %&gt;% top_n(-1,start)
+
+humanDistalboth=humanMergeutrpos %&gt;% bind_rows(humanMergeutrneg)
+write.table(humanDistalboth, &quot;../data/orthoUTR/HumanDistal3UTR.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+<pre class="bash"><code>sort -k1,1 -k2,2n ../data/orthoUTR/HumanDistal3UTR.bed &gt; ../data/orthoUTR/HumanDistal3UTR.sort.bed</code></pre>
+<p>Looks like that worked.</p>
+<p>Do it with an intercect with the anno and see if the results are similar:</p>
+<pre class="bash"><code>bedtools intersect -s -wa -a ../data/OrthoExonBed/Human3UTR.merged.sort.bed -b ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed &gt; ../data/OrthoExonBed/Human3UTR.merged.sort.overlapHumanannno.bed</code></pre>
+<p>overlap has 135340 17680</p>
+<p>I will now work with the most distal PAS. I want to see how many of the PAS fall in these regions.</p>
+<pre class="bash"><code>bedtools intersect -s -wa -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed &gt; ../data/orthoUTR/PASOverlapinDistal3UTR.bed
+
+bedtools intersect -s -wa -wb -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed &gt; ../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed</code></pre>
+<pre class="r"><code>metaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, stringsAsFactors = F, header = T) %&gt;% select(gene, PAS, loc)
+Overlapping= read.table(&quot;../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed&quot;, col.names = c(&quot;chrpas&quot;, &quot;startpas&quot;, &quot;endpas&quot;,&quot;PAS&quot;, &quot;humanusage&quot;, &quot;strandpas&quot;, &quot;chrutr&quot;, &quot;startutr&quot;, &quot;endutr&quot;,&quot;geneUTR&quot;, &quot;score&quot;,&quot;strand&quot;),stringsAsFactors = F) %&gt;% select(-strandpas, -chrutr, -startutr, -endutr)  %&gt;% inner_join(metaPAS, by=c(&quot;PAS&quot;))
+
+ Overlapping %&gt;% filter(gene != geneUTR) %&gt;% nrow()</code></pre>
+<pre><code>[1] 190</code></pre>
+<pre class="r"><code> Overlapping %&gt;% filter(loc!=&quot;utr3&quot;) %&gt;% nrow()</code></pre>
+<pre><code>[1] 431</code></pre>
+<pre class="r"><code> Overlappingfilt= Overlapping%&gt;% filter(gene == geneUTR)</code></pre>
+<p>190 of these are in different genes. check these.<br />
+431 not annotated as UTR3 (31 diff gene)</p>
+<pre class="r"><code>NotUTRanno= Overlapping %&gt;% filter(loc!=&quot;utr3&quot;) %&gt;% filter(gene == geneUTR)
+nrow(NotUTRanno)</code></pre>
+<pre><code>[1] 400</code></pre>
+<pre class="r"><code>ggplot(NotUTRanno,aes(x=loc, fill=loc) ) + geom_histogram(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of 400 PAS overlapping PAS but not annotated 3&#39; UTR&quot;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/ConservationofPASNumberTotal.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> This is good. It looks like most of the time the problem is just that the ortho utr extends the original annotation. We call it an end or cds.</p>
+<pre class="r"><code>nrow(Overlapping)/nrow(metaPAS)</code></pre>
+<pre><code>[1] 0.2656902</code></pre>
+<pre class="r"><code>nrow(Overlapping)/nrow(metaPAS %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
+<pre><code>[1] 0.6850219</code></pre>
+<p>almost 70% of the 3’ UTR pas are represented.</p>
+<p>Look at how many genes are represented</p>
+<pre class="r"><code>OverlappingGenes= Overlapping %&gt;% filter(gene == geneUTR)  %&gt;% group_by(gene) %&gt;% summarise(nPAS=n())
+nrow(OverlappingGenes)</code></pre>
+<pre><code>[1] 7023</code></pre>
+<pre class="r"><code>nrow(OverlappingGenes %&gt;% filter(nPAS&gt;1))</code></pre>
+<pre><code>[1] 3142</code></pre>
+<pre class="r"><code>OverlappingGenes$nPAS= as.factor(OverlappingGenes$nPAS)
+
+ggplot(OverlappingGenes, aes(x=nPAS)) + geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Number of PAS&quot;, y=&quot;Genes&quot;, title=&quot;Number of PAS per gene with PAS in ortho 3&#39; UTR&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There is at least one pas in 7023 genes. Thats pretty good. There are 3142 with at least 2.</p>
+<p>Look to see if these represent any of those differenctially used:</p>
+<pre class="r"><code>PASGene=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% select(PAS, chr, start, end,loc)
+DiffUsed=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;,header = T,stringsAsFactors = F) %&gt;% inner_join(PASGene, by=c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;)) %&gt;% mutate(OrthoUTR=ifelse(PAS %in% Overlappingfilt$PAS, &quot;Yes&quot;,&quot;No&quot;))
+DiffUsed_sig =DiffUsed %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
+<pre class="r"><code>ggplot(DiffUsed_sig,aes(x=OrthoUTR)) +geom_histogram(stat=&quot;count&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Proportion:</p>
+<pre class="r"><code>DiffUsed_sig %&gt;% group_by(OrthoUTR) %&gt;% summarise(nEach=n()) %&gt;% mutate(prop=nEach/nrow(DiffUsed_sig))</code></pre>
+<pre><code># A tibble: 2 x 3
+  OrthoUTR nEach  prop
+  &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
+1 No        1973 0.630
+2 Yes       1159 0.370</code></pre>
+<p>37% of the differentially used are in the 3’ UTR.</p>
+<p>Filter to utr</p>
+<pre class="r"><code>DiffUsed_sig %&gt;% filter(loc==&quot;utr3&quot;)%&gt;%group_by(OrthoUTR) %&gt;% summarise(nEach=n()) %&gt;% mutate(prop=nEach/nrow(DiffUsed_sig%&gt;% filter(loc==&quot;utr3&quot;)))</code></pre>
+<pre><code># A tibble: 2 x 3
+  OrthoUTR nEach  prop
+  &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
+1 No         549 0.327
+2 Yes       1129 0.673</code></pre>
+<p>1678 sig ar in the 3’ UTR</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2007,29 +1434,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
- [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
- [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
+[1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+[5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+[9] tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
  [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
-[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
-[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
+[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
+[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
+[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
+[19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
+[22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
+[25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
+[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
+[34] fs_1.3.1           hms_0.4.2          digest_0.6.18     
+[37] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
+[40] cli_1.1.0          tools_3.5.1        magrittr_1.5      
+[43] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[46] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[55] git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 

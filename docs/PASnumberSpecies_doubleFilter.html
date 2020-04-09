@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-03
+<strong>Last updated:</strong> 2020-04-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebf79d5ed1e6fe64b47a139b186cbb21ce1c1f900targetblankbf79d5ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/bf79d5ed1e6fe64b47a139b186cbb21ce1c1f900" target="_blank">bf79d5e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2f5d4d5ce06bcc8615008906ad97f1e0d1376607targetblank2f5d4d5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2f5d4d5ce06bcc8615008906ad97f1e0d1376607" target="_blank">2f5d4d5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebf79d5ed1e6fe64b47a139b186cbb21ce1c1f900targetblankbf79d5ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2f5d4d5ce06bcc8615008906ad97f1e0d1376607targetblank2f5d4d5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -457,7 +457,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +468,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -1168,6 +1166,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1186,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1209,6 +1209,7 @@ Untracked files:
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1221,23 +1222,19 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
-    Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
 <p>
@@ -1276,6 +1273,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2f5d4d5ce06bcc8615008906ad97f1e0d1376607/analysis/PASnumberSpecies_doubleFilter.Rmd" target="_blank">2f5d4d5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-08
+</td>
+<td>
+change number and add 3; utr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/PASnumberSpecies_doubleFilter.html" target="_blank">a7536f9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1335,12 +1366,12 @@ add ss and PAS num DF
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
@@ -1356,7 +1387,7 @@ Run ?workflowr for help getting started</code></pre>
 <h3>Nuclear fraction</h3>
 <p>In this analysis I will look at thenumber of PAS per species at a gene level. I am only including PAS in chr1-22. These results use mean usage accross fraction.</p>
 <pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, stringsAsFactors = F, header = T)</code></pre>
-<p>I am looking at PAS at .1 or greater in either species.</p>
+<p>I am looking at PAS at .05 or greater in either species.</p>
 <pre class="r"><code>PAS_sm=PAS %&gt;% dplyr::select(gene, Chimp, Human) 
 
 PAS_m= melt(PAS_sm, id.var=&quot;gene&quot;, variable.name=&quot;species&quot;, value.name=&quot;meanUsage&quot;) %&gt;% filter(meanUsage &gt;=0.1) %&gt;% group_by(species, gene) %&gt;% summarise(nPAS=n())
@@ -1404,6 +1435,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-5-1.png" target="_blank">a7536f9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-5-1.png" target="_blank">5525b39</a>
 </td>
 <td>
@@ -1430,7 +1472,9 @@ wilcox.test(HumanNPAS$nPAS,ChimpNPAS$nPAS )</code></pre>
 data:  HumanNPAS$nPAS and ChimpNPAS$nPAS
 W = 46201000, p-value = 1.34e-15
 alternative hypothesis: true location shift is not equal to 0</code></pre>
-<pre class="r"><code>ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_density(stat=&quot;count&quot;,alpha=.5) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Distribution for number of PAS &gt;= 10%&quot;, x=&quot;Number of PAS&quot;,y=&quot;Genes&quot;)</code></pre>
+<pre class="r"><code>PAS_m$nPAS=as.factor(PAS_m$nPAS)
+ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Distribution for number of PAS at 10% &quot;, x=&quot;Number of PAS&quot;,y=&quot;Genes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
 <p><img src="figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1456,6 +1500,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-7-1.png" target="_blank">a7536f9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5525b39f555800466e8d97a5ca8e849940f68ac7/docs/figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-7-1.png" target="_blank">5525b39</a>
 </td>
 <td>
@@ -1469,6 +1524,12 @@ brimittleman
 </table>
 </div>
 </div>
+<p>Look at number without a filter:</p>
+<pre class="r"><code>PAS_m5= melt(PAS_sm, id.var=&quot;gene&quot;, variable.name=&quot;species&quot;, value.name=&quot;meanUsage&quot;) %&gt;% filter(meanUsage &gt;=0.05) %&gt;% group_by(species, gene) %&gt;% summarise(nPAS=n())
+PAS_m5$nPAS=as.factor(PAS_m5$nPAS)
+ggplot(PAS_m5,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Distribution for number of PAS at 5% Nuclear Fraction &quot;, x=&quot;Number of PAS&quot;,y=&quot;Genes&quot;)</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
+<p><img src="figure/PASnumberSpecies_doubleFilter.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
