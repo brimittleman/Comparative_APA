@@ -1,0 +1,47 @@
+---
+title: "Correlation between total and nuclear in both species"
+author: "Briana Mittleman"
+date: "4/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+```{r}
+Nuclear=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) %>% select(PAS, Chimp, Human) %>% rename(ChimpNuclear=Chimp, HumanNuclear=Human)
+Total=read.table("../data/TotalFractionPAS/TotalFraction_PASmeta.txt",header = T, stringsAsFactors = F)%>% select(PAS, ChimpTot, HumanTot) %>% rename(ChimpTotal=ChimpTot, HumanTotal=HumanTot)
+
+
+BothFrac= Nuclear %>% inner_join(Total,by="PAS")
+```
+
+
+Plot:  
+
+```{r}
+ggplot(BothFrac,aes(x=HumanNuclear, y=HumanTotal)) + geom_point() + geom_smooth(method="lm") + labs(title="Human mean usage correlation between fractions",x= "Nuclear", y="Total")
+```
+
+```{r}
+cor.test(BothFrac$HumanNuclear, BothFrac$HumanTotal)
+
+summary(lm(BothFrac$HumanNuclear~BothFrac$HumanTotal))
+```
+
+```{r}
+ggplot(BothFrac,aes(x=ChimpNuclear, y=ChimpTotal)) + geom_point() + geom_smooth(method="lm") + labs(title="Chimp mean usage correlation between fractions",x= "Nuclear", y="Total")
+```
+
+```{r}
+cor.test(BothFrac$ChimpNuclear, BothFrac$ChimpTotal)
+
+summary(lm(BothFrac$ChimpNuclear~BothFrac$ChimpTotal))
+```
+
