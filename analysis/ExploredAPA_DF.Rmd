@@ -45,7 +45,7 @@ PAS_m_dAPA= PAS_m %>% mutate(dAPA=ifelse(gene %in% DiffUsagePAS$gene, "Y", "N"))
 ```
 
 ```{r}
-ggplot(PAS_m_dAPA,aes(by=dAPA, y=nPAS,x=species, fill=dAPA)) + geom_boxplot()  + stat_compare_means(method = "t.test") + scale_fill_brewer(palette = "Dark2") + labs(y="Number of PAS detected at 10% usage", title="Number of PAS detected by gene with differential usage") 
+ggplot(PAS_m_dAPA,aes(by=dAPA, y=nPAS,x=species, fill=dAPA)) + geom_boxplot()  + stat_compare_means(method = "t.test") + scale_fill_brewer(palette = "Dark2") + labs(y="Number of PAS detected usage", title="Number of PAS detected by gene with differential usage") 
 ```
 
 Question 2: Where are the differentially used PAS?
@@ -249,7 +249,7 @@ Plot this.
 
 ```{r}
 
-ggplot(NucResDNDS_fix,aes(y=log10(DNDSratio+1), x=SigPASinGene, fill=SigPASinGene))+ geom_boxplot() + stat_compare_means( label.y.npc = "middle") + scale_fill_brewer(palette = "Dark2") + labs(x="dAPA in Nuclear") + annotate("text", label="Yes=1827 \n No=5481", y=1.8,x=2)
+ggplot(NucResDNDS_fix,aes(y=log10(DNDSratio+1), x=SigPASinGene, fill=SigPASinGene))+ geom_boxplot() + stat_compare_means( label.y.npc = "middle") + scale_fill_brewer(palette = "Dark2") + labs(x="dAPA in Nuclear") + annotate("text", label="Yes=1451 \n No=5865", y=1.8,x=2)
 
 
 ```
@@ -288,28 +288,5 @@ NucRes=read.table("../data/DiffIso_Nuclear/SignifianceEitherPAS_2_Nuclear.txt",h
 write.table(NucRes,"../data/DiffIso_Nuclear/SignifianceGenes_orderPval.txt",col.names = F, row.names = F, quote = F)
 ```
 
-Use gorilla:  
 
-Top results: 
-
-RNA binding
-
-translation factor activity, RNA binding
-
-protein-containing complex
-
-eukaryotic translation initiation factor  
-
-cellular protein-containing complex assembly
-
-	intracellular transport
-	
-	establishment of localization in cell	
-	
-	protein targeting to membrane
-	
-	nuclear-transcribed mRNA catabolic process, nonsense-mediated decay 
-		 
-	translational initiation	 
-	
 

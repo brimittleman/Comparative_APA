@@ -38,7 +38,7 @@ mkdir ../data/files4viz_nuclear_DF/
 Vector with humans:
 
 ```{r}
-humans=c('NA18498', 'NA18499', 'NA18502' ,'NA18504', 'NA18510', 'NA18523')
+humans=c('NA18498', 'NA18502' ,'NA18504', 'NA18510', 'NA18523')
 
 chimps=c( 'NA18358', 'NA3622' ,'NA3659', 'NA4973', 'NApt30', 'NApt91')
 ```

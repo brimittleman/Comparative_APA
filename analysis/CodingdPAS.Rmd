@@ -26,7 +26,6 @@ nrow(DPAS_coding %>% filter(deltaPAU>0))
 nrow(DPAS_coding %>% filter(deltaPAU<0))
 ```
 
-344 of these. 216 up in chimp, 128 up in human  
 
 Count this be a difference in annotations  
 

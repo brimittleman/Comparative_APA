@@ -39,6 +39,18 @@ PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_m
 ```
 
 
+hee feature counts are in  ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc. I need to subset these for those in the annotations.  Keep the PAS in this file: ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed. I will do this with a python script.  
+
+```{bash,eval=F}
+mkdir ../Chimp/data/CleanLiftedPeaks4LC/
+python prepareCleanLiftedFC_5perc4LC.py ../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed ../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc
+```
+
+```{bash,eval=F}
+mkdir ../Human/data/CleanLiftedPeaks4LC/
+python prepareCleanLiftedFC_5perc4LC.py ../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc ../data/Peaks_5perc/Peaks_5perc_either_HumanCoordHummanUsage.bed ../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc
+```
+
 ```{r}
 human=read.table("../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc", stringsAsFactors = F, header = T) %>% rownames_to_column(var="chrom") %>% filter(chrom %in% PAS$chrom)
 
@@ -61,7 +73,7 @@ I will make the id file here.
 
 ```{r}
 Inds=colnames(AllNuclear) 
-Species=c(rep("Human",6), rep("Chimp", 6))
+Species=c(rep("Human",5), rep("Chimp", 6))
 
 idFileDF=as.data.frame(cbind(Inds,Species))
 

@@ -84,7 +84,7 @@ empricalpval=overlapSample %>% filter(qtlOverlap>=actual) %>% nrow() / 10000
 Plot the results:  
 
 ```{r}
-ggplot(overlapSample,aes(x=qtlOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =actual, col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with apaQTL Genes") +  annotate("text", x = 110, y = 400, label = paste("Empirical Pvalue=", empricalpval), col="black") +  annotate("text", x = 160, y = 400, label = "Actual Overlap", col="red")
+ggplot(overlapSample,aes(x=qtlOverlap)) + geom_histogram(stat="count") + geom_vline(xintercept =actual, col="red" ) +labs(x="Number of Overlaps", title="Nuclear dAPA overlap with apaQTL Genes") +  annotate("text", x = 120, y = 300, label = paste("Empirical Pvalue=", empricalpval), col="black") +  annotate("text", x = 130, y = 400, label = "Actual Overlap", col="red")
 ```
 
 
