@@ -101,8 +101,8 @@ Overlapping= read.table("../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed
  Overlappingfilt= Overlapping%>% filter(gene == geneUTR)
 ```
 
-190 of these are in different genes. check these.  
-431 not annotated as UTR3  (31 diff gene)
+184 of these are in different genes. check these.  
+405 not annotated as UTR3  
 
 
 ```{r}
@@ -131,7 +131,7 @@ OverlappingGenes$nPAS= as.factor(OverlappingGenes$nPAS)
 ggplot(OverlappingGenes, aes(x=nPAS)) + geom_histogram(stat="count") + labs(x="Number of PAS", y="Genes", title="Number of PAS per gene with PAS in ortho 3' UTR")
 ```
 
-There is at least one pas in 7023 genes. Thats pretty good.  There are 3142 with at least 2.  
+There is at least one pas in 6931 genes. Thats pretty good.  There are 3098 with at least 2.  
 
 
 Look to see if these represent any of those differenctially used:  
@@ -164,4 +164,4 @@ DiffUsed_sig %>% filter(loc=="utr3")%>%group_by(OrthoUTR) %>% summarise(nEach=n(
 
 ```
 
-1678 sig ar in the 3' UTR
+834 sig are in the 3' UTR

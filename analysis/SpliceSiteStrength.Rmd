@@ -181,7 +181,7 @@ python spliceSite2Fasta.py ../data/SpliceSite/Chimp_SS_sort.Nuc.txt ../data/Spli
 python spliceSite2Fasta.py ../data/SpliceSite/Human_SS.sort.Nuc.txt ../data/SpliceSite/Human_SS_sort.Nuc.fasta
 
 #run ss maxent  
-cd /MaxEntCode/fordownload
+cd MaxEntCode/fordownload
 perl score5.pl ../../../data/SpliceSite/Chimp_SS_sort.Nuc.fasta >  ../../../data/SpliceSite/Chimp_SS_sort.Nuc.MaxentScores.txt
 perl score5.pl  ../../../data/SpliceSite/Human_SS_sort.Nuc.fasta >  ../../../data/SpliceSite/Human_SS_sort.Nuc.MaxentScore.txt
 ```
@@ -251,7 +251,6 @@ BothSSandReswUsage_diff= BothSSandReswUsage_withSig %>% filter(ChimpScore!=Human
 nrow(BothSSandReswUsage_diff)
 ```
 
-229/8298 PAS have different scores in human and chimp  
 
 I expect higher scores to have lower usage 
 
