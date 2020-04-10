@@ -115,7 +115,7 @@ ggplot(data = bothCounts_corr_melt, aes(x=Var1, y=Var2, fill=value)) +
 ##Normalzied ratio
 
 ```{r}
-normPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom", col.names = c('Chr', 'start',    'end',  'ID',   '18498_N',  '18498_T',  '18499_N',  '18499_T',  '18502_N',  '18502_T',  '18504_N',  '18504_T',  '18510_N',  '18510_T',  '18523_N',  '18523_T',  '18358_N',  '18358_T',  '3622_N',   '3622_T',   '3659_N',   '3659_T',   '4973_N',   '4973_T',   'pt30_N',   'pt30_T',   'pt91_N',   'pt91_T'))
+normPheno=read.table("../data/Pheno_5perc/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc.txt.gz.phen_AllChrom", col.names = c('Chr', 'start',    'end',  'ID',   '18498_N',  '18498_T',  '18502_N',  '18502_T',  '18504_N',  '18504_T',  '18510_N',  '18510_T',  '18523_N',  '18523_T',  '18358_N',  '18358_T',  '3622_N',   '3622_T',   '3659_N',   '3659_T',   '4973_N',   '4973_T',   'pt30_N',   'pt30_T',   'pt91_N',   'pt91_T'))
 
 normPheno_matrix=as.matrix(normPheno %>% dplyr::select(-Chr, -start, -end, -ID))
 normPheno_corr= round(cor(normPheno_matrix),2)
