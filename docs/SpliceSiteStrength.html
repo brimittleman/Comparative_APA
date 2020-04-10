@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree92f06e4499cd41e5172d560e481c51065573db7ctargetblank92f06e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/92f06e4499cd41e5172d560e481c51065573db7c" target="_blank">92f06e4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4feb8698e76f616f2f0d1441b2d0b3535bab3633targetblank4feb869a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/4feb8698e76f616f2f0d1441b2d0b3535bab3633" target="_blank">4feb869</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree92f06e4499cd41e5172d560e481c51065573db7ctargetblank92f06e4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4feb8698e76f616f2f0d1441b2d0b3535bab3633targetblank4feb869a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -811,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1054,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1123,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1168,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1221,7 +1227,6 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
@@ -1233,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1272,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4feb8698e76f616f2f0d1441b2d0b3535bab3633/analysis/SpliceSiteStrength.Rmd" target="_blank">4feb869</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+remove 18499
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2242e4af582d177c2cef86a1e242760c9246c205/docs/SpliceSiteStrength.html" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1368,12 +1408,12 @@ add Splice site strength
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>There is a hypothesis that increased 5’ splice site strength is assocaited with decreased usage of intronic PAS. This is relate to competition and binding of the U1 snurp. I will ask if there are differences in 5’ splcie sites for humans and chimp.</p>
@@ -1418,12 +1458,12 @@ bedtools intersect -a ../data/SpliceSite/IntronicPAS_SS_humanCoord.sort.bed  -b 
 
 IntersectRes_group= IntersectRes %&gt;% group_by(PAS) %&gt;% summarise(nExon=n())
 nrow(IntersectRes_group)</code></pre>
-<pre><code>[1] 11381</code></pre>
+<pre><code>[1] 10692</code></pre>
 <p>Filter :</p>
 <pre class="r"><code>PAS_5SS_both_filt= PAS_5SS_both %&gt;% semi_join(IntersectRes_group, by=&quot;PAS&quot;) 
 
 PAS_5SS_both_filt %&gt;% group_by(PAS) %&gt;% summarise(n=n()) %&gt;% filter(n&gt;1)</code></pre>
-<pre><code># A tibble: 228 x 2
+<pre><code># A tibble: 212 x 2
    PAS             n
    &lt;chr&gt;       &lt;int&gt;
  1 chimp10327      2
@@ -1435,10 +1475,10 @@ PAS_5SS_both_filt %&gt;% group_by(PAS) %&gt;% summarise(n=n()) %&gt;% filter(n&g
  7 chimp13702      2
  8 chimp13703      2
  9 chimp13858      2
-10 chimp147711     2
-# … with 218 more rows</code></pre>
+10 chimp143287     2
+# … with 202 more rows</code></pre>
 <pre class="r"><code>PAS_5SS_both_filt %&gt;% group_by(PAS) %&gt;% summarise(n=n()) %&gt;% filter(n&gt;1) %&gt;% nrow()</code></pre>
-<pre><code>[1] 228</code></pre>
+<pre><code>[1] 212</code></pre>
 <p>228 map to 2 introns. Count each site for now.</p>
 <p>Write these out to sort and liftover.</p>
 <pre class="r"><code>write.table(PAS_5SS_both_filt, &quot;../data/SpliceSite/IntronicPAS_SS_humanCoord_filterOotho.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
@@ -1455,19 +1495,19 @@ liftedSS_wrongsize= liftedSS %&gt;%  filter(legnth!=9)
 
 
 nrow(liftedSS_wrongsize)</code></pre>
-<pre><code>[1] 14</code></pre>
+<pre><code>[1] 15</code></pre>
 <pre class="r"><code>nrow(unliftedSS)</code></pre>
-<pre><code>[1] 22</code></pre>
+<pre><code>[1] 20</code></pre>
 <pre class="r"><code>BADSS= as.data.frame(cbind(PAS=c(liftedSS_wrongsize$PAS,unliftedSS$PAS)))</code></pre>
 <p>Remove the 36 that to not lift or lift to the wrong size.</p>
 <pre class="r"><code>ChimpSS=liftedSS %&gt;% filter(legnth==9) %&gt;% select(-legnth)
 nrow(ChimpSS)</code></pre>
-<pre><code>[1] 11590</code></pre>
+<pre><code>[1] 10885</code></pre>
 <pre class="r"><code>HumanSS=PAS_5SS_both_filt %&gt;% anti_join(BADSS, by=&quot;PAS&quot;)</code></pre>
 <pre><code>Warning: Column `PAS` joining character vector and factor, coercing into
 character vector</code></pre>
 <pre class="r"><code>nrow(HumanSS)</code></pre>
-<pre><code>[1] 11590</code></pre>
+<pre><code>[1] 10885</code></pre>
 <p>Next step is to use bedtools nuc to get the strand specific basepairs.</p>
 <pre class="r"><code>write.table(ChimpSS, &quot;../data/SpliceSite/Chimp_SS.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)
 
@@ -1488,7 +1528,7 @@ python spliceSite2Fasta.py ../data/SpliceSite/Chimp_SS_sort.Nuc.txt ../data/Spli
 python spliceSite2Fasta.py ../data/SpliceSite/Human_SS.sort.Nuc.txt ../data/SpliceSite/Human_SS_sort.Nuc.fasta
 
 #run ss maxent  
-cd /MaxEntCode/fordownload
+cd MaxEntCode/fordownload
 perl score5.pl ../../../data/SpliceSite/Chimp_SS_sort.Nuc.fasta &gt;  ../../../data/SpliceSite/Chimp_SS_sort.Nuc.MaxentScores.txt
 perl score5.pl  ../../../data/SpliceSite/Human_SS_sort.Nuc.fasta &gt;  ../../../data/SpliceSite/Human_SS_sort.Nuc.MaxentScore.txt</code></pre>
 <pre class="r"><code>ChimpSS=read.table(&quot;../data/SpliceSite/Chimp_SS_sort.bed&quot;, col.names = c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;,&#39;PAS&#39;, &#39;HumanUsage&#39;, &#39;strand&#39;), stringsAsFactors = F) %&gt;% select(PAS,HumanUsage)
@@ -1531,6 +1571,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-18-1.png" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-18-1.png" target="_blank">5e2ad6d</a>
 </td>
 <td>
@@ -1570,6 +1621,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-19-1.png" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-19-1.png" target="_blank">5e2ad6d</a>
 </td>
 <td>
@@ -1588,13 +1650,13 @@ brimittleman
     Pearson&#39;s product-moment correlation
 
 data:  BothSSandReswUsage$ChimpScore and BothSSandReswUsage$HumanScore
-t = 489.38, df = 12120, p-value &lt; 2.2e-16
+t = 473.41, df = 11379, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.9747456 0.9764612
+ 0.9746377 0.9764137
 sample estimates:
       cor 
-0.9756183 </code></pre>
+0.9755416 </code></pre>
 <p>Plot this by if the PAS is signfiicantly different</p>
 <pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene, loc)
 
@@ -1602,18 +1664,55 @@ DiffUsagePAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&
 BothSSandReswUsage_withSig=BothSSandReswUsage %&gt;% inner_join(DiffUsagePAS, by=&quot;PAS&quot;)</code></pre>
 <pre class="r"><code>ggplot(BothSSandReswUsage_withSig,aes(x=ChimpScore, y=HumanScore, col=SigPAU2)) + geom_point(alpha=.5) + annotate(&quot;text&quot;,label=&quot;Pearsons Correlation = .98&quot;, x=-10, y=10) + labs(title=&quot;5&#39; Splice Site Strength for Intronic PAS&quot;,col=&quot;Differentially \nused PAS&quot;)+ theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-21-1.png" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cor.test(BothSSandReswUsage$ChimpScore,BothSSandReswUsage$HumanScore)</code></pre>
 <pre><code>
     Pearson&#39;s product-moment correlation
 
 data:  BothSSandReswUsage$ChimpScore and BothSSandReswUsage$HumanScore
-t = 489.38, df = 12120, p-value &lt; 2.2e-16
+t = 473.41, df = 11379, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.9747456 0.9764612
+ 0.9746377 0.9764137
 sample estimates:
       cor 
-0.9756183 </code></pre>
+0.9755416 </code></pre>
 <pre class="r"><code>ggplot(BothSSandReswUsage_withSig,aes(x=ChimpUsage, y=HumanUsage,col=SigPAU2)) + geom_point(alpha=.5)  + geom_smooth(method=&quot;lm&quot;,col=&quot;orange&quot;) + annotate(&quot;text&quot;, label=&quot;Pearsons Correlation= 0.54&quot;, x=.65,y=.8) + theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Usage of PAS by species&quot;,col=&quot;Differentially \nused PAS&quot;) </code></pre>
 <p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1640,6 +1739,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5e2ad6dee8ab679c1c62e3e8dbb1d1a163d4ac8b/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-22-1.png" target="_blank">5e2ad6d</a>
 </td>
 <td>
@@ -1658,25 +1768,61 @@ brimittleman
     Pearson&#39;s product-moment correlation
 
 data:  BothSSandReswUsage$ChimpUsage and BothSSandReswUsage$HumanUsage
-t = 70.368, df = 12120, p-value &lt; 2.2e-16
+t = 72.57, df = 11379, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.5258034 0.5510827
+ 0.5497949 0.5749167
 sample estimates:
       cor 
-0.5385643 </code></pre>
+0.5624856 </code></pre>
 <p>How many have different score:</p>
 <pre class="r"><code>BothSSandReswUsage_diff= BothSSandReswUsage_withSig %&gt;% filter(ChimpScore!=HumanScore)
 
 nrow(BothSSandReswUsage_diff)</code></pre>
-<pre><code>[1] 220</code></pre>
-<p>229/8298 PAS have different scores in human and chimp</p>
+<pre><code>[1] 289</code></pre>
 <p>I expect higher scores to have lower usage</p>
 <p>Plot difference in score and diff in usage</p>
 <pre class="r"><code>BothSSandReswUsage_diff_score= BothSSandReswUsage_diff %&gt;% mutate(DiffScore=HumanScore-ChimpScore, DiffUsage=HumanUsage-ChimpUsage)
 
 ggplot(BothSSandReswUsage_diff_score, aes(x=DiffScore, y=DiffUsage)) + geom_point(aes(col=SigPAU2)) + geom_smooth(method=&quot;lm&quot;) +theme(text= element_text(size=16)) + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Relationship between differene in \nusage and difference in 5&#39; SS score&quot;,col=&quot;Differentially \nused PAS&quot;) </code></pre>
 <p><img src="figure/SpliceSiteStrength.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SpliceSiteStrength.Rmd/unnamed-chunk-24-1.png" target="_blank">2242e4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>summary(lm(BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_score$DiffUsage))</code></pre>
 <pre><code>
 Call:
@@ -1684,21 +1830,21 @@ lm(formula = BothSSandReswUsage_diff_score$DiffScore ~ BothSSandReswUsage_diff_s
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--10.6012  -1.5470  -0.5127   0.5640  12.8121 
+-10.6957  -1.6455  -0.5823   0.5475  12.7219 
 
 Coefficients:
                                         Estimate Std. Error t value
-(Intercept)                               0.7741     0.2104   3.680
-BothSSandReswUsage_diff_score$DiffUsage   0.7280     2.8263   0.258
+(Intercept)                               0.8902     0.1991   4.471
+BothSSandReswUsage_diff_score$DiffUsage   0.6274     3.1032   0.202
                                         Pr(&gt;|t|)    
-(Intercept)                             0.000294 ***
-BothSSandReswUsage_diff_score$DiffUsage 0.796965    
+(Intercept)                             1.12e-05 ***
+BothSSandReswUsage_diff_score$DiffUsage     0.84    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 2.907 on 218 degrees of freedom
-Multiple R-squared:  0.0003043, Adjusted R-squared:  -0.004281 
-F-statistic: 0.06635 on 1 and 218 DF,  p-value: 0.797</code></pre>
+Residual standard error: 3.103 on 287 degrees of freedom
+Multiple R-squared:  0.0001424, Adjusted R-squared:  -0.003341 
+F-statistic: 0.04088 on 1 and 287 DF,  p-value: 0.8399</code></pre>
 <p>No correlation</p>
 <p>Are any of these the differentially used PAS.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% select(PAS,chr, loc, start, end)

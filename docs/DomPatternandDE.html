@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree71101c1a6c37f5a2b91c240ebfeb429399cc59fctargetblank71101c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/71101c1a6c37f5a2b91c240ebfeb429399cc59fc" target="_blank">71101c1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4feb8698e76f616f2f0d1441b2d0b3535bab3633targetblank4feb869a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/4feb8698e76f616f2f0d1441b2d0b3535bab3633" target="_blank">4feb869</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree71101c1a6c37f5a2b91c240ebfeb429399cc59fctargetblank71101c1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4feb8698e76f616f2f0d1441b2d0b3535bab3633targetblank4feb869a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,6 +452,7 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
@@ -468,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -810,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1053,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1122,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1167,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1186,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1205,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1231,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1272,6 +1280,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b3cce4d894defd81a4e11baf723acf6cd1ce7ece/docs/DomPatternandDE.html" target="_blank">b3cce4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -1299,12 +1324,12 @@ add dom pattern and de
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1329,17 +1354,17 @@ DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, 
 Look at genes we have data for both:</p>
 <pre class="r"><code>DomandDE=Domiance %&gt;% inner_join(DE,by=&quot;gene&quot;)
 nrow(DomandDE)</code></pre>
-<pre><code>[1] 8345</code></pre>
+<pre><code>[1] 8225</code></pre>
 <p>Group and summarize</p>
 <pre class="r"><code>DomandDE %&gt;% group_by(DE, Dominance) %&gt;% summarise(nSet=n())</code></pre>
 <pre><code># A tibble: 4 x 3
 # Groups:   DE [2]
   DE    Dominance  nSet
   &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;
-1 No    Different  1542
-2 No    Same       3660
-3 Yes   Different   961
-4 Yes   Same       2182</code></pre>
+1 No    Different  1397
+2 No    Same       3746
+3 Yes   Different   872
+4 Yes   Same       2210</code></pre>
 <p>Enrichment for DE and same:</p>
 <pre class="r"><code>x=nrow(DomandDE %&gt;% filter(Dominance==&quot;Same&quot;, DE==&quot;Yes&quot;))
 m=nrow(DomandDE %&gt;% filter(DE==&quot;Yes&quot;))
@@ -1347,10 +1372,10 @@ n=nrow(DomandDE %&gt;% filter(DE==&quot;No&quot;))
 k=nrow(DomandDE %&gt;% filter(Dominance==&quot;Same&quot;))
 N=nrow(DomandDE)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.80981</code></pre>
+<pre><code>[1] 0.8609094</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 0.9916882</code></pre>
+<pre><code>[1] 0.9902409</code></pre>
 <p>Opposite direction. Different dominance and DE</p>
 <pre class="r"><code>x=nrow(DomandDE %&gt;% filter(Dominance==&quot;Different&quot;, DE==&quot;Yes&quot;))
 m=nrow(DomandDE %&gt;% filter(DE==&quot;Yes&quot;))
@@ -1358,17 +1383,17 @@ n=nrow(DomandDE %&gt;% filter(DE==&quot;No&quot;))
 k=nrow(DomandDE %&gt;% filter(Dominance==&quot;Different&quot;))
 N=nrow(DomandDE)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.1771116</code></pre>
+<pre><code>[1] 0.1281298</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 1.0194</code></pre>
+<pre><code>[1] 1.025617</code></pre>
 <p>Ok so this is not significant but differentially used are. Maybe when I look to see the differential when one pas is intronic and one is 3’UTR</p>
 <p>Compare these to the other ones with a different dominant gene first.</p>
 <pre class="r"><code>NuclearDiffDom_pattern=read.table(&quot;../data/DominantPAS_DF/Nuclear_DiffDom.txt&quot;,header = T,stringsAsFactors = F) %&gt;% mutate(Dominance=&quot;Different&quot;, HumanIntChimpUTR=ifelse(ChimpLoc==&quot;utr3&quot; &amp; HumanLoc==&quot;intron&quot;, &quot;Yes&quot;, &quot;No&quot;), HumanUTRChimpInt=ifelse(ChimpLoc==&quot;intron&quot; &amp; HumanLoc==&quot;utr3&quot;, &quot;Yes&quot;, &quot;No&quot;), Pattern=ifelse(HumanIntChimpUTR==&quot;Yes&quot; | HumanUTRChimpInt==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,HumanIntChimpUTR,HumanUTRChimpInt,Pattern )
 
 PatternandDE= NuclearDiffDom_pattern %&gt;% inner_join(DE,by=&quot;gene&quot;)
 nrow(PatternandDE)</code></pre>
-<pre><code>[1] 2503</code></pre>
+<pre><code>[1] 2269</code></pre>
 <p>First do Human Intronic chimp UTR</p>
 <pre class="r"><code>x=nrow(PatternandDE %&gt;% filter(HumanIntChimpUTR==&quot;Yes&quot;, DE==&quot;Yes&quot;))
 m=nrow(PatternandDE %&gt;% filter(DE==&quot;Yes&quot;))
@@ -1379,7 +1404,7 @@ phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 1</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 0.5574375</code></pre>
+<pre><code>[1] 0.5333968</code></pre>
 <p>Opposite direction:</p>
 <pre class="r"><code>x=nrow(PatternandDE %&gt;% filter(HumanUTRChimpInt==&quot;Yes&quot;, DE==&quot;Yes&quot;))
 m=nrow(PatternandDE %&gt;% filter(DE==&quot;Yes&quot;))
@@ -1390,7 +1415,7 @@ phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 1</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 0.01262316</code></pre>
+<pre><code>[1] 0.01513505</code></pre>
 <p>Either pattern:</p>
 <pre class="r"><code>x=nrow(PatternandDE %&gt;% filter(Pattern==&quot;Yes&quot;, DE==&quot;Yes&quot;))
 m=nrow(PatternandDE %&gt;% filter(DE==&quot;Yes&quot;))
@@ -1401,7 +1426,7 @@ phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 1</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 0.5863967</code></pre>
+<pre><code>[1] 0.5692577</code></pre>
 <p>Not significant. I need to use the full set to have power:</p>
 <pre class="r"><code>NuclearDiffDom_patternonly=NuclearDiffDom_pattern %&gt;% select(gene,Pattern )
 NuclearSameDom_pattern=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;,header = T,stringsAsFactors = F)  %&gt;% mutate(Dominance=&quot;Same&quot;, Pattern =&quot;No&quot;)%&gt;% select(gene, Pattern)
@@ -1409,7 +1434,7 @@ BothPattern=bind_rows(NuclearDiffDom_patternonly,NuclearSameDom_pattern)
 
 PatternbothandDE= BothPattern %&gt;% inner_join(DE,by=&quot;gene&quot;)
 nrow(PatternbothandDE)</code></pre>
-<pre><code>[1] 8345</code></pre>
+<pre><code>[1] 8225</code></pre>
 <pre class="r"><code>x=nrow(PatternbothandDE %&gt;% filter(Pattern==&quot;Yes&quot;, DE==&quot;Yes&quot;))
 m=nrow(PatternbothandDE %&gt;% filter(DE==&quot;Yes&quot;))
 n=nrow(PatternbothandDE %&gt;% filter(DE==&quot;No&quot;))
@@ -1419,7 +1444,7 @@ phyper(x,m,n,k,lower.tail=F)</code></pre>
 <pre><code>[1] 1</code></pre>
 <pre class="r"><code>enrich=(x/k)/(m/N)
 enrich</code></pre>
-<pre><code>[1] 0.1284556</code></pre>
+<pre><code>[1] 0.1142451</code></pre>
 <p>No significance here.</p>
 <p>Look at effect sizes. Are DE with different dominant stronger than DE without same dominant</p>
 <pre class="r"><code>DEfull= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(Domiance,by=&quot;gene&quot;)
@@ -1429,21 +1454,58 @@ DEfullsig$dom=as.factor(DEfullsig$dom)</code></pre>
 <p>Plot by dominance:</p>
 <pre class="r"><code>ggplot(DEfullsig,aes(x=dom,y=abs(logFC),fill=dom)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(x=&quot;Dominance Structure&quot;, y=&quot;abs(eQTL log effect size)&quot;, title=&quot;Larger effect sizes in genes with different domianant PAS&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/DomPatternandDE.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b3cce4d894defd81a4e11baf723acf6cd1ce7ece/docs/figure/DomPatternandDE.Rmd/unnamed-chunk-15-1.png" target="_blank">b3cce4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DEfullsigdiff=DEfullsig %&gt;% filter(dom==&quot;Different&quot;)
 DEfullsigSame=DEfullsig %&gt;% filter(dom==&quot;Same&quot;)
 
 summary(abs(DEfullsigdiff$logFC))</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.1986  0.4856  0.7628  1.0428  1.2471  7.0644 </code></pre>
+ 0.1986  0.4852  0.7502  1.0298  1.2364  7.0644 </code></pre>
 <pre class="r"><code>summary(abs(DEfullsigSame$logFC))</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.1711  0.4669  0.6714  0.9208  1.0618  7.1145 </code></pre>
+ 0.1711  0.4648  0.6679  0.9074  1.0373  7.1145 </code></pre>
 <pre class="r"><code>wilcox.test(abs(DEfullsigdiff$logFC),abs(DEfullsigSame$logFC),alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
 data:  abs(DEfullsigdiff$logFC) and abs(DEfullsigSame$logFC)
-W = 1137400, p-value = 7.412e-05
+W = 1043300, p-value = 0.0001695
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <p>I could make a qq plot to look at the pvalues.</p>
 <pre class="r"><code>DEfull_dom= DEfull %&gt;% filter(Dominance==&quot;Same&quot;)
@@ -1454,14 +1516,52 @@ wilcox.test(DEfull_dom$adj.P.Val,DEfull_not$adj.P.Val)</code></pre>
     Wilcoxon rank sum test with continuity correction
 
 data:  DEfull_dom$adj.P.Val and DEfull_not$adj.P.Val
-W = 7414100, p-value = 0.3077
+W = 6870700, p-value = 0.2379
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 <pre class="r"><code>qqplot(-log10(runif(nrow(DEfull_dom))), -log10(DEfull_dom$adj.P.Val), xlab=&quot;-log10(Uniform)&quot;, ylab=&quot;-log10(pval)&quot;, main=&quot;&quot;)
 points(sort(-log10(runif(nrow(DEfull_not)))), sort(-log10(DEfull_not$adj.P.Val)),col= alpha(&quot;Red&quot;))
 abline(0,1)
 
 legend(&quot;topleft&quot;, legend=c(&quot;Different Dominant&quot;,&quot;Same Dominant&quot;),col=c(&quot;black&quot;, &quot;red&quot;), pch=16,bty = &#39;n&#39;)</code></pre>
-<p><img src="figure/DomPatternandDE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /> No difference here and qq plot is not a good way to look at it.</p>
+<p><img src="figure/DomPatternandDE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b3cce4d894defd81a4e11baf723acf6cd1ce7ece/docs/figure/DomPatternandDE.Rmd/unnamed-chunk-19-1.png" target="_blank">b3cce4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>No difference here and qq plot is not a good way to look at it.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
