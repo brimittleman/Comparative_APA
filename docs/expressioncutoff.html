@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-03
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8269a9ae272c6d13ffce9d80b2da7781cac29526targetblank8269a9aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8269a9ae272c6d13ffce9d80b2da7781cac29526" target="_blank">8269a9a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb78c3f6c3f845a94eab9b9980951463b4af2586dtargetblankb78c3f6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b78c3f6c3f845a94eab9b9980951463b4af2586d" target="_blank">b78c3f6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8269a9ae272c6d13ffce9d80b2da7781cac29526targetblank8269a9aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb78c3f6c3f845a94eab9b9980951463b4af2586dtargetblankb78c3f6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -647,6 +646,8 @@ Untracked files:
     Untracked:  code/._wrap_verifyBam.sh
     Untracked:  code/._writeMergecode.py
     Untracked:  code/.snakemake/
+    Untracked:  code/ALLPAS_sequenceDF.err
+    Untracked:  code/ALLPAS_sequenceDF.out
     Untracked:  code/AlignmentScores.err
     Untracked:  code/AlignmentScores.out
     Untracked:  code/AlignmentScores.sh
@@ -803,11 +804,14 @@ Untracked files:
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
     Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
     Untracked:  code/apaQTLsnake.out
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1051,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1120,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1165,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1184,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1203,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1218,23 +1227,19 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DiffUsedIntronic.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
-    Modified:   analysis/SpliceSiteStrength.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPAandapaQTL_DF.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/upsetter_DF.Rmd
 
 </code></pre>
 <p>
@@ -1273,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b78c3f6c3f845a94eab9b9980951463b4af2586d/analysis/expressioncutoff.Rmd" target="_blank">b78c3f6</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+re establish cutoff
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/expressioncutoff.html" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1381,12 +1420,12 @@ Attaching package: &#39;R.utils&#39;</code></pre>
 
     cat, commandArgs, getOption, inherits, isOpen, parse, warnings</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract() masks R.utils::extract()
 ✖ dplyr::filter()  masks stats::filter()
 ✖ dplyr::lag()     masks stats::lag()</code></pre>
@@ -1413,8 +1452,8 @@ Attaching package: &#39;scales&#39;</code></pre>
   group_by(ind, gene) %&gt;%
   summarize(GeneCount=sum(count)) %&gt;% 
   spread(ind, GeneCount)</code></pre>
-<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [48528,
-48529, 48530, 92432].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [50254,
+50255, 50256, 95621].</code></pre>
 <pre class="r"><code>chimpPAS=read.table(&quot;../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc&quot;, header=T, stringsAsFactors = F) %&gt;% 
   separate(Geneid, into=c(&quot;disc&quot;,&quot;PAS&quot;,&quot;chrom&quot;, &quot;start&quot;,&quot;end&quot;,&quot;strand&quot;,&quot;geneid&quot;), sep=&quot;:&quot;) %&gt;%
   separate(geneid,into=c(&quot;gene&quot;,&quot;loc&quot;),sep=&quot;_&quot;) %&gt;%
@@ -1423,12 +1462,12 @@ Attaching package: &#39;scales&#39;</code></pre>
   group_by(ind, gene) %&gt;%
   summarize(GeneCount=sum(count)) %&gt;% 
   spread(ind, GeneCount)</code></pre>
-<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [48528,
-48529, 48530, 92432].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [50254,
+50255, 50256, 95621].</code></pre>
 <p>Join these together:</p>
 <pre class="r"><code>metadata=read.table(&quot;../data/metadata_HCpanel.txt&quot;,header = T) %&gt;% mutate(id2=ifelse(grepl(&quot;pt&quot;, ID), ID, paste(&quot;X&quot;, ID, sep=&quot;&quot;))) %&gt;% filter(Fraction==&quot;Nuclear&quot;)
 
-order=c(metadata$id2[1:10], &quot;pt30_N&quot;, &quot;pt91_N&quot;)
+order=c(metadata$id2[1:9], &quot;pt30_N&quot;, &quot;pt91_N&quot;)
 
 BothbyGene= chimpPAS %&gt;% inner_join(humanPAS,by=&quot;gene&quot;) %&gt;% dplyr::select(gene,order)
 
@@ -1466,6 +1505,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-5-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-5-1.png" target="_blank">f161386</a>
@@ -1509,7 +1559,7 @@ ExpandThree$meanThree=as.numeric(as.character(ExpandThree$meanThree))
 
 
 ggplot(ExpandThree,aes(x=log10(meanExp),y=log10(meanThree)))+ geom_point() + geom_smooth(method=&quot;lm&quot;)</code></pre>
-<pre><code>Warning: Removed 85 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>Warning: Removed 100 rows containing non-finite values (stat_smooth).</code></pre>
 <p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1535,6 +1585,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-7-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-7-1.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -1552,20 +1613,20 @@ brimittleman
 <p>Log2</p>
 <pre class="r"><code>log_counts_genes &lt;- as.data.frame(log2(Genematrix))
 head(log_counts_genes)</code></pre>
-<pre><code>         X18498_N X18499_N X18502_N X18504_N X18510_N X18523_N X18358_N
-A1BG     8.651052 6.906891 7.826548 6.339850 7.098032 8.184875 9.348728
-A1BG-AS1 6.906891 5.209453 6.686501 5.087463 6.491853 6.189825 7.257388
-A2M      4.807355 1.584963 1.000000 4.169925 2.000000 2.000000 9.257388
-A4GALT   8.348728 3.000000 5.426265 4.807355 6.643856 7.434628 6.629357
-AAAS     7.189825 5.285402 7.149747 6.930737 7.169925 6.539159 7.044394
-AACS     9.211888 9.084808 8.455327 9.038919 9.721099 9.539159 9.449149
-          X3622_N   X3659_N  X4973_N   pt30_N   pt91_N
-A1BG     7.055282  8.581201 6.044394 8.379378 7.693487
-A1BG-AS1 4.700440  6.658211 3.321928 4.643856 3.807355
-A2M      9.881114 10.090112 8.392317 8.588715 8.134426
-A4GALT   2.000000  6.714246 1.584963 2.000000 2.000000
-AAAS     7.357552  7.599913 6.965784 7.539159 7.139551
-AACS     8.607330  8.535275 8.422065 8.562242 8.483816</code></pre>
+<pre><code>         X18498_N X18502_N X18504_N X18510_N X18523_N X18358_N  X3622_N
+A1BG     8.651052 7.826548 6.339850 7.098032 8.184875 9.348728 7.055282
+A1BG-AS1 6.906891 6.686501 5.087463 6.491853 6.189825 7.257388 4.700440
+A2M      4.807355 1.000000 4.169925 2.000000 2.000000 9.257388 9.881114
+A4GALT   8.581201 5.357552 5.169925 6.658211 7.491853 6.629357 2.000000
+AAAS     7.189825 7.179909 6.942515 7.169925 6.539159 7.044394 7.357552
+AACS     9.221587 8.459432 9.044394 9.721099 9.541097 9.449149 8.614710
+           X3659_N  X4973_N   pt30_N   pt91_N
+A1BG      8.581201 6.044394 8.379378 7.693487
+A1BG-AS1  6.658211 3.321928 4.643856 3.807355
+A2M      10.090112 8.392317 8.588715 8.134426
+A4GALT    6.714246 1.584963 2.321928 2.000000
+AAAS      7.599913 6.965784 7.539159 7.139551
+AACS      8.535275 8.426265 8.566054 8.487840</code></pre>
 <pre class="r"><code>plotDensities(log_counts_genes, col=pal[as.numeric(metadata$Species)], legend=&quot;topright&quot;)</code></pre>
 <p><img src="figure/expressioncutoff.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1590,6 +1651,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-8-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-8-1.png" target="_blank">f161386</a>
@@ -1633,6 +1705,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-9-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-9-1.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -1653,20 +1736,20 @@ dge_original &lt;- calcNormFactors(dge_original)
 
 tmm_cpm &lt;- cpm(dge_original, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm)</code></pre>
-<pre><code>         X18498_N   X18499_N  X18502_N X18504_N  X18510_N   X18523_N
-A1BG     5.341650  4.5993068  4.825291 3.911623  3.751466  4.9774440
-A1BG-AS1 3.615999  2.9313152  3.698829 2.688464  3.157697  3.0125468
-A2M      1.600132 -0.2806202 -1.087332 1.814585 -0.714223 -0.6153132
-A4GALT   5.041173  0.8670626  2.472727 2.419003  3.306094  4.2341398
-AAAS     3.894256  3.0051013  4.155261 4.495314  3.822198  3.3532893
-AACS     5.899931  6.7668568  5.450058 6.592507  6.354400  6.3255013
-         X18358_N    X3622_N  X3659_N    X4973_N     pt30_N     pt91_N
-A1BG     5.865947  3.8087270 5.334818  2.9688165  5.0434796  4.3424445
-A1BG-AS1 3.792472  1.5453264 3.433898  0.4596994  1.4233049  0.6597173
-A2M      5.774967  6.6147191 6.838555  5.2833627  5.2514988  4.7792050
-A4GALT   3.177039 -0.6493577 3.488798 -0.8146537 -0.6983404 -0.7119011
-AAAS     3.583164  4.1066540 4.361269  3.8706954  4.2109429  3.7959070
-AACS     5.965997  5.3455790 5.289151  5.3129416  5.2251829  5.1260744</code></pre>
+<pre><code>         X18498_N  X18502_N X18504_N   X18510_N   X18523_N X18358_N
+A1BG     5.335975  4.822457 3.906170  3.7427819  4.9692073 5.862578
+A1BG-AS1 3.609631  3.695461 2.681919  3.1485736  3.0032387 3.788407
+A2M      1.590742 -1.117158 1.806446 -0.7412478 -0.6410892 5.771584
+A4GALT   5.266502  2.402040 2.761711  3.3111425  4.2822387 3.172490
+AAAS     3.888063  4.181964 4.501799  3.8135554  3.3442842 3.578957
+AACS     5.904016  5.451468 6.593208  6.3464373  6.3194213 5.962642
+            X3622_N  X3659_N    X4973_N     pt30_N     pt91_N
+A1BG      3.8054942 5.331074  2.9655868  5.0404705  4.3394436
+A1BG-AS1  1.5386130 3.429301  0.4486671  1.4159232  0.6492242
+A2M       6.6122699 6.835012  5.2814572  5.2485416  4.7763689
+A4GALT   -0.6719056 3.484245 -0.8392159 -0.5052596 -0.7353850
+AAAS      4.1035918 4.357224  3.8682362  4.2076320  3.7926153
+AACS      5.3502862 5.285396  5.3152203  5.2260093  5.1273375</code></pre>
 <p>Look at a PCA plot of the log2cpm</p>
 <pre class="r"><code>#PCA function (original code from Julien Roux)
 #Load in the plot_scores function
@@ -1720,6 +1803,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-1.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -1756,6 +1850,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-2.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-12-2.png" target="_blank">f161386</a>
@@ -1796,6 +1901,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-13-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-13-1.png" target="_blank">f161386</a>
@@ -1846,6 +1962,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-14-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-14-1.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -1866,20 +1993,20 @@ dge_in_cutoff &lt;- calcNormFactors(dge_in_cutoff)
 
 cpm_in_cutoff &lt;- cpm(dge_in_cutoff, normalized.lib.sizes=TRUE, log=TRUE, prior.count = 0.25)
 head(cpm_in_cutoff)</code></pre>
-<pre><code>      X18498_N X18499_N X18502_N X18504_N X18510_N X18523_N X18358_N
-A1BG  5.329663 4.631635 4.907843 3.908975 3.666584 5.080271 5.914427
-AAAS  3.870285 3.013698 4.231888 4.498912 3.738314 3.437223 3.612862
-AACS  5.890160 6.808219 5.536123 6.605652 6.286849 6.433791 6.014800
-AAGAB 6.897081 6.540471 6.287438 6.708810 6.727998 5.851978 6.571066
-AAK1  7.173705 7.038504 7.187389 6.461596 6.756658 7.299552 7.137050
-AAMDC 3.918769 4.452891 4.589439 4.375697 3.310955 3.994837 4.211144
-       X3622_N  X3659_N  X4973_N   pt30_N   pt91_N
-A1BG  3.940920 5.403320 3.058774 5.219852 4.475256
-AAAS  4.242667 4.423008 3.977759 4.380532 3.922213
-AACS  5.491146 5.357427 5.432327 5.402580 5.264779
-AAGAB 6.138503 6.203235 5.949545 5.997346 5.922666
-AAK1  6.458894 6.673281 7.758506 6.217116 6.284230
-AAMDC 4.838552 4.741566 5.398303 4.879696 5.346957</code></pre>
+<pre><code>      X18498_N X18502_N X18504_N X18510_N X18523_N X18358_N  X3622_N
+A1BG  5.333295 4.866579 3.912586 3.665085 5.113862 5.926445 3.952668
+AAAS  3.873846 4.220733 4.514323 3.736821 3.470657 3.624757 4.254438
+AACS  5.903499 5.498965 6.614830 6.285449 6.469363 6.026820 5.510350
+AAGAB 6.857755 6.171053 6.587252 6.622233 5.844396 6.512657 6.116919
+AAK1  7.195236 7.153959 6.480370 6.795415 7.366844 7.197543 6.502524
+AAMDC 3.996676 4.617724 4.379339 3.375127 4.038819 4.223092 4.861933
+       X3659_N  X4973_N   pt30_N   pt91_N
+A1BG  5.390761 3.056792 5.223283 4.480390
+AAAS  4.410423 3.975860 4.383929 3.927312
+AACS  5.344867 5.434685 5.409826 5.273967
+AAGAB 6.151236 5.921039 5.964998 5.889048
+AAK1  6.668522 7.780800 6.237815 6.297343
+AAMDC 4.728992 5.405045 4.899463 5.363492</code></pre>
 <pre class="r"><code>GenesCutoff=rownames(cpm_in_cutoff)
 NormalizedGenesCuttoff=as.data.frame(cbind(Gene_stable_ID=GenesCutoff, cpm_in_cutoff))</code></pre>
 <p>Plot the historgram:</p>
@@ -1909,6 +2036,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-17-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-17-1.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -1932,7 +2070,7 @@ head(design)</code></pre>
 3            0            1
 4            0            1
 5            0            1
-6            0            1</code></pre>
+6            1            0</code></pre>
 <pre class="r"><code>colnames(design) &lt;- gsub(&quot;Species&quot;, &quot;&quot;, dput(colnames(design)))</code></pre>
 <pre><code>c(&quot;SpeciesChimp&quot;, &quot;SpeciesHuman&quot;)</code></pre>
 <pre class="r"><code>cpm.voom&lt;- voom(counts_filtered, design, normalize.method=&quot;quantile&quot;, plot=T)</code></pre>
@@ -1959,6 +2097,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-1.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-1.png" target="_blank">f161386</a>
@@ -2000,6 +2149,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-2.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-2.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -2039,6 +2199,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/065ffdc236115d0db323bc96d42c0bdfc950b5fa/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-3.png" target="_blank">065ffdc</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f161386fc1886f9e04360bb2ab2af62dba50850b/docs/figure/expressioncutoff.Rmd/unnamed-chunk-19-3.png" target="_blank">f161386</a>
 </td>
 <td>
@@ -2054,7 +2225,7 @@ brimittleman
 </div>
 <p>This looks like a good cuttoff. I will make a list of the genes that pass the cutoff.</p>
 <pre class="r"><code>length(GenesCutoff)</code></pre>
-<pre><code>[1] 9731</code></pre>
+<pre><code>[1] 9531</code></pre>
 <pre class="r"><code>GenesCutoffDF=as.data.frame(GenesCutoff) %&gt;% rename(&quot;genes&quot;=GenesCutoff)
 #mkdir ../data/OverlapBenchmark
 write.table(GenesCutoffDF,&quot;../data/OverlapBenchmark/genesPassingCuttoff.txt&quot;, col.names = T, row.names = F,quote = F)</code></pre>
