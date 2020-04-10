@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree637094ae060a6fd09f126b8f516b20197fbbbefftargetblank637094aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/637094ae060a6fd09f126b8f516b20197fbbbeff" target="_blank">637094a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/014951a93df8e8a1c6477562f9706689556b7466" target="_blank">014951a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree637094ae060a6fd09f126b8f516b20197fbbbefftargetblank637094aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,6 +452,7 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
@@ -468,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -810,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1053,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1122,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1167,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1186,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1205,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1231,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1270,6 +1278,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a2818491b8228361248ac5ce624fbfbce3d22d0f/docs/dominantPAS_DF.html" target="_blank">a281849</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1368,12 +1393,12 @@ update dominant PAS
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>These are the PAS</p>
@@ -1620,35 +1645,35 @@ brimittleman
 </div>
 </div>
 <pre class="r"><code>nrow(SameDom)</code></pre>
-<pre><code>[1] 6558</code></pre>
+<pre><code>[1] 6639</code></pre>
 <pre class="r"><code>nrow(SameDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.6918451</code></pre>
+<pre><code>[1] 0.7169546</code></pre>
 <pre class="r"><code>nrow(DiffDom)</code></pre>
-<pre><code>[1] 2921</code></pre>
+<pre><code>[1] 2621</code></pre>
 <pre class="r"><code>nrow(DiffDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.3081549</code></pre>
+<pre><code>[1] 0.2830454</code></pre>
 <p>This is interesting but could be based on the annotations. I will look at the genes with human in intron and chimp in 3’ UTR.</p>
 <pre class="r"><code>DiffDom_humanIntronChimpUTR= DiffDom %&gt;% filter(ChimpLoc==&quot;utr3&quot;, HumanLoc==&quot;intron&quot;)
 
 nrow(DiffDom_humanIntronChimpUTR)</code></pre>
-<pre><code>[1] 921</code></pre>
+<pre><code>[1] 828</code></pre>
 <p>Opposite Direction</p>
 <pre class="r"><code>DiffDom_humanUTRChimpInton= DiffDom %&gt;% filter(ChimpLoc==&quot;intron&quot;, HumanLoc==&quot;utr3&quot;)
 nrow(DiffDom_humanUTRChimpInton)</code></pre>
-<pre><code>[1] 40</code></pre>
+<pre><code>[1] 47</code></pre>
 <pre class="r"><code>prop.test(x=c(nrow(DiffDom_humanIntronChimpUTR),nrow(DiffDom_humanUTRChimpInton)), n=c(nrow(DiffDom), nrow(DiffDom)))</code></pre>
 <pre><code>
     2-sample test for equality of proportions with continuity
     correction
 
 data:  c(nrow(DiffDom_humanIntronChimpUTR), nrow(DiffDom_humanUTRChimpInton)) out of c(nrow(DiffDom), nrow(DiffDom))
-X-squared = 964.48, df = 1, p-value &lt; 2.2e-16
+X-squared = 834.63, df = 1, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided
 95 percent confidence interval:
- 0.2838978 0.3193203
+ 0.2790882 0.3168676
 sample estimates:
     prop 1     prop 2 
-0.31530298 0.01369394 </code></pre>
+0.31590996 0.01793209 </code></pre>
 <p>I will look to see if these genes are those I see with differential APA.</p>
 <pre class="r"><code>write.table(DiffDom_humanIntronChimpUTR, &quot;../data/DominantPAS_DF/Nuclear_HumanIntronicChimpUTR.txt&quot;, col.names = T, row.names = F, quote = F)
 write.table(DiffDom_humanUTRChimpInton, &quot;../data/DominantPAS_DF/Nuclear_HumanUTRChimpIntronic.txt&quot;, col.names = T, row.names = F, quote = F)

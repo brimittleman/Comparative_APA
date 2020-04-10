@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-08
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree87bde36f3d14aa0925a7bfeea19b821cc31239e8targetblank87bde36a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/87bde36f3d14aa0925a7bfeea19b821cc31239e8" target="_blank">87bde36</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/014951a93df8e8a1c6477562f9706689556b7466" target="_blank">014951a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree87bde36f3d14aa0925a7bfeea19b821cc31239e8targetblank87bde36a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,6 +452,7 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
@@ -809,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1052,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1121,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1272,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/014951a93df8e8a1c6477562f9706689556b7466/analysis/TotalDomStructure.Rmd" target="_blank">014951a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+remove 18499
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/TotalDomStructure.html" target="_blank">5e58f03</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1427,6 +1467,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/TotalDomStructure.Rmd/unnamed-chunk-7-1.png" target="_blank">5e58f03</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a2818491b8228361248ac5ce624fbfbce3d22d0f/docs/figure/TotalDomStructure.Rmd/unnamed-chunk-7-1.png" target="_blank">a281849</a>
 </td>
 <td>
@@ -1447,49 +1498,59 @@ write.table(DiffDom, &quot;../data/TotalFractionPAS/TotalFraction_DiffDominant.t
 
 
 DiffDom_g= DiffDom %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
-ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS Total&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
 <p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/TotalDomStructure.Rmd/unnamed-chunk-8-1.png" target="_blank">5e58f03</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Proportion of genes with same and different:<br />
 of 9458</p>
 <pre class="r"><code>nrow(SameDom)</code></pre>
-<pre><code>[1] 7154</code></pre>
+<pre><code>[1] 7017</code></pre>
 <pre class="r"><code>nrow(SameDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.7563967</code></pre>
+<pre><code>[1] 0.7608154</code></pre>
 <pre class="r"><code>nrow(DiffDom)</code></pre>
-<pre><code>[1] 2304</code></pre>
+<pre><code>[1] 2206</code></pre>
 <pre class="r"><code>nrow(DiffDom)/nrow(BothDom)</code></pre>
-<pre><code>[1] 0.2436033</code></pre>
+<pre><code>[1] 0.2391846</code></pre>
 <p>numbers in nuclear (of 9479):</p>
 <p>[1] 6558 [1] 0.6918451 [1] 2921 [1] 0.3081549</p>
-<p>Difference of proportion test for different dominance:</p>
-<pre class="r"><code>prop.test(x=c(2304,2921), n=c(9458,9479))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(2304, 2921) out of c(9458, 9479)
-X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- -0.07735517 -0.05174797
-sample estimates:
-   prop 1    prop 2 
-0.2436033 0.3081549 </code></pre>
-<p>Difference of proportion test for same dominance:</p>
-<pre class="r"><code>prop.test(x=c(7154,6558), n=c(9458,9479))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(7154, 6558) out of c(9458, 9479)
-X-squared = 98.419, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.05174797 0.07735517
-sample estimates:
-   prop 1    prop 2 
-0.7563967 0.6918451 </code></pre>
+<p>`</p>
 <p>Find the genes with the same dominant in total but different in nuclear.</p>
 <pre class="r"><code>NuclearDiffDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_DiffDom.txt&quot;,header = T,stringsAsFactors = F)
 NuclearSameDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;,header = T,stringsAsFactors = F)</code></pre>
@@ -1497,20 +1558,57 @@ NuclearSameDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;
 <pre class="r"><code>NuclearDiffDom_sameTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% anti_join(SameDom, by=&quot;gene&quot;)
 
 nrow(NuclearDiffDom_sameTot)</code></pre>
-<pre><code>[1] 1678</code></pre>
+<pre><code>[1] 1614</code></pre>
 <p>Plot location of these:</p>
 <pre class="r"><code>NuclearDiffDom_sameTot_g= NuclearDiffDom_sameTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
 ggplot(NuclearDiffDom_sameTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in nuclear only&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Compare this to those that are different in both:</p>
 <pre class="r"><code>NuclearDiffDom_diffTot= NuclearDiffDom %&gt;% semi_join(BothDom,by=&quot;gene&quot;) %&gt;% semi_join(SameDom, by=&quot;gene&quot;)
 nrow(NuclearDiffDom_diffTot)</code></pre>
-<pre><code>[1] 1133</code></pre>
+<pre><code>[1] 895</code></pre>
 <pre class="r"><code>NuclearDiffDom_diffTot_g= NuclearDiffDom_diffTot %&gt;% select(gene, ChimpLoc, HumanLoc) %&gt;% gather(&quot;Species&quot;, &quot;Location&quot;, -gene)
 ggplot(NuclearDiffDom_diffTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat=&quot;count&quot;,position = &quot;dodge&quot;) + labs(x=&quot;Location&quot;, y=&quot;Number of Genes&quot;, title=&quot;Different Dominant PAS in both fractions&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+theme(legend.position=&#39;bottom&#39;)</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TotalDomStructure.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5e58f0335ba75db658a38da1a8e3c4a3b8a98385/docs/figure/TotalDomStructure.Rmd/unnamed-chunk-14-1.png" target="_blank">5e58f03</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Seems pretty similar.</p>
 <br>
 <p>
