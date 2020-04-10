@@ -54,7 +54,7 @@ Join these together:
 
 metadata=read.table("../data/metadata_HCpanel.txt",header = T) %>% mutate(id2=ifelse(grepl("pt", ID), ID, paste("X", ID, sep=""))) %>% filter(Fraction=="Nuclear")
 
-order=c(metadata$id2[1:10], "pt30_N", "pt91_N")
+order=c(metadata$id2[1:9], "pt30_N", "pt91_N")
 
 BothbyGene= chimpPAS %>% inner_join(humanPAS,by="gene") %>% dplyr::select(gene,order)
 
