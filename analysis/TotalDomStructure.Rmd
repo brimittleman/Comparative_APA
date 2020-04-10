@@ -110,7 +110,7 @@ write.table(DiffDom, "../data/TotalFractionPAS/TotalFraction_DiffDominant.txt",c
 
 
 DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
-ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS Total") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
 
 Proportion of genes with same and different:  
@@ -130,14 +130,7 @@ numbers in nuclear (of 9479):
 [1] 2921
 [1] 0.3081549
 
-Difference of proportion test  for different dominance:  
-```{r}
-prop.test(x=c(2304,2921), n=c(9458,9479))
-```
-Difference of proportion test for same dominance:  
-```{r}
-prop.test(x=c(7154,6558), n=c(9458,9479))
-```
+`
 
 Find the genes with the same dominant in total but different in nuclear.  
 

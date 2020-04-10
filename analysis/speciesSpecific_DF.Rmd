@@ -77,7 +77,6 @@ ggplot(PAS_exp_spe,aes(x=HumanSpec,y=HumanExp)) + geom_boxplot() + stat_compare_
 
 ggplot(PAS_exp_spe,aes(x=ChimpSpec,y=ChimpExp)) + geom_boxplot() + stat_compare_means(method = "t.test") + labs(x="Presence of Chimp Specific PAS", y="Average Normalized Expression", title="Expression in Genes with Chimp Specific PAS")
 ```
-Still a difference but not as strong.  
 
 Ask if signal sites account for this:
 

@@ -62,6 +62,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [PAS number distribution according to dominance](ConservationofPASNumber.html)
 
+* [PAS number distribution according to dominance in total](ConservationofPASNumberTotal.Rmd.html)
+
 * [Correlation between fraction in each species](SpecBetweenfrac.html)
 
 

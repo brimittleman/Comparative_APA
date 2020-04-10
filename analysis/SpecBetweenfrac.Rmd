@@ -118,14 +118,13 @@ NApt30= cor(ChimpUsage_anno$NApt30_N, ChimpUsage_anno$NApt30_T)
 NApt91= cor(ChimpUsage_anno$NApt91_N, ChimpUsage_anno$NApt91_T)
 
 NA18498= cor(HumanUsage_anno$NA18498_N, HumanUsage_anno$NA18498_T)
-NA18499= cor(HumanUsage_anno$NA18499_N, HumanUsage_anno$NA18499_T)
 NA18502= cor(HumanUsage_anno$NA18502_N, HumanUsage_anno$NA18502_T)
 NA18504= cor(HumanUsage_anno$NA18504_N, HumanUsage_anno$NA18504_T)
 NA18510= cor(HumanUsage_anno$NA18510_N, HumanUsage_anno$NA18510_T)
 NA18523= cor(HumanUsage_anno$NA18523_N, HumanUsage_anno$NA18523_T)
 
 
-AllTvN=as.data.frame(cbind(Species=c(rep("Chimp",6), rep("Human",6)), Val=c(NA18358,NA3622,NA3659, NA4973,NApt30, NApt91,NA18498, NA18499,NA18502,NA18504,  NA18510,NA18523), Ind=c('NA18358','NA3622','NA3659', 'NA4973','NApt30', 'NApt91','NA18498', 'NA18499','NA18502','NA18504',  'NA18510','NA18523')))
+AllTvN=as.data.frame(cbind(Species=c(rep("Chimp",6), rep("Human",5)), Val=c(NA18358,NA3622,NA3659, NA4973,NApt30, NApt91,NA18498,NA18502,NA18504,  NA18510,NA18523), Ind=c('NA18358','NA3622','NA3659', 'NA4973','NApt30', 'NApt91','NA18498','NA18502','NA18504',  'NA18510','NA18523')))
 
 AllTvN$Val=as.numeric(as.character(AllTvN$Val))
 ggplot(AllTvN, aes(x=Ind, y=Val, fill=Species)) + geom_bar(stat = "identity") + scale_fill_brewer(palette = "Dark2")+ theme(axis.text.x = element_text(angle = 90)) + labs(x="",y="Correlation between Total and Nuclear Usage", title="Correlation between total and nuclear usage \nfor PAS over 5% in both fractions")

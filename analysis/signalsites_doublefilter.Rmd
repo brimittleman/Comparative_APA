@@ -255,7 +255,7 @@ Chimp_allPAS_gather=Chimp_allPAS %>% gather("Site", "Count",-PAS) %>% mutate(Ide
 Both_AllPAS_ident= Chimp_allPAS_gather %>% bind_rows(Human_allPAS_gather) %>% filter(Identified=="Y")
 
 
-Both_AllPAS_group= Both_AllPAS_ident %>% group_by(Species, Signal) %>% summarise(n=n()) %>% mutate(NPAS=42318, propW=n/NPAS)
+Both_AllPAS_group= Both_AllPAS_ident %>% group_by(Species, Signal) %>% summarise(n=n()) %>% mutate(NPAS=44432, propW=n/NPAS)
 ```
 
 
