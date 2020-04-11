@@ -26,7 +26,7 @@ NucAPA=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt
 
 I will do this first with these then I can start to look at it by significance.  
 
-214 dAPA and dp  
+
 ```{r}
 APAandPnotE= NucAPA %>% inner_join(Protein, by="gene") %>% anti_join(DEgenes,by="gene")
 ```
@@ -48,7 +48,7 @@ upset(fromList(listInput_nucOnly), order.by = "freq", keep.order = T,empty.inter
 
 
 
-113 of these genes.  
+90 of these genes.  
 
 Learn about these genes. 
 
@@ -97,7 +97,7 @@ The genes in 1,2,5,6 are interesting.
 ```{r}
 APAandPnotE_selCalled= APAandPnotE_sel_g %>% filter(Set=="Protein", Model %in% c(1,2,5,6))
 ```
-There are 28 of these genes: 
+There are 20 of these genes: 
 
 ```{r}
 APAandPnotE_selCalled
@@ -195,7 +195,7 @@ ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_m
 
 Effect sizes : 
 
-Look at the 154 PAS effect sizes here and in protien, translation, and expression. 
+Look at the PAS effect sizes here and in protien, translation, and expression. 
 ```{r}
 NucAPAres_sig_dpnotE = NucAPAres_sig %>% filter(dPnotE =="Yes")
 

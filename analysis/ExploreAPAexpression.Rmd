@@ -76,7 +76,7 @@ BothPhenoCount=  RNACounts %>% inner_join(AllCounts, by="gene")%>% column_to_row
 Names=colnames(BothPhenoCount)
 pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
 
-Species=c(rep("Human",6), rep("Chimp",6),rep("Human",6),rep("Chimp",6))
+Species=c(rep("Human",5), rep("Chimp",6),rep("Human",5),rep("Chimp",6))
 Meta=as.data.frame(cbind(Names,Species )) %>% mutate(Pheno=ifelse(grepl("RNA",Names),"RNA", "APA" )) 
 
 cors <- cor(BothPhenoCount, method="spearman", use="pairwise.complete.obs")

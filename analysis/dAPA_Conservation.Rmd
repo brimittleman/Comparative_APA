@@ -29,7 +29,7 @@ DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"
 phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na()
 NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr","start","end"))
 ```
-40756 have results of the 40776  
+
 
 ```{r}
 ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2", name="Signficant")
@@ -138,7 +138,7 @@ ggplot(NucReswPhyandCsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_b
 ```{r}
 NucReswPhyandCsmall_noc= NucReswPhyandCsmall %>% filter(set!="UpstreamControl_Phylop")
 
-ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "OrRd") + labs(title="Significant PAS are less conserved",x="")+ scale_x_discrete(labels=c("Not Significant", "Signficant"))+ theme(legend.position = "none",text= element_text(size=16))
+ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "OrRd") + labs(title="Significant PAS",x="")+ scale_x_discrete(labels=c("Not Significant", "Signficant"))+ theme(legend.position = "none",text= element_text(size=16))
 ```
 
 Significant are lower than not significant:  

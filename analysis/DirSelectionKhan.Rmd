@@ -64,7 +64,7 @@ nrow(DiffIso %>% select(gene) %>% unique())
 
 
 ```
-We have data for 10980 PAS in 2,485 genes.  
+We have data for 12392 PAS in 2532 genes.  
 
 I want to get this down to gene level
 
