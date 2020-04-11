@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9676d72d60e2f9c82d2bfed1d7634d306b9ef956" target="_blank">9676d72</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fbabfb7f303635e65101fe6af45cc176f6e75d2e" target="_blank">fbabfb7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -811,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1054,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1123,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1168,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1232,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1271,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/fbabfb7f303635e65101fe6af45cc176f6e75d2e/analysis/DirSelectionKhan.Rmd" target="_blank">fbabfb7</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+remove 18499
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c2a07789889eddb977de30d8a838db0ef57758fb/docs/DirSelectionKhan.html" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1399,12 +1440,12 @@ wflow_publish(c(“analysis/index.Rmd”, “analysis/DirSelectionKhan.Rmd”))
 </div>
 <p>I will use the directional selection categories from Khan et al.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>Model from Khan et al.</p>
@@ -1507,10 +1548,10 @@ brimittleman
 <pre class="r"><code>DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(KhanData, by=&quot;gene&quot;)
 
 nrow(DiffIso)</code></pre>
-<pre><code>[1] 10980</code></pre>
+<pre><code>[1] 12392</code></pre>
 <pre class="r"><code>nrow(DiffIso %&gt;% select(gene) %&gt;% unique())</code></pre>
-<pre><code>[1] 2485</code></pre>
-<p>We have data for 10980 PAS in 2,485 genes.</p>
+<pre><code>[1] 2532</code></pre>
+<p>We have data for 12392 PAS in 2532 genes.</p>
 <p>I want to get this down to gene level</p>
 <pre class="r"><code>GenewDiffIso= DiffIso %&gt;% group_by(gene,SigPAU2) %&gt;% summarise(nEach=n()) %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
@@ -1546,6 +1587,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8d7a76ea0d2360477eed364bcf7fc2441dd158a2/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-7-1.png" target="_blank">8d7a76e</a>
 </td>
 <td>
@@ -1578,10 +1630,10 @@ DirSelectionRNA %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
 # Groups:   Model [2]
   Model dAPA  `n()`
   &lt;fct&gt; &lt;chr&gt; &lt;int&gt;
-1 1     No      392
-2 1     Yes      86
-3 2     No      243
-4 2     Yes      65</code></pre>
+1 1     No      417
+2 1     Yes      61
+3 2     No      256
+4 2     Yes      52</code></pre>
 <pre class="r"><code>DirSelectionProt=KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, Model %in% c(1,2))
 
 DirSelectionProt %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
@@ -1589,10 +1641,10 @@ DirSelectionProt %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
 # Groups:   Model [2]
   Model dAPA  `n()`
   &lt;fct&gt; &lt;chr&gt; &lt;int&gt;
-1 1     No      155
-2 1     Yes      34
-3 2     No      121
-4 2     Yes      28</code></pre>
+1 1     No      165
+2 1     Yes      24
+3 2     No      125
+4 2     Yes      24</code></pre>
 <p>Relaxed selection:</p>
 <pre class="r"><code>RelSelectionRNA=KhanData_gwAPA %&gt;% filter(Set==&quot;RNA&quot;, Model %in% c(5,6))
 
@@ -1601,10 +1653,10 @@ RelSelectionRNA %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
 # Groups:   Model [2]
   Model dAPA  `n()`
   &lt;fct&gt; &lt;chr&gt; &lt;int&gt;
-1 5     No       57
-2 5     Yes       9
-3 6     No       14
-4 6     Yes       5</code></pre>
+1 5     No       55
+2 5     Yes      11
+3 6     No       16
+4 6     Yes       3</code></pre>
 <pre class="r"><code>RelSelectionProt=KhanData_gwAPA %&gt;% filter(Set==&quot;Protein&quot;, Model %in% c(5,6))
 
 RelSelectionProt %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
@@ -1613,8 +1665,8 @@ RelSelectionProt %&gt;% group_by(Model,dAPA) %&gt;% summarise(n())</code></pre>
   Model dAPA  `n()`
   &lt;fct&gt; &lt;chr&gt; &lt;int&gt;
 1 5     No        2
-2 6     No       12
-3 6     Yes       6</code></pre>
+2 6     No       13
+3 6     Yes       5</code></pre>
 <p>Enrichement:</p>
 <p>Write a loop that gets the pvalue and enrichment for each of these:</p>
 <pre class="r"><code>Model=seq(1,6)
@@ -1680,6 +1732,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-11-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8d7a76ea0d2360477eed364bcf7fc2441dd158a2/docs/figure/DirSelectionKhan.Rmd/unnamed-chunk-11-1.png" target="_blank">8d7a76e</a>
 </td>
 <td>
@@ -1697,99 +1760,85 @@ brimittleman
 <p>Examples:</p>
 <p>Look at all of the relaxed</p>
 <pre class="r"><code>RelSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;6&quot;)</code></pre>
-<pre><code>     gene dAPA Set Model
-1   LIMA1  Yes RNA     6
-2    CUL1  Yes RNA     6
-3 APBB1IP  Yes RNA     6
-4   PTCD3  Yes RNA     6
-5    STOM  Yes RNA     6</code></pre>
+<pre><code>   gene dAPA Set Model
+1  CUL1  Yes RNA     6
+2 PTCD3  Yes RNA     6
+3  STOM  Yes RNA     6</code></pre>
 <pre class="r"><code>RelSelectionProt%&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;6&quot;)</code></pre>
 <pre><code>   gene dAPA     Set Model
-1 PTBP3  Yes Protein     6
-2  IRF5  Yes Protein     6
-3 FABP5  Yes Protein     6
-4 OTUB1  Yes Protein     6
-5  ECI1  Yes Protein     6
-6 LYRM7  Yes Protein     6</code></pre>
+1  IRF5  Yes Protein     6
+2 FABP5  Yes Protein     6
+3 OTUB1  Yes Protein     6
+4  ECI1  Yes Protein     6
+5 LYRM7  Yes Protein     6</code></pre>
 <p>IRF5 OTUB1</p>
 <pre class="r"><code>RelSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;5&quot;)</code></pre>
-<pre><code>     gene dAPA Set Model
-1    PYGB  Yes RNA     5
-2   EIF4H  Yes RNA     5
-3     MTR  Yes RNA     5
-4   PTBP3  Yes RNA     5
-5 SNRNP27  Yes RNA     5
-6   STX17  Yes RNA     5
-7   ADPGK  Yes RNA     5
-8   LIMS1  Yes RNA     5
-9    IARS  Yes RNA     5</code></pre>
+<pre><code>      gene dAPA Set Model
+1     PYGB  Yes RNA     5
+2     CDK6  Yes RNA     5
+3    EIF4H  Yes RNA     5
+4      MTR  Yes RNA     5
+5  SNRNP27  Yes RNA     5
+6    STX17  Yes RNA     5
+7    APPL1  Yes RNA     5
+8    ADPGK  Yes RNA     5
+9    ARIH1  Yes RNA     5
+10   LIMS1  Yes RNA     5
+11    IARS  Yes RNA     5</code></pre>
 <pre class="r"><code>DirSelectionRNA %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;2&quot;)</code></pre>
 <pre><code>       gene dAPA Set Model
 1     RECQL  Yes RNA     2
 2     PPP5C  Yes RNA     2
 3   SMARCD1  Yes RNA     2
-4     SEL1L  Yes RNA     2
-5   DYNC1I2  Yes RNA     2
-6     EPS15  Yes RNA     2
-7     TMED2  Yes RNA     2
-8    GOLGA3  Yes RNA     2
-9      GLG1  Yes RNA     2
-10    CDC23  Yes RNA     2
-11    ASCC2  Yes RNA     2
-12    PSMC1  Yes RNA     2
-13     ADNP  Yes RNA     2
-14    INTS6  Yes RNA     2
-15   ZFAND1  Yes RNA     2
-16    GOSR2  Yes RNA     2
-17     DDX6  Yes RNA     2
-18    RAB5B  Yes RNA     2
-19    HDDC2  Yes RNA     2
-20    RPL22  Yes RNA     2
-21   CAPZA1  Yes RNA     2
-22  ARHGEF2  Yes RNA     2
-23     CBX3  Yes RNA     2
-24    PLCG1  Yes RNA     2
-25  TUBGCP3  Yes RNA     2
-26     IRF3  Yes RNA     2
-27    HERC2  Yes RNA     2
-28      DUT  Yes RNA     2
-29     ELP3  Yes RNA     2
-30  SYNCRIP  Yes RNA     2
-31    SCYL2  Yes RNA     2
-32     FLNB  Yes RNA     2
-33     RAC1  Yes RNA     2
-34      RB1  Yes RNA     2
-35     SORD  Yes RNA     2
-36     IRF8  Yes RNA     2
-37   SERBP1  Yes RNA     2
-38     TPM3  Yes RNA     2
-39   RPL7L1  Yes RNA     2
-40 ARHGAP18  Yes RNA     2
-41     DGKE  Yes RNA     2
-42   CC2D1B  Yes RNA     2
-43   SAMSN1  Yes RNA     2
-44    UBE2Z  Yes RNA     2
-45    NCSTN  Yes RNA     2
-46    UTP15  Yes RNA     2
-47     GFM2  Yes RNA     2
-48    RPL13  Yes RNA     2
-49    STX18  Yes RNA     2
-50   POLR1C  Yes RNA     2
-51   BCL2L1  Yes RNA     2
-52    DCAKD  Yes RNA     2
-53  DENND4A  Yes RNA     2
-54   TMEM70  Yes RNA     2
-55  FAM91A1  Yes RNA     2
-56    AP3S1  Yes RNA     2
-57    SNRPE  Yes RNA     2
-58     ADI1  Yes RNA     2
-59   UBE2L3  Yes RNA     2
-60  MORF4L1  Yes RNA     2
-61     MYO6  Yes RNA     2
-62   MRPL42  Yes RNA     2
-63  ANKRD28  Yes RNA     2
-64     HEXA  Yes RNA     2
-65   SEC22B  Yes RNA     2</code></pre>
+4   DYNC1I2  Yes RNA     2
+5     EPS15  Yes RNA     2
+6     TMED2  Yes RNA     2
+7      GLG1  Yes RNA     2
+8     CDC23  Yes RNA     2
+9     PSMC1  Yes RNA     2
+10     ADNP  Yes RNA     2
+11    GOSR2  Yes RNA     2
+12     DDX6  Yes RNA     2
+13   EIF2B1  Yes RNA     2
+14    HDDC2  Yes RNA     2
+15    RPL22  Yes RNA     2
+16   CAPZA1  Yes RNA     2
+17 KIAA2013  Yes RNA     2
+18     CBX3  Yes RNA     2
+19    PLCG1  Yes RNA     2
+20  TUBGCP3  Yes RNA     2
+21     IRF3  Yes RNA     2
+22    HERC2  Yes RNA     2
+23      DUT  Yes RNA     2
+24  SYNCRIP  Yes RNA     2
+25    SCYL2  Yes RNA     2
+26     FLNB  Yes RNA     2
+27     RAC1  Yes RNA     2
+28      RB1  Yes RNA     2
+29     SORD  Yes RNA     2
+30   SERBP1  Yes RNA     2
+31     TPM3  Yes RNA     2
+32   RPL7L1  Yes RNA     2
+33   CC2D1B  Yes RNA     2
+34    UBE2Z  Yes RNA     2
+35     GFM2  Yes RNA     2
+36    RPL13  Yes RNA     2
+37    STX18  Yes RNA     2
+38   POLR1C  Yes RNA     2
+39   BCL2L1  Yes RNA     2
+40    DCAKD  Yes RNA     2
+41    NOC3L  Yes RNA     2
+42  DENND4A  Yes RNA     2
+43   TMEM70  Yes RNA     2
+44    AP3S1  Yes RNA     2
+45    RIC8A  Yes RNA     2
+46    SNRPE  Yes RNA     2
+47     ADI1  Yes RNA     2
+48  MORF4L1  Yes RNA     2
+49     MYO6  Yes RNA     2
+50   MRPL42  Yes RNA     2
+51  ANKRD28  Yes RNA     2
+52   SEC22B  Yes RNA     2</code></pre>
 <pre class="r"><code>DirSelectionProt %&gt;% filter(dAPA==&quot;Yes&quot;, Model==&quot;2&quot;)</code></pre>
 <pre><code>      gene dAPA     Set Model
 1     CUL1  Yes Protein     2
@@ -1799,27 +1848,23 @@ brimittleman
 5   SAMM50  Yes Protein     2
 6     PYGB  Yes Protein     2
 7    EIF4H  Yes Protein     2
-8    RAB5B  Yes Protein     2
-9   TRIM38  Yes Protein     2
-10    KYNU  Yes Protein     2
-11   WDR77  Yes Protein     2
+8   TRIM38  Yes Protein     2
+9     KYNU  Yes Protein     2
+10   WDR77  Yes Protein     2
+11    CUTC  Yes Protein     2
 12     DUT  Yes Protein     2
 13   YARS2  Yes Protein     2
 14  GALNT2  Yes Protein     2
-15   CCT6A  Yes Protein     2
-16    CCT5  Yes Protein     2
-17    DGKE  Yes Protein     2
-18  CC2D1B  Yes Protein     2
-19   TTC9C  Yes Protein     2
-20  UBLCP1  Yes Protein     2
-21    NFU1  Yes Protein     2
-22    MFN1  Yes Protein     2
-23   PGAM1  Yes Protein     2
-24  BCL2L1  Yes Protein     2
-25   DCAKD  Yes Protein     2
-26    MYO6  Yes Protein     2
-27   PRIM1  Yes Protein     2
-28  SEC22B  Yes Protein     2</code></pre>
+15    CCT5  Yes Protein     2
+16  CC2D1B  Yes Protein     2
+17   SUGT1  Yes Protein     2
+18    NFU1  Yes Protein     2
+19    MFN1  Yes Protein     2
+20   PGAM1  Yes Protein     2
+21  BCL2L1  Yes Protein     2
+22   DCAKD  Yes Protein     2
+23    MYO6  Yes Protein     2
+24  SEC22B  Yes Protein     2</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9676d72d60e2f9c82d2bfed1d7634d306b9ef956" target="_blank">9676d72</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fbabfb7f303635e65101fe6af45cc176f6e75d2e" target="_blank">fbabfb7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -811,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1054,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1123,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1168,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1232,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1271,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/fbabfb7f303635e65101fe6af45cc176f6e75d2e/analysis/dAPA_Conservation.Rmd" target="_blank">fbabfb7</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+remove 18499
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c2a07789889eddb977de30d8a838db0ef57758fb/docs/dAPA_Conservation.html" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1399,12 +1440,12 @@ add upstream control
 </div>
 <p>In my initial exploration of dAPA PAS I saw they are enriched for negative phylop scores. I will explore this trend further here. I will see if intron location explain the differences.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1430,7 +1471,6 @@ PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_Bo
 DiffUsagePAS=DiffUsage %&gt;% inner_join(PASMeta, by=c(&quot;gene&quot;,&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))</code></pre>
 <pre class="r"><code>phylores=read.table(&quot;../data/PhyloP/PAS_phyloP.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP&quot;), stringsAsFactors = F) %&gt;% drop_na()
 NucReswPhy=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(phylores, by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;))</code></pre>
-<p>40756 have results of the 40776</p>
 <pre class="r"><code>ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = &quot;Dark2&quot;, name=&quot;Signficant&quot;)</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1455,6 +1495,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-4-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7b73ce76c443223d7c879bf066fa2b6c667419f2/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-4-1.png" target="_blank">7b73ce7</a>
@@ -1496,6 +1547,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-5-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7b73ce76c443223d7c879bf066fa2b6c667419f2/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-5-1.png" target="_blank">7b73ce7</a>
 </td>
 <td>
@@ -1520,20 +1582,20 @@ k=nrow(NucReswPhy %&gt;% filter(SigPAU2==&quot;Yes&quot;))
 
 #expected
 which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 720</code></pre>
+<pre><code>[1] 559</code></pre>
 <pre class="r"><code>#actual:
 x</code></pre>
-<pre><code>[1] 801</code></pre>
+<pre><code>[1] 604</code></pre>
 <pre class="r"><code>#pval
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.0001947225</code></pre>
+<pre><code>[1] 0.01326693</code></pre>
 <pre class="r"><code>b=nrow(NucReswPhy %&gt;% filter(SigPAU2==&quot;Yes&quot;, phyloP&lt;0))
 n=nrow(NucReswPhy %&gt;% filter(SigPAU2==&quot;Yes&quot;))
 B=nrow(NucReswPhy %&gt;% filter(phyloP&lt;0))
 N=nrow(NucReswPhy)
 
 (b/n)/(B/N)</code></pre>
-<pre><code>[1] 1.111676</code></pre>
+<pre><code>[1] 1.079162</code></pre>
 <p>This means these regions are more likely to be fast evolving.</p>
 <p>Look at this by location: (is it driven by region)</p>
 <pre class="r"><code>NucReswPhy_meta= NucReswPhy %&gt;% inner_join(PASMeta, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;))
@@ -1564,6 +1626,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-8-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7b73ce76c443223d7c879bf066fa2b6c667419f2/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-8-1.png" target="_blank">7b73ce7</a>
 </td>
 <td>
@@ -1583,16 +1656,16 @@ NucReswPhy_meta_group</code></pre>
 # Groups:   loc [5]
    loc    SigPAU2     n meanPhylo
    &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;     &lt;dbl&gt;
- 1 cds    No       6852    2.16  
- 2 cds    Yes       344    2.13  
- 3 end    No       3176    0.384 
- 4 end    Yes       226    0.274 
- 5 intron No      10138    0.0615
- 6 intron Yes       784    0.0742
- 7 utr3   No      14747    1.04  
- 8 utr3   Yes      1678    0.929 
- 9 utr5   No       1101    0.302 
-10 utr5   Yes        95    0.234 </code></pre>
+ 1 cds    No       7048    2.15  
+ 2 cds    Yes       262    2.14  
+ 3 end    No       3574    0.372 
+ 4 end    Yes       172    0.324 
+ 5 intron No      13484    0.0622
+ 6 intron Yes       544    0.0833
+ 7 utr3   No      15408    1.04  
+ 8 utr3   Yes      1280    0.904 
+ 9 utr5   No       1158    0.300 
+10 utr5   Yes        81    0.261 </code></pre>
 <div id="control-sequenceupstream" class="section level3">
 <h3>Control sequence:upstream</h3>
 <p>(upstream 200)</p>
@@ -1617,7 +1690,7 @@ wilcox.test(NucReswPhyandC$phyloP, NucReswPhyandC$UpstreamControl_Phylop, altern
     Wilcoxon rank sum test with continuity correction
 
 data:  NucReswPhyandC$phyloP and NucReswPhyandC$UpstreamControl_Phylop
-W = 912830000, p-value &lt; 2.2e-16
+W = 1088300000, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <p>Actual are greater than region upstream</p>
 <pre class="r"><code>ggplot(NucReswPhyandCsmall, aes(x=SigPAU2, by=set, fill=set, y=Phylop)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;,labels=c(&#39;PAS&#39;, &#39;Control&#39;) ) + stat_compare_means()</code></pre>
@@ -1646,6 +1719,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-13-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7b73ce76c443223d7c879bf066fa2b6c667419f2/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-13-1.png" target="_blank">7b73ce7</a>
 </td>
 <td>
@@ -1661,7 +1745,7 @@ brimittleman
 </div>
 <pre class="r"><code>NucReswPhyandCsmall_noc= NucReswPhyandCsmall %&gt;% filter(set!=&quot;UpstreamControl_Phylop&quot;)
 
-ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;OrRd&quot;) + labs(title=&quot;Significant PAS are less conserved&quot;,x=&quot;&quot;)+ scale_x_discrete(labels=c(&quot;Not Significant&quot;, &quot;Signficant&quot;))+ theme(legend.position = &quot;none&quot;,text= element_text(size=16))</code></pre>
+ggplot(NucReswPhyandCsmall_noc, aes(x=SigPAU2, fill=SigPAU2, y=Phylop )) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;OrRd&quot;) + labs(title=&quot;Significant PAS&quot;,x=&quot;&quot;)+ scale_x_discrete(labels=c(&quot;Not Significant&quot;, &quot;Signficant&quot;))+ theme(legend.position = &quot;none&quot;,text= element_text(size=16))</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1685,6 +1769,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-14-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/fa2369cb532b0ce7a260bd231f59124e319bc192/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-14-1.png" target="_blank">fa2369c</a>
@@ -1720,7 +1815,7 @@ wilcox.test(NucReswPhyandCsmall_nocYES$Phylop, NucReswPhyandCsmall_nocNO$Phylop,
     Wilcoxon rank sum test with continuity correction
 
 data:  NucReswPhyandCsmall_nocYES$Phylop and NucReswPhyandCsmall_nocNO$Phylop
-W = 53442000, p-value = 1.338e-06
+W = 46695000, p-value = 0.0733
 alternative hypothesis: true location shift is less than 0</code></pre>
 <p>Significant have lower scores.</p>
 </div>
@@ -1738,10 +1833,10 @@ both</code></pre>
 # Groups:   set [2]
   set                    SigPAU2  nNeg  nPos PropNeg
   &lt;chr&gt;                  &lt;chr&gt;   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
-1 phyloP                 No       8218 27782   0.228
-2 phyloP                 Yes       801  2326   0.256
-3 UpstreamControl_Phylop No      11555 24445   0.321
-4 UpstreamControl_Phylop Yes      1077  2050   0.344</code></pre>
+1 phyloP                 No       9685 30967   0.238
+2 phyloP                 Yes       604  1735   0.258
+3 UpstreamControl_Phylop No      13229 27423   0.325
+4 UpstreamControl_Phylop Yes       817  1522   0.349</code></pre>
 <p>More negative overall in actual. Is there an enrichment for negative in the control set?</p>
 <pre class="r"><code>x=nrow(NucReswPhyandC %&gt;% filter(SigPAU2==&quot;Yes&quot;, UpstreamControl_Phylop&lt;0))
 m= nrow(NucReswPhyandC %&gt;% filter(UpstreamControl_Phylop&lt;0))
@@ -1751,20 +1846,20 @@ k=nrow(NucReswPhyandC %&gt;% filter(SigPAU2==&quot;Yes&quot;))
 
 #expected
 which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 1009</code></pre>
+<pre><code>[1] 764</code></pre>
 <pre class="r"><code>#actual:
 x</code></pre>
-<pre><code>[1] 1077</code></pre>
+<pre><code>[1] 817</code></pre>
 <pre class="r"><code>#pval
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.00348975</code></pre>
+<pre><code>[1] 0.00806816</code></pre>
 <pre class="r"><code>b=nrow(NucReswPhyandC %&gt;% filter(SigPAU2==&quot;Yes&quot;, UpstreamControl_Phylop&lt;0))
 n=nrow(NucReswPhyandC %&gt;% filter(SigPAU2==&quot;Yes&quot;))
 B=nrow(NucReswPhyandC %&gt;% filter(UpstreamControl_Phylop&lt;0))
 N=nrow(NucReswPhyandC)
 
 (b/n)/(B/N)</code></pre>
-<pre><code>[1] 1.066823</code></pre>
+<pre><code>[1] 1.069096</code></pre>
 <p>Stronger enrichement in the for negative in the real results compared to contol. 1.07x in control 1.11x in actual.</p>
 <p>Maybe I need to move the control further up.</p>
 <p>Is this a better control? Dont want to go into an exon? What about downstream?</p>
@@ -1791,7 +1886,7 @@ wilcox.test(NucReswPhyandbothC$DownstreamControl_Phylop, NucReswPhyandbothC$Upst
     Wilcoxon rank sum test with continuity correction
 
 data:  NucReswPhyandbothC$DownstreamControl_Phylop and NucReswPhyandbothC$UpstreamControl_Phylop
-W = 709890000, p-value = 1
+W = 23487000, p-value = 1
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <pre class="r"><code>levels=NucReswPhyandCbothsmall$set %&gt;% unique()
 NucReswPhyandCbothsmall$set= factor(NucReswPhyandCbothsmall$set, levels = c(&quot;UpstreamControl_Phylop&quot;, &quot;phyloP&quot;, &quot;DownstreamControl_Phylop&quot;))
@@ -1821,6 +1916,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-22-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/fa2369cb532b0ce7a260bd231f59124e319bc192/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-22-1.png" target="_blank">fa2369c</a>
@@ -1872,6 +1978,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-23-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/fa2369cb532b0ce7a260bd231f59124e319bc192/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-23-1.png" target="_blank">fa2369c</a>
@@ -1963,6 +2080,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-28-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/fa2369cb532b0ce7a260bd231f59124e319bc192/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-28-1.png" target="_blank">fa2369c</a>
 </td>
 <td>
@@ -2000,6 +2128,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-29-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/fa2369cb532b0ce7a260bd231f59124e319bc192/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-29-1.png" target="_blank">fa2369c</a>

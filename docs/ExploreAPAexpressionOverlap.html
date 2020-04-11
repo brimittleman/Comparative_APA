@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9676d72d60e2f9c82d2bfed1d7634d306b9ef956" target="_blank">9676d72</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fbabfb7f303635e65101fe6af45cc176f6e75d2e" target="_blank">fbabfb7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -811,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1054,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1123,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1168,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1232,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1271,6 +1278,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/fbabfb7f303635e65101fe6af45cc176f6e75d2e/analysis/ExploreAPAexpressionOverlap.Rmd" target="_blank">fbabfb7</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+remove 18499
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c2a07789889eddb977de30d8a838db0ef57758fb/docs/ExploreAPAexpressionOverlap.html" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1334,12 +1375,12 @@ add expression overlap with APA exploration
 <pre class="r"><code>GenesUse=read.table(&quot;../data/DiffIso_Nuclear_DF/GeneswithDEanddAPA.txt&quot;, header = T, stringsAsFactors = F)</code></pre>
 <p>In this analysis I will do as much as I can do compare APA and expression. I will look at the genes we have data for both.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;gplots&quot;)</code></pre>
@@ -1377,8 +1418,8 @@ Attaching package: &#39;magrittr&#39;</code></pre>
 HumanCounts=read.table(&quot;../Human/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Human_fixed.fc&quot;,stringsAsFactors = F,header = T) %&gt;% inner_join(TopUsedPAS,by=c(&quot;Chr&quot;, &quot;Start&quot;, &quot;End&quot;)) %&gt;% separate(Geneid, into=c(&quot;d&quot;, &quot;pas&quot;, &quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;strand&quot;, &quot;geneID&quot;), sep=&quot;:&quot;) %&gt;% separate(geneID,into=c(&quot;gene&quot;,&quot;loc&quot;),sep=&quot;_&quot;) %&gt;% dplyr::select(PAS, gene, contains(&quot;_N&quot;))
 
 ChimpCounts=read.table(&quot;../Chimp/data/CleanLiftedPeaks_FC/ALLPAS_postLift_LocParsed_Chimp_fixed.fc&quot;,stringsAsFactors = F,header = T) %&gt;% separate(Geneid, into=c(&quot;d&quot;, &quot;PAS&quot;, &quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;strand&quot;, &quot;geneID&quot;), sep=&quot;:&quot;) %&gt;% separate(geneID,into=c(&quot;gene&quot;,&quot;loc&quot;),sep=&quot;_&quot;) %&gt;% inner_join(TopUsedPAS,by=c(&quot;PAS&quot;)) %&gt;% dplyr::select(PAS, gene, contains(&quot;_N&quot;))</code></pre>
-<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [48528,
-48529, 48530, 92432].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Additional pieces discarded in 4 rows [50254,
+50255, 50256, 95621].</code></pre>
 <pre class="r"><code>AllCounts=HumanCounts %&gt;% inner_join(ChimpCounts, by=c(&quot;gene&quot;, &quot;PAS&quot;)) %&gt;% dplyr::select(-PAS)
 
 
@@ -1405,10 +1446,11 @@ RNACounts=RNACounts %&gt;% rename(&quot;gene&quot;= RNA_gene) %&gt;% filter(gene
 Names=colnames(BothPhenoCount)
 pal &lt;- c(brewer.pal(9, &quot;Set1&quot;), brewer.pal(8, &quot;Set2&quot;), brewer.pal(12, &quot;Set3&quot;))
 colors &lt;- colorRampPalette(c(brewer.pal(9, &quot;Blues&quot;)[1],brewer.pal(9, &quot;Blues&quot;)[9]))(100)
-Species=c(rep(&quot;Human&quot;,6), rep(&quot;Chimp&quot;,6),rep(&quot;Human&quot;,6),rep(&quot;Chimp&quot;,6))
-Meta=as.data.frame(cbind(Names,Species )) %&gt;% mutate(Pheno=ifelse(grepl(&quot;RNA&quot;,Names),&quot;RNA&quot;, &quot;APA&quot; )) 
-
-cors &lt;- cor(BothPhenoCount, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
+Species=c(rep(&quot;Human&quot;,5), rep(&quot;Chimp&quot;,6),rep(&quot;Human&quot;,5),rep(&quot;Chimp&quot;,6))
+Meta=as.data.frame(cbind(Names,Species )) %&gt;% mutate(Pheno=ifelse(grepl(&quot;RNA&quot;,Names),&quot;RNA&quot;, &quot;APA&quot; )) </code></pre>
+<pre><code>Warning in cbind(Names, Species): number of rows of result is not a
+multiple of vector length (arg 2)</code></pre>
+<pre class="r"><code>cors &lt;- cor(BothPhenoCount, method=&quot;spearman&quot;, use=&quot;pairwise.complete.obs&quot;)
 
 heatmap.2( cors, scale=&quot;none&quot;, col = colors, margins = c(12, 12), trace=&#39;none&#39;,ColSideColors=pal[as.integer(as.factor(Meta$Species))], RowSideColors=pal[as.integer(as.factor(Meta$Pheno))+9], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))</code></pre>
 <p><img src="figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1434,6 +1476,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-6-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-6-1.png" target="_blank">f02217e</a>
@@ -1483,6 +1536,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-9-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-9-1.png" target="_blank">f02217e</a>
 </td>
 <td>
@@ -1522,6 +1586,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-9-2.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-9-2.png" target="_blank">f02217e</a>
 </td>
 <td>
@@ -1541,19 +1616,19 @@ Call:
 lm(formula = abs(DEandAPA$logef) ~ abs(DEandAPA$logFC))
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--2.1809 -0.6868 -0.3276  0.1921 16.4540 
+   Min     1Q Median     3Q    Max 
+-2.141 -0.728 -0.355  0.206 85.459 
 
 Coefficients:
                     Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)          0.79228    0.03757   21.09   &lt;2e-16 ***
-abs(DEandAPA$logFC)  0.28262    0.02577   10.97   &lt;2e-16 ***
+(Intercept)          0.84969    0.05699  14.910  &lt; 2e-16 ***
+abs(DEandAPA$logFC)  0.24810    0.03621   6.853 8.64e-12 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.429 on 3649 degrees of freedom
-Multiple R-squared:  0.03192,   Adjusted R-squared:  0.03165 
-F-statistic: 120.3 on 1 and 3649 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 2.082 on 3264 degrees of freedom
+Multiple R-squared:  0.01418,   Adjusted R-squared:  0.01388 
+F-statistic: 46.96 on 1 and 3264 DF,  p-value: 8.638e-12</code></pre>
 <p>Subset the PAS in the top used:</p>
 <pre class="r"><code>TopUsedPASlow= TopUsedPAS %&gt;% rename(&quot;chr&quot;=Chr, &quot;start&quot;=Start, &quot;end&quot;=End)
 DEandAPA_filt= DEandAPA %&gt;% semi_join(TopUsedPASlow,by=c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;))</code></pre>
@@ -1582,6 +1657,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-11-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-11-1.png" target="_blank">f02217e</a>
@@ -1623,6 +1709,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-11-2.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-11-2.png" target="_blank">f02217e</a>
 </td>
 <td>
@@ -1643,18 +1740,18 @@ lm(formula = abs(DEandAPA_filt$logef) ~ abs(DEandAPA_filt$logFC))
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--1.9908 -0.6602 -0.2892  0.1712 15.7272 
+-2.2025 -0.7283 -0.3141  0.1841 16.8990 
 
 Coefficients:
                          Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)               0.92242    0.08076  11.422  &lt; 2e-16 ***
-abs(DEandAPA_filt$logFC)  0.30075    0.05585   5.385 9.67e-08 ***
+(Intercept)               0.90926    0.09678   9.395  &lt; 2e-16 ***
+abs(DEandAPA_filt$logFC)  0.34544    0.06231   5.544 4.41e-08 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 1.422 on 762 degrees of freedom
-Multiple R-squared:  0.03666,   Adjusted R-squared:  0.03539 
-F-statistic: 28.99 on 1 and 762 DF,  p-value: 9.673e-08</code></pre>
+Residual standard error: 1.555 on 608 degrees of freedom
+Multiple R-squared:  0.04812,   Adjusted R-squared:  0.04656 
+F-statistic: 30.74 on 1 and 608 DF,  p-value: 4.405e-08</code></pre>
 <p>Number of significant PAS and de</p>
 <pre class="r"><code>DEandAPA_sig= DEandAPA %&gt;% filter(SigPAU2 == &quot;Yes&quot;) %&gt;% group_by(gene) %&gt;% summarise(NsigPAS=n())
 
@@ -1668,18 +1765,18 @@ lm(formula = abs(logFC) ~ NsigPAS, data = DEandAPA_sigWithDE)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--1.2788 -0.5704 -0.2898  0.2366  5.8545 
+-1.3016 -0.6169 -0.3045  0.2329  5.7502 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.84757    0.08436  10.047  &lt; 2e-16 ***
-NsigPAS      0.18118    0.05260   3.444 0.000604 ***
+(Intercept)  0.85417    0.10191   8.382 3.62e-16 ***
+NsigPAS      0.23005    0.06607   3.482 0.000534 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 0.915 on 762 degrees of freedom
-Multiple R-squared:  0.01533,   Adjusted R-squared:  0.01404 
-F-statistic: 11.86 on 1 and 762 DF,  p-value: 0.000604</code></pre>
+Residual standard error: 1.002 on 608 degrees of freedom
+Multiple R-squared:  0.01955,   Adjusted R-squared:  0.01794 
+F-statistic: 12.12 on 1 and 608 DF,  p-value: 0.0005339</code></pre>
 <pre class="r"><code>ggplot(DEandAPA_sigWithDE, aes(x=NsigPAS, y=abs(logFC))) +geom_point() + geom_smooth(method = &quot;lm&quot;) + annotate(&quot;text&quot;,label=&quot;beta=.2, r2=0.018, pvalue=0.0006&quot;,x=4, y=6) + labs(x=&quot;Number of differentially used PAS 20%&quot;,title=&quot;Relationship between DE effect size and dAPA PAS&quot;)</code></pre>
 <p><img src="figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1706,6 +1803,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-12-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f02217e9833c9e0f9b4041d3ea870e387f8c9b17/docs/figure/ExploreAPAexpressionOverlap.Rmd/unnamed-chunk-12-1.png" target="_blank">f02217e</a>
 </td>
 <td>
@@ -1720,21 +1828,21 @@ brimittleman
 </div>
 </div>
 <pre class="r"><code>cor( DEandAPA_sigWithDE$NsigPAS, DEandAPA_sigWithDE$logFC, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] -0.04706371</code></pre>
+<pre><code>[1] -0.04383949</code></pre>
 <pre class="r"><code>cor(DEandAPA_sigWithDE$B, DEandAPA_sigWithDE$NsigPAS, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] 0.08514231</code></pre>
+<pre><code>[1] 0.1248363</code></pre>
 <p>Maybe use the variance in effect sizes for dAPA:</p>
 <pre class="r"><code>APA_var= APA %&gt;% group_by(gene) %&gt;% summarise(VarLogef=var(logef), VarDeltaPAU=var(deltaPAU))
 
 APA_varDE= APA_var %&gt;% inner_join(DE, by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>cor(APA_varDE$VarDeltaPAU, APA_varDE$B, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] 0.07398305</code></pre>
+<pre><code>[1] 0.09857041</code></pre>
 <pre class="r"><code>cor(APA_varDE$VarDeltaPAU, APA_varDE$logFC, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] -0.06205474</code></pre>
+<pre><code>[1] -0.02724444</code></pre>
 <pre class="r"><code>cor(APA_varDE$VarLogef, APA_varDE$B, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] 0.2261399</code></pre>
+<pre><code>[1] 0.2396989</code></pre>
 <pre class="r"><code>cor(APA_varDE$VarLogef, APA_varDE$logFC, method = &quot;spearman&quot;)</code></pre>
-<pre><code>[1] -0.02553404</code></pre>
+<pre><code>[1] -0.01888453</code></pre>
 <p>This does not help other than for the varlogeffect size for APA and the DE beta value.</p>
 <br>
 <p>

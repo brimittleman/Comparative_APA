@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-06
+<strong>Last updated:</strong> 2020-04-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9676d72d60e2f9c82d2bfed1d7634d306b9ef956" target="_blank">9676d72</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fbabfb7f303635e65101fe6af45cc176f6e75d2e" target="_blank">fbabfb7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9676d72d60e2f9c82d2bfed1d7634d306b9ef956targetblank9676d72a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefbabfb7f303635e65101fe6af45cc176f6e75d2etargetblankfbabfb7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -452,12 +452,12 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
     Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
     Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
     Ignored:    output/.DS_Store
 
 Untracked files:
     Untracked:  ._.DS_Store
-    Untracked:  ApplyDoubleFilt.Rmd
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/CrossChimpThreePrime.Rmd
@@ -469,7 +469,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/pol2.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -811,6 +810,8 @@ Untracked files:
     Untracked:  code/apaQTLsnakePAS.err
     Untracked:  code/apaQTLsnakePAS.out
     Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
     Untracked:  code/assignPeak2Intronicregion.err
     Untracked:  code/assignPeak2Intronicregion.out
     Untracked:  code/assignPeak2Intronicregion.sh
@@ -1054,12 +1055,14 @@ Untracked files:
     Untracked:  code/snakemakePASFiltChimp.out
     Untracked:  code/snakemakePASFiltHuman.err
     Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
     Untracked:  code/snakemakePASchimp.batch
     Untracked:  code/snakemakePAShuman.batch
     Untracked:  code/snakemake_chimp.batch
     Untracked:  code/snakemake_human.batch
     Untracked:  code/snakemakefiltPAS.batch
     Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
     Untracked:  code/snakemakefiltPAS_human.sh
     Untracked:  code/spliceSite2Fasta.py
     Untracked:  code/submit-snakemake-chimp.sh
@@ -1123,7 +1126,6 @@ Untracked files:
     Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
     Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
     Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
-    Untracked:  data/._metadata_HCpanel.xlsx
     Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
@@ -1168,6 +1170,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_nuclear_old/
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1187,6 +1190,7 @@ Untracked files:
     Untracked:  data/TestWithinMergePAS/
     Untracked:  data/Test_FC_methods/
     Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
@@ -1206,9 +1210,11 @@ Untracked files:
     Untracked:  data/mediation_DF/
     Untracked:  data/metadata_HCpanel.txt
     Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
     Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1232,6 +1238,7 @@ Unstaged changes:
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1271,6 +1278,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c2a07789889eddb977de30d8a838db0ef57758fb/docs/ConsandDom.html" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1368,12 +1392,12 @@ add con and dom
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1399,7 +1423,7 @@ Chimp_Dom2= ChimpPASwMean %&gt;%
   top_n(1,Chimp) %&gt;% 
   mutate(nPer=n()) 
 nrow(Chimp_Dom2%&gt;% filter(nPer&gt;1) )</code></pre>
-<pre><code>[1] 200</code></pre>
+<pre><code>[1] 210</code></pre>
 <pre class="r"><code>Human_Dom2= HumanPASwMean %&gt;%
   group_by(gene) %&gt;%
   top_n(1,Human) %&gt;% 
@@ -1431,6 +1455,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-5-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-5-1.png" target="_blank">f180064</a>
@@ -1470,6 +1505,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-6-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-6-1.png" target="_blank">f180064</a>
@@ -1513,6 +1559,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-7-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-7-1.png" target="_blank">f180064</a>
 </td>
 <td>
@@ -1550,6 +1607,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-7-2.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-7-2.png" target="_blank">f180064</a>
@@ -1598,6 +1666,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-8-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-8-1.png" target="_blank">f180064</a>
 </td>
 <td>
@@ -1635,6 +1714,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-8-2.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-8-2.png" target="_blank">f180064</a>
@@ -1682,6 +1772,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-10-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-10-1.png" target="_blank">f180064</a>
 </td>
 <td>
@@ -1719,6 +1820,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-10-2.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f1800640456b1924a6f3f54553a6d0f90ae9361f/docs/figure/ConsandDom.Rmd/unnamed-chunk-10-2.png" target="_blank">f180064</a>
@@ -1785,6 +1897,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-13-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7d4c86218af19864bcb1b880225d587c239a8af3/docs/figure/ConsandDom.Rmd/unnamed-chunk-13-1.png" target="_blank">7d4c862</a>
 </td>
 <td>
@@ -1839,6 +1962,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/ConsandDom.Rmd/unnamed-chunk-14-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7d4c86218af19864bcb1b880225d587c239a8af3/docs/figure/ConsandDom.Rmd/unnamed-chunk-14-1.png" target="_blank">7d4c862</a>
 </td>
 <td>
@@ -1868,9 +2002,9 @@ brimittleman
   set                meanPhylop
   &lt;chr&gt;                   &lt;dbl&gt;
 1 DiffDominant_Chimp       1.16
-2 DiffDominant_Human       0.65
-3 NotDominant              0.66
-4 SameDominant             0.9 </code></pre>
+2 DiffDominant_Human       0.64
+3 NotDominant              0.64
+4 SameDominant             0.92</code></pre>
 <p>This is interesting. the chimp dominant.</p>
 <br>
 <p>
