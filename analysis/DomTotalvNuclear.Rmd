@@ -13,6 +13,8 @@ I noticed the different dominant PAS structure are not different in total and nu
 
 ```{r}
 library(workflowr)
+library(VennDiagram)
+library(ggpubr)
 library(tidyverse)
 ```
 Nuclear:
@@ -31,12 +33,30 @@ Look at the same in both:
 
 ```{r}
 SameBoth=TotalSameDom %>% inner_join(NuclearSameDom, by="gene")
-
+nrow(SameBoth)
 DiffBoth= TotalDiffDom %>% inner_join(NuclearDiffDom, by="gene")
-
+nrow(DiffBoth)
 DiffOnlyTot= TotalDiffDom %>% anti_join(NuclearDiffDom,by="gene")
-
+nrow(DiffOnlyTot)
 DiffOnlyNuc=NuclearDiffDom %>% anti_join(TotalDiffDom,by="gene")
+nrow(DiffOnlyNuc)
+```
+
+Make a ven diagram 
+
+```{r}
+
+
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(NuclearDiffDom$gene),
+                           area2 = length(TotalDiffDom$gene),
+                           cross.area = nrow(DiffBoth),
+                           c("Nuclear", "Total"), scaled = TRUE,
+                           fill = c("green", "blue"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
 ```
 
 
@@ -46,15 +66,19 @@ ggplot(DiffOnlyTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(
 ```
 ```{r}
 DiffOnlyNuc_g= DiffOnlyNuc %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+nrow(DiffOnlyNuc_g)
 ggplot(DiffOnlyNuc_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different only in Nuclear") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
 ```{r}
 DiffBothsm= TotalDiffDom %>% filter(gene %in% NuclearDiffDom$gene)
+nrow(DiffBothsm)
 DiffBoth_g= DiffBothsm %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
 ggplot(DiffBoth_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Total)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
 ```{r}
 DiffBothsmOpp= NuclearDiffDom %>% filter(gene %in% TotalDiffDom$gene)
+
+nrow(DiffBothsmOpp)
 DiffBothOpp_g= DiffBothsmOpp %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
 ggplot(DiffBothOpp_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Nuclear)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
@@ -75,3 +99,22 @@ DiffBothsmSame_g= DiffBothsmSame %>% select(gene, ChimpLoc, HumanLoc) %>% gather
 ggplot(DiffBothsmSame_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Same PAS)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
 ```
 Ok so those 700 semetric. 
+
+Look at the usage for the mismatch/matching dominant:  
+
+```{r}
+#nrow(DiffBoth)
+#nrow(DiffOnlyTot)
+#nrow(DiffOnlyNuc)
+DiffBoth_mean=DiffBoth %>% select(Chimp.x,Human.x,Chimp.y,Human.y) %>% mutate(Mean=(Chimp.x+Human.x+Chimp.y+Human.y)/4,Set="Both") 
+DiffOnlyTot_mean=DiffOnlyTot %>% select(Chimp,Human) %>% mutate(Mean=(Chimp+Human)/2,Set="Total") 
+DiffOnlyNuc_mean=DiffOnlyNuc %>% select(Chimp,Human) %>% mutate(Mean=(Chimp+Human)/2,Set="Nuclear")
+
+
+AllMeans=DiffBoth_mean %>% bind_rows(DiffOnlyTot_mean) %>% bind_rows(DiffOnlyNuc_mean)
+
+ggplot(AllMeans,aes(x=Set, y=Mean,fill=Set))+geom_boxplot() + stat_compare_means()
+```
+
+Not really sure what this means
+
