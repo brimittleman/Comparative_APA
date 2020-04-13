@@ -85,13 +85,13 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Explore coding dPAS](CodingdPAS.html)  
 
-###Change in 3' UTR length  
+###Use annotations to understand mechanisms
 
 * [Identify orthologous 3'UTR set](ortho3UTR.html)
 
 * [Look at differentially used PAS by length of UTR](LongShortUTR_2PAS.html)
 
-
+* [Look at miRNA density](miRNAanalysis.html)
 
 ##Quantify Phenotypes with RNA:   
 

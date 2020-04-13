@@ -1,0 +1,130 @@
+---
+title: "miRNA analysis"
+author: "Briana Mittleman"
+date: "4/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+In this analysis I will ask about conservation and number of conserved miRNA sites.  
+
+I have the miRNA target info from TargetScanHuman. I downloaded the predicted targets for conserved targets from conserved miRNA families.  
+
+I will look from the human perspective and ask if genes with conserved vs non concerved sites have different numbers of miRNA binding sites.  I will standaradize this by length of 3' UTR. This means I can only look at those with orthologous utrs.  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+
+```{r}
+OrthoUTR=read.table("../data/orthoUTR/HumanDistal3UTR.sort.bed", col.names = c("chr",'start','end','gene','score','strand'),stringsAsFactors = F) %>% mutate(length=end-start) %>% select(gene, length)
+```
+
+
+```{r}
+miRNADB=read.table("../data/miRNA/Conserved_Family_Info.txt", header= T, stringsAsFactors = F,sep="\t") 
+miRNADBgenes= miRNADB %>% group_by(Gene.Symbol) %>% summarise(nSites=n()) %>% rename(gene= Gene.Symbol) %>% inner_join(OrthoUTR, by="gene") %>% mutate(density=nSites/length)
+```
+
+
+Look at my set and overlap these. 
+
+```{r}
+
+DiffIsoGene=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T,stringsAsFactors = F)
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(Conserved=ifelse(gene %in% DiffIsoGene$gene, "No", "Yes")) %>% inner_join(miRNADBgenes,by="gene")
+
+
+```
+
+
+Plot this:
+
+```{r}
+ggplot(DiffIso, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+```
+
+```{r}
+DiffIso %>% group_by(Conserved) %>% summarise(mean(density))
+```
+
+Look specifically at genes with differentially used 3' UTR PAS:  
+
+```{r}
+PASINFO=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T) %>% select(PAS, chr, start, end, loc)
+DiffIsoUTR=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(PASINFO,by=c("chr", "start", "end")) %>% filter(SigPAU2=="Yes", loc=='utr3') %>% select(gene) %>% unique()
+
+DiffIsoUTRall=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(Conserved=ifelse(gene %in% DiffIsoUTR$gene, "No", "Yes")) %>% inner_join(miRNADBgenes,by="gene")
+
+DiffIsoIntron=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(PASINFO,by=c("chr", "start", "end")) %>% filter(SigPAU2=="Yes", loc=='intron') %>% select(gene) %>% unique()
+
+DiffIsoIntronall=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(Conserved=ifelse(gene %in% DiffIsoIntron$gene, "No", "Yes")) %>% inner_join(miRNADBgenes,by="gene")
+```
+
+```{r}
+ggplot(DiffIsoUTRall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used 3' UTR PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+
+ggplot(DiffIsoIntronall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used Intronic PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+```
+
+
+
+Can I look at conserved another way. Same dominant:  
+
+```{r}
+SameDom=read.table("../data/DominantPAS_DF/Nuclear_SameDom.txt",header = T, stringsAsFactors = F)
+Allgenes=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(ConservedDom=ifelse(gene %in% SameDom$gene, "Yes","No")) %>% inner_join(miRNADBgenes,by="gene")
+
+
+ggplot(Allgenes, aes(x=ConservedDom, y=log10(density),fill=ConservedDom)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites by Conservation of Dominant PAS", x="Same Dominant PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+
+```
+```{r}
+Allgenes %>% group_by(ConservedDom) %>% summarise(mean(density))
+```
+
+Different dominant PAS more dense with miRNA binding sites 
+
+
+
+Differentially used conditioned on dominant:  
+
+Look at the differentially used PAS when the differentially used PAS is the dominant PAS.   
+```{r}
+Usage=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T)
+ChimpDom= Usage %>% 
+  group_by(gene) %>%
+  top_n(1,Chimp) %>% 
+  select(PAS,gene)
+
+HumanDom= Usage %>% 
+  group_by(gene) %>%
+  top_n(1,Human) %>% 
+  select(PAS,gene)
+
+
+DomEither= ChimpDom %>% bind_rows(HumanDom) %>% unique()
+```
+
+
+```{r}
+DiffIsoDom=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(PASINFO,by=c("chr", "start", "end"))  %>% mutate(Dom=ifelse(PAS %in% DomEither$PAS, "Yes", "No"))%>% filter(Dom =="Yes",SigPAU2=="Yes") %>% select(gene) %>% unique()
+
+AllgenesDom=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(DiffUsed=ifelse(gene %in% DiffIsoDom$gene, "Yes","No")) %>% inner_join(miRNADBgenes,by="gene")
+
+ggplot(AllgenesDom, aes(x=DiffUsed, y=log10(density),fill=DiffUsed)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites by Conservation Gene with Diff used dominant PAS", x="Same Dominant PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+
+```
+
+```{r}
+AllgenesDom %>% group_by(DiffUsed) %>% summarise(n(), mean(density))
+```
+When the gene has a differentially used pas that is dominant we see the effect.  
+
+
