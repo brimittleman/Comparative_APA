@@ -1,0 +1,80 @@
+---
+title: "Longer and Shorter UTR Simple Case"
+author: "Briana Mittleman"
+date: "4/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+```
+
+
+I will start by looking at the genes with 2 PAS in the orthologous 3' UTRs. By understanding shortening and lengthening patterns, I may be able to learn more about mechanisms.  
+
+```{r}
+OverlapOrtho=read.table("../data/orthoUTR/FilteredPASOverlapOrthoUTR.text", header = T,stringsAsFactors = F) 
+```
+
+Filter to genes with 2 PAS in the set.  
+
+```{r}
+TwoPAS=OverlapOrtho %>% group_by(gene) %>% summarise(nPAS=n()) %>% filter(nPAS==2)
+
+OverlapOrtho2PAS= OverlapOrtho %>% filter(gene %in% TwoPAS$gene)
+```
+
+See if any of these are the only 2 PAS for the gene. That would be the most simple case. I can annotate these as long or short isoforms.  
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T) %>% group_by(gene) %>% mutate(nPAS=n()) %>% filter(nPAS==2)
+ChimpUsage= PASMeta %>% ungroup() %>% select(PAS,Chimp) %>% rename(chimpusage=Chimp)
+```
+
+
+
+```{r}
+OverlapOrtho2PASoverall= OverlapOrtho2PAS %>% filter(gene %in% PASMeta$gene) %>% inner_join(ChimpUsage, by="PAS")
+
+OverlapOrtho2PASoverallPos = OverlapOrtho2PASoverall %>% filter(strand=="+") %>% group_by(gene) %>% arrange(startpas) %>% mutate(id = 1:n()) %>% mutate(Isofrom=ifelse(id==1, "Short", "Long"))%>% select(-id)
+
+OverlapOrtho2PASoverallNeg = OverlapOrtho2PASoverall %>% filter(strand=="-") %>% group_by(gene) %>% arrange(startpas) %>% mutate(id = 1:n()) %>% mutate(Isofrom=ifelse(id==1, "Long", "Short")) %>% select(-id)
+
+OverlapOrtho2PASoverallBoth=OverlapOrtho2PASoverallPos %>% bind_rows(OverlapOrtho2PASoverallNeg)
+```
+
+
+Look at the PAS that are differentially used: 
+
+```{r}
+DiffUsed=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F) %>% filter(gene %in% OverlapOrtho2PASoverallBoth$gene) %>% select(chr, start, end, gene, deltaPAU, SigPAU2) %>% rename(chrpas=chr, startpas=start, endpas=end)
+
+OverlapOrtho2PASoverallBothDiffUsed=OverlapOrtho2PASoverallBoth %>% inner_join(DiffUsed, by=c("chrpas", "startpas","endpas", "gene"))
+
+OverlapOrtho2PASoverallBothDiffUsedSig= OverlapOrtho2PASoverallBothDiffUsed %>% filter(SigPAU2=="Yes")
+nrow(OverlapOrtho2PASoverallBothDiffUsedSig)
+nrow(OverlapOrtho2PASoverallBothDiffUsedSig %>% select(gene) %>% unique())
+```
+There are only 36 significant PAS in 18 genes.  
+
+
+Negative is 
+```{r}
+OverlapOrtho2PASoverallBothDiffUsedSig %>% select(PAS,gene, Isofrom, deltaPAU)
+```
+
+Does long and short segregate with pos negative? 
+
+```{r}
+test= OverlapOrtho2PASoverallBothDiffUsedSig %>% select(PAS,gene, Isofrom, deltaPAU) 
+
+ggplot(test, aes(x=Isofrom, y=deltaPAU)) + geom_boxplot() + stat_compare_means()
+```
+
+

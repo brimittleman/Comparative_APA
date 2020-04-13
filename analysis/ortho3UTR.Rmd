@@ -164,4 +164,13 @@ DiffUsed_sig %>% filter(loc=="utr3")%>%group_by(OrthoUTR) %>% summarise(nEach=n(
 
 ```
 
-834 sig are in the 3' UTR
+834 sig are in the 3' UTR.
+
+
+This seems like an ok way to do this. Write out the filtered overlap to use in the next analysis. THerea are about 7K genes in this set
+
+```{r}
+ write.table(Overlappingfilt, "../data/orthoUTR/FilteredPASOverlapOrthoUTR.text",col.names = T, quote = F, row.names = F)
+```
+
+

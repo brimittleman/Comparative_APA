@@ -57,12 +57,14 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Intronic location for dominant PAS double filter](DominantPASintronLoc_DF.html)  
 
 * [Test for dominant PAS for total fraction](TotalDomStructure.html)
+
+* [Compare dominance between fractions](DomTotalvNuclear.html)
     
 * [Species Specificity in PAS double filter](speciesSpecific_DF.html)  
 
 * [PAS number distribution according to dominance](ConservationofPASNumber.html)
 
-* [PAS number distribution according to dominance in total](ConservationofPASNumberTotal.Rmd.html)
+* [PAS number distribution according to dominance in total](ConservationofPASNumberTotal.html)
 
 * [Correlation between fraction in each species](SpecBetweenfrac.html)
 
@@ -87,6 +89,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Identify orthologous 3'UTR set](ortho3UTR.html)
 
+* [Look at differentially used PAS by length of UTR](LongShortUTR_2PAS.html)
 
 
 
