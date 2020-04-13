@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Establish Ortho 3’ UTRs</title>
+<title>Longer and Shorter UTR Simple Case</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Establish Ortho 3’ UTRs</h1>
+<h1 class="title toc-ignore">Longer and Shorter UTR Simple Case</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/8/2020</em></h4>
+<h4 class="date"><em>4/13/2020</em></h4>
 
 </div>
 
@@ -1286,7 +1286,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c5fc23ced81250f2148f0c8458c5aa01ddbe0aeb/analysis/ortho3UTR.Rmd" target="_blank">c5fc23c</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c5fc23ced81250f2148f0c8458c5aa01ddbe0aeb/analysis/LongShortUTR_2PAS.Rmd" target="_blank">c5fc23c</a>
 </td>
 <td>
 brimittleman
@@ -1298,74 +1298,6 @@ brimittleman
 add long short info
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c4f1c7fda46de2b9e2416491e7a8deab9f6645b3/docs/ortho3UTR.html" target="_blank">c4f1c7f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4feb8698e76f616f2f0d1441b2d0b3535bab3633/analysis/ortho3UTR.Rmd" target="_blank">4feb869</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-<td>
-remove 18499
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4c131c9daf9f07bac3f38d08eb3ffb5b0d8cc2ce/docs/ortho3UTR.html" target="_blank">4c131c9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2f5d4d5ce06bcc8615008906ad97f1e0d1376607/analysis/ortho3UTR.Rmd" target="_blank">2f5d4d5</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-<td>
-change number and add 3; utr
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1373,6 +1305,9 @@ change number and add 3; utr
 </div>
 </div>
 </div>
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.6.0
+Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1382,254 +1317,66 @@ change number and add 3; utr
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>I want to get a list of ortho 3’ UTRs. This is important because I want to look at the differentially used PAS and see if they make longer or shorter 3’ UTRs. This could point to regulatory variation.</p>
-<p>I will start with the ortho exon file. Convert these to bed files to be able to merge</p>
-<pre class="bash"><code>grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/human.noM.gtf &gt; ../data/OrthoExonBed/Human3UTR.gtf
-grep three_prime_utr /project2/gilad/kenneth/OrthoExonPartialMapping/chimp.noM.gtf &gt; ../data/OrthoExonBed/Chimp3UTR.gtf
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
 
-python SAF2Bed.py ../data/OrthoExonBed/Human3UTR.gtf ../data/OrthoExonBed/Human3UTR.bed
-python SAF2Bed.py ../data/OrthoExonBed/Chimp3UTR.gtf ../data/OrthoExonBed/Chimp3UTR.bed
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
+    extract</code></pre>
+<p>I will start by looking at the genes with 2 PAS in the orthologous 3’ UTRs. By understanding shortening and lengthening patterns, I may be able to learn more about mechanisms.</p>
+<pre class="r"><code>OverlapOrtho=read.table(&quot;../data/orthoUTR/FilteredPASOverlapOrthoUTR.text&quot;, header = T,stringsAsFactors = F) </code></pre>
+<p>Filter to genes with 2 PAS in the set.</p>
+<pre class="r"><code>TwoPAS=OverlapOrtho %&gt;% group_by(gene) %&gt;% summarise(nPAS=n()) %&gt;% filter(nPAS==2)
 
-sort -k1,1 -k2,2n ../data/OrthoExonBed/Human3UTR.bed &gt;  ../data/OrthoExonBed/Human3UTR.sort.bed
-sort -k1,1 -k2,2n ../data/OrthoExonBed/Chimp3UTR.bed &gt;  ../data/OrthoExonBed/Chimp3UTR.sort.bed
+OverlapOrtho2PAS= OverlapOrtho %&gt;% filter(gene %in% TwoPAS$gene)</code></pre>
+<p>See if any of these are the only 2 PAS for the gene. That would be the most simple case. I can annotate these as long or short isoforms.</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T) %&gt;% group_by(gene) %&gt;% mutate(nPAS=n()) %&gt;% filter(nPAS==2)
+ChimpUsage= PASMeta %&gt;% ungroup() %&gt;% select(PAS,Chimp) %&gt;% rename(chimpusage=Chimp)</code></pre>
+<pre class="r"><code>OverlapOrtho2PASoverall= OverlapOrtho2PAS %&gt;% filter(gene %in% PASMeta$gene) %&gt;% inner_join(ChimpUsage, by=&quot;PAS&quot;)</code></pre>
+<pre><code>Warning: Column `PAS` joining character vector and factor, coercing into
+character vector</code></pre>
+<pre class="r"><code>OverlapOrtho2PASoverallPos = OverlapOrtho2PASoverall %&gt;% filter(strand==&quot;+&quot;) %&gt;% group_by(gene) %&gt;% arrange(startpas) %&gt;% mutate(id = 1:n()) %&gt;% mutate(Isofrom=ifelse(id==1, &quot;Short&quot;, &quot;Long&quot;))%&gt;% select(-id)
 
-#mrge by strand and gene 
+OverlapOrtho2PASoverallNeg = OverlapOrtho2PASoverall %&gt;% filter(strand==&quot;-&quot;) %&gt;% group_by(gene) %&gt;% arrange(startpas) %&gt;% mutate(id = 1:n()) %&gt;% mutate(Isofrom=ifelse(id==1, &quot;Long&quot;, &quot;Short&quot;)) %&gt;% select(-id)
 
-bedtools merge -s -i ../data/OrthoExonBed/Human3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct &gt; ../data/OrthoExonBed/Human3UTR.merged.sort.bed
+OverlapOrtho2PASoverallBoth=OverlapOrtho2PASoverallPos %&gt;% bind_rows(OverlapOrtho2PASoverallNeg)</code></pre>
+<p>Look at the PAS that are differentially used:</p>
+<pre class="r"><code>DiffUsed=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;,header = T, stringsAsFactors = F) %&gt;% filter(gene %in% OverlapOrtho2PASoverallBoth$gene) %&gt;% select(chr, start, end, gene, deltaPAU, SigPAU2) %&gt;% rename(chrpas=chr, startpas=start, endpas=end)
 
-bedtools merge -s -i ../data/OrthoExonBed/Chimp3UTR.sort.bed -c 4,5,6 -o distinct,mean,distinct &gt; ../data/OrthoExonBed/Chimp3UTR.merged.sort.bed</code></pre>
-<p>Look at the human one and the annotation in humans:</p>
-<pre class="bash"><code>mkdir ../data/orthoUTR
+OverlapOrtho2PASoverallBothDiffUsed=OverlapOrtho2PASoverallBoth %&gt;% inner_join(DiffUsed, by=c(&quot;chrpas&quot;, &quot;startpas&quot;,&quot;endpas&quot;, &quot;gene&quot;))
 
-grep utr3 ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed &gt; ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed</code></pre>
-<p>There are a lot of exons in this set that look like they are not utrs.</p>
-<p>For this analsis. I need one 3’ UTR per gene. I can look at the most distal one first.</p>
-<p>I can do this here with if else statements:</p>
-<ul>
-<li><p>strand: max start</p></li>
-<li><p>strand:</p></li>
-</ul>
-<pre class="r"><code>humanMergeutr= read.table(&quot;../data/OrthoExonBed/Human3UTR.merged.sort.bed&quot;, col.names = c(&#39;chr&#39;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;), stringsAsFactors = F) %&gt;% group_by(gene)
+OverlapOrtho2PASoverallBothDiffUsedSig= OverlapOrtho2PASoverallBothDiffUsed %&gt;% filter(SigPAU2==&quot;Yes&quot;)
+nrow(OverlapOrtho2PASoverallBothDiffUsedSig)</code></pre>
+<pre><code>[1] 36</code></pre>
+<pre class="r"><code>nrow(OverlapOrtho2PASoverallBothDiffUsedSig %&gt;% select(gene) %&gt;% unique())</code></pre>
+<pre><code>[1] 18</code></pre>
+<p>There are only 36 significant PAS in 18 genes.</p>
+<p>Negative is</p>
+<pre class="r"><code>OverlapOrtho2PASoverallBothDiffUsedSig %&gt;% select(PAS,gene, Isofrom, deltaPAU)</code></pre>
+<pre><code># A tibble: 36 x 4
+# Groups:   gene [18]
+   PAS         gene   Isofrom deltaPAU
+   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+ 1 human138532 HIC1   Short     -0.305
+ 2 human138539 HIC1   Long       0.305
+ 3 chimp226080 MAN2B2 Short     -0.292
+ 4 human252668 MAN2B2 Long       0.292
+ 5 human145205 EIF1   Short      0.440
+ 6 human145206 EIF1   Long      -0.440
+ 7 human212400 BCAS4  Short      0.215
+ 8 human212411 BCAS4  Long      -0.215
+ 9 human134514 NOL3   Short      0.254
+10 human134515 NOL3   Long      -0.254
+# … with 26 more rows</code></pre>
+<p>Does long and short segregate with pos negative?</p>
+<pre class="r"><code>test= OverlapOrtho2PASoverallBothDiffUsedSig %&gt;% select(PAS,gene, Isofrom, deltaPAU) 
 
-humanMergeutrpos= humanMergeutr %&gt;% filter(strand==&quot;+&quot;) %&gt;% group_by(gene) %&gt;% top_n(1,start)
-
-humanMergeutrneg= humanMergeutr %&gt;% filter(strand==&quot;-&quot;) %&gt;% group_by(gene) %&gt;% top_n(-1,start)
-
-humanDistalboth=humanMergeutrpos %&gt;% bind_rows(humanMergeutrneg)
-write.table(humanDistalboth, &quot;../data/orthoUTR/HumanDistal3UTR.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
-<pre class="bash"><code>sort -k1,1 -k2,2n ../data/orthoUTR/HumanDistal3UTR.bed &gt; ../data/orthoUTR/HumanDistal3UTR.sort.bed</code></pre>
-<p>Looks like that worked.</p>
-<p>Do it with an intercect with the anno and see if the results are similar:</p>
-<pre class="bash"><code>bedtools intersect -s -wa -a ../data/OrthoExonBed/Human3UTR.merged.sort.bed -b ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed &gt; ../data/OrthoExonBed/Human3UTR.merged.sort.overlapHumanannno.bed</code></pre>
-<p>overlap has 135340 17680</p>
-<p>I will now work with the most distal PAS. I want to see how many of the PAS fall in these regions.</p>
-<pre class="bash"><code>bedtools intersect -s -wa -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed &gt; ../data/orthoUTR/PASOverlapinDistal3UTR.bed
-
-bedtools intersect -s -wa -wb -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed -b ../data/orthoUTR/HumanDistal3UTR.sort.bed &gt; ../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed</code></pre>
-<pre class="r"><code>metaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, stringsAsFactors = F, header = T) %&gt;% select(gene, PAS, loc)
-Overlapping= read.table(&quot;../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed&quot;, col.names = c(&quot;chrpas&quot;, &quot;startpas&quot;, &quot;endpas&quot;,&quot;PAS&quot;, &quot;humanusage&quot;, &quot;strandpas&quot;, &quot;chrutr&quot;, &quot;startutr&quot;, &quot;endutr&quot;,&quot;geneUTR&quot;, &quot;score&quot;,&quot;strand&quot;),stringsAsFactors = F) %&gt;% select(-strandpas, -chrutr, -startutr, -endutr)  %&gt;% inner_join(metaPAS, by=c(&quot;PAS&quot;))
-
- Overlapping %&gt;% filter(gene != geneUTR) %&gt;% nrow()</code></pre>
-<pre><code>[1] 184</code></pre>
-<pre class="r"><code> Overlapping %&gt;% filter(loc!=&quot;utr3&quot;) %&gt;% nrow()</code></pre>
-<pre><code>[1] 405</code></pre>
-<pre class="r"><code> Overlappingfilt= Overlapping%&gt;% filter(gene == geneUTR)</code></pre>
-<p>184 of these are in different genes. check these.<br />
-405 not annotated as UTR3</p>
-<pre class="r"><code>NotUTRanno= Overlapping %&gt;% filter(loc!=&quot;utr3&quot;) %&gt;% filter(gene == geneUTR)
-nrow(NotUTRanno)</code></pre>
-<pre><code>[1] 376</code></pre>
-<pre class="r"><code>ggplot(NotUTRanno,aes(x=loc, fill=loc) ) + geom_histogram(stat=&quot;count&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of 400 PAS overlapping PAS but not annotated 3&#39; UTR&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c4f1c7fda46de2b9e2416491e7a8deab9f6645b3/docs/figure/ortho3UTR.Rmd/unnamed-chunk-9-1.png" target="_blank">c4f1c7f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c131c9daf9f07bac3f38d08eb3ffb5b0d8cc2ce/docs/figure/ortho3UTR.Rmd/unnamed-chunk-9-1.png" target="_blank">4c131c9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This is good. It looks like most of the time the problem is just that the ortho utr extends the original annotation. We call it an end or cds.</p>
-<pre class="r"><code>nrow(Overlapping)/nrow(metaPAS)</code></pre>
-<pre><code>[1] 0.2739917</code></pre>
-<pre class="r"><code>nrow(Overlapping)/nrow(metaPAS %&gt;% filter(loc==&quot;utr3&quot;))</code></pre>
-<pre><code>[1] 0.6861297</code></pre>
-<p>almost 70% of the 3’ UTR pas are represented.</p>
-<p>Look at how many genes are represented</p>
-<pre class="r"><code>OverlappingGenes= Overlapping %&gt;% filter(gene == geneUTR)  %&gt;% group_by(gene) %&gt;% summarise(nPAS=n())
-nrow(OverlappingGenes)</code></pre>
-<pre><code>[1] 6931</code></pre>
-<pre class="r"><code>nrow(OverlappingGenes %&gt;% filter(nPAS&gt;1))</code></pre>
-<pre><code>[1] 3098</code></pre>
-<pre class="r"><code>OverlappingGenes$nPAS= as.factor(OverlappingGenes$nPAS)
-
-ggplot(OverlappingGenes, aes(x=nPAS)) + geom_histogram(stat=&quot;count&quot;) + labs(x=&quot;Number of PAS&quot;, y=&quot;Genes&quot;, title=&quot;Number of PAS per gene with PAS in ortho 3&#39; UTR&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c4f1c7fda46de2b9e2416491e7a8deab9f6645b3/docs/figure/ortho3UTR.Rmd/unnamed-chunk-11-1.png" target="_blank">c4f1c7f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c131c9daf9f07bac3f38d08eb3ffb5b0d8cc2ce/docs/figure/ortho3UTR.Rmd/unnamed-chunk-11-1.png" target="_blank">4c131c9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>There is at least one pas in 6931 genes. Thats pretty good. There are 3098 with at least 2.</p>
-<p>Look to see if these represent any of those differenctially used:</p>
-<pre class="r"><code>PASGene=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% select(PAS, chr, start, end,loc)
-DiffUsed=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;,header = T,stringsAsFactors = F) %&gt;% inner_join(PASGene, by=c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;)) %&gt;% mutate(OrthoUTR=ifelse(PAS %in% Overlappingfilt$PAS, &quot;Yes&quot;,&quot;No&quot;))
-DiffUsed_sig =DiffUsed %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
-<pre class="r"><code>ggplot(DiffUsed_sig,aes(x=OrthoUTR)) +geom_histogram(stat=&quot;count&quot;)</code></pre>
-<pre><code>Warning: Ignoring unknown parameters: binwidth, bins, pad</code></pre>
-<p><img src="figure/ortho3UTR.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c4f1c7fda46de2b9e2416491e7a8deab9f6645b3/docs/figure/ortho3UTR.Rmd/unnamed-chunk-13-1.png" target="_blank">c4f1c7f</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c131c9daf9f07bac3f38d08eb3ffb5b0d8cc2ce/docs/figure/ortho3UTR.Rmd/unnamed-chunk-13-1.png" target="_blank">4c131c9</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Proportion:</p>
-<pre class="r"><code>DiffUsed_sig %&gt;% group_by(OrthoUTR) %&gt;% summarise(nEach=n()) %&gt;% mutate(prop=nEach/nrow(DiffUsed_sig))</code></pre>
-<pre><code># A tibble: 2 x 3
-  OrthoUTR nEach  prop
-  &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
-1 No        1485 0.634
-2 Yes        857 0.366</code></pre>
-<p>37% of the differentially used are in the 3’ UTR.</p>
-<p>Filter to utr</p>
-<pre class="r"><code>DiffUsed_sig %&gt;% filter(loc==&quot;utr3&quot;)%&gt;%group_by(OrthoUTR) %&gt;% summarise(nEach=n()) %&gt;% mutate(prop=nEach/nrow(DiffUsed_sig%&gt;% filter(loc==&quot;utr3&quot;)))</code></pre>
-<pre><code># A tibble: 2 x 3
-  OrthoUTR nEach  prop
-  &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
-1 No         446 0.348
-2 Yes        834 0.652</code></pre>
-<p>834 sig are in the 3’ UTR.</p>
-<p>This seems like an ok way to do this. Write out the filtered overlap to use in the next analysis. THerea are about 7K genes in this set</p>
-<pre class="r"><code> write.table(Overlappingfilt, &quot;../data/orthoUTR/FilteredPASOverlapOrthoUTR.text&quot;,col.names = T, quote = F, row.names = F)</code></pre>
+ggplot(test, aes(x=Isofrom, y=deltaPAU)) + geom_boxplot() + stat_compare_means()</code></pre>
+<p><img src="figure/LongShortUTR_2PAS.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1657,30 +1404,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
-[5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
-[9] tidyverse_1.2.1
+ [1] ggpubr_0.2      magrittr_1.5    forcats_0.3.0   stringr_1.3.1  
+ [5] dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
+ [9] tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
-[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
-[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
-[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
-[19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
-[22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
-[25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
-[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[34] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[37] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[40] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[43] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[46] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[49] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[52] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[55] git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
+ [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       utf8_1.1.4      
+ [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
+[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
+[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
+[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.2       promises_1.0.1  
+[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
+[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
+[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      lazyeval_0.2.1  
+[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
+[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
+[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
+[53] compiler_3.5.1  </code></pre>
 </div>
 
 
