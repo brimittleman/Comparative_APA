@@ -1,0 +1,77 @@
+---
+title: "Dominance structure between fractions"
+author: "Briana Mittleman"
+date: "4/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I noticed the different dominant PAS structure are not different in total and nuclear. I want to look at the overlap between these gene.  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+Nuclear:
+```{r}
+NuclearDiffDom=read.table("../data/DominantPAS_DF/Nuclear_DiffDom.txt",header = T,stringsAsFactors = F)
+NuclearSameDom=read.table("../data/DominantPAS_DF/Nuclear_SameDom.txt",header = T,stringsAsFactors = F)
+```
+Total:  
+
+```{r}
+TotalDiffDom=read.table("../data/TotalFractionPAS/TotalFraction_DiffDominant.txt",header = T,stringsAsFactors = F)
+TotalSameDom=read.table("../data/TotalFractionPAS/TotalFraction_sameDominant.txt",header = T,stringsAsFactors = F)
+```
+
+Look at the same in both:  
+
+```{r}
+SameBoth=TotalSameDom %>% inner_join(NuclearSameDom, by="gene")
+
+DiffBoth= TotalDiffDom %>% inner_join(NuclearDiffDom, by="gene")
+
+DiffOnlyTot= TotalDiffDom %>% anti_join(NuclearDiffDom,by="gene")
+
+DiffOnlyNuc=NuclearDiffDom %>% anti_join(TotalDiffDom,by="gene")
+```
+
+
+```{r}
+DiffOnlyTot_g= DiffOnlyTot %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffOnlyTot_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different only in Total") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+```{r}
+DiffOnlyNuc_g= DiffOnlyNuc %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffOnlyNuc_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different only in Nuclear") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+```{r}
+DiffBothsm= TotalDiffDom %>% filter(gene %in% NuclearDiffDom$gene)
+DiffBoth_g= DiffBothsm %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffBoth_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Total)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+```{r}
+DiffBothsmOpp= NuclearDiffDom %>% filter(gene %in% TotalDiffDom$gene)
+DiffBothOpp_g= DiffBothsmOpp %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffBothOpp_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Nuclear)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+
+Look at the both genes:  
+
+```{r}
+nrow(DiffBoth)
+DiffBoth %>% filter(ChimpPAS.x ==ChimpPAS.y ) %>% nrow()
+DiffBoth %>% filter(HumanPAS.x ==HumanPAS.y ) %>% nrow()
+
+BothSameall=DiffBoth %>% filter(ChimpPAS.x ==ChimpPAS.y ) %>% filter(HumanPAS.x ==HumanPAS.y )
+nrow(BothSameall)
+
+
+DiffBothsmSame= NuclearDiffDom %>% filter(gene %in% BothSameall$gene)
+DiffBothsmSame_g= DiffBothsmSame %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
+ggplot(DiffBothsmSame_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="PAS different in Both fractions (Same PAS)") + scale_fill_brewer(palette = "Dark2")+theme(legend.position='bottom')
+```
+Ok so those 700 semetric. 
