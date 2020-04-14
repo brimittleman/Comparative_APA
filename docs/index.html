@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-13
+<strong>Last updated:</strong> 2020-04-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6997920be291f00cace4847fbda6a4a6cf5fab51targetblank6997920a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/6997920be291f00cace4847fbda6a4a6cf5fab51" target="_blank">6997920</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2d0668ed07656cd2a04fdcf4fc731946173802c2targetblank2d0668ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2d0668ed07656cd2a04fdcf4fc731946173802c2" target="_blank">2d0668e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree6997920be291f00cace4847fbda6a4a6cf5fab51targetblank6997920a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2d0668ed07656cd2a04fdcf4fc731946173802c2targetblank2d0668ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,6 +539,7 @@ Untracked files:
     Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindDomXCutoff.py
     Untracked:  code/FindIntronForDomPAS.err
     Untracked:  code/FindIntronForDomPAS.out
     Untracked:  code/FindIntronForDomPAS.sh
@@ -621,6 +622,8 @@ Untracked files:
     Untracked:  code/RunNegMCMediationDF.out
     Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
+    Untracked:  code/RunNewDom.err
+    Untracked:  code/RunNewDom.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
     Untracked:  code/RunPosMCMediationDF.err
@@ -855,6 +858,7 @@ Untracked files:
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runHumanDiffIsoDF.sh
+    Untracked:  code/runNewDom.sh
     Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
@@ -983,6 +987,7 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DomDefGreaterX/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
     Untracked:  data/EvalPantro5/
@@ -1121,6 +1126,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d0668ed07656cd2a04fdcf4fc731946173802c2/analysis/index.Rmd" target="_blank">2d0668e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+<td>
+add new way to call dom
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/index.html" target="_blank">edd8940</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -4839,6 +4878,7 @@ Start workflowr project.
 <li><p><a href="ConservationofPASNumber.html">PAS number distribution according to dominance</a></p></li>
 <li><p><a href="ConservationofPASNumberTotal.html">PAS number distribution according to dominance in total</a></p></li>
 <li><p><a href="SpecBetweenfrac.html">Correlation between fraction in each species</a></p></li>
+<li><p><a href="NewDomDef.html">Look at dominance by difference between dominant PAS and next highest used</a></p></li>
 </ul>
 </div>
 <div id="differential-isoform-analysis" class="section level2">
