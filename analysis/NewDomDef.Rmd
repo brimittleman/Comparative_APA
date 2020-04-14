@@ -1,0 +1,501 @@
+---
+title: "New Dominance Definition"
+author: "Briana Mittleman"
+date: "4/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(VennDiagram)
+library(tidyverse)
+```
+
+The way I am calling dominance is a bit naive. I am looking for the most used PAS. It may be better to look for genes with actual dominance on one PAS, meaning a PAS is used X percent above the others in the gene. I will have a set of genes with 1 PAS, 1 domiant PAS, no dominant PAS. I can then look to see if these sets are te same or different across species.  
+
+I wrote a python script. I will test it with a small file.  
+
+```{bash,eval=F}
+mkdir ../data/DomDefGreaterX
+head -n 1 ../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt  > ../data/DomDefGreaterX/TestFile_ZSWIM7.txt
+grep ZSWIM7 ../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt >> ../data/DomDefGreaterX/TestFile_ZSWIM7.txt
+
+python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Human 
+python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Chimp 
+```
+
+Looks like this code works for both species. Not the most efficient but fine.  
+
+First I need the set of genes with 1 pas. These will not be included in the analysis. I added to the code to not include PAS that have 0 usage in that species.  
+
+```{r}
+MetaPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(MetaPAS)
+Human1PASGene= MetaPAS %>% filter(Human>0) %>% group_by(gene) %>% summarise(nPAS=n()) %>% filter(nPAS==1)
+Chimp1PASGene= MetaPAS %>% filter(Chimp>0) %>% group_by(gene) %>% summarise(nPAS=n()) %>% filter(nPAS==1)
+
+MetaPAS_human1= MetaPAS %>% filter(gene %in% Human1PASGene$gene, Human >0) %>% mutate(Set="Human1")
+MetaPAS_chimp1= MetaPAS %>% filter(gene %in% Chimp1PASGene$gene, Chimp >0)  %>% mutate(Set="Chimp1")
+
+```
+Look at where these are.  
+
+```{r}
+OnePASboth=MetaPAS_human1 %>% bind_rows(MetaPAS_chimp1)
+ggplot(OnePASboth, aes(x=loc, by=Set, fill=Set)) + geom_bar(position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="PAS location for genes with 1 PAS in each species")
+```
+
+##Seperate results  
+I will run the code at different cutoffs from 10% different to 90% different. I can do this with a bash script.
+
+I need to think about the best way to visualize this. I will start with 1 usage cutoff then move toward more. Start with the most stringent. For each one I will add the number of PAS in the gene origianlly:  
+
+###90% difference 
+```{r}
+PASnum= MetaPAS %>% select(PAS, gene, Chimp, Human) %>% gather(Species, usage, -PAS, -gene) %>% filter(usage >0) %>% group_by(gene,Species) %>% summarise(nPAS=n())
+PASnumHuman=PASnum %>% filter(Species=="Human") %>% select(-Species)
+PASnumChimp=PASnum %>% filter(Species=="Chimp") %>% select(-Species)
+
+
+
+HumanDom9=read.table("../data/DomDefGreaterX/Human_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human9") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom9)
+ChimpDom9=read.table("../data/DomDefGreaterX/Chimp_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp9") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom9)
+```
+
+
+Explore these:  
+
+```{r}
+BothDom9=HumanDom9 %>% bind_rows(ChimpDom9)
+ggplot(BothDom9, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .9 difference",y="genes")
+```
+
+There are way more in chimp at this cutoff. 
+
+Look at how many genes have the same and different dominant at .9 difference:  
+
+```{r}
+HumanDom9_sm=HumanDom9 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom9_sm=ChimpDom9 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both9sm=ChimpDom9_sm %>% inner_join(HumanDom9_sm, by="gene")
+nrow(both9sm)
+```
+
+Look at the number of PAS in these genes:  
+
+None of the same genes are represented here.
+```{r}
+ggplot(BothDom9, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .9 difference",y="genes")
+```
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom9_sm$gene),
+                           area2 = length(ChimpDom9_sm$gene),
+                           cross.area = nrow(both9sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+###80% difference
+
+```{r}
+HumanDom8=read.table("../data/DomDefGreaterX/Human_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human8") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom8)
+ChimpDom8=read.table("../data/DomDefGreaterX/Chimp_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp8") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom8)
+
+BothDom8=HumanDom8 %>% bind_rows(ChimpDom8)
+ggplot(BothDom8, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .8 difference",y="genes")
+```
+
+```{r}
+HumanDom8_sm=HumanDom8 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom8_sm=ChimpDom8 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both8sm=ChimpDom8_sm %>% inner_join(HumanDom8_sm, by="gene")
+nrow(both8sm)
+```
+There are 192 genes that are the same. 
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom8_sm$gene),
+                           area2 = length(ChimpDom8_sm$gene),
+                           cross.area = nrow(both8sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+For these I can look to see if the PAS are the same or different:  
+
+```{r}
+both8sm_same= both8sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both8sm_same)
+both8sm_diff= both8sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both8sm_diff)
+```
+Only 3 are in different PAS
+
+```{r}
+both8sm_diff
+```
+```{r}
+ggplot(BothDom8, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .8 difference",y="genes")
+```
+###70% difference  
+
+
+```{r}
+HumanDom7=read.table("../data/DomDefGreaterX/Human_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human7") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom7)
+ChimpDom7=read.table("../data/DomDefGreaterX/Chimp_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp7") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom7)
+
+BothDom7=HumanDom7 %>% bind_rows(ChimpDom7)
+ggplot(BothDom7, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .7 difference",y="genes")
+```
+
+```{r}
+HumanDom7_sm=HumanDom7 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom7_sm=ChimpDom7 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both7sm=ChimpDom7_sm %>% inner_join(HumanDom7_sm, by="gene")
+nrow(both7sm)
+```
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom7_sm$gene),
+                           area2 = length(ChimpDom7_sm$gene),
+                           cross.area = nrow(both7sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+```{r}
+both7sm_same= both7sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both7sm_same)
+both7sm_diff= both7sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both7sm_diff)
+```
+
+
+```{r}
+both7sm_diff
+```
+```{r}
+ggplot(BothDom7, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .7 difference",y="genes")
+```
+
+###60% difference  
+
+
+```{r}
+HumanDom6=read.table("../data/DomDefGreaterX/Human_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human6") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom6)
+ChimpDom6=read.table("../data/DomDefGreaterX/Chimp_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp6") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom6)
+
+BothDom6=HumanDom6 %>% bind_rows(ChimpDom6)
+ggplot(BothDom6, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .6 difference",y="genes")
+```
+```{r}
+HumanDom6_sm=HumanDom6 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom6_sm=ChimpDom6 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both6sm=ChimpDom6_sm %>% inner_join(HumanDom6_sm, by="gene")
+nrow(both6sm)
+```
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom6_sm$gene),
+                           area2 = length(ChimpDom6_sm$gene),
+                           cross.area = nrow(both6sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+```{r}
+both6sm_same= both6sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both6sm_same)
+both6sm_diff= both6sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both6sm_diff)
+```
+```{r}
+both6sm_diff
+```
+```{r}
+ggplot(BothDom6, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .6 difference",y="genes")
+```
+
+###50% difference  
+
+
+```{r}
+HumanDom5=read.table("../data/DomDefGreaterX/Human_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human5") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom5)
+ChimpDom5=read.table("../data/DomDefGreaterX/Chimp_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp5") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom5)
+
+BothDom5=HumanDom5 %>% bind_rows(ChimpDom5)
+ggplot(BothDom5, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .5 difference",y="genes")
+```
+```{r}
+HumanDom5_sm=HumanDom5 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom5_sm=ChimpDom5 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both5sm=ChimpDom5_sm %>% inner_join(HumanDom5_sm, by="gene")
+nrow(both5sm)
+```
+
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom5_sm$gene),
+                           area2 = length(ChimpDom5_sm$gene),
+                           cross.area = nrow(both5sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+
+```{r}
+both5sm_same= both5sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both5sm_same)
+both5sm_diff= both5sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both5sm_diff)
+```
+
+```{r}
+both5sm_diff
+```
+```{r}
+ggplot(BothDom5, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .5 difference",y="genes")
+```
+###40% difference  
+
+
+```{r}
+HumanDom4=read.table("../data/DomDefGreaterX/Human_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human4") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom4)
+ChimpDom4=read.table("../data/DomDefGreaterX/Chimp_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp4") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom4)
+
+BothDom4=HumanDom4 %>% bind_rows(ChimpDom4)
+ggplot(BothDom4, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .4 difference",y="genes")
+```
+
+```{r}
+HumanDom4_sm=HumanDom4 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom4_sm=ChimpDom4 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both4sm=ChimpDom4_sm %>% inner_join(HumanDom4_sm, by="gene")
+nrow(both4sm)
+```
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom4_sm$gene),
+                           area2 = length(ChimpDom4_sm$gene),
+                           cross.area = nrow(both4sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+```{r}
+both4sm_same= both4sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both4sm_same)
+both4sm_diff= both4sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both4sm_diff)
+```
+
+22 is enough to start to plot:  
+
+```{r}
+both4sm_diff_g= both4sm_diff %>% select(gene, HumanLoc, ChimpLoc) %>% gather('Species', 'Loc', -gene)
+ggplot(both4sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat="count",position = "dodge") +scale_fill_brewer(palette = "Dark2")+ labs(y='PAS', title="Location for Different Dominant PAS at 40% difference")
+
+```
+```{r}
+ggplot(BothDom4, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .4 difference",y="genes")
+```
+###30% difference  
+
+
+```{r}
+HumanDom3=read.table("../data/DomDefGreaterX/Human_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human3") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom3)
+ChimpDom3=read.table("../data/DomDefGreaterX/Chimp_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp3") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom3)
+
+BothDom3=HumanDom3 %>% bind_rows(ChimpDom3)
+ggplot(BothDom3, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .3 difference",y="genes")
+```
+
+
+```{r}
+HumanDom3_sm=HumanDom3 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom3_sm=ChimpDom3 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both3sm=ChimpDom3_sm %>% inner_join(HumanDom3_sm, by="gene")
+nrow(both3sm)
+```
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom3_sm$gene),
+                           area2 = length(ChimpDom3_sm$gene),
+                           cross.area = nrow(both3sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+```{r}
+both3sm_same= both3sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both3sm_same)
+both3sm_diff= both3sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both3sm_diff)
+```
+
+
+
+```{r}
+both3sm_diff_g= both3sm_diff %>% select(gene, HumanLoc, ChimpLoc) %>% gather('Species', 'Loc', -gene)
+ggplot(both3sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat="count",position = "dodge") +scale_fill_brewer(palette = "Dark2")+ labs(y='PAS', title="Location for Different Dominant PAS at 30% difference")
+
+```
+
+```{r}
+ggplot(BothDom3, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .3 difference",y="genes")
+```
+###20% difference  
+
+
+```{r}
+HumanDom2=read.table("../data/DomDefGreaterX/Human_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human2") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom2)
+ChimpDom2=read.table("../data/DomDefGreaterX/Chimp_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp2") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom2)
+
+BothDom2=HumanDom2 %>% bind_rows(ChimpDom2)
+ggplot(BothDom2, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .2 difference",y="genes")
+```
+
+
+```{r}
+HumanDom2_sm=HumanDom2 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom2_sm=ChimpDom2 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both2sm=ChimpDom2_sm %>% inner_join(HumanDom2_sm, by="gene")
+nrow(both2sm)
+```
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom2_sm$gene),
+                           area2 = length(ChimpDom2_sm$gene),
+                           cross.area = nrow(both2sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+```{r}
+both2sm_same= both2sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both2sm_same)
+both2sm_diff= both2sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both2sm_diff)
+```
+
+```{r}
+both2sm_diff_g= both2sm_diff %>% select(gene, HumanLoc, ChimpLoc) %>% gather('Species', 'Loc', -gene)
+ggplot(both2sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat="count",position = "dodge") +scale_fill_brewer(palette = "Dark2")+ labs(y='PAS', title="Location for Different Dominant PAS at 20% difference")
+
+```
+```{r}
+ggplot(BothDom2, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .2 difference",y="genes")
+```
+
+###10% difference  
+
+
+```{r}
+HumanDom1=read.table("../data/DomDefGreaterX/Human_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human2") %>% inner_join(PASnumHuman, by="gene")
+nrow(HumanDom1)
+ChimpDom1=read.table("../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp2") %>% inner_join(PASnumChimp, by="gene")
+nrow(ChimpDom1)
+
+BothDom1=HumanDom1 %>% bind_rows(ChimpDom1)
+ggplot(BothDom1, aes(x=loc, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of PAS dominant with .1 difference",y="genes")
+```
+
+```{r}
+HumanDom1_sm=HumanDom1 %>% select(PAS, gene, loc) %>% rename(HumanPAS=PAS, HumanLoc=loc)
+ChimpDom1_sm=ChimpDom1 %>% select(PAS, gene, loc)%>% rename(ChimpPAS=PAS, ChimpLoc=loc)
+
+both1sm=ChimpDom1_sm %>% inner_join(HumanDom1_sm, by="gene")
+nrow(both1sm)
+```
+```{r}
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(HumanDom1_sm$gene),
+                           area2 = length(ChimpDom1_sm$gene),
+                           cross.area = nrow(both1sm),
+                           c("Human", "Chimp"), scaled = TRUE,
+                           fill = c("orange", "green"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
+```{r}
+both1sm_same= both1sm %>% filter(ChimpPAS==HumanPAS)
+nrow(both1sm_same)
+both1sm_diff= both1sm %>% filter(ChimpPAS!=HumanPAS)
+nrow(both1sm_diff)
+```
+
+```{r}
+both1sm_diff_g= both1sm_diff %>% select(gene, HumanLoc, ChimpLoc) %>% gather('Species', 'Loc', -gene)
+ggplot(both1sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat="count",position = "dodge") +scale_fill_brewer(palette = "Dark2")+ labs(y='PAS', title="Location for Different Dominant PAS at 10% difference")
+
+```
+
+```{r}
+
+ggplot(BothDom1, aes(x=nPAS, fill=set)) + geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Number of PAS per gene with .1 difference",y="genes")
+```
+
+##Aggregate results:  
+
+Next step will be to aggregate these plots in a way that is both easier to visualize but also easier to draw conclusions from.  

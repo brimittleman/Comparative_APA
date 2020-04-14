@@ -68,6 +68,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Correlation between fraction in each species](SpecBetweenfrac.html)
 
+* [Look at dominance by difference between dominant PAS and next highest used](NewDomDef.html)
+
 
 ##Differential Isoform Analysis:
 
