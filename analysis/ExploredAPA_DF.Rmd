@@ -58,8 +58,8 @@ ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") +  theme(text
 Seperate by location:  
 
 ```{r}
-#negative deltaPAU is used more in human 
-DiffUsagePAS_dir= DiffUsagePAS %>% mutate(direction=ifelse(deltaPAU >=0, "Chimp", "Human"))
+#negative deltaPAU is used more in chimp 
+DiffUsagePAS_dir= DiffUsagePAS %>% mutate(direction=ifelse(deltaPAU >=0, "Human", "Chimp"))
 
 ggplot(DiffUsagePAS_dir,aes(x=loc, fill=loc)) + geom_bar(stat="count")  + facet_grid(~direction)+ scale_fill_brewer(palette = "Dark2") + labs(x="Genic Region", y="Number of dAPA PAS", title="Location of dAPA PAS")+ theme(text= element_text(size=16), legend.position = "none") 
 ```

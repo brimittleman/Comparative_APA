@@ -19,11 +19,11 @@ library(tidyverse)
 Load PAS
 
 ```{r}
-PAS=read.table("../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% mutate(chrom=paste(chr,start,end,gene, sep=":"))
 ```
 
 ```{r}
-effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('chrom',  'logef' ,'HumanNorm', 'ChimpNorm','deltaPAU')) %>% filter(chrom != "intron") %>% inner_join(PAS, by="chrom")
+effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('chrom',  'logef' ,'ChimpNorm', 'HumanNorm','deltaPAU')) %>% filter(chrom != "intron") %>% inner_join(PAS, by="chrom")
 
 effectsize$HumanNorm=as.numeric(effectsize$HumanNorm)
 
@@ -72,14 +72,14 @@ Human_Dom= effectsize %>%
 BothDom= Chimp_Dom %>% inner_join(Human_Dom,by="gene")
 ```
 
-I am looking at 8544 genes in this set.  
+
 
 ```{r}
 SameDom= BothDom %>% filter(ChimpPAS==HumanPAS)
 nrow(SameDom)
 ```
 
-5848 have the same dominant PAS  
+6006 have the same dominant PAS  
 
 ```{r}
 SameDom_g= SameDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
@@ -96,7 +96,7 @@ This gives more genes with different dominant PAS
 DiffDom_g= DiffDom %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)
 
 
-ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS using normalized usage\n (n=2698)") + scale_fill_brewer(palette = "Dark2")
+ggplot(DiffDom_g,aes(by=Species, x=Location, fill=Species))+ geom_histogram(stat="count",position = "dodge") + labs(x="Location", y="Number of Genes", title="Different Dominant PAS using normalized usage\n (n=2416)") + scale_fill_brewer(palette = "Dark2")
 ```
 This flips the distribution. It over corrects.  
 
@@ -143,7 +143,6 @@ DiffDom_Nonnorm=BothDom_Nonnorm %>% filter(ChimpPAS!=HumanPAS)
 nrow(DiffDom_Nonnorm)
 ```
 
-2067 PAS 
 
 ```{r}
 DiffDom_Nonnorm_g= DiffDom_Nonnorm %>% select(gene, ChimpLoc, HumanLoc) %>% gather("Species", "Location", -gene)

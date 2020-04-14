@@ -43,7 +43,7 @@ I will use this file to list everything that I did to try to fix the different l
 6. Normalization Methods: 
 
   * Quantile normalize 
-  * Leafcutter normalization (flips distribution)
+  * Leafcutter normalization
   
 7. Orthologous exons:
 

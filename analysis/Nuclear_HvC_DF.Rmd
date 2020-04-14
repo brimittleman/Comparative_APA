@@ -159,7 +159,7 @@ number_sig_genes
 Effect Sizes  
 
 ```{r}
-effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Human', 'Chimp','deltaPAU')) %>% filter(intron != "intron")
+effectsize=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_effect_sizes.txt", stringsAsFactors = F, col.names=c('intron',  'logef' ,'Chimp', 'Human','deltaPAU')) %>% filter(intron != "intron")
 
 effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
 effectsize$logef=as.numeric(as.character(effectsize$logef))
@@ -212,7 +212,7 @@ effectsizeTop=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU),
 #exclude when the max=min 
 effectsizeTopFilt=effectsizeTop %>% filter(abs(Min) != Max)
 
-effectsize_wES=effectsizeTopFilt %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+effectsize_wES=effectsizeTopFilt %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Human", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Chimp", "Neither")))
 ```
 
 This is the significance for the gene. 
@@ -229,11 +229,11 @@ Try this including the matching one. I will make 2 plots. One with human dominan
 ```{r}
 effectsizeTopHuman=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Min) > Max, Min, ifelse(abs(Min)==Max, Min, Max)),TwoPAS=ifelse(abs(Min)==Max, T, F))
 
-effectsize_wES_human=effectsizeTopHuman %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+effectsize_wES_human=effectsizeTopHuman %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Human", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Chimp", "Neither")))
 
 effectsizeTopChimp=effectsize_sep %>% group_by(gene) %>% summarise(Min=min(deltaPAU), Max=max(deltaPAU)) %>% mutate(TopdPAU=ifelse(abs(Max)>=abs(Min), Max, Min), TwoPAS=ifelse(abs(Min)==Max, T, F))
 
-effectsize_wES_chimp=effectsizeTopChimp %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Chimp", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Human", "Neither")))
+effectsize_wES_chimp=effectsizeTopChimp %>% inner_join(sig_geneP, by="gene") %>% mutate(Species=ifelse(TopdPAU > 0.2 & p.adjust<.05, "Human", ifelse(TopdPAU < -0.2 & p.adjust< .05, "Chimp", "Neither")))
 ```
 
 
