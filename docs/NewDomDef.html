@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-14
+<strong>Last updated:</strong> 2020-04-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2d0668ed07656cd2a04fdcf4fc731946173802c2targetblank2d0668ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2d0668ed07656cd2a04fdcf4fc731946173802c2" target="_blank">2d0668e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8b2f73d948a7a81e2f375192f3f1d751153a6c8etargetblank8b2f73da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8b2f73d948a7a81e2f375192f3f1d751153a6c8e" target="_blank">8b2f73d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2d0668ed07656cd2a04fdcf4fc731946173802c2targetblank2d0668ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8b2f73d948a7a81e2f375192f3f1d751153a6c8etargetblank8b2f73da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1292,6 +1292,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8b2f73d948a7a81e2f375192f3f1d751153a6c8e/analysis/NewDomDef.Rmd" target="_blank">8b2f73d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-15
+</td>
+<td>
+add aggregate res
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/NewDomDef.html" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/2d0668ed07656cd2a04fdcf4fc731946173802c2/analysis/NewDomDef.Rmd" target="_blank">2d0668e</a>
 </td>
 <td>
@@ -1314,18 +1348,26 @@ add new way to call dom
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(VennDiagram)</code></pre>
+<pre class="r"><code>library(gridExtra)
+library(VennDiagram)</code></pre>
 <pre><code>Loading required package: grid</code></pre>
 <pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::combine() masks gridExtra::combine()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
 <p>The way I am calling dominance is a bit naive. I am looking for the most used PAS. It may be better to look for genes with actual dominance on one PAS, meaning a PAS is used X percent above the others in the gene. I will have a set of genes with 1 PAS, 1 domiant PAS, no dominant PAS. I can then look to see if these sets are te same or different across species.</p>
 <p>I wrote a python script. I will test it with a small file.</p>
 <pre class="bash"><code>mkdir ../data/DomDefGreaterX
@@ -1347,6 +1389,43 @@ MetaPAS_chimp1= MetaPAS %&gt;% filter(gene %in% Chimp1PASGene$gene, Chimp &gt;0)
 <pre class="r"><code>OnePASboth=MetaPAS_human1 %&gt;% bind_rows(MetaPAS_chimp1)
 ggplot(OnePASboth, aes(x=loc, by=Set, fill=Set)) + geom_bar(position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;PAS location for genes with 1 PAS in each species&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-4-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="seperate-results" class="section level2">
 <h2>Seperate results</h2>
 <p>I will run the code at different cutoffs from 10% different to 90% different. I can do this with a bash script.</p>
@@ -1367,8 +1446,46 @@ nrow(ChimpDom9)</code></pre>
 <pre><code>[1] 173</code></pre>
 <p>Explore these:</p>
 <pre class="r"><code>BothDom9=HumanDom9 %&gt;% bind_rows(ChimpDom9)
-ggplot(BothDom9, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .9 difference&quot;,y=&quot;genes&quot;)</code></pre>
+genloc9=ggplot(BothDom9, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.9&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc9</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-6-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There are way more in chimp at this cutoff.</p>
 <p>Look at how many genes have the same and different dominant at .9 difference:</p>
 <pre class="r"><code>HumanDom9_sm=HumanDom9 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
@@ -1381,8 +1498,45 @@ nrow(both9sm)</code></pre>
 <p>None of the same genes are represented here.</p>
 <pre class="r"><code>ggplot(BothDom9, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .9 difference&quot;,y=&quot;genes&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-8-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom9_sm$gene),
+venn.plot9 &lt;- draw.pairwise.venn(area1 = length(HumanDom9_sm$gene),
                            area2 = length(ChimpDom9_sm$gene),
                            cross.area = nrow(both9sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1392,6 +1546,87 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom9_sm$gene),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-9-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Look at the location of the PAS not in gene.</p>
+<pre class="r"><code>HumanDom9_smLab= HumanDom9 %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom9_smLab= ChimpDom9 %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom9_smLab=HumanDom9_smLab %&gt;% bind_rows(ChimpDom9_smLab)
+diffgenes9=ggplot(BothDom9_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)+  labs(title=&quot;Non Matched: 0.9&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes9</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-10-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="difference-1" class="section level3">
 <h3>80% difference</h3>
@@ -1402,8 +1637,9 @@ nrow(HumanDom8)</code></pre>
 nrow(ChimpDom8)</code></pre>
 <pre><code>[1] 571</code></pre>
 <pre class="r"><code>BothDom8=HumanDom8 %&gt;% bind_rows(ChimpDom8)
-ggplot(BothDom8, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .8 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc8=ggplot(BothDom8, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.8&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc8</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom8_sm=HumanDom8 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom8_sm=ChimpDom8 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1412,7 +1648,7 @@ nrow(both8sm)</code></pre>
 <pre><code>[1] 192</code></pre>
 <p>There are 192 genes that are the same.</p>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom8_sm$gene),
+venn.plot8 &lt;- draw.pairwise.venn(area1 = length(HumanDom8_sm$gene),
                            area2 = length(ChimpDom8_sm$gene),
                            cross.area = nrow(both8sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1421,13 +1657,54 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom8_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /> For these I can look to see if the PAS are the same or different:</p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> For these I can look to see if the PAS are the same or different:</p>
 <pre class="r"><code>both8sm_same= both8sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both8sm_same)</code></pre>
 <pre><code>[1] 189</code></pre>
 <pre class="r"><code>both8sm_diff= both8sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both8sm_diff)</code></pre>
 <pre><code>[1] 3</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same8=ggplot(both8sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .8&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same8</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-15-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Only 3 are in different PAS</p>
 <pre class="r"><code>both8sm_diff</code></pre>
 <pre><code>     ChimpPAS    gene ChimpLoc    HumanPAS HumanLoc
@@ -1435,7 +1712,53 @@ nrow(both8sm_diff)</code></pre>
 2 chimp163919  IFNGR2     utr3 human215583   intron
 3 human324647 NSUN5P1     utr5 human324646     utr5</code></pre>
 <pre class="r"><code>ggplot(BothDom8, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .8 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /> ###70% difference</p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom8_smLab= HumanDom8 %&gt;% anti_join(ChimpDom8,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom8_smLab=  ChimpDom8 %&gt;% anti_join(HumanDom8,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom8_smLab=HumanDom8_smLab %&gt;% bind_rows(ChimpDom8_smLab)
+diffgenes8=ggplot(BothDom8_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.8&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes8</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-18-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="difference-2" class="section level3">
+<h3>70% difference</h3>
 <pre class="r"><code>HumanDom7=read.table(&quot;../data/DomDefGreaterX/Human_.7_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human7&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom7)</code></pre>
 <pre><code>[1] 637</code></pre>
@@ -1443,8 +1766,9 @@ nrow(HumanDom7)</code></pre>
 nrow(ChimpDom7)</code></pre>
 <pre><code>[1] 988</code></pre>
 <pre class="r"><code>BothDom7=HumanDom7 %&gt;% bind_rows(ChimpDom7)
-ggplot(BothDom7, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .7 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc7=ggplot(BothDom7, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.7&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc7</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom7_sm=HumanDom7 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom7_sm=ChimpDom7 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1452,7 +1776,7 @@ both7sm=ChimpDom7_sm %&gt;% inner_join(HumanDom7_sm, by=&quot;gene&quot;)
 nrow(both7sm)</code></pre>
 <pre><code>[1] 473</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom7_sm$gene),
+venn.plot7 &lt;- draw.pairwise.venn(area1 = length(HumanDom7_sm$gene),
                            area2 = length(ChimpDom7_sm$gene),
                            cross.area = nrow(both7sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1461,13 +1785,54 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom7_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-21-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>both7sm_same= both7sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both7sm_same)</code></pre>
 <pre><code>[1] 467</code></pre>
 <pre class="r"><code>both7sm_diff= both7sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both7sm_diff)</code></pre>
 <pre><code>[1] 6</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same7=ggplot(both7sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .7&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same7</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both7sm_diff</code></pre>
 <pre><code>     ChimpPAS    gene ChimpLoc    HumanPAS HumanLoc
 1  human21024   CKS1B     utr3  human21027      end
@@ -1477,10 +1842,13 @@ nrow(both7sm_diff)</code></pre>
 5 chimp163919  IFNGR2     utr3 human215583   intron
 6 human324647 NSUN5P1     utr5 human324646     utr5</code></pre>
 <pre class="r"><code>ggplot(BothDom7, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .7 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="difference-2" class="section level3">
-<h3>60% difference</h3>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom7_smLab= HumanDom7 %&gt;% anti_join(ChimpDom7,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom7_smLab=  ChimpDom7 %&gt;% anti_join(HumanDom7,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom7_smLab=HumanDom7_smLab %&gt;% bind_rows(ChimpDom7_smLab)
+diffgenes7=ggplot(BothDom7_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of dominant PAS in genes \nnot matched between species: 0.7&quot;, y=&quot;genes&quot;)+  labs(title=&quot;Non Matched: 0.7&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes7</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /> ###60% difference</p>
 <pre class="r"><code>HumanDom6=read.table(&quot;../data/DomDefGreaterX/Human_.6_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human6&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom6)</code></pre>
 <pre><code>[1] 1014</code></pre>
@@ -1488,8 +1856,46 @@ nrow(HumanDom6)</code></pre>
 nrow(ChimpDom6)</code></pre>
 <pre><code>[1] 1404</code></pre>
 <pre class="r"><code>BothDom6=HumanDom6 %&gt;% bind_rows(ChimpDom6)
-ggplot(BothDom6, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .6 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc6=ggplot(BothDom6, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.6&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc6</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-27-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanDom6_sm=HumanDom6 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom6_sm=ChimpDom6 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1497,7 +1903,7 @@ both6sm=ChimpDom6_sm %&gt;% inner_join(HumanDom6_sm, by=&quot;gene&quot;)
 nrow(both6sm)</code></pre>
 <pre><code>[1] 803</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom6_sm$gene),
+venn.plot6 &lt;- draw.pairwise.venn(area1 = length(HumanDom6_sm$gene),
                            area2 = length(ChimpDom6_sm$gene),
                            cross.area = nrow(both6sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1506,13 +1912,17 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom6_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both6sm_same= both6sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both6sm_same)</code></pre>
 <pre><code>[1] 796</code></pre>
 <pre class="r"><code>both6sm_diff= both6sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both6sm_diff)</code></pre>
 <pre><code>[1] 7</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same6=ggplot(both6sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .6&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same6</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both6sm_diff</code></pre>
 <pre><code>     ChimpPAS    gene ChimpLoc    HumanPAS HumanLoc
 1  human21024   CKS1B     utr3  human21027      end
@@ -1523,7 +1933,87 @@ nrow(both6sm_diff)</code></pre>
 6 chimp163919  IFNGR2     utr3 human215583   intron
 7 human324647 NSUN5P1     utr5 human324646     utr5</code></pre>
 <pre class="r"><code>ggplot(BothDom6, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .6 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-33-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>HumanDom6_smLab= HumanDom6 %&gt;% anti_join(ChimpDom6,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom6_smLab=  ChimpDom6 %&gt;% anti_join(HumanDom6,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom6_smLab=HumanDom6_smLab %&gt;% bind_rows(ChimpDom6_smLab)
+diffgenes6=ggplot(BothDom6_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.6&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes6</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-34-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="difference-3" class="section level3">
 <h3>50% difference</h3>
@@ -1534,8 +2024,9 @@ nrow(HumanDom5)</code></pre>
 nrow(ChimpDom5)</code></pre>
 <pre><code>[1] 1908</code></pre>
 <pre class="r"><code>BothDom5=HumanDom5 %&gt;% bind_rows(ChimpDom5)
-ggplot(BothDom5, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .5 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc5=ggplot(BothDom5, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.5&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc5</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom5_sm=HumanDom5 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom5_sm=ChimpDom5 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1543,7 +2034,7 @@ both5sm=ChimpDom5_sm %&gt;% inner_join(HumanDom5_sm, by=&quot;gene&quot;)
 nrow(both5sm)</code></pre>
 <pre><code>[1] 1160</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom5_sm$gene),
+venn.plot5 &lt;- draw.pairwise.venn(area1 = length(HumanDom5_sm$gene),
                            area2 = length(ChimpDom5_sm$gene),
                            cross.area = nrow(both5sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1552,13 +2043,54 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom5_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both5sm_same= both5sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both5sm_same)</code></pre>
 <pre><code>[1] 1145</code></pre>
 <pre class="r"><code>both5sm_diff= both5sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both5sm_diff)</code></pre>
 <pre><code>[1] 15</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same5=ggplot(both5sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .5&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same5</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-39-1">
+Past versions of unnamed-chunk-39-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-39-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-39-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>both5sm_diff</code></pre>
 <pre><code>      ChimpPAS    gene ChimpLoc    HumanPAS HumanLoc
 1   human21024   CKS1B     utr3  human21027      end
@@ -1577,7 +2109,53 @@ nrow(both5sm_diff)</code></pre>
 14 chimp308202   FABP5     utr3 human345717      cds
 15 human366498 SLC27A4   intron human366500     utr3</code></pre>
 <pre class="r"><code>ggplot(BothDom5, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .5 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /> ###40% difference</p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom5_smLab= HumanDom5 %&gt;% anti_join(ChimpDom5,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom5_smLab=  ChimpDom5 %&gt;% anti_join(HumanDom5,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom5_smLab=HumanDom5_smLab %&gt;% bind_rows(ChimpDom5_smLab)
+diffgenes5=ggplot(BothDom5_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +   labs(title=&quot;Non Matched: 0.5&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes5</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-42-1">
+Past versions of unnamed-chunk-42-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-42-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-42-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="difference-4" class="section level3">
+<h3>40% difference</h3>
 <pre class="r"><code>HumanDom4=read.table(&quot;../data/DomDefGreaterX/Human_.4_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human4&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom4)</code></pre>
 <pre><code>[1] 1833</code></pre>
@@ -1585,8 +2163,9 @@ nrow(HumanDom4)</code></pre>
 nrow(ChimpDom4)</code></pre>
 <pre><code>[1] 2478</code></pre>
 <pre class="r"><code>BothDom4=HumanDom4 %&gt;% bind_rows(ChimpDom4)
-ggplot(BothDom4, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .4 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc4=ggplot(BothDom4, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.4&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc4</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom4_sm=HumanDom4 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom4_sm=ChimpDom4 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1594,7 +2173,7 @@ both4sm=ChimpDom4_sm %&gt;% inner_join(HumanDom4_sm, by=&quot;gene&quot;)
 nrow(both4sm)</code></pre>
 <pre><code>[1] 1565</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom4_sm$gene),
+venn.plot4 &lt;- draw.pairwise.venn(area1 = length(HumanDom4_sm$gene),
                            area2 = length(ChimpDom4_sm$gene),
                            cross.area = nrow(both4sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1603,19 +2182,143 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom4_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-45-1">
+Past versions of unnamed-chunk-45-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-45-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-45-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>both4sm_same= both4sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both4sm_same)</code></pre>
 <pre><code>[1] 1543</code></pre>
 <pre class="r"><code>both4sm_diff= both4sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both4sm_diff)</code></pre>
 <pre><code>[1] 22</code></pre>
-<p>22 is enough to start to plot:</p>
+<p>location for same:</p>
+<pre class="r"><code>same4=ggplot(both4sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .4&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same4</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /> 22 is enough to start to plot:</p>
 <pre class="r"><code>both4sm_diff_g= both4sm_diff %&gt;% select(gene, HumanLoc, ChimpLoc) %&gt;% gather(&#39;Species&#39;, &#39;Loc&#39;, -gene)
-ggplot(both4sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 40% difference&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+diffDom4=ggplot(both4sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.4&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffDom4</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-48-1">
+Past versions of unnamed-chunk-48-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-48-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-48-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothDom4, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .4 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /> ###30% difference</p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom4_smLab= HumanDom4 %&gt;% anti_join(ChimpDom4,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom4_smLab=  ChimpDom4 %&gt;% anti_join(HumanDom4,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom4_smLab=HumanDom4_smLab %&gt;% bind_rows(ChimpDom4_smLab)
+diffgenes4=ggplot(BothDom4_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.4&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes4</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-50-1">
+Past versions of unnamed-chunk-50-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-50-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-50-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="difference-5" class="section level3">
+<h3>30% difference</h3>
 <pre class="r"><code>HumanDom3=read.table(&quot;../data/DomDefGreaterX/Human_.3_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human3&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom3)</code></pre>
 <pre><code>[1] 2403</code></pre>
@@ -1623,8 +2326,46 @@ nrow(HumanDom3)</code></pre>
 nrow(ChimpDom3)</code></pre>
 <pre><code>[1] 3127</code></pre>
 <pre class="r"><code>BothDom3=HumanDom3 %&gt;% bind_rows(ChimpDom3)
-ggplot(BothDom3, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .3 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc3=ggplot(BothDom3, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.3&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc3</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-51-1">
+Past versions of unnamed-chunk-51-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-51-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-51-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanDom3_sm=HumanDom3 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom3_sm=ChimpDom3 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1632,7 +2373,7 @@ both3sm=ChimpDom3_sm %&gt;% inner_join(HumanDom3_sm, by=&quot;gene&quot;)
 nrow(both3sm)</code></pre>
 <pre><code>[1] 2069</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom3_sm$gene),
+venn.plot3 &lt;- draw.pairwise.venn(area1 = length(HumanDom3_sm$gene),
                            area2 = length(ChimpDom3_sm$gene),
                            cross.area = nrow(both3sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1641,18 +2382,106 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom3_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both3sm_same= both3sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both3sm_same)</code></pre>
 <pre><code>[1] 2031</code></pre>
 <pre class="r"><code>both3sm_diff= both3sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both3sm_diff)</code></pre>
 <pre><code>[1] 38</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same3=ggplot(both3sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .3&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same3</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both3sm_diff_g= both3sm_diff %&gt;% select(gene, HumanLoc, ChimpLoc) %&gt;% gather(&#39;Species&#39;, &#39;Loc&#39;, -gene)
-ggplot(both3sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 30% difference&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+diffDom3=ggplot(both3sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.3&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffDom3</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-56-1">
+Past versions of unnamed-chunk-56-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-56-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-56-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothDom3, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .3 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /> ###20% difference</p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-57-1">
+Past versions of unnamed-chunk-57-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-57-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-57-1.png" target="_blank">38c6dc9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>HumanDom3_smLab= HumanDom3 %&gt;% anti_join(ChimpDom3,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom3_smLab=  ChimpDom3 %&gt;% anti_join(HumanDom3,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom3_smLab=HumanDom3_smLab %&gt;% bind_rows(ChimpDom3_smLab)
+diffgenes3=ggplot(BothDom3_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +   labs(title=&quot;Non Matched: 0.3&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes3</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="difference-6" class="section level3">
+<h3>20% difference</h3>
 <pre class="r"><code>HumanDom2=read.table(&quot;../data/DomDefGreaterX/Human_.2_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human2&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom2)</code></pre>
 <pre><code>[1] 3183</code></pre>
@@ -1660,8 +2489,9 @@ nrow(HumanDom2)</code></pre>
 nrow(ChimpDom2)</code></pre>
 <pre><code>[1] 3969</code></pre>
 <pre class="r"><code>BothDom2=HumanDom2 %&gt;% bind_rows(ChimpDom2)
-ggplot(BothDom2, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .2 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc2=ggplot(BothDom2, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.2&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+genloc2</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom2_sm=HumanDom2 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom2_sm=ChimpDom2 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1669,7 +2499,7 @@ both2sm=ChimpDom2_sm %&gt;% inner_join(HumanDom2_sm, by=&quot;gene&quot;)
 nrow(both2sm)</code></pre>
 <pre><code>[1] 2711</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom2_sm$gene),
+venn.plot2 &lt;- draw.pairwise.venn(area1 = length(HumanDom2_sm$gene),
                            area2 = length(ChimpDom2_sm$gene),
                            cross.area = nrow(both2sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1678,30 +2508,40 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom2_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both2sm_same= both2sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both2sm_same)</code></pre>
 <pre><code>[1] 2634</code></pre>
 <pre class="r"><code>both2sm_diff= both2sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both2sm_diff)</code></pre>
 <pre><code>[1] 77</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same2=ggplot(both2sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .2&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same2</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both2sm_diff_g= both2sm_diff %&gt;% select(gene, HumanLoc, ChimpLoc) %&gt;% gather(&#39;Species&#39;, &#39;Loc&#39;, -gene)
-ggplot(both2sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 20% difference&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+diffDom2=ggplot(both2sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+  labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.2&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffDom2</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-64-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(BothDom2, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .2 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="difference-4" class="section level3">
-<h3>10% difference</h3>
-<pre class="r"><code>HumanDom1=read.table(&quot;../data/DomDefGreaterX/Human_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human2&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom2_smLab= HumanDom2 %&gt;% anti_join(ChimpDom2,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom2_smLab=  ChimpDom2 %&gt;% anti_join(HumanDom2,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom2_smLab=HumanDom2_smLab %&gt;% bind_rows(ChimpDom2_smLab)
+diffgenes2=ggplot(BothDom2_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.2&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes2</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /> ###10% difference</p>
+<pre class="r"><code>HumanDom1=read.table(&quot;../data/DomDefGreaterX/Human_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human1&quot;) %&gt;% inner_join(PASnumHuman, by=&quot;gene&quot;)
 nrow(HumanDom1)</code></pre>
 <pre><code>[1] 4417</code></pre>
-<pre class="r"><code>ChimpDom1=read.table(&quot;../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp2&quot;) %&gt;% inner_join(PASnumChimp, by=&quot;gene&quot;)
+<pre class="r"><code>ChimpDom1=read.table(&quot;../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp1&quot;) %&gt;% inner_join(PASnumChimp, by=&quot;gene&quot;)
 nrow(ChimpDom1)</code></pre>
 <pre><code>[1] 5254</code></pre>
 <pre class="r"><code>BothDom1=HumanDom1 %&gt;% bind_rows(ChimpDom1)
-ggplot(BothDom1, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Location of PAS dominant with .1 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+genloc1=ggplot(BothDom1, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.1&quot;,y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;) 
+
+genloc1</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>HumanDom1_sm=HumanDom1 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom1_sm=ChimpDom1 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -1709,7 +2549,7 @@ both1sm=ChimpDom1_sm %&gt;% inner_join(HumanDom1_sm, by=&quot;gene&quot;)
 nrow(both1sm)</code></pre>
 <pre><code>[1] 3814</code></pre>
 <pre class="r"><code>grid.newpage()
-venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom1_sm$gene),
+venn.plot1 &lt;- draw.pairwise.venn(area1 = length(HumanDom1_sm$gene),
                            area2 = length(ChimpDom1_sm$gene),
                            cross.area = nrow(both1sm),
                            c(&quot;Human&quot;, &quot;Chimp&quot;), scaled = TRUE,
@@ -1718,23 +2558,111 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(HumanDom1_sm$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both1sm_same= both1sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both1sm_same)</code></pre>
 <pre><code>[1] 3542</code></pre>
 <pre class="r"><code>both1sm_diff= both1sm %&gt;% filter(ChimpPAS!=HumanPAS)
 nrow(both1sm_diff)</code></pre>
 <pre><code>[1] 272</code></pre>
+<p>location for same:</p>
+<pre class="r"><code>same1=ggplot(both1sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .1&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+same1</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>both1sm_diff_g= both1sm_diff %&gt;% select(gene, HumanLoc, ChimpLoc) %&gt;% gather(&#39;Species&#39;, &#39;Loc&#39;, -gene)
-ggplot(both1sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 10% difference&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+diffDom1=ggplot(both1sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 10% difference&quot;) +labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.1&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffDom1</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(BothDom1, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .1 difference&quot;,y=&quot;genes&quot;)</code></pre>
-<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="aggregate-results" class="section level2">
-<h2>Aggregate results:</h2>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanDom1_smLab= HumanDom1 %&gt;% anti_join(ChimpDom1,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
+ChimpDom1_smLab=  ChimpDom1 %&gt;% anti_join(HumanDom1,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
+BothDom1_smLab=HumanDom1_smLab %&gt;% bind_rows(ChimpDom1_smLab)
+diffgenes1=ggplot(BothDom1_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.1&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
+diffgenes1</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /> ##Aggregate results:</p>
 <p>Next step will be to aggregate these plots in a way that is both easier to visualize but also easier to draw conclusions from.</p>
+<p>First plot the number of genes with a dominant PAS at each cutoff.</p>
+<pre class="r"><code>Cutoffs=seq(0.1,.9, .1)
+Human=c(nrow(HumanDom1),nrow(HumanDom2),nrow(HumanDom3),nrow(HumanDom4),nrow(HumanDom5),nrow(HumanDom6),nrow(HumanDom7),nrow(HumanDom8),nrow(HumanDom9))
+Chimp=c(nrow(ChimpDom1),nrow(ChimpDom2),nrow(ChimpDom3),nrow(ChimpDom4),nrow(ChimpDom5),nrow(ChimpDom6),nrow(ChimpDom7),nrow(ChimpDom8),nrow(ChimpDom9))
+
+DomNumsDF=as.data.frame(cbind(Cutoffs, Human, Chimp)) %&gt;% gather(&quot;Species&quot;, &quot;DominantGenes&quot;, -Cutoffs)
+DomNumsDF$Cutoffs= as.factor(DomNumsDF$Cutoffs)
+ggplot(DomNumsDF, aes(x=Cutoffs, fill=Species, y=DominantGenes)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of Genes with a Dominant PAS&quot;,x=&quot;Difference in usage to be called dominant&quot;)</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>General location:</p>
+<pre class="r"><code>genloctiles &lt;- ggdraw() + 
+  draw_label(
+    &quot;Location of Dominant PAS&quot;,
+    fontface = &#39;bold&#39;,
+    x = 0,
+    hjust = 0
+  )
+genloc=plot_grid(genloc1,genloc2,genloc3,genloc4,genloc5,genloc6,genloc7,genloc8,genloc9)
+
+plot_grid(
+  genloctiles, genloc,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /> This shows this pattern is robust to the cutoff.</p>
+<p>Plot the joint genes.</p>
+<pre class="r"><code>diffdomtiles &lt;- ggdraw() + 
+  draw_label(
+    &quot;Location of Dominant PAS in genes with different Dominant PAS&quot;,
+    fontface = &#39;bold&#39;,
+    x = 0,
+    hjust = 0
+  )
+diffdom=plot_grid(diffDom1,diffDom2,diffDom3,diffDom4)
+
+plot_grid(
+  diffdomtiles, diffdom,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is also robust to cutoff.</p>
+<p>Location when they do not share the same gene.</p>
+<p>diffgenes9</p>
+<pre class="r"><code>diffgenestiles &lt;- ggdraw() + 
+  draw_label(
+    &quot;Location of Dominant PAS in genes with a dominant PAS only in 1 species&quot;,
+    fontface = &#39;bold&#39;,
+    x = 0,
+    hjust = 0
+  )
+diffgenes=plot_grid(diffgenes1,diffgenes2,diffgenes3,diffgenes4,diffgenes5,diffgenes6,diffgenes7,diffgenes8,diffgenes9)
+
+plot_grid(
+  diffgenestiles, diffgenes,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /> This is robust as well.</p>
+<p>Look at the overlapping genes with the same PAS</p>
+<pre class="r"><code>#same1
+
+SAMESAMEtiles &lt;- ggdraw() + 
+  draw_label(
+    &quot;Location of Dominant PAS in genes with the same dominant PAS&quot;,
+    fontface = &#39;bold&#39;,
+    x = 0,
+    hjust = 0
+  )
+SAMESAME=plot_grid(same1,same2,same3,same4,same5,same6,same7,same8)
+
+plot_grid(
+  SAMESAMEtiles, SAMESAME,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)</code></pre>
+<p><img src="figure/NewDomDef.Rmd/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1763,10 +2691,11 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] forcats_0.3.0       stringr_1.3.1       dplyr_0.8.0.1      
- [4] purrr_0.3.2         readr_1.3.1         tidyr_0.8.3        
- [7] tibble_2.1.1        ggplot2_3.1.1       tidyverse_1.2.1    
-[10] VennDiagram_1.6.20  futile.logger_1.4.3 workflowr_1.6.0    
+ [1] cowplot_0.9.4       forcats_0.3.0       stringr_1.3.1      
+ [4] dplyr_0.8.0.1       purrr_0.3.2         readr_1.3.1        
+ [7] tidyr_0.8.3         tibble_2.1.1        ggplot2_3.1.1      
+[10] tidyverse_1.2.1     VennDiagram_1.6.20  futile.logger_1.4.3
+[13] gridExtra_2.3       workflowr_1.6.0    
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5     haven_1.1.2          lattice_0.20-38     
@@ -1774,8 +2703,8 @@ loaded via a namespace (and not attached):
  [7] yaml_2.2.0           rlang_0.4.0          later_0.7.5         
 [10] pillar_1.3.1         withr_2.1.2          glue_1.3.0          
 [13] RColorBrewer_1.1-2   lambda.r_1.2.3       modelr_0.1.2        
-[16] readxl_1.1.0         plyr_1.8.4           munsell_0.5.0       
-[19] gtable_0.2.0         cellranger_1.1.0     rvest_0.3.2         
+[16] readxl_1.1.0         plyr_1.8.4           cellranger_1.1.0    
+[19] munsell_0.5.0        gtable_0.2.0         rvest_0.3.2         
 [22] evaluate_0.12        labeling_0.3         knitr_1.20          
 [25] httpuv_1.4.5         broom_0.5.1          Rcpp_1.0.2          
 [28] promises_1.0.1       backports_1.1.2      scales_1.0.0        
@@ -1784,10 +2713,11 @@ loaded via a namespace (and not attached):
 [37] rprojroot_1.3-2      cli_1.1.0            tools_3.5.1         
 [40] magrittr_1.5         lazyeval_0.2.1       futile.options_1.0.1
 [43] crayon_1.3.4         whisker_0.3-2        pkgconfig_2.0.2     
-[46] xml2_1.2.0           lubridate_1.7.4      assertthat_0.2.0    
-[49] rmarkdown_1.10       httr_1.3.1           rstudioapi_0.10     
+[46] xml2_1.2.0           lubridate_1.7.4      rstudioapi_0.10     
+[49] assertthat_0.2.0     rmarkdown_1.10       httr_1.3.1          
 [52] R6_2.3.0             nlme_3.1-137         git2r_0.26.1        
 [55] compiler_3.5.1      </code></pre>
+</div>
 </div>
 </div>
 
