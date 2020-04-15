@@ -85,17 +85,44 @@ Join this with the genes I test.
 ```{r}
 NucRes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% group_by(gene, SigPAU2) %>% summarise(N=n()) %>% spread(SigPAU2,N) %>% replace_na(list(Yes=0)) %>% mutate(dAPA=ifelse(Yes>=1, "Yes", "No")) %>% dplyr::select(-Yes, -No)
 
-NucResAll= NucRes  %>% left_join(GenesWint_g, by="gene") %>%  replace_na(list(nInt=0)) 
+NucResAll= NucRes  %>% left_join(GenesWint_g, by="gene") %>%  replace_na(list(nInt=0)) %>% mutate(Conserved=ifelse(dAPA=="Yes", "No", "Yes"))
 
 write.table(GenesWint_g, "../data/bioGRID/GeneswInteractions.txt",col.names = T, row.names = F, quote = F)
 ```
 
 
 ```{r}
-ggplot(NucResAll,aes(x=dAPA, y=log10(nInt +1))) + geom_boxplot() + stat_compare_means()
+ggplot(NucResAll,aes(x=Conserved, y=log10(nInt +1))) + geom_boxplot() + stat_compare_means()+ labs(x="Conserved (no dAPA)", title="Number of human protein interactions by conservation")
 ```
 
-Does not look like this can explain the differences.  
+Look at genes with ortho UTR and make it a density:  
+
+```{r}
+OrthoUTR=read.table("../data/orthoUTR/HumanDistal3UTR.sort.bed", col.names = c("chr",'start','end','gene','score','strand'),stringsAsFactors = F) %>% mutate(length=end-start) %>% select(gene, length)
+
+
+NucResAllUTR=NucResAll%>% inner_join(OrthoUTR, by="gene") %>% mutate(density=nInt/length)
+
+
+ggplot(NucResAllUTR,aes(x=Conserved, y=log10(density +.01))) + geom_boxplot() + stat_compare_means() + labs(x="Conserved (no dAPA)", title="Density of human protein interactions by conservation")
+
+```
+
+Look to see if adding 0s adds bias:  
+
+```{r}
+NucReszNo0= NucResAll  %>% left_join(GenesWint_g, by="gene") %>% na.omit() %>% mutate(Conserved=ifelse(dAPA=="Yes", "No", "Yes")) 
+
+NucReszNo0UTR=NucReszNo0%>% inner_join(OrthoUTR, by="gene") %>% mutate(density=nInt.x/length)
+
+ggplot(NucReszNo0,aes(x=Conserved, y=log10(nInt.x +1))) + geom_boxplot() + stat_compare_means()+ labs(x="Conserved (no dAPA)", title="Number of human protein interactions by conservation (no 0)")
+
+ggplot(NucReszNo0UTR,aes(x=Conserved, y=log10(density +.01))) + geom_boxplot() + stat_compare_means() + labs(x="Conserved (no dAPA)", title="Density of human protein interactions by conservation")
+
+```
+Diff is 7442 vs 8422
+
+
 
 Enriched for non 0?
 
