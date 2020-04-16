@@ -70,6 +70,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at dominance by difference between dominant PAS and next highest used](NewDomDef.html)
 
+* [New Dominance and species specific PAS](specSpecDom.html)
 
 ##Differential Isoform Analysis:
 
@@ -86,6 +87,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Protein interactions](PTM_analysis.html)  
 
 * [Explore coding dPAS](CodingdPAS.html)  
+
+* [New Dominance method and usage or differential usage](UsageForDomPAS.html)
+
 
 ###Use annotations to understand mechanisms
 
@@ -123,6 +127,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Compare dominance structure and DE genes](DomPatternandDE.html)
 
 * [PolII](pol2.html)
+
+* [New Dominance method and DE](NewDomandDE.html)
 
 
 ##Selection exploration  

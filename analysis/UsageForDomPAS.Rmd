@@ -1,0 +1,206 @@
+---
+title: 'Usage Patterns for new Dominance Structure:'
+author: "Briana Mittleman"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+library(RColorBrewer)
+```
+I want to look at the specific usages for the dominant PAS using the new method: 
+Include infor about diff used:  
+
+
+```{r}
+
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PAS)
+
+
+DiffUsedPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F) %>% filter(SigPAU2=="Yes") %>% inner_join(PAS, by=c("chr","start", "end"))
+DiffUsedPASAll=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F)%>% inner_join(PAS, by=c("chr","start", "end"))
+
+```
+
+
+Dominant PAS  
+
+```{r}
+
+#9
+HumanDom9=read.table("../data/DomDefGreaterX/Human_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human9") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom9=read.table("../data/DomDefGreaterX/Chimp_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp9")    %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#8 
+HumanDom8=read.table("../data/DomDefGreaterX/Human_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human8") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom8=read.table("../data/DomDefGreaterX/Chimp_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp8") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#7 
+HumanDom7=read.table("../data/DomDefGreaterX/Human_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human7") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom7=read.table("../data/DomDefGreaterX/Chimp_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp7") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+
+#6 
+HumanDom6=read.table("../data/DomDefGreaterX/Human_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human6") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom6=read.table("../data/DomDefGreaterX/Chimp_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp6") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#5  
+HumanDom5=read.table("../data/DomDefGreaterX/Human_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human5") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom5=read.table("../data/DomDefGreaterX/Chimp_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp5") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#4 
+HumanDom4=read.table("../data/DomDefGreaterX/Human_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human4") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom4=read.table("../data/DomDefGreaterX/Chimp_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp4") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#3 
+HumanDom3=read.table("../data/DomDefGreaterX/Human_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human3") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom3=read.table("../data/DomDefGreaterX/Chimp_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp3") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#2
+HumanDom2=read.table("../data/DomDefGreaterX/Human_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human2") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom2=read.table("../data/DomDefGreaterX/Chimp_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp2") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#1
+HumanDom1=read.table("../data/DomDefGreaterX/Human_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human1") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+ChimpDom1=read.table("../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp1") %>% mutate(Diff=ifelse(PAS %in% DiffUsedPAS$PAS,"Yes","No"))
+
+#all  
+HumanDomAll= HumanDom1 %>% bind_rows(HumanDom2) %>% bind_rows(HumanDom3) %>% bind_rows(HumanDom4) %>% bind_rows(HumanDom5) %>% bind_rows(HumanDom6) %>% bind_rows(HumanDom7) %>% bind_rows(HumanDom8) %>% bind_rows(HumanDom9) 
+ChimpDomAll= ChimpDom1 %>% bind_rows(ChimpDom2) %>% bind_rows(ChimpDom3) %>% bind_rows(ChimpDom4) %>% bind_rows(ChimpDom5) %>% bind_rows(ChimpDom6) %>% bind_rows(ChimpDom7) %>% bind_rows(ChimpDom8) %>% bind_rows(ChimpDom9) 
+
+
+```
+
+
+Look at usage correlation for matching genes:  
+
+```{r}
+ChimpDom5sm=ChimpDom5 %>% select(gene, Chimp)  
+HumanDom5sm =HumanDom5%>% select(gene, Human)
+
+BothDom5=ChimpDom5sm %>% inner_join(HumanDom5sm, by="gene")
+
+cor.test(BothDom5$Chimp, BothDom5$Human)
+
+```
+
+```{r}
+brewer.pal(3, "Dark2")
+
+```
+
+```{r}
+usage9=ggplot(ChimpDom9,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.9")
+
+usage8=ggplot(ChimpDom8,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp), col="#D95F02",alpha=.1) + labs(title="Usage 0.8")
+
+usage7=ggplot(ChimpDom7,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.7")
+
+usage6=ggplot(ChimpDom6,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.6")
+
+usage5=ggplot(ChimpDom5,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.5")
+
+usage4=ggplot(ChimpDom4,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77",alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.4")
+
+usage3=ggplot(ChimpDom3,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.3")
+
+usage2=ggplot(ChimpDom2,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.2")
+
+usage1=ggplot(ChimpDom1,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.1")
+
+
+```
+```{r}
+plot_grid(usage9,usage8,usage7,usage6,usage5,usage4,usage3,usage2,usage1)
+```
+
+Color by diff used:  
+
+```{r}
+
+DiffUsed1=ggplot(ChimpDom1,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +  scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.1") + theme(legend.position = "none")
+
+DiffUsed2=ggplot(ChimpDom2,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.2") + theme(legend.position = "none")
+
+
+DiffUsed3=ggplot(ChimpDom3,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp,col=Diff), alpha=.1) + scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.3") + theme(legend.position = "none")
+
+DiffUsed4=ggplot(ChimpDom4,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.4") + theme(legend.position = "none")
+
+DiffUsed5=ggplot(ChimpDom5,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.5") + theme(legend.position = "none")
+
+DiffUsed6=ggplot(ChimpDom6,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.6") + theme(legend.position = "none")
+
+DiffUsed7=ggplot(ChimpDom7,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.7") + theme(legend.position = "none")
+
+DiffUsed8=ggplot(ChimpDom8,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.8") + theme(legend.position = "none")
+
+DiffUsed9=ggplot(ChimpDom9,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.9") + theme(legend.position = "none")
+```
+
+
+```{r}
+plot_grid(DiffUsed9,DiffUsed8,DiffUsed7,DiffUsed6,DiffUsed5,DiffUsed4,DiffUsed3,DiffUsed2,DiffUsed1)
+```
+
+
+Look at number that are differentially used:  
+
+```{r}
+ChimpDomAll %>% group_by(set, Diff) %>% summarise(nPAS=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nPAS), Prop=nPAS/nSet) %>% filter(Diff=="Yes") %>% select(set, Prop)
+
+HumanDomAll %>% group_by(set, Diff) %>% summarise(nPAS=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nPAS), Prop=nPAS/nSet) %>% filter(Diff=="Yes") %>% select(set, Prop)
+```
+
+
+Look for enrichment:  
+
+Number of Diff Used= 2342  
+
+```{r}
+
+
+ChimpSet=c('Chimp1','Chimp2', 'Chimp3', 'Chimp4', 'Chimp5', 'Chimp6', 'Chimp7', 'Chimp8','Chimp9')
+EnrichChimp=c()
+PvalueChimp=c()
+for (i in ChimpSet){
+  x=nrow(ChimpDomAll %>% filter(set==i, Diff=="Yes"))
+  m=nrow(DiffUsedPAS)
+  n=nrow(DiffUsedPASAll) - nrow(DiffUsedPAS)
+  k=nrow(ChimpDomAll %>% filter(set==i))
+  N=nrow(DiffUsedPASAll)
+  PvalueChimp=c(PvalueChimp, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichChimp=c(EnrichChimp, enrich)
+}
+
+PvalueChimp
+EnrichChimp
+```
+
+```{r}
+HumanSet=c('Human1','Human2', 'Human3', 'Human4', 'Human5', 'Human6', 'Human7', 'Human8','Human9')
+EnrichHuman=c()
+PvalueHuman=c()
+for (i in HumanSet){
+  x=nrow(HumanDomAll %>% filter(set==i, Diff=="Yes"))
+  m=nrow(DiffUsedPAS)
+  n=nrow(DiffUsedPASAll) - nrow(DiffUsedPAS)
+  k=nrow(HumanDomAll %>% filter(set==i))
+  N=nrow(DiffUsedPASAll)
+  PvalueHuman=c(PvalueHuman, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichHuman=c(EnrichHuman, enrich)
+}
+
+PvalueHuman
+EnrichHuman
+```
+

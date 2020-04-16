@@ -1,0 +1,120 @@
+---
+title: "Dominant PAS and DE"
+author: "Briana Mittleman"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+library(RColorBrewer)
+```
+
+I will ask if there if dominance and DE are related. First I can ask if genes with dominant PAS are enriched in the DE genes.  
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PAS)
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+DE_yes= DE %>% filter(DE=="Yes")
+```
+
+Domiance 
+
+```{r}
+#9
+HumanDom9=read.table("../data/DomDefGreaterX/Human_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human9") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom9=read.table("../data/DomDefGreaterX/Chimp_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp9") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#8 
+HumanDom8=read.table("../data/DomDefGreaterX/Human_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human8")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom8=read.table("../data/DomDefGreaterX/Chimp_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp8") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#7 
+HumanDom7=read.table("../data/DomDefGreaterX/Human_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human7")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom7=read.table("../data/DomDefGreaterX/Chimp_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp7")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+
+#6 
+HumanDom6=read.table("../data/DomDefGreaterX/Human_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human6") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom6=read.table("../data/DomDefGreaterX/Chimp_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp6") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#5  
+HumanDom5=read.table("../data/DomDefGreaterX/Human_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human5") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom5=read.table("../data/DomDefGreaterX/Chimp_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp5")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#4 
+HumanDom4=read.table("../data/DomDefGreaterX/Human_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human4")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom4=read.table("../data/DomDefGreaterX/Chimp_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp4")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#3 
+HumanDom3=read.table("../data/DomDefGreaterX/Human_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human3") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom3=read.table("../data/DomDefGreaterX/Chimp_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp3")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#2
+HumanDom2=read.table("../data/DomDefGreaterX/Human_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human2")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom2=read.table("../data/DomDefGreaterX/Chimp_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp2")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#1
+HumanDom1=read.table("../data/DomDefGreaterX/Human_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human1")%>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+ChimpDom1=read.table("../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp1") %>% mutate(DE=ifelse(gene %in% DE_yes$gene,"Yes","No"))
+
+#all  
+HumanDomAll= HumanDom1 %>% bind_rows(HumanDom2) %>% bind_rows(HumanDom3) %>% bind_rows(HumanDom4) %>% bind_rows(HumanDom5) %>% bind_rows(HumanDom6) %>% bind_rows(HumanDom7) %>% bind_rows(HumanDom8) %>% bind_rows(HumanDom9) 
+ChimpDomAll= ChimpDom1 %>% bind_rows(ChimpDom2) %>% bind_rows(ChimpDom3) %>% bind_rows(ChimpDom4) %>% bind_rows(ChimpDom5) %>% bind_rows(ChimpDom6) %>% bind_rows(ChimpDom7) %>% bind_rows(ChimpDom8) %>% bind_rows(ChimpDom9) 
+
+```
+
+
+
+```{r}
+
+
+ChimpSet=c('Chimp1','Chimp2', 'Chimp3', 'Chimp4', 'Chimp5', 'Chimp6', 'Chimp7', 'Chimp8','Chimp9')
+EnrichChimp=c()
+PvalueChimp=c()
+for (i in ChimpSet){
+  x=nrow(ChimpDomAll %>% filter(set==i, DE=="Yes"))
+  m=nrow(DE_yes)
+  n=nrow(DE) - nrow(DE_yes)
+  k=nrow(ChimpDomAll %>% filter(set==i))
+  N=nrow(DE)
+  PvalueChimp=c(PvalueChimp, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichChimp=c(EnrichChimp, enrich)
+}
+
+PvalueChimp
+EnrichChimp
+```
+
+
+```{r}
+HumanSet=c('Human1','Human2', 'Human3', 'Human4', 'Human5', 'Human6', 'Human7', 'Human8','Human9')
+EnrichHuman=c()
+PvalueHuman=c()
+for (i in HumanSet){
+  x=nrow(HumanDomAll %>% filter(set==i, DE=="Yes"))
+  m=nrow(DE_yes)
+  n=nrow(DE) - nrow(DE_yes)
+  k=nrow(HumanDomAll %>% filter(set==i))
+  N=nrow(DE)
+  PvalueHuman=c(PvalueHuman, phyper(x,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichHuman=c(EnrichHuman, enrich)
+}
+
+PvalueHuman
+EnrichHuman
+```
+
+
+No enrichment for these. The real question is if genes with different dominant PAS are DE. This requires chosing how to call different dominant. 

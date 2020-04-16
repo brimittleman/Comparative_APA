@@ -1,0 +1,103 @@
+---
+title: "Species specific dominant"
+author: "Briana Mittleman"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+```
+
+I want to look at the different levels of dominance and see if species specific PAS are in these:  
+
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PAS)
+
+HumanSpec= PAS %>% filter(Chimp==0)
+ChimpSpec= PAS %>% filter(Human==0)
+
+```
+
+
+Dominant PAS  
+
+```{r}
+#9
+HumanDom9=read.table("../data/DomDefGreaterX/Human_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human9")
+ChimpDom9=read.table("../data/DomDefGreaterX/Chimp_.9_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp9")   
+
+#8 
+HumanDom8=read.table("../data/DomDefGreaterX/Human_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human8")
+ChimpDom8=read.table("../data/DomDefGreaterX/Chimp_.8_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp8")
+
+#7 
+HumanDom7=read.table("../data/DomDefGreaterX/Human_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human7")
+ChimpDom7=read.table("../data/DomDefGreaterX/Chimp_.7_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp7")
+
+
+#6 
+HumanDom6=read.table("../data/DomDefGreaterX/Human_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human6")
+ChimpDom6=read.table("../data/DomDefGreaterX/Chimp_.6_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp6")
+
+#5  
+HumanDom5=read.table("../data/DomDefGreaterX/Human_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human5")
+ChimpDom5=read.table("../data/DomDefGreaterX/Chimp_.5_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp5")
+
+#4 
+HumanDom4=read.table("../data/DomDefGreaterX/Human_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human4")
+ChimpDom4=read.table("../data/DomDefGreaterX/Chimp_.4_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp4")
+
+#3 
+HumanDom3=read.table("../data/DomDefGreaterX/Human_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human3")
+ChimpDom3=read.table("../data/DomDefGreaterX/Chimp_.3_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp3")
+
+#2
+HumanDom2=read.table("../data/DomDefGreaterX/Human_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human2")
+ChimpDom2=read.table("../data/DomDefGreaterX/Chimp_.2_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp2")
+
+#1
+HumanDom1=read.table("../data/DomDefGreaterX/Human_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Human1")
+ChimpDom1=read.table("../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt", col.names = MetaCol,stringsAsFactors = F) %>% mutate(set="Chimp1")
+
+#all  
+HumanDomAll= HumanDom1 %>% bind_rows(HumanDom2) %>% bind_rows(HumanDom3) %>% bind_rows(HumanDom4) %>% bind_rows(HumanDom5) %>% bind_rows(HumanDom6) %>% bind_rows(HumanDom7) %>% bind_rows(HumanDom8) %>% bind_rows(HumanDom9) 
+ChimpDomAll= ChimpDom1 %>% bind_rows(ChimpDom2) %>% bind_rows(ChimpDom3) %>% bind_rows(ChimpDom4) %>% bind_rows(ChimpDom5) %>% bind_rows(ChimpDom6) %>% bind_rows(ChimpDom7) %>% bind_rows(ChimpDom8) %>% bind_rows(ChimpDom9) 
+
+```
+
+
+Put together:
+```{r}
+HumanDomAllSpec= HumanDomAll %>% mutate(SpecificHuman=ifelse(PAS %in% HumanSpec$PAS, "Yes", "No"))
+HumanDomAllSpecYes= HumanDomAllSpec %>% filter(SpecificHuman=="Yes")
+ChimpDomAllSpec= ChimpDomAll %>% mutate(SpecificChimp=ifelse(PAS %in% ChimpSpec$PAS, "Yes", "No"))
+ChimpDomAllSpecYes= ChimpDomAllSpec %>% filter(SpecificChimp=="Yes")
+BothAllSpec=HumanDomAllSpec %>% bind_rows(ChimpDomAllSpec)
+```
+```{r}
+HumanDomAllSpecYes %>% group_by(PAS) %>% summarise(n())
+```
+```{r}
+ChimpDomAllSpecYes %>% group_by(PAS) %>% summarise(n())
+```
+
+More of the chimp specific are in the chimp dominant set  
+
+
+```{r}
+HumanTotal=HumanDomAllSpec %>% group_by(set)%>% summarise(nPAS=n()) 
+HumanDomAllSpecYes %>% group_by(set)%>% summarise(nSpec=n()) %>% inner_join(HumanTotal, by="set") %>% mutate(PropSpec=nSpec/nPAS)
+```
+```{r}
+ChimpTotal=ChimpDomAllSpec %>% group_by(set)%>% summarise(nPAS=n()) 
+ChimpDomAllSpecYes %>% group_by(set)%>% summarise(nSpec=n()) %>% inner_join(ChimpTotal, by="set") %>% mutate(PropSpec=nSpec/nPAS)
+```
