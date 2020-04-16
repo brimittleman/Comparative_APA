@@ -79,6 +79,17 @@ genloc9=ggplot(BothDom9, aes(x=loc, fill=set)) + geom_bar(stat="count", position
 genloc9
 ```
 
+```{r}
+
+
+
+BothDom9_prop= BothDom9 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc9=ggplot(BothDom9_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.9",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+
 There are way more in chimp at this cutoff. 
 
 Look at how many genes have the same and different dominant at .9 difference:  
@@ -121,6 +132,10 @@ diffgenes9=ggplot(BothDom9_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", p
 diffgenes9
 ```
 
+```{r}
+BothDom9_smLab_prop=BothDom9_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff9=ggplot(BothDom9_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.9: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
 
 
 
@@ -192,6 +207,19 @@ diffgenes8=ggplot(BothDom8_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", p
 diffgenes8
 ```
 
+```{r}
+
+BothDom8_prop= BothDom8 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc8=ggplot(BothDom8_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.8",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+```{r}
+BothDom8_smLab_prop=BothDom8_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff8=ggplot(BothDom8_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.8: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
 ###70% difference  
 
 
@@ -251,6 +279,20 @@ ChimpDom7_smLab=  ChimpDom7 %>% anti_join(HumanDom7,by = "gene") %>% mutate(Set=
 BothDom7_smLab=HumanDom7_smLab %>% bind_rows(ChimpDom7_smLab)
 diffgenes7=ggplot(BothDom7_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="Location of dominant PAS in genes \nnot matched between species: 0.7", y="genes")+  labs(title="Non Matched: 0.7", y="genes",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 diffgenes7
+```
+
+```{r}
+
+BothDom7_prop= BothDom7 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc7=ggplot(BothDom7_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.7",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+
+```{r}
+BothDom7_smLab_prop=BothDom7_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff7=ggplot(BothDom7_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.7: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 ```
 ###60% difference  
 
@@ -312,6 +354,19 @@ diffgenes6=ggplot(BothDom6_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", p
 diffgenes6
 ```
 
+```{r}
+
+BothDom6_prop= BothDom6 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc6=ggplot(BothDom6_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.6",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+
+```{r}
+BothDom6_smLab_prop=BothDom6_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff6=ggplot(BothDom6_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.6: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
 ###50% difference  
 
 
@@ -374,6 +429,19 @@ diffgenes5=ggplot(BothDom5_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", p
 diffgenes5
 ```
 
+
+```{r}
+
+BothDom5_prop= BothDom5 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc5=ggplot(BothDom5_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.5",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+```{r}
+BothDom5_smLab_prop=BothDom5_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff5=ggplot(BothDom5_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.5: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
 ###40% difference  
 
 
@@ -436,6 +504,19 @@ ChimpDom4_smLab=  ChimpDom4 %>% anti_join(HumanDom4,by = "gene") %>% mutate(Set=
 BothDom4_smLab=HumanDom4_smLab %>% bind_rows(ChimpDom4_smLab)
 diffgenes4=ggplot(BothDom4_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") +  labs(title="Non Matched: 0.4", y="genes",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 diffgenes4
+```
+
+```{r}
+
+BothDom4_prop= BothDom4 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc4=ggplot(BothDom4_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.4",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+```{r}
+BothDom4_smLab_prop=BothDom4_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff4=ggplot(BothDom4_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.4: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 ```
 ###30% difference  
 
@@ -501,6 +582,26 @@ diffgenes3=ggplot(BothDom3_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", p
 diffgenes3
 ```
 
+
+```{r}
+
+BothDom3_prop= BothDom3 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc3=ggplot(BothDom3_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.3",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+```{r}
+
+BothDom3_prop= BothDom3 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc3=ggplot(BothDom3_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.3",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+```{r}
+BothDom3_smLab_prop=BothDom3_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff3=ggplot(BothDom3_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.3: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
 ###20% difference  
 
 
@@ -560,6 +661,20 @@ ChimpDom2_smLab=  ChimpDom2 %>% anti_join(HumanDom2,by = "gene") %>% mutate(Set=
 BothDom2_smLab=HumanDom2_smLab %>% bind_rows(ChimpDom2_smLab)
 diffgenes2=ggplot(BothDom2_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") +  labs(title="Non Matched: 0.2", y="genes",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 diffgenes2
+```
+
+
+```{r}
+
+BothDom2_prop= BothDom2 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc2=ggplot(BothDom2_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.2",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+```{r}
+BothDom2_smLab_prop=BothDom2_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff2=ggplot(BothDom2_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.2: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 ```
 ###10% difference  
 
@@ -625,6 +740,21 @@ BothDom1_smLab=HumanDom1_smLab %>% bind_rows(ChimpDom1_smLab)
 diffgenes1=ggplot(BothDom1_smLab,aes(x=loc, fill=Set))+ geom_bar(stat="count", position = "dodge") + scale_fill_brewer(palette = "Dark2") +  labs(title="Non Matched: 0.1", y="genes",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
 diffgenes1
 ```
+
+
+```{r}
+
+BothDom1_prop= BothDom1 %>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+
+proploc1=ggplot(BothDom1_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.1",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
+
+
+
+```{r}
+BothDom1_smLab_prop=BothDom1_smLab%>% group_by(set, loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(set) %>% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
+propDiff1=ggplot(BothDom1_smLab_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat="identity",position = "dodge") + scale_fill_brewer(palette = "Dark2") + labs(title="0.1: Different Genes",y="Proportion",x="")+theme(axis.text.x = element_text(angle = 90),legend.position = "none")
+```
 ##Aggregate results:  
 
 Next step will be to aggregate these plots in a way that is both easier to visualize but also easier to draw conclusions from.  
@@ -660,7 +790,34 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )
 ```
+
 This shows this pattern is robust to the cutoff.  
+
+
+Proportion: 
+
+```{r}
+
+
+proploctiles <- ggdraw() + 
+  draw_label(
+    "Location of Dominant PAS by proportion",
+    fontface = 'bold',
+    x = 0,
+    hjust = 0
+  )
+proploc=plot_grid(proploc9,proploc8,proploc7,proploc6,proploc5,proploc4,proploc3,proploc2,proploc1)
+
+plot_grid(
+  proploctiles, proploc,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)
+```
+
+
+
 
 Plot the joint genes.  
 
@@ -706,6 +863,28 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )
 ```
+
+
+```{r}
+#propDiff1
+diffgenesProptiles <- ggdraw() + 
+  draw_label(
+    "Location of Dominant PAS in genes with a dominant PAS only in 1 species- Proportion",
+    fontface = 'bold',
+    x = 0,
+    hjust = 0
+  )
+diffPropgenes=plot_grid(propDiff1,propDiff2,propDiff3,propDiff4,propDiff5,propDiff6,propDiff7,propDiff8,propDiff9)
+
+plot_grid(
+  diffgenesProptiles, diffPropgenes,
+  ncol = 1,
+  # rel_heights values control vertical title margins
+  rel_heights = c(0.1, 1)
+)
+```
+
+
 This is robust as well.  
 
 
@@ -730,4 +909,5 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )
 ```
+
 

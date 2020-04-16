@@ -97,23 +97,23 @@ brewer.pal(3, "Dark2")
 ```
 
 ```{r}
-usage9=ggplot(ChimpDom9,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.9")
+usage9=ggplot(ChimpDom9,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.9") + geom_abline(slope=1, intercept = 0)
 
-usage8=ggplot(ChimpDom8,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp), col="#D95F02",alpha=.1) + labs(title="Usage 0.8")
+usage8=ggplot(ChimpDom8,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp), col="#D95F02",alpha=.1) + labs(title="Usage 0.8") + geom_abline(slope=1, intercept = 0)
 
-usage7=ggplot(ChimpDom7,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.7")
+usage7=ggplot(ChimpDom7,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.7") + geom_abline(slope=1, intercept = 0)
 
-usage6=ggplot(ChimpDom6,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.6")
+usage6=ggplot(ChimpDom6,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.6") + geom_abline(slope=1, intercept = 0)
 
-usage5=ggplot(ChimpDom5,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.5")
+usage5=ggplot(ChimpDom5,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.5") + geom_abline(slope=1, intercept = 0)
 
-usage4=ggplot(ChimpDom4,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77",alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.4")
+usage4=ggplot(ChimpDom4,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77",alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.4") + geom_abline(slope=1, intercept = 0)
 
-usage3=ggplot(ChimpDom3,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.3")
+usage3=ggplot(ChimpDom3,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.3") + geom_abline(slope=1, intercept = 0)
 
-usage2=ggplot(ChimpDom2,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.2")
+usage2=ggplot(ChimpDom2,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.2") + geom_abline(slope=1, intercept = 0)
 
-usage1=ggplot(ChimpDom1,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.1")
+usage1=ggplot(ChimpDom1,aes(x=Human,y=Chimp)) + geom_point(col="#1B9E77", alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp), col="#D95F02", alpha=.1) + labs(title="Usage 0.1") + geom_abline(slope=1, intercept = 0)
 
 
 ```
@@ -125,24 +125,24 @@ Color by diff used:
 
 ```{r}
 
-DiffUsed1=ggplot(ChimpDom1,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +  scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.1") + theme(legend.position = "none")
+DiffUsed1=ggplot(ChimpDom1,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom1, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +  scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.1") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed2=ggplot(ChimpDom2,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.2") + theme(legend.position = "none")
+DiffUsed2=ggplot(ChimpDom2,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom2, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.2") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
 
-DiffUsed3=ggplot(ChimpDom3,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp,col=Diff), alpha=.1) + scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.3") + theme(legend.position = "none")
+DiffUsed3=ggplot(ChimpDom3,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom3, aes(x=Human,y=Chimp,col=Diff), alpha=.1) + scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.3") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed4=ggplot(ChimpDom4,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.4") + theme(legend.position = "none")
+DiffUsed4=ggplot(ChimpDom4,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom4, aes(x=Human,y=Chimp,col=Diff), alpha=.1) +scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.4") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed5=ggplot(ChimpDom5,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.5") + theme(legend.position = "none")
+DiffUsed5=ggplot(ChimpDom5,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom5, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.5") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed6=ggplot(ChimpDom6,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.6") + theme(legend.position = "none")
+DiffUsed6=ggplot(ChimpDom6,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom6, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.6") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed7=ggplot(ChimpDom7,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.7") + theme(legend.position = "none")
+DiffUsed7=ggplot(ChimpDom7,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom7, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.7") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed8=ggplot(ChimpDom8,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.8") + theme(legend.position = "none")
+DiffUsed8=ggplot(ChimpDom8,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom8, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.8") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 
-DiffUsed9=ggplot(ChimpDom9,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.9") + theme(legend.position = "none")
+DiffUsed9=ggplot(ChimpDom9,aes(x=Human,y=Chimp, col=Diff)) + geom_point(alpha=.1)+ geom_point(data=HumanDom9, aes(x=Human,y=Chimp,col=Diff), alpha=.1)+ scale_color_brewer(palette = "Set2") + labs(title="Differentially used 0.9") + theme(legend.position = "none") + geom_abline(slope=1, intercept = 0)
 ```
 
 
