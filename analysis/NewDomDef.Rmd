@@ -28,6 +28,9 @@ grep ZSWIM7 ../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_
 
 python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Human 
 python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Chimp 
+
+sbatch runNewDom.sh
+
 ```
 
 Looks like this code works for both species. Not the most efficient but fine.  
