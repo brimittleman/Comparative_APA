@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-16
+<strong>Last updated:</strong> 2020-04-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4cc2f72c34e77dc7f7fa570dadae3f22596df29atargetblank4cc2f72a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/4cc2f72c34e77dc7f7fa570dadae3f22596df29a" target="_blank">4cc2f72</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeafa26944acbb4b377b04937740f56f646a0a695atargetblankafa2694a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/afa26944acbb4b377b04937740f56f646a0a695a" target="_blank">afa2694</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4cc2f72c34e77dc7f7fa570dadae3f22596df29atargetblank4cc2f72a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeafa26944acbb4b377b04937740f56f646a0a695atargetblankafa2694a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -462,6 +462,7 @@ Untracked files:
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
+    Untracked:  analysis/DiffTop2SecondDom.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
     Untracked:  analysis/GvizPlots.Rmd
@@ -709,6 +710,7 @@ Untracked files:
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/GetTopminus2Usage.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
     Untracked:  code/IntersectMMandOrtho.err
@@ -1292,6 +1294,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/afa26944acbb4b377b04937740f56f646a0a695a/analysis/NewDomDef.Rmd" target="_blank">afa2694</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+<td>
+deal with ties
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/NewDomDef.html" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/4cc2f72c34e77dc7f7fa570dadae3f22596df29a/analysis/NewDomDef.Rmd" target="_blank">4cc2f72</a>
 </td>
 <td>
@@ -1409,7 +1445,10 @@ head -n 1 ../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_do
 grep ZSWIM7 ../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt &gt;&gt; ../data/DomDefGreaterX/TestFile_ZSWIM7.txt
 
 python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Human 
-python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Chimp </code></pre>
+python FindDomXCutoff.py ../data/DomDefGreaterX/TestFile_ZSWIM7.txt ../data/DomDefGreaterX/TestDom_ZSWIM7.txt .3 Chimp 
+
+sbatch runNewDom.sh
+</code></pre>
 <p>Looks like this code works for both species. Not the most efficient but fine.</p>
 <p>First I need the set of genes with 1 pas. These will not be included in the analysis. I added to the code to not include PAS that have 0 usage in that species.</p>
 <pre class="r"><code>MetaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)
@@ -1581,6 +1620,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-9-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/38c6dc941bb83e3a5bca26dd0cb022935d642f96/docs/figure/NewDomDef.Rmd/unnamed-chunk-9-1.png" target="_blank">38c6dc9</a>
 </td>
 <td>
@@ -1627,6 +1677,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-10-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-10-1.png" target="_blank">71e0ab3</a>
@@ -1684,6 +1745,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-11-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-11-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -1734,6 +1806,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-13-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-13-1.png" target="_blank">71e0ab3</a>
@@ -1789,6 +1872,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-15-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-15-1.png" target="_blank">71e0ab3</a>
@@ -1850,6 +1944,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-17-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-17-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -1895,6 +2000,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-19-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-19-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -1914,6 +2030,43 @@ BothDom8_smLab=HumanDom8_smLab %&gt;% bind_rows(ChimpDom8_smLab)
 diffgenes8=ggplot(BothDom8_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.8&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffgenes8</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-20-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothDom8_prop= BothDom8 %&gt;% group_by(set, loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(set) %&gt;% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
 
 proploc8=ggplot(BothDom8_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.8&quot;,y=&quot;Proportion&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)</code></pre>
@@ -1954,6 +2107,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-23-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-23-1.png" target="_blank">71e0ab3</a>
@@ -2010,6 +2174,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-25-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-25-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2055,6 +2230,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-27-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-27-1.png" target="_blank">71e0ab3</a>
@@ -2115,6 +2301,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-29-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-29-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2156,6 +2353,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-30-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-30-1.png" target="_blank">71e0ab3</a>
@@ -2224,6 +2432,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-33-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-33-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2289,6 +2508,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-35-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-35-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2334,6 +2564,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-37-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-37-1.png" target="_blank">71e0ab3</a>
@@ -2382,6 +2623,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-39-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-39-1.png" target="_blank">71e0ab3</a>
@@ -2436,6 +2688,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-40-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-40-1.png" target="_blank">71e0ab3</a>
@@ -2504,6 +2767,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-43-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-43-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2556,6 +2830,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-45-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-45-1.png" target="_blank">71e0ab3</a>
@@ -2616,6 +2901,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-47-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-47-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2672,6 +2968,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-49-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-49-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2713,6 +3020,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-50-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-50-1.png" target="_blank">71e0ab3</a>
@@ -2781,6 +3099,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-53-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-53-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2835,6 +3164,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-55-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-55-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2880,6 +3220,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-57-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-57-1.png" target="_blank">71e0ab3</a>
@@ -2935,6 +3286,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-58-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-58-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2974,6 +3336,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-59-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-59-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -2993,6 +3366,43 @@ BothDom4_smLab=HumanDom4_smLab %&gt;% bind_rows(ChimpDom4_smLab)
 diffgenes4=ggplot(BothDom4_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.4&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffgenes4</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-60-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-60-1">
+Past versions of unnamed-chunk-60-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-60-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-60-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothDom4_prop= BothDom4 %&gt;% group_by(set, loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(set) %&gt;% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
 
 proploc4=ggplot(BothDom4_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.4&quot;,y=&quot;Proportion&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)</code></pre>
@@ -3033,6 +3443,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-63-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-63-1.png" target="_blank">71e0ab3</a>
@@ -3089,6 +3510,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-65-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-65-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3136,6 +3568,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-67-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-67-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3153,6 +3596,43 @@ brimittleman
 diffDom3=ggplot(both3sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.3&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffDom3</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-68-1">
+Past versions of unnamed-chunk-68-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-68-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-68-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothDom3, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .3 difference&quot;,y=&quot;genes&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3179,6 +3659,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-69-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-69-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3198,6 +3689,43 @@ BothDom3_smLab=HumanDom3_smLab %&gt;% bind_rows(ChimpDom3_smLab)
 diffgenes3=ggplot(BothDom3_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +   labs(title=&quot;Non Matched: 0.3&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffgenes3</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-70-1">
+Past versions of unnamed-chunk-70-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-70-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-70-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothDom3_prop= BothDom3 %&gt;% group_by(set, loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(set) %&gt;% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
 
 proploc3=ggplot(BothDom3_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.3&quot;,y=&quot;Proportion&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)</code></pre>
@@ -3241,6 +3769,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-74-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-74-1.png" target="_blank">71e0ab3</a>
@@ -3297,6 +3836,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-76-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-76-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3344,6 +3894,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-78-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-78-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3385,6 +3946,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-79-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/71e0ab3c1bada0d03d3da48722ecb00795179d33/docs/figure/NewDomDef.Rmd/unnamed-chunk-79-1.png" target="_blank">71e0ab3</a>
 </td>
 <td>
@@ -3400,12 +3972,86 @@ brimittleman
 </div>
 <pre class="r"><code>ggplot(BothDom2, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .2 difference&quot;,y=&quot;genes&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-80-1">
+Past versions of unnamed-chunk-80-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-80-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-80-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanDom2_smLab= HumanDom2 %&gt;% anti_join(ChimpDom2,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
 ChimpDom2_smLab=  ChimpDom2 %&gt;% anti_join(HumanDom2,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
 BothDom2_smLab=HumanDom2_smLab %&gt;% bind_rows(ChimpDom2_smLab)
 diffgenes2=ggplot(BothDom2_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.2&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffgenes2</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-81-1">
+Past versions of unnamed-chunk-81-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-81-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-81-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothDom2_prop= BothDom2 %&gt;% group_by(set, loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(set) %&gt;% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
 
 proploc2=ggplot(BothDom2_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.2&quot;,y=&quot;Proportion&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)</code></pre>
@@ -3425,6 +4071,43 @@ genloc1=ggplot(BothDom1, aes(x=loc, fill=set)) + geom_bar(stat=&quot;count&quot;
 
 genloc1</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-84-1">
+Past versions of unnamed-chunk-84-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-84-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-84-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanDom1_sm=HumanDom1 %&gt;% select(PAS, gene, loc) %&gt;% rename(HumanPAS=PAS, HumanLoc=loc)
 ChimpDom1_sm=ChimpDom1 %&gt;% select(PAS, gene, loc)%&gt;% rename(ChimpPAS=PAS, ChimpLoc=loc)
 
@@ -3442,6 +4125,43 @@ venn.plot1 &lt;- draw.pairwise.venn(area1 = length(HumanDom1_sm$gene),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-86-1">
+Past versions of unnamed-chunk-86-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-86-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-86-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>both1sm_same= both1sm %&gt;% filter(ChimpPAS==HumanPAS)
 nrow(both1sm_same)</code></pre>
 <pre><code>[1] 3542</code></pre>
@@ -3452,18 +4172,166 @@ nrow(both1sm_diff)</code></pre>
 <pre class="r"><code>same1=ggplot(both1sm_same,aes(x=ChimpLoc,fill=ChimpLoc)) +geom_bar(stat = &quot;count&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(title=&quot;Matched Gene Matched PAS .1&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 same1</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-88-1">
+Past versions of unnamed-chunk-88-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-88-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-88-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>both1sm_diff_g= both1sm_diff %&gt;% select(gene, HumanLoc, ChimpLoc) %&gt;% gather(&#39;Species&#39;, &#39;Loc&#39;, -gene)
 diffDom1=ggplot(both1sm_diff_g, aes(x=Loc, fill=Species))+ geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;) +scale_fill_brewer(palette = &quot;Dark2&quot;)+ labs(y=&#39;PAS&#39;, title=&quot;Location for Different Dominant PAS at 10% difference&quot;) +labs(y=&#39;Genes&#39;, title=&quot;Different Dominant PAS: 0.1&quot;,x=&quot;&quot;) +theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffDom1</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-89-1">
+Past versions of unnamed-chunk-89-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-89-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-89-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothDom1, aes(x=nPAS, fill=set)) + geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of PAS per gene with .1 difference&quot;,y=&quot;genes&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-90-1">
+Past versions of unnamed-chunk-90-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-90-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-90-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanDom1_smLab= HumanDom1 %&gt;% anti_join(ChimpDom1,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Human&quot;)
 ChimpDom1_smLab=  ChimpDom1 %&gt;% anti_join(HumanDom1,by = &quot;gene&quot;) %&gt;% mutate(Set=&quot;Chimp&quot;)
 BothDom1_smLab=HumanDom1_smLab %&gt;% bind_rows(ChimpDom1_smLab)
 diffgenes1=ggplot(BothDom1_smLab,aes(x=loc, fill=Set))+ geom_bar(stat=&quot;count&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) +  labs(title=&quot;Non Matched: 0.1&quot;, y=&quot;genes&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)
 diffgenes1</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-91-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-91-1">
+Past versions of unnamed-chunk-91-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-91-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-91-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothDom1_prop= BothDom1 %&gt;% group_by(set, loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(set) %&gt;% mutate(nSet=sum(nLoc), prop=nLoc/nSet)
 
 proploc1=ggplot(BothDom1_prop, aes(x=loc,by=set, fill=set,y=prop)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;0.1&quot;,y=&quot;Proportion&quot;,x=&quot;&quot;)+theme(axis.text.x = element_text(angle = 90),legend.position = &quot;none&quot;)</code></pre>
@@ -3483,6 +4351,43 @@ DomNumsDF=as.data.frame(cbind(Cutoffs, Human, Chimp)) %&gt;% gather(&quot;Specie
 DomNumsDF$Cutoffs= as.factor(DomNumsDF$Cutoffs)
 ggplot(DomNumsDF, aes(x=Cutoffs, fill=Species, y=DominantGenes)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Number of Genes with a Dominant PAS&quot;,x=&quot;Difference in usage to be called dominant&quot;)</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-94-1">
+Past versions of unnamed-chunk-94-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-94-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-94-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>General location:</p>
 <pre class="r"><code>genloctiles &lt;- ggdraw() + 
   draw_label(
@@ -3500,6 +4405,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-95-1">
+Past versions of unnamed-chunk-95-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-95-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-95-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This shows this pattern is robust to the cutoff.</p>
 <p>Proportion:</p>
 <pre class="r"><code>proploctiles &lt;- ggdraw() + 
@@ -3518,6 +4460,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-96-1">
+Past versions of unnamed-chunk-96-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-96-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-96-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Plot the joint genes.</p>
 <pre class="r"><code>diffdomtiles &lt;- ggdraw() + 
   draw_label(
@@ -3535,6 +4514,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-97-1">
+Past versions of unnamed-chunk-97-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-97-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-97-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This is also robust to cutoff.</p>
 <p>Location when they do not share the same gene.</p>
 <p>diffgenes9</p>
@@ -3554,6 +4570,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-98-1">
+Past versions of unnamed-chunk-98-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-98-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-98-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#propDiff1
 diffgenesProptiles &lt;- ggdraw() + 
   draw_label(
@@ -3571,6 +4624,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-99-1">
+Past versions of unnamed-chunk-99-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-99-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-99-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This is robust as well.</p>
 <p>Look at the overlapping genes with the same PAS</p>
 <pre class="r"><code>#same1
@@ -3591,6 +4681,43 @@ plot_grid(
   rel_heights = c(0.1, 1)
 )</code></pre>
 <p><img src="figure/NewDomDef.Rmd/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-100-1">
+Past versions of unnamed-chunk-100-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-100-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/385fe043d0ea5b80b443ca28c1b21bd742a47c33/docs/figure/NewDomDef.Rmd/unnamed-chunk-100-1.png" target="_blank">385fe04</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
