@@ -72,6 +72,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New Dominance and species specific PAS](specSpecDom.html)
 
+* [Dominance structure looking at the difference for all PAS and establish cutoff at .4](DiffTop2SecondDom.html)
+
 ##Differential Isoform Analysis:
 
 * [Nuclear Human vs. Chimp Analysis Double filter](Nuclear_HvC_DF.html)  
