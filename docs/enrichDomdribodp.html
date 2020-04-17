@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Dominant PAS and DE</title>
+<title>Dominant PAS, dribo, dprot</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Dominant PAS and DE</h1>
+<h1 class="title toc-ignore">Dominant PAS, dribo, dprot</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/16/2020</em></h4>
+<h4 class="date"><em>4/17/2020</em></h4>
 
 </div>
 
@@ -1295,7 +1295,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/9f8e75fc4bd144eb4cb016469f6a58b675fb4e26/analysis/NewDomandDE.Rmd" target="_blank">9f8e75f</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9f8e75fc4bd144eb4cb016469f6a58b675fb4e26/analysis/enrichDomdribodp.Rmd" target="_blank">9f8e75f</a>
 </td>
 <td>
 brimittleman
@@ -1305,57 +1305,6 @@ brimittleman
 </td>
 <td>
 add enrich
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7c1a91eedcb1fb7005c94e97d78f68ac3ecb494a/docs/NewDomandDE.html" target="_blank">7c1a91e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/218a3d40d59418b055c05563e54f9ed0ccf5057b/docs/NewDomandDE.html" target="_blank">218a3d4</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-16
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2461fb7bf628afc5e809ef902569507efeb154c2/analysis/NewDomandDE.Rmd" target="_blank">2461fb7</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-16
-</td>
-<td>
-new dom integration
 </td>
 </tr>
 </tbody>
@@ -1377,225 +1326,63 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(cowplot)</code></pre>
-<pre><code>
-Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
-
-    ggsave</code></pre>
-<pre class="r"><code>library(RColorBrewer)</code></pre>
-<p>I will ask if there if dominance and DE are related. First I can ask if genes with dominant PAS are enriched in the DE genes.</p>
-<pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)
-MetaCol=colnames(PAS)
-
-nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
-DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,DE)
-DE_yes= DE %&gt;% filter(DE==&quot;Yes&quot;)</code></pre>
-<p>Domiance</p>
-<pre class="r"><code>#9
-HumanDom9=read.table(&quot;../data/DomDefGreaterX/Human_.9_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human9&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom9=read.table(&quot;../data/DomDefGreaterX/Chimp_.9_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp9&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#8 
-HumanDom8=read.table(&quot;../data/DomDefGreaterX/Human_.8_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human8&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom8=read.table(&quot;../data/DomDefGreaterX/Chimp_.8_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp8&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#7 
-HumanDom7=read.table(&quot;../data/DomDefGreaterX/Human_.7_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human7&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom7=read.table(&quot;../data/DomDefGreaterX/Chimp_.7_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp7&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-
-#6 
-HumanDom6=read.table(&quot;../data/DomDefGreaterX/Human_.6_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human6&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom6=read.table(&quot;../data/DomDefGreaterX/Chimp_.6_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp6&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#5  
-HumanDom5=read.table(&quot;../data/DomDefGreaterX/Human_.5_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human5&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom5=read.table(&quot;../data/DomDefGreaterX/Chimp_.5_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp5&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#4 
-HumanDom4=read.table(&quot;../data/DomDefGreaterX/Human_.4_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human4&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom4=read.table(&quot;../data/DomDefGreaterX/Chimp_.4_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp4&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#3 
-HumanDom3=read.table(&quot;../data/DomDefGreaterX/Human_.3_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human3&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom3=read.table(&quot;../data/DomDefGreaterX/Chimp_.3_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp3&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#2
-HumanDom2=read.table(&quot;../data/DomDefGreaterX/Human_.2_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human2&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom2=read.table(&quot;../data/DomDefGreaterX/Chimp_.2_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp2&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#1
-HumanDom1=read.table(&quot;../data/DomDefGreaterX/Human_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Human1&quot;)%&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-ChimpDom1=read.table(&quot;../data/DomDefGreaterX/Chimp_.1_dominantPAS.txt&quot;, col.names = MetaCol,stringsAsFactors = F) %&gt;% mutate(set=&quot;Chimp1&quot;) %&gt;% mutate(DE=ifelse(gene %in% DE_yes$gene,&quot;Yes&quot;,&quot;No&quot;))
-
-#all  
-HumanDomAll= HumanDom1 %&gt;% bind_rows(HumanDom2) %&gt;% bind_rows(HumanDom3) %&gt;% bind_rows(HumanDom4) %&gt;% bind_rows(HumanDom5) %&gt;% bind_rows(HumanDom6) %&gt;% bind_rows(HumanDom7) %&gt;% bind_rows(HumanDom8) %&gt;% bind_rows(HumanDom9) 
-ChimpDomAll= ChimpDom1 %&gt;% bind_rows(ChimpDom2) %&gt;% bind_rows(ChimpDom3) %&gt;% bind_rows(ChimpDom4) %&gt;% bind_rows(ChimpDom5) %&gt;% bind_rows(ChimpDom6) %&gt;% bind_rows(ChimpDom7) %&gt;% bind_rows(ChimpDom8) %&gt;% bind_rows(ChimpDom9) </code></pre>
-<pre class="r"><code>ChimpSet=c(&#39;Chimp1&#39;,&#39;Chimp2&#39;, &#39;Chimp3&#39;, &#39;Chimp4&#39;, &#39;Chimp5&#39;, &#39;Chimp6&#39;, &#39;Chimp7&#39;, &#39;Chimp8&#39;,&#39;Chimp9&#39;)
-EnrichChimp=c()
-PvalueChimp=c()
-for (i in ChimpSet){
-  x=nrow(ChimpDomAll %&gt;% filter(set==i, DE==&quot;Yes&quot;))
-  m=nrow(DE_yes)
-  n=nrow(DE) - nrow(DE_yes)
-  k=nrow(ChimpDomAll %&gt;% filter(set==i))
-  N=nrow(DE)
-  PvalueChimp=c(PvalueChimp, phyper(x,m,n,k,lower.tail=F))
-  enrich=(x/k)/(m/N)
-  EnrichChimp=c(EnrichChimp, enrich)
-}
-
-PvalueChimp</code></pre>
-<pre><code>[1] 1.0000000 1.0000000 1.0000000 0.9999842 0.9999501 0.9971507 0.9994521
-[8] 0.9839957 0.5079290</code></pre>
-<pre class="r"><code>EnrichChimp</code></pre>
-<pre><code>[1] 0.8849697 0.8877147 0.8880516 0.9057939 0.8959653 0.9108136 0.8719019
-[8] 0.8855119 0.9896978</code></pre>
-<pre class="r"><code>HumanSet=c(&#39;Human1&#39;,&#39;Human2&#39;, &#39;Human3&#39;, &#39;Human4&#39;, &#39;Human5&#39;, &#39;Human6&#39;, &#39;Human7&#39;, &#39;Human8&#39;,&#39;Human9&#39;)
-EnrichHuman=c()
-PvalueHuman=c()
-for (i in HumanSet){
-  x=nrow(HumanDomAll %&gt;% filter(set==i, DE==&quot;Yes&quot;))
-  m=nrow(DE_yes)
-  n=nrow(DE) - nrow(DE_yes)
-  k=nrow(HumanDomAll %&gt;% filter(set==i))
-  N=nrow(DE)
-  PvalueHuman=c(PvalueHuman, phyper(x,m,n,k,lower.tail=F))
-  enrich=(x/k)/(m/N)
-  EnrichHuman=c(EnrichHuman, enrich)
-}
-
-PvalueHuman</code></pre>
-<pre><code>[1] 1.0000000 1.0000000 0.9999997 0.9999064 0.9992779 0.9991470 0.9853263
-[8] 0.6526253 0.6747532</code></pre>
-<pre class="r"><code>EnrichHuman</code></pre>
-<pre><code>[1] 0.8885286 0.8749491 0.8850791 0.8975969 0.8974753 0.8785672 0.8903590
-[8] 0.9674743 0.9054783</code></pre>
-<p>No enrichment for these. The real question is if genes with different dominant PAS are DE. This requires chosing how to call different dominant.</p>
-<div id="same-vs-different-dominant" class="section level2">
-<h2>Same vs different dominant:</h2>
-<p>Are genes with different dominant at the cutoff .4 cutoff enriched for DE:</p>
 <pre class="r"><code>FourRes=read.table(&quot;../data/DomStructure_4/InclusiveDominantPASat4.txt&quot;, header = T,stringsAsFactors = F)
 FourRes_diff= FourRes %&gt;% filter(Set==&quot;Different&quot;)
 FourRes_same= FourRes %&gt;% filter(Set==&quot;Same&quot;)</code></pre>
-<pre class="r"><code>x=length(intersect(FourRes_diff$gene,DE_yes$gene))
-m=nrow(DE_yes)
-n=nrow(DE) - nrow(DE_yes)
+<pre class="r"><code>#prot
+ProteinSig=read.table(&quot;../data/Khan_prot/HC_SigProtein.txt&quot;, header = T, stringsAsFactors = F)%&gt;% dplyr::rename(&quot;gene&quot;=gene.symbol)
+ProteinAll=read.table(&quot;../data/Khan_prot/HC_AlltestedProtein.txt&quot;, header = T, stringsAsFactors = F)
+nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
+
+#ribo
+Ribo=read.table(&quot;../data/Wang_ribo/HC_SigTranslation.txt&quot;,header = T, stringsAsFactors = F) 
+
+RiboAll=read.table(&quot;../data/Wang_ribo/HC_AllTestedTranslation.txt&quot;,header = T, stringsAsFactors = F) </code></pre>
+<pre class="r"><code>x=length(intersect(FourRes_diff$gene,ProteinSig$gene))
+m=nrow(ProteinSig)
+n=nrow(ProteinAll) - nrow(ProteinSig)
 k=nrow(FourRes %&gt;% filter(Set==&quot;Different&quot;))
-N=nrow(DE)
+N=nrow(ProteinAll)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.09585894</code></pre>
+<pre><code>[1] 1</code></pre>
 <pre class="r"><code>(x/k)/(m/N)</code></pre>
-<pre><code>[1] 1.117149</code></pre>
-<pre class="r"><code>x=length(intersect(FourRes_same$gene,DE_yes$gene))
-m=nrow(DE_yes)
-n=nrow(DE) - nrow(DE_yes)
-k=nrow(FourRes %&gt;% filter(Set==&quot;Same&quot;))
-N=nrow(DE)
+<pre><code>[1] 0.2656694</code></pre>
+<pre class="r"><code>x=length(intersect(FourRes_diff$gene,Ribo$gene))
+m=nrow(Ribo)
+n=nrow(RiboAll) - nrow(Ribo)
+k=nrow(FourRes %&gt;% filter(Set==&quot;Different&quot;))
+N=nrow(RiboAll)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.9999999</code></pre>
+<pre><code>[1] 1</code></pre>
 <pre class="r"><code>(x/k)/(m/N)</code></pre>
-<pre><code>[1] 0.883703</code></pre>
-<p>This is conditioned on the gene having a dominant PAS.</p>
-<p>do this based on a set tested both</p>
-<pre class="r"><code>All4= FourRes %&gt;% select(gene,Set) %&gt;% inner_join(DE, by=&quot;gene&quot;)
+<pre><code>[1] 0</code></pre>
+<p>Neither of these are singificant.</p>
+<p>Condition on tested in both:</p>
+<pre class="r"><code>Prot= ProteinAll %&gt;% select(gene.symbol) %&gt;% rename(gene=gene.symbol) %&gt;% mutate(DP=ifelse(gene %in% ProteinSig$gene,&quot;Yes&quot;,&quot;No&quot;))
+ProtDom= FourRes %&gt;% select(gene,Set) %&gt;% inner_join(Prot, by=&quot;gene&quot;)
 
-x=nrow(All4 %&gt;% filter(Set==&quot;Different&quot;, DE==&quot;Yes&quot;))
-m=nrow(All4 %&gt;% filter( DE==&quot;Yes&quot;))
-n=nrow(All4 %&gt;% filter( DE==&quot;No&quot;))
-k=nrow(All4 %&gt;% filter(Set==&quot;Different&quot;))
-N=nrow(All4)
+x=nrow(ProtDom %&gt;% filter(Set==&quot;Different&quot;, DP==&quot;Yes&quot;))
+m=nrow(ProtDom %&gt;% filter( DP==&quot;Yes&quot;))
+n=nrow(ProtDom %&gt;% filter( DP==&quot;No&quot;))
+k=nrow(ProtDom %&gt;% filter(Set==&quot;Different&quot;))
+N=nrow(ProtDom)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.0009822532</code></pre>
+<pre><code>[1] 0.9534823</code></pre>
 <pre class="r"><code>(x/k)/(m/N)</code></pre>
-<pre><code>[1] 1.305745</code></pre>
-<p>I am not sure what the set should be.</p>
-<pre class="r"><code>x=nrow(All4 %&gt;% filter(Set==&quot;Same&quot;, DE==&quot;Yes&quot;))
-m=nrow(All4 %&gt;% filter(DE==&quot;Yes&quot;))
-n=nrow(All4 %&gt;% filter(DE==&quot;No&quot;))
-k=nrow(All4 %&gt;% filter(Set==&quot;Same&quot;))
-N=nrow(All4)
+<pre><code>[1] 0.7261456</code></pre>
+<pre class="r"><code>RiboSets= RiboAll %&gt;% select(Gene) %&gt;% rename(gene=Gene) %&gt;% mutate(DR=ifelse(gene %in% ProteinSig$Gene,&quot;Yes&quot;,&quot;No&quot;))
+RiboSetsDom= FourRes %&gt;% select(gene,Set) %&gt;% inner_join(RiboSets, by=&quot;gene&quot;)
+
+x=nrow(RiboSetsDom %&gt;% filter(Set==&quot;Different&quot;, DR==&quot;Yes&quot;))
+m=nrow(RiboSetsDom %&gt;% filter( DR==&quot;Yes&quot;))
+n=nrow(RiboSetsDom %&gt;% filter( DR==&quot;No&quot;))
+k=nrow(RiboSetsDom %&gt;% filter(Set==&quot;Different&quot;))
+N=nrow(RiboSetsDom)
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.9982958</code></pre>
+<pre><code>[1] 0</code></pre>
 <pre class="r"><code>(x/k)/(m/N)</code></pre>
-<pre><code>[1] 0.9792784</code></pre>
-</div>
-<div id="robust-to-different-cutoffs" class="section level2">
-<h2>Robust to different cutoffs</h2>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
-
-ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
-
-BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
-
-BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
-BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
-BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
-BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
-BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
-BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
-BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
-BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)
-
-BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) %&gt;% bind_rows(BothRes_40) %&gt;% bind_rows(BothRes_50) %&gt;% bind_rows(BothRes_60) %&gt;% bind_rows(BothRes_70) %&gt;% bind_rows(BothRes_80) %&gt;% bind_rows(BothRes_90)</code></pre>
-<pre class="r"><code>Pval=c()
-Enrich=c()
-set=c(10,20,30,40,50,60,70,80,90)
-
-
-All4= BothResAll  %&gt;% select(gene,cut,Set) %&gt;% inner_join(DE, by=&quot;gene&quot;)
-
-
-for (i in set){
-  x=nrow(All4 %&gt;% filter(cut==i, Set==&quot;Different&quot;, DE==&quot;Yes&quot;))
-  m=nrow(All4 %&gt;% filter(cut==i, DE==&quot;Yes&quot;))
-  n=nrow(All4 %&gt;% filter(cut==i, DE==&quot;No&quot;))
-  k=nrow(All4 %&gt;% filter(cut==i, Set==&quot;Different&quot;))
-  N=nrow(All4 %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
-  Pval= c(Pval, val)
-  en=(x/k)/(m/N)
-  Enrich=c(Enrich, en)
-}
-
-ResDF=as.data.frame(cbind(set,Pval,Enrich))
-ResDF$set=as.factor(ResDF$set)
-ResDF$Pval=as.numeric(as.character(ResDF$Pval))
-ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
-
-ggplot(ResDF,aes(x=set, y=-log10(Pval))) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and different dominant \n condition on tested in both&quot;)</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for DE and different dominant \n condition on tested in both&quot;)</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>PvalSame=c()
-EnrichSame=c()
-
-
-
-
-for (i in set){
-  x=nrow(All4 %&gt;% filter(cut==i, Set==&quot;Same&quot;, DE==&quot;Yes&quot;))
-  m=nrow(All4 %&gt;% filter(cut==i, DE==&quot;Yes&quot;))
-  n=nrow(All4 %&gt;% filter(cut==i, DE==&quot;No&quot;))
-  k=nrow(All4 %&gt;% filter(cut==i, Set==&quot;Same&quot;))
-  N=nrow(All4 %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
-  PvalSame= c(PvalSame, val)
-  en=(x/k)/(m/N)
-  EnrichSame=c(EnrichSame, en)
-}
-
-ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame))
-ResDFSame$set=as.factor(ResDFSame$set)
-ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
-ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
-
-ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and same dominant \n condition on tested in both&quot;)</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for DE and same dominant \n condition on tested in both&quot;)</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] NaN</code></pre>
+<p>None of the dominant have DR.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1623,26 +1410,24 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] RColorBrewer_1.1-2 cowplot_0.9.4      forcats_0.3.0     
- [4] stringr_1.3.1      dplyr_0.8.0.1      purrr_0.3.2       
- [7] readr_1.3.1        tidyr_0.8.3        tibble_2.1.1      
-[10] ggplot2_3.1.1      tidyverse_1.2.1    workflowr_1.6.0   
+ [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+ [9] tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
-[21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.5.1      magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4    
-[41] whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
-[45] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
-[49] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
-</div>
+ [1] Rcpp_1.0.2       cellranger_1.1.0 plyr_1.8.4       compiler_3.5.1  
+ [5] pillar_1.3.1     later_0.7.5      git2r_0.26.1     tools_3.5.1     
+ [9] digest_0.6.18    lubridate_1.7.4  jsonlite_1.6     evaluate_0.12   
+[13] nlme_3.1-137     gtable_0.2.0     lattice_0.20-38  pkgconfig_2.0.2 
+[17] rlang_0.4.0      cli_1.1.0        rstudioapi_0.10  yaml_2.2.0      
+[21] haven_1.1.2      withr_2.1.2      xml2_1.2.0       httr_1.3.1      
+[25] knitr_1.20       hms_0.4.2        generics_0.0.2   fs_1.3.1        
+[29] rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5 glue_1.3.0      
+[33] R6_2.3.0         readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2    
+[37] magrittr_1.5     whisker_0.3-2    backports_1.1.2  scales_1.0.0    
+[41] promises_1.0.1   htmltools_0.3.6  rvest_0.3.2      assertthat_0.2.0
+[45] colorspace_1.3-2 httpuv_1.4.5     stringi_1.2.4    lazyeval_0.2.1  
+[49] munsell_0.5.0    broom_0.5.1      crayon_1.3.4    </code></pre>
 </div>
 
 

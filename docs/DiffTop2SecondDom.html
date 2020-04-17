@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1d7b9d22d58b2a494ef3bd65f04dddd2b5804702targetblank1d7b9d2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1d7b9d22d58b2a494ef3bd65f04dddd2b5804702" target="_blank">1d7b9d2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9f8e75fc4bd144eb4cb016469f6a58b675fb4e26targetblank9f8e75fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9f8e75fc4bd144eb4cb016469f6a58b675fb4e26" target="_blank">9f8e75f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1d7b9d22d58b2a494ef3bd65f04dddd2b5804702targetblank1d7b9d2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9f8e75fc4bd144eb4cb016469f6a58b675fb4e26targetblank9f8e75fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1242,6 +1242,7 @@ Unstaged changes:
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/UsageForDomPAS.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1289,6 +1290,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/DiffTop2SecondDom.html" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1360,6 +1378,43 @@ nrow(BothRes)</code></pre>
 <p>I am going to lose the few genes that have 1 PAS in only one species.</p>
 <pre class="r"><code>ggplot(BothRes_g,aes(x=diff,fill=species, by=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;, labels=c(&quot;Chimp&quot;,&quot;Human&quot;)) + labs(title=&quot;Chimp Dominant PAS are &#39;more Dominant&#39;&quot;, x=&quot;Top PAS Usage - Second PAS Usage&quot;)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-5-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>wilcox.test(BothRes$Human_DiffDom, BothRes$Chimp_DiffDom)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
@@ -1382,8 +1437,82 @@ nrow(BothRes_40_diff)</code></pre>
 
 ggplot(BothRes_g_same40,aes(x=diff,fill=species, by=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;, labels=c(&quot;Chimp&quot;,&quot;Human&quot;)) + labs(title=&quot;Chimp Dominant PAS are &#39;more Dominant \n Same Dominant PAS at .4 cutoff&#39;&quot;, x=&quot;Top PAS Usage - Second PAS Usage&quot;)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-7-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothRes_40, aes(x=Human_DiffDom,Chimp_DiffDom, col= Set ))  + geom_point(alpha=.2)+ geom_abline(slope=1, intercept = 0) + geom_density2d() + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Level of dominance for each PAS passing .4 filter&quot;)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-8-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at the number of PAS: (just do number in either species for now)</p>
 <pre class="r"><code>PASnum= MetaPAS %&gt;% select(PAS, gene) %&gt;%  group_by(gene) %&gt;% summarise(nPAS=n())
 
@@ -1394,6 +1523,43 @@ BothRes_40_num= BothRes_40 %&gt;% inner_join(PASnum,by=&quot;gene&quot;)
 
 ggplot(BothRes_40_num, aes(x=Human_DiffDom,Chimp_DiffDom, col= Set ))  + geom_point(alpha=.2)+ geom_abline(slope=1, intercept = 0) + geom_density2d() + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Level of dominance for each PAS passing .4 filter&quot;) + facet_grid(~nPAS)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-9-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothRes_40_num %&gt;% group_by(nPAS, Set) %&gt;% summarise(n=n()) %&gt;% spread(Set, n)</code></pre>
 <pre><code># A tibble: 10 x 3
 # Groups:   nPAS [10]
@@ -1414,16 +1580,127 @@ ggplot(BothRes_40_num, aes(x=Human_DiffDom,Chimp_DiffDom, col= Set ))  + geom_po
 
 ggplot(BothRes_40_num_filt, aes(x=Human_DiffDom,Chimp_DiffDom, col= Set ))  + geom_point(alpha=.2)+ geom_abline(slope=1, intercept = 0) + geom_density2d() + scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Level of dominance for each PAS passing .4 filter&quot;) + facet_grid(~nPAS)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-11-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Incorporate usage</p>
 <pre class="r"><code>metausage= MetaPAS %&gt;% select(PAS, Human, Chimp)
 BothRes_g_same40= BothRes %&gt;% select(Human_PAS, gene, Human_DiffDom, Chimp_DiffDom) %&gt;% rename(PAS=Human_PAS) %&gt;% gather(&quot;Species&quot;, &quot;Diff&quot;, -gene, -PAS) %&gt;% filter(gene %in% BothRes_40_same$gene) %&gt;% inner_join(metausage, by=&quot;PAS&quot;)</code></pre>
 <p>Plot the usage correlation</p>
 <pre class="r"><code>ggplot(BothRes_g_same40, aes(x=Human, y=Chimp, col=Diff)) + geom_point(alpha=.3)+ facet_grid(~Species)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-13-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothRes_g_same40s= BothRes_g_same40 %&gt;% spread(Species, Diff) %&gt;% gather(&quot;species&quot;, &quot;usage&quot;, -PAS,-Chimp_DiffDom, -Human_DiffDom, -gene)
 
 ggplot(BothRes_g_same40s, aes(x=Human_DiffDom,y=Chimp_DiffDom, col=usage)) + geom_point() + facet_grid(~species)</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f48b3a9b0d58d26cb5af9baf053d5c74358bdaa/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-14-1.png" target="_blank">8f48b3a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There is more of a usage effect in the Human usage.</p>
 <p>Write out the results to use for downstream analysis:</p>
 <pre class="bash"><code>mkdir ../data/DomStructure_4/</code></pre>
