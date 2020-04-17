@@ -118,3 +118,145 @@ EnrichHuman
 
 
 No enrichment for these. The real question is if genes with different dominant PAS are DE. This requires chosing how to call different dominant. 
+
+##Same vs different dominant:  
+
+Are genes with different dominant at the cutoff .4 cutoff enriched for DE:  
+
+```{r}
+FourRes=read.table("../data/DomStructure_4/InclusiveDominantPASat4.txt", header = T,stringsAsFactors = F)
+FourRes_diff= FourRes %>% filter(Set=="Different")
+FourRes_same= FourRes %>% filter(Set=="Same")
+```
+
+```{r}
+x=length(intersect(FourRes_diff$gene,DE_yes$gene))
+m=nrow(DE_yes)
+n=nrow(DE) - nrow(DE_yes)
+k=nrow(FourRes %>% filter(Set=="Different"))
+N=nrow(DE)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+
+```
+```{r}
+x=length(intersect(FourRes_same$gene,DE_yes$gene))
+m=nrow(DE_yes)
+n=nrow(DE) - nrow(DE_yes)
+k=nrow(FourRes %>% filter(Set=="Same"))
+N=nrow(DE)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+
+```
+
+
+This is conditioned on the gene having a dominant PAS.  
+
+do this based on a set tested both  
+
+```{r}
+All4= FourRes %>% select(gene,Set) %>% inner_join(DE, by="gene")
+
+x=nrow(All4 %>% filter(Set=="Different", DE=="Yes"))
+m=nrow(All4 %>% filter( DE=="Yes"))
+n=nrow(All4 %>% filter( DE=="No"))
+k=nrow(All4 %>% filter(Set=="Different"))
+N=nrow(All4)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+I am not sure what the set should be.  
+
+```{r}
+x=nrow(All4 %>% filter(Set=="Same", DE=="Yes"))
+m=nrow(All4 %>% filter(DE=="Yes"))
+n=nrow(All4 %>% filter(DE=="No"))
+k=nrow(All4 %>% filter(Set=="Same"))
+N=nrow(All4)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+##Robust to different cutoffs  
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+
+
+```
+
+```{r}
+Pval=c()
+Enrich=c()
+set=c(10,20,30,40,50,60,70,80,90)
+
+
+All4= BothResAll  %>% select(gene,cut,Set) %>% inner_join(DE, by="gene")
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Different", DE=="Yes"))
+  m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, DE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Different"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x,m,n,k,lower.tail=F)
+  Pval= c(Pval, val)
+  en=(x/k)/(m/N)
+  Enrich=c(Enrich, en)
+}
+
+ResDF=as.data.frame(cbind(set,Pval,Enrich))
+ResDF$set=as.factor(ResDF$set)
+ResDF$Pval=as.numeric(as.character(ResDF$Pval))
+ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
+
+ggplot(ResDF,aes(x=set, y=-log10(Pval))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant \n condition on tested in both")
+ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant \n condition on tested in both")
+```
+
+```{r}
+PvalSame=c()
+EnrichSame=c()
+
+
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Same", DE=="Yes"))
+  m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, DE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Same"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x,m,n,k,lower.tail=F)
+  PvalSame= c(PvalSame, val)
+  en=(x/k)/(m/N)
+  EnrichSame=c(EnrichSame, en)
+}
+
+ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame))
+ResDFSame$set=as.factor(ResDFSame$set)
+ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
+ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
+
+ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant \n condition on tested in both")
+ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n condition on tested in both")
+```

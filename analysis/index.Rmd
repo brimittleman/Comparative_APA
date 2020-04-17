@@ -132,6 +132,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New Dominance method and DE](NewDomandDE.html)
 
+* [New Dominance and protein/translation](enrichDomdribodp.html)
+
 
 ##Selection exploration  
 
