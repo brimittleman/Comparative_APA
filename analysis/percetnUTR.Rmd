@@ -1,0 +1,116 @@
+---
+title: "Percent of Ortho UTR"
+author: "Briana Mittleman"
+date: "4/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I looked at the ortho UTR PAS where there are only 2 for the gene. This was too restrictive. I am going to look at the percent of the ortho UTR for genes with only UTR PAS that are in the otho UTR file. I will do this because the are easier to interpret. 
+
+```{r}
+library(workflowr)
+library(tidyverse)
+
+```
+```{r}
+OverlapOrtho=read.table("../data/orthoUTR/FilteredPASOverlapOrthoUTR.text", header = T,stringsAsFactors = F) 
+```
+
+
+Look for genes that only have UTR pas.  
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
+PASutr= PASMeta %>% group_by(gene) %>% 
+  summarise(locString = toString(loc)) %>% 
+  filter(!grepl("intron", locString)) %>% 
+  filter(!grepl("cds", locString))  %>% 
+  filter(!grepl("utr5", locString)) %>%
+  filter(!grepl("end", locString)) %>% 
+  mutate(numUTR= str_count(locString, pattern = "utr3"))
+
+
+```
+I need to make sure the number of UTR pas are in the ortho file:  
+
+```{r}
+OverlapOrtho_num= OverlapOrtho %>% group_by(gene) %>% summarise(nOrtho=n())
+
+OrthoandMetha= OverlapOrtho_num %>% inner_join(PASutr, by="gene") %>% mutate(matched=ifelse(nOrtho==numUTR, "Yes","No"))
+OrthoandMethayes= OrthoandMetha %>% filter(matched=="Yes")
+
+OrthoandMetha %>% group_by(matched) %>% summarise(n())
+
+OrthoandMetha_sm=OrthoandMetha %>% select(gene, numUTR)
+```
+
+This means the analysis will look at 1272 genes.  I will filter these genes in the orthofile.
+
+```{r}
+OverlapOrtho_filt= OverlapOrtho %>% inner_join(OrthoandMetha_sm, by="gene")
+nrow(OverlapOrtho_filt)
+```
+Plot number of PAS:  
+
+```{r}
+OrthoandMethayes$numUTR=as.factor(OrthoandMethayes$numUTR)
+ggplot(OrthoandMethayes,aes(x=numUTR)) + geom_bar(stat="count")
+```
+
+There are 1961 PAS in the set.  
+
+Are any of these differentially used:
+
+```{r}
+PASMetaSmall=PASMeta %>% select(PAS, chr, start, end)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(PASMetaSmall,by=c("chr", "start", "end")) %>% select(PAS, SigPAU2)
+
+DiffIsoSig= DiffIso %>% filter(SigPAU2=="Yes")
+
+DiffIsoSigGene=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T, stringsAsFactors = F)
+```
+
+```{r}
+OverlapOrtho_filt %>% inner_join(DiffIsoSig, by="PAS") %>% nrow()
+
+
+OverlapOrtho_filt %>% inner_join(DiffIsoSig, by="PAS") %>% select(gene) %>% unique() %>% nrow()
+```
+
+70 significant in 42 genes.  
+
+
+Seems worth it. 
+
+I will look at proportion of the UTR.  
+
+```{r}
+Overlapping= read.table("../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed", col.names = c("chrpas", "startpas", "endpas","PAS", "humanusage", "strandpas", "chrutr", "startutr", "endutr","geneUTR", "score","strand"),stringsAsFactors = F) %>% filter(PAS %in% OverlapOrtho_filt$PAS)
+Overlapping_pos= Overlapping %>% filter(strand=="+") %>% mutate(length=endutr-startutr, center=endpas-100, cent2start=center-startutr, prop=cent2start/length)
+Overlapping_neg= Overlapping %>% filter(strand=="-") %>% mutate(length=endutr-startutr, center=endpas-100, cent2start=endutr- center, prop=cent2start/length)
+Overlapping_both=Overlapping_pos %>% bind_rows(Overlapping_neg) %>% mutate(SigPAS=ifelse(PAS %in% DiffIsoSig$PAS, "Yes","No"), sigGene=ifelse(geneUTR %in% DiffIsoSigGene$gene, "Yes","No"))  %>% rename(gene=geneUTR) %>% inner_join(OrthoandMetha_sm, by="gene")
+
+```
+
+plot:
+
+```{r}
+ggplot(Overlapping_both,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS",x="Proportion of 3' ortho exon UTR") 
+```
+
+
+```{r}
+ggplot(Overlapping_both,aes(x=prop, by=SigPAS, col=SigPAS)) + stat_ecdf()+scale_color_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS",x="Proportion of 3' ortho exon UTR") 
+```
+
+```{r}
+Overlapping_both_yes= Overlapping_both %>% filter(SigPAS=="Yes")
+nrow(Overlapping_both_yes)
+Overlapping_both_no= Overlapping_both %>% filter(SigPAS=="No")
+nrow(Overlapping_both_no)
+wilcox.test(Overlapping_both_yes$prop,Overlapping_both_no$prop)
+```
+Not a significant difference in the distribution.  
