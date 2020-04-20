@@ -99,6 +99,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at differentially used PAS by length of UTR](LongShortUTR_2PAS.html)
 
+* [Proportion of ortho 3' UTR](percetnUTR.html)
+
 * [Look at miRNA density](miRNAanalysis.html)
 
 ##Quantify Phenotypes with RNA:   
@@ -149,7 +151,9 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Explore more about APA expression relationship with overlaping significant genes](ExploreAPAexpressionOverlap.html)  
 
-* [Apa and expression relationship for seperated by location of PAS](DiffUsedIntronic.html)  
+* [Apa and expression relationship for seperated by location of PAS](DiffUsedIntronic.html) 
+
+* [APA and expression relationship with dominance structure](DeESandDomgenes.hmtl)
 
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
@@ -325,7 +329,7 @@ From the original nuclear dominant
 
 * [Mediation analysis](mediation.html)    
 
-###Human v Chimp fraction differences - pre- march rerun 
+###Human v Chimp fraction differences - pre- march rerun  
 
 * [Differential isoform between fractons by species](TotalVNuclearBothSpecies.html)
 

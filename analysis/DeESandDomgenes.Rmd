@@ -1,0 +1,123 @@
+---
+title: "Effect size differences with dominant genes"
+author: "Briana Mittleman"
+date: "4/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(workflowr)
+library(ggpubr)
+library(limma)
+library(qvalue)
+library(tidyverse)
+```
+
+I want to look at the correlation of effect sizes for DE genes when I consider only the genes with dominant PAS. 
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
+
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
+```
+
+Filter the diff iso resuls for dominant PAS or genes with a dominant PAS.  
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+```
+
+
+
+##Has a dom gene:  
+
+
+```{r}
+DeandAPA= DiffIso %>% inner_join(DE, by="gene") %>% filter(gene %in% BothRes_40$gene)
+
+ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+###Significant:  
+
+```{r}
+DeandAPA_sigAPA= DeandAPA %>% filter(SigPAU2=="Yes")
+ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+
+```{r}
+DeandAPA_sigAPAandE= DeandAPA %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
+ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+
+##Dom PAS:  
+```{r}
+
+AllDomPAS=c(BothRes_40$Human_PAS, BothRes_40$Chimp_PAS) %>% unique() 
+DeandAPA_domPAS= DiffIso %>% inner_join(DE, by="gene") %>% filter(PAS %in% AllDomPAS)
+
+ggplot(DeandAPA_domPAS,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ Dominant PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+###Significant:  
+
+```{r}
+DeandAPA_domPAS_sigAPA= DeandAPA_domPAS %>% filter(SigPAU2=="Yes")
+ggplot(DeandAPA_domPAS_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+```{r}
+DeandAPA_domPAS_sigAPAandE= DeandAPA_domPAS %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
+ggplot(DeandAPA_domPAS_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE \n Dom PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+
+These do not improve the results but they are consistent.  
+
+##Ribo
+
+###Dom gene  
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
+
+RiboandAPA=DiffIso %>% inner_join(Ribo, by="gene")%>% filter(gene %in% BothRes_40$gene)
+```
+```{r}
+ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+###Has a dom pas:  
+
+
+```{r}
+
+RiboandAPAdom=DiffIso %>% inner_join(Ribo, by="gene")%>% filter(gene %in% BothRes_40$gene)%>% filter(PAS %in% AllDomPAS)
+
+ggplot(RiboandAPAdom,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+###Significant:  
+
+```{r}
+RiboandAPAdom_sigAPA= RiboandAPAdom %>% filter(SigPAU2=="Yes")
+ggplot(RiboandAPAdom_sigAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS sig apa")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+```{r}
+RiboandAPAdom_sigAPAandR= RiboandAPAdom %>% filter(SigPAU2=="Yes",  HvC.FDR<.05)
+ggplot(RiboandAPAdom_sigAPAandR,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DR \n Dom PAS sig both")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+```
+Not enough power for this.  
