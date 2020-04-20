@@ -145,6 +145,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Conservation based on dominance structure](ConsandDom.html)
 
+* [Conservation based on new dominance categories](ConsandDomNewDef.html)
+
 ##Explore effect size relationships  
 
 * [Explore more about APA expression relationship](ExploreAPAexpression.html)

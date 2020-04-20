@@ -1,0 +1,126 @@
+---
+title: "Conservation of Domianant PAS"
+author: "Briana Mittleman"
+date: "4/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will look at conservation with my new definition of dominant PAS.I will start with the PAS dominant at 0.4 then test robustnes.  
+
+```{r}
+library(tidyverse)
+library(workflowr)
+library(ggpubr)
+```
+
+```{r}
+
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+
+#all dom set is the list that are >.4 in either species 
+ChimpRes_40=ChimpRes %>% filter(Chimp_DiffDom>=.4)
+HumanRes_40=HumanRes %>% filter(Human_DiffDom>=.4)
+AllDom=c(ChimpRes_40$Chimp_PAS, HumanRes_40$Human_PAS) %>% unique()
+
+
+phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na() %>% inner_join(Meta, by=c("chr", "start", "end")) %>% mutate(EitherDom=ifelse(PAS %in% AllDom, "Yes", "No"))
+```
+
+
+
+First test if the dominant PAS are more conserved than the non dominant PAS. 
+
+```{r}
+ggplot(phylores, aes(y=phyloP, x=EitherDom, fill=EitherDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method.args = list(alternative = "greater"))+labs(title="Dominant PAS are more conserved than non dominant PAS", x="PAS dominance structure")+ theme(legend.position = "none")
+```
+
+Is this location driven? 
+
+```{r}
+ggplot(phylores, aes(y=phyloP, x=EitherDom, fill=EitherDom)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method.args = list(alternative = "greater"))+labs(title="Dominant PAS are more conserved than non dominant PAS", x="PAS dominance structure")+ theme(legend.position = "none") + facet_grid(~loc)
+```
+
+This is interesting, it looks like the extended isoforms show the difference.  
+
+
+
+Filter for these genes and ask about same different PAS  
+
+```{r}
+
+BothRes_40g= BothRes_40 %>% gather(species, PAS, -gene, -cut, -Set,-Human_DiffDom, -Chimp_DiffDom ) %>% select(PAS, Set) %>% unique()
+
+phylores_dom= phylores %>% inner_join(BothRes_40g, by="PAS")
+
+ggplot(phylores_dom, aes(x=Set, y=phyloP, fill=Set)) + geom_boxplot()+ scale_fill_brewer(palette = "Dark2") + stat_compare_means(method.args = list(alternative = "less")) + labs(title="Matching Domionant PAS are more conserved than non matching dominant PAS", x="PAS dominance structure")+ theme(legend.position = "none")
+```
+By location:  
+
+```{r}
+ggplot(phylores_dom, aes(x=Set, y=phyloP, fill=Set)) + geom_boxplot()+ scale_fill_brewer(palette = "Dark2") + stat_compare_means(method.args = list(alternative = "less")) + labs(title="Matching Domionant PAS are more conserved than non matching dominant PAS", x="PAS dominance structure")+ theme(legend.position = "none") + facet_grid(~loc)
+```
+
+This suggest sequence conservation does play a role in the conservation of dominant PAS. This is not driven by 1 location.  
+
+
+##DNDS  
+
+At the gene level I want to look at conservation for the full gene when the dominant PAS is the same or different. I can use DNDS for this.  
+
+DN (non synonymous) /DS (synonymous): from ensamble site - ratio of substitution rate (quick and dirty way to look at evo), ratio >1 usually evidence for positive selection. values are in ../data/DNDS/HumanChimp_DNDS.csv
+
+Remove NA values  
+
+
+We can ask if genes with different dominant show evidence for positive selection:  
+```{r}
+DNDS= read.csv("../data/DNDS/HumanChimp_DNDS.csv", header = T,stringsAsFactors = F) %>% drop_na() %>% group_by(Gene.name) %>% slice(1) %>% ungroup() %>% mutate(DNDSratio= dN.with.Chimpanzee/dS.with.Chimpanzee) %>% dplyr::select(Gene.name, dN.with.Chimpanzee,dS.with.Chimpanzee,DNDSratio) %>% rename("gene"=Gene.name)
+
+BothRes_40_dnds= BothRes_40 %>% inner_join(DNDS,by="gene")
+
+#filter the infinity (syn ==0)
+BothRes_40_dnds_filt= BothRes_40_dnds %>% filter(dS.with.Chimpanzee >0)
+
+```
+
+I will first plot them then ask for enrichment of DN/DS >1 in each set.  
+
+```{r}
+ggplot(BothRes_40_dnds_filt,aes(x=Set, y=DNDSratio, fill=Set)) + geom_boxplot()+  scale_fill_brewer(palette = "Dark2") + stat_compare_means(method.args = list(alternative = "greater")) + labs(title="Genes with different domiannt dominant have higher DN/DS scores",x="Dominance structure")+ theme(legend.position = "none") 
+```
+```{r}
+x=nrow(BothRes_40_dnds_filt %>% filter(Set=="Different", DNDSratio>=1))
+m= nrow(BothRes_40_dnds_filt %>% filter(DNDSratio>=1))
+n=nrow(BothRes_40_dnds_filt %>% filter(DNDSratio<1))
+k=nrow(BothRes_40_dnds_filt %>% filter(Set=="Different"))
+
+phyper(x,m,n,k,lower.tail=F)
+```
+
+No enrichment for genes with evidence of positive selection.  
+
+O,1 means constraint:  
+
+```{r}
+x=nrow(BothRes_40_dnds_filt %>% filter(Set=="Different", DNDSratio<1))
+m= nrow(BothRes_40_dnds_filt %>% filter(DNDSratio<1))
+n=nrow(BothRes_40_dnds_filt %>% filter(DNDSratio>=1))
+k=nrow(BothRes_40_dnds_filt %>% filter(Set=="Different"))
+
+phyper(x,m,n,k,lower.tail=F)
+```
+
+No enrichment here either.  
+

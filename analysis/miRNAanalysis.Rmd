@@ -47,7 +47,7 @@ DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header =
 Plot this:
 
 ```{r}
-ggplot(DiffIso, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+ggplot(DiffIso, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = "greater")) +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
 ```
 
 ```{r}
@@ -68,9 +68,9 @@ DiffIsoIntronall=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",
 ```
 
 ```{r}
-ggplot(DiffIsoUTRall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used 3' UTR PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+ggplot(DiffIsoUTRall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = "greater")) +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used 3' UTR PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
 
-ggplot(DiffIsoIntronall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means() +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used Intronic PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+ggplot(DiffIsoIntronall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = "greater")) +labs(title="Number of annotated miRNA sites\nConserved = no differnetially used Intronic PAS") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
 ```
 
 
@@ -128,3 +128,28 @@ AllgenesDom %>% group_by(DiffUsed) %>% summarise(n(), mean(density))
 When the gene has a differentially used pas that is dominant we see the effect.  
 
 
+
+New way to call dominance:  
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)  %>% inner_join(miRNADBgenes, by="gene")
+```
+
+```{r}
+ggplot(BothRes_40, aes(x=Set, y=log10(density),fill=Set)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = "greater")) +labs(title="Number of annotated miRNA sites\n Dominance Structure") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+```
+
+No difference here. Look at if there is a domiant PAS or not:  
+
+```{r}
+miRNADBgenes_dom= miRNADBgenes %>% mutate(Dom=ifelse(gene %in% BothRes$gene, "Yes", "No"))
+
+ggplot(miRNADBgenes_dom, aes(x=Dom, y=log10(density),fill=Dom)) +geom_boxplot() + stat_compare_means() +labs(title="Density of annotated miRNA sites") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
+```
+This shows that genes with a domiant PAS have higher density of miRNA. 

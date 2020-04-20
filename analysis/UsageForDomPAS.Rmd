@@ -204,3 +204,36 @@ PvalueHuman
 EnrichHuman
 ```
 
+##Same vs different dominant:  
+
+Are genes with different dominant at the cutoff .4 cutoff enriched for dapa:  
+
+```{r}
+FourRes=read.table("../data/DomStructure_4/InclusiveDominantPASat4.txt", header = T,stringsAsFactors = F)
+FourRes_diff= FourRes %>% filter(Set=="Different")
+FourRes_same= FourRes %>% filter(Set=="Same")
+```
+
+```{r}
+x=length(intersect(FourRes_diff$gene,DiffUsedPAS$gene.x))
+m=nrow(DiffUsedPAS)
+n=nrow(DiffUsedPASAll) - nrow(DiffUsedPAS)
+k=nrow(FourRes %>% filter(Set=="Different"))
+N=nrow(DiffUsedPASAll)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+
+```
+```{r}
+x=length(intersect(FourRes_same$gene,DiffUsedPAS$gene.x))
+m=nrow(DiffUsedPAS)
+n=nrow(DiffUsedPASAll) - nrow(DiffUsedPAS)
+k=nrow(FourRes %>% filter(Set=="Same"))
+N=nrow(DiffUsedPASAll)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+
+```
+
+All of these are enriched as expected. The genes with different PAS are way more likely to have a differentially used PAS.  
+
