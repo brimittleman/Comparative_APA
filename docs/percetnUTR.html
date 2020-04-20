@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1ae3d26566065374a35645c64b7a2481c8b29cc0targetblank1ae3d26a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1ae3d26566065374a35645c64b7a2481c8b29cc0" target="_blank">1ae3d26</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec837f7b8147943930ce7e48b029d351b31efbf46targetblankc837f7ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c837f7b8147943930ce7e48b029d351b31efbf46" target="_blank">c837f7b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1ae3d26566065374a35645c64b7a2481c8b29cc0targetblank1ae3d26a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec837f7b8147943930ce7e48b029d351b31efbf46targetblankc837f7ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1296,6 +1296,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c837f7b8147943930ce7e48b029d351b31efbf46/analysis/percetnUTR.Rmd" target="_blank">c837f7b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-19
+</td>
+<td>
+add decile loc
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/51a499a18fd23a633c7e920bd7d89104e1429c30/docs/percetnUTR.html" target="_blank">51a499a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/1ae3d26566065374a35645c64b7a2481c8b29cc0/analysis/percetnUTR.Rmd" target="_blank">1ae3d26</a>
 </td>
 <td>
@@ -1315,6 +1349,8 @@ add prop utr
 </div>
 </div>
 </div>
+<div id="simple-case" class="section level1">
+<h1>Simple Case</h1>
 <p>I looked at the ortho UTR PAS where there are only 2 for the gene. This was too restrictive. I am going to look at the percent of the ortho UTR for genes with only UTR PAS that are in the otho UTR file. I will do this because the are easier to interpret.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
@@ -1359,6 +1395,43 @@ nrow(OverlapOrtho_filt)</code></pre>
 <pre class="r"><code>OrthoandMethayes$numUTR=as.factor(OrthoandMethayes$numUTR)
 ggplot(OrthoandMethayes,aes(x=numUTR)) + geom_bar(stat=&quot;count&quot;)</code></pre>
 <p><img src="figure/percetnUTR.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/51a499a18fd23a633c7e920bd7d89104e1429c30/docs/figure/percetnUTR.Rmd/unnamed-chunk-6-1.png" target="_blank">51a499a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There are 1961 PAS in the set.</p>
 <p>Are any of these differentially used:</p>
 <pre class="r"><code>PASMetaSmall=PASMeta %&gt;% select(PAS, chr, start, end)
@@ -1381,8 +1454,82 @@ Overlapping_both=Overlapping_pos %&gt;% bind_rows(Overlapping_neg) %&gt;% mutate
 <p>plot:</p>
 <pre class="r"><code>ggplot(Overlapping_both,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
 <p><img src="figure/percetnUTR.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/51a499a18fd23a633c7e920bd7d89104e1429c30/docs/figure/percetnUTR.Rmd/unnamed-chunk-10-1.png" target="_blank">51a499a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(Overlapping_both,aes(x=prop, by=SigPAS, col=SigPAS)) + stat_ecdf()+scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
 <p><img src="figure/percetnUTR.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/51a499a18fd23a633c7e920bd7d89104e1429c30/docs/figure/percetnUTR.Rmd/unnamed-chunk-11-1.png" target="_blank">51a499a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Overlapping_both_yes= Overlapping_both %&gt;% filter(SigPAS==&quot;Yes&quot;)
 nrow(Overlapping_both_yes)</code></pre>
 <pre><code>[1] 104</code></pre>
@@ -1397,6 +1544,158 @@ data:  Overlapping_both_yes$prop and Overlapping_both_no$prop
 W = 114140, p-value = 0.4563
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Not a significant difference in the distribution.</p>
+<p>Remove genes with 1 PAS:</p>
+<pre class="r"><code>Overlapping_both2more=Overlapping_both %&gt;% filter(numUTR&gt;1)
+ggplot(Overlapping_both2more,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS \n greater than 1 PAS&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I want to change this to look at enrichment by decile. I will seperate all of these into decile and ask if there is an erichment for any location.</p>
+<pre class="r"><code>quantile(Overlapping_both$prop, seq(0,1, by=.1))</code></pre>
+<pre><code>         0%         10%         20%         30%         40%         50% 
+-1.90625000  0.07546672  0.20337713  0.37202002  0.54706861  0.70125598 
+        60%         70%         80%         90%        100% 
+ 0.80891937  0.87249379  0.92417320  0.95787417  3.15217391 </code></pre>
+<pre class="r"><code>Overlapping_both_dec= Overlapping_both %&gt;% mutate(decile_rank = ntile(Overlapping_both$prop,10), signum=ifelse(SigPAS==&quot;Yes&quot;, 1, 0))
+Overlapping_both_decG= Overlapping_both_dec%&gt;% group_by(decile_rank) %&gt;% summarise(Sig=sum(signum), numAll=n())
+Overlapping_both_decG$decile_rank=as.factor(Overlapping_both_decG$decile_rank)
+
+
+ggplot(Overlapping_both_decG, aes(x=decile_rank, y=Sig)) +geom_bar(stat=&quot;identity&quot;) + labs(x=&quot;Decile for proportion of 3&#39; UTR&quot;, y= &quot;Number of Significant PAS&quot;, title=&quot;Significant PAS by location in ortho 3&#39; UTR&quot;) </code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /> Expected value if this were uniform. It would be the number of significant /10 in each decile.</p>
+<pre class="r"><code>decile=seq(1,10, 1)
+pval=c()
+enrich=c()
+expected=sum(Overlapping_both_decG$Sig)/10
+for (i in decile){
+  x=Overlapping_both_decG[[i,2]]
+  m=240
+  n=2398-240
+  N=2398
+  k=sum(Overlapping_both_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pval=c(pval,round(p,2))
+  enrich=c(enrich,en)
+}
+
+pval</code></pre>
+<pre><code> [1] 0.05 0.15 0.24 0.91 0.34 0.91 0.73 0.60 0.24 0.24</code></pre>
+<pre class="r"><code>enrich</code></pre>
+<pre><code> [1] 1.4411058 1.2489583 1.1528846 0.5764423 1.0568109 0.5764423 0.7685897
+ [8] 0.8646635 1.1528846 1.1528846</code></pre>
+<pre class="r"><code>Overlapping_both_decGpval=as.data.frame(cbind(Overlapping_both_decG, pval,enrich))
+
+ggplot(Overlapping_both_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat=&quot;identity&quot;) + labs(x=&quot;Decile for proportion of 3&#39; UTR&quot;, y= &quot;Number of Significant PAS&quot;, title=&quot;Significant PAS by location in ortho 3&#39; UTR&quot;) + geom_hline(yintercept =expected) + geom_text(aes(label=paste(&quot;P=&quot;,pval)), position=position_dodge(width=0.9), vjust=-0.25)</code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Same analysis minus 1 gene:</p>
+<pre class="r"><code>Overlapping_both2more_dec= Overlapping_both2more %&gt;% mutate(decile_rank = ntile(Overlapping_both2more$prop,10), signum=ifelse(SigPAS==&quot;Yes&quot;, 1, 0))
+Overlapping_both2more_decG= Overlapping_both2more_dec%&gt;% group_by(decile_rank) %&gt;% summarise(Sig=sum(signum), numAll=n())
+Overlapping_both2more_decG$decile_rank=as.factor(Overlapping_both2more_decG$decile_rank)
+
+
+
+pval2=c()
+enrich2=c()
+expected=sum(Overlapping_both2more_decG$Sig)/10
+for (i in decile){
+  x=Overlapping_both2more_decG[[i,2]]
+  m=Overlapping_both2more_decG[[i,3]]
+  n=sum(Overlapping_both2more_decG$numAll) - m 
+  N=sum(Overlapping_both2more_decG$numAll)
+  k=sum(Overlapping_both2more_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pval2=c(pval2,round(p,2))
+  enrich2=c(enrich2,en)
+}
+
+pval2</code></pre>
+<pre><code> [1] 0.15 0.15 0.48 0.91 0.83 0.48 0.23 0.09 0.47 0.60</code></pre>
+<pre class="r"><code>enrich2</code></pre>
+<pre><code> [1] 1.2452229 1.2532051 0.9578638 0.5784024 0.6748028 0.9578638 1.1568047
+ [8] 1.3410093 0.9640039 0.8676036</code></pre>
+<pre class="r"><code>Overlapping_both2more_decGpval=as.data.frame(cbind(Overlapping_both2more_decG, pval2,enrich2))
+
+ggplot(Overlapping_both2more_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat=&quot;identity&quot;) + labs(x=&quot;Decile for proportion of 3&#39; UTR&quot;, y= &quot;Number of Significant PAS&quot;, title=&quot;Significant PAS by location in ortho 3&#39; UTR\n all PAS&quot;) + geom_hline(yintercept =expected) + geom_text(aes(label=paste(&quot;P=&quot;,pval2)), position=position_dodge(width=0.9), vjust=-0.25)</code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="more-complex-case" class="section level2">
+<h2>More complex case</h2>
+<pre class="r"><code>AllOverlapping= read.table(&quot;../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed&quot;, col.names = c(&quot;chrpas&quot;, &quot;startpas&quot;, &quot;endpas&quot;,&quot;PAS&quot;, &quot;humanusage&quot;, &quot;strandpas&quot;, &quot;chrutr&quot;, &quot;startutr&quot;, &quot;endutr&quot;,&quot;geneUTR&quot;, &quot;score&quot;,&quot;strand&quot;),stringsAsFactors = F)  %&gt;% rename(gene=&quot;geneUTR&quot;)
+
+AllOverlapping_pos= AllOverlapping %&gt;% filter(strand==&quot;+&quot;) %&gt;% mutate(length=endutr-startutr, center=endpas-100, cent2start=center-startutr, prop=cent2start/length)
+AllOverlapping_neg= AllOverlapping %&gt;% filter(strand==&quot;-&quot;) %&gt;% mutate(length=endutr-startutr, center=endpas-100, cent2start=endutr- center, prop=cent2start/length)
+AllOverlapping_both=AllOverlapping_pos %&gt;% bind_rows(AllOverlapping_neg) %&gt;% mutate(SigPAS=ifelse(PAS %in% DiffIsoSig$PAS, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(OrthoandMetha_sm, by=&quot;gene&quot;)</code></pre>
+<p>Look how many of these are diff used:</p>
+<pre class="r"><code>AllOverlapping_both %&gt;% group_by(SigPAS) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  SigPAS `n()`
+  &lt;chr&gt;  &lt;int&gt;
+1 No      2301
+2 Yes      105</code></pre>
+<pre class="r"><code>ggplot(AllOverlapping_both,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS \n All genes&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(AllOverlapping_both,aes(x=prop, by=SigPAS, col=SigPAS)) + stat_ecdf()+scale_color_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS \n all genes&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>AllOverlapping_both_yes= AllOverlapping_both %&gt;% filter(SigPAS==&quot;Yes&quot;)
+nrow(AllOverlapping_both_yes)</code></pre>
+<pre><code>[1] 105</code></pre>
+<pre class="r"><code>AllOverlapping_both_no= AllOverlapping_both %&gt;% filter(SigPAS==&quot;No&quot;)
+nrow(AllOverlapping_both_no)</code></pre>
+<pre><code>[1] 2301</code></pre>
+<pre class="r"><code>wilcox.test(AllOverlapping_both_yes$prop,AllOverlapping_both_no$prop)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  AllOverlapping_both_yes$prop and AllOverlapping_both_no$prop
+W = 116000, p-value = 0.4905
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Remove genes with greater than 1:</p>
+<pre class="r"><code>AllOverlapping_both2more=AllOverlapping_both %&gt;% filter(numUTR&gt;1)
+
+ggplot(AllOverlapping_both2more,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;UTR location for differentially used PAS \n All genes with &gt; 1 PAS in set&quot;,x=&quot;Proportion of 3&#39; ortho exon UTR&quot;) </code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>AllOverlapping_both2more_yes= AllOverlapping_both2more %&gt;% filter(SigPAS==&quot;Yes&quot;)
+nrow(AllOverlapping_both2more_yes)</code></pre>
+<pre><code>[1] 104</code></pre>
+<pre class="r"><code>AllOverlapping_both2more_no= AllOverlapping_both2more %&gt;% filter(SigPAS==&quot;No&quot;)
+nrow(AllOverlapping_both2more_no)</code></pre>
+<pre><code>[1] 1465</code></pre>
+<pre class="r"><code>wilcox.test(AllOverlapping_both2more_yes$prop,AllOverlapping_both2more_no$prop)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  AllOverlapping_both2more_yes$prop and AllOverlapping_both2more_no$prop
+W = 75027, p-value = 0.7963
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre class="r"><code>AllOverlapping_both_dec= AllOverlapping_both %&gt;% mutate(decile_rank = ntile(AllOverlapping_both$prop,10), signum=ifelse(SigPAS==&quot;Yes&quot;, 1, 0))
+AllOverlapping_both_decG= AllOverlapping_both_dec%&gt;% group_by(decile_rank) %&gt;% summarise(Sig=sum(signum), numAll=n())
+AllOverlapping_both_decG$decile_rank=as.factor(AllOverlapping_both_decG$decile_rank)
+
+
+
+pvalAll=c()
+enrichAll=c()
+expected=sum(AllOverlapping_both_decG$Sig)/10
+for (i in decile){
+  x=AllOverlapping_both_decG[[i,2]]
+  m=AllOverlapping_both_decG[[i,3]]
+  n=sum(AllOverlapping_both_decG$numAll) - m 
+  N=sum(AllOverlapping_both_decG$numAll)
+  k=sum(AllOverlapping_both_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pvalAll=c(pvalAll,round(p,2))
+  enrichAll=c(enrichAll,en)
+}
+
+pvalAll</code></pre>
+<pre><code> [1] 0.05 0.16 0.24 0.92 0.35 0.92 0.62 0.61 0.25 0.24</code></pre>
+<pre class="r"><code>enrichAll</code></pre>
+<pre><code> [1] 1.4262004 1.2360403 1.1457143 0.5704801 1.0502381 0.5704801 0.8557202
+ [8] 0.8592857 1.1409603 1.1457143</code></pre>
+<pre class="r"><code>AllOverlapping_both_decGpval=as.data.frame(cbind(AllOverlapping_both_decG, pvalAll,enrichAll))
+
+ggplot(AllOverlapping_both_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat=&quot;identity&quot;) + labs(x=&quot;Decile for proportion of 3&#39; UTR&quot;, y= &quot;Number of Significant PAS&quot;, title=&quot;Significant PAS by location in ortho 3&#39; UTR\n all PAS&quot;) + geom_hline(yintercept =expected) + geom_text(aes(label=paste(&quot;P=&quot;,pvalAll)), position=position_dodge(width=0.9), vjust=-0.25)</code></pre>
+<p><img src="figure/percetnUTR.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1448,6 +1747,8 @@ loaded via a namespace (and not attached):
 [49] rmarkdown_1.10     httr_1.3.1         rstudioapi_0.10   
 [52] R6_2.3.0           nlme_3.1-137       git2r_0.26.1      
 [55] compiler_3.5.1    </code></pre>
+</div>
+</div>
 </div>
 
 
