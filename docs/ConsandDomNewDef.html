@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>miRNA analysis</title>
+<title>Conservation of Domianant PAS</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">miRNA analysis</h1>
+<h1 class="title toc-ignore">Conservation of Domianant PAS</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/13/2020</em></h4>
+<h4 class="date"><em>4/20/2020</em></h4>
 
 </div>
 
@@ -1299,7 +1299,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b00be28e9ab1b2d97da47bb5b2b4baedf1e99f5b/analysis/miRNAanalysis.Rmd" target="_blank">b00be28</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b00be28e9ab1b2d97da47bb5b2b4baedf1e99f5b/analysis/ConsandDomNewDef.Rmd" target="_blank">b00be28</a>
 </td>
 <td>
 brimittleman
@@ -1311,40 +1311,6 @@ brimittleman
 add new dom to anaylses
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/miRNAanalysis.html" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6997920be291f00cace4847fbda6a4a6cf5fab51/analysis/miRNAanalysis.Rmd" target="_blank">6997920</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-<td>
-initial miRNA
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1352,297 +1318,95 @@ initial miRNA
 </div>
 </div>
 </div>
-<p>In this analysis I will ask about conservation and number of conserved miRNA sites.</p>
-<p>I have the miRNA target info from TargetScanHuman. I downloaded the predicted targets for conserved targets from conserved miRNA families.</p>
-<p>I will look from the human perspective and ask if genes with conserved vs non concerved sites have different numbers of miRNA binding sites. I will standaradize this by length of 3’ UTR. This means I can only look at those with orthologous utrs.</p>
+<p>I will look at conservation with my new definition of dominant PAS.I will start with the PAS dominant at 0.4 then test robustnes.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()</code></pre>
-<pre class="r"><code>OrthoUTR=read.table(&quot;../data/orthoUTR/HumanDistal3UTR.sort.bed&quot;, col.names = c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;),stringsAsFactors = F) %&gt;% mutate(length=end-start) %&gt;% select(gene, length)</code></pre>
-<pre class="r"><code>miRNADB=read.table(&quot;../data/miRNA/Conserved_Family_Info.txt&quot;, header= T, stringsAsFactors = F,sep=&quot;\t&quot;) 
-miRNADBgenes= miRNADB %&gt;% group_by(Gene.Symbol) %&gt;% summarise(nSites=n()) %&gt;% rename(gene= Gene.Symbol) %&gt;% inner_join(OrthoUTR, by=&quot;gene&quot;) %&gt;% mutate(density=nSites/length)</code></pre>
-<p>Look at my set and overlap these.</p>
-<pre class="r"><code>DiffIsoGene=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T,stringsAsFactors = F)
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
 
-DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(Conserved=ifelse(gene %in% DiffIsoGene$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(miRNADBgenes,by=&quot;gene&quot;)</code></pre>
-<p>Plot this:</p>
-<pre class="r"><code>ggplot(DiffIso, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;greater&quot;)) +labs(title=&quot;Number of annotated miRNA sites\nConserved = no differnetially used PAS&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/figure/miRNAanalysis.Rmd/unnamed-chunk-5-1.png" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>DiffIso %&gt;% group_by(Conserved) %&gt;% summarise(mean(density))</code></pre>
-<pre><code># A tibble: 2 x 2
-  Conserved `mean(density)`
-  &lt;chr&gt;               &lt;dbl&gt;
-1 No                  0.595
-2 Yes                 0.526</code></pre>
-<p>Look specifically at genes with differentially used 3’ UTR PAS:</p>
-<pre class="r"><code>PASINFO=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% select(PAS, chr, start, end, loc)
-DiffIsoUTR=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(PASINFO,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;)) %&gt;% filter(SigPAU2==&quot;Yes&quot;, loc==&#39;utr3&#39;) %&gt;% select(gene) %&gt;% unique()
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
-DiffIsoUTRall=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(Conserved=ifelse(gene %in% DiffIsoUTR$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(miRNADBgenes,by=&quot;gene&quot;)
+    extract</code></pre>
+<pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
 
-DiffIsoIntron=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(PASINFO,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;)) %&gt;% filter(SigPAU2==&quot;Yes&quot;, loc==&#39;intron&#39;) %&gt;% select(gene) %&gt;% unique()
-
-DiffIsoIntronall=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(Conserved=ifelse(gene %in% DiffIsoIntron$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(miRNADBgenes,by=&quot;gene&quot;)</code></pre>
-<pre class="r"><code>ggplot(DiffIsoUTRall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;greater&quot;)) +labs(title=&quot;Number of annotated miRNA sites\nConserved = no differnetially used 3&#39; UTR PAS&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/figure/miRNAanalysis.Rmd/unnamed-chunk-8-1.png" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DiffIsoIntronall, aes(x=Conserved, y=log10(density),fill=Conserved)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;greater&quot;)) +labs(title=&quot;Number of annotated miRNA sites\nConserved = no differnetially used Intronic PAS&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/figure/miRNAanalysis.Rmd/unnamed-chunk-8-2.png" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Can I look at conserved another way. Same dominant:</p>
-<pre class="r"><code>SameDom=read.table(&quot;../data/DominantPAS_DF/Nuclear_SameDom.txt&quot;,header = T, stringsAsFactors = F)
-Allgenes=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(ConservedDom=ifelse(gene %in% SameDom$gene, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(miRNADBgenes,by=&quot;gene&quot;)
-
-
-ggplot(Allgenes, aes(x=ConservedDom, y=log10(density),fill=ConservedDom)) +geom_boxplot() + stat_compare_means() +labs(title=&quot;Number of annotated miRNA sites by Conservation of Dominant PAS&quot;, x=&quot;Same Dominant PAS&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/figure/miRNAanalysis.Rmd/unnamed-chunk-9-1.png" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>Allgenes %&gt;% group_by(ConservedDom) %&gt;% summarise(mean(density))</code></pre>
-<pre><code># A tibble: 2 x 2
-  ConservedDom `mean(density)`
-  &lt;chr&gt;                  &lt;dbl&gt;
-1 No                     0.618
-2 Yes                    0.471</code></pre>
-<p>Different dominant PAS more dense with miRNA binding sites</p>
-<p>Differentially used conditioned on dominant:</p>
-<p>Look at the differentially used PAS when the differentially used PAS is the dominant PAS.</p>
-<pre class="r"><code>Usage=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T)
-ChimpDom= Usage %&gt;% 
-  group_by(gene) %&gt;%
-  top_n(1,Chimp) %&gt;% 
-  select(PAS,gene)
-
-HumanDom= Usage %&gt;% 
-  group_by(gene) %&gt;%
-  top_n(1,Human) %&gt;% 
-  select(PAS,gene)
-
-
-DomEither= ChimpDom %&gt;% bind_rows(HumanDom) %&gt;% unique()</code></pre>
-<pre class="r"><code>DiffIsoDom=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(PASINFO,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;))  %&gt;% mutate(Dom=ifelse(PAS %in% DomEither$PAS, &quot;Yes&quot;, &quot;No&quot;))%&gt;% filter(Dom ==&quot;Yes&quot;,SigPAU2==&quot;Yes&quot;) %&gt;% select(gene) %&gt;% unique()
-
-AllgenesDom=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(DiffUsed=ifelse(gene %in% DiffIsoDom$gene, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(miRNADBgenes,by=&quot;gene&quot;)
-
-ggplot(AllgenesDom, aes(x=DiffUsed, y=log10(density),fill=DiffUsed)) +geom_boxplot() + stat_compare_means() +labs(title=&quot;Number of annotated miRNA sites by Conservation Gene with Diff used dominant PAS&quot;, x=&quot;Same Dominant PAS&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/edd894076e37f6683d3c43c9355e92787f1de2ff/docs/figure/miRNAanalysis.Rmd/unnamed-chunk-12-1.png" target="_blank">edd8940</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-13
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>AllgenesDom %&gt;% group_by(DiffUsed) %&gt;% summarise(n(), mean(density))</code></pre>
-<pre><code># A tibble: 2 x 3
-  DiffUsed `n()` `mean(density)`
-  &lt;chr&gt;    &lt;int&gt;           &lt;dbl&gt;
-1 No        6761           0.501
-2 Yes       1230           0.590</code></pre>
-<p>When the gene has a differentially used pas that is dominant we see the effect.</p>
-<p>New way to call dominance:</p>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
 
 ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
 
 BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
 
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)  %&gt;% inner_join(miRNADBgenes, by=&quot;gene&quot;)</code></pre>
-<pre class="r"><code>ggplot(BothRes_40, aes(x=Set, y=log10(density),fill=Set)) +geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;greater&quot;)) +labs(title=&quot;Number of annotated miRNA sites\n Dominance Structure&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>No difference here. Look at if there is a domiant PAS or not:</p>
-<pre class="r"><code>miRNADBgenes_dom= miRNADBgenes %&gt;% mutate(Dom=ifelse(gene %in% BothRes$gene, &quot;Yes&quot;, &quot;No&quot;))
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
 
-ggplot(miRNADBgenes_dom, aes(x=Dom, y=log10(density),fill=Dom)) +geom_boxplot() + stat_compare_means() +labs(title=&quot;Density of annotated miRNA sites&quot;) + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
-<p><img src="figure/miRNAanalysis.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /> This shows that genes with a domiant PAS have higher density of miRNA.</p>
+#all dom set is the list that are &gt;.4 in either species 
+ChimpRes_40=ChimpRes %&gt;% filter(Chimp_DiffDom&gt;=.4)
+HumanRes_40=HumanRes %&gt;% filter(Human_DiffDom&gt;=.4)
+AllDom=c(ChimpRes_40$Chimp_PAS, HumanRes_40$Human_PAS) %&gt;% unique()
+
+
+phylores=read.table(&quot;../data/PhyloP/PAS_phyloP.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP&quot;), stringsAsFactors = F) %&gt;% drop_na() %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;)) %&gt;% mutate(EitherDom=ifelse(PAS %in% AllDom, &quot;Yes&quot;, &quot;No&quot;))</code></pre>
+<p>First test if the dominant PAS are more conserved than the non dominant PAS.</p>
+<pre class="r"><code>ggplot(phylores, aes(y=phyloP, x=EitherDom, fill=EitherDom)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method.args = list(alternative = &quot;greater&quot;))+labs(title=&quot;Dominant PAS are more conserved than non dominant PAS&quot;, x=&quot;PAS dominance structure&quot;)+ theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/ConsandDomNewDef.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Is this location driven?</p>
+<pre class="r"><code>ggplot(phylores, aes(y=phyloP, x=EitherDom, fill=EitherDom)) + geom_boxplot() + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method.args = list(alternative = &quot;greater&quot;))+labs(title=&quot;Dominant PAS are more conserved than non dominant PAS&quot;, x=&quot;PAS dominance structure&quot;)+ theme(legend.position = &quot;none&quot;) + facet_grid(~loc)</code></pre>
+<p><img src="figure/ConsandDomNewDef.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is interesting, it looks like the extended isoforms show the difference.</p>
+<p>Filter for these genes and ask about same different PAS</p>
+<pre class="r"><code>BothRes_40g= BothRes_40 %&gt;% gather(species, PAS, -gene, -cut, -Set,-Human_DiffDom, -Chimp_DiffDom ) %&gt;% select(PAS, Set) %&gt;% unique()
+
+phylores_dom= phylores %&gt;% inner_join(BothRes_40g, by=&quot;PAS&quot;)
+
+ggplot(phylores_dom, aes(x=Set, y=phyloP, fill=Set)) + geom_boxplot()+ scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method.args = list(alternative = &quot;less&quot;)) + labs(title=&quot;Matching Domionant PAS are more conserved than non matching dominant PAS&quot;, x=&quot;PAS dominance structure&quot;)+ theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/ConsandDomNewDef.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /> By location:</p>
+<pre class="r"><code>ggplot(phylores_dom, aes(x=Set, y=phyloP, fill=Set)) + geom_boxplot()+ scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method.args = list(alternative = &quot;less&quot;)) + labs(title=&quot;Matching Domionant PAS are more conserved than non matching dominant PAS&quot;, x=&quot;PAS dominance structure&quot;)+ theme(legend.position = &quot;none&quot;) + facet_grid(~loc)</code></pre>
+<p><img src="figure/ConsandDomNewDef.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This suggest sequence conservation does play a role in the conservation of dominant PAS. This is not driven by 1 location.</p>
+<div id="dnds" class="section level2">
+<h2>DNDS</h2>
+<p>At the gene level I want to look at conservation for the full gene when the dominant PAS is the same or different. I can use DNDS for this.</p>
+<p>DN (non synonymous) /DS (synonymous): from ensamble site - ratio of substitution rate (quick and dirty way to look at evo), ratio &gt;1 usually evidence for positive selection. values are in ../data/DNDS/HumanChimp_DNDS.csv</p>
+<p>Remove NA values</p>
+<p>We can ask if genes with different dominant show evidence for positive selection:</p>
+<pre class="r"><code>DNDS= read.csv(&quot;../data/DNDS/HumanChimp_DNDS.csv&quot;, header = T,stringsAsFactors = F) %&gt;% drop_na() %&gt;% group_by(Gene.name) %&gt;% slice(1) %&gt;% ungroup() %&gt;% mutate(DNDSratio= dN.with.Chimpanzee/dS.with.Chimpanzee) %&gt;% dplyr::select(Gene.name, dN.with.Chimpanzee,dS.with.Chimpanzee,DNDSratio) %&gt;% rename(&quot;gene&quot;=Gene.name)
+
+BothRes_40_dnds= BothRes_40 %&gt;% inner_join(DNDS,by=&quot;gene&quot;)
+
+#filter the infinity (syn ==0)
+BothRes_40_dnds_filt= BothRes_40_dnds %&gt;% filter(dS.with.Chimpanzee &gt;0)</code></pre>
+<p>I will first plot them then ask for enrichment of DN/DS &gt;1 in each set.</p>
+<pre class="r"><code>ggplot(BothRes_40_dnds_filt,aes(x=Set, y=DNDSratio, fill=Set)) + geom_boxplot()+  scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method.args = list(alternative = &quot;greater&quot;)) + labs(title=&quot;Genes with different domiannt dominant have higher DN/DS scores&quot;,x=&quot;Dominance structure&quot;)+ theme(legend.position = &quot;none&quot;) </code></pre>
+<p><img src="figure/ConsandDomNewDef.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>x=nrow(BothRes_40_dnds_filt %&gt;% filter(Set==&quot;Different&quot;, DNDSratio&gt;=1))
+m= nrow(BothRes_40_dnds_filt %&gt;% filter(DNDSratio&gt;=1))
+n=nrow(BothRes_40_dnds_filt %&gt;% filter(DNDSratio&lt;1))
+k=nrow(BothRes_40_dnds_filt %&gt;% filter(Set==&quot;Different&quot;))
+
+phyper(x,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.1830808</code></pre>
+<p>No enrichment for genes with evidence of positive selection.</p>
+<p>O,1 means constraint:</p>
+<pre class="r"><code>x=nrow(BothRes_40_dnds_filt %&gt;% filter(Set==&quot;Different&quot;, DNDSratio&lt;1))
+m= nrow(BothRes_40_dnds_filt %&gt;% filter(DNDSratio&lt;1))
+n=nrow(BothRes_40_dnds_filt %&gt;% filter(DNDSratio&gt;=1))
+k=nrow(BothRes_40_dnds_filt %&gt;% filter(Set==&quot;Different&quot;))
+
+phyper(x,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.6951448</code></pre>
+<p>No enrichment here either.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1670,29 +1434,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1   workflowr_1.6.0
+ [1] ggpubr_0.2      magrittr_1.5    workflowr_1.6.0 forcats_0.3.0  
+ [5] stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1    
+ [9] tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         utf8_1.1.4         rlang_0.4.0       
+ [1] tidyselect_0.2.5   reshape2_1.4.3     haven_1.1.2       
+ [4] lattice_0.20-38    colorspace_1.3-2   generics_0.0.2    
+ [7] htmltools_0.3.6    yaml_2.2.0         rlang_0.4.0       
 [10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
 [13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
 [16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
 [19] gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
 [22] evaluate_0.12      labeling_0.3       knitr_1.20        
-[25] httpuv_1.4.5       fansi_0.4.0        broom_0.5.1       
-[28] Rcpp_1.0.2         promises_1.0.1     scales_1.0.0      
-[31] backports_1.1.2    jsonlite_1.6       fs_1.3.1          
-[34] hms_0.4.2          digest_0.6.18      stringi_1.2.4     
-[37] grid_3.5.1         rprojroot_1.3-2    cli_1.1.0         
-[40] tools_3.5.1        lazyeval_0.2.1     crayon_1.3.4      
-[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
-[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
-[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
-[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
+[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
+[28] promises_1.0.1     scales_1.0.0       backports_1.1.2   
+[31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[37] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
+[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
+[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
+[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+</div>
 </div>
 
 
