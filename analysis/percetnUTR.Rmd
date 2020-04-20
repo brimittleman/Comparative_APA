@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#Simple Case 
+
 I looked at the ortho UTR PAS where there are only 2 for the gene. This was too restrictive. I am going to look at the percent of the ortho UTR for genes with only UTR PAS that are in the otho UTR file. I will do this because the are easier to interpret. 
 
 ```{r}
@@ -106,6 +108,7 @@ ggplot(Overlapping_both,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alph
 ggplot(Overlapping_both,aes(x=prop, by=SigPAS, col=SigPAS)) + stat_ecdf()+scale_color_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS",x="Proportion of 3' ortho exon UTR") 
 ```
 
+
 ```{r}
 Overlapping_both_yes= Overlapping_both %>% filter(SigPAS=="Yes")
 nrow(Overlapping_both_yes)
@@ -114,3 +117,169 @@ nrow(Overlapping_both_no)
 wilcox.test(Overlapping_both_yes$prop,Overlapping_both_no$prop)
 ```
 Not a significant difference in the distribution.  
+
+Remove genes with 1 PAS:  
+
+```{r}
+Overlapping_both2more=Overlapping_both %>% filter(numUTR>1)
+ggplot(Overlapping_both2more,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS \n greater than 1 PAS",x="Proportion of 3' ortho exon UTR") 
+
+```
+
+
+
+
+I want to change this to look at enrichment by decile. I will seperate all of these into decile and ask if there is an erichment for any location.  
+
+```{r}
+quantile(Overlapping_both$prop, seq(0,1, by=.1))
+```
+
+```{r}
+Overlapping_both_dec= Overlapping_both %>% mutate(decile_rank = ntile(Overlapping_both$prop,10), signum=ifelse(SigPAS=="Yes", 1, 0))
+Overlapping_both_decG= Overlapping_both_dec%>% group_by(decile_rank) %>% summarise(Sig=sum(signum), numAll=n())
+Overlapping_both_decG$decile_rank=as.factor(Overlapping_both_decG$decile_rank)
+
+
+ggplot(Overlapping_both_decG, aes(x=decile_rank, y=Sig)) +geom_bar(stat="identity") + labs(x="Decile for proportion of 3' UTR", y= "Number of Significant PAS", title="Significant PAS by location in ortho 3' UTR") 
+```
+Expected value if this were uniform. It would be the number of significant /10 in each decile.  
+
+
+```{r}
+decile=seq(1,10, 1)
+pval=c()
+enrich=c()
+expected=sum(Overlapping_both_decG$Sig)/10
+for (i in decile){
+  x=Overlapping_both_decG[[i,2]]
+  m=240
+  n=2398-240
+  N=2398
+  k=sum(Overlapping_both_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pval=c(pval,round(p,2))
+  enrich=c(enrich,en)
+}
+
+pval
+enrich
+Overlapping_both_decGpval=as.data.frame(cbind(Overlapping_both_decG, pval,enrich))
+
+ggplot(Overlapping_both_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat="identity") + labs(x="Decile for proportion of 3' UTR", y= "Number of Significant PAS", title="Significant PAS by location in ortho 3' UTR") + geom_hline(yintercept =expected) + geom_text(aes(label=paste("P=",pval)), position=position_dodge(width=0.9), vjust=-0.25)
+
+```
+
+
+Same analysis minus 1 gene:  
+
+```{r}
+Overlapping_both2more_dec= Overlapping_both2more %>% mutate(decile_rank = ntile(Overlapping_both2more$prop,10), signum=ifelse(SigPAS=="Yes", 1, 0))
+Overlapping_both2more_decG= Overlapping_both2more_dec%>% group_by(decile_rank) %>% summarise(Sig=sum(signum), numAll=n())
+Overlapping_both2more_decG$decile_rank=as.factor(Overlapping_both2more_decG$decile_rank)
+
+
+
+pval2=c()
+enrich2=c()
+expected=sum(Overlapping_both2more_decG$Sig)/10
+for (i in decile){
+  x=Overlapping_both2more_decG[[i,2]]
+  m=Overlapping_both2more_decG[[i,3]]
+  n=sum(Overlapping_both2more_decG$numAll) - m 
+  N=sum(Overlapping_both2more_decG$numAll)
+  k=sum(Overlapping_both2more_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pval2=c(pval2,round(p,2))
+  enrich2=c(enrich2,en)
+}
+
+pval2
+enrich2
+Overlapping_both2more_decGpval=as.data.frame(cbind(Overlapping_both2more_decG, pval2,enrich2))
+
+ggplot(Overlapping_both2more_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat="identity") + labs(x="Decile for proportion of 3' UTR", y= "Number of Significant PAS", title="Significant PAS by location in ortho 3' UTR\n all PAS") + geom_hline(yintercept =expected) + geom_text(aes(label=paste("P=",pval2)), position=position_dodge(width=0.9), vjust=-0.25)
+```
+
+
+
+##More complex case  
+
+
+```{r}
+AllOverlapping= read.table("../data/orthoUTR/PASOverlapinDistal3UTR_bothWritten.bed", col.names = c("chrpas", "startpas", "endpas","PAS", "humanusage", "strandpas", "chrutr", "startutr", "endutr","geneUTR", "score","strand"),stringsAsFactors = F)  %>% rename(gene="geneUTR")
+
+AllOverlapping_pos= AllOverlapping %>% filter(strand=="+") %>% mutate(length=endutr-startutr, center=endpas-100, cent2start=center-startutr, prop=cent2start/length)
+AllOverlapping_neg= AllOverlapping %>% filter(strand=="-") %>% mutate(length=endutr-startutr, center=endpas-100, cent2start=endutr- center, prop=cent2start/length)
+AllOverlapping_both=AllOverlapping_pos %>% bind_rows(AllOverlapping_neg) %>% mutate(SigPAS=ifelse(PAS %in% DiffIsoSig$PAS, "Yes","No")) %>% inner_join(OrthoandMetha_sm, by="gene")
+```
+
+Look how many of these are diff used:
+
+```{r}
+AllOverlapping_both %>% group_by(SigPAS) %>% summarise(n())
+```
+```{r}
+ggplot(AllOverlapping_both,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS \n All genes",x="Proportion of 3' ortho exon UTR") 
+```
+```{r}
+ggplot(AllOverlapping_both,aes(x=prop, by=SigPAS, col=SigPAS)) + stat_ecdf()+scale_color_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS \n all genes",x="Proportion of 3' ortho exon UTR") 
+```
+
+```{r}
+AllOverlapping_both_yes= AllOverlapping_both %>% filter(SigPAS=="Yes")
+nrow(AllOverlapping_both_yes)
+AllOverlapping_both_no= AllOverlapping_both %>% filter(SigPAS=="No")
+nrow(AllOverlapping_both_no)
+wilcox.test(AllOverlapping_both_yes$prop,AllOverlapping_both_no$prop)
+```
+Remove genes with greater than 1:  
+
+```{r}
+AllOverlapping_both2more=AllOverlapping_both %>% filter(numUTR>1)
+
+ggplot(AllOverlapping_both2more,aes(x=prop, by=SigPAS, fill=SigPAS)) + geom_density(alpha=.4) + scale_fill_brewer(palette = "Dark2") + labs(title="UTR location for differentially used PAS \n All genes with > 1 PAS in set",x="Proportion of 3' ortho exon UTR") 
+
+
+AllOverlapping_both2more_yes= AllOverlapping_both2more %>% filter(SigPAS=="Yes")
+nrow(AllOverlapping_both2more_yes)
+AllOverlapping_both2more_no= AllOverlapping_both2more %>% filter(SigPAS=="No")
+nrow(AllOverlapping_both2more_no)
+wilcox.test(AllOverlapping_both2more_yes$prop,AllOverlapping_both2more_no$prop)
+```
+
+
+```{r}
+
+
+AllOverlapping_both_dec= AllOverlapping_both %>% mutate(decile_rank = ntile(AllOverlapping_both$prop,10), signum=ifelse(SigPAS=="Yes", 1, 0))
+AllOverlapping_both_decG= AllOverlapping_both_dec%>% group_by(decile_rank) %>% summarise(Sig=sum(signum), numAll=n())
+AllOverlapping_both_decG$decile_rank=as.factor(AllOverlapping_both_decG$decile_rank)
+
+
+
+pvalAll=c()
+enrichAll=c()
+expected=sum(AllOverlapping_both_decG$Sig)/10
+for (i in decile){
+  x=AllOverlapping_both_decG[[i,2]]
+  m=AllOverlapping_both_decG[[i,3]]
+  n=sum(AllOverlapping_both_decG$numAll) - m 
+  N=sum(AllOverlapping_both_decG$numAll)
+  k=sum(AllOverlapping_both_decG$Sig)
+  en=(x/k)/(m/N)
+  p=phyper(x, m, n, k,lower.tail=F)
+  pvalAll=c(pvalAll,round(p,2))
+  enrichAll=c(enrichAll,en)
+}
+
+pvalAll
+enrichAll
+AllOverlapping_both_decGpval=as.data.frame(cbind(AllOverlapping_both_decG, pvalAll,enrichAll))
+
+ggplot(AllOverlapping_both_decGpval, aes(x=decile_rank, y=Sig)) +geom_bar(stat="identity") + labs(x="Decile for proportion of 3' UTR", y= "Number of Significant PAS", title="Significant PAS by location in ortho 3' UTR\n all PAS") + geom_hline(yintercept =expected) + geom_text(aes(label=paste("P=",pvalAll)), position=position_dodge(width=0.9), vjust=-0.25)
+```
+
+
