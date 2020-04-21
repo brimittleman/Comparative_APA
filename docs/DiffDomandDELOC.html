@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Different Dominant Length Differences</title>
+<title>Location of Different Dominant and DE</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,7 +316,7 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Different Dominant Length Differences</h1>
+<h1 class="title toc-ignore">Location of Different Dominant and DE</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
 <h4 class="date"><em>4/21/2020</em></h4>
 
@@ -1305,27 +1305,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/fbc65999dd3844de9ac467ff3fbf6e03c9f2a3a1/docs/DiffDomDE_length.html" target="_blank">fbc6599</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/95685efb3a0c1ea3b1cbb510c7ed5c6f71862162/analysis/DiffDomDE_length.Rmd" target="_blank">95685ef</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/0f53338a6d3957471d0d86ff5625708b2d192f1f/analysis/DiffDomandDELOC.Rmd" target="_blank">0f53338</a>
 </td>
 <td>
 brimittleman
@@ -1334,7 +1317,7 @@ brimittleman
 2020-04-21
 </td>
 <td>
-add length diff analysis
+add de and diff dom mech
 </td>
 </tr>
 </tbody>
@@ -1344,438 +1327,351 @@ add length diff analysis
 </div>
 </div>
 </div>
-<p>I found a strong enrichment for genes with different dominant PAS in the set of DE genes. ##.4 set<br />
-I will start with the 0.4 set. Then I can expand.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.3       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()</code></pre>
-<pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)
-MetaCol=colnames(PAS)
-
-nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
-DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,DE)
-DE_yes= DE %&gt;% filter(DE==&quot;Yes&quot;)
-
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>To better understand how the difference in dominance could relate to DE, I want to look at the location of the PAS. If they are both UTR is it is a different expected mechanism for intronic and UTR.</p>
+<p>I can then incorporate the direction of effect for expression.</p>
+<p>Again start with 0.4 and then expand.</p>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)
+MetaCol=colnames(PASMeta)
 HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
 
 ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
 
 BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
 
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)</code></pre>
+<p>Seperate the different and spread:</p>
+<pre class="r"><code>BothRes_40_diff= BothRes_40 %&gt;% 
+  filter(Set==&quot;Different&quot;) %&gt;% 
+  select(gene, Human_PAS, Chimp_PAS) %&gt;%
+  gather(Species, PAS, -gene) %&gt;%
+  inner_join(PASMeta,by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;% 
+  select(gene, Species, loc) %&gt;% 
+  spread(Species, loc)</code></pre>
+<p>Filter these with the DE set:</p>
+<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
+DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,DE)
+DE_yes= DE %&gt;% filter(DE==&quot;Yes&quot;)</code></pre>
+<pre class="r"><code>BothRes_40_diff_de= BothRes_40_diff %&gt;% inner_join(DE, by=&quot;gene&quot;) %&gt;% filter(DE==&quot;Yes&quot;) %&gt;% mutate(type=paste(Chimp_PAS, Human_PAS, sep=&quot;:&quot;))
 
-ReswithDE= BothRes_40  %&gt;% select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;%  inner_join(DE, by=&quot;gene&quot;) 
+BothRes_40_diff_de %&gt;% group_by(type) %&gt;% summarise(ntype=n()) </code></pre>
+<pre><code># A tibble: 13 x 2
+   type          ntype
+   &lt;chr&gt;         &lt;int&gt;
+ 1 cds:cds           1
+ 2 cds:intron        1
+ 3 cds:utr3          7
+ 4 end:utr3          2
+ 5 intron:cds        1
+ 6 intron:intron     1
+ 7 intron:utr3       1
+ 8 utr3:cds         10
+ 9 utr3:end          3
+10 utr3:intron      19
+11 utr3:utr3        28
+12 utr3:utr5         1
+13 utr5:utr3         1</code></pre>
+<p>Filter for interactions with more than 1</p>
+<pre class="r"><code>BothRes_40_diff_de %&gt;% group_by(type) %&gt;% summarise(ntype=n()) %&gt;% filter(ntype&gt;1)</code></pre>
+<pre><code># A tibble: 6 x 2
+  type        ntype
+  &lt;chr&gt;       &lt;int&gt;
+1 cds:utr3        7
+2 end:utr3        2
+3 utr3:cds       10
+4 utr3:end        3
+5 utr3:intron    19
+6 utr3:utr3      28</code></pre>
+<p>This shows a similar relationship where most of these are chimp utr3 and the change is in the human location.</p>
+<p>Add in the DE effect.</p>
+<pre class="r"><code>DEeffect= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% select(gene, logFC) %&gt;% mutate(directionDE=ifelse(logFC&gt;=1, &quot;Chimp&quot;, &quot;Human&quot;))
 
-ReswithDE_same= ReswithDE %&gt;% filter(Set==&quot;Same&quot;)
-ReswithDE_diff= ReswithDE %&gt;% filter(Set==&quot;Different&quot;)</code></pre>
-<p>Pull in the gene annotation so I can get the length. In human first</p>
-<pre class="r"><code>genes=read.table(&quot;../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed_sort.bed&quot;, col.names = c(&quot;chr&quot;, &quot;geneStart&quot;, &quot;geneEnd&quot;, &quot;gene&quot;, &quot;score&quot;, &quot;strand&quot;), stringsAsFactors = F) %&gt;% select(geneStart, geneEnd, gene)</code></pre>
-<p>I need to add the meta data for the different PAS.</p>
-<pre class="r"><code>ReswithDE_diffMeta=ReswithDE_diff %&gt;% inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;% mutate(Center=start+100) %&gt;% inner_join(genes, by=&quot;gene&quot;) %&gt;% mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))
+BothRes_40_diff_deDE= BothRes_40_diff_de %&gt;% inner_join(DEeffect, by=&quot;gene&quot;)
 
-ReswithDE_diffMetaSM= ReswithDE_diffMeta %&gt;% select(gene, species, DE, Dist2TSS) %&gt;% spread(species, Dist2TSS)</code></pre>
-<p>Look at the difference in size by DE:</p>
-<p>chimp-human</p>
-<ul>
-<li>= chimp longer</li>
-<li>= human longer</li>
-</ul>
-<p>This is the difference in isoform length (not accounting for splce differences)</p>
-<pre class="r"><code>ReswithDE_diffMetaSM_diff= ReswithDE_diffMetaSM %&gt;% mutate(Diff=Chimp_PAS-Human_PAS)
 
-ggplot(ReswithDE_diffMetaSM_diff, aes(x=Diff,by=DE, col=DE) )+ stat_ecdf()</code></pre>
-<p><img src="figure/DiffDomDE_length.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/fbc65999dd3844de9ac467ff3fbf6e03c9f2a3a1/docs/figure/DiffDomDE_length.Rmd/unnamed-chunk-5-1.png" target="_blank">fbc6599</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Look at the DE:</p>
-<pre class="r"><code>ReswithDE_diffMetaSM_diff_DE= ReswithDE_diffMetaSM_diff %&gt;% filter(DE==&quot;Yes&quot;) %&gt;% mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))
+BothRes_40_diff_deDE %&gt;% group_by(type,directionDE) %&gt;% summarise(ntype=n())</code></pre>
+<pre><code># A tibble: 18 x 3
+# Groups:   type [13]
+   type          directionDE ntype
+   &lt;chr&gt;         &lt;chr&gt;       &lt;int&gt;
+ 1 cds:cds       Human           1
+ 2 cds:intron    Human           1
+ 3 cds:utr3      Chimp           2
+ 4 cds:utr3      Human           5
+ 5 end:utr3      Chimp           1
+ 6 end:utr3      Human           1
+ 7 intron:cds    Chimp           1
+ 8 intron:intron Human           1
+ 9 intron:utr3   Human           1
+10 utr3:cds      Chimp           3
+11 utr3:cds      Human           7
+12 utr3:end      Human           3
+13 utr3:intron   Chimp           3
+14 utr3:intron   Human          16
+15 utr3:utr3     Chimp           8
+16 utr3:utr3     Human          20
+17 utr3:utr5     Human           1
+18 utr5:utr3     Chimp           1</code></pre>
+<p>20 up in human, 8 up in chimp for 3’ UTR-3’ UTR relationships</p>
+<p>interesting relationship with chimp utr3, human intron, 16 up in human and 3 up in chimp…</p>
+<p>This is interesting as well:<br />
+cds:utr3 Chimp 2<br />
+cds:utr3 Human 5</p>
+<p>Filter the 3’ UTR matched:</p>
+<pre class="r"><code>BothRes_40_diff_deDEutr3= BothRes_40_diff_deDE %&gt;% filter(type==&quot;utr3:utr3&quot;)
+nrow(BothRes_40_diff_deDEutr3)</code></pre>
+<pre><code>[1] 28</code></pre>
+<p>Add in distal and proximal information for each of these:<br />
+I</p>
+<pre class="r"><code>BothRes_40_diffDistProx= BothRes_40 %&gt;% 
+  filter(Set==&quot;Different&quot;) %&gt;% 
+  select(gene, Human_PAS, Chimp_PAS) %&gt;%
+  gather(Species, PAS, -gene) %&gt;%
+  inner_join(PASMeta,by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;% 
+  group_by(gene) %&gt;% 
+  arrange(start) %&gt;% 
+  mutate(id = 1:n()) 
 
-ReswithDE_diffMetaSM_diff_DE %&gt;% group_by(longer) %&gt;% summarise(n=n())</code></pre>
-<pre><code># A tibble: 2 x 2
-  longer     n
-  &lt;chr&gt;  &lt;int&gt;
-1 Chimp     44
-2 Human     32</code></pre>
-<pre class="r"><code>ggplot(ReswithDE_diffMetaSM_diff_DE, aes(y=abs(Diff),x=longer))+geom_boxplot() + stat_compare_means()</code></pre>
-<p><img src="figure/DiffDomDE_length.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/fbc65999dd3844de9ac467ff3fbf6e03c9f2a3a1/docs/figure/DiffDomDE_length.Rmd/unnamed-chunk-6-1.png" target="_blank">fbc6599</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>I want to add the information about which has higher expression:</p>
-<pre class="r"><code>DEeffect= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% select(gene, logFC) %&gt;% mutate(directionDE=ifelse(logFC&gt;=1, &quot;Chimp&quot;, &quot;Human&quot;))</code></pre>
-<pre class="r"><code>LengthDiffandDe=ReswithDE_diffMetaSM_diff_DE %&gt;% inner_join(DEeffect, by=&quot;gene&quot;)
 
-tableg=LengthDiffandDe %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n())
-tableg</code></pre>
+BothRes_40_diffDistProx_pos= BothRes_40_diffDistProx %&gt;% filter(strandFix==&quot;+&quot;) %&gt;% mutate(Isoform=ifelse(id==1, &quot;Short&quot;, &quot;Long&quot;)) %&gt;% select(gene, PAS, Species, Isoform)
+BothRes_40_diffDistProx_neg= BothRes_40_diffDistProx %&gt;% filter(strandFix==&quot;-&quot;) %&gt;% mutate(Isoform=ifelse(id==1, &quot;Long&quot;, &quot;Short&quot;))%&gt;% select(gene, PAS, Species, Isoform)
+
+
+BothRes_40_diffDistProx_bothIso= BothRes_40_diffDistProx_pos %&gt;% bind_rows(BothRes_40_diffDistProx_neg) %&gt;% select(-PAS) %&gt;% spread(Species,Isoform) %&gt;% rename(Chimp_iso=Chimp_PAS, Human_iso =Human_PAS)</code></pre>
+<pre class="r"><code>BothRes_40_diff_deDEutr3_length= BothRes_40_diff_deDEutr3 %&gt;% inner_join(BothRes_40_diffDistProx_bothIso, by=&quot;gene&quot;)
+
+table=BothRes_40_diff_deDEutr3_length  %&gt;% mutate(ChimpHumanLen=paste(Chimp_iso, Human_iso, sep=&quot;:&quot;)) %&gt;% select(directionDE, ChimpHumanLen) %&gt;% group_by(directionDE, ChimpHumanLen) %&gt;% summarise(n=n())
+table</code></pre>
 <pre><code># A tibble: 4 x 3
-# Groups:   longer [2]
-  longer directionDE     n
-  &lt;chr&gt;  &lt;chr&gt;       &lt;int&gt;
-1 Chimp  Chimp          10
-2 Chimp  Human          34
-3 Human  Chimp           9
-4 Human  Human          23</code></pre>
-<p>More of these are upregulated in human</p>
-<p>to run a chi sq test i need to spread this:</p>
-<pre class="r"><code>tabler= tableg %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
+# Groups:   directionDE [2]
+  directionDE ChimpHumanLen     n
+  &lt;chr&gt;       &lt;chr&gt;         &lt;int&gt;
+1 Chimp       Long:Short        4
+2 Chimp       Short:Long        4
+3 Human       Long:Short        7
+4 Human       Short:Long       13</code></pre>
+<pre class="r"><code>tabler= table %&gt;% spread(ChimpHumanLen, n) %&gt;% column_to_rownames(&quot;directionDE&quot;)
 
 chisq.test(tabler)</code></pre>
+<pre><code>Warning in chisq.test(tabler): Chi-squared approximation may be incorrect</code></pre>
 <pre><code>
     Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 
 data:  tabler
-X-squared = 0.07197, df = 1, p-value = 0.7885</code></pre>
-<p>This is not outside of expectation.</p>
-<p>Does not seem like length and direction are confounded.</p>
-<div id="all-cutoffs" class="section level2">
-<h2>All cutoffs</h2>
-<p>Expand to larger set:</p>
-<p>I need the different ones, then i get the distance for each from the gene file and get the longer isoform, then add in the DE direction</p>
-<p>Probably easier to do it one at a time rather than a loop.</p>
-<pre class="r"><code>BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
-BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
-BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
-#BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
-BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
-BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
-BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
-BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
-BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)</code></pre>
-<div id="section" class="section level3">
-<h3>10</h3>
-<pre class="r"><code>ReswithDE10= BothRes_10  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
+X-squared = 0.093583, df = 1, p-value = 0.7597</code></pre>
+<pre class="r"><code>#write out for otheranalysis
+write.table(BothRes_40_diff_deDEutr3_length, &quot;../data/DomDefGreaterX/DE_Diffdom4_UTRboth.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
+<p>Not significant.</p>
+<p>Look at examples:</p>
+<pre class="r"><code>deanddiff= BothRes_40 %&gt;% 
+  filter(Set==&quot;Different&quot;) %&gt;% 
+  inner_join(DE_yes, by=&quot;gene&quot;) %&gt;% 
+  arrange(gene)
 
-tableg10=ReswithDE10 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
-tableg10</code></pre>
-<pre><code>      Chimp Human
-Chimp    53   247
-Human    31    99</code></pre>
-<pre class="r"><code>chisq.test(tableg10)</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+deanddiff</code></pre>
+<pre><code>     Human_PAS      gene Human_DiffDom   Chimp_PAS Chimp_DiffDom       Set
+1  human138426       ABR         0.220 chimp125487   0.457500000 Different
+2  human172141      ADI1         0.538 chimp171173   0.304166667 Different
+3  human170162    AKT1S1         0.626 human170157   0.085833333 Different
+4  human358107   ALDH1B1         0.354 human358106   0.600000000 Different
+5  human357031  ARHGEF39         0.118 human357038   0.451666667 Different
+6  human365538    ARPC5L         0.690 human365528   0.037500000 Different
+7  human150577      ARSG         0.186 human150550   0.670833333 Different
+8  human117227   BLOC1S6         0.012 human117234   0.535000000 Different
+9   human52495 C10orf143         0.242  human52492   0.515833333 Different
+10 human265324   C4orf33         0.050 human265332   0.583333333 Different
+11 human286317   C5orf15         0.096 human286308   0.417500000 Different
+12 human350411   C8orf76         0.524 chimp312071   0.199166667 Different
+13 human231310    CCDC51         0.006 human231308   0.590000000 Different
+14 human262152     CISD2         0.010 human262148   0.507500000 Different
+15  human21027     CKS1B         0.846  human21024   0.805000000 Different
+16   human1434    CLSTN1         0.166   human1445   0.441666667 Different
+17 human352780    COMMD5         0.116 human352779   0.519166667 Different
+18  human68160      DDX6         0.734  human68171   0.515833333 Different
+19 human303921    EEF1A1         0.150 human303920   0.915000000 Different
+20 human345717     FABP5         0.564 chimp308202   0.926666667 Different
+21  human60068      FTH1         0.732  human60067   0.645833333 Different
+22 human263322      GAR1         0.046 human263323   0.600833333 Different
+23 chimp208497     GNAI2         0.164 human231846   0.412500000 Different
+24 human309614     HDDC2         0.096 human309607   0.439166667 Different
+25 human167451      HKR1         0.514 human167446   0.050833333 Different
+26 human215583    IFNGR2         0.828 chimp163919   0.802500000 Different
+27 human332120      IRF5         0.240 human332118   0.637500000 Different
+28 human129900  ITPRIPL2         0.118 human129904   0.473333333 Different
+29 human303849     KHDC1         0.130 human303827   0.498333333 Different
+30 human150491     KPNA2         0.338 chimp136628   0.448333333 Different
+31 human217562       LSS         0.548 chimp165747   0.620000000 Different
+32  human40961    MARCH8         0.028  chimp36695   0.760000000 Different
+33 human123967   MORF4L1         0.098 human123962   0.431666667 Different
+34 human137796       MVD         0.642 human137793   0.452500000 Different
+35 human331398    NDUFA5         0.640 human331402   0.479166667 Different
+36  human36686     NUDT5         0.006  human36685   0.495833333 Different
+37 human217145      PDXK         0.298 human217139   0.424166667 Different
+38  human35795    PFKFB3         0.180  human35810   0.440000000 Different
+39  human48357     PGAM1         0.566  human48359   0.960000000 Different
+40 human324283    POM121         0.044 human324315   0.407500000 Different
+41  human43366      PPA1         0.202  human43351   0.666666667 Different
+42  human16820     PSMA5         0.082  human16815   0.524166667 Different
+43 human315881     PSMB1         0.026 chimp281346   0.975833333 Different
+44 human112093     PSMC1         0.902 chimp102313   0.042500000 Different
+45 human316846      RAC1         0.572 human316843   0.021666667 Different
+46 human161808    RNF126         0.642 human161809   0.020833333 Different
+47 human229486     RPL14         0.118 human229488   0.426666667 Different
+48    human650     RPL22         0.330    human651   0.429166667 Different
+49 human142691    RPL23A         0.438 human142693   0.696666667 Different
+50 human225615     RPL32         0.730 human225614   0.571666667 Different
+51 human344785      RPL7         0.946 human344788   0.007500000 Different
+52 human269831     RWDD4         0.420 human269825   0.082500000 Different
+53  human22819      SDHC         0.012  human22809   0.754166667 Different
+54 human366500   SLC27A4         0.594 human366498   0.515833333 Different
+55 human142532   SLC46A1         0.040 human142539   0.557500000 Different
+56 human155788    SNRPD1         0.694 chimp141120   0.007500000 Different
+57 human102488      SNX6         0.014 human102501   0.635000000 Different
+58 human222105      ST13         0.298 human222090   0.437500000 Different
+59  human52635    STK32C         0.866  human52625   0.067500000 Different
+60 human137265     TAF1C         0.190 human137266   0.641666667 Different
+61  human70925    TAPBPL         0.222  human70922   0.650833333 Different
+62 human277896      TBCA         0.118 human277890   0.426666667 Different
+63 human153035      TBCD         0.016 human153045   0.816666667 Different
+64  human89242     TMED2         0.034  human89240   0.427500000 Different
+65 human344970    TMEM70         0.622 human344972   0.123333333 Different
+66  human94752      TPT1         0.562  human94756   0.004166667 Different
+67 human221197    TRIOBP         0.284 human221196   0.401666667 Different
+68 human141421     TRPV2         0.758 human141413   0.207500000 Different
+69 human151667    UBALD2         0.436 human151668   0.348333333 Different
+70 human321907    UBE2D4         0.020 human321917   0.512500000 Different
+71 human340358     UBXN8         0.072 human340355   0.801666667 Different
+72 human135011      UTP4         0.472 chimp122712   0.711666667 Different
+73 human172529     YWHAQ         0.072 human172530   0.458333333 Different
+74 human166806    ZNF302         0.026 human166815   0.456666667 Different
+75 human335508    ZNF425         0.476 human335505   0.050000000 Different
+76 human141183    ZSWIM7         0.418 human141185   0.625833333 Different
+   cut  DE
+1   40 Yes
+2   40 Yes
+3   40 Yes
+4   40 Yes
+5   40 Yes
+6   40 Yes
+7   40 Yes
+8   40 Yes
+9   40 Yes
+10  40 Yes
+11  40 Yes
+12  40 Yes
+13  40 Yes
+14  40 Yes
+15  40 Yes
+16  40 Yes
+17  40 Yes
+18  40 Yes
+19  40 Yes
+20  40 Yes
+21  40 Yes
+22  40 Yes
+23  40 Yes
+24  40 Yes
+25  40 Yes
+26  40 Yes
+27  40 Yes
+28  40 Yes
+29  40 Yes
+30  40 Yes
+31  40 Yes
+32  40 Yes
+33  40 Yes
+34  40 Yes
+35  40 Yes
+36  40 Yes
+37  40 Yes
+38  40 Yes
+39  40 Yes
+40  40 Yes
+41  40 Yes
+42  40 Yes
+43  40 Yes
+44  40 Yes
+45  40 Yes
+46  40 Yes
+47  40 Yes
+48  40 Yes
+49  40 Yes
+50  40 Yes
+51  40 Yes
+52  40 Yes
+53  40 Yes
+54  40 Yes
+55  40 Yes
+56  40 Yes
+57  40 Yes
+58  40 Yes
+59  40 Yes
+60  40 Yes
+61  40 Yes
+62  40 Yes
+63  40 Yes
+64  40 Yes
+65  40 Yes
+66  40 Yes
+67  40 Yes
+68  40 Yes
+69  40 Yes
+70  40 Yes
+71  40 Yes
+72  40 Yes
+73  40 Yes
+74  40 Yes
+75  40 Yes
+76  40 Yes</code></pre>
+<p>Use the Rscript PlotNuclearUsagebySpecies_DF.R -g DFFB</p>
+<pre class="bash"><code>mkdir ../data/DiffDomandDE_example</code></pre>
+<pre class="r"><code>deanddiff_genes= deanddiff %&gt;% select(gene)
 
-data:  tableg10
-X-squared = 1.8278, df = 1, p-value = 0.1764</code></pre>
-</div>
-<div id="section-1" class="section level3">
-<h3>20</h3>
-<pre class="r"><code>ReswithDE20= BothRes_20  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
+write.table(deanddiff_genes, &quot;../data/DiffDomandDE_example/genesfor4examples.txt&quot;, col.names = F,row.names = F, quote=F)</code></pre>
+<pre class="bash"><code>#PlotNuclearUsagebySpecies_DF_DEout.R
+sbatch NuclearPlotsDEandDiffDom_4.sh
+#problem with  ../data/files4viz_nuclear_DF/NuclearPASUsage.txt</code></pre>
+<p>Are any of these genes in the directional selection set?</p>
+<p>1.directional human 2.directional in chimp 3. undetermined 4. no mean difference 5.relaxed in human 6.related in chimp</p>
+<pre class="r"><code>KhanData=read.csv(&quot;../data/Khan_prot/Khan_TableS4.csv&quot;,stringsAsFactors = F)  %&gt;% select(gene.symbol,contains(&quot;model&quot;) ) %&gt;% rename(&quot;gene&quot;=gene.symbol, &quot;Protein&quot;=model.num.protein, &quot;RNA&quot;=model.num.rna) %&gt;% filter(gene %in% BothRes_40_diffDistProx_bothIso$gene)
 
-tableg20=ReswithDE20 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
-tableg20</code></pre>
-<pre><code>      Chimp Human
-Chimp    26   127
-Human    17    51</code></pre>
-<pre class="r"><code>chisq.test(tableg20)</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  tableg20
-X-squared = 1.4487, df = 1, p-value = 0.2287</code></pre>
-</div>
-<div id="section-2" class="section level3">
-<h3>30</h3>
-<pre class="r"><code>ReswithDE30= BothRes_30  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg30=ReswithDE30 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
-tableg30</code></pre>
-<pre><code>      Chimp Human
-Chimp    14    54
-Human    14    34</code></pre>
-<pre class="r"><code>chisq.test(tableg30)</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  tableg30
-X-squared = 0.71084, df = 1, p-value = 0.3992</code></pre>
-</div>
-<div id="section-3" class="section level3">
-<h3>50</h3>
-<pre class="r"><code>ReswithDE50= BothRes_50  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg50=ReswithDE50 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
-tableg50</code></pre>
-<pre><code>      Chimp Human
-Chimp     4    23
-Human     7    17</code></pre>
-<pre class="r"><code>chisq.test(tableg50)</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  tableg50
-X-squared = 0.81499, df = 1, p-value = 0.3667</code></pre>
-</div>
-<div id="section-4" class="section level3">
-<h3>60</h3>
-<pre class="r"><code>ReswithDE60= BothRes_60  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg60=ReswithDE60 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)
-tableg60</code></pre>
-<pre><code>      Chimp Human
-Chimp     3    16
-Human     3    14</code></pre>
-<pre class="r"><code>chisq.test(tableg60)</code></pre>
-<pre><code>Warning in chisq.test(tableg60): Chi-squared approximation may be incorrect</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  tableg60
-X-squared = 1.3188e-31, df = 1, p-value = 1</code></pre>
-</div>
-<div id="section-5" class="section level3">
-<h3>70</h3>
-<pre class="r"><code>ReswithDE70= BothRes_70  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg70=ReswithDE70 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;) %&gt;% replace_na(list(Chimp=0, Human=0))
-tableg70</code></pre>
-<pre><code>      Chimp Human
-Chimp     2    10
-Human     0     6</code></pre>
-<pre class="r"><code>chisq.test(tableg70)</code></pre>
-<pre><code>Warning in chisq.test(tableg70): Chi-squared approximation may be incorrect</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
-
-data:  tableg70
-X-squared = 0.070312, df = 1, p-value = 0.7909</code></pre>
-</div>
-<div id="section-6" class="section level3">
-<h3>80</h3>
-<pre class="r"><code>ReswithDE80= BothRes_80  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg80=ReswithDE80 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)%&gt;% replace_na(list(Chimp=0, Human=0))
-tableg80</code></pre>
-<pre><code>      Human
-Chimp     8
-Human     3</code></pre>
-<pre class="r"><code>chisq.test(tableg80)</code></pre>
-<pre><code>
-    Chi-squared test for given probabilities
-
-data:  tableg80
-X-squared = 2.2727, df = 1, p-value = 0.1317</code></pre>
-</div>
-<div id="section-7" class="section level3">
-<h3>90</h3>
-<pre class="r"><code>ReswithDE90= BothRes_90  %&gt;% 
-  filter(Set==&quot;Different&quot;) %&gt;%
-  select(-Human_DiffDom,-Chimp_DiffDom) %&gt;% 
-  gather(&quot;species&quot;,&quot;PAS&quot;, -gene, -Set, -cut) %&gt;% 
-  inner_join(DE, by=&quot;gene&quot;) %&gt;% 
-  inner_join(PAS, by=c(&quot;gene&quot;,&quot;PAS&quot;)) %&gt;%
-  mutate(Center=start+100) %&gt;% 
-  inner_join(genes, by=&quot;gene&quot;) %&gt;% 
-  mutate(Dist2TSS=ifelse(strandFix==&quot;+&quot;, Center-geneStart, geneEnd-Center))%&gt;% 
-  select(gene, species, DE, Dist2TSS) %&gt;%
-  spread(species, Dist2TSS)%&gt;% 
-  mutate(Diff=Chimp_PAS-Human_PAS) %&gt;% 
-  filter(DE==&quot;Yes&quot;) %&gt;% 
-  mutate(longer=ifelse(Diff&gt;0, &quot;Chimp&quot;, &quot;Human&quot;))%&gt;% 
-  inner_join(DEeffect, by=&quot;gene&quot;)
-
-tableg90=ReswithDE90 %&gt;% group_by(longer, directionDE) %&gt;% summarise(n=n()) %&gt;% spread(directionDE, n) %&gt;% column_to_rownames(&quot;longer&quot;)%&gt;% replace_na(list(Chimp=0, Human=0))
-tableg90</code></pre>
-<pre><code>      Human
-Chimp     5
-Human     1</code></pre>
-<pre class="r"><code>chisq.test(tableg90)</code></pre>
-<pre><code>Warning in chisq.test(tableg90): Chi-squared approximation may be incorrect</code></pre>
-<pre><code>
-    Chi-squared test for given probabilities
-
-data:  tableg90
-X-squared = 2.6667, df = 1, p-value = 0.1025</code></pre>
-</div>
-<div id="all-pvalue" class="section level3">
-<h3>All pvalue:</h3>
-<pre class="r"><code>pvalues=c(chisq.test(tableg90)$p.value,chisq.test(tableg80)$p.value,chisq.test(tableg80)$p.value,chisq.test(tableg70)$p.value,chisq.test(tableg60)$p.value,chisq.test(tableg50)$p.value,chisq.test(tabler)$p.value,chisq.test(tableg30)$p.value,chisq.test(tableg20)$p.value, chisq.test(tableg10)$p.value)</code></pre>
-<pre><code>Warning in chisq.test(tableg90): Chi-squared approximation may be incorrect</code></pre>
-<pre><code>Warning in chisq.test(tableg70): Chi-squared approximation may be incorrect</code></pre>
-<pre><code>Warning in chisq.test(tableg60): Chi-squared approximation may be incorrect</code></pre>
-<pre class="r"><code>pvalues</code></pre>
-<pre><code> [1] 0.1024704 0.1316680 0.1316680 0.7908823 1.0000000 0.3666503 0.7884902
- [8] 0.3991644 0.2287363 0.1763932</code></pre>
+KhanData %&gt;% filter(RNA %in% c(1,2,5,6)) %&gt;% group_by(RNA) %&gt;% summarise(n=n())</code></pre>
+<pre><code># A tibble: 2 x 2
+    RNA     n
+  &lt;int&gt; &lt;int&gt;
+1     1     4
+2     2    14</code></pre>
+<pre class="r"><code>KhanData %&gt;% filter(RNA %in% c(1,2,5,6))</code></pre>
+<pre><code>      gene Protein RNA
+1    TMED2       4   2
+2    PSMC1       4   2
+3     DDX6       3   2
+4    HDDC2       3   2
+5    GNAI2       4   1
+6    RPL22       4   2
+7    RAB14       4   1
+8  TUBGCP3       3   2
+9     IRF3       3   2
+10    FLNB       3   2
+11    RAC1       4   2
+12    TPM3       3   2
+13   IFIT5       4   1
+14   NUDT5       4   1
+15  TMEM70       4   2
+16    ADI1       3   2
+17 MORF4L1       4   2
+18  SEC22B       2   2</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1804,8 +1700,8 @@ attached base packages:
 
 other attached packages:
  [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1   workflowr_1.6.0
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+ [9] tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
@@ -1813,17 +1709,15 @@ loaded via a namespace (and not attached):
  [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
 [13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
 [17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.2       promises_1.0.1  
-[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
-[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
-[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      lazyeval_0.2.1  
+[21] evaluate_0.12    knitr_1.20       httpuv_1.4.5     fansi_0.4.0     
+[25] broom_0.5.1      Rcpp_1.0.2       promises_1.0.1   scales_1.0.0    
+[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
+[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
+[37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
 [41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
 [45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
 [49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
 [53] compiler_3.5.1  </code></pre>
-</div>
-</div>
 </div>
 
 
