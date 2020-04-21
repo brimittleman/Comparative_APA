@@ -1,0 +1,115 @@
+---
+title: "New dominance and dAPA"
+author: "Briana Mittleman"
+date: "4/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will look at enrichment for dAPA genes in gene with same and different domiant pas.
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header=T,stringsAsFactors=F)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header=T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene, "Yes", "No"))
+
+All= BothResAll  %>% select(gene,cut,Set) %>% inner_join(DiffIso, by="gene")
+```
+
+Enrichment:  
+
+```{r}
+Pval=c()
+Enrich=c()
+set=c(10,20,30,40,50,60,70,80,90)
+expected=c()
+actual=c()
+for (i in set){
+  x=nrow(All %>% filter(cut==i, Set=="Different", dAPA=="Yes"))
+  actual=c(actual,x)
+  m=nrow(All %>% filter(cut==i, dAPA=="Yes"))
+  n=nrow(All %>% filter(cut==i, dAPA=="No"))
+  k=nrow(All %>% filter(cut==i, Set=="Different"))
+  N=nrow(All %>% filter(cut==i))
+  val=phyper(x,m,n,k,lower.tail=F)
+  Pval= c(Pval, val)
+  en=(x/k)/(m/N)
+  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  expected=c(expected,ex)
+  Enrich=c(Enrich, en)
+}
+
+ResDF=as.data.frame(cbind(set,Pval,Enrich,actual,expected))
+ResDF$set=as.factor(ResDF$set)
+ResDF$Pval=as.numeric(as.character(ResDF$Pval))
+ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
+
+ggplot(ResDF,aes(x=set, y=-log10(Pval))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and different dominant \n condition on tested in both")
+
+ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and different dominant \n condition on tested in both")
+```
+```{r}
+ResDF
+```
+
+```{r}
+PvalSame=c()
+EnrichSame=c()
+expectedSame=c()
+actualSame=c()
+
+for (i in set){
+  x=nrow(All %>% filter(cut==i, Set=="Same", dAPA=="Yes"))
+  actualSame=c(actualSame, x)
+  m=nrow(All %>% filter(cut==i, dAPA=="Yes"))
+  n=nrow(All %>% filter(cut==i, dAPA=="No"))
+  k=nrow(All %>% filter(cut==i, Set=="Same"))
+  N=nrow(All %>% filter(cut==i))
+  val=phyper(x,m,n,k,lower.tail=F)
+  PvalSame= c(PvalSame, round(val,3))
+  en=(x/k)/(m/N)
+  EnrichSame=c(EnrichSame, en)
+  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  expectedSame=c(expectedSame,ex)
+}
+
+ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame, actualSame,expectedSame))
+ResDFSame$set=as.factor(ResDFSame$set)
+ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
+ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
+
+ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and same dominant \n condition on tested in both")
+
+ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and same dominant \n condition on tested in both")
+```
+
+```{r}
+ResDFSame
+```
+

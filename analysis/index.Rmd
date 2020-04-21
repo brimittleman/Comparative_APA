@@ -92,6 +92,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New Dominance method and usage or differential usage](UsageForDomPAS.html)
 
+* [New dominant and dAPA](NewdomanddAPA.html)
+
 
 ###Use annotations to understand mechanisms
 

@@ -207,13 +207,15 @@ BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bi
 Pval=c()
 Enrich=c()
 set=c(10,20,30,40,50,60,70,80,90)
-
+expected=c()
+actual=c()
 
 All4= BothResAll  %>% select(gene,cut,Set) %>% inner_join(DE, by="gene")
 
 
 for (i in set){
   x=nrow(All4 %>% filter(cut==i, Set=="Different", DE=="Yes"))
+  actual=c(actual, x)
   m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
   n=nrow(All4 %>% filter(cut==i, DE=="No"))
   k=nrow(All4 %>% filter(cut==i, Set=="Different"))
@@ -222,9 +224,11 @@ for (i in set){
   Pval= c(Pval, val)
   en=(x/k)/(m/N)
   Enrich=c(Enrich, en)
+  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  expected=c(expected,ex)
 }
 
-ResDF=as.data.frame(cbind(set,Pval,Enrich))
+ResDF=as.data.frame(cbind(set,Pval,Enrich, actual, expected))
 ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
@@ -234,14 +238,17 @@ ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat="identity") + geom_hline(yint
 ```
 
 ```{r}
+
 PvalSame=c()
 EnrichSame=c()
-
+expectedSame=c()
+actualSame=c()
 
 
 
 for (i in set){
   x=nrow(All4 %>% filter(cut==i, Set=="Same", DE=="Yes"))
+  actualSame=c(actualSame, x)
   m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
   n=nrow(All4 %>% filter(cut==i, DE=="No"))
   k=nrow(All4 %>% filter(cut==i, Set=="Same"))
@@ -250,9 +257,11 @@ for (i in set){
   PvalSame= c(PvalSame, val)
   en=(x/k)/(m/N)
   EnrichSame=c(EnrichSame, en)
+  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  expectedSame=c(expectedSame,ex)
 }
 
-ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame))
+ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame, actualSame,expectedSame))
 ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
@@ -260,3 +269,14 @@ ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant \n condition on tested in both")
 ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n condition on tested in both")
 ```
+```{r}
+
+
+ResDF
+
+
+ResDFSame
+
+
+```
+ 
