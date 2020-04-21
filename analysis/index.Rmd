@@ -162,6 +162,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
 
+##Domiance and DE (test for mechanisms)  
+
+* [Could standardization with length account for differences?](DiffDomDE_length.html)  
+
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 
 List of everything we tried for this section:  

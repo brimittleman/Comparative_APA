@@ -1,0 +1,327 @@
+---
+title: "Different Dominant Length Differences"
+author: "Briana Mittleman"
+date: "4/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I found a strong enrichment for genes with different dominant PAS in the set of DE genes. 
+##.4 set  
+I will start with the 0.4 set. Then I can expand.  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PAS)
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+DE_yes= DE %>% filter(DE=="Yes")
+
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+
+ReswithDE= BothRes_40  %>% select(-Human_DiffDom,-Chimp_DiffDom) %>% gather("species","PAS", -gene, -Set, -cut) %>%  inner_join(DE, by="gene") 
+
+ReswithDE_same= ReswithDE %>% filter(Set=="Same")
+ReswithDE_diff= ReswithDE %>% filter(Set=="Different")
+```
+
+Pull in the gene annotation so I can get the length. In human first
+
+```{r}
+genes=read.table("../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed_sort.bed", col.names = c("chr", "geneStart", "geneEnd", "gene", "score", "strand"), stringsAsFactors = F) %>% select(geneStart, geneEnd, gene)
+```
+
+I need to add the meta data for the different PAS.  
+
+```{r}
+ReswithDE_diffMeta=ReswithDE_diff %>% inner_join(PAS, by=c("gene","PAS")) %>% mutate(Center=start+100) %>% inner_join(genes, by="gene") %>% mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))
+
+ReswithDE_diffMetaSM= ReswithDE_diffMeta %>% select(gene, species, DE, Dist2TSS) %>% spread(species, Dist2TSS)
+```
+
+Look at the difference in size by DE:
+
+chimp-human
+
++ = chimp longer
+- = human longer 
+
+
+This is the difference in isoform length (not accounting for splce differences)
+```{r}
+ReswithDE_diffMetaSM_diff= ReswithDE_diffMetaSM %>% mutate(Diff=Chimp_PAS-Human_PAS)
+
+ggplot(ReswithDE_diffMetaSM_diff, aes(x=Diff,by=DE, col=DE) )+ stat_ecdf()
+```
+Look at the DE:  
+
+```{r}
+ReswithDE_diffMetaSM_diff_DE= ReswithDE_diffMetaSM_diff %>% filter(DE=="Yes") %>% mutate(longer=ifelse(Diff>0, "Chimp", "Human"))
+
+ReswithDE_diffMetaSM_diff_DE %>% group_by(longer) %>% summarise(n=n())
+
+ggplot(ReswithDE_diffMetaSM_diff_DE, aes(y=abs(Diff),x=longer))+geom_boxplot() + stat_compare_means()
+```
+I want to add the information about which has higher expression:  
+
+```{r}
+DEeffect= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% select(gene, logFC) %>% mutate(directionDE=ifelse(logFC>=1, "Chimp", "Human"))
+```
+
+```{r}
+LengthDiffandDe=ReswithDE_diffMetaSM_diff_DE %>% inner_join(DEeffect, by="gene")
+
+tableg=LengthDiffandDe %>% group_by(longer, directionDE) %>% summarise(n=n())
+tableg
+```
+More of these are upregulated in human 
+
+to run a chi sq test i need to spread this: 
+
+```{r}
+tabler= tableg %>% spread(directionDE, n) %>% column_to_rownames("longer")
+
+chisq.test(tabler)
+```
+This is not outside of expectation. 
+
+Does not seem like length and direction are confounded.  
+
+
+##All cutoffs 
+
+Expand to larger set:  
+
+I need the different ones, then i get the distance for each from the gene file and get the longer isoform, then add in the DE direction
+
+Probably easier to do it one at a time rather than a loop.  
+```{r}
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+#BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+
+
+```
+
+###10  
+```{r}
+ReswithDE10= BothRes_10  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg10=ReswithDE10 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")
+tableg10
+chisq.test(tableg10)
+
+```
+
+
+###20  
+```{r}
+ReswithDE20= BothRes_20  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg20=ReswithDE20 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")
+tableg20
+chisq.test(tableg20)
+
+```
+
+###30  
+```{r}
+ReswithDE30= BothRes_30  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg30=ReswithDE30 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")
+tableg30
+chisq.test(tableg30)
+
+```
+###50  
+```{r}
+ReswithDE50= BothRes_50  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg50=ReswithDE50 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")
+tableg50
+chisq.test(tableg50)
+
+```
+###60  
+```{r}
+ReswithDE60= BothRes_60  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg60=ReswithDE60 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")
+tableg60
+chisq.test(tableg60)
+
+```
+###70  
+```{r}
+ReswithDE70= BothRes_70  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg70=ReswithDE70 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer") %>% replace_na(list(Chimp=0, Human=0))
+tableg70
+chisq.test(tableg70)
+
+```
+###80  
+```{r}
+ReswithDE80= BothRes_80  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg80=ReswithDE80 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")%>% replace_na(list(Chimp=0, Human=0))
+tableg80
+chisq.test(tableg80)
+
+```
+###90  
+```{r}
+ReswithDE90= BothRes_90  %>% 
+  filter(Set=="Different") %>%
+  select(-Human_DiffDom,-Chimp_DiffDom) %>% 
+  gather("species","PAS", -gene, -Set, -cut) %>% 
+  inner_join(DE, by="gene") %>% 
+  inner_join(PAS, by=c("gene","PAS")) %>%
+  mutate(Center=start+100) %>% 
+  inner_join(genes, by="gene") %>% 
+  mutate(Dist2TSS=ifelse(strandFix=="+", Center-geneStart, geneEnd-Center))%>% 
+  select(gene, species, DE, Dist2TSS) %>%
+  spread(species, Dist2TSS)%>% 
+  mutate(Diff=Chimp_PAS-Human_PAS) %>% 
+  filter(DE=="Yes") %>% 
+  mutate(longer=ifelse(Diff>0, "Chimp", "Human"))%>% 
+  inner_join(DEeffect, by="gene")
+
+tableg90=ReswithDE90 %>% group_by(longer, directionDE) %>% summarise(n=n()) %>% spread(directionDE, n) %>% column_to_rownames("longer")%>% replace_na(list(Chimp=0, Human=0))
+tableg90
+chisq.test(tableg90)
+
+```
+
+
+###All pvalue: 
+
+```{r}
+pvalues=c(chisq.test(tableg90)$p.value,chisq.test(tableg80)$p.value,chisq.test(tableg80)$p.value,chisq.test(tableg70)$p.value,chisq.test(tableg60)$p.value,chisq.test(tableg50)$p.value,chisq.test(tabler)$p.value,chisq.test(tableg30)$p.value,chisq.test(tableg20)$p.value, chisq.test(tableg10)$p.value)
+
+
+pvalues
+```
+

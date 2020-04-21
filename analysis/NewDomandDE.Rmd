@@ -279,4 +279,9 @@ ResDFSame
 
 
 ```
- 
+ Look at propotion of DE genes 
+```{r}
+PropDE=as.data.frame(cbind(set, OverlapDE=actual, DE=rep(nrow(DE_yes),9))) %>% mutate(Prop=OverlapDE/DE)
+PropDE$set=as.factor(PropDE$set)
+ggplot(PropDE, aes(x=set,y=Prop)) + geom_bar(stat="identity")+ labs(title="Proportion of DE genes with different dominant PAS", y="Proportion of DE genes")
+```
