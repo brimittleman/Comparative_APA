@@ -1,0 +1,119 @@
+---
+title: "ARE destabilization"
+author: "Briana Mittleman"
+date: "4/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+http://arescore.dkfz.de/arescore.pl  
+
+I want to test if there are genes where destabilization of the mRNA could connect the different dominant PAS and DE. I will test the genes with 2 UTR different dominant PAS that are DE.  
+
+I will see if these have higher destabilizing scores than a random set, 
+
+Pull out the ortho UTRs for these too:  
+
+```{r}
+
+OrthoUTR=read.table("../data/orthoUTR/HumanDistal3UTR.sort.bed",stringsAsFactors = F,header = F, col.names = c("chr", "utrstart","utrend", "gene", "score", "strand")) %>% select(gene, utrstart, utrend)
+Genes2Use=read.table("../data/DomDefGreaterX/DE_Diffdom4_UTRboth.txt", header = T, stringsAsFactors = F) %>% inner_join(OrthoUTR, by="gene")
+
+
+```
+
+Great all of these genes have an ortho UTR.  
+
+I need a fasta format for the site. I will use bedtools nuc on these regions. hile I am doing this i can get the seq for all of the ortho utrs:
+
+```{bash,eval=F}
+mkdir ../data/AREelements
+
+bedtools nuc -s -seq -bed ../data/orthoUTR/HumanDistal3UTR.sort.bed -fi /project2/gilad/kenneth/References/human/genome/hg38.fa > ../data/orthoUTR/HumanDistal3UTR.sort_withSeq.bed
+```
+
+I can write a python script that will write a fasta style doc when given a list of genes.  
+
+```{r}
+genelist= Genes2Use %>% select(gene)
+write.table(genelist,"../data/AREelements/DiffDomDE_UTR.txt", col.names = F, row.names = F, quote = F)
+```
+
+```{bash,eval=F}
+python UTR2FASTA.py ../data/AREelements/DiffDomDE_UTR.txt ../data/AREelements/DiffDomDE_UTR_fasta.txt
+```
+
+
+```{r}
+Res=read.table("../data/AREelements/DiffDomDE_UTR_ARE_res.txt", sep="\t", header = T)
+
+Res %>% select(Name, Score) %>% arrange(desc(Score)) %>% head()
+```
+
+Next I will run this for all genes: 
+
+```{r}
+OrthoUTRGene=OrthoUTR %>% select(gene)
+write.table(OrthoUTRGene,"../data/AREelements/AllGenesOrthoUTR.txt", col.names = F, row.names = F, quote = F)
+```
+
+```{bash,eval=F}
+python UTR2FASTA.py ../data/AREelements/AllGenesOrthoUTR.txt ../data/AREelements/AllGenesOrthoUTR_fasta.txt
+```
+
+Site cannot handle full set.  
+I will do 5 random sets:  
+```{r}
+sample1= sample_n(OrthoUTRGene, 28)
+#write.table(sample1,"../data/AREelements/Sample1Genes.txt", col.names = F, row.names = F, quote = F)
+sample2= sample_n(OrthoUTRGene, 28)
+#write.table(sample2,"../data/AREelements/Sample2Genes.txt", col.names = F, row.names = F, quote = F)
+sample3= sample_n(OrthoUTRGene, 28)
+#write.table(sample3,"../data/AREelements/Sample3Genes.txt", col.names = F, row.names = F, quote = F)
+sample4= sample_n(OrthoUTRGene, 28)
+#write.table(sample4,"../data/AREelements/Sample4Genes.txt", col.names = F, row.names = F, quote = F)
+sample5= sample_n(OrthoUTRGene, 28)
+
+#write.table(sample5,"../data/AREelements/Sample5Genes.txt", col.names = F, row.names = F, quote = F)
+```
+
+
+```{bash,eval=F}
+python UTR2FASTA.py ../data/AREelements/Sample1Genes.txt ../data/AREelements/Sample1Genes.fasta.txt
+python UTR2FASTA.py ../data/AREelements/Sample2Genes.txt ../data/AREelements/Sample2Genes.fasta.txt
+python UTR2FASTA.py ../data/AREelements/Sample3Genes.txt ../data/AREelements/Sample3Genes.fasta.txt
+python UTR2FASTA.py ../data/AREelements/Sample4Genes.txt ../data/AREelements/Sample4Genes.fasta.txt
+python UTR2FASTA.py ../data/AREelements/Sample5Genes.txt ../data/AREelements/Sample5Genes.fasta.txt
+```
+
+
+```{r}
+Actual=read.table("../data/AREelements/DiffDomDE_UTR_ARE_res.txt", sep="\t", header = T) %>% select(Score) %>% mutate(set="Actual")
+Res1=read.table("../data/AREelements/Sample1_res.txt", sep="\t", header = T) %>% select(Score) %>% mutate(set="Sample1")
+Res2=read.table("../data/AREelements/Sample2_res.txt", sep="\t", header = T)%>% select(Score) %>% mutate(set="Sample2")
+Res3=read.table("../data/AREelements/Sample3_res.txt", sep="\t", header = T)%>% select(Score) %>% mutate(set="Sample3")
+Res4=read.table("../data/AREelements/Sample4_res.txt", sep="\t", header = T)%>% select(Score) %>% mutate(set="Sample4")
+Res5=read.table("../data/AREelements/Sample5_res.txt", sep="\t", header = T)%>% select(Score) %>% mutate(set="Sample5")
+
+AllSample=Res1 %>% bind_rows(Actual)%>% bind_rows(Res2)%>% bind_rows(Res3)%>% bind_rows(Res4)%>% bind_rows(Res5)
+
+
+
+```
+
+```{r}
+ggplot(AllSample,aes(y=Score, x=set,fill=set)) + geom_boxplot() + geom_jitter(alpha=.3)+ scale_fill_brewer(palette = "Dark2") + stat_compare_means() + theme(legend.position = "none") + labs(x="Sample", y="ARE destabilization score", title="ARE scores for UTR:UTR Dominance changes and DE")
+```
+
+This is probably not driving the trend but may explain some examples.  
+

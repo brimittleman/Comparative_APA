@@ -166,6 +166,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Could standardization with length account for differences?](DiffDomDE_length.html)  
 
+* [Look at this by location](DiffDomandDELOC.html)
+
+* [Test for destabilization](ARE_element.html)
+
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 
 List of everything we tried for this section:  

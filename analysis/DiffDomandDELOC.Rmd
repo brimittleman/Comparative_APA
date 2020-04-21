@@ -1,0 +1,184 @@
+---
+title: "Location of Different Dominant and DE"
+author: "Briana Mittleman"
+date: "4/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+
+To better understand how the difference in dominance could relate to DE, I want to look at the location of the PAS. If they are both UTR is it is a different expected mechanism for intronic and UTR.  
+
+I can then incorporate the direction of effect for expression.  
+
+
+Again start with 0.4 and then expand. 
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PASMeta)
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+```
+
+Seperate the different and spread:
+
+
+```{r}
+BothRes_40_diff= BothRes_40 %>% 
+  filter(Set=="Different") %>% 
+  select(gene, Human_PAS, Chimp_PAS) %>%
+  gather(Species, PAS, -gene) %>%
+  inner_join(PASMeta,by=c("gene","PAS")) %>% 
+  select(gene, Species, loc) %>% 
+  spread(Species, loc)
+```
+
+
+Filter these with the DE set: 
+
+```{r}
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+DE_yes= DE %>% filter(DE=="Yes")
+```
+
+
+```{r}
+BothRes_40_diff_de= BothRes_40_diff %>% inner_join(DE, by="gene") %>% filter(DE=="Yes") %>% mutate(type=paste(Chimp_PAS, Human_PAS, sep=":"))
+
+BothRes_40_diff_de %>% group_by(type) %>% summarise(ntype=n()) 
+```
+Filter for interactions with more than 1 
+
+```{r}
+
+BothRes_40_diff_de %>% group_by(type) %>% summarise(ntype=n()) %>% filter(ntype>1)
+```
+This shows a similar relationship where most of these are chimp utr3 and the change is in the human location.  
+
+Add in the DE effect.  
+
+```{r}
+DEeffect= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% select(gene, logFC) %>% mutate(directionDE=ifelse(logFC>=1, "Chimp", "Human"))
+
+BothRes_40_diff_deDE= BothRes_40_diff_de %>% inner_join(DEeffect, by="gene")
+
+
+BothRes_40_diff_deDE %>% group_by(type,directionDE) %>% summarise(ntype=n())
+```
+20 up in human, 8 up in chimp for 3' UTR-3' UTR relationships 
+
+
+interesting relationship with chimp utr3, human intron, 16 up in human and 3 up in chimp...
+
+This is interesting as well:  
+cds:utr3	Chimp	2		
+cds:utr3	Human	5	 
+
+
+Filter the 3' UTR matched:  
+
+```{r}
+BothRes_40_diff_deDEutr3= BothRes_40_diff_deDE %>% filter(type=="utr3:utr3")
+nrow(BothRes_40_diff_deDEutr3)
+```
+
+Add in distal and proximal information for each of these:  
+I
+```{r}
+BothRes_40_diffDistProx= BothRes_40 %>% 
+  filter(Set=="Different") %>% 
+  select(gene, Human_PAS, Chimp_PAS) %>%
+  gather(Species, PAS, -gene) %>%
+  inner_join(PASMeta,by=c("gene","PAS")) %>% 
+  group_by(gene) %>% 
+  arrange(start) %>% 
+  mutate(id = 1:n()) 
+
+
+BothRes_40_diffDistProx_pos= BothRes_40_diffDistProx %>% filter(strandFix=="+") %>% mutate(Isoform=ifelse(id==1, "Short", "Long")) %>% select(gene, PAS, Species, Isoform)
+BothRes_40_diffDistProx_neg= BothRes_40_diffDistProx %>% filter(strandFix=="-") %>% mutate(Isoform=ifelse(id==1, "Long", "Short"))%>% select(gene, PAS, Species, Isoform)
+
+
+BothRes_40_diffDistProx_bothIso= BothRes_40_diffDistProx_pos %>% bind_rows(BothRes_40_diffDistProx_neg) %>% select(-PAS) %>% spread(Species,Isoform) %>% rename(Chimp_iso=Chimp_PAS, Human_iso =Human_PAS)
+```
+
+```{r}
+BothRes_40_diff_deDEutr3_length= BothRes_40_diff_deDEutr3 %>% inner_join(BothRes_40_diffDistProx_bothIso, by="gene")
+
+table=BothRes_40_diff_deDEutr3_length  %>% mutate(ChimpHumanLen=paste(Chimp_iso, Human_iso, sep=":")) %>% select(directionDE, ChimpHumanLen) %>% group_by(directionDE, ChimpHumanLen) %>% summarise(n=n())
+table
+tabler= table %>% spread(ChimpHumanLen, n) %>% column_to_rownames("directionDE")
+
+chisq.test(tabler)
+
+
+#write out for otheranalysis
+write.table(BothRes_40_diff_deDEutr3_length, "../data/DomDefGreaterX/DE_Diffdom4_UTRboth.txt", col.names = T, row.names = F, quote = F)
+```
+Not significant.  
+
+Look at examples:
+
+```{r}
+deanddiff= BothRes_40 %>% 
+  filter(Set=="Different") %>% 
+  inner_join(DE_yes, by="gene") %>% 
+  arrange(gene)
+
+deanddiff
+```
+
+Use the Rscript PlotNuclearUsagebySpecies_DF.R -g DFFB 
+```{bash,eval=F}
+mkdir ../data/DiffDomandDE_example
+```
+
+
+```{r}
+
+deanddiff_genes= deanddiff %>% select(gene)
+
+write.table(deanddiff_genes, "../data/DiffDomandDE_example/genesfor4examples.txt", col.names = F,row.names = F, quote=F)
+
+```
+
+```{bash,eval=F}
+#PlotNuclearUsagebySpecies_DF_DEout.R
+sbatch NuclearPlotsDEandDiffDom_4.sh
+#problem with  ../data/files4viz_nuclear_DF/NuclearPASUsage.txt
+```
+
+
+
+
+Are any of these genes in the directional selection set? 
+
+1.directional human
+2.directional in chimp 
+3. undetermined
+4. no mean difference
+5.relaxed in human
+6.related in chimp
+```{r}
+KhanData=read.csv("../data/Khan_prot/Khan_TableS4.csv",stringsAsFactors = F)  %>% select(gene.symbol,contains("model") ) %>% rename("gene"=gene.symbol, "Protein"=model.num.protein, "RNA"=model.num.rna) %>% filter(gene %in% BothRes_40_diffDistProx_bothIso$gene)
+
+KhanData %>% filter(RNA %in% c(1,2,5,6)) %>% group_by(RNA) %>% summarise(n=n())
+
+KhanData %>% filter(RNA %in% c(1,2,5,6))
+```
+
