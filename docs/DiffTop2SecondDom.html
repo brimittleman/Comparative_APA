@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-17
+<strong>Last updated:</strong> 2020-04-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9f8e75fc4bd144eb4cb016469f6a58b675fb4e26targetblank9f8e75fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9f8e75fc4bd144eb4cb016469f6a58b675fb4e26" target="_blank">9f8e75f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b4e617ede962869e7ef3784c37a96f64a025a527" target="_blank">b4e617e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9f8e75fc4bd144eb4cb016469f6a58b675fb4e26targetblank9f8e75fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -681,6 +681,7 @@ Untracked files:
     Untracked:  code/CrossmapChimp3prime.out
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
+    Untracked:  code/DTUTR.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -748,6 +749,11 @@ Untracked files:
     Untracked:  code/MismatchNumbers.err
     Untracked:  code/MismatchNumbers.out
     Untracked:  code/MismatchNumbers.sh
+    Untracked:  code/NuclearDTUTR.err
+    Untracked:  code/NuclearDTUTRt.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.err
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -765,6 +771,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -808,6 +815,7 @@ Untracked files:
     Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
+    Untracked:  code/UTR2FASTA.py
     Untracked:  code/Upstream10Bases_general.py
     Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
@@ -952,6 +960,7 @@ Untracked files:
     Untracked:  code/mediation_test.R
     Untracked:  code/merge.err
     Untracked:  code/mergeChimp3prime_inhg38.sh
+    Untracked:  code/mergeChimpRNA.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
@@ -1136,12 +1145,13 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
-    Untracked:  data/ARE_Elements/
+    Untracked:  data/AREelements/
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
+    Untracked:  data/DiffDomandDE_example/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffIso_Nuclear_DF/
@@ -1238,11 +1248,12 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/PTM_analysis.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
-    Modified:   analysis/UsageForDomPAS.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1290,6 +1301,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b4e617ede962869e7ef3784c37a96f64a025a527/analysis/DiffTop2SecondDom.Rmd" target="_blank">b4e617e</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+<td>
+add color and prop dom, add decay
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/1dc519ab5e05ba948757bcda028136895a2271ae/docs/DiffTop2SecondDom.html" target="_blank">1dc519a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1705,6 +1750,30 @@ brimittleman
 <p>Write out the results to use for downstream analysis:</p>
 <pre class="bash"><code>mkdir ../data/DomStructure_4/</code></pre>
 <pre class="r"><code>write.table(BothRes_40, &quot;../data/DomStructure_4/InclusiveDominantPASat4.txt&quot;, col.names =T, row.names = F, quote = F)</code></pre>
+<p>Look at this metric for all cutoffs:</p>
+<pre class="r"><code>BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
+
+BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
+BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
+BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
+BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
+BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
+BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
+BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
+BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)
+
+BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) %&gt;% bind_rows(BothRes_40) %&gt;% bind_rows(BothRes_50) %&gt;% bind_rows(BothRes_60) %&gt;% bind_rows(BothRes_70) %&gt;% bind_rows(BothRes_80) %&gt;% bind_rows(BothRes_90)</code></pre>
+<p>I want the number and proportion of same vs different at every cutoff:</p>
+<pre class="r"><code>MetaPAS_genes= MetaPAS %&gt;% group_by(gene) %&gt;% summarise(n())
+BothResAll_g= BothResAll %&gt;% group_by(cut, Set) %&gt;% summarise(nEach=n()) %&gt;% ungroup() %&gt;% group_by(cut) %&gt;% mutate(nDom=sum(nEach), PropSame=nEach/nDom) %&gt;% filter(Set==&quot;Same&quot;) %&gt;%ungroup() %&gt;%  mutate(NTested=nrow(MetaPAS_genes), PropDom=nDom/NTested)
+
+BothResAll_g$cut=as.factor(BothResAll_g$cut)</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat=&quot;identity&quot;,alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Most genes with a domiant PAS share the same dominant PAS&quot;, y=&quot;Proportion of Genes in Set&quot;, x=&quot;Domianance Cutoff&quot;)</code></pre>
+<p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat=&quot;identity&quot;,alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Proportion of Tested Genes with a Dominant PAS&quot;, y=&quot;Proportion of Tested Genes&quot;, x=&quot;Domianance Cutoff&quot;)</code></pre>
+<p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

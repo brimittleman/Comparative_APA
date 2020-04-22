@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>New dominance and dAPA</title>
+<title>Plots to show conservations</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">New dominance and dAPA</h1>
+<h1 class="title toc-ignore">Plots to show conservations</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/20/2020</em></h4>
+<h4 class="date"><em>4/22/2020</em></h4>
 
 </div>
 
@@ -1306,7 +1306,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b4e617ede962869e7ef3784c37a96f64a025a527/analysis/NewdomanddAPA.Rmd" target="_blank">b4e617e</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b4e617ede962869e7ef3784c37a96f64a025a527/analysis/ConservationPlots.Rmd" target="_blank">b4e617e</a>
 </td>
 <td>
 brimittleman
@@ -1318,40 +1318,6 @@ brimittleman
 add color and prop dom, add decay
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a60094e6c07cea1e1dab986fd0bd36b27da8e301/docs/NewdomanddAPA.html" target="_blank">a60094e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2b63d021b10c674a9631737203bfb525ff86a161/analysis/NewdomanddAPA.Rmd" target="_blank">2b63d02</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-21
-</td>
-<td>
-add new dom and de/dapa
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1359,135 +1325,96 @@ add new dom and de/dapa
 </div>
 </div>
 </div>
-<p>I will look at enrichment for dAPA genes in gene with same and different domiant pas.</p>
+<p>Plots to show the conservation I have been seeing:</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(cowplot)</code></pre>
+<pre class="r"><code>library(ggpubr)</code></pre>
 <pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>
-Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
-
-    ggsave</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre class="r"><code>library(&quot;scales&quot;)
+library(limma)
+library(qvalue)
+library(&quot;RColorBrewer&quot;)
+library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter()   masks stats::filter()
-✖ cowplot::ggsave() masks ggplot2::ggsave()
-✖ dplyr::lag()      masks stats::lag()</code></pre>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+✖ readr::col_factor() masks scales::col_factor()
+✖ purrr::discard()    masks scales::discard()
+✖ tidyr::extract()    masks magrittr::extract()
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::lag()        masks stats::lag()
+✖ purrr::set_names()  masks magrittr::set_names()</code></pre>
+<pre class="r"><code>library(reshape2)</code></pre>
+<pre><code>
+Attaching package: &#39;reshape2&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
-ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
+    smiths</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
 
-BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
-BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
-BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
-BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
-BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
-BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
-BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
-BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
-BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)
+    ggsave</code></pre>
+<pre class="r"><code>library(gplots)</code></pre>
+<pre><code>
+Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
 
-BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) %&gt;% bind_rows(BothRes_40) %&gt;% bind_rows(BothRes_50) %&gt;% bind_rows(BothRes_60) %&gt;% bind_rows(BothRes_70) %&gt;% bind_rows(BothRes_80) %&gt;% bind_rows(BothRes_90)
+    lowess</code></pre>
+<pre class="r"><code>metaDataN=read.table(&quot;../data/metadata_HCpanel.txt&quot;, header = T, stringsAsFactors = F) %&gt;% filter(Fraction==&quot;Nuclear&quot;)
+PASmeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T,stringsAsFactors = F)</code></pre>
+<p>Plot usage correlation:</p>
+<pre class="r"><code>ggplot(PASmeta,aes(x=Human, y=Chimp)) + geom_point(alpha=.3)+ stat_cor(col=&quot;blue&quot;, label.x = .15, label.y=.9) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Usage correlation for All PAS&quot;) + geom_abline(intercept = 0, slope =1, col=&quot;red&quot;)</code></pre>
+<p><img src="figure/ConservationPlots.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Correlation is on top of the 1v1 line.</p>
+<pre class="r"><code>ggplot(PASmeta,aes(y=Human, x=loc, col=loc)) + geom_boxplot(alpha=.3)  +scale_color_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<p><img src="figure/ConservationPlots.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>diffiso=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T)
 
-dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header=T,stringsAsFactors=F)
-DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header=T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene, &quot;Yes&quot;, &quot;No&quot;))
+PASmetaG=PASmeta %&gt;% select(gene, Chimp, Human, PAS,loc) %&gt;%gather(&quot;species&quot;,&quot;usage&quot;, -PAS, -gene, -loc) </code></pre>
+<p>Correlation between individuals:</p>
+<pre class="r"><code>HumanAnno=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
 
-All= BothResAll  %&gt;% select(gene,cut,Set) %&gt;% inner_join(DiffIso, by=&quot;gene&quot;)</code></pre>
-<p>Enrichment:</p>
-<pre class="r"><code>Pval=c()
-Enrich=c()
-set=c(10,20,30,40,50,60,70,80,90)
-expected=c()
-actual=c()
-for (i in set){
-  x=nrow(All %&gt;% filter(cut==i, Set==&quot;Different&quot;, dAPA==&quot;Yes&quot;))
-  actual=c(actual,x)
-  m=nrow(All %&gt;% filter(cut==i, dAPA==&quot;Yes&quot;))
-  n=nrow(All %&gt;% filter(cut==i, dAPA==&quot;No&quot;))
-  k=nrow(All %&gt;% filter(cut==i, Set==&quot;Different&quot;))
-  N=nrow(All %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
-  Pval= c(Pval, val)
-  en=(x/k)/(m/N)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
-  expected=c(expected,ex)
-  Enrich=c(Enrich, en)
-}
+HumanUsage=read.table(&quot;../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt&quot;, col.names = IndH)
 
-ResDF=as.data.frame(cbind(set,Pval,Enrich,actual,expected))
-ResDF$set=as.factor(ResDF$set)
-ResDF$Pval=as.numeric(as.character(ResDF$Pval))
-ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
 
-diffp=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
 
-diffe=ggplot(ResDF,aes(x=set, y=Enrich, fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<pre class="r"><code>ResDF</code></pre>
-<pre><code>  set          Pval   Enrich actual expected
-1  10 1.797208e-189 2.414802    704      291
-2  20 6.026541e-203 3.206692    467      145
-3  30 5.272942e-165 3.933034    283       72
-4  40 5.937071e-127 4.641345    178       38
-5  50  0.000000e+00 5.107914    118       23
-6  60  0.000000e+00 5.800000     75       13
-7  70  0.000000e+00 7.043478     39        5
-8  80  0.000000e+00 7.242105     27        3
-9  90  0.000000e+00 7.343750     12        1</code></pre>
-<pre class="r"><code>PvalSame=c()
-EnrichSame=c()
-expectedSame=c()
-actualSame=c()
 
-for (i in set){
-  x=nrow(All %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;Yes&quot;))
-  actualSame=c(actualSame, x)
-  m=nrow(All %&gt;% filter(cut==i, dAPA==&quot;Yes&quot;))
-  n=nrow(All %&gt;% filter(cut==i, dAPA==&quot;No&quot;))
-  k=nrow(All %&gt;% filter(cut==i, Set==&quot;Same&quot;))
-  N=nrow(All %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
-  PvalSame= c(PvalSame, round(val,3))
-  en=(x/k)/(m/N)
-  EnrichSame=c(EnrichSame, en)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
-  expectedSame=c(expectedSame,ex)
-}
+ChimpAnno=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt&quot;, header = T, stringsAsFactors = F) %&gt;% tidyr::separate(chrom, sep = &quot;:&quot;, into = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;id&quot;)) %&gt;% tidyr::separate(id, sep=&quot;_&quot;, into=c(&quot;gene&quot;, &quot;strand&quot;, &quot;peak&quot;))  %&gt;% separate(peak,into=c(&quot;loc&quot;, &quot;disc&quot;,&quot;PAS&quot;), sep=&quot;-&quot;)
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
 
-ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame, actualSame,expectedSame))
-ResDFSame$set=as.factor(ResDFSame$set)
-ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
-ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
+ChimpUsage=read.table(&quot;../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt&quot;, col.names = IndC)
 
-samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
 
-samee=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<pre class="r"><code>ResDFSame</code></pre>
-<pre><code>  set PvalSame EnrichSame actualSame expectedSame
-1  10        1  0.6125145        652          652
-2  20        1  0.6496854        596          596
-3  30        1  0.7093221        515          515
-4  40        1  0.7392900        396          396
-5  50        1  0.7590786        299          299
-6  60        1  0.7631579        200          200
-7  70        1  0.7847528        122          122
-8  80        1  0.7450275         68           68
-9  90        1  0.6586323         20           20</code></pre>
-<p>Proportion of dAPA genes:</p>
-<pre class="r"><code>PropDapa=as.data.frame(cbind(set, OverlapdAPA=actual, dAPA=rep(nrow(dAPAGenes),9))) %&gt;% mutate(Prop=OverlapdAPA/dAPA)
-PropDapa$set=as.factor(PropDapa$set)
-ggplot(PropDapa, aes(x=set,y=Prop,fill=set)) + geom_bar(stat=&quot;identity&quot;, alpha=.5)+ labs(title=&quot;Proportion of dAPA genes with different dominant PAS&quot;, y=&quot;Proportion of dAPA genes&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+geom_text(aes(label=OverlapdAPA), position=position_dodge(width=0.9), vjust=1.5)</code></pre>
-<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>plot_grid(diffe,samee, diffp, samep)</code></pre>
-<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+
+allPheno=ChimpUsage_anno %&gt;% full_join(HumanUsage_anno,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;,&quot;strand&quot;,&quot;loc&quot;, &quot;disc&quot;, &quot;PAS&quot;)) %&gt;% filter(PAS %in% PASmeta$PAS) %&gt;% dplyr::select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
+
+
+allPheno_nuc= allPheno %&gt;% select(contains(&quot;_N&quot;))
+
+allPheno_nuc_matrix=as.matrix(allPheno_nuc)</code></pre>
+<p>Correlation:</p>
+<pre class="r"><code>Count_corr= round(cor(allPheno_nuc_matrix),2)
+
+Count_corr_melt=melt(Count_corr)
+
+ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = &quot;PuRd&quot;, direction=1)</code></pre>
+<p><img src="figure/ConservationPlots.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1515,29 +1442,34 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] cowplot_0.9.4   ggplot2_3.1.1   workflowr_1.6.0
+ [1] gplots_3.0.1       cowplot_0.9.4      reshape2_1.4.3    
+ [4] forcats_0.3.0      stringr_1.3.1      dplyr_0.8.0.1     
+ [7] purrr_0.3.2        readr_1.3.1        tidyr_0.8.3       
+[10] tibble_2.1.1       tidyverse_1.2.1    RColorBrewer_1.1-2
+[13] qvalue_2.14.0      limma_3.38.2       scales_1.0.0      
+[16] ggpubr_0.2         magrittr_1.5       ggplot2_3.1.1     
+[19] workflowr_1.6.0   
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
- [4] colorspace_1.3-2   generics_0.0.2     htmltools_0.3.6   
- [7] yaml_2.2.0         rlang_0.4.0        later_0.7.5       
-[10] pillar_1.3.1       glue_1.3.0         withr_2.1.2       
-[13] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
-[16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
-[19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
-[22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
-[28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
-[31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
-[34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
-[37] cli_1.1.0          tools_3.5.1        magrittr_1.5      
-[40] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
-[43] pkgconfig_2.0.2    xml2_1.2.0         lubridate_1.7.4   
-[46] assertthat_0.2.0   rmarkdown_1.10     httr_1.3.1        
-[49] rstudioapi_0.10    R6_2.3.0           nlme_3.1-137      
-[52] git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] Rcpp_1.0.2         lubridate_1.7.4    lattice_0.20-38   
+ [4] gtools_3.8.1       assertthat_0.2.0   rprojroot_1.3-2   
+ [7] digest_0.6.18      R6_2.3.0           cellranger_1.1.0  
+[10] plyr_1.8.4         backports_1.1.2    evaluate_0.12     
+[13] httr_1.3.1         pillar_1.3.1       rlang_0.4.0       
+[16] lazyeval_0.2.1     readxl_1.1.0       rstudioapi_0.10   
+[19] gdata_2.18.0       whisker_0.3-2      rmarkdown_1.10    
+[22] labeling_0.3       splines_3.5.1      munsell_0.5.0     
+[25] broom_0.5.1        compiler_3.5.1     httpuv_1.4.5      
+[28] modelr_0.1.2       pkgconfig_2.0.2    htmltools_0.3.6   
+[31] tidyselect_0.2.5   crayon_1.3.4       withr_2.1.2       
+[34] later_0.7.5        bitops_1.0-6       grid_3.5.1        
+[37] nlme_3.1-137       jsonlite_1.6       gtable_0.2.0      
+[40] git2r_0.26.1       KernSmooth_2.23-15 cli_1.1.0         
+[43] stringi_1.2.4      fs_1.3.1           promises_1.0.1    
+[46] xml2_1.2.0         generics_0.0.2     tools_3.5.1       
+[49] glue_1.3.0         hms_0.4.2          yaml_2.2.0        
+[52] colorspace_1.3-2   caTools_1.17.1.1   rvest_0.3.2       
+[55] knitr_1.20         haven_1.1.2       </code></pre>
 </div>
 
 
