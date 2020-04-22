@@ -233,8 +233,8 @@ ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
 
-ggplot(ResDF,aes(x=set, y=-log10(Pval))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant \n condition on tested in both")
-ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant \n condition on tested in both")
+diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
 
 ```{r}
@@ -266,8 +266,8 @@ ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 
-ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant \n condition on tested in both")
-ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n condition on tested in both")
+Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
 ```{r}
 
@@ -283,5 +283,13 @@ ResDFSame
 ```{r}
 PropDE=as.data.frame(cbind(set, OverlapDE=actual, DE=rep(nrow(DE_yes),9))) %>% mutate(Prop=OverlapDE/DE)
 PropDE$set=as.factor(PropDE$set)
-ggplot(PropDE, aes(x=set,y=Prop)) + geom_bar(stat="identity")+ labs(title="Proportion of DE genes with different dominant PAS", y="Proportion of DE genes")
+ggplot(PropDE, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity",alpha=.5)+ labs(title="Proportion of DE genes with different dominant PAS", y="Proportion of DE genes")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapDE), position=position_dodge(width=0.9), vjust=1.5)
 ```
+
+
+plot grid:  
+
+```{r}
+plot_grid(diffE, SameE, diffP, Samep)
+```
+

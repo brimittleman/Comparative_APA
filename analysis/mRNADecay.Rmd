@@ -1,0 +1,91 @@
+---
+title: "mRNA decay data"
+author: "Briana Mittleman"
+date: "4/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I will look at the human mRNA decay data to see if this can help explain of the differetial APA genes. I expect genes with different domiannt PAS to have higher variance in RNA decay. The caveat is it would have to be a case where both isoforms are in the human larger set.
+
+Here higher is faster. They use median in the paper
+
+I have the decay data in in the apaQTL data dir. 
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+```{r}
+geneNames=read.table("../../genome_anotation_data/ensemble_to_genename.txt", sep="\t", col.names = c('gene_id', 'GeneName', 'source' ),stringsAsFactors = F)
+
+decay=read.table(file = "../../apaQTL/data/fourSU/tr_decay_table_norm.txt", header=T, stringsAsFactors = F) %>% dplyr::select(gene_id,contains("RNAdecay")) %>% inner_join(geneNames, by="gene_id") %>% dplyr::select(GeneName, contains("RNAdecay")) %>% rename(gene=GeneName)
+
+MeanVarDecay=decay %>% gather("idividual", "decay", -gene) %>% group_by(gene) %>% summarise(Median=median(decay), variance=var(decay))
+
+```
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+nrow(BothRes_40)
+
+BothRes_40_decay= BothRes_40 %>% inner_join(MeanVarDecay,by="gene")
+nrow(BothRes_40_decay)
+
+```
+
+Plot: 
+
+```{r}
+ggplot(BothRes_40_decay, aes(x=Set, y=Median)) + geom_boxplot() + stat_compare_means()
+ggplot(BothRes_40_decay, aes(x=Set, y=variance)) + geom_boxplot() + stat_compare_means()
+```
+
+No difference here. 
+
+
+What if we include DE info:
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(sig=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene, sig)
+```
+
+
+```{r}
+BothRes_40_decayDE= BothRes_40_decay %>% inner_join(DE, by="gene")
+
+ggplot(BothRes_40_decayDE,aes(x=sig, by=Set, fill=Set, y=variance)) + geom_boxplot() + stat_compare_means()
+
+ggplot(BothRes_40_decayDE,aes(x=sig, by=Set, fill=Set, y=Median)) + geom_boxplot() + stat_compare_means() + labs(x="DE",title="mRNA decay rates by conservation of dominant PAS and DE")
+```
+
+Test differences in dAPA:  
+
+```{r}
+dAPAgenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T)
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% group_by(gene) %>% summarise(meanDelta=mean(deltaPAU)) %>% mutate(dAPA=ifelse(gene %in% dAPAgenes$gene, "Yes","No"))
+nrow(DiffIso)
+
+DiffIsoanddecay= MeanVarDecay %>% inner_join(DiffIso,by="gene")
+nrow(DiffIsoanddecay)
+
+
+ggplot(DiffIsoanddecay,aes(x=dAPA, y= Median)) + geom_boxplot() + stat_compare_means() + labs(title="mRNA decay rate", y="Median Human Decay Rate")
+
+ggplot(DiffIsoanddecay,aes(x=dAPA, y=variance)) + geom_boxplot() + stat_compare_means() 
+```
+
+Genes without dAPA are a bit slower. 

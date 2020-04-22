@@ -66,6 +66,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [PAS number distribution according to dominance in total](ConservationofPASNumberTotal.html)
 
+* [Some plots about conservation (correaltions in usage)](ConservationPlots.html)
+
 * [Correlation between fraction in each species](SpecBetweenfrac.html)
 
 * [Look at dominance by difference between dominant PAS and next highest used](NewDomDef.html)
@@ -170,6 +172,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Look at this by location](DiffDomandDELOC.html)
 
 * [Test for destabilization](ARE_element.html)
+
+* [Test differences in mRNA decay](mRNADecay.html)
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

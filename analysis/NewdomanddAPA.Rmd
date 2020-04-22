@@ -13,6 +13,7 @@ I will look at enrichment for dAPA genes in gene with same and different domiant
 
 ```{r}
 library(workflowr)
+library(cowplot)
 library(tidyverse)
 ```
 
@@ -70,10 +71,14 @@ ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
 
-ggplot(ResDF,aes(x=set, y=-log10(Pval))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and different dominant \n condition on tested in both")
+diffp=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 
-ggplot(ResDF,aes(x=set, y=Enrich)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and different dominant \n condition on tested in both")
+diffe=ggplot(ResDF,aes(x=set, y=Enrich, fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
+
+
+
+
 ```{r}
 ResDF
 ```
@@ -104,12 +109,24 @@ ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 
-ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame))) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and same dominant \n condition on tested in both")
+samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for dAPA and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 
-ggplot(ResDFSame,aes(x=set, y=EnrichSame)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and same dominant \n condition on tested in both")
+samee=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for dAPA and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
 
 ```{r}
 ResDFSame
+```
+Proportion of dAPA genes: 
+
+```{r}
+PropDapa=as.data.frame(cbind(set, OverlapdAPA=actual, dAPA=rep(nrow(dAPAGenes),9))) %>% mutate(Prop=OverlapdAPA/dAPA)
+PropDapa$set=as.factor(PropDapa$set)
+ggplot(PropDapa, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity", alpha=.5)+ labs(title="Proportion of dAPA genes with different dominant PAS", y="Proportion of dAPA genes")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapdAPA), position=position_dodge(width=0.9), vjust=1.5)
+```
+
+
+```{r}
+plot_grid(diffe,samee, diffp, samep)
 ```
 

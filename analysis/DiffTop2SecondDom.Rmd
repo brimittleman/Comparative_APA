@@ -150,3 +150,47 @@ mkdir ../data/DomStructure_4/
 write.table(BothRes_40, "../data/DomStructure_4/InclusiveDominantPASat4.txt", col.names =T, row.names = F, quote = F)
 ```
 
+
+
+Look at this metric for all cutoffs: 
+
+```{r}
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+```
+
+
+I want the number and proportion of same vs different at every cutoff: 
+
+```{r}
+
+MetaPAS_genes= MetaPAS %>% group_by(gene) %>% summarise(n())
+BothResAll_g= BothResAll %>% group_by(cut, Set) %>% summarise(nEach=n()) %>% ungroup() %>% group_by(cut) %>% mutate(nDom=sum(nEach), PropSame=nEach/nDom) %>% filter(Set=="Same") %>%ungroup() %>%  mutate(NTested=nrow(MetaPAS_genes), PropDom=nDom/NTested)
+
+BothResAll_g$cut=as.factor(BothResAll_g$cut)
+```
+
+
+Plot:
+
+```{r}
+
+ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity",alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Most genes with a domiant PAS share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff")
+```
+
+```{r}
+
+ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity",alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Proportion of Tested Genes with a Dominant PAS", y="Proportion of Tested Genes", x="Domianance Cutoff")
+```

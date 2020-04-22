@@ -1,0 +1,102 @@
+---
+title: "Plots to show conservations"
+author: "Briana Mittleman"
+date: "4/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Plots to show the conservation I have been seeing:  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library("scales")
+library(limma)
+library(qvalue)
+library("RColorBrewer")
+library(tidyverse)
+library(reshape2)
+library(cowplot)
+library(gplots)
+```
+
+```{r}
+metaDataN=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors = F) %>% filter(Fraction=="Nuclear")
+PASmeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F)
+```
+
+
+Plot usage correlation: 
+
+
+```{r}
+ggplot(PASmeta,aes(x=Human, y=Chimp)) + geom_point(alpha=.3)+ stat_cor(col="blue", label.x = .15, label.y=.9) + geom_smooth(method="lm") + labs(title="Usage correlation for All PAS") + geom_abline(intercept = 0, slope =1, col="red")
+```
+
+Correlation is on top of the 1v1 line.
+
+```{r}
+
+
+ggplot(PASmeta,aes(y=Human, x=loc, col=loc)) + geom_boxplot(alpha=.3)  +scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+diffiso=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T)
+
+PASmetaG=PASmeta %>% select(gene, Chimp, Human, PAS,loc) %>%gather("species","usage", -PAS, -gene, -loc) 
+
+
+```
+
+
+
+Correlation between individuals:  
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+
+allPheno=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% filter(PAS %in% PASmeta$PAS) %>% dplyr::select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
+
+
+allPheno_nuc= allPheno %>% select(contains("_N"))
+
+allPheno_nuc_matrix=as.matrix(allPheno_nuc)
+```
+Correlation: 
+
+```{r}
+Count_corr= round(cor(allPheno_nuc_matrix),2)
+
+Count_corr_melt=melt(Count_corr)
+
+ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +theme(axis.text.x = element_text(angle = 90))+ scale_fill_distiller(palette = "PuRd", direction=1)
+```
+
+
+
+
+
+
