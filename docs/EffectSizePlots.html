@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Effect size differences with dominant genes</title>
+<title>Make Effect Size figure</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Effect size differences with dominant genes</h1>
+<h1 class="title toc-ignore">Make Effect Size figure</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>4/20/2020</em></h4>
+<h4 class="date"><em>4/22/2020</em></h4>
 
 </div>
 
@@ -1307,7 +1307,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/22071284efc0f4f3dff04a2e9e844928fc9f89fd/analysis/DeESandDomgenes.Rmd" target="_blank">2207128</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/22071284efc0f4f3dff04a2e9e844928fc9f89fd/analysis/EffectSizePlots.Rmd" target="_blank">2207128</a>
 </td>
 <td>
 brimittleman
@@ -1319,57 +1319,6 @@ brimittleman
 add prot to dom and add effect size plots
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3e42f78a90ab3cd1ed1920d511b8f0ac94e0b9b0/docs/DeESandDomgenes.html" target="_blank">3e42f78</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/DeESandDomgenes.html" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/40ba921ed1ecfa5cc10bf71715d1bdb53d28916f/analysis/DeESandDomgenes.Rmd" target="_blank">40ba921</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-<td>
-add effect size with dom
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1377,6 +1326,7 @@ add effect size with dom
 </div>
 </div>
 </div>
+<p>I have looked at effect size differences comparing dAPA and expresion. I want to put together some of the plots in a nice figure.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
@@ -1385,7 +1335,16 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(limma)
 library(qvalue)
-library(tidyverse)</code></pre>
+library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
@@ -1394,469 +1353,51 @@ library(tidyverse)</code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
+✖ cowplot::ggsave()  masks ggplot2::ggsave()
 ✖ dplyr::lag()       masks stats::lag()
 ✖ purrr::set_names() masks magrittr::set_names()</code></pre>
-<p>I want to look at the correlation of effect sizes for DE genes when I consider only the genes with dominant PAS.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)  %&gt;% dplyr::select(PAS, chr, start,end, loc)
 DiffIso= read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% filter(loc %in% c(&quot;intron&quot;,&quot;utr3&quot;))
 
 
-nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
-
-DE=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFactors = F,header = F, col.names = c(&quot;Gene_stable_ID&quot; ,&quot;logFC&quot; ,&quot;AveExpr&quot; , &quot;t&quot; ,  &quot;P.Value&quot; ,  &quot;adj.P.Val&quot;, &quot;B&quot;  )) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::rename(&#39;gene&#39;=Gene.name) %&gt;% dplyr::select(-Gene_stable_ID)</code></pre>
-<p>Filter the diff iso resuls for dominant PAS or genes with a dominant PAS.</p>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
 
 ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
 
 BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
 
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)</code></pre>
-<div id="has-a-dom-gene" class="section level2">
-<h2>Has a dom gene:</h2>
-<pre class="r"><code>BothRes_40Sm= BothRes_40 %&gt;% select(gene, Set)
-DeandAPA= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;) %&gt;% inner_join(BothRes_40Sm,by=&quot;gene&quot;)
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
+
+BothRes_40Sm= BothRes_40 %&gt;% select(gene, Set)
 
 
-ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE\ gene with dominance&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-4-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE\ gene with dominance&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) </code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /> ###Significant:</p>
-<pre class="r"><code>DeandAPA_sigAPA= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;)
-ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-5-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) </code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>DeandAPA_sigAPAandE= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)
-ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-6-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="dom-pas" class="section level2">
-<h2>Dom PAS:</h2>
-<pre class="r"><code>AllDomPAS=c(BothRes_40$Human_PAS, BothRes_40$Chimp_PAS) %&gt;% unique() 
-DeandAPA_domPAS= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;) %&gt;% filter(PAS %in% AllDomPAS)
 
-ggplot(DeandAPA_domPAS,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE\ Dominant PAS&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-7-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="significant" class="section level3">
-<h3>Significant:</h3>
-<pre class="r"><code>DeandAPA_domPAS_sigAPA= DeandAPA_domPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)
-ggplot(DeandAPA_domPAS_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE \n Dom PAS&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-8-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>DeandAPA_domPAS_sigAPAandE= DeandAPA_domPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;,  adj.P.Val&lt;.05)
-ggplot(DeandAPA_domPAS_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v Significant DE \n Dom PAS&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-9-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>These do not improve the results but they are consistent.</p>
-</div>
-</div>
-<div id="ribo" class="section level2">
-<h2>Ribo</h2>
-<div id="dom-gene" class="section level3">
-<h3>Dom gene</h3>
-<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name)
+nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
 
-RiboandAPA=DiffIso %&gt;% inner_join(Ribo, by=&quot;gene&quot;)%&gt;% filter(gene %in% BothRes_40$gene)</code></pre>
-<pre class="r"><code>ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-11-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="has-a-dom-pas" class="section level3">
-<h3>Has a dom pas:</h3>
-<pre class="r"><code>RiboandAPAdom=DiffIso %&gt;% inner_join(Ribo, by=&quot;gene&quot;)%&gt;% inner_join( BothRes_40, by=&quot;gene&quot;)
-
-ggplot(RiboandAPAdom,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v Ribosome Occupany&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-12-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="significant-1" class="section level3">
-<h3>Significant:</h3>
-<pre class="r"><code>RiboandAPAdom_sigAPA= RiboandAPAdom %&gt;% filter(SigPAU2==&quot;Yes&quot;)
-ggplot(RiboandAPAdom_sigAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DE \n Dom PAS sig apa&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-13-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>RiboandAPAdom_sigAPAandR= RiboandAPAdom %&gt;% filter(SigPAU2==&quot;Yes&quot;,  HvC.FDR&lt;.05)
-ggplot(RiboandAPAdom_sigAPAandR,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant Intronic and 3&#39; UTR APA v DR \n Dom PAS sig both&quot;)+ scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25d194e5612a370eeaf8dea9f0f68aa17664f246/docs/figure/DeESandDomgenes.Rmd/unnamed-chunk-14-1.png" target="_blank">25d194e</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div id="protein" class="section level2">
-<h2>Protein</h2>
-<pre class="r"><code>Prot=read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;, header = T, stringsAsFactors = F)
-
-DPandAPA= DiffIso %&gt;% inner_join(Prot, by=&quot;gene&quot;)%&gt;% inner_join(BothRes_40, by=&quot;gene&quot;)</code></pre>
-<pre class="r"><code>ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)</code></pre>
-<p><img src="figure/DeESandDomgenes.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+DE=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFactors = F,header = F, col.names = c(&quot;Gene_stable_ID&quot; ,&quot;logFC&quot; ,&quot;AveExpr&quot; , &quot;t&quot; ,  &quot;P.Value&quot; ,  &quot;adj.P.Val&quot;, &quot;B&quot;  )) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::rename(&#39;gene&#39;=Gene.name) %&gt;% dplyr::select(-Gene_stable_ID)</code></pre>
+<pre class="r"><code>DeandAPA= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;)
+DeandAPA_Dom= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;) %&gt;% inner_join(BothRes_40Sm,by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>deloc=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -6)</code></pre>
+<pre class="r"><code>de=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;)+ stat_cor( label.x = -7)</code></pre>
+<pre class="r"><code>facet=ggplot(DeandAPA_Dom,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE\ gene with dominance&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)</code></pre>
+<pre class="r"><code>DeandAPA_Dom_same= DeandAPA_Dom %&gt;% filter(Set==&quot;Same&quot;)
+DeandAPA_Dom_Diff= DeandAPA_Dom %&gt;% filter(Set==&quot;Different&quot;)</code></pre>
+<pre class="r"><code>same=ggplot(DeandAPA_Dom_same,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE: Same Dominant&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)</code></pre>
+<pre class="r"><code>diff=ggplot(DeandAPA_Dom_Diff,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE: Different Dominant&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)</code></pre>
+<p>Plot togethe:</p>
+<pre class="r"><code>plot_grid(de,deloc, same, diff)</code></pre>
+<p><img src="figure/EffectSizePlots.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Make one with same and different dominant condidition on significant:</p>
+<pre class="r"><code>DeandAPA_Dom_samesig= DeandAPA_Dom %&gt;% filter(Set==&quot;Same&quot;)%&gt;% filter(SigPAU2==&quot;Yes&quot;)
+DeandAPA_Dom_Diffsig= DeandAPA_Dom %&gt;% filter(Set==&quot;Different&quot;)%&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
+<pre class="r"><code>sameSig=ggplot(DeandAPA_Dom_samesig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE:\n Same Dominant, Significant dAPA&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)
+diffSig=ggplot(DeandAPA_Dom_Diffsig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE:\n Different Dominant, Significant dAPA&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)</code></pre>
+<pre class="r"><code>DeandAPA_Dom_samesigboth= DeandAPA_Dom %&gt;% filter(Set==&quot;Same&quot;)%&gt;% filter(SigPAU2==&quot;Yes&quot;, adj.P.Val&lt;.05)
+DeandAPA_Dom_Diffsigboth= DeandAPA_Dom %&gt;% filter(Set==&quot;Different&quot;)%&gt;% filter(SigPAU2==&quot;Yes&quot;, adj.P.Val&lt;.05)</code></pre>
+<pre class="r"><code>sameSigBoth=ggplot(DeandAPA_Dom_samesigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE: \nSame Dominant, Significant dAPA and de&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)
+diffSigBoth=ggplot(DeandAPA_Dom_Diffsigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DE:\n Different Dominant, Significant dAPA and de&quot;) + scale_color_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;), name=&quot;&quot;)+ stat_cor(aes(color = loc), label.x = -7)</code></pre>
+<pre class="r"><code>plot_grid(same, diff, sameSig, diffSig, sameSigBoth, diffSigBoth, nrow=3)</code></pre>
+<p><img src="figure/EffectSizePlots.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1886,8 +1427,8 @@ attached base packages:
 other attached packages:
  [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
  [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
- [9] qvalue_2.14.0   limma_3.38.2    ggpubr_0.2      magrittr_1.5   
-[13] ggplot2_3.1.1   workflowr_1.6.0
+ [9] cowplot_0.9.4   qvalue_2.14.0   limma_3.38.2    ggpubr_0.2     
+[13] magrittr_1.5    ggplot2_3.1.1   workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   reshape2_1.4.3     splines_3.5.1     
@@ -1896,7 +1437,7 @@ loaded via a namespace (and not attached):
 [10] rlang_0.4.0        later_0.7.5        pillar_1.3.1      
 [13] glue_1.3.0         withr_2.1.2        RColorBrewer_1.1-2
 [16] modelr_0.1.2       readxl_1.1.0       plyr_1.8.4        
-[19] munsell_0.5.0      gtable_0.2.0       cellranger_1.1.0  
+[19] cellranger_1.1.0   munsell_0.5.0      gtable_0.2.0      
 [22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
 [25] knitr_1.20         httpuv_1.4.5       broom_0.5.1       
 [28] Rcpp_1.0.2         promises_1.0.1     scales_1.0.0      
@@ -1908,7 +1449,6 @@ loaded via a namespace (and not attached):
 [46] lubridate_1.7.4    rstudioapi_0.10    assertthat_0.2.0  
 [49] rmarkdown_1.10     httr_1.3.1         R6_2.3.0          
 [52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
-</div>
 </div>
 
 
