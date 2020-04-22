@@ -1,0 +1,118 @@
+---
+title: "Make Effect Size figure"
+author: "Briana Mittleman"
+date: "4/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I have looked at effect size differences comparing dAPA and expresion. I want to put together some of the plots in a nice figure.  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(limma)
+library(qvalue)
+library(cowplot)
+library(tidyverse)
+```
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
+
+
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+
+BothRes_40Sm= BothRes_40 %>% select(gene, Set)
+
+
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
+
+```
+
+
+```{r}
+
+DeandAPA= DiffIso %>% inner_join(DE, by="gene")
+DeandAPA_Dom= DiffIso %>% inner_join(DE, by="gene") %>% inner_join(BothRes_40Sm,by="gene")
+```
+
+
+
+```{r}
+deloc=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -6)
+
+```
+
+```{r}
+de=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = -7)
+```
+
+
+```{r}
+facet=ggplot(DeandAPA_Dom,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
+```
+
+
+```{r}
+DeandAPA_Dom_same= DeandAPA_Dom %>% filter(Set=="Same")
+DeandAPA_Dom_Diff= DeandAPA_Dom %>% filter(Set=="Different")
+```
+
+```{r}
+same=ggplot(DeandAPA_Dom_same,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Same Dominant") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+```
+
+```{r}
+diff=ggplot(DeandAPA_Dom_Diff,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Different Dominant") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+```
+
+
+Plot togethe: 
+
+```{r}
+plot_grid(de,deloc, same, diff)
+```
+
+Make one with same and different dominant condidition on significant: 
+
+```{r}
+DeandAPA_Dom_samesig= DeandAPA_Dom %>% filter(Set=="Same")%>% filter(SigPAU2=="Yes")
+DeandAPA_Dom_Diffsig= DeandAPA_Dom %>% filter(Set=="Different")%>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+sameSig=ggplot(DeandAPA_Dom_samesig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Same Dominant, Significant dAPA") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+diffSig=ggplot(DeandAPA_Dom_Diffsig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+```
+
+```{r}
+DeandAPA_Dom_samesigboth= DeandAPA_Dom %>% filter(Set=="Same")%>% filter(SigPAU2=="Yes", adj.P.Val<.05)
+DeandAPA_Dom_Diffsigboth= DeandAPA_Dom %>% filter(Set=="Different")%>% filter(SigPAU2=="Yes", adj.P.Val<.05)
+```
+
+```{r}
+sameSigBoth=ggplot(DeandAPA_Dom_samesigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: \nSame Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+diffSigBoth=ggplot(DeandAPA_Dom_Diffsigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+```
+
+
+```{r}
+plot_grid(same, diff, sameSig, diffSig, sameSigBoth, diffSigBoth, nrow=3)
+```
+

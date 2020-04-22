@@ -46,21 +46,31 @@ BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% muta
 
 
 ```{r}
-DeandAPA= DiffIso %>% inner_join(DE, by="gene") %>% filter(gene %in% BothRes_40$gene)
 
-ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+BothRes_40Sm= BothRes_40 %>% select(gene, Set)
+DeandAPA= DiffIso %>% inner_join(DE, by="gene") %>% inner_join(BothRes_40Sm,by="gene")
+
+
+ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
+
+
+ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) 
 ```
 ###Significant:  
 
 ```{r}
 DeandAPA_sigAPA= DeandAPA %>% filter(SigPAU2=="Yes")
-ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
+
+ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) 
 ```
 
 
 ```{r}
 DeandAPA_sigAPAandE= DeandAPA %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
-ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)
+
+ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
 ```
 
 
@@ -70,22 +80,25 @@ ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + ge
 AllDomPAS=c(BothRes_40$Human_PAS, BothRes_40$Chimp_PAS) %>% unique() 
 DeandAPA_domPAS= DiffIso %>% inner_join(DE, by="gene") %>% filter(PAS %in% AllDomPAS)
 
-ggplot(DeandAPA_domPAS,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ Dominant PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(DeandAPA_domPAS,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ Dominant PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
 ```
 ###Significant:  
 
 ```{r}
 DeandAPA_domPAS_sigAPA= DeandAPA_domPAS %>% filter(SigPAU2=="Yes")
-ggplot(DeandAPA_domPAS_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(DeandAPA_domPAS_sigAPA,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
 ```
 
 ```{r}
 DeandAPA_domPAS_sigAPAandE= DeandAPA_domPAS %>% filter(SigPAU2=="Yes",  adj.P.Val<.05)
-ggplot(DeandAPA_domPAS_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE \n Dom PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(DeandAPA_domPAS_sigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point() + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v Significant DE \n Dom PAS") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
 ```
 
 
 These do not improve the results but they are consistent.  
+
+
+
 
 ##Ribo
 
@@ -97,7 +110,7 @@ Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",
 RiboandAPA=DiffIso %>% inner_join(Ribo, by="gene")%>% filter(gene %in% BothRes_40$gene)
 ```
 ```{r}
-ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
 ```
 
 ###Has a dom pas:  
@@ -105,19 +118,33 @@ ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) +
 
 ```{r}
 
-RiboandAPAdom=DiffIso %>% inner_join(Ribo, by="gene")%>% filter(gene %in% BothRes_40$gene)%>% filter(PAS %in% AllDomPAS)
+RiboandAPAdom=DiffIso %>% inner_join(Ribo, by="gene")%>% inner_join( BothRes_40, by="gene")
 
-ggplot(RiboandAPAdom,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPAdom,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
 ```
 ###Significant:  
 
 ```{r}
 RiboandAPAdom_sigAPA= RiboandAPAdom %>% filter(SigPAU2=="Yes")
-ggplot(RiboandAPAdom_sigAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS sig apa")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPAdom_sigAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DE \n Dom PAS sig apa")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)
 ```
 
 ```{r}
 RiboandAPAdom_sigAPAandR= RiboandAPAdom %>% filter(SigPAU2=="Yes",  HvC.FDR<.05)
-ggplot(RiboandAPAdom_sigAPAandR,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DR \n Dom PAS sig both")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPAdom_sigAPAandR,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant Intronic and 3' UTR APA v DR \n Dom PAS sig both")+ scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)+ facet_grid(~Set)
 ```
-Not enough power for this.  
+ 
+##Protein  
+
+```{r}
+Prot=read.table("../data/Khan_prot/ProtData_effectSize.txt", header = T, stringsAsFactors = F)
+
+DPandAPA= DiffIso %>% inner_join(Prot, by="gene")%>% inner_join(BothRes_40, by="gene")
+```
+
+```{r}
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5)
+
+ggplot(DPandAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DP") + scale_color_brewer(palette = "Dark2")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
+```
+

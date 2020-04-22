@@ -161,6 +161,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at genes that have differences in protein levels and APA levels but not mRNA expression](dAPAdPnotE.html)
 
+* [Plot the different effect size relationships together](EffectSizePlots.html)
 
 ##Domiance and DE (test for mechanisms)  
 
