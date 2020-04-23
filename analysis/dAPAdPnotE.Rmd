@@ -295,3 +295,35 @@ phyper(x,m, n , k,lower.tail=F)
 ```
 
 
+Are any of the these the diff dom set? Test .4 first: 
+
+```{r}
+
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+
+
+NucAPAres_sig_sm= NucAPAres_sig %>% filter(dPnotE=="Yes")
+BothRes_40_dp= BothRes_40 %>% filter(gene %in% NucAPAres_sig_sm$gene)
+
+
+BothRes_40_dp %>% group_by(Set) %>% summarise(n())
+
+
+metaSm= Meta %>% select(loc, PAS)
+DiffHuman= BothRes_40_dp %>% filter(Set=="Different") %>% select(gene, Human_PAS)  %>% rename(PAS= Human_PAS)%>% inner_join(metaSm, by="PAS")
+
+DiffChimp= BothRes_40_dp %>% filter(Set=="Different") %>% select(gene, Chimp_PAS)%>% rename(PAS= Chimp_PAS)%>% inner_join(metaSm, by="PAS")
+
+```
+
+```{r}
+DiffHuman
+DiffChimp
+```
+
