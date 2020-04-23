@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/e513e9f83f244e91b95d8a0673a3721a691396b6" target="_blank">e513e9f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree37703554976bc124e4380cf79643a15ccb6463e0targetblank3770355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/37703554976bc124e4380cf79643a15ccb6463e0" target="_blank">3770355</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree37703554976bc124e4380cf79643a15ccb6463e0targetblank3770355a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1310,6 +1310,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/37703554976bc124e4380cf79643a15ccb6463e0/analysis/dAPAdPnotE.Rmd" target="_blank">3770355</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+add overlap diff
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3790efa6842b4564ad18aefed223ab5c7608b89e/docs/dAPAdPnotE.html" target="_blank">3790efa</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/e513e9f83f244e91b95d8a0673a3721a691396b6/analysis/dAPAdPnotE.Rmd" target="_blank">e513e9f</a>
 </td>
 <td>
@@ -2020,6 +2054,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3790efa6842b4564ad18aefed223ab5c7608b89e/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">3790efa</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">5d82297</a>
 </td>
 <td>
@@ -2537,6 +2582,53 @@ which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
 <pre><code>[1] 4</code></pre>
 <pre class="r"><code>phyper(x,m, n , k,lower.tail=F)</code></pre>
 <pre><code>[1] 0.8959063</code></pre>
+<p>Are any of the these the diff dom set? Test .4 first:</p>
+<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+
+ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
+
+BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
+
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
+
+
+NucAPAres_sig_sm= NucAPAres_sig %&gt;% filter(dPnotE==&quot;Yes&quot;)
+BothRes_40_dp= BothRes_40 %&gt;% filter(gene %in% NucAPAres_sig_sm$gene)
+
+
+BothRes_40_dp %&gt;% group_by(Set) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  Set       `n()`
+  &lt;chr&gt;     &lt;int&gt;
+1 Different     8
+2 Same         32</code></pre>
+<pre class="r"><code>metaSm= Meta %&gt;% select(loc, PAS)
+DiffHuman= BothRes_40_dp %&gt;% filter(Set==&quot;Different&quot;) %&gt;% select(gene, Human_PAS)  %&gt;% rename(PAS= Human_PAS)%&gt;% inner_join(metaSm, by=&quot;PAS&quot;)</code></pre>
+<pre><code>Warning: Column `PAS` joining character vector and factor, coercing into
+character vector</code></pre>
+<pre class="r"><code>DiffChimp= BothRes_40_dp %&gt;% filter(Set==&quot;Different&quot;) %&gt;% select(gene, Chimp_PAS)%&gt;% rename(PAS= Chimp_PAS)%&gt;% inner_join(metaSm, by=&quot;PAS&quot;)</code></pre>
+<pre><code>Warning: Column `PAS` joining character vector and factor, coercing into
+character vector</code></pre>
+<pre class="r"><code>DiffHuman</code></pre>
+<pre><code>     gene         PAS    loc
+1  SEC22B  human18938    end
+2  EIF4G2  human54877   utr3
+3 TUBGCP3 human100208 intron
+4    IRF3 human170101   utr3
+5     HK2 human183666 intron
+6   PPIL3 chimp195902 intron
+7    FLNB human233016   utr3
+8    CPOX human235691   utr3</code></pre>
+<pre class="r"><code>DiffChimp</code></pre>
+<pre><code>     gene         PAS  loc
+1  SEC22B  chimp17094  end
+2  EIF4G2  human54890  cds
+3 TUBGCP3  chimp91832 utr3
+4    IRF3 human170093 utr3
+5     HK2 human183677 utr3
+6   PPIL3 human199028 utr3
+7    FLNB human233019 utr3
+8    CPOX human235678 utr3</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
