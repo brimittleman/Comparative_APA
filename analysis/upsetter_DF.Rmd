@@ -17,6 +17,7 @@ In this analysis I will use the UpSetR package to look at all of the differentia
 library(UpSetR)
 library(workflowr)
 library(tidyverse)
+library(RColorBrewer)
 ```
 
 
@@ -64,10 +65,12 @@ upset(fromList(listInput_nucOnly), queries = list(list(query=intersects, params=
 Remove splicing:  
 
 ```{r}
+
+brewer.pal(6, "RdYlBu")
 listInput_nosplice <- list(DE=DEgenes$Gene.name, DAPA=NucAPA$gene, DT=Translation$Gene, DP=Protein$gene.symbol)
 
 
-upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="red", active=T,query.name="APA, Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="orange", active=T, query.name="Expression,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="blue", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="purple", active=T, query.name="APA, Protein"),list(query=intersects, params=list("DAPA", "DE"), color="green", active=T, query.name="APA, Expression")), order.by = "freq", query.legend = "bottom")
+upset(fromList(listInput_nosplice), queries = list(list(query=intersects, params=list("DAPA", "DT", "DP"), color="#D7191C", active=T,query.name="APA, Ribo, Protein"),list(query=intersects, params=list("DE", "DT", "DP"), color="#FDAE61", active=T, query.name="Expression,Ribo, Protein"),list(query=intersects, params=list("DAPA", "DT"), color="#FEE090", active=T, query.name="APA,Ribo") ,list(query=intersects, params=list("DAPA", "DP"), color="#ABD9E9", active=T, query.name="APA, Protein"),list(query=intersects, params=list("DAPA", "DE"), color="#2C7BB6", active=T, query.name="APA, Expression")), order.by = "freq", query.legend = "bottom")
 ```
 
 

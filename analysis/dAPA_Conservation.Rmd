@@ -332,3 +332,18 @@ ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxpl
 ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + facet_grid(~SigPAU2)+ scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + theme(legend.position = "none")
 ```
 
+
+Change colors: 
+
+```{r}
+ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + theme(legend.position = "none")
+```
+
+Color just PAS and surrounding: 
+
+```{r} 
+ResUpdownAll_gather2= ResUpdownAll_gather %>% mutate(region=ifelse(Set=="phyloP", "Yes", "No"))
+
+ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + theme(legend.position = "none")
+```
+

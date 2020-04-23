@@ -54,17 +54,17 @@ DeandAPA_Dom= DiffIso %>% inner_join(DE, by="gene") %>% inner_join(BothRes_40Sm,
 
 
 ```{r}
-deloc=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -6)
+deloc=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -6)
 
 ```
 
 ```{r}
-de=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Dark2")+ stat_cor( label.x = -7)
+de=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Set1")+ stat_cor( label.x = -7)
 ```
 
 
 ```{r}
-facet=ggplot(DeandAPA_Dom,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
+facet=ggplot(DeandAPA_Dom,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE\ gene with dominance") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -5) + facet_grid(~Set)
 ```
 
 
@@ -74,11 +74,11 @@ DeandAPA_Dom_Diff= DeandAPA_Dom %>% filter(Set=="Different")
 ```
 
 ```{r}
-same=ggplot(DeandAPA_Dom_same,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Same Dominant") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+same=ggplot(DeandAPA_Dom_same,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Same Dominant") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
 ```
 
 ```{r}
-diff=ggplot(DeandAPA_Dom_Diff,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Different Dominant") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+diff=ggplot(DeandAPA_Dom_Diff,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: Different Dominant") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
 ```
 
 
@@ -97,8 +97,8 @@ DeandAPA_Dom_Diffsig= DeandAPA_Dom %>% filter(Set=="Different")%>% filter(SigPAU
 
 
 ```{r}
-sameSig=ggplot(DeandAPA_Dom_samesig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Same Dominant, Significant dAPA") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
-diffSig=ggplot(DeandAPA_Dom_Diffsig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+sameSig=ggplot(DeandAPA_Dom_samesig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Same Dominant, Significant dAPA") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+diffSig=ggplot(DeandAPA_Dom_Diffsig,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
 ```
 
 ```{r}
@@ -107,8 +107,8 @@ DeandAPA_Dom_Diffsigboth= DeandAPA_Dom %>% filter(Set=="Different")%>% filter(Si
 ```
 
 ```{r}
-sameSigBoth=ggplot(DeandAPA_Dom_samesigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: \nSame Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
-diffSigBoth=ggplot(DeandAPA_Dom_Diffsigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Dark2",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+sameSigBoth=ggplot(DeandAPA_Dom_samesigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE: \nSame Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
+diffSigBoth=ggplot(DeandAPA_Dom_Diffsigboth,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE:\n Different Dominant, Significant dAPA and de") + scale_color_brewer(palette = "Set1",labels=c("Intronic", "3' UTR"), name="")+ stat_cor(aes(color = loc), label.x = -7)
 ```
 
 
