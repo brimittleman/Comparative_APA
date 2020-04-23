@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree37703554976bc124e4380cf79643a15ccb6463e0targetblank3770355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/37703554976bc124e4380cf79643a15ccb6463e0" target="_blank">3770355</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c1bc4966c75d6590a43f38c7a5090ef7358d0d02" target="_blank">c1bc496</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree37703554976bc124e4380cf79643a15ccb6463e0targetblank3770355a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1310,6 +1310,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c1bc4966c75d6590a43f38c7a5090ef7358d0d02/analysis/dAPAdPnotE.Rmd" target="_blank">c1bc496</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+add interaction density, dapa and e and order proble
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d969183bc7da274c55133ce32e9896d3fe252631/docs/dAPAdPnotE.html" target="_blank">d969183</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/37703554976bc124e4380cf79643a15ccb6463e0/analysis/dAPAdPnotE.Rmd" target="_blank">3770355</a>
 </td>
 <td>
@@ -1568,12 +1602,12 @@ add expression indep
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(UpSetR)
@@ -1938,18 +1972,18 @@ for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quo
   n=nrow(NucAPAres_sig %&gt;% filter(loc!=i))
   k=nrow(NucAPAres_sig %&gt;% filter(dPnotE==&quot;Yes&quot;))
   N=nrow(NucAPAres_sig)
-  pval=c(pval, phyper(x,m,n,k,lower.tail=F))
+  pval=c(pval, phyper(x-1,m,n,k,lower.tail=F))
   enrichval=(x/k)/(m/N)
   enrich=c(enrich, enrichval)
 }
 enrich</code></pre>
 <pre><code>[1] 1.3100158 0.3521451 0.7012860 1.2145339</code></pre>
 <pre class="r"><code>pval</code></pre>
-<pre><code>[1] 0.089755650 0.976925271 0.959989683 0.003199861</code></pre>
+<pre><code>[1] 0.144079246 0.993503594 0.976950002 0.005705065</code></pre>
 <pre class="r"><code>NucAPAres_DPLocEnrich=NucAPAres_DP %&gt;% group_by(loc) %&gt;% summarise(n=n()) %&gt;% bind_cols(enrichment=enrich, pvalue=pval)
 
 
-ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,2), sep=&quot;&quot;), vjust=2))</code></pre>
+ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,3), sep=&quot;&quot;), vjust=2))</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -2025,7 +2059,10 @@ brimittleman
 <p>Are there differences in protien interactions for these.</p>
 <pre class="r"><code>Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,stringsAsFactors = F, header = T) 
 
-InteractionsAPA=Interactions %&gt;%filter(gene %in% NucAPAresSig$gene) %&gt;% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, &quot;Yes&quot;, &quot;No&quot;))
+OrthoUTR=read.table(&quot;../data/orthoUTR/HumanDistal3UTR.sort.bed&quot;, col.names = c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;),stringsAsFactors = F) %&gt;% mutate(length=end-start) %&gt;% select(gene, length)
+
+
+InteractionsAPA=Interactions %&gt;%filter(gene %in% NucAPAresSig$gene) %&gt;% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, &quot;Yes&quot;, &quot;No&quot;))%&gt;% inner_join(OrthoUTR, by=&quot;gene&quot;) %&gt;% mutate(density=nInt/length)
 
 
 ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(Number of Protein Interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
@@ -2111,14 +2148,17 @@ brimittleman
 </table>
 </div>
 </div>
+<p>Plot density?</p>
+<pre class="r"><code>ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(density),fill=dPnotE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(UTR density of interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>More likly to have one:</p>
 <pre class="r"><code>InteractionsAPA %&gt;% mutate(HasInteraction=ifelse(nInt&gt;0, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% group_by(dPnotE, HasInteraction) %&gt;% summarise(nWithSet=n())</code></pre>
 <pre><code># A tibble: 2 x 3
 # Groups:   dPnotE [2]
   dPnotE HasInteraction nWithSet
   &lt;chr&gt;  &lt;chr&gt;             &lt;int&gt;
-1 No     Yes                1394
-2 Yes    Yes                  90</code></pre>
+1 No     Yes                1292
+2 Yes    Yes                  86</code></pre>
 <p>Set should be the interaction set dAPA, de, and dP.</p>
 <pre class="r"><code>Alldiff=Protein %&gt;% inner_join(DEgenes,by=&quot;gene&quot;) %&gt;% inner_join(NucAPA, by=&quot;gene&quot;) %&gt;% dplyr::select(gene)
 #This is 101 genes.  
@@ -2126,77 +2166,7 @@ geneAPAPnotEG=APAandPnotE %&gt;% dplyr::select(gene)
 
 GenesMatter= Alldiff %&gt;% bind_rows(geneAPAPnotEG) %&gt;% mutate(Ex=ifelse(gene %in% geneAPAPnotEG$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;DE gene&quot;, y=&quot;Number of protein protein interactions&quot;, title=&quot;dAPA, DP, and DE&quot;)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" target="_blank">5d82297</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-16-1.png" target="_blank">25a4790</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Effect sizes :</p>
 <p>Look at the PAS effect sizes here and in protien, translation, and expression.</p>
 <pre class="r"><code>NucAPAres_sig_dpnotE = NucAPAres_sig %&gt;% filter(dPnotE ==&quot;Yes&quot;)
@@ -2211,314 +2181,18 @@ Prot=read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;, header = 
 <pre class="r"><code>APAandE=NucAPAres_sig_dpnotE %&gt;% inner_join(DE, by=&quot;gene&quot;)
 
 ggplot(APAandE, aes(x=logFC, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">f33ef5a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(APAandE, aes(x=logFC, y=deltaPAU, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  +stat_cor(label.x = 1)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
-Past versions of unnamed-chunk-18-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-2.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-2.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-2.png" target="_blank">f33ef5a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>APAandRibo=NucAPAres_sig_dpnotE %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
 ggplot(APAandRibo, aes(x=HvC.beta, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-3">
-Past versions of unnamed-chunk-18-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-3.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-3.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-3.png" target="_blank">f33ef5a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>APAandprot=NucAPAres_sig_dpnotE %&gt;% inner_join(Prot, by=&quot;gene&quot;)
 
 ggplot(APAandprot, aes(x=logEf, y=deltaPAU))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-4">
-Past versions of unnamed-chunk-18-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-4.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-4.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-4.png" target="_blank">f33ef5a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-4.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(APAandprot, aes(x=logEf, y=deltaPAU, col=loc))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-5">
-Past versions of unnamed-chunk-18-5.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-5.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-5.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-5.png" target="_blank">f33ef5a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>None of these are significant.</p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-5.png" width="672" style="display: block; margin: auto;" /> None of these are significant.</p>
 <p>Check if any of these are genes with QTLs.</p>
 <p>I will pull in the genes with nuclear apaQTLs first.</p>
 <pre class="r"><code>apaQTLs=read.table(&quot;../../apaQTL/data/apaQTLs/Nuclear_apaQTLs4pc_5fdr.sort.bed&quot;,col.names = c(&#39;chr&#39;,&#39;start&#39;,&#39;end&#39;, &#39;PASid&#39;,&#39;score&#39;, &#39;strand&#39;)) %&gt;% separate(PASid, into=c(&quot;gene&quot;, &quot;PAS&quot;, &quot;loc&quot;),sep=&quot;:&quot;)

@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5168eee7f7d76f04b542b3eb9b3faf9bb417ac66targetblank5168eeea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/5168eee7f7d76f04b542b3eb9b3faf9bb417ac66" target="_blank">5168eee</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c1bc4966c75d6590a43f38c7a5090ef7358d0d02" target="_blank">c1bc496</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5168eee7f7d76f04b542b3eb9b3faf9bb417ac66targetblank5168eeea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1261,7 +1261,6 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
-    Modified:   analysis/dAPAdPnotE.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1306,6 +1305,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c1bc4966c75d6590a43f38c7a5090ef7358d0d02/analysis/NewDomandDE.Rmd" target="_blank">c1bc496</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+add interaction density, dapa and e and order proble
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/add6b2ab6ab218f0c331650bbb3d7507bd65a0c0/docs/NewDomandDE.html" target="_blank">add6b2a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1916,6 +1949,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/add6b2ab6ab218f0c331650bbb3d7507bd65a0c0/docs/figure/NewDomandDE.Rmd/unnamed-chunk-16-1.png" target="_blank">add6b2a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/53a75707083d909ad1c9cf54e2a9c8f94ce45bc3/docs/figure/NewDomandDE.Rmd/unnamed-chunk-16-1.png" target="_blank">53a7570</a>
 </td>
 <td>
@@ -1929,17 +1973,108 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggdotchart(ResDF,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Different Dominant&quot;) + geom_hline(yintercept = 1)
+<pre class="r"><code>ggdotchart(ResDF,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Different Dominant&quot;) + geom_hline(yintercept = 1)
 
-ggdotchart(ResDFSame,y=&quot;EnrichSame&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Same Dominant&quot;) + geom_hline(yintercept = 1)</code></pre>
+ggdotchart(ResDFSame,y=&quot;EnrichSame&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Same Dominant&quot;) + geom_hline(yintercept = 1)</code></pre>
 <p>Plot together:</p>
 <pre class="r"><code>ResDFfix=ResDF %&gt;% mutate(type=&quot;Different&quot;)
 ResDFSamefix=ResDFSame %&gt;% mutate(type=&quot;Same&quot;) 
 
 colnames(ResDFSamefix)=colnames(ResDFfix)
 ResDFfix_both=ResDFfix %&gt;% bind_rows(ResDFSamefix)</code></pre>
-<pre class="r"><code>dotchart=ggdotchart(ResDFfix_both,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE by Domianance&quot;) + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)</code></pre>
+<pre class="r"><code>dotchart=ggdotchart(ResDFfix_both,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE by Domianance&quot;) + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)
+
+dotchart</code></pre>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /> Sort if off!</p>
 <pre class="r"><code>ggsave(&quot;../output/dEandDomEnrich.png&quot;,dotchart, width=12)</code></pre>
+<pre><code>Saving 12 x 5 in image</code></pre>
+</div>
+<div id="split-into-with-dapa-and-without" class="section level2">
+<h2>Split into with dAPA and without</h2>
+<p>Add info about DE to All4.</p>
+<pre class="r"><code>diffIsoGenes= read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;,stringsAsFactors = F, header = T)
+
+All4DiffIso= All4 %&gt;% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, &quot;Yes&quot;, &quot;No&quot;))
+
+PvalSameapa=c()
+EnrichSameAPA=c()
+ExpectedSameAPA=c()
+actualSameapa=c()
+#same dapa
+for (i in set){
+  x=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, DE==&quot;Yes&quot;, dAPA==&quot;Yes&quot;))
+  actualSameapa=c(actualSameapa, x)
+  m=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;Yes&quot;, dAPA==&quot;Yes&quot;))
+  n=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;No&quot;, dAPA==&quot;Yes&quot;))
+  k=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;Yes&quot;))
+  N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;Yes&quot;))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSameapa= c(PvalSameapa, val)
+  en=(x/k)/(m/N)
+  EnrichSameAPA=c(EnrichSameAPA, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  ExpectedSameAPA=c(ExpectedSameAPA,ex)
+}
+actualSameapa</code></pre>
+<pre><code>[1] 231 207 172 136 103  80  46  26   7</code></pre>
+<pre class="r"><code>ExpectedSameAPA</code></pre>
+<pre><code>[1] 234.67700 217.20264 187.27941 146.76411 110.98324  84.50000  48.48485
+[8]  25.65333   6.50000</code></pre>
+<pre class="r"><code>EnrichSameAPA</code></pre>
+<pre><code>[1] 0.9843316 0.9530271 0.9184138 0.9266571 0.9280681 0.9467456 0.9487500
+[8] 1.0135135 1.0769231</code></pre>
+<pre class="r"><code>PvalSameapa</code></pre>
+<pre><code>[1] 0.6908226 0.9271034 0.9951886 0.9867290 0.9779845 0.9302170 0.8874905
+[8] 0.5307203 0.5000000</code></pre>
+<pre class="r"><code>set</code></pre>
+<pre><code>[1] 10 20 30 40 50 60 70 80 90</code></pre>
+<pre class="r"><code>PvalSameNo=c()
+EnrichSameNo=c()
+ExpectedSameNo=c()
+actualSameNo=c()
+#no dapa
+for (i in set){
+  x=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, DE==&quot;Yes&quot;, dAPA==&quot;No&quot;))
+  actualSameNo=c(actualSameNo, x)
+  m=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;Yes&quot;, dAPA==&quot;No&quot;))
+  n=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;No&quot;, dAPA==&quot;No&quot;))
+  k=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;No&quot;))
+  N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;Yes&quot;))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSameNo= c(PvalSameNo, val)
+  en=(x/k)/(m/N)
+  EnrichSameNo=c(EnrichSameNo, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  ExpectedSameNo=c(ExpectedSameNo,ex)
+}
+actualSameNo</code></pre>
+<pre><code>[1] 1275 1046  853  705  570  440  315  196   73</code></pre>
+<pre class="r"><code>ExpectedSameNo</code></pre>
+<pre><code>[1] 4443.0698 3500.0771 2981.5500 2764.2177 2472.6536 2256.8966 2083.2955
+[8] 1392.9067  550.5417</code></pre>
+<pre class="r"><code>EnrichSameNo</code></pre>
+<pre><code>[1] 0.2869638 0.2988506 0.2860928 0.2550450 0.2305216 0.1949580 0.1512027
+[8] 0.1407129 0.1325967</code></pre>
+<pre class="r"><code>PvalSameNo</code></pre>
+<pre><code>[1] 0.78224457 0.71829130 0.08718982 0.54027531 1.00000000 1.00000000
+[7] 1.00000000 1.00000000 1.00000000</code></pre>
+<p>Ploth this:</p>
+<pre class="r"><code>ResDFSameAPA=as.data.frame(cbind(set,pval=PvalSameapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %&gt;% mutate(dAPA=&quot;Yes&quot;)
+ResDFSameNo=as.data.frame(cbind(set,pval=PvalSameNo,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%&gt;% mutate(dAPA=&quot;No&quot;)
+
+
+ResDFSameApaBoth= ResDFSameAPA %&gt;% bind_rows(ResDFSameNo)
+
+ResDFSameApaBoth$set=factor(ResDFSameApaBoth$set, levels=c(10,20,30,40,50,60,70,80,90))
+ResDFSameApaBoth$dAPA=as.factor(ResDFSameApaBoth$dAPA)
+
+ggdotchart(ResDFSameApaBoth,y=&quot;enrich&quot;,x= &quot;set&quot;,  color=&quot;set&quot;,group=&quot;dAPA&quot;,shape=&quot;dAPA&quot;, add = &quot;segments&quot;, rotate = TRUE, dot.size = 10, label = round(ResDFSameApaBoth$enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), palette=&quot;RdYlBu&quot;,legend=&quot;bottom&quot;, title=&quot;Enrichment for DE by in genes with Same Dominant&quot;) + geom_hline(yintercept = 1) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)</code></pre>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#+ facet_grid(~dAPA)
+#rotate = TRUE</code></pre>
+<p>the order is wrong because the ggdotchart code only allows descending or ascending. not none. submitted a comment on github.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1974,19 +2109,19 @@ other attached packages:
 [13] tidyverse_1.2.1    workflowr_1.6.0   
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
-[21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2   
-[41] pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
-[45] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10  R6_2.3.0        
-[49] nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5 reshape2_1.4.3   haven_1.1.2      lattice_0.20-38 
+ [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
+ [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
+[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
+[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
+[25] broom_0.5.1      Rcpp_1.0.2       promises_1.0.1   scales_1.0.0    
+[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
+[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
+[37] cli_1.1.0        tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4    
+[41] whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
+[45] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
+[49] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
 </div>
 </div>
 
