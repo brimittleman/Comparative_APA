@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/e513e9f83f244e91b95d8a0673a3721a691396b6" target="_blank">e513e9f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5168eee7f7d76f04b542b3eb9b3faf9bb417ac66targetblank5168eeea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/5168eee7f7d76f04b542b3eb9b3faf9bb417ac66" target="_blank">5168eee</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree5168eee7f7d76f04b542b3eb9b3faf9bb417ac66targetblank5168eeea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,7 +447,6 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
@@ -1262,6 +1261,7 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dAPAdPnotE.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1306,6 +1306,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5168eee7f7d76f04b542b3eb9b3faf9bb417ac66/analysis/NewdomanddAPA.Rmd" target="_blank">5168eee</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+fix expected, and p
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3790efa6842b4564ad18aefed223ab5c7608b89e/docs/NewdomanddAPA.html" target="_blank">3790efa</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1415,12 +1449,12 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 
     ggsave</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ cowplot::ggsave()  masks ggplot2::ggsave()
@@ -1461,10 +1495,11 @@ for (i in set){
   n=nrow(All %&gt;% filter(cut==i, dAPA==&quot;No&quot;))
   k=nrow(All %&gt;% filter(cut==i, Set==&quot;Different&quot;))
   N=nrow(All %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
+  val=phyper(x-1,m,n,k,lower.tail=F)
   Pval= c(Pval, val)
   en=(x/k)/(m/N)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
   expected=c(expected,ex)
   Enrich=c(Enrich, en)
 }
@@ -1478,16 +1513,16 @@ diffp=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;id
 
 diffe=ggplot(ResDF,aes(x=set, y=Enrich, fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>ResDF</code></pre>
-<pre><code>  set          Pval   Enrich actual expected
-1  10 1.797208e-189 2.414802    704      291
-2  20 6.026541e-203 3.206692    467      145
-3  30 5.272942e-165 3.933034    283       72
-4  40 5.937071e-127 4.641345    178       38
-5  50  0.000000e+00 5.107914    118       23
-6  60  0.000000e+00 5.800000     75       13
-7  70  0.000000e+00 7.043478     39        5
-8  80  0.000000e+00 7.242105     27        3
-9  90  0.000000e+00 7.343750     12        1</code></pre>
+<pre><code>  set          Pval   Enrich actual   expected
+1  10 1.390016e-188 2.414802    704 291.535347
+2  20 1.103542e-201 3.206692    467 145.632926
+3  30 2.817467e-163 3.933034    283  71.954625
+4  40 1.441990e-124 4.641345    178  38.350954
+5  50  7.617389e-91 5.107914    118  23.101408
+6  60  4.656864e-62 5.800000     75  12.931034
+7  70  1.103789e-35 7.043478     39   5.537037
+8  80  1.695198e-25 7.242105     27   3.728198
+9  90  5.072762e-12 7.343750     12   1.634043</code></pre>
 <pre class="r"><code>PvalSame=c()
 EnrichSame=c()
 expectedSame=c()
@@ -1500,11 +1535,12 @@ for (i in set){
   n=nrow(All %&gt;% filter(cut==i, dAPA==&quot;No&quot;))
   k=nrow(All %&gt;% filter(cut==i, Set==&quot;Same&quot;))
   N=nrow(All %&gt;% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
-  PvalSame= c(PvalSame, round(val,3))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSame= c(PvalSame, val)
   en=(x/k)/(m/N)
   EnrichSame=c(EnrichSame, en)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
   expectedSame=c(expectedSame,ex)
 }
 
@@ -1518,15 +1554,15 @@ samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=
 samee=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>ResDFSame</code></pre>
 <pre><code>  set PvalSame EnrichSame actualSame expectedSame
-1  10        1  0.6125145        652          652
-2  20        1  0.6496854        596          596
-3  30        1  0.7093221        515          515
-4  40        1  0.7392900        396          396
-5  50        1  0.7590786        299          299
-6  60        1  0.7631579        200          200
-7  70        1  0.7847528        122          122
-8  80        1  0.7450275         68           68
-9  90        1  0.6586323         20           20</code></pre>
+1  10        1  0.6125145        652   1064.46465
+2  20        1  0.6496854        596    917.36707
+3  30        1  0.7093221        515    726.04538
+4  40        1  0.7392900        396    535.64905
+5  50        1  0.7590786        299    393.89859
+6  60        1  0.7631579        200    262.06897
+7  70        1  0.7847528        122    155.46296
+8  80        1  0.7450275         68     91.27180
+9  90        1  0.6586323         20     30.36596</code></pre>
 <p>Proportion of dAPA genes:</p>
 <pre class="r"><code>PropDapa=as.data.frame(cbind(set, OverlapdAPA=actual, dAPA=rep(nrow(dAPAGenes),9))) %&gt;% mutate(Prop=OverlapdAPA/dAPA)
 PropDapa$set=as.factor(PropDapa$set)
@@ -1554,6 +1590,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3790efa6842b4564ad18aefed223ab5c7608b89e/docs/figure/NewdomanddAPA.Rmd/unnamed-chunk-7-1.png" target="_blank">3790efa</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/53a75707083d909ad1c9cf54e2a9c8f94ce45bc3/docs/figure/NewdomanddAPA.Rmd/unnamed-chunk-7-1.png" target="_blank">53a7570</a>
