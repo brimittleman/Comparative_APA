@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(workflowr)
 library(tidyverse)
 library(cowplot)
+library(ggpubr)
 library(RColorBrewer)
 ```
 
@@ -283,7 +284,7 @@ ResDFSame
 ```{r}
 PropDE=as.data.frame(cbind(set, OverlapDE=actual, DE=rep(nrow(DE_yes),9))) %>% mutate(Prop=OverlapDE/DE)
 PropDE$set=as.factor(PropDE$set)
-ggplot(PropDE, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity",alpha=.5)+ labs(title="Proportion of DE genes with different dominant PAS", y="Proportion of DE genes")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapDE), position=position_dodge(width=0.9), vjust=1.5)
+ggplot(PropDE, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity")+ labs(title="Proportion of DE genes with different dominant PAS", y="Proportion of DE genes",x="Dominance Cuttoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapDE), position=position_dodge(width=0.9), vjust=1.5)
 ```
 
 
@@ -291,5 +292,29 @@ plot grid:
 
 ```{r}
 plot_grid(diffE, SameE, diffP, Samep)
+```
+
+```{r,eval=F}
+ggdotchart(ResDF,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Different Dominant") + geom_hline(yintercept = 1)
+
+ggdotchart(ResDFSame,y="EnrichSame",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Same Dominant") + geom_hline(yintercept = 1)
+```
+
+Plot together:
+
+```{r}
+ResDFfix=ResDF %>% mutate(type="Different")
+ResDFSamefix=ResDFSame %>% mutate(type="Same") 
+
+colnames(ResDFSamefix)=colnames(ResDFfix)
+ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
+```
+
+
+```{r,eval=F}
+dotchart=ggdotchart(ResDFfix_both,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE by Domianance") + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x="Dominance Cutoff", y="Enrichement")
+```
+```{r,eval=F}
+ggsave("../output/dEandDomEnrich.png",dotchart, width=12)
 ```
 

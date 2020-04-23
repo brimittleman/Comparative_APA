@@ -168,7 +168,7 @@ Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactor
 InteractionsAPA=Interactions %>%filter(gene %in% NucAPAresSig$gene) %>% mutate(dPnotE=ifelse(gene %in% NucAPAres_DP$gene, "Yes", "No"))
 
 
-ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="Gene in Expression independent set", y="log10(Number of Protein Interactions)", title="Protein Interactions for Expression \nindependent dAPA genes")
+ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_brewer(palette = "Set1")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="Gene in Expression independent set", y="log10(Number of Protein Interactions)", title="Protein Interactions for Expression \nindependent dAPA genes")
 ```
 
 More likly to have one:  

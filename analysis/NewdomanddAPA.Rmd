@@ -13,6 +13,7 @@ I will look at enrichment for dAPA genes in gene with same and different domiant
 
 ```{r}
 library(workflowr)
+library(ggpubr)
 library(cowplot)
 library(tidyverse)
 ```
@@ -122,11 +123,30 @@ Proportion of dAPA genes:
 ```{r}
 PropDapa=as.data.frame(cbind(set, OverlapdAPA=actual, dAPA=rep(nrow(dAPAGenes),9))) %>% mutate(Prop=OverlapdAPA/dAPA)
 PropDapa$set=as.factor(PropDapa$set)
-ggplot(PropDapa, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity", alpha=.5)+ labs(title="Proportion of dAPA genes with different dominant PAS", y="Proportion of dAPA genes")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapdAPA), position=position_dodge(width=0.9), vjust=1.5)
+ggplot(PropDapa, aes(x=set,y=Prop,fill=set)) + geom_bar(stat="identity")+ labs(title="Proportion of dAPA genes with different dominant PAS", y="Proportion of dAPA genes",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+geom_text(aes(label=OverlapdAPA), position=position_dodge(width=0.9), vjust=1.5)
 ```
 
 
 ```{r}
 plot_grid(diffe,samee, diffp, samep)
+```
+
+Plot together:
+
+```{r}
+ResDFfix=ResDF %>% mutate(type="Different")
+ResDFSamefix=ResDFSame %>% mutate(type="Same") 
+
+colnames(ResDFSamefix)=colnames(ResDFfix)
+ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
+```
+
+```{r,eval=F}
+dotplot=ggdotchart(ResDFfix_both,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for dAPA by Domianance") + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x="Dominance Cutoff", y="Enrichement")
+```
+Wont build with this: use ggsave:  
+
+```{r,eval=F}
+ggsave("../output/dAPAandDomEnrich.png",dotplot, width=12)
 ```
 
