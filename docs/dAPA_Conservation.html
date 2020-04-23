@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-22
+<strong>Last updated:</strong> 2020-04-23
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1e814ec9bd54a9c1cb192adba11a48c8c5631264targetblank1e814eca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1e814ec9bd54a9c1cb192adba11a48c8c5631264" target="_blank">1e814ec</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/e513e9f83f244e91b95d8a0673a3721a691396b6" target="_blank">e513e9f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1e814ec9bd54a9c1cb192adba11a48c8c5631264targetblank1e814eca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreee513e9f83f244e91b95d8a0673a3721a691396b6targetblanke513e9fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1242,15 +1242,17 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
-    Modified:   analysis/NewDomandDE.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
@@ -1303,6 +1305,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e513e9f83f244e91b95d8a0673a3721a691396b6/analysis/dAPA_Conservation.Rmd" target="_blank">e513e9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+add dot chart
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/dAPA_Conservation.html" target="_blank">5d82297</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2315,11 +2351,85 @@ brimittleman
 <p>Change colors:</p>
 <pre class="r"><code>ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-30-1.png" target="_blank">5d82297</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Color just PAS and surrounding:</p>
 <pre class="r"><code>ResUpdownAll_gather2= ResUpdownAll_gather %&gt;% mutate(region=ifelse(Set==&quot;phyloP&quot;, &quot;Yes&quot;, &quot;No&quot;))
 
-ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
+ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-31-1.png" target="_blank">5d82297</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
