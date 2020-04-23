@@ -143,8 +143,10 @@ colnames(ResDFSamefix)=colnames(ResDFfix)
 ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
 ```
 
-```{r,eval=F}
+```{r}
 dotplot=ggdotchart(ResDFfix_both,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for dAPA by Domianance") + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x="Dominance Cutoff", y="Enrichement")
+
+dotplot
 ```
 Wont build with this: use ggsave:  
 

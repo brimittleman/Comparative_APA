@@ -17,6 +17,8 @@ library(ggpubr)
 library(RColorBrewer)
 ```
 
+
+
 I will ask if there if dominance and DE are related. First I can ask if genes with dominant PAS are enriched in the DE genes.  
 
 ```{r}
@@ -297,9 +299,9 @@ plot_grid(diffE, SameE, diffP, Samep)
 ```
 
 ```{r,eval=F}
-ggdotchart(ResDF,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Different Dominant") + geom_hline(yintercept = 1)
+ggdotchart(ResDF,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort="d", legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Different Dominant") + geom_hline(yintercept = 1)
 
-ggdotchart(ResDFSame,y="EnrichSame",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Same Dominant") + geom_hline(yintercept = 1)
+ggdotchart(ResDFSame,y="EnrichSame",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort="d", legend="none", palette="RdYlBu", title="Enrichment for DE and dAPA Same Dominant") + geom_hline(yintercept = 1)
 ```
 
 Plot together:
@@ -313,10 +315,96 @@ ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
 ```
 
 
-```{r,eval=F}
+```{r}
 dotchart=ggdotchart(ResDFfix_both,y="Enrich",x= "set", color="set",add = "segments", rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend="none", palette="RdYlBu", title="Enrichment for DE by Domianance") + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x="Dominance Cutoff", y="Enrichement")
+
+dotchart
 ```
-```{r,eval=F}
+Sort if off! 
+
+```{r}
 ggsave("../output/dEandDomEnrich.png",dotchart, width=12)
 ```
 
+##Split into with dAPA and without  
+
+
+Add info about DE to All4.  
+```{r}
+diffIsoGenes= read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",stringsAsFactors = F, header = T)
+
+All4DiffIso= All4 %>% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, "Yes", "No"))
+
+PvalSameapa=c()
+EnrichSameAPA=c()
+ExpectedSameAPA=c()
+actualSameapa=c()
+#same dapa
+for (i in set){
+  x=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", DE=="Yes", dAPA=="Yes"))
+  actualSameapa=c(actualSameapa, x)
+  m=nrow(All4DiffIso %>% filter(cut==i, DE=="Yes", dAPA=="Yes"))
+  n=nrow(All4DiffIso %>% filter(cut==i, DE=="No", dAPA=="Yes"))
+  k=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", dAPA=="Yes"))
+  N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="Yes"))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSameapa= c(PvalSameapa, val)
+  en=(x/k)/(m/N)
+  EnrichSameAPA=c(EnrichSameAPA, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  ExpectedSameAPA=c(ExpectedSameAPA,ex)
+}
+actualSameapa
+ExpectedSameAPA
+EnrichSameAPA
+PvalSameapa
+
+
+
+```
+```{r}
+set
+PvalSameNo=c()
+EnrichSameNo=c()
+ExpectedSameNo=c()
+actualSameNo=c()
+#no dapa
+for (i in set){
+  x=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", DE=="Yes", dAPA=="No"))
+  actualSameNo=c(actualSameNo, x)
+  m=nrow(All4DiffIso %>% filter(cut==i, DE=="Yes", dAPA=="No"))
+  n=nrow(All4DiffIso %>% filter(cut==i, DE=="No", dAPA=="No"))
+  k=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", dAPA=="No"))
+  N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="Yes"))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSameNo= c(PvalSameNo, val)
+  en=(x/k)/(m/N)
+  EnrichSameNo=c(EnrichSameNo, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  ExpectedSameNo=c(ExpectedSameNo,ex)
+}
+actualSameNo
+ExpectedSameNo
+EnrichSameNo
+PvalSameNo
+```
+Ploth this:
+
+```{r}
+ResDFSameAPA=as.data.frame(cbind(set,pval=PvalSameapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %>% mutate(dAPA="Yes")
+ResDFSameNo=as.data.frame(cbind(set,pval=PvalSameNo,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%>% mutate(dAPA="No")
+
+
+ResDFSameApaBoth= ResDFSameAPA %>% bind_rows(ResDFSameNo)
+
+ResDFSameApaBoth$set=factor(ResDFSameApaBoth$set, levels=c(10,20,30,40,50,60,70,80,90))
+ResDFSameApaBoth$dAPA=as.factor(ResDFSameApaBoth$dAPA)
+
+ggdotchart(ResDFSameApaBoth,y="enrich",x= "set",  color="set",group="dAPA",shape="dAPA", add = "segments", rotate = TRUE, dot.size = 10, label = round(ResDFSameApaBoth$enrich,2), font.label = list(color = "black", size = 10, vjust = 0.5),ggtheme = theme_pubr(), palette="RdYlBu",legend="bottom", title="Enrichment for DE by in genes with Same Dominant") + geom_hline(yintercept = 1) + labs(x="Dominance Cutoff", y="Enrichement")
+#+ facet_grid(~dAPA)
+#rotate = TRUE
+```
+
+the order is wrong because the ggdotchart code only allows descending or ascending. not none. submitted a comment on github.  
