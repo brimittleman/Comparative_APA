@@ -221,11 +221,12 @@ for (i in set){
   n=nrow(All4 %>% filter(cut==i, DE=="No"))
   k=nrow(All4 %>% filter(cut==i, Set=="Different"))
   N=nrow(All4 %>% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
+  val=phyper(x-1,m,n,k,lower.tail=F)
   Pval= c(Pval, val)
   en=(x/k)/(m/N)
   Enrich=c(Enrich, en)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
   expected=c(expected,ex)
 }
 
@@ -254,11 +255,12 @@ for (i in set){
   n=nrow(All4 %>% filter(cut==i, DE=="No"))
   k=nrow(All4 %>% filter(cut==i, Set=="Same"))
   N=nrow(All4 %>% filter(cut==i))
-  val=phyper(x,m,n,k,lower.tail=F)
+  val=phyper(x-1,m,n,k,lower.tail=F)
   PvalSame= c(PvalSame, val)
   en=(x/k)/(m/N)
   EnrichSame=c(EnrichSame, en)
-  ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
   expectedSame=c(expectedSame,ex)
 }
 
