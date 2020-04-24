@@ -1,0 +1,43 @@
+---
+title: "DE and number of PAS"
+author: "Briana Mittleman"
+date: "4/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(workflowr)
+library(ggpubr)
+```
+
+
+```{r}
+nPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% group_by(gene) %>% summarise(nperGene=n())
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No"))   %>% inner_join(nPAS, by="gene")
+
+```
+
+
+```{r}
+ggplot(DE, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means()
+```
+
+
+Remove 1: 
+
+```{r}
+DE_no1 = DE %>% filter(nperGene>1)
+ggplot(DE_no1, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means()
+
+```
+
+
+So number of PAS and de is not informative for DE but is for dominance structure....
+
+
