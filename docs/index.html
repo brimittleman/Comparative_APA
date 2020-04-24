@@ -242,7 +242,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-22
+<strong>Last updated:</strong> 2020-04-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -273,10 +273,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b4e617ede962869e7ef3784c37a96f64a025a527" target="_blank">b4e617e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree93d00f37b4fce84278e01296321b01b441ae5638targetblank93d00f3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/93d00f37b4fce84278e01296321b01b441ae5638" target="_blank">93d00f3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree93d00f37b4fce84278e01296321b01b441ae5638targetblank93d00f3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -552,6 +552,7 @@ Untracked files:
     Untracked:  code/GetTopminus2Usage.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -1005,6 +1006,7 @@ Untracked files:
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1074,6 +1076,7 @@ Untracked files:
     Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1081,14 +1084,18 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
+    Modified:   analysis/NewDomandDE.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
@@ -1099,8 +1106,10 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
+    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1140,6 +1149,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/93d00f37b4fce84278e01296321b01b441ae5638/analysis/index.Rmd" target="_blank">93d00f3</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+<td>
+add info content
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/53a75707083d909ad1c9cf54e2a9c8f94ce45bc3/docs/index.html" target="_blank">53a7570</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -5314,6 +5357,13 @@ Start workflowr project.
 <li><p><a href="DiffDomandDELOC.html">Look at this by location</a></p></li>
 <li><p><a href="ARE_element.html">Test for destabilization</a></p></li>
 <li><p><a href="mRNADecay.html">Test differences in mRNA decay</a></p></li>
+</ul>
+</div>
+<div id="information-content" class="section level2">
+<h2>Information content</h2>
+<ul>
+<li><p><a href="infoContent.html">Calculate shannon index</a></p></li>
+<li><p><a href="DeandNumPAS.html">DE and number of PAS</a></p></li>
 </ul>
 </div>
 <div id="evaluate-reasons-for-inconsistant-dominance-structure-not-rerun-after-annotation-change-420" class="section level2">
