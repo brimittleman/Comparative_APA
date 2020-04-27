@@ -325,7 +325,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -334,7 +334,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -343,10 +343,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-24
+<strong>Last updated:</strong> 2020-04-27
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -362,12 +362,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree93d00f37b4fce84278e01296321b01b441ae5638targetblank93d00f3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/93d00f37b4fce84278e01296321b01b441ae5638" target="_blank">93d00f3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb653f27393255018959d3e1e880782a0f4ab1900targetblankb653f27a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b653f27393255018959d3e1e880782a0f4ab1900" target="_blank">b653f27</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree93d00f37b4fce84278e01296321b01b441ae5638targetblank93d00f3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb653f27393255018959d3e1e880782a0f4ab1900targetblankb653f27a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -926,6 +926,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -1256,7 +1257,6 @@ Unstaged changes:
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
-    Modified:   analysis/NewDomandDE.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
@@ -1266,6 +1266,7 @@ Unstaged changes:
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/infoContent.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1315,6 +1316,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b653f27393255018959d3e1e880782a0f4ab1900/analysis/infoContent.Rmd" target="_blank">b653f27</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+<td>
+add simpson
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/infoContent.html" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/93d00f37b4fce84278e01296321b01b441ae5638/analysis/infoContent.Rmd" target="_blank">93d00f3</a>
 </td>
 <td>
@@ -1335,12 +1370,12 @@ add info content
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1410,6 +1445,8 @@ diversity(c(.5,.5,.5), &quot;inv&quot;)</code></pre>
 <p>First test:</p>
 <p>use entropy in python with different bases. -base 2 is the classic shannon and it uses the - when probabilities are given (ie uniform prior)</p>
 <p>the python code will work with my meta file for now and take species as an input.</p>
+<p><span class="math inline">\(H=-\sum^{s}_{i=1}p_{i}log_{2}p_{i}\)</span></p>
+<p><span class="math inline">\(H=-\sum^{s}_{i=1}p_{i}lnp_{i}\)</span></p>
 <pre class="bash"><code>mkdir ../data/InfoContent
 
 python InfoContentShannon.py Human
@@ -1423,29 +1460,221 @@ BothResInfo= HumanResInfo %&gt;% inner_join(ChimpResInfo, by=c(&quot;gene&quot;,
 <p>First plot the distributions:</p>
 <pre class="r"><code>BothResInfo_2= BothResInfo %&gt;% select(gene, contains(&quot;Base2&quot;)) %&gt;% gather(&quot;species&quot;, &quot;base2&quot;, -gene)
 
-ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.3)</code></pre>
+ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(title=&quot;Shannon Information Content&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-7-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>wilcox.test(BothResInfo$Human_Base2, BothResInfo$Chimp_Base2, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  BothResInfo$Human_Base2 and BothResInfo$Chimp_Base2
+W = 39254000, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is greater than 0</code></pre>
 <p>Human shift higher, ie less density:</p>
 <pre class="r"><code>BothResInfo_e= BothResInfo %&gt;% select(gene, contains(&quot;basee&quot;)) %&gt;% gather(&quot;species&quot;, &quot;basee&quot;, -gene)
 
 ggplot(BothResInfo_e, aes(x=basee, fill=species)) + geom_density(alpha=.3)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-8-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>I want to look at this by dominance:</p>
 <pre class="r"><code>ggplot(BothResInfo_2,aes(x=base2, fill=species)) + geom_histogram() + facet_grid(~species)</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-9-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Plot human vs chimp:</p>
 <pre class="r"><code>ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 )) + geom_point() + geom_abline(slope=1, intercept = 0) + stat_cor() + geom_density_2d(col=&quot;blue&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_cor).</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density2d).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-10-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title=&quot;Shannon Index Colored by number of PAS&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-11-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Does number explain:</p>
 <pre class="r"><code>summary(lm(BothResInfo$Human_Base2 ~BothResInfo$numPAS))</code></pre>
 <pre><code>
@@ -1536,23 +1765,278 @@ BothResInfoDom= BothResInfo %&gt;% full_join(BothRes_40_eachsm, by=&quot;gene&qu
 ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) + labs(x=&quot;Human Information&quot;, y=&quot;Chimp Information&quot;, title=&quot;Shannon Information Index colored by whether gene has a dominanat PAS&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-16-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) +geom_density2d()+ labs(x=&quot;Human Information&quot;, y=&quot;Chimp Information&quot;, title=&quot;Shannon Information Index colored by Dominance Structure &quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density2d).
 
 Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-16-2.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothResInfoDom$numPAS=as.factor(BothResInfoDom$numPAS)
-ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x=&quot;Human Information&quot;, y=&quot;Chimp Information&quot;, title=&quot;Shannon Information Index colored by Dominance Structure &quot;) + facet_grid(~Dom) + scale_color_brewer(palette = &quot;Spectral&quot;)</code></pre>
-<pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Spectral is 11
-Returning the palette you asked for with that many colors</code></pre>
-<pre><code>Warning: Removed 10 rows containing missing values (geom_point).</code></pre>
+ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x=&quot;Human Information&quot;, y=&quot;Chimp Information&quot;, title=&quot;Shannon Information Index colored by Dominance Structure &quot;) + facet_grid(~Dom)</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-17-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>#+ scale_color_brewer(palette = &quot;Spectral&quot;)</code></pre>
 <p>Dominance and number of PAS:</p>
 <pre class="r"><code>BothResInfoDom$numPAS=as.numeric(as.character(BothResInfoDom$numPAS))
-ggplot(BothResInfoDom,aes(x=Dom, y=numPAS)) +geom_boxplot() +stat_compare_means()</code></pre>
+ggplot(BothResInfoDom,aes(x=Dom, y=numPAS)) +geom_boxplot() +stat_compare_means() +  labs(x=&quot;Dominance Structure&quot;,y=&quot;Number of PAS&quot;, title=&quot;Number of PAS differ by dominance structure&quot;)</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-18-1.png" target="_blank">448aa08</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(BothResInfoDom,aes(x=Set, y=numPAS)) +geom_boxplot() +stat_compare_means() +  labs(x=&quot;Dominance Structure&quot;,y=&quot;Number of PAS&quot;, title=&quot;Number of PAS differ by dominance structure&quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Ratio problem!!!!</p>
 <p>but the confounder is biological- number of PAS.</p>
+<p>Try the simpson index.</p>
+<p>skit-bio: <a href="http://scikit-bio.org/docs/0.1.3/math.diversity.alpha.html" class="uri">http://scikit-bio.org/docs/0.1.3/math.diversity.alpha.html</a></p>
+<p><span class="math inline">\(D=\sum_{i=1}^{R}p_{i}^{2}\)</span></p>
+<p>and</p>
+<p><span class="math inline">\(D=1-\sum_{i=1}^{R}p_{i}^{2}\)</span></p>
+<pre class="bash"><code>python infoContentSimpson.py Human
+python infoContentSimpson.py Chimp
+</code></pre>
+<pre class="r"><code>SimpHuman=read.table(&quot;../data/InfoContent/Human_SimpsonInfoContent.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(simpson_Human=simpson) %&gt;% mutate(simpOpp_Human=1-simpson_Human)
+SimpChimp=read.table(&quot;../data/InfoContent/Chimp_SimpsonInfoContent.txt&quot;, header = T, stringsAsFactors = F)%&gt;% rename(simpson_Chimp=simpson)%&gt;% mutate(simpOpp_Chimp=1-simpson_Chimp)
+
+BothSimp= SimpHuman %&gt;% inner_join(SimpChimp, by=c(&quot;gene&quot;, &quot;numPAS&quot;)) %&gt;% filter(numPAS &gt; 1)</code></pre>
+<p>Gather and plot:</p>
+<pre class="r"><code>BothSimp_g= BothSimp %&gt;% select(-contains(&quot;Opp&quot;)) %&gt;% gather(&quot;species&quot;, &quot;Simpson&quot;, -gene, -numPAS)
+ggplot(BothSimp_g, aes(x=Simpson, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Set1&quot;)+labs(title=&quot;Simpson Index&quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>BothOppSimp_g= BothSimp %&gt;% select(-contains(&quot;simpson&quot;)) %&gt;% gather(&quot;species&quot;, &quot;SimpsonOpp&quot;, -gene, -numPAS)
+
+ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Set1&quot;)+labs(title=&quot;Simpson Index (1-opp)&quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>wilcox.test(BothSimp$simpOpp_Human, BothSimp$simpOpp_Chimp, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  BothSimp$simpOpp_Human and BothSimp$simpOpp_Chimp
+W = 40925000, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<p>Histogram:</p>
+<pre class="r"><code>ggplot(BothSimp_g,aes(x=Simpson, fill=species)) + geom_histogram() + facet_grid(~species)+scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_histogram() + facet_grid(~species)+scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>here, higher index is lower diversity= more dominance (opposite of shannon)</p>
+<p>the opposite one is 1- sum. this is more dominance at lower values like shannon. I will go with this so the sign is the same.</p>
+<pre class="r"><code>BothInfoTypes=BothSimp %&gt;% inner_join(BothResInfoRes, by=c(&quot;gene&quot;, &quot;numPAS&quot;))
+
+BothInfoTypes_h=BothInfoTypes %&gt;% select(gene,numPAS, simpOpp_Human, Human_Base2) %&gt;% mutate(species=&quot;Human&quot;) %&gt;% rename(Simpson= simpOpp_Human, Shannon=Human_Base2)
+BothInfoTypes_c=BothInfoTypes %&gt;% select(gene,numPAS, simpOpp_Chimp, Chimp_Base2) %&gt;% mutate(species=&quot;Chimp&quot;)%&gt;% rename(Simpson= simpOpp_Chimp, Shannon=Chimp_Base2)
+
+BothInfoTypes_both=BothInfoTypes_h %&gt;% bind_rows(BothInfoTypes_c)
+
+ggplot(BothInfoTypes_both,aes(x=Simpson, y=Shannon, by=species, col=species)) +geom_point(alpha=.4) +geom_density2d(col=&quot;black&quot;) +  stat_cor(label.x=0) + geom_smooth(col=&quot;black&quot;,method = &quot;lm&quot;) + facet_grid(~species) + labs(title=&quot;Correlation between Indicies&quot;) +theme(legend.position = &quot;none&quot;)+scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_density2d).</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_cor).</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There is more variation at the low end here.</p>
+<p>Compare human and chimp simpson by PAS number:</p>
+<pre class="r"><code>ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title=&quot;Simpson Index Colored by number of PAS&quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(lm(BothInfoTypes$simpOpp_Human ~BothResInfo$numPAS))</code></pre>
+<pre><code>
+Call:
+lm(formula = BothInfoTypes$simpOpp_Human ~ BothResInfo$numPAS)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.94165 -0.08859  0.00961  0.10528  0.43248 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        0.4483250  0.0046537   96.34   &lt;2e-16 ***
+BothResInfo$numPAS 0.0595955  0.0008302   71.78   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.1722 on 8449 degrees of freedom
+Multiple R-squared:  0.3788,    Adjusted R-squared:  0.3788 
+F-statistic:  5153 on 1 and 8449 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>summary(lm(BothInfoTypes$simpOpp_Chimp ~BothResInfo$numPAS ))</code></pre>
+<pre><code>
+Call:
+lm(formula = BothInfoTypes$simpOpp_Chimp ~ BothResInfo$numPAS)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.79002 -0.10111  0.01491  0.11286  0.50115 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        0.3685223  0.0049596   74.31   &lt;2e-16 ***
+BothResInfo$numPAS 0.0651630  0.0008848   73.65   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.1835 on 8449 degrees of freedom
+Multiple R-squared:  0.391, Adjusted R-squared:  0.3909 
+F-statistic:  5424 on 1 and 8449 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Number of PAS is less correlated with this index.</p>
+<p>Add in the dominanace structure to compare to simpson:</p>
+<pre class="r"><code>BothResBothInfoDom= BothInfoTypes %&gt;% full_join(BothRes_40_eachsm, by=&quot;gene&quot;, fill=&quot;None&quot;) %&gt;%  mutate(Set= replace_na(Set, &quot;None&quot;),Dom= replace_na(Dom, &quot;None&quot;))
+
+
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) + labs(x=&quot;Human Simpson&quot;, y=&quot;Chimp Simpson&quot;, title=&quot;Simpson Information Index colored by whether gene has a dominanat PAS&quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) +geom_density2d()+ labs(x=&quot;Human Simpson&quot;, y=&quot;Chimp Simpson&quot;, title=&quot;Simpson Information Index colored by Dominance Structure &quot;)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>BothResBothInfoDom$numPAS=as.factor(BothResBothInfoDom$numPAS)
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x=&quot;Human Simpson&quot;, y=&quot;Chimp Simpson&quot;, title=&quot;Simpson Information Index colored by Dominance Structure &quot;) + facet_grid(~Dom)</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#+ scale_color_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p>Equitability. Shannon diversity divided by the logarithm of number of taxa. This measures the evenness with which individuals are divided among the taxa present.</p>
+<p>Shannon’s equitability (EH) measures the evenness of a community and can be easily calculated by diving the value of H with H_max, which equals to lnS(S=number of species encountered). Its value ranges between 0 and 1, with being complete evenness. (0-1)</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
