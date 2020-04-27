@@ -91,6 +91,11 @@ use entropy in python with different bases.
 
 the python code will work with my meta file for now and take species as an input. 
 
+
+$H=-\sum^{s}_{i=1}p_{i}log_{2}p_{i}$
+
+$H=-\sum^{s}_{i=1}p_{i}lnp_{i}$
+
 ```{bash,eval=F}
 mkdir ../data/InfoContent
 
@@ -115,7 +120,10 @@ First plot the distributions:
 ```{r}
 BothResInfo_2= BothResInfo %>% select(gene, contains("Base2")) %>% gather("species", "base2", -gene)
 
-ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.3)
+ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Set1")+ labs(title="Shannon Information Content")
+
+
+wilcox.test(BothResInfo$Human_Base2, BothResInfo$Chimp_Base2, alternative = "greater")
 ```
 
 Human shift higher, ie less density:  
@@ -141,7 +149,7 @@ Plot human vs chimp:
 ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 )) + geom_point() + geom_abline(slope=1, intercept = 0) + stat_cor() + geom_density_2d(col="blue")
 ```
 ```{r}
-ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)
+ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title="Shannon Index Colored by number of PAS")
 ```
 
 Does number explain: 
@@ -210,14 +218,19 @@ ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Set )) + geom_point(
 ```{r}
 
 BothResInfoDom$numPAS=as.factor(BothResInfoDom$numPAS)
-ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by Dominance Structure ") + facet_grid(~Dom) + scale_color_brewer(palette = "Spectral")
+ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by Dominance Structure ") + facet_grid(~Dom)
+
+#+ scale_color_brewer(palette = "Spectral")
 ```
 
 Dominance and number of PAS:
 
 ```{r}
 BothResInfoDom$numPAS=as.numeric(as.character(BothResInfoDom$numPAS))
-ggplot(BothResInfoDom,aes(x=Dom, y=numPAS)) +geom_boxplot() +stat_compare_means()
+ggplot(BothResInfoDom,aes(x=Dom, y=numPAS)) +geom_boxplot() +stat_compare_means() +  labs(x="Dominance Structure",y="Number of PAS", title="Number of PAS differ by dominance structure")
+
+
+ggplot(BothResInfoDom,aes(x=Set, y=numPAS)) +geom_boxplot() +stat_compare_means() +  labs(x="Dominance Structure",y="Number of PAS", title="Number of PAS differ by dominance structure")
 ```
 
 
@@ -225,4 +238,115 @@ ggplot(BothResInfoDom,aes(x=Dom, y=numPAS)) +geom_boxplot() +stat_compare_means(
 Ratio problem!!!! 
 
 but the confounder is biological- number of PAS.
+
+
+Try the simpson index. 
+
+skit-bio: http://scikit-bio.org/docs/0.1.3/math.diversity.alpha.html
+
+$D=\sum_{i=1}^{R}p_{i}^{2}$
+
+and  
+
+$D=1-\sum_{i=1}^{R}p_{i}^{2}$
+
+
+
+```{bash,eval=F}
+python infoContentSimpson.py Human
+python infoContentSimpson.py Chimp
+
+```
+
+```{r}
+SimpHuman=read.table("../data/InfoContent/Human_SimpsonInfoContent.txt", header = T, stringsAsFactors = F) %>% rename(simpson_Human=simpson) %>% mutate(simpOpp_Human=1-simpson_Human)
+SimpChimp=read.table("../data/InfoContent/Chimp_SimpsonInfoContent.txt", header = T, stringsAsFactors = F)%>% rename(simpson_Chimp=simpson)%>% mutate(simpOpp_Chimp=1-simpson_Chimp)
+
+BothSimp= SimpHuman %>% inner_join(SimpChimp, by=c("gene", "numPAS")) %>% filter(numPAS > 1)
+```
+
+Gather and plot:
+
+```{r}
+BothSimp_g= BothSimp %>% select(-contains("Opp")) %>% gather("species", "Simpson", -gene, -numPAS)
+ggplot(BothSimp_g, aes(x=Simpson, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Set1")+labs(title="Simpson Index")
+```
+
+```{r}
+BothOppSimp_g= BothSimp %>% select(-contains("simpson")) %>% gather("species", "SimpsonOpp", -gene, -numPAS)
+
+ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Set1")+labs(title="Simpson Index (1-opp)")
+
+
+wilcox.test(BothSimp$simpOpp_Human, BothSimp$simpOpp_Chimp, alternative = "greater")
+```
+
+
+Histogram: 
+
+```{r}
+ggplot(BothSimp_g,aes(x=Simpson, fill=species)) + geom_histogram() + facet_grid(~species)+scale_fill_brewer(palette = "Set1")
+
+ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_histogram() + facet_grid(~species)+scale_fill_brewer(palette = "Set1")
+
+```
+
+here, higher index is lower diversity= more dominance (opposite of shannon)  
+
+the opposite one is 1- sum. this is more dominance at lower values like shannon. I will go with this so the sign is the same.  
+
+
+```{r}
+BothInfoTypes=BothSimp %>% inner_join(BothResInfoRes, by=c("gene", "numPAS"))
+
+BothInfoTypes_h=BothInfoTypes %>% select(gene,numPAS, simpOpp_Human, Human_Base2) %>% mutate(species="Human") %>% rename(Simpson= simpOpp_Human, Shannon=Human_Base2)
+BothInfoTypes_c=BothInfoTypes %>% select(gene,numPAS, simpOpp_Chimp, Chimp_Base2) %>% mutate(species="Chimp")%>% rename(Simpson= simpOpp_Chimp, Shannon=Chimp_Base2)
+
+BothInfoTypes_both=BothInfoTypes_h %>% bind_rows(BothInfoTypes_c)
+
+ggplot(BothInfoTypes_both,aes(x=Simpson, y=Shannon, by=species, col=species)) +geom_point(alpha=.4) +geom_density2d(col="black") +  stat_cor(label.x=0) + geom_smooth(col="black",method = "lm") + facet_grid(~species) + labs(title="Correlation between Indicies") +theme(legend.position = "none")+scale_color_brewer(palette = "Set1")
+
+```
+
+There is more variation at the low end here. 
+
+Compare human and chimp simpson by PAS number:  
+
+```{r}
+ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Simpson Index Colored by number of PAS")
+
+
+
+```
+
+```{r}
+summary(lm(BothInfoTypes$simpOpp_Human ~BothResInfo$numPAS))
+
+
+summary(lm(BothInfoTypes$simpOpp_Chimp ~BothResInfo$numPAS ))
+```
+
+Number of PAS is less correlated with this index. 
+
+Add in the dominanace structure to compare to simpson: 
+
+```{r}
+
+BothResBothInfoDom= BothInfoTypes %>% full_join(BothRes_40_eachsm, by="gene", fill="None") %>%  mutate(Set= replace_na(Set, "None"),Dom= replace_na(Dom, "None"))
+
+
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by whether gene has a dominanat PAS")
+
+
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") +geom_density2d()+ labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by Dominance Structure ")
+```
+
+```{r}
+BothResBothInfoDom$numPAS=as.factor(BothResBothInfoDom$numPAS)
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by Dominance Structure ") + facet_grid(~Dom)
+
+
+#+ scale_color_brewer(palette = "Spectral")
+```
+
 

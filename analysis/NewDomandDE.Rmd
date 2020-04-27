@@ -336,6 +336,7 @@ diffIsoGenes= read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nucl
 All4DiffIso= All4 %>% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, "Yes", "No"))
 
 PvalSameapa=c()
+pvalBothSideapa=c()
 EnrichSameAPA=c()
 ExpectedSameAPA=c()
 actualSameapa=c()
@@ -348,6 +349,8 @@ for (i in set){
   k=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", dAPA=="Yes"))
   N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="Yes"))
   val=phyper(x-1,m,n,k,lower.tail=F)
+  val2=phyper(x,m,n,k)
+  pvalBothSideapa=c(pvalBothSideapa, val2)
   PvalSameapa= c(PvalSameapa, val)
   en=(x/k)/(m/N)
   EnrichSameAPA=c(EnrichSameAPA, en)
@@ -369,6 +372,7 @@ PvalSameNo=c()
 EnrichSameNo=c()
 ExpectedSameNo=c()
 actualSameNo=c()
+pvalBothSideno=c()
 #no dapa
 for (i in set){
   x=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", DE=="Yes", dAPA=="No"))
@@ -378,6 +382,8 @@ for (i in set){
   k=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", dAPA=="No"))
   N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="Yes"))
   val=phyper(x-1,m,n,k,lower.tail=F)
+  val2=phyper(x,m,n,k)
+  pvalBothSideno=c(pvalBothSideno, val2)
   PvalSameNo= c(PvalSameNo, val)
   en=(x/k)/(m/N)
   EnrichSameNo=c(EnrichSameNo, en)
@@ -390,11 +396,22 @@ ExpectedSameNo
 EnrichSameNo
 PvalSameNo
 ```
+pval bothsided:
+
+```{r}
+pvalBothSideno
+PvalSameNo
+
+
+pvalBothSideapa
+```
+
+
 Ploth this:
 
 ```{r}
-ResDFSameAPA=as.data.frame(cbind(set,pval=PvalSameapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %>% mutate(dAPA="Yes")
-ResDFSameNo=as.data.frame(cbind(set,pval=PvalSameNo,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%>% mutate(dAPA="No")
+ResDFSameAPA=as.data.frame(cbind(set,pval=pvalBothSideapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %>% mutate(dAPA="Yes")
+ResDFSameNo=as.data.frame(cbind(set,pval=pvalBothSideno,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%>% mutate(dAPA="No")
 
 
 ResDFSameApaBoth= ResDFSameAPA %>% bind_rows(ResDFSameNo)
@@ -408,3 +425,11 @@ ggdotchart(ResDFSameApaBoth,y="enrich",x= "set",  color="set",group="dAPA",shape
 ```
 
 the order is wrong because the ggdotchart code only allows descending or ascending. not none. submitted a comment on github.  
+
+
+plot as a barplot to see with order:  
+
+```{r}
+ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,alpha=dAPA, y=enrich)) + geom_bar(stat="identity", position="dodge") +scale_fill_brewer(palette="RdYlBu")+ scale_alpha_discrete(range = c(0.6, 1)) + geom_hline(yintercept = 1) + labs( title="Enrichment for DE by in genes with Same Dominant",x="Dominance Cutoff", y="Enrichement")
+```
+

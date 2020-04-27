@@ -25,7 +25,7 @@ DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsF
 
 
 ```{r}
-ggplot(DE, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means()
+ggplot(DE, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means()+ labs(y="Number of PAS",title="DE status by number of PAS: Remove genes with 1 PAS")
 ```
 
 
@@ -33,11 +33,36 @@ Remove 1:
 
 ```{r}
 DE_no1 = DE %>% filter(nperGene>1)
-ggplot(DE_no1, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means()
+ggplot(DE_no1, aes(x= DE, y=nperGene )) + geom_boxplot() + stat_compare_means() + labs(y="Number of PAS",title="DE status by number of PAS: Remove genes with 1 PAS")
 
 ```
 
 
 So number of PAS and de is not informative for DE but is for dominance structure....
 
+
+What about when I look at it by dominance: 
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_40_each= BothRes_40 %>% mutate(Dom=ifelse(Human_DiffDom>=.4, ifelse(Chimp_DiffDom >=.4, "Both", "Human"), "Chimp"))
+BothRes_40_eachsm= BothRes_40_each %>% select(gene, Set, Dom)
+
+BothRes_40_each_DE= DE %>% full_join(BothRes_40_eachsm,by="gene") %>%  mutate(Set= replace_na(Set, "None"),Dom= replace_na(Dom, "None"))  %>% filter(nperGene>1)
+```
+
+```{r}
+ggplot(BothRes_40_each_DE,aes(x=Dom, by=DE, y=nperGene, fill=DE)) + geom_boxplot(notch = T) + stat_compare_means() + labs(y="Number of PAS", title="DE and number of PAS by domianance structure")
+```
+
+
+```{r}
+ggplot(BothRes_40_each_DE,aes(x=Set, by=DE, y=nperGene, fill=DE)) + geom_boxplot(notch = T) + stat_compare_means() + labs(y="Number of PAS", title="DE and number of PAS by domianance structure")+ scale_fill_brewer(palette="Set1")
+
+```
 
