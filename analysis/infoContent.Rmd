@@ -82,7 +82,7 @@ diversity(c(.25,.75,.25),"inv")
 
 
 Seem like it is most simple to use the mean usages for this.  
-
+##Shannon  
 
 First test:
 
@@ -146,7 +146,7 @@ ggplot(BothResInfo_2,aes(x=base2, fill=species)) + geom_histogram() + facet_grid
 Plot human vs chimp: 
 
 ```{r}
-ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 )) + geom_point() + geom_abline(slope=1, intercept = 0) + stat_cor() + geom_density_2d(col="blue")
+ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 )) + geom_point() + geom_abline(slope=1, intercept = 0) + stat_cor(col="blue") + geom_density_2d(col="blue")
 ```
 ```{r}
 ggplot(BothResInfo,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title="Shannon Index Colored by number of PAS")
@@ -209,7 +209,7 @@ BothRes_40_eachsm= BothRes_40_each %>% select(gene, Set, Dom)
 BothResInfoDom= BothResInfo %>% full_join(BothRes_40_eachsm, by="gene", fill="None") %>%  mutate(Set= replace_na(Set, "None"),Dom= replace_na(Dom, "None"))
 
 
-ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by whether gene has a dominanat PAS")
+ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by whether gene has a dominant PAS")
 
 
 ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") +geom_density2d()+ labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by Dominance Structure ")
@@ -218,7 +218,7 @@ ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=Set )) + geom_point(
 ```{r}
 
 BothResInfoDom$numPAS=as.factor(BothResInfoDom$numPAS)
-ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by Dominance Structure ") + facet_grid(~Dom)
+ggplot(BothResInfoDom,aes(x=Human_Base2,y= Chimp_Base2, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Information", y="Chimp Information", title="Shannon Information Index colored by number of PAS") + facet_grid(~Dom)
 
 #+ scale_color_brewer(palette = "Spectral")
 ```
@@ -239,6 +239,7 @@ Ratio problem!!!!
 
 but the confounder is biological- number of PAS.
 
+##Simpson
 
 Try the simpson index. 
 
@@ -313,6 +314,8 @@ There is more variation at the low end here.
 Compare human and chimp simpson by PAS number:  
 
 ```{r}
+ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Simpson Index") + stat_cor(col="blue")+ geom_density_2d(col="blue")
+
 ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Simpson Index Colored by number of PAS")
 
 
@@ -335,7 +338,7 @@ Add in the dominanace structure to compare to simpson:
 BothResBothInfoDom= BothInfoTypes %>% full_join(BothRes_40_eachsm, by="gene", fill="None") %>%  mutate(Set= replace_na(Set, "None"),Dom= replace_na(Dom, "None"))
 
 
-ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by whether gene has a dominanat PAS")
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by whether gene has a dominant PAS")
 
 
 ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") +geom_density2d()+ labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by Dominance Structure ")
@@ -343,10 +346,78 @@ ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=Set )) + geo
 
 ```{r}
 BothResBothInfoDom$numPAS=as.factor(BothResBothInfoDom$numPAS)
-ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by Dominance Structure ") + facet_grid(~Dom)
+ggplot(BothResBothInfoDom,aes(x=simpOpp_Human,y= simpOpp_Chimp, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human Simpson", y="Chimp Simpson", title="Simpson Information Index colored by number of PAS ") + facet_grid(~Dom)
 
 
 #+ scale_color_brewer(palette = "Spectral")
 ```
+##Shannon Equitability
+Equitability. Shannon diversity divided by the logarithm of number of taxa. This measures the evenness with which individuals are divided among the taxa present.
+
+Shannon’s equitability (EH) measures the evenness of a community and can be easily calculated by diving the value of H with H_max, which equals to lnS(S=number of species encountered). Its value ranges between 0 and 1, with being complete evenness. (0-1)
+
+$E_{h}=H/log2(NumPAS)$
+
+```{r}
+BothResBothInfoDomEH=BothResBothInfoDom %>% mutate(human_EH=Human_Base2/log2(as.numeric(as.character(numPAS))), chimp_EH=Chimp_Base2/log2(as.numeric(as.character(numPAS))))
+
+
+BothEH= BothResBothInfoDomEH %>% select(gene, numPAS, human_EH,chimp_EH) %>% gather("species", "ShannonEH", -gene, -numPAS)
+
+ggplot(BothEH, aes(x=ShannonEH, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Set1")+labs(title="Shannon equitability", x="Shannon equitability")
+
+
+wilcox.test(BothResBothInfoDomEH$human_EH, BothResBothInfoDomEH$chimp_EH)
+```
+
+```{r}
+BothResBothInfoDomEH$numPAS=as.numeric(as.character(BothResBothInfoDomEH$numPAS))
+ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH )) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title="Shannon equitability") + stat_cor(col="blue")+ geom_density_2d(col="blue")
+
+
+
+BothResBothInfoDomEH$numPAS=as.numeric(as.character(BothResBothInfoDomEH$numPAS))
+ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title="Shannon equitability Colored by number of PAS")
+
+```
+```{r}
+summary(lm(BothResBothInfoDomEH$human_EH ~BothResBothInfoDomEH$numPAS))
+
+
+summary(lm(BothResBothInfoDomEH$chimp_EH ~BothResBothInfoDomEH$numPAS ))
+```
+This normalizes the number of PAS.  
+
+Correlation between values: 
+
+```{r}
+
+BothInfoTypes_eh_h=BothResBothInfoDomEH %>% select(gene,numPAS, simpOpp_Human, human_EH) %>% mutate(species="Human") %>% rename(Simpson= simpOpp_Human, ShannonEH=human_EH)
+BothInfoTypes_eh_c=BothResBothInfoDomEH %>% select(gene,numPAS, simpOpp_Chimp, chimp_EH) %>% mutate(species="Chimp")%>% rename(Simpson= simpOpp_Chimp, ShannonEH=chimp_EH)
+
+BothInfoTypes_bothEH=BothInfoTypes_eh_h %>% bind_rows(BothInfoTypes_eh_c)
+
+ggplot(BothInfoTypes_bothEH,aes(x=Simpson, y=ShannonEH, by=species, col=species)) +geom_point(alpha=.4) +geom_density2d(col="black") +  stat_cor(label.x=0) + geom_smooth(col="black",method = "lm") + facet_grid(~species) + labs(title="Correlation between Indicies") +theme(legend.position = "none")+scale_color_brewer(palette = "Set1")
+```
+
+
+Look at it with dominance: 
+
+```{r}
+ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") + labs(x="Human equitability", y="Chimp equitability", title="Shannon equitability colored by whether gene has a dominant PAS")
+
+
+ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = "Set2") +geom_density2d()+ labs(x="Human equitability", y="Chimp equitability", title="Shannon equitability colored by Dominance Structure")
+```
+
+```{r}
+BothResBothInfoDomEH$numPAS=as.factor(BothResBothInfoDomEH$numPAS)
+ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x="Human equitability", y="Chimp equitability", title="Shannon Equitability colored by number of PAS ") + facet_grid(~Dom)
+
+
+```
+
+
+
 
 
