@@ -140,6 +140,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New Dominance and protein/translation](enrichDomdribodp.html)
 
+* [H3K36me3](h3k36me3.html)
+
 
 ##Selection exploration  
 
@@ -184,6 +186,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [DE and number of PAS](DeandNumPAS.html)
 
 * [Information content and dAPA](InfoanddAPA.html)
+
+* [Information content and various other measure from previous analysis](InfoandMoreVars.html)
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

@@ -1,0 +1,203 @@
+---
+title: "Info and other measures"
+author: "Briana Mittleman"
+date: "4/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will look at info content and some other measures I have calculated to learn more about the regulatory landscape.  (constraint of RNA expression and APA)
+
+For example: 
+- variance in gene expression
+- number of tissues gene is expressed
+- dn/ds (conservation)
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+library(workflowr)
+```
+
+
+```{r}
+SimpHuman=read.table("../data/InfoContent/Human_SimpsonInfoContent.txt", header = T, stringsAsFactors = F) %>% rename(simpson_Human=simpson) %>% mutate(simpOpp_Human=1-simpson_Human)
+SimpChimp=read.table("../data/InfoContent/Chimp_SimpsonInfoContent.txt", header = T, stringsAsFactors = F)%>% rename(simpson_Chimp=simpson)%>% mutate(simpOpp_Chimp=1-simpson_Chimp)
+
+BothSimp= SimpHuman %>% inner_join(SimpChimp, by=c("gene", "numPAS")) %>% filter(numPAS > 1)
+HumanResInfo= read.table("../data/InfoContent/Human_InfoContent.txt", header = T,stringsAsFactors = F) %>% rename(Human_Base2=base2, Human_basee= basee)
+ChimpResInfo= read.table("../data/InfoContent/Chimp_InfoContent.txt", header = T,stringsAsFactors = F) %>% rename(Chimp_Base2=base2, Chimp_basee= basee)
+
+BothResInfo= HumanResInfo %>% inner_join(ChimpResInfo, by=c("gene", "numPAS")) %>% filter(numPAS > 1)
+BothResBothInfoDomEH=BothResInfo %>% mutate(human_EH=Human_Base2/log2(as.numeric(as.character(numPAS))), chimp_EH=Chimp_Base2/log2(as.numeric(as.character(numPAS)))) 
+
+
+AllInfoValues=BothResBothInfoDomEH %>% inner_join(BothSimp, by=c("gene", "numPAS"))
+#write out:  
+
+write.table(AllInfoValues, "../data/InfoContent/AllInforContentMetrics.txt", col.names = T, row.names = F, quote = F)
+```
+
+
+###Expression variance  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+expressionPassing=read.table("../data/DiffExpression/NormalizedExpressionPassCutoff.txt", stringsAsFactors = F, header = T)%>% inner_join(nameID, by="Gene_stable_ID")  %>% select(-Source_of_gene_name, -Gene_stable_ID) %>% rename(gene=Gene.name)
+
+expressionPassing_human= expressionPassing %>% select(-NA4973,-NAPT30, -NA3622,-NA3659, -NA18358,-NAPT91) %>% gather("ind", "count",-gene) %>% group_by(gene) %>% summarise(HumanMean=mean(count), HumanVar=var(count))
+expressionPassing_chimp= expressionPassing %>% select(-NA18498,-NA18504, -NA18510,-NA18523, -NA18502,-NA18499) %>% gather("ind", "count",-gene) %>% group_by(gene) %>% summarise(ChimpMean=mean(count), ChimpVar=var(count))
+
+
+ExpressionPassingBoth=expressionPassing_human %>% inner_join(expressionPassing_chimp, by="gene") %>% inner_join(AllInfoValues, by="gene")
+
+```
+
+Plot variance and the information content by species: 
+
+```{r}
+ggplot(ExpressionPassingBoth,aes(x=simpOpp_Human,y=log10(HumanVar))) + geom_point() + stat_cor() + geom_density2d(color="blue")
+
+
+ggplot(ExpressionPassingBoth,aes(x=simpOpp_Chimp,y=log10(ChimpVar))) + geom_point() + stat_cor()+ geom_density2d(color="blue")
+```
+
+Difference in variance:
+
+
+Chimp -human 
+```{r}
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header=T,stringsAsFactors=F)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header=T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene, "Yes", "No"))
+
+
+ExpressionPassingBoth_diff= ExpressionPassingBoth %>% mutate(DiffVar=ChimpVar-HumanVar, DiffSimp=simpOpp_Chimp-simpOpp_Human)   %>% inner_join(DiffIso,by="gene")
+
+
+
+ggplot(ExpressionPassingBoth_diff, aes(y=DiffVar, x=simpOpp_Human)) + geom_point() + geom_density2d()+ stat_cor()
+
+ggplot(ExpressionPassingBoth_diff, aes(y=DiffVar, x=simpOpp_Chimp)) + geom_point() + geom_density2d()+ stat_cor()
+
+
+bothdapa=ggplot(ExpressionPassingBoth_diff, aes(y=DiffVar, x=DiffSimp,col=dAPA)) + geom_point(alpha=.4) + geom_density2d() + stat_cor() + scale_color_brewer(palette = "Set1") + labs(x= "Chimp Simpson - Human Simpson", y="Chimp DE Variance - Human DE Variance")
+
+```
+
+Looks like there are dAPA gene examples that have pretty different info indicies but not different gene expression variance.  
+
+They go in different dimensions rather than in a correlation. 
+
+
+```{r}
+humanAPA=ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=HumanVar,col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1")
+
+
+humanApasep=ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=HumanVar,col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1") + facet_grid(~dAPA)
+
+
+chimpAPA=ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=ChimpVar,col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Chimp DE")+ scale_color_brewer(palette = "Set1")
+
+chimpApasep=ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=ChimpVar,col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Chimp DE")+ scale_color_brewer(palette = "Set1") + facet_grid(~dAPA)
+
+```
+Color by DE:  
+
+```{r}
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(DE,gene)
+
+
+ExpressionPassingBoth_diffDE= ExpressionPassingBoth_diff %>% inner_join(DE, by="gene")
+
+
+humanDE=ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=HumanVar,col=DE)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1")
+
+
+humanDEsep=ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=HumanVar,col=DE)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1") + facet_grid(~DE)
+
+
+
+chimpDE=ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=ChimpVar,col=DE)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Chimp DE")+ scale_color_brewer(palette = "Set1")
+
+
+
+chimpDEsep=ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=ChimpVar,col=DE)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Chimp DE")+ scale_color_brewer(palette = "Set1")+ facet_grid(~DE)
+
+bothde=ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffVar, x=DiffSimp,col=DE)) + geom_point(alpha=.4) + geom_density2d() + stat_cor() + scale_color_brewer(palette = "Set1") + labs(x= "Chimp Simpson - Human Simpson", y="Chimp DE Variance - Human DE Variance")
+```
+```{r}
+plot_grid(humanAPA,chimpAPA,humanDE,chimpDE)
+```
+```{r}
+plot_grid(humanApasep, chimpApasep)
+```
+```{r}
+plot_grid(humanDEsep, chimpDEsep)
+```
+
+```{r}
+plot_grid(bothdapa, bothde)
+```
+
+
+```{r}
+ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=log10(HumanVar),col=DE)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1") 
+
+ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=log10(HumanVar),col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1") 
+```
+###Tissue number  
+
+I will use gtex data to look at how many tissues the genes are expressed in. I can then see if this corrleates with the info content.  
+
+At first I will use TPM >10 for expressed. I have the data for expression from the apaQTL revisions.
+
+```{r}
+
+geneNames=read.table("../../genome_anotation_data/ensemble_to_genename.txt", sep="\t", col.names = c('gene_id', 'gene', 'source' ),stringsAsFactors = F, header = T)  %>% select(gene_id, gene)
+GTEX=read.table("../../apaQTL/data/nPAS/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct", header = T, skip=2, sep = '\t') %>% 
+  separate(Name,into=c("gene_id","extra"), sep="\\.") %>% 
+  inner_join(geneNames, by="gene_id") %>% 
+  select(-gene_id,-Description,-extra) %>% 
+  gather("tissue", "TPM",-gene) %>% 
+  filter(TPM >= 10) %>%
+  group_by(gene) %>% 
+  summarise(nTissue=n()) %>% 
+  filter(nTissue<=54)
+
+nrow(GTEX)
+```
+
+
+```{r}
+nrow(AllInfoValues)
+InfoandTissue=GTEX %>% inner_join(AllInfoValues,by="gene")
+
+ggplot(InfoandTissue, aes(x=simpOpp_Human, y=nTissue)) + geom_point() +stat_cor(col="blue") + geom_smooth(method="lm")
+
+ggplot(InfoandTissue, aes(x=simpOpp_Chimp, y=nTissue)) + geom_point()+stat_cor(col="blue") + geom_smooth(method="lm") 
+```
+Small but significant negative correlation, this means less dominance and fewer tissues. More dominance and more tissues. 
+
+Think about better way to plot.  
+
+###DN/DS  
+
+I will see if info content is correlated with DN/DS as a measure of conservation at the seq level.  
+I will remove 0s in this
+```{r}
+DNDS= read.csv("../data/DNDS/HumanChimp_DNDS.csv", header = T,stringsAsFactors = F) %>% drop_na() %>% group_by(Gene.name) %>% slice(1) %>% ungroup() %>% filter(dS.with.Chimpanzee>0, dN.with.Chimpanzee>0)%>% mutate(DNDSratio= dN.with.Chimpanzee/dS.with.Chimpanzee) %>% dplyr::select(Gene.name, dN.with.Chimpanzee,dS.with.Chimpanzee,DNDSratio) %>% rename("gene"=Gene.name) %>% select(gene, DNDSratio)  
+
+InfoandDNDS=DNDS %>% inner_join(AllInfoValues,by="gene")
+```
+
+
+```{r}
+ggplot(InfoandDNDS, aes(y=log10(DNDSratio), x=simpOpp_Human)) + geom_point() + stat_cor()
+```
+
+No relationship.  

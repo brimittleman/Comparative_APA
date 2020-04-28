@@ -1,0 +1,163 @@
+---
+title: "H3K36me3"
+author: "Briana Mittleman"
+date: "4/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+H3K36me3 is a mark associated with active transcription. I will see if this mark is different based on conservation of apa.  
+
+I will start by downloading data from encode for the LCLs. I will work with bam files so I can make deep tools plots and see if there is coverage at PAS.  
+
+```{bash,eval=F}
+mkdir ../data/H3K36me3
+```
+
+
+* https://www.encodeproject.org/experiments/ENCSR000DQT/ (GM06990 cell line)  
+
+* https://www.encodeproject.org/experiments/ENCSR000DRW/ (GM12878)
+
+* https://www.encodeproject.org/experiments/ENCSR914AWT/ (GM23248)
+
+* https://www.encodeproject.org/experiments/ENCSR236YPE/ (GM23338)
+
+Merge, sort, index these to use with deep tools.  
+
+mergeandsorth3k36me3.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=mergeandsort_h3k36me3
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=mergeandsort_h3k36me3
+#SBATCH --error=mergeandsort_h3k36me3
+#SBATCH --partition=bigmem2
+#SBATCH --mem=100G
+#SBATCH --mail-type=END
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+samtools merge ../data/H3K36me3/MergedIndiv.H3k36me3.bam  ../data/H3K36me3/*.bam
+
+samtools sort ../data/H3K36me3/MergedIndiv.H3k36me3.bam  -o ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bam 
+
+samtools index ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bam 
+```
+
+```{bash,eval=F}
+sbatch mergeandsorth3k36me3.sh 
+```
+
+bam to bigwig  and dt plot
+
+```{bash,eval=F}
+
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplot.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplot.out
+#SBATCH --error=H3K36me3DTplot.err
+#SBATCH --partition=bigmem2
+#SBATCH --mem=100G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+bamCoverage -b ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bam  -o ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw  
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b 500  -a 500 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3PAS.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PAS.gz --plotTitle "PAS H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3PAS.png
+```
+H3K36me3DTplot.sh
+
+
+Run this on distal 3' UTRs PAS as well. I expect decrease after:  
+
+Look for most distal. 
+```{r}
+OverlapOrtho=read.table("../data/orthoUTR/FilteredPASOverlapOrthoUTR.text", header = T,stringsAsFactors = F) 
+
+OverlapOrtho_plus= OverlapOrtho %>% filter(strand=="+") %>% group_by(geneUTR) %>% arrange(desc(endpas)) %>% slice(1)%>% ungroup() %>% select(PAS)
+
+OverlapOrtho_neg= OverlapOrtho %>% filter(strand=="-") %>% group_by(geneUTR) %>% arrange(startpas) %>% slice(1) %>% ungroup() %>% select(PAS)
+
+Overlapetiher= OverlapOrtho_plus %>% bind_rows(OverlapOrtho_neg)
+
+
+#filter bed  
+
+pasbed=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed", col.names = c("chr","start", "end", "PAS", "score", "strand"),stringsAsFactors = F) %>% inner_join(Overlapetiher,by="PAS")
+
+write.table(pasbed, "../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed", quote = F, col.names = F, row.names = F, sep="\t")
+```
+
+
+```{bash,eval=F}
+
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplot_distalPAS.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplot_distalPAS.out
+#SBATCH --error=H3K36me3DTplot_distalPAS.err
+#SBATCH --partition=bigmem2
+#SBATCH --mem=100G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed -b 500  -a 500 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3distalPAS.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3distalPAS.gz --plotTitle "Distal UTR PAS H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3distalPAS.png
+```
+H3K36me3DTplot_distalPAS.sh
+
+
+wider range for PAS  
+
+
+```{bash,eval=F}
+
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplotwide.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplotwide.out
+#SBATCH --error=H3K36me3DTplotwide.err
+#SBATCH --partition=bigmem2
+#SBATCH --mem=100G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b 2000  -a 2000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3PASwide.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PASwide.gz --plotTitle "PAS H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3PASwide.png
+```
+
+
