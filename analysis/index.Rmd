@@ -179,9 +179,11 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 ##Information content  
 
-* [Calculate shannon index](infoContent.html)  
+* [Calculate Information content measures](infoContent.html)  
 
 * [DE and number of PAS](DeandNumPAS.html)
+
+* [Information content and dAPA](InfoanddAPA.html)
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

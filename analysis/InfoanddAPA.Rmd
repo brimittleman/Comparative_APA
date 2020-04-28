@@ -1,0 +1,110 @@
+---
+title: "Information Content and dAPA"
+author: "Briana Mittleman"
+date: "4/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to look at the simpon information content results for genes with and without dAPA.  
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+library(workflowr)
+```
+
+```{r}
+SimpHuman=read.table("../data/InfoContent/Human_SimpsonInfoContent.txt", header = T, stringsAsFactors = F) %>% rename(simpson_Human=simpson) %>% mutate(simpOpp_Human=1-simpson_Human)
+SimpChimp=read.table("../data/InfoContent/Chimp_SimpsonInfoContent.txt", header = T, stringsAsFactors = F)%>% rename(simpson_Chimp=simpson)%>% mutate(simpOpp_Chimp=1-simpson_Chimp)
+
+BothSimp= SimpHuman %>% inner_join(SimpChimp, by=c("gene", "numPAS")) %>% filter(numPAS > 1)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header=T,stringsAsFactors=F)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header=T,stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene, "Yes", "No"))
+```
+
+
+Inner join the simpson results and the diff iso results. I want the results to be based on genes I could test in both.  
+
+```{r}
+BothSimp_dAPA=BothSimp %>% inner_join(DiffIso, by="gene")
+
+```
+ More dominance is the lower index.  
+
+```{r}
+BothSimp_dAPA_g= BothSimp_dAPA %>% select(gene, simpOpp_Human, simpOpp_Chimp, dAPA) %>% gather("speciesS", "simpson", -dAPA, -gene) %>% mutate(species=ifelse(grepl("Human",speciesS), "Human", "Chimp"))
+
+
+ggplot(BothSimp_dAPA_g,aes(x=simpson, by=species, fill=species)) + geom_density(alpha=.4) +facet_grid(~dAPA)+ scale_fill_brewer(palette = "Set1")+labs(title="Simpson Index by dAPA")
+```
+
+
+```{r}
+ggplot(BothSimp_dAPA_g,aes(x=simpson, by=dAPA, fill=dAPA)) + geom_density(alpha=.4) +facet_grid(~species)+ scale_fill_brewer(palette = "Set1")+labs(title="Simpson Index by dAPA in each species")
+```
+
+
+Are the species correlations different.  
+
+```{r}
+BothSimp_dAPAYes= BothSimp_dAPA %>% filter(dAPA=="Yes")
+nrow(BothSimp_dAPAYes)
+summary(lm(BothSimp_dAPAYes$simpOpp_Human~BothSimp_dAPAYes$simpOpp_Chimp))
+
+
+ggplot(BothSimp_dAPAYes, aes(x=simpOpp_Human, y=simpOpp_Chimp)) +geom_point() + stat_cor(col="blue")+ geom_density_2d(col="blue")
+```
+
+```{r}
+
+BothSimp_dAPANo= BothSimp_dAPA %>% filter(dAPA=="No")
+nrow(BothSimp_dAPANo)
+
+summary(lm(BothSimp_dAPANo$simpOpp_Human~BothSimp_dAPANo$simpOpp_Chimp))
+
+
+ggplot(BothSimp_dAPANo, aes(x=simpOpp_Human, y=simpOpp_Chimp)) +geom_point() + stat_cor(col="blue")+ geom_density_2d(col="blue")
+```
+
+Ok this makes sense. The correlation between the species is higher when there is no dAPA.  
+
+
+
+```{r}
+simp=ggplot(BothSimp_dAPA,aes(x=simpOpp_Human, y=simpOpp_Chimp,by=dAPA, col=dAPA)) +geom_point(alpha=.5) +scale_color_brewer(palette = "Set1")+stat_cor() + labs(x="Human", y="Chimp", title="Simpson index by dAPA")+ theme(legend.position = "bottom")
+simp
+```
+
+Do this for the other values:  
+
+```{r}
+HumanResInfo= read.table("../data/InfoContent/Human_InfoContent.txt", header = T,stringsAsFactors = F) %>% rename(Human_Base2=base2, Human_basee= basee)
+ChimpResInfo= read.table("../data/InfoContent/Chimp_InfoContent.txt", header = T,stringsAsFactors = F) %>% rename(Chimp_Base2=base2, Chimp_basee= basee)
+
+BothResInfo= HumanResInfo %>% inner_join(ChimpResInfo, by=c("gene", "numPAS")) %>% filter(numPAS > 1)%>% inner_join(DiffIso, by="gene")
+
+
+shan=ggplot(BothResInfo,aes(x=Human_Base2, y=Chimp_Base2,by=dAPA, col=dAPA)) +geom_point(alpha=.5) +scale_color_brewer(palette = "Set1")+stat_cor() + labs(x="Human", y="Chimp", title="Shannon index by dAPA")+ theme(legend.position = "bottom")
+shan
+```
+
+
+```{r}
+BothResBothInfoDomEH=BothResInfo %>% mutate(human_EH=Human_Base2/log2(as.numeric(as.character(numPAS))), chimp_EH=Chimp_Base2/log2(as.numeric(as.character(numPAS)))) 
+
+
+eh=ggplot(BothResBothInfoDomEH,aes(x=human_EH, y=chimp_EH,by=dAPA, col=dAPA)) +geom_point(alpha=.5) +scale_color_brewer(palette = "Set1")+stat_cor() + labs(x="Human", y="Chimp", title="Shannon equitability by dAPA") + theme(legend.position = "bottom")
+
+eh
+```
+
+```{r}
+plot_grid(shan,eh,simp, nrow=1)
+```
+
