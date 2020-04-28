@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-27
+<strong>Last updated:</strong> 2020-04-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb653f27393255018959d3e1e880782a0f4ab1900targetblankb653f27a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b653f27393255018959d3e1e880782a0f4ab1900" target="_blank">b653f27</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/132a7169985a534210976cde05d888904699f9ea" target="_blank">132a716</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb653f27393255018959d3e1e880782a0f4ab1900targetblankb653f27a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1266,7 +1266,6 @@ Unstaged changes:
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
-    Modified:   analysis/infoContent.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1311,6 +1310,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/132a7169985a534210976cde05d888904699f9ea/analysis/NewDomandDE.Rmd" target="_blank">132a716</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+make my own dot plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/NewDomandDE.html" target="_blank">7725e4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1628,12 +1661,12 @@ new dom integration
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1844,7 +1877,7 @@ ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
 
-diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
 diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for DE and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>PvalSame=c()
 EnrichSame=c()
@@ -1874,7 +1907,7 @@ ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 
-Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for DE and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
 SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for DE and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>ResDF</code></pre>
 <pre><code>  set        Pval   Enrich actual   expected
@@ -2013,6 +2046,8 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>plot_grid( diffP, Samep)</code></pre>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggdotchart(ResDF,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Different Dominant&quot;) + geom_hline(yintercept = 1)
 
 ggdotchart(ResDFSame,y=&quot;EnrichSame&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Same Dominant&quot;) + geom_hline(yintercept = 1)</code></pre>
@@ -2022,9 +2057,7 @@ ResDFSamefix=ResDFSame %&gt;% mutate(type=&quot;Same&quot;)
 
 colnames(ResDFSamefix)=colnames(ResDFfix)
 ResDFfix_both=ResDFfix %&gt;% bind_rows(ResDFSamefix)</code></pre>
-<pre class="r"><code>dotchart=ggdotchart(ResDFfix_both,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE by Domianance&quot;) + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)
-
-dotchart</code></pre>
+<pre class="r"><code>ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;,title=&quot;Enrichment for DE by Domianance&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
@@ -2063,9 +2096,6 @@ brimittleman
 </table>
 </div>
 </div>
-<p>Sort if off!</p>
-<pre class="r"><code>ggsave(&quot;../output/dEandDomEnrich.png&quot;,dotchart, width=12)</code></pre>
-<pre><code>Saving 12 x 5 in image</code></pre>
 </div>
 <div id="split-into-with-dapa-and-without" class="section level2">
 <h2>Split into with dAPA and without</h2>
@@ -2088,7 +2118,7 @@ for (i in set){
   k=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;Yes&quot;))
   N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;Yes&quot;))
   val=phyper(x-1,m,n,k,lower.tail=F)
-  val2=phyper(x,m,n,k)
+  val2=phyper(x,m,n,k,lower.tail=T)
   pvalBothSideapa=c(pvalBothSideapa, val2)
   PvalSameapa= c(PvalSameapa, val)
   en=(x/k)/(m/N)
@@ -2108,6 +2138,9 @@ actualSameapa</code></pre>
 <pre class="r"><code>PvalSameapa</code></pre>
 <pre><code>[1] 0.6908226 0.9271034 0.9951886 0.9867290 0.9779845 0.9302170 0.8874905
 [8] 0.5307203 0.5000000</code></pre>
+<pre class="r"><code>pvalBothSideapa</code></pre>
+<pre><code>[1] 0.352383333 0.093628644 0.007647351 0.021604183 0.037785694 0.118754602
+[7] 0.209980308 0.663841564 0.793175394</code></pre>
 <pre class="r"><code>set</code></pre>
 <pre><code>[1] 10 20 30 40 50 60 70 80 90</code></pre>
 <pre class="r"><code>PvalSameNo=c()
@@ -2124,7 +2157,7 @@ for (i in set){
   k=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;No&quot;))
   N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;Yes&quot;))
   val=phyper(x-1,m,n,k,lower.tail=F)
-  val2=phyper(x,m,n,k)
+  val2=phyper(x,m,n,k,lower.tail=T)
   pvalBothSideno=c(pvalBothSideno, val2)
   PvalSameNo= c(PvalSameNo, val)
   en=(x/k)/(m/N)
@@ -2144,6 +2177,9 @@ actualSameNo</code></pre>
 <pre class="r"><code>PvalSameNo</code></pre>
 <pre><code>[1] 0.78224457 0.71829130 0.08718982 0.54027531 1.00000000 1.00000000
 [7] 1.00000000 1.00000000 1.00000000</code></pre>
+<pre class="r"><code>pvalBothSideno</code></pre>
+<pre><code>[1] 0.2483884 0.3483472 0.9662289 0.8354296 1.0000000 1.0000000 1.0000000
+[8] 1.0000000 1.0000000</code></pre>
 <p>pval bothsided:</p>
 <pre class="r"><code>pvalBothSideno</code></pre>
 <pre><code>[1] 0.2483884 0.3483472 0.9662289 0.8354296 1.0000000 1.0000000 1.0000000
@@ -2154,25 +2190,113 @@ actualSameNo</code></pre>
 <pre class="r"><code>pvalBothSideapa</code></pre>
 <pre><code>[1] 0.352383333 0.093628644 0.007647351 0.021604183 0.037785694 0.118754602
 [7] 0.209980308 0.663841564 0.793175394</code></pre>
-<p>Ploth this:</p>
-<pre class="r"><code>ResDFSameAPA=as.data.frame(cbind(set,pval=pvalBothSideapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %&gt;% mutate(dAPA=&quot;Yes&quot;)
-ResDFSameNo=as.data.frame(cbind(set,pval=pvalBothSideno,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%&gt;% mutate(dAPA=&quot;No&quot;)
+<pre class="r"><code>ResDFSameAPA=as.data.frame(cbind(set,pval=PvalSameapa,pvalOpp=pvalBothSideapa,enrich=EnrichSameAPA, actual=actualSameapa,expected=ExpectedSameAPA)) %&gt;% mutate(dAPA=&quot;Yes&quot;)
+ResDFSameNo=as.data.frame(cbind(set,pval=PvalSameNo,pvalOpp=pvalBothSideno,enrich=EnrichSameNo, actual=actualSameNo,expected=ExpectedSameNo))%&gt;% mutate(dAPA=&quot;No&quot;)
 
 
 ResDFSameApaBoth= ResDFSameAPA %&gt;% bind_rows(ResDFSameNo)
 
-ResDFSameApaBoth$set=factor(ResDFSameApaBoth$set, levels=c(10,20,30,40,50,60,70,80,90))
-ResDFSameApaBoth$dAPA=as.factor(ResDFSameApaBoth$dAPA)
-
-ggdotchart(ResDFSameApaBoth,y=&quot;enrich&quot;,x= &quot;set&quot;,  color=&quot;set&quot;,group=&quot;dAPA&quot;,shape=&quot;dAPA&quot;, add = &quot;segments&quot;, rotate = TRUE, dot.size = 10, label = round(ResDFSameApaBoth$enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), palette=&quot;RdYlBu&quot;,legend=&quot;bottom&quot;, title=&quot;Enrichment for DE by in genes with Same Dominant&quot;) + geom_hline(yintercept = 1) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#+ facet_grid(~dAPA)
-#rotate = TRUE</code></pre>
-<p>the order is wrong because the ggdotchart code only allows descending or ascending. not none. submitted a comment on github.</p>
-<p>plot as a barplot to see with order:</p>
+ResDFSameApaBoth$set=as.factor(ResDFSameApaBoth$set)</code></pre>
 <pre class="r"><code>ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,alpha=dAPA, y=enrich)) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;)+ scale_alpha_discrete(range = c(0.6, 1)) + geom_hline(yintercept = 1) + labs( title=&quot;Enrichment for DE by in genes with Same Dominant&quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)</code></pre>
 <pre><code>Warning: Using alpha for a discrete variable is not advised.</code></pre>
-<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" target="_blank">7725e4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Try ggplot dot plot.</p>
+<pre class="r"><code>ResDFSameApaBoth_len= ResDFSameApaBoth %&gt;% mutate(linelength=ifelse(dAPA==&quot;Yes&quot;, enrich, 0))
+
+ggplot(ResDFSameApaBoth_len,aes(x=set,col=set,shape=dAPA, y=enrich,label = round(enrich,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=linelength),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+ labs( title=&quot;Enrichment for DE by in genes with Same Dominant&quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/NewDomandDE.Rmd/unnamed-chunk-24-1.png" target="_blank">7725e4d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>enrichmentp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pval))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;enrichment p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
+
+
+
+oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pvalOpp))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;depletion p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)</code></pre>
+<pre class="r"><code>plot_grid(enrichmentp,oppenrichp, nrow=2)</code></pre>
+<p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2213,7 +2337,7 @@ loaded via a namespace (and not attached):
 [13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
 [17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
 [21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] broom_0.5.1      Rcpp_1.0.2       promises_1.0.1   scales_1.0.0    
+[25] broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0    
 [29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
 [33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
 [37] cli_1.1.0        tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4    

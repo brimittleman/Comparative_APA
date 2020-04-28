@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-23
+<strong>Last updated:</strong> 2020-04-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c1bc4966c75d6590a43f38c7a5090ef7358d0d02" target="_blank">c1bc496</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/132a7169985a534210976cde05d888904699f9ea" target="_blank">132a716</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -713,6 +713,7 @@ Untracked files:
     Untracked:  code/GetTopminus2Usage.py
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -925,6 +926,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -1166,6 +1168,7 @@ Untracked files:
     Untracked:  data/EvalPantro5/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1235,6 +1238,7 @@ Untracked files:
     Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1263,6 +1267,7 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/signalsites_doublefilter.Rmd
@@ -1305,6 +1310,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/132a7169985a534210976cde05d888904699f9ea/analysis/NewdomanddAPA.Rmd" target="_blank">132a716</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+make my own dot plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/NewdomanddAPA.html" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1482,12 +1521,12 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 
     ggsave</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ cowplot::ggsave()  masks ggplot2::ggsave()
@@ -1542,7 +1581,7 @@ ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
 
-diffp=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+diffp=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
 
 diffe=ggplot(ResDF,aes(x=set, y=Enrich, fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and different dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>ResDF</code></pre>
@@ -1582,7 +1621,7 @@ ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 
-samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)
+samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;Enrichment pvalues for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
 
 samee=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat=&quot;identity&quot;) + geom_hline(yintercept = 1)+labs(title=&quot;Enrichment for dAPA and same dominant \n condition on tested in both&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
 <pre class="r"><code>ResDFSame</code></pre>
@@ -1699,6 +1738,8 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>plot_grid(diffp, samep)</code></pre>
+<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Plot together:</p>
 <pre class="r"><code>ResDFfix=ResDF %&gt;% mutate(type=&quot;Different&quot;)
 ResDFSamefix=ResDFSame %&gt;% mutate(type=&quot;Same&quot;) 
@@ -1708,8 +1749,47 @@ ResDFfix_both=ResDFfix %&gt;% bind_rows(ResDFSamefix)</code></pre>
 <pre class="r"><code>dotplot=ggdotchart(ResDFfix_both,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFfix_both$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(), legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for dAPA by Domianance&quot;) + geom_hline(yintercept = 1) + facet_grid(~type) + labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;)
 
 dotplot</code></pre>
-<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /> Wont build with this: use ggsave:</p>
-<pre class="r"><code>ggsave(&quot;../output/dAPAandDomEnrich.png&quot;,dotplot, width=12)</code></pre>
+<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/NewdomanddAPA.Rmd/unnamed-chunk-10-1.png" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plot not with ggpubr to fix order:</p>
+<pre class="r"><code>ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichement&quot;,title=&quot;Enrichment for dAPA by Domianance&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/NewdomanddAPA.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1751,7 +1831,7 @@ loaded via a namespace (and not attached):
 [16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
 [19] gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
 [22] evaluate_0.12      labeling_0.3       knitr_1.20        
-[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.2        
+[25] httpuv_1.4.5       broom_0.5.1        Rcpp_1.0.4.6      
 [28] promises_1.0.1     scales_1.0.0       backports_1.1.2   
 [31] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
 [34] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
