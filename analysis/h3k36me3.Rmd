@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+
+##general enrichment  
 H3K36me3 is a mark associated with active transcription. I will see if this mark is different based on conservation of apa.  
 
 I will start by downloading data from encode for the LCLs. I will work with bam files so I can make deep tools plots and see if there is coverage at PAS.  
@@ -127,9 +129,14 @@ source ~/activate_anaconda.sh
 conda activate comp_threeprime_env
 
 
-computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed -b 500  -a 500 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3distalPAS.gz
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed -b 2000  -a 2000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3distalPAS.gz
 
 plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3distalPAS.gz --plotTitle "Distal UTR PAS H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3distalPAS.png
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R ../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed -b 10000  -a 10000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3distalPAS_longer.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3distalPAS_longer.gz --plotTitle "Distal UTR PAS H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3distalPAS_longer.png
 ```
 H3K36me3DTplot_distalPAS.sh
 
@@ -161,3 +168,204 @@ plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PASwide.gz --plotT
 ```
 
 
+Look at the level of h3k36me3 across full transcripts.  
+
+
+H3K36me3DTplot_transcript.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplot_transcript.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplot_transcript.out
+#SBATCH --error=H3K36me3DTplot_transcript.err
+#SBATCH --partition=broadwl
+#SBATCH --mem=36G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw   -R /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.sort.bed -b 10000  -a 10000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3PASTranscript.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PASTranscript.gz --plotTitle "Transcript H3L36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "TSS"  --endLabel "TES" -out ../data/H3K36me3/H3k36me3PASTranscript.png
+```
+
+
+Use H3K9me3 as a control: 
+
+H3K9me3 
+
+download  
+
+https://www.encodeproject.org/experiments/ENCSR000AOX/  (GM12878)
+
+https://www.encodeproject.org/experiments/ENCSR673OPX/ ( GM23248)
+
+
+H3K9me3_processandDT.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=H3K9me3_processandDT
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=mergeandsort_H3K9me3
+#SBATCH --error=mergeandsort_H3K9me3
+#SBATCH --partition=bigmem2
+#SBATCH --mem=100G
+#SBATCH --mail-type=END
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+samtools merge ../data/H3K36me3/MergedIndiv.H3K9me3.bam  ../data/H3K36me3/*H3K9me3.bam
+
+samtools sort ../data/H3K36me3/MergedIndiv.H3K9me3.bam  -o ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bam 
+
+samtools index ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bam 
+
+bamCoverage -b ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bam  -o ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw  
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw   -R ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b 500  -a 500 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3K9me3PAS.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3K9me3PAS.gz --plotTitle "PAS H3K9me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3K9me3PAS.png
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw   -R ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b 2000  -a 2000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3K9me3PASwide.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3K9me3PASwide.gz --plotTitle "PAS H3K9me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3K9me3PASwide.png
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw   -R ../data/PAS_doubleFilter/DistalPAS_orthoUTR.bed -b 10000  -a 10000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3K9me3distalPAS_longer.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3K9me3distalPAS_longer.gz --plotTitle "Distal UTR PAS H3K9me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3K9me3distalPAS_longer.png
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw   -R ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b 2000  -a 2000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3K9me3PASwide.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3K9me3PASwide.gz --plotTitle "PAS H3K9me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3K9me3PASwide.png
+
+
+```
+
+
+
+H3K9me3DTplot_transcript.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=H3K9me3DTplot_transcript.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K9me3DTplot_transcript.out
+#SBATCH --error=H3K9me3DTplot_transcript.err
+#SBATCH --partition=broadwl
+#SBATCH --mem=36G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3K9me3.sort.bw   -R /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_transcripts.sort.bed -b 10000  -a 10000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3K9me3PASTranscript.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3K9me3PASTranscript.gz --plotTitle "Transcript H3K9me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "TSS"  --endLabel "TES" -out ../data/H3K36me3/H3K9me3PASTranscript.png
+```
+
+##Conserved v non conserved   
+
+Now I can look at PAS by if they are differentially used and see if the signatures are different:  
+
+```{r}
+PASmeta=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed", col.names = c("chr","start", "end", "PAS", "score", "strand"),stringsAsFactors = F)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T,stringsAsFactors = F) %>% inner_join(PASmeta, by=c("chr", "start", "end"))
+
+DiffIsoyes= DiffIso %>% filter(SigPAU2=="Yes") %>% select(PAS)
+DiffIsono= DiffIso %>% filter(SigPAU2=="No") %>% select(PAS)
+
+
+PASmeta_yes= PASmeta %>% inner_join(DiffIsoyes, by="PAS")
+write.table(PASmeta_yes, "../data/PAS_doubleFilter/PAS_diffUsed.bed", quote = F, col.names = F, row.names = F, sep="\t")
+
+PASmeta_no= PASmeta %>% inner_join(DiffIsono, by="PAS")
+write.table(PASmeta_no, "../data/PAS_doubleFilter/PAS_NOTdiffUsed.bed", quote = F, col.names = F, row.names = F, sep="\t")
+```
+
+
+H3K36me3DTplot_DiffIso.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplot_DiffIso.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplot_DiffIso.out
+#SBATCH --error=H3K36me3DTplot_DiffIso.err
+#SBATCH --partition=bigmem2
+#SBATCH --mem=64G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw -R ../data/PAS_doubleFilter/PAS_diffUsed.bed -b 1000  -a 1000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3PASDiffUsed.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PASDiffUsed.gz --plotTitle "Diff Used PAS H3K36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3PASDiffUsed.png
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw  -R ../data/PAS_doubleFilter/PAS_NOTdiffUsed.bed -b 1000  -a 1000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3PASNOTDiffUsed.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3PASNOTDiffUsed.gz --plotTitle "Conserved PAS H3K36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3PASNOTDiffUsed.png
+```
+
+
+Human Specific, Chimp Specific  
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+
+HumanSpec= PAS %>% filter(Chimp==0)
+ChimpSpec= PAS %>% filter(Human==0)
+PASmetaHS= PASmeta %>% filter(PAS %in% HumanSpec$PAS)
+PASmetaCS= PASmeta %>% filter(PAS %in% ChimpSpec$PAS)
+
+write.table(PASmetaHS, "../data/PAS_doubleFilter/PAS_HumanSpecifc.bed", quote = F, col.names = F, row.names = F, sep="\t")
+
+write.table(PASmetaCS, "../data/PAS_doubleFilter/PAS_ChimpSpecifc.bed", quote = F, col.names = F, row.names = F, sep="\t")
+
+```
+
+H3K36me3DTplot_Specific.sh
+```{bash,eval=F}
+#!/bin/bash
+
+#SBATCH --job-name=H3K36me3DTplot_Specific.sh
+#SBATCH --account=pi-yangili1
+#SBATCH --time=24:00:00
+#SBATCH --output=H3K36me3DTplot_Specific.out
+#SBATCH --error=H3K36me3DTplot_Specific.err
+#SBATCH --partition=bigmem2
+#SBATCH --mem=64G
+#SBATCH --mail-type=END
+
+
+source ~/activate_anaconda.sh
+conda activate comp_threeprime_env
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw -R ../data/PAS_doubleFilter/PAS_HumanSpecifc.bed -b 1000  -a 1000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3HumanSpec.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3HumanSpec.gz --plotTitle "Human Specific H3K36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3HumanSpec.png
+
+
+computeMatrix scale-regions -S ../data/H3K36me3/MergedIndiv.H3k36me3.sort.bw  -R ../data/PAS_doubleFilter/PAS_ChimpSpecifc.bed -b 1000  -a 1000 --skipZeros --transcript_id_designator 4 -out ../data/H3K36me3/H3k36me3ChimpSpec.gz
+
+plotHeatmap --sortRegions descend -m ../data/H3K36me3/H3k36me3ChimpSpec.gz --plotTitle "Chimp Specific H3K36me3" --heatmapHeight 4 --colorMap magma  --averageTypeSummaryPlot "mean" --startLabel "5'"  --endLabel "3'" -out ../data/H3K36me3/H3k36me3ChimpSpec.png
+```

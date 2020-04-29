@@ -150,7 +150,7 @@ ggplot(ExpressionPassingBoth_diffDE, aes(y=DiffSimp, x=log10(HumanVar),col=DE)) 
 
 ggplot(ExpressionPassingBoth_diff, aes(y=DiffSimp, x=log10(HumanVar),col=dAPA)) + geom_point(alpha=.2) + geom_density2d()+labs(y="Chimp Simpson - Human Simpson", x="Variance in Human DE")+ scale_color_brewer(palette = "Set1") 
 ```
-###Tissue number  
+###Tissue number and variacne with GTEX   
 
 I will use gtex data to look at how many tissues the genes are expressed in. I can then see if this corrleates with the info content.  
 
@@ -180,10 +180,128 @@ InfoandTissue=GTEX %>% inner_join(AllInfoValues,by="gene")
 ggplot(InfoandTissue, aes(x=simpOpp_Human, y=nTissue)) + geom_point() +stat_cor(col="blue") + geom_smooth(method="lm")
 
 ggplot(InfoandTissue, aes(x=simpOpp_Chimp, y=nTissue)) + geom_point()+stat_cor(col="blue") + geom_smooth(method="lm") 
+
+cor.test(InfoandTissue$nTissue, InfoandTissue$simpOpp_Chimp)$estimate
+cor.test(InfoandTissue$nTissue, InfoandTissue$simpOpp_Chimp)$p.value
 ```
 Small but significant negative correlation, this means less dominance and fewer tissues. More dominance and more tissues. 
 
 Think about better way to plot.  
+
+
+I should get the correlation based on different cutoffs.  
+
+
+```{r}
+
+GTEXin=read.table("../../apaQTL/data/nPAS/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct", header = T, skip=2, sep = '\t') %>%  separate(Name,into=c("gene_id","extra"), sep="\\.") %>% 
+    inner_join(geneNames, by="gene_id") %>% 
+    select(-gene_id,-Description,-extra) %>% 
+    gather("tissue", "TPM",-gene)
+
+
+```
+
+```{r}
+CorHuman=c()
+pHuman=c()
+CorChimp=c()
+pChimp=c()
+Exp=seq(10,100,10)
+for (i in Exp){
+    tissueEx=GTEXin %>% 
+    filter(TPM >= i) %>%
+    group_by(gene) %>% 
+    summarise(nTissue=n()) %>% 
+    filter(nTissue<=54) %>% 
+    inner_join(AllInfoValues,by="gene")
+    chimpCor=cor.test(tissueEx$nTissue, tissueEx$simpOpp_Chimp)
+    CorChimp=c(CorChimp,chimpCor$estimate )
+    pChimp=c(pChimp, chimpCor$p.value)
+    humanCor=cor.test(tissueEx$nTissue, tissueEx$simpOpp_Human)
+    CorHuman=c(CorHuman, humanCor$estimate )
+    pHuman=c(pHuman, humanCor$p.value)
+}
+
+TissueDF=as.data.frame(cbind(Exp, CorChimp, pChimp, CorHuman,pHuman))
+
+```
+
+Plot the correlations:  
+
+```{r}
+TissueDFg= TissueDF %>% select(Exp, CorChimp, CorHuman) %>% gather("Species", "Corr", -Exp) 
+TissueDFg$Exp=as.factor(TissueDFg$Exp)
+ggplot(TissueDFg,aes(x=Exp,y=Corr, by=Species, fill=Species)) + geom_bar(stat="identity", position="dodge") + labs(x="Expression Cutoff (TPM)", y="Correlation", title="Correlation between Simpson Index and Number of Tissues") + scale_fill_brewer(labels=c("Chimp", "Human"),palette = "Dark2")
+```
+
+More tissues have lower scores ( more dominance), fewer tissues have higher simpson scores ( less dominance.)
+
+
+Do this with expression variance:  
+
+```{r}
+#ExpressionPassingBoth  
+CorVarHuman=c()
+pVarHuman=c()
+CorVarChimp=c()
+pVarChimp=c()
+
+for (i in Exp){
+    tissueEx=GTEXin %>% 
+    filter(TPM >= i) %>%
+    group_by(gene) %>% 
+    summarise(nTissue=n()) %>% 
+    filter(nTissue<=54) %>% 
+    inner_join(ExpressionPassingBoth,by="gene")
+    chimpCor=cor.test(tissueEx$nTissue, tissueEx$ChimpVar)
+    CorVarChimp=c(CorVarChimp,chimpCor$estimate )
+    pVarChimp=c(pVarChimp, chimpCor$p.value)
+    humanCor=cor.test(tissueEx$nTissue, tissueEx$HumanVar)
+    CorVarHuman=c(CorVarHuman, humanCor$estimate )
+    pVarHuman=c(pVarHuman, humanCor$p.value)
+}
+
+TissueVarDF=as.data.frame(cbind(Exp, CorVarChimp, pVarChimp, CorVarHuman,pVarHuman))
+
+
+```
+
+
+```{r}
+TissueVarDFg= TissueVarDF %>% select(Exp, CorVarChimp, CorVarHuman) %>% gather("Species", "Corr", -Exp) 
+TissueVarDFg$Exp=as.factor(TissueDFg$Exp)
+ggplot(TissueVarDFg,aes(x=Exp,y=Corr, by=Species, fill=Species)) + geom_bar(stat="identity", position="dodge") + labs(x="Expression Cutoff (TPM)", y="Correlation", title="Correlation between Expression Variance and Number of Tissues") + scale_fill_brewer(labels=c("Chimp", "Human"),palette = "Dark2")
+```
+
+Look at this by tissue expression variance like i did for the revisions.  
+
+```{r}
+GTEXvar=read.table("../../apaQTL//data/nPAS/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct", header = T, skip=2, sep = '\t',stringsAsFactors = F) %>% 
+  separate(Name,into=c("gene_id","extra"), sep="\\.") %>% 
+  inner_join(geneNames, by="gene_id") %>% 
+  select(-gene_id, -extra, -Description) %>% 
+  gather("Tissue", "TPM", -gene) %>%
+  group_by(gene) %>% 
+  summarise(TissueVar=var(TPM)) %>% 
+  inner_join(AllInfoValues)
+
+```
+
+```{r}
+ggplot(GTEXvar, aes(x=numPAS, y=log10(TissueVar+1))) + geom_point() + stat_cor() + geom_smooth(method="lm")
+```
+```{r}
+GTEXvarG= GTEXvar %>% select(gene, TissueVar, simpOpp_Chimp, simpOpp_Human) %>% gather("Species","simpson", -gene, -TissueVar)
+ggplot(GTEXvarG, aes(x=simpson, y=log10(TissueVar+1),col=Species)) + geom_point(alpha=.3) + stat_cor() + geom_smooth(method="lm")+ scale_color_brewer(labels=c("Chimp", "Human"),palette = "Dark2") + labs(title='Negative correlation between variance \n across GTEX tissues and Simpson scores in both species')
+
+```
+
+- ubiquitously expressed were found to be more likely to harbor multiple PAS. (lower variance likely indicate ubiquitous expression)
+
+This follow what I saw previously. Ubiquitously expressed genes also have higher simpson index and are less likely to have 1 dominant PAS. 
+
+
 
 ###DN/DS  
 
@@ -201,3 +319,104 @@ ggplot(InfoandDNDS, aes(y=log10(DNDSratio), x=simpOpp_Human)) + geom_point() + s
 ```
 
 No relationship.  
+
+
+###General Reg cascade differences    
+
+
+```{r}
+ProteinSig=read.table("../data/Khan_prot/HC_SigProtein.txt", header = T, stringsAsFactors = F)%>% dplyr::rename("gene"=gene.symbol)
+ProteinAll=read.table("../data/Khan_prot/HC_AlltestedProtein.txt", header = T, stringsAsFactors = F) %>%  rename(gene=gene.symbol) %>% inner_join(AllInfoValues,by="gene") %>% mutate(SigP=ifelse(gene %in% ProteinSig$gene, "Yes", "No"))
+
+ggplot(ProteinAll, aes(x=SigP, y=simpOpp_Human)) + geom_boxplot()+stat_compare_means()
+
+ggplot(ProteinAll, aes(x=SigP, y=simpOpp_Chimp)) + geom_boxplot() +stat_compare_means()
+
+ProteinAll_g=ProteinAll %>% select(gene, SigP, simpOpp_Human,simpOpp_Chimp) %>% rename(Human=simpOpp_Human, Chimp=simpOpp_Chimp)%>% gather("Species", "Simpson", -gene, -SigP)
+
+protboth=ggplot(ProteinAll_g, aes(x=Species, by=SigP,fill=SigP, y=Simpson)) + geom_boxplot() +stat_compare_means() + scale_fill_brewer(palette = "Set1", name="Differential Protein") + labs(title="No differences for Simpson\n index in dP")+ theme(legend.position = "bottom")
+
+```
+
+
+```{r}
+#ribo
+Ribo=read.table("../data/Wang_ribo/HC_SigTranslation.txt",header = T, stringsAsFactors = F) 
+
+RiboAll=read.table("../data/Wang_ribo/HC_AllTestedTranslation.txt",header = T, stringsAsFactors = F)%>% rename(gene=Gene) %>% inner_join(AllInfoValues,by="gene") %>% mutate(SigR=ifelse(gene %in% Ribo$Gene, "Yes", "No"))
+
+ggplot(RiboAll, aes(x=SigR, y=simpOpp_Human)) + geom_boxplot()+stat_compare_means()
+
+ggplot(RiboAll, aes(x=SigR, y=simpOpp_Chimp)) + geom_boxplot() +stat_compare_means()
+
+RiboAlll_g=RiboAll %>% select(gene, SigR, simpOpp_Human,simpOpp_Chimp) %>% rename(Human=simpOpp_Human, Chimp=simpOpp_Chimp)%>% gather("Species", "Simpson", -gene, -SigR)
+
+riboboth=ggplot(RiboAlll_g, aes(x=Species, by=SigR,fill=SigR, y=Simpson)) + geom_boxplot() +stat_compare_means() + scale_fill_brewer(palette = "Set1", name="Differential Translation") + labs(title="No differences for Simpson\n index in dRibo")+ theme(legend.position = "bottom")
+```
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No"))   %>% inner_join(AllInfoValues,by="gene")
+
+ggplot(DE, aes(x=DE, y=simpOpp_Human)) + geom_boxplot()+stat_compare_means()
+
+ggplot(DE, aes(x=DE, y=simpOpp_Chimp)) + geom_boxplot() +stat_compare_means()
+
+
+DE_g=DE %>% select(gene, DE, simpOpp_Human,simpOpp_Chimp) %>% rename(Human=simpOpp_Human, Chimp=simpOpp_Chimp)%>% gather("Species", "Simpson", -gene, -DE)
+
+DEboth=ggplot(DE_g, aes(x=Species, by=DE,fill=DE, y=Simpson)) + geom_boxplot() +stat_compare_means() + scale_fill_brewer(palette = "Set1", name="Differential Expression") + labs(title="No differences for Simpson\n index in DE") + theme(legend.position = "bottom")
+
+DEboth
+```
+
+```{r}
+plot_grid(DEboth, riboboth, protboth, nrow=1 )
+```
+
+
+Variance in protein. 
+
+
+copy human LCL data to ../data/HumanMolPheno
+```{r}
+ProteinPheno=read.table("../data/HumanMolPheno/fastqtl_qqnorm_prot.fixed.noChr.txt", header = T, stringsAsFactors = F) %>% 
+  rename(Gene_stable_ID= ID) %>% 
+  inner_join(nameID, by = "Gene_stable_ID") %>%
+  select(-Source_of_gene_name,-Gene_stable_ID, -start, -end, -Chr ) %>%
+  rename(gene=Gene.name) %>% 
+  gather("Ind", "level", -gene) %>% 
+  group_by(gene) %>% 
+  drop_na() %>% 
+  summarise(MeanProt=mean(level), VarProt=var(level)) %>% 
+  inner_join(AllInfoValues, by="gene") %>% 
+  select(gene, VarProt, MeanProt, simpOpp_Human,simpOpp_Chimp) %>% 
+  rename(Human=simpOpp_Human,Chimp=simpOpp_Chimp ) %>% 
+  gather("species", "simpson", -gene, -VarProt, -MeanProt)
+
+
+ggplot(ProteinPheno, aes(x=simpson, y=VarProt, col=species)) + geom_point() + stat_cor()
+```
+
+Variance in ribo:  
+
+
+```{r}
+RiboPheno=read.table("../data/HumanMolPheno/fastqtl_qqnorm_ribo_phase2.fixed.noChr.txt", header = T, stringsAsFactors = F) %>% 
+  separate(ID, into=c("Gene_stable_ID", "Extra"), sep="\\.")  %>% 
+  inner_join(nameID, by = "Gene_stable_ID") %>%
+  select(-Source_of_gene_name,-Gene_stable_ID, -start, -end, -Chr, -Extra ) %>%
+  rename(gene=Gene.name) %>% 
+  gather("Ind", "level", -gene) %>% 
+  group_by(gene)%>% 
+  drop_na() %>% 
+  summarise(MeanRibo=mean(level), VarRibo=var(level))%>% 
+  inner_join(AllInfoValues, by="gene") %>% 
+  select(gene, VarRibo, MeanRibo, simpOpp_Human,simpOpp_Chimp) %>% 
+  rename(Human=simpOpp_Human,Chimp=simpOpp_Chimp ) %>% 
+  gather("species", "simpson", -gene, -VarRibo, -MeanRibo)
+
+
+ggplot(RiboPheno, aes(x=simpson, y=VarRibo, col=species)) + geom_point() + stat_cor()
+```
+
+No relationship gere.  
