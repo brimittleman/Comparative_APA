@@ -1,0 +1,242 @@
+---
+title: "Differential Information Content"
+author: "Briana Mittleman"
+date: "4/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library("edgeR")
+library("R.utils")
+library("scales")
+library(gplots)
+library("limma")
+library("RColorBrewer")
+```
+
+
+##Get info at indiv. 
+In order to look for genes with differential information content (dIC) between species, I need to create a method for calculating indiviudal level info content measures. 
+
+It will be like what I did previously but I will work with individual ratios rather than means. I will use python and wrap the code around each individual. I can make it in a long dataframe at first to write out the gene, individual, and values, then I can spread the output in R after.  
+
+It will take in the ratio file.  
+
+```{r}
+PASuse=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", stringsAsFactors = F ,header = T)
+```
+
+
+```{bash,eval=F}
+mkdir ../data/DoubleFilterUsageNumeric
+mkdir ../data/IndInfoContent
+```
+
+Chimp usage:  
+
+```{r}
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+ChimpUsage_nuclear= ChimpUsage %>% select(contains("_N"))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage_nuclear )) %>% filter(PAS %in% PASuse$PAS) %>% select(-chr, -start, -end, -strand, -loc, -disc)
+```
+
+
+Human Usage:
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+HumanUsage_nuclear= HumanUsage %>% select(contains("_N"))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage_nuclear )) %>% filter(PAS %in% PASuse$PAS) %>% select(-chr, -start, -end, -strand, -loc, -disc)
+```
+
+
+```{r}
+bothUsage=HumanUsage_anno %>% inner_join(ChimpUsage_anno, by=c("gene","PAS"))
+
+write.table(bothUsage,"../data/DoubleFilterUsageNumeric/BothSpecies_NumericUsage_DoubleFilt.txt", col.names = T, row.names = F, quote = F)
+
+write.table(ChimpUsage_anno,"../data/DoubleFilterUsageNumeric/Chimp_NumericUsage_DoubleFilt.txt", col.names = T, row.names = F, quote = F)
+
+write.table(HumanUsage_anno,"../data/DoubleFilterUsageNumeric/Human_NumericUsage_DoubleFilt.txt", col.names = T, row.names = F, quote = F)
+```
+
+```{r}
+bothUsage %>% select(gene) %>% unique() %>% nrow
+
+ChimpUsage_anno%>% group_by(gene) %>% summarise(nPAS=n()) %>% filter(nPAS>1) %>% nrow
+
+
+HumanUsage_anno %>% group_by(gene) %>% summarise(nPAS=n()) %>% filter(nPAS>1) %>% nrow
+```
+
+
+test the code: 
+
+```{bash,eval=F}
+head ../data/DoubleFilterUsageNumeric/Human_NumericUsage_DoubleFilt.txt >  ../data/IndInfoContent/test.txt
+
+python InfoContentbyInd.py ../data/IndInfoContent/test.txt ../data/IndInfoContent/testout.txt
+
+
+head ../data/DoubleFilterUsageNumeric/BothSpecies_NumericUsage_DoubleFilt.txt >  ../data/IndInfoContent/bothtest.txt
+
+python InfoContentbyInd.py ../data/IndInfoContent/bothtest.txt ../data/IndInfoContent/bothtestOut.txt
+```
+
+```{r}
+test=read.table("../data/IndInfoContent/testout.txt", col.names = c("gene", "ind", "shannon", "eq", "simpson"), stringsAsFactors = F)
+testBoth=read.table("../data/IndInfoContent/bothtestOut.txt",col.names = c("gene", "ind", "shannon", "eq", "simpson"), stringsAsFactors = F)
+```
+
+Try it:  
+
+```{bash,eval=F}
+python InfoContentbyInd.py ../data/DoubleFilterUsageNumeric/Chimp_NumericUsage_DoubleFilt.txt  ../data/IndInfoContent/ChimpInfoContent_long.txt
+
+
+python InfoContentbyInd.py ../data/DoubleFilterUsageNumeric/Human_NumericUsage_DoubleFilt.txt  ../data/IndInfoContent/HumanInfoContent_long.txt
+```
+
+
+```{r}
+chimpAllInfoLong=read.table("../data/IndInfoContent/ChimpInfoContent_long.txt", col.names = c("gene", "ind", "shannon", "eq", "simpson"), stringsAsFactors = F ) %>% mutate(species="Chimp")
+
+humanAllInfoLong=read.table("../data/IndInfoContent/HumanInfoContent_long.txt", col.names = c("gene", "ind", "shannon", "eq", "simpson"), stringsAsFactors = F )%>% mutate(species="Human")
+
+
+```
+
+##Simpson  
+Spread the simpson to do differences between species:  
+
+```{r}
+humanSimp= humanAllInfoLong %>% select(-eq,-shannon,- species) %>% spread(ind, simpson)
+
+chimpSimp= chimpAllInfoLong %>% select(-eq,-shannon,- species) %>% spread(ind, simpson)
+
+BothSimp= chimpSimp %>% inner_join(humanSimp, by="gene")
+```
+
+design matrix:  
+
+```{r}
+
+humD=humanAllInfoLong %>% select(ind, species) %>% unique() 
+chimpD=chimpAllInfoLong %>% select(ind, species) %>% unique()
+design=bind_rows(chimpD,humD)
+design$species=as.factor(design$species)
+design
+```
+
+Run some QC on this like we would be DE.  
+
+```{r}
+SimpMatric=BothSimp %>% column_to_rownames(var="gene")
+
+head(SimpMatric)
+
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+labels <- paste(design$species,design$ind, sep=" ")
+
+
+```
+
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=F){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+```{r}
+# Clustering (original code from Julien Roux)
+cors <- cor(SimpMatric, method="spearman", use="pairwise.complete.obs")
+
+```
+Correaltion plot
+```{r}
+
+heatmap.2( cors, scale="none", col = colors, margins = c(12, 12), trace='none', denscol="white", labCol=labels,ColSideColors=pal[as.integer(as.factor(design$species))], cexCol = 0.2 + 1/log10(15), cexRow = 0.2 + 1/log10(15))
+```
+
+PCA: 
+
+```{r}
+# Perform PCA
+
+pca_genes <- prcomp(t(SimpMatric), scale = F)
+scores <- pca_genes$x
+
+
+#Make PCA plots with the factors colored by species
+
+### PCs 1 and 2 Raw Data
+for (n in 1:1){
+  col.v <- pal[as.integer(design$species)]
+  plot_scores(pca_genes, scores, n, n+1, col.v)
+}
+```
+```{r}
+plotDensities(SimpMatric, col=pal[as.numeric(design$species)], legend="topright")
+```
+
+
+First pass I will just run a wilcoxan test and correct the pvalues.  
+
+```{r}
+BothSimpM=as.matrix(SimpMatric)
+outPut=as.data.frame(cbind(gene=BothSimp$gene, pval=rep(0,nrow(BothSimp))))
+outPut$pval=as.numeric(as.character(outPut$pval))
+for (i in seq(1:nrow(BothSimp))){
+  chimp=as.vector(BothSimpM[i,1:6])
+  human=as.vector(BothSimpM[i,7:11])
+  pval=wilcox.test(chimp, human, alternative = c("two.sided"))$p.value
+  outPut[i,2] <- pval
+}
+```
+
+
+
+```{r}
+padj=p.adjust(outPut$pval, method ="fdr")
+#plot(sort(padj))
+
+
+
+outPutad=outPut %>% mutate(fdr=padj)
+
+outPutadSig= outPutad %>% filter(fdr<0.05)
+```
+
+All of the significant pvalue are the same. This is wierd.  
+
