@@ -331,7 +331,7 @@ Add info about DE to All4.
 ```{r}
 diffIsoGenes= read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",stringsAsFactors = F, header = T)
 
-All4DiffIso= All4 %>% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, "Yes", "No"))
+All4DiffIso= All4 %>% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, "Yes", "No")) 
 
 PvalSameapa=c()
 pvalBothSideapa=c()
@@ -378,7 +378,7 @@ for (i in set){
   m=nrow(All4DiffIso %>% filter(cut==i, DE=="Yes", dAPA=="No"))
   n=nrow(All4DiffIso %>% filter(cut==i, DE=="No", dAPA=="No"))
   k=nrow(All4DiffIso %>% filter(cut==i, Set=="Same", dAPA=="No"))
-  N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="Yes"))
+  N=nrow(All4DiffIso %>% filter(cut==i,dAPA=="No"))
   val=phyper(x-1,m,n,k,lower.tail=F)
   val2=phyper(x,m,n,k,lower.tail=T)
   pvalBothSideno=c(pvalBothSideno, val2)
@@ -438,11 +438,11 @@ ggplot(ResDFSameApaBoth_len,aes(x=set,col=set,shape=dAPA, y=enrich,label = round
 ```{r}
 
 
-enrichmentp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pval))) + geom_bar(stat="identity", position="dodge") +scale_fill_brewer(palette="RdYlBu") + labs( title="enrichment p-value ",x="Dominance Cutoff", y="-log10(P-value)") + facet_grid(~dAPA) + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+enrichmentp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set, y=-log10(pval))) + geom_bar(stat="identity", position="dodge") +scale_fill_brewer(palette="RdYlBu") + labs( title="enrichment p-value ",x="Dominance Cutoff", y="-log10(P-value)") + facet_grid(~dAPA) + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
 
 
 
-oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pvalOpp))) + geom_bar(stat="identity", position="dodge") +scale_fill_brewer(palette="RdYlBu") + labs( title="depletion p-value ",x="Dominance Cutoff", y="-log10(P-value)") + facet_grid(~dAPA) + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set, y=-log10(pvalOpp))) + geom_bar(stat="identity", position="dodge") +scale_fill_brewer(palette="RdYlBu") + labs( title="depletion p-value ",x="Dominance Cutoff", y="-log10(P-value)") + facet_grid(~dAPA) + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
 ```
 
 ```{r}

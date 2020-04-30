@@ -418,6 +418,13 @@ ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=numPAS )) + geom_poi
 ```
 
 
+plot simpson h/c colors:  
+
+```{r}
+ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Simpson Index", x="Simpson Index")+ theme_classic2()
+```
+
+
 
 
 
