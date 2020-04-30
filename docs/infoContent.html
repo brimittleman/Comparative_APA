@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-27
+<strong>Last updated:</strong> 2020-04-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed9ba030f132ff516f7af9822e962a33869559e42targetblankd9ba030a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d9ba030f132ff516f7af9822e962a33869559e42" target="_blank">d9ba030</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec253b1bb854a604222ca6319260be90672640f17targetblankc253b1ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c253b1bb854a604222ca6319260be90672640f17" target="_blank">c253b1b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed9ba030f132ff516f7af9822e962a33869559e42targetblankd9ba030a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec253b1bb854a604222ca6319260be90672640f17targetblankc253b1ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -711,6 +711,28 @@ Untracked files:
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
     Untracked:  code/InfoContentShannon.py
@@ -967,6 +989,9 @@ Untracked files:
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1166,8 +1191,10 @@ Untracked files:
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
@@ -1253,6 +1280,7 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
@@ -1310,6 +1338,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c253b1bb854a604222ca6319260be90672640f17/analysis/infoContent.Rmd" target="_blank">c253b1b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-30
+</td>
+<td>
+fix same no dapa bug, change simp color
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/infoContent.html" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1403,12 +1465,12 @@ add info content
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1667,6 +1729,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-10-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-10-1.png" target="_blank">448aa08</a>
 </td>
 <td>
@@ -1845,6 +1918,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-16-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/448aa08e5082af854cce17a9c996bc6bc2f58580/docs/figure/infoContent.Rmd/unnamed-chunk-16-1.png" target="_blank">448aa08</a>
 </td>
 <td>
@@ -1926,6 +2010,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-17-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/infoContent.Rmd/unnamed-chunk-17-1.png" target="_blank">7725e4d</a>
@@ -2310,6 +2405,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-25-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/infoContent.Rmd/unnamed-chunk-25-1.png" target="_blank">7725e4d</a>
 </td>
 <td>
@@ -2325,6 +2431,43 @@ brimittleman
 </div>
 <pre class="r"><code>ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title=&quot;Simpson Index Colored by number of PAS&quot;)</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-25-2.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>summary(lm(BothInfoTypes$simpOpp_Human ~BothResInfo$numPAS))</code></pre>
 <pre><code>
 Call:
@@ -2392,6 +2535,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-27-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/infoContent.Rmd/unnamed-chunk-27-1.png" target="_blank">7725e4d</a>
@@ -2473,6 +2627,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-28-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/infoContent.Rmd/unnamed-chunk-28-1.png" target="_blank">7725e4d</a>
 </td>
 <td>
@@ -2501,6 +2666,43 @@ BothEH= BothResBothInfoDomEH %&gt;% select(gene, numPAS, human_EH,chimp_EH) %&gt
 ggplot(BothEH, aes(x=ShannonEH, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Set1&quot;)+labs(title=&quot;Shannon equitability&quot;, x=&quot;Shannon equitability&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-29-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>wilcox.test(BothResBothInfoDomEH$human_EH, BothResBothInfoDomEH$chimp_EH)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
@@ -2514,10 +2716,84 @@ ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH )) + geom_point(alpha=.4)
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density2d).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-30-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothResBothInfoDomEH$numPAS=as.numeric(as.character(BothResBothInfoDomEH$numPAS))
 ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0) +labs(title=&quot;Shannon equitability Colored by number of PAS&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-2">
+Past versions of unnamed-chunk-30-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-30-2.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>summary(lm(BothResBothInfoDomEH$human_EH ~BothResBothInfoDomEH$numPAS))</code></pre>
 <pre><code>
 Call:
@@ -2570,19 +2846,170 @@ ggplot(BothInfoTypes_bothEH,aes(x=Simpson, y=ShannonEH, by=species, col=species)
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-32-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Look at it with dominance:</p>
 <pre class="r"><code>ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=Dom )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) + labs(x=&quot;Human equitability&quot;, y=&quot;Chimp equitability&quot;, title=&quot;Shannon equitability colored by whether gene has a dominant PAS&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-33-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=Set )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + scale_color_brewer(palette = &quot;Set2&quot;) +geom_density2d()+ labs(x=&quot;Human equitability&quot;, y=&quot;Chimp equitability&quot;, title=&quot;Shannon equitability colored by Dominance Structure&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_density2d).
 
 Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-2">
+Past versions of unnamed-chunk-33-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-33-2.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothResBothInfoDomEH$numPAS=as.factor(BothResBothInfoDomEH$numPAS)
 ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=numPAS )) + geom_point(alpha=.3) + geom_abline(slope=1, intercept = 0) + labs(x=&quot;Human equitability&quot;, y=&quot;Chimp equitability&quot;, title=&quot;Shannon Equitability colored by number of PAS &quot;) + facet_grid(~Dom)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/81dcd9f1d126904d139da9f04603bade5a905b8a/docs/figure/infoContent.Rmd/unnamed-chunk-34-1.png" target="_blank">81dcd9f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>plot simpson h/c colors:</p>
+<pre class="r"><code>ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = &quot;Dark2&quot;,labels=c(&quot;Chimp&quot;, &quot;Human&quot;))+labs(title=&quot;Simpson Index&quot;, x=&quot;Simpson Index&quot;)+ theme_classic2()</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

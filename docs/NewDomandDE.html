@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-28
+<strong>Last updated:</strong> 2020-04-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/132a7169985a534210976cde05d888904699f9ea" target="_blank">132a716</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec253b1bb854a604222ca6319260be90672640f17targetblankc253b1ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c253b1bb854a604222ca6319260be90672640f17" target="_blank">c253b1b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree132a7169985a534210976cde05d888904699f9eatargetblank132a716a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec253b1bb854a604222ca6319260be90672640f17targetblankc253b1ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -711,6 +711,28 @@ Untracked files:
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
     Untracked:  code/InfoContentShannon.py
@@ -967,6 +989,9 @@ Untracked files:
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1166,8 +1191,10 @@ Untracked files:
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
@@ -1253,6 +1280,7 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
@@ -1310,6 +1338,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c253b1bb854a604222ca6319260be90672640f17/analysis/NewDomandDE.Rmd" target="_blank">c253b1b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-30
+</td>
+<td>
+fix same no dapa bug, change simp color
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/69e8fd59816096069258f64e180d898ffffe3411/docs/NewDomandDE.html" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1661,12 +1723,12 @@ new dom integration
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -2022,6 +2084,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-16-1.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/add6b2ab6ab218f0c331650bbb3d7507bd65a0c0/docs/figure/NewDomandDE.Rmd/unnamed-chunk-16-1.png" target="_blank">add6b2a</a>
 </td>
 <td>
@@ -2048,6 +2121,43 @@ brimittleman
 </div>
 <pre class="r"><code>plot_grid( diffP, Samep)</code></pre>
 <p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-16-2.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggdotchart(ResDF,y=&quot;Enrich&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDF$Enrich,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Different Dominant&quot;) + geom_hline(yintercept = 1)
 
 ggdotchart(ResDFSame,y=&quot;EnrichSame&quot;,x= &quot;set&quot;, color=&quot;set&quot;,add = &quot;segments&quot;, rotate = TRUE, dot.size = 10,  label = round(ResDFSame$EnrichSame,2), font.label = list(color = &quot;black&quot;, size = 10, vjust = 0.5),ggtheme = theme_pubr(),sort=&quot;d&quot;, legend=&quot;none&quot;, palette=&quot;RdYlBu&quot;, title=&quot;Enrichment for DE and dAPA Same Dominant&quot;) + geom_hline(yintercept = 1)</code></pre>
@@ -2083,6 +2193,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-19-1.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/NewDomandDE.Rmd/unnamed-chunk-19-1.png" target="_blank">961b808</a>
 </td>
 <td>
@@ -2102,7 +2223,7 @@ brimittleman
 <p>Add info about DE to All4.</p>
 <pre class="r"><code>diffIsoGenes= read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;,stringsAsFactors = F, header = T)
 
-All4DiffIso= All4 %&gt;% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, &quot;Yes&quot;, &quot;No&quot;))
+All4DiffIso= All4 %&gt;% mutate(dAPA=ifelse(gene %in% diffIsoGenes$gene, &quot;Yes&quot;, &quot;No&quot;)) 
 
 PvalSameapa=c()
 pvalBothSideapa=c()
@@ -2155,7 +2276,7 @@ for (i in set){
   m=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;Yes&quot;, dAPA==&quot;No&quot;))
   n=nrow(All4DiffIso %&gt;% filter(cut==i, DE==&quot;No&quot;, dAPA==&quot;No&quot;))
   k=nrow(All4DiffIso %&gt;% filter(cut==i, Set==&quot;Same&quot;, dAPA==&quot;No&quot;))
-  N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;Yes&quot;))
+  N=nrow(All4DiffIso %&gt;% filter(cut==i,dAPA==&quot;No&quot;))
   val=phyper(x-1,m,n,k,lower.tail=F)
   val2=phyper(x,m,n,k,lower.tail=T)
   pvalBothSideno=c(pvalBothSideno, val2)
@@ -2169,11 +2290,11 @@ for (i in set){
 actualSameNo</code></pre>
 <pre><code>[1] 1275 1046  853  705  570  440  315  196   73</code></pre>
 <pre class="r"><code>ExpectedSameNo</code></pre>
-<pre><code>[1] 4443.0698 3500.0771 2981.5500 2764.2177 2472.6536 2256.8966 2083.2955
-[8] 1392.9067  550.5417</code></pre>
+<pre><code>[1] 1282.2282 1048.5219  849.3733  704.5488  570.0000  440.0000  315.0000
+[8]  196.0000   73.0000</code></pre>
 <pre class="r"><code>EnrichSameNo</code></pre>
-<pre><code>[1] 0.2869638 0.2988506 0.2860928 0.2550450 0.2305216 0.1949580 0.1512027
-[8] 0.1407129 0.1325967</code></pre>
+<pre><code>[1] 0.9943628 0.9975948 1.0042699 1.0006404 1.0000000 1.0000000 1.0000000
+[8] 1.0000000 1.0000000</code></pre>
 <pre class="r"><code>PvalSameNo</code></pre>
 <pre><code>[1] 0.78224457 0.71829130 0.08718982 0.54027531 1.00000000 1.00000000
 [7] 1.00000000 1.00000000 1.00000000</code></pre>
@@ -2222,6 +2343,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/NewDomandDE.Rmd/unnamed-chunk-23-1.png" target="_blank">7725e4d</a>
@@ -2277,6 +2409,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-24-1.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/7725e4d79aabfd7c04579ab4a5c6bebfe73f1293/docs/figure/NewDomandDE.Rmd/unnamed-chunk-24-1.png" target="_blank">7725e4d</a>
 </td>
 <td>
@@ -2290,13 +2433,50 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>enrichmentp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pval))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;enrichment p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
+<pre class="r"><code>enrichmentp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set, y=-log10(pval))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;enrichment p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)
 
 
 
-oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set,, y=-log10(pvalOpp))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;depletion p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)</code></pre>
+oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set, y=-log10(pvalOpp))) + geom_bar(stat=&quot;identity&quot;, position=&quot;dodge&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + labs( title=&quot;depletion p-value &quot;,x=&quot;Dominance Cutoff&quot;, y=&quot;-log10(P-value)&quot;) + facet_grid(~dAPA) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103)</code></pre>
 <pre class="r"><code>plot_grid(enrichmentp,oppenrichp, nrow=2)</code></pre>
 <p><img src="figure/NewDomandDE.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/69e8fd59816096069258f64e180d898ffffe3411/docs/figure/NewDomandDE.Rmd/unnamed-chunk-26-1.png" target="_blank">69e8fd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
