@@ -207,7 +207,7 @@ for (n in 1:1){
 }
 ```
 ```{r}
-plotDensities(SimpMatric, col=pal[as.numeric(design$species)], legend="topright")
+plotDensities(SimpMatric, col=pal[as.numeric(design$species)], legend="topleft")
 ```
 
 
@@ -239,4 +239,36 @@ outPutadSig= outPutad %>% filter(fdr<0.05)
 ```
 
 All of the significant pvalue are the same. This is wierd.  
+
+Look at mean and variance:
+
+```{r}
+humanSimp= humanAllInfoLong %>% select(-eq,-shannon)
+chimpSimp= chimpAllInfoLong %>% select(-eq,-shannon)
+
+BothSimplong=humanSimp %>% bind_rows(chimpSimp)
+
+SimpMeanVar= BothSimplong %>% group_by(species, gene) %>% summarise(mean=mean(simpson), var=var(simpson))
+
+ggplot(SimpMeanVar, aes(y=mean, x=species))+ geom_boxplot()
+
+ggplot(SimpMeanVar, aes(y=var, x=species))+ geom_boxplot()
+```
+
+
+```{r}
+SimpMeanVar= BothSimplong %>% group_by(species, gene) %>% summarise(mean=mean(simpson)) %>% spread(species, mean)
+SimpHuman=read.table("../data/InfoContent/Human_SimpsonInfoContent.txt", header = T, stringsAsFactors = F) %>% rename(simpson_Human=simpson) %>% mutate(simpOpp_Human=1-simpson_Human)
+SimpChimp=read.table("../data/InfoContent/Chimp_SimpsonInfoContent.txt", header = T, stringsAsFactors = F)%>% rename(simpson_Chimp=simpson)%>% mutate(simpOpp_Chimp=1-simpson_Chimp)
+
+BothSimp= SimpHuman %>% inner_join(SimpChimp, by=c("gene", "numPAS")) %>% filter(numPAS > 1)
+
+
+
+allSImpson=BothSimp %>% inner_join(SimpMeanVar, by="gene")
+
+cor.test(allSImpson$simpOpp_Human, allSImpson$Human)
+
+cor.test(allSImpson$simpOpp_Chimp, allSImpson$Chimp)
+```
 
