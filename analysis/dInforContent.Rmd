@@ -12,7 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library("edgeR")
+library(coin)
 library("R.utils")
+library(rcompanion)
 library("scales")
 library(gplots)
 library("limma")
@@ -215,13 +217,16 @@ First pass I will just run a wilcoxan test and correct the pvalues.
 
 ```{r}
 BothSimpM=as.matrix(SimpMatric)
-outPut=as.data.frame(cbind(gene=BothSimp$gene, pval=rep(0,nrow(BothSimp))))
+outPut=as.data.frame(cbind(gene=BothSimp$gene, pval=rep(0,nrow(BothSimp)), effect=rep(0,nrow(BothSimp))))
 outPut$pval=as.numeric(as.character(outPut$pval))
+outPut$effect=as.numeric(as.character(outPut$effect))
 for (i in seq(1:nrow(BothSimp))){
   chimp=as.vector(BothSimpM[i,1:6])
   human=as.vector(BothSimpM[i,7:11])
-  pval=wilcox.test(chimp, human, alternative = c("two.sided"))$p.value
+  pval=wilcox.test(human, chimp, alt = "two.sided", paired=F)$p.value
+  #effect=wilcoxonR(x =as.vector(BothSimpM[i,1:11]),  g = design$species)
   outPut[i,2] <- pval
+  #outPut[i,3] <- effect
 }
 ```
 
@@ -238,13 +243,24 @@ outPutad=outPut %>% mutate(fdr=padj)
 outPutadSig= outPutad %>% filter(fdr<0.05)
 ```
 
-All of the significant pvalue are the same. This is wierd.  
+
+Plot pvalues:  
+
+```{r}
+plot(sort(outPutad$pval))
+plot(sort(outPutad$fdr))
+
+```
+
+
+
+
 
 Look at mean and variance:
 
 ```{r}
-humanSimp= humanAllInfoLong %>% select(-eq,-shannon)
-chimpSimp= chimpAllInfoLong %>% select(-eq,-shannon)
+humanSimp= humanAllInfoLong %>% dplyr::select(-eq,-shannon)
+chimpSimp= chimpAllInfoLong %>% dplyr::select(-eq,-shannon)
 
 BothSimplong=humanSimp %>% bind_rows(chimpSimp)
 
@@ -270,5 +286,40 @@ allSImpson=BothSimp %>% inner_join(SimpMeanVar, by="gene")
 cor.test(allSImpson$simpOpp_Human, allSImpson$Human)
 
 cor.test(allSImpson$simpOpp_Chimp, allSImpson$Chimp)
+```
+
+Explore the genes:  
+```{r}
+#outPutadSig
+allSImpson_sig=allSImpson %>% mutate(sIC=ifelse(gene %in% outPutadSig$gene, "Yes","No"))
+
+
+ggplot(allSImpson_sig, aes(x=Human, y=Chimp, col=sIC)) + geom_point()
+
+ggplot(allSImpson_sig, aes(x=Human, y=Chimp, col=sIC)) + geom_density_2d()
+
+```
+
+
+Ok this makes sense. Let me look at medians.  
+
+```{r}
+SimpMed= BothSimplong %>% group_by(species, gene) %>% summarise(Median=median(simpson)) %>% spread(species, Median)
+
+allSImpsonMed=BothSimp %>% inner_join(SimpMed, by="gene") %>% mutate(sIC=ifelse(gene %in% outPutadSig$gene, "Yes","No"))
+
+
+ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_point()
+
+ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_density_2d()
+```
+```{r}
+allSImpsonMed %>% group_by(sIC) %>% summarise(n=n())
+```
+
+Write out to look at overlap with phenotypes  
+
+```{r}
+write.table(allSImpsonMed,"../data/IndInfoContent/SimpsonMedianSignificance.txt", col.names = T, row.names = F, quote=F)
 ```
 

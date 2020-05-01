@@ -1,0 +1,215 @@
+---
+title: "dIC and other metrics"
+author: "Briana Mittleman"
+date: "5/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I used simpson to call differences in information content. 
+
+```{r}
+library(workflowr)
+library(tidyverse)
+
+```
+
+I want to look at DE, dP, dt, dAPA, and dIC. I will do simple 2by2 tables at first.  
+
+For each set I will only consider the genes that I can test for those analylsis. 
+
+##Load all set:
+
+APA
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) 
+
+#gene level:  
+
+SigGenesDI=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt",header = T,stringsAsFactors = F)
+DiffIsoGene= DiffIso %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% SigGenesDI$gene, "Yes", "No"))
+
+
+DiffIsoGene %>% group_by(dAPA) %>% summarise(n())
+```
+
+
+DE  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No"))
+
+
+DiffExp %>% group_by(DE) %>% summarise(n())
+
+DiffExpSmall= DiffExp %>% select(gene,DE)
+```
+
+
+DTE 
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No"))
+
+
+Ribo %>% group_by(dTE) %>% summarise(n())
+
+RiboSmall= Ribo %>% select(gene,dTE)
+
+
+```
+
+
+DP  
+(pval is adjusted already)
+```{r}
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No"))
+
+Prot %>% group_by(dP) %>% summarise(n())
+
+ProtSmall=Prot %>% select(gene, dP)
+```
+
+
+Simpson Info Content  
+
+```{r}
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F) %>% rename(dIC=sIC)
+
+dICdata %>% group_by(dIC) %>% summarise(n())
+
+dICSmall=dICdata %>% select(gene, dIC)
+```
+
+
+##dAPA and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dICanddAPA= dICSmall %>% inner_join(DiffIsoGene, by="gene") 
+
+
+dICanddAPA22=dICanddAPA %>% group_by(dIC, dAPA) %>% summarise(n=n()) %>% spread(dAPA, n) %>% column_to_rownames("dIC")
+dICanddAPA22
+
+#top is dIC, side is dAPA
+
+```
+
+Do this with proportion:  
+```{r}
+dICanddAPA %>% group_by(dIC, dAPA) %>% summarise(n=n()) %>% mutate(nG=nrow(dICanddAPA),Prop=n/nG)  %>% select(dIC, dAPA, Prop) %>% spread(dAPA, Prop)
+```
+
+Enrichment: 
+
+```{r}
+x=nrow(dICanddAPA %>% filter(dIC=="Yes", dAPA=="Yes"))
+m=nrow(dICanddAPA %>% filter(dAPA=="Yes"))
+n=nrow(dICanddAPA %>% filter(dAPA=="No"))
+k=nrow(dICanddAPA %>% filter(dIC=="Yes"))
+N=nrow(dICanddAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+##dE and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dICanddE= dICSmall %>% inner_join(DiffExpSmall, by="gene") 
+
+
+dICanddE22=dICanddE %>% group_by(dIC, DE) %>% summarise(n=n()) %>% spread(DE, n) %>% column_to_rownames("dIC")
+dICanddE22
+
+#top is dIC, side is DE
+
+```
+Do this with proportion:  
+```{r}
+dICanddE %>% group_by(dIC, DE) %>% summarise(n=n()) %>% mutate(nG=nrow(dICanddE),Prop=n/nG)  %>% select(dIC, DE, Prop) %>% spread(DE, Prop)
+```
+
+
+```{r}
+x=nrow(dICanddE %>% filter(dIC=="Yes", DE=="Yes"))
+m=nrow(dICanddE %>% filter(DE=="Yes"))
+n=nrow(dICanddE %>% filter(DE=="No"))
+k=nrow(dICanddE %>% filter(dIC=="Yes"))
+N=nrow(dICanddE)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+
+
+##dT and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dICanddT= dICSmall %>% inner_join(RiboSmall, by="gene") 
+
+
+dICanddT22=dICanddT %>% group_by(dIC, dTE) %>% summarise(n=n()) %>% spread(dTE, n) %>% column_to_rownames("dIC")
+dICanddT22
+
+#top is dIC, side is dTE
+
+```
+Do this with proportion:  
+```{r}
+dICanddT %>% group_by(dIC, dTE) %>% summarise(n=n()) %>% mutate(nG=nrow(dICanddT),Prop=n/nG)  %>% select(dIC, dTE, Prop) %>% spread(dTE, Prop)
+```
+
+
+```{r}
+x=nrow(dICanddT %>% filter(dIC=="Yes", dTE=="Yes"))
+m=nrow(dICanddT %>% filter(dTE=="Yes"))
+n=nrow(dICanddT %>% filter(dTE=="No"))
+k=nrow(dICanddT %>% filter(dIC=="Yes"))
+N=nrow(dICanddT)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+##dP and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dICanddP= dICSmall %>% inner_join(ProtSmall, by="gene") 
+
+
+dICanddP22=dICanddP %>% group_by(dIC, dP) %>% summarise(n=n()) %>% spread(dP, n) %>% column_to_rownames("dIC")
+dICanddP22
+
+#top is dIC, side is DP
+
+```
+Do this with proportion:  
+```{r}
+dICanddP %>% group_by(dIC, dP) %>% summarise(n=n()) %>% mutate(nG=nrow(dICanddP),Prop=n/nG)  %>% select(dIC, dP, Prop) %>% spread(dP, Prop)
+```
+
+
+```{r}
+x=nrow(dICanddP %>% filter(dIC=="Yes", dP=="Yes"))
+m=nrow(dICanddP %>% filter(dP=="Yes"))
+n=nrow(dICanddP %>% filter(dP=="No"))
+k=nrow(dICanddP %>% filter(dIC=="Yes"))
+N=nrow(dICanddP)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+Not enough power for this one.  
+
