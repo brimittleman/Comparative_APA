@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library("edgeR")
+library(cowplot)
 library(coin)
 library("R.utils")
 library(rcompanion)
@@ -248,11 +249,15 @@ Plot pvalues:
 
 ```{r}
 plot(sort(outPutad$pval))
-plot(sort(outPutad$fdr))
 
+summary(outPutad$pval)
 ```
 
 
+
+```{r}
+plot(sort(outPutad$fdr),main="dIC FDR distribution", ylab="Sorted FDR")
+```
 
 
 
@@ -309,8 +314,12 @@ SimpMed= BothSimplong %>% group_by(species, gene) %>% summarise(Median=median(si
 allSImpsonMed=BothSimp %>% inner_join(SimpMed, by="gene") %>% mutate(sIC=ifelse(gene %in% outPutadSig$gene, "Yes","No"))
 
 
-ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_point()
+med5=ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_point() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="5% FDR dIC plotted on median values")+scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"))
 
+med5
+
+mean5=ggplot(allSImpsonMed, aes(x=simpOpp_Human, y=simpOpp_Chimp, col=sIC)) + geom_point() + labs(x="Human Simpson (calculated on mean usage)", y="Chimp Simpson (calculated on mean usage)", title="5% FDR dIC plotted on \nvalues calculated by mean usage") + scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"))
+mean5
 ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_density_2d()
 ```
 ```{r}
@@ -321,5 +330,31 @@ Write out to look at overlap with phenotypes
 
 ```{r}
 write.table(allSImpsonMed,"../data/IndInfoContent/SimpsonMedianSignificance.txt", col.names = T, row.names = F, quote=F)
+```
+
+This is an underpowered analysis because with pvalue ranges are restricted with low samples sizes. I will also write out a set at 10% FDR.  
+
+```{r}
+outPutadSig10= outPutad %>% filter(fdr<0.1)
+
+nrow(outPutadSig10)
+allSImpsonMed10=BothSimp %>% inner_join(SimpMed, by="gene") %>% mutate(sIC10=ifelse(gene %in% outPutadSig10$gene, "Yes","No"))
+
+
+write.table(allSImpsonMed10,"../data/IndInfoContent/SimpsonMedianSignificance_10FDR.txt", col.names = T, row.names = F, quote=F)
+```
+
+```{r}
+
+med10=ggplot(allSImpsonMed10, aes(x=Human, y=Chimp, col=sIC10)) + geom_point() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="10% FDR dIC plotted on median values")+scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"))
+med10
+mean10=ggplot(allSImpsonMed10, aes(x=simpOpp_Human, y=simpOpp_Chimp, col=sIC10)) + geom_point() + labs(x="Human Simpson (calculated on mean usage)", y="Chimp Simpson (calculated on mean usage)", title="10% FDR dIC plotted on values\n calculated by mean usage") + scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"))
+mean10
+
+```
+
+
+```{r}
+plot_grid(med5,mean5,med10,mean10)
 ```
 

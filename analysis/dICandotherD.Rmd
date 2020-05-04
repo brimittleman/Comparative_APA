@@ -85,10 +85,18 @@ dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", head
 dICdata %>% group_by(dIC) %>% summarise(n())
 
 dICSmall=dICdata %>% select(gene, dIC)
+
+dICdata10= read.table("../data/IndInfoContent/SimpsonMedianSignificance_10FDR.txt", header = T, stringsAsFactors = F) %>% rename(dIC10=sIC10)
+
+
+dICdata10 %>% group_by(dIC10) %>% summarise(n())
+
+dIC10Small=dICdata10 %>% select(gene, dIC10)
 ```
 
+##5% FDR  
 
-##dAPA and dIC  
+###dAPA and dIC  
 
 I will start with dIC and dAPA, I expect a pretty high overlap for this.  
 
@@ -99,7 +107,6 @@ dICanddAPA= dICSmall %>% inner_join(DiffIsoGene, by="gene")
 dICanddAPA22=dICanddAPA %>% group_by(dIC, dAPA) %>% summarise(n=n()) %>% spread(dAPA, n) %>% column_to_rownames("dIC")
 dICanddAPA22
 
-#top is dIC, side is dAPA
 
 ```
 
@@ -120,7 +127,7 @@ phyper(x-1,m,n,k,lower.tail=F)
 (x/k)/(m/N)
 ```
 
-##dE and dIC  
+###dE and dIC  
 
 I will start with dIC and dAPA, I expect a pretty high overlap for this.  
 
@@ -131,7 +138,6 @@ dICanddE= dICSmall %>% inner_join(DiffExpSmall, by="gene")
 dICanddE22=dICanddE %>% group_by(dIC, DE) %>% summarise(n=n()) %>% spread(DE, n) %>% column_to_rownames("dIC")
 dICanddE22
 
-#top is dIC, side is DE
 
 ```
 Do this with proportion:  
@@ -152,7 +158,7 @@ phyper(x-1,m,n,k,lower.tail=F)
 
 
 
-##dT and dIC  
+###dT and dIC  
 
 I will start with dIC and dAPA, I expect a pretty high overlap for this.  
 
@@ -163,7 +169,7 @@ dICanddT= dICSmall %>% inner_join(RiboSmall, by="gene")
 dICanddT22=dICanddT %>% group_by(dIC, dTE) %>% summarise(n=n()) %>% spread(dTE, n) %>% column_to_rownames("dIC")
 dICanddT22
 
-#top is dIC, side is dTE
+
 
 ```
 Do this with proportion:  
@@ -182,7 +188,7 @@ phyper(x-1,m,n,k,lower.tail=F)
 (x/k)/(m/N)
 ```
 
-##dP and dIC  
+###dP and dIC  
 
 I will start with dIC and dAPA, I expect a pretty high overlap for this.  
 
@@ -193,7 +199,7 @@ dICanddP= dICSmall %>% inner_join(ProtSmall, by="gene")
 dICanddP22=dICanddP %>% group_by(dIC, dP) %>% summarise(n=n()) %>% spread(dP, n) %>% column_to_rownames("dIC")
 dICanddP22
 
-#top is dIC, side is DP
+
 
 ```
 Do this with proportion:  
@@ -208,6 +214,134 @@ m=nrow(dICanddP %>% filter(dP=="Yes"))
 n=nrow(dICanddP %>% filter(dP=="No"))
 k=nrow(dICanddP %>% filter(dIC=="Yes"))
 N=nrow(dICanddP)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+Not enough power for this one.  
+
+
+##10%FDR  
+
+
+###dAPA and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dIC10anddAPA= dIC10Small %>% inner_join(DiffIsoGene, by="gene") 
+
+
+dIC10anddAPA22=dIC10anddAPA %>% group_by(dIC10, dAPA) %>% summarise(n=n()) %>% spread(dAPA, n) %>% column_to_rownames("dIC10")
+dIC10anddAPA22
+
+
+
+```
+
+Do this with proportion:  
+```{r}
+dIC10anddAPA %>% group_by(dIC10, dAPA) %>% summarise(n=n()) %>% mutate(nG=nrow(dIC10anddAPA),Prop=n/nG)  %>% select(dIC10, dAPA, Prop) %>% spread(dAPA, Prop)
+```
+
+Enrichment: 
+
+```{r}
+x=nrow(dIC10anddAPA %>% filter(dIC10=="Yes", dAPA=="Yes"))
+m=nrow(dIC10anddAPA %>% filter(dAPA=="Yes"))
+n=nrow(dIC10anddAPA %>% filter(dAPA=="No"))
+k=nrow(dIC10anddAPA %>% filter(dIC10=="Yes"))
+N=nrow(dIC10anddAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+###dE and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dIC10anddE= dIC10Small %>% inner_join(DiffExpSmall, by="gene") 
+
+
+dIC10anddE22=dIC10anddE %>% group_by(dIC10, DE) %>% summarise(n=n()) %>% spread(DE, n) %>% column_to_rownames("dIC10")
+dIC10anddE22
+
+
+
+```
+Do this with proportion:  
+```{r}
+dIC10anddE %>% group_by(dIC10, DE) %>% summarise(n=n()) %>% mutate(nG=nrow(dIC10anddE),Prop=n/nG)  %>% select(dIC10, DE, Prop) %>% spread(DE, Prop)
+```
+
+
+```{r}
+x=nrow(dIC10anddE %>% filter(dIC10=="Yes", DE=="Yes"))
+m=nrow(dIC10anddE %>% filter(DE=="Yes"))
+n=nrow(dIC10anddE %>% filter(DE=="No"))
+k=nrow(dIC10anddE %>% filter(dIC10=="Yes"))
+N=nrow(dIC10anddE)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+
+
+###dT and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dIC10andT= dIC10Small %>% inner_join(RiboSmall, by="gene") 
+
+
+dIC10andT22=dIC10andT %>% group_by(dIC10, dTE) %>% summarise(n=n()) %>% spread(dTE, n) %>% column_to_rownames("dIC10")
+dIC10andT22
+
+
+```
+Do this with proportion:  
+```{r}
+dIC10andT %>% group_by(dIC10, dTE) %>% summarise(n=n()) %>% mutate(nG=nrow(dIC10andT),Prop=n/nG)  %>% select(dIC10, dTE, Prop) %>% spread(dTE, Prop)
+```
+
+
+```{r}
+x=nrow(dIC10andT %>% filter(dIC10=="Yes", dTE=="Yes"))
+m=nrow(dIC10andT %>% filter(dTE=="Yes"))
+n=nrow(dIC10andT %>% filter(dTE=="No"))
+k=nrow(dIC10andT %>% filter(dIC10=="Yes"))
+N=nrow(dIC10andT)
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+###dP and dIC  
+
+I will start with dIC and dAPA, I expect a pretty high overlap for this.  
+
+```{r}
+dIC10anddP= dIC10Small %>% inner_join(ProtSmall, by="gene") 
+
+
+dIC10anddP22=dIC10anddP %>% group_by(dIC10, dP) %>% summarise(n=n()) %>% spread(dP, n) %>% column_to_rownames("dIC10")
+dIC10anddP22
+
+
+
+```
+Do this with proportion:  
+```{r}
+dIC10anddP %>% group_by(dIC10, dP) %>% summarise(n=n()) %>% mutate(nG=nrow(dIC10anddP),Prop=n/nG)  %>% select(dIC10, dP, Prop) %>% spread(dP, Prop)
+```
+
+
+```{r}
+x=nrow(dIC10anddP %>% filter(dIC10=="Yes", dP=="Yes"))
+m=nrow(dIC10anddP %>% filter(dP=="Yes"))
+n=nrow(dIC10anddP %>% filter(dP=="No"))
+k=nrow(dIC10anddP %>% filter(dIC10=="Yes"))
+N=nrow(dIC10anddP)
 phyper(x-1,m,n,k,lower.tail=F)
 (x/k)/(m/N)
 ```

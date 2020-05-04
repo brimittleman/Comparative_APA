@@ -97,48 +97,59 @@ DEtestedandAPA=NucAPA %>%rename("Gene.name"=gene) %>% inner_join(DEgenestested, 
 DeandAPA=NucAPA %>%rename("Gene.name"=gene) %>%  inner_join(DEgenes, by="Gene.name")%>% nrow()
 NotDe= nrow(DEgenestested)-nrow(DEgenes)
 
-x=DeandAPA
-m=nrow(DEgenes)
-n=NotDe
-k=DEtestedandAPA
+
+
+TestedAPAandDE=DEgenestested %>% inner_join(apaTested,by="Gene.name") %>% mutate(DE=ifelse(Gene.name %in% DEgenes$Gene.name, "Yes", "No"), dAPA=ifelse(Gene.name %in% NucAPA$gene, "Yes", "No"))
+
+x=nrow(TestedAPAandDE %>% filter(dAPA=="Yes", DE=="Yes"))
+m=nrow(TestedAPAandDE %>% filter(DE=="Yes"))
+n=nrow(TestedAPAandDE %>% filter(DE=="No"))
+k=nrow(TestedAPAandDE %>% filter(dAPA=="Yes"))
+N=nrow(TestedAPAandDE)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
-
+k*(m/N)
 
 #actual:
-DeandAPA
+x
+
+#enrichment: 
+(x/k)/(m/N)
 
 #pval
-phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)
+phyper(x-1,m,n,k,lower.tail=F)
 ```
 
 Translation:  
 Success is the overlap, T, not T, sample size is the apagenes tested in DE 
 
 ```{r}
-TranslationTested=read.table("../data/Wang_ribo/HC_AllTestedTranslation.txt",header = T,stringsAsFactors = F) %>% rename("gene"=Gene)
-TranslationNotTE= TranslationTested %>% filter(HvC.FDR>=.05)
-#actual overlap
-TeandAPA=Translation %>% rename("gene"=Gene) %>% inner_join(NucAPA,by="gene")
-TranslationTestedandAPA= TranslationTested %>% inner_join(NucAPA,by="gene")
+TranslationTested=read.table("../data/Wang_ribo/HC_AllTestedTranslation.txt",header = T,stringsAsFactors = F) %>% rename("Gene.name"=Gene)
 
 
-x=nrow(TeandAPA)
-m= nrow(Translation)
-n=nrow(TranslationNotTE)
-k=nrow(TranslationTestedandAPA)
+TestedAPAandDT=TranslationTested %>% inner_join(apaTested,by="Gene.name") %>% mutate(DT=ifelse(Gene.name %in% Translation$Gene, "Yes", "No"), dAPA=ifelse(Gene.name %in% NucAPA$gene, "Yes", "No"))
+
+x=nrow(TestedAPAandDT %>% filter(dAPA=="Yes", DT=="Yes"))
+m=nrow(TestedAPAandDT %>% filter(DT=="Yes"))
+n=nrow(TestedAPAandDT %>% filter(DT=="No"))
+k=nrow(TestedAPAandDT %>% filter(dAPA=="Yes"))
+N=nrow(TestedAPAandDT)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+k*(m/N)
 
 #actual:
-nrow(TeandAPA)
+x
+
+#enrichment: 
+(x/k)/(m/N)
 
 #pval
-phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)
+phyper(x-1,m,n,k,lower.tail=F)
+
+
 ```
 
 Protein  
@@ -146,27 +157,29 @@ Protein
 Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp  
 
 ```{r}
-ProtTested=read.table("../data/Khan_prot/HC_AlltestedProtein.txt",header = T,stringsAsFactors = F) %>% rename("gene"=gene.symbol)
-ProtNotPE= ProtTested %>% filter(HC.qvalues.protein>=.05)
-#actual overlap
-PEandAPA=Protein %>% rename("gene"=gene.symbol) %>% inner_join(NucAPA,by="gene")
-ProtTestedandAPA= ProtTested %>% inner_join(NucAPA,by="gene")
+ProtTested=read.table("../data/Khan_prot/HC_AlltestedProtein.txt",header = T,stringsAsFactors = F) %>% rename("Gene.name"=gene.symbol)
 
 
-x=nrow(PEandAPA)
-m= nrow(Protein)
-n=nrow(ProtNotPE)
-k=nrow(ProtTestedandAPA)
+TestedAPAandDP=ProtTested %>% inner_join(apaTested,by="Gene.name") %>% mutate(DP=ifelse(Gene.name %in% Protein$gene.symbol, "Yes", "No"), dAPA=ifelse(Gene.name %in% NucAPA$gene, "Yes", "No"))
+
+x=nrow(TestedAPAandDP %>% filter(dAPA=="Yes", DP=="Yes"))
+m=nrow(TestedAPAandDP %>% filter(DP=="Yes"))
+n=nrow(TestedAPAandDP %>% filter(DP=="No"))
+k=nrow(TestedAPAandDP %>% filter(dAPA=="Yes"))
+N=nrow(TestedAPAandDP)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+k*(m/N)
 
 #actual:
-nrow(PEandAPA)
+x
+
+#enrichment: 
+(x/k)/(m/N)
 
 #pval
-phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)
+phyper(x-1,m,n,k,lower.tail=F)
 ```
 
 
@@ -182,7 +195,9 @@ k is the total rhesus tissue-specific genes
 
 phyper(x=overlap all pheno, m=overlap 2 (not apa) , n= total - overlap of 2 (not apa), k=total for apa)
 
-```{r}
+
+**NOT UPDATED**
+```{r,eval=F}
 ApaProtTrans=PEandAPA  %>% inner_join(TeandAPA, by="gene")
 
 PeandTE=Translation %>% inner_join(Protein) %>% rename("gene"=Gene)
@@ -216,7 +231,7 @@ Expression te and pe
 Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt 
 
 
-```{r}
+```{r,eval=F}
 Protein_g = Protein %>% rename("gene"=gene.symbol)
 translation_g= Translation%>% rename("gene"=Gene)
 DEgenes_g= DEgenes %>% rename("gene"=Gene.name)
@@ -252,12 +267,12 @@ I can make a table for this- I'll have the set, the actual, the expected, the pv
 
 Splicing results:  
 
-```{r}
+```{r,eval=F}
 listInput_Splice <- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DT=Translation$Gene, DP=Protein$gene.symbol)
 upset(fromList(listInput_Splice), order.by = "freq", keep.order = T,empty.intersections = "on")
 ```
 
-```{r}
+```{r,eval=F}
 DeandAPAList=NucAPA %>%rename("Gene.name"=gene) %>%  inner_join(DEgenes, by="Gene.name") %>% rename("gene"=Gene.name)
 
 write.table(DeandAPAList,"../data/DiffIso_Nuclear_DF/GeneswithDEanddAPA.txt", col.names = T,row.names = F,quote = F)

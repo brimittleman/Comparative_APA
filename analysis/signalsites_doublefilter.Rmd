@@ -56,11 +56,11 @@ ggplot(ChimpRawout,aes(x=X17_user_patt_count)) + geom_bar(aes(y=..prop..))+labs(
 See if yes no segragates with usage:
 
 ```{r}
-ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test")
+ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test")
 ```
 ```{r}
 
-ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test")
+ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test")
 ```
 
 Look at location data and bring this in.  
@@ -74,9 +74,9 @@ humanRawout_withloc=humanRawout%>% inner_join(Loc, by="X4_usercol") %>% filter(l
 
 ```{r}
 
-ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
 
-ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x="Presence of AATAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",
 label.y.npc = "bottom")
 ```
 
@@ -101,9 +101,9 @@ chimp_both=chimp_ATTAAA %>% inner_join(ChimpRawout_withloc, by=c("X1_usercol", "
 ```
 
 ```{r}
-ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of  ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of  ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
 
-ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x="Presence of ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1  ATTAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",
 label.y.npc = "bottom")
 ```
 
@@ -111,9 +111,9 @@ label.y.npc = "bottom")
 
 ```{r}
 
-ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
+ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Human mean usage",title="Human usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",label.y.npc = "bottom")
 
-ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Dark2") + stat_compare_means(method = "t.test",
+ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x="Presence of AATAAA or ATTAAA", y="Chimp mean usage",title="Chimp usage by presense of at least 1 AATAAA or ATTAAA") + scale_fill_brewer(palette = "Set1") + stat_compare_means(method = "t.test",
 label.y.npc = "bottom")
 ```
 
@@ -128,7 +128,7 @@ chimp_both_loc= chimp_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>%
 bothSpeciesLoc=chimp_both_loc %>% inner_join(human_both_loc,by=c("loc", "anySS")) %>% gather(key="species", value="propSS", -loc, -anySS) %>% filter(anySS=="yes")
 
 
-ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Presence of top 2 signal sites by location", x="Proportion with signal site", x="location")
+ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Set1") + labs(title="Presence of top 2 signal sites by location", x="Proportion with signal site", x="location")
 ```
 
 
@@ -262,11 +262,11 @@ Both_AllPAS_group= Both_AllPAS_ident %>% group_by(Species, Signal) %>% summarise
 Plot:  
 
 ```{r}
-ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1")
 ```
  
 ```{r}
-ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat="identity",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat="identity",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1")
 ```
 
 This is not accounting for more than 1. I need to chose in a hierarchical way. I think I will use these proportions.  
@@ -342,7 +342,7 @@ Plot
 
 
 ```{r}
-ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat="count",position = "dodge")+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1")
 ```
 
 Look and see if the sites are the same  
@@ -409,7 +409,7 @@ MetaPASwSS_groupH=MetaPASwSS %>% dplyr::select(PAS,HumanPAS,Human) %>% mutate(Sp
 
 MetaPASwSSBoth=MetaPASwSS_groupC %>% bind_rows(MetaPASwSS_groupH)
 
-ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2") + labs(title="Usage distribution by Signal and species")
+ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1") + labs(title="Usage distribution by Signal and species")
 ```
 
 I want to see if the usage is different when the PAS is same vs different  
@@ -426,7 +426,7 @@ MetaPASwSS_matchG= MetaPASwSS_match%>% dplyr::select(PAS, SameSS, Chimp, Human) 
 ```
 
 ```{r}
-ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = "t.test",label.y=0) + scale_fill_brewer(palette = "Dark2",name="Both Species \nhave Same Signal Site") +labs(title="Usage of PAS by same signal in both species")
+ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = "t.test",label.y=0) + scale_fill_brewer(palette = "Set1",name="Both Species \nhave Same Signal Site") +labs(title="Usage of PAS by same signal in both species")
 ```
 
 This means usage is higher when they have matching signal sites.  
@@ -436,7 +436,7 @@ Get proportion plot.
 ```{r}
 MetaPASwSS_Sm = MetaPASwSS %>%  dplyr::select(PAS,ChimpPAS, HumanPAS) %>% gather("Species", "SS", -PAS) %>% group_by(Species,SS) %>% summarise(nSS=n()) %>% mutate(propSS=nSS/nrow(MetaPASwSS))
 
-ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2")
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="")
 ```
 
 By location SS:  
@@ -444,7 +444,7 @@ By location SS:
 ```{r}
 MetaPASwSS_loc=MetaPASwSS %>% mutate(ChimpWSS=ifelse(ChimpPAS =="None", "No", "Yes"),HumanWSS=ifelse(HumanPAS =="None", "No", "Yes")) %>% dplyr::select(loc, PAS, ChimpWSS, HumanWSS) %>% gather("Species", "SS", -PAS, -loc) %>% group_by(loc, Species, SS) %>% summarise(n=n()) %>% ungroup() %>% group_by(loc, Species) %>% mutate(nLoc=sum(n),PropWSS=n/nLoc) %>% filter(SS=="Yes")
 
-ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat="identity", position = "dodge")+ labs(x="",y="Proportion of PAS",title="PAS with signal site \nby species and location") + scale_fill_brewer( labels = c("Chimp","Human"), palette = "Dark2")
+ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat="identity", position = "dodge")+ labs(x="",y="Proportion of PAS",title="PAS with signal site \nby species and location") + scale_fill_brewer( labels = c("Chimp","Human"), palette = "Set1")
 ```
 
 
@@ -497,7 +497,7 @@ MetaPASwSS_topLocC= MetaPASwSS_top %>% dplyr::select(ChimpTopSS,loc) %>% mutate(
 
 MetaPASwSS_topLocBoth= MetaPASwSS_topLocH %>% bind_rows(MetaPASwSS_topLocC) %>% group_by(Species, loc,Signal) %>% summarise(WithSS=n()) %>% ungroup() %>% group_by(Species, loc) %>% mutate(nLoc=sum(WithSS), Prop=WithSS/nLoc) %>% filter(Signal=="Yes")
 
-ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat="identity", position = "dodge")+ labs(title="Proportion of PAS with a Signal Site", y="Proportion of PAS", x="") + scale_fill_brewer(palette = "Dark2")
+ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat="identity", position = "dodge")+ labs(title="Proportion of PAS with a Signal Site", y="Proportion of PAS", x="") + scale_fill_brewer(palette = "Set1") + theme_classic()
 ```
 
 
