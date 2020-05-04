@@ -187,10 +187,19 @@ Plot:
 
 ```{r}
 
-ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity",alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Most genes with a domiant PAS share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff")
+numberDom=ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Most genes with a domiant PAS share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff")
+
+numberDom
 ```
 
 ```{r}
 
-ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity",alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Proportion of Tested Genes with a Dominant PAS", y="Proportion of Tested Genes", x="Domianance Cutoff")
+propDom=ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = "RdYlBu")+theme(legend.position = "none") + labs(title="Proportion of Tested Genes with a Dominant PAS", y="Proportion of Tested Genes", x="Domianance Cutoff")
 ```
+
+```{r}
+library(cowplot)
+
+plot_grid(numberDom, propDom)
+```
+
