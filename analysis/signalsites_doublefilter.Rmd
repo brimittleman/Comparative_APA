@@ -507,3 +507,9 @@ Write out this extra info:
 write.table(MetaPASwSS_top, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", col.names = T, quote = F, row.names = F)
 ```
 
+
+
+```{r,ss,include=FALSE, dev="pdf",crop=FALSE}
+ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat="identity", position = "dodge")+ labs(title="Proportion of PAS with a Signal Site", y="Proportion of PAS", x="") + scale_fill_brewer(palette = "Set1") + theme_classic()
+```
+
