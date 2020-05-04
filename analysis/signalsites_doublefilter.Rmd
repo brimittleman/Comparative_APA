@@ -510,6 +510,6 @@ write.table(MetaPASwSS_top, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoo
 
 
 ```{r,ss,include=FALSE, dev="pdf",crop=FALSE}
-ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat="identity", position = "dodge")+ labs(title="Proportion of PAS with a Signal Site", y="Proportion of PAS", x="") + scale_fill_brewer(palette = "Set1") + theme_classic()
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="") + theme_classic()
 ```
 
