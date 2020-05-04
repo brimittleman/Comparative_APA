@@ -1,0 +1,105 @@
+---
+title: "Pie charts for dAPA at all levels"
+author: "Briana Mittleman"
+date: "5/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to make pie charts to show differential usage at all three levels.  
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+```
+
+```{r}
+useCOl <- c("#d73027", "#4575b4","#fee090")
+```
+
+dAPA, pas and gene level
+dIC
+diff Dominant  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+```
+
+
+```{r}
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+NotTestedPAS= Meta_PAS %>% anti_join(dAPAPAS,by="PAS") %>% mutate(SigPAU2="notTested")
+
+dAPAwithNottested=NotTestedPAS %>% bind_rows(dAPAPAS)
+
+dAPAPASGrouped= dAPAwithNottested %>%  group_by(SigPAU2) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
+
+
+
+pasplot=ggplot(dAPAPASGrouped,aes(by=SigPAU2, y=prop, x="", fill=SigPAU2)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA PAS") +labs(title="Differential APA PAS 5% FDR")
+
+pasplot
+```
+Gene level:  
+
+```{r}
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+NotTestedGenes=Meta_genes %>% anti_join(dAPAPAS_genes, by="gene") %>% mutate(dAPA="NotTested")
+
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) %>% bind_rows(NotTestedGenes)%>% group_by(dAPA) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
+genesplot=ggplot(dAPATestedGenes,aes(by=dAPA, y=prop, x="", fill=dAPA)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA Genes") +labs(title="Differential APA genes 5% FDR")
+genesplot
+```
+
+dInfo:  
+
+```{r}
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance_10FDR.txt", header = T, stringsAsFactors = F)%>% select(sIC10,gene)
+
+Nottested= Meta_genes %>% anti_join(dICdata, by="gene") %>% mutate(sIC10="notTested")
+
+dICdata_wnot= dICdata %>% bind_rows(Nottested) %>% group_by(sIC10) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
+
+dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x="", fill=sIC10)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential information content\n 10% FDR")
+dICplot
+```
+
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40) %>% select(gene, Set)
+
+NoDom= Meta_genes %>% anti_join(BothRes_40,by="gene") %>% mutate(Set="NoDominant")
+
+BothRes_40wNo=BothRes_40 %>% bind_rows(NoDom) %>% group_by(Set)  %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
+
+BothRes_40wNo$Set=factor(BothRes_40wNo$Set, levels=c('Same', 'NoDominant', 'Different'))
+
+
+Domplot=ggplot(BothRes_40wNo,aes(by=Set, y=prop, x="", fill=Set)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="Genes with \nDominant PAS") +labs(title="Same and Different Dominant PAS")
+Domplot
+```
+
+
+```{r}
+plot_grid(pasplot, genesplot, dICplot, Domplot)
+```
+

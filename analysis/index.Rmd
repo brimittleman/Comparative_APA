@@ -96,6 +96,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New dominant and dAPA](NewdomanddAPA.html)
 
+* [pie charts for 3 levels of dAPA](piecharts.html)
+
 
 ###Use annotations to understand mechanisms
 
