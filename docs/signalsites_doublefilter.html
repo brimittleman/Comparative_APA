@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-10
+<strong>Last updated:</strong> 2020-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/014951a93df8e8a1c6477562f9706689556b7466" target="_blank">014951a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/bc9be31e8ba6db9966c7e542818393ea32f78291" target="_blank">bc9be31</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree014951a93df8e8a1c6477562f9706689556b7466targetblank014951aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -460,6 +460,7 @@ Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -680,6 +681,7 @@ Untracked files:
     Untracked:  code/CrossmapChimp3prime.out
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
+    Untracked:  code/DTUTR.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -699,6 +701,7 @@ Untracked files:
     Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindDomXCutoff.py
     Untracked:  code/FindIntronForDomPAS.err
     Untracked:  code/FindIntronForDomPAS.out
     Untracked:  code/FindIntronForDomPAS.sh
@@ -707,8 +710,33 @@ Untracked files:
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -745,6 +773,11 @@ Untracked files:
     Untracked:  code/MismatchNumbers.err
     Untracked:  code/MismatchNumbers.out
     Untracked:  code/MismatchNumbers.sh
+    Untracked:  code/NuclearDTUTR.err
+    Untracked:  code/NuclearDTUTRt.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.err
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -762,6 +795,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -781,6 +815,8 @@ Untracked files:
     Untracked:  code/RunNegMCMediationDF.out
     Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
+    Untracked:  code/RunNewDom.err
+    Untracked:  code/RunNewDom.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
     Untracked:  code/RunPosMCMediationDF.err
@@ -803,6 +839,7 @@ Untracked files:
     Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
+    Untracked:  code/UTR2FASTA.py
     Untracked:  code/Upstream10Bases_general.py
     Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
@@ -912,6 +949,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -947,10 +985,14 @@ Untracked files:
     Untracked:  code/mediation_test.R
     Untracked:  code/merge.err
     Untracked:  code/mergeChimp3prime_inhg38.sh
+    Untracked:  code/mergeChimpRNA.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1015,6 +1057,7 @@ Untracked files:
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runHumanDiffIsoDF.sh
+    Untracked:  code/runNewDom.sh
     Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
@@ -1130,11 +1173,13 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/AREelements/
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
+    Untracked:  data/DiffDomandDE_example/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffIso_Nuclear_DF/
@@ -1142,11 +1187,18 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DomDefGreaterX/
+    Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1213,8 +1265,10 @@ Untracked files:
     Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1222,14 +1276,21 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
@@ -1237,6 +1298,7 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1278,6 +1340,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/bc9be31e8ba6db9966c7e542818393ea32f78291/analysis/signalsites_doublefilter.Rmd" target="_blank">bc9be31</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+add dIC overlap 10% and fix enrich dapa
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/signalsites_doublefilter.html" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1516,12 +1612,12 @@ add ss and PAS num DF
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1560,6 +1656,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-1.png" target="_blank">a7536f9</a>
@@ -1612,6 +1719,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-4-2.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -1637,7 +1755,7 @@ brimittleman
 </div>
 </div>
 <p>See if yes no segragates with usage:</p>
-<pre class="r"><code>ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
+<pre class="r"><code>ggplot(humanRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1661,6 +1779,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-5-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-5-1.png" target="_blank">a7536f9</a>
@@ -1687,7 +1816,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
+<pre class="r"><code>ggplot(ChimpRawout,aes(x=SS,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1711,6 +1840,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-6-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-6-1.png" target="_blank">a7536f9</a>
@@ -1742,7 +1882,7 @@ brimittleman
 
 ChimpRawout_withloc=ChimpRawout %&gt;% inner_join(Loc, by=&quot;X4_usercol&quot;) %&gt;% filter(loc!=&quot;008559&quot;)
 humanRawout_withloc=humanRawout%&gt;% inner_join(Loc, by=&quot;X4_usercol&quot;) %&gt;% filter(loc!=&quot;008559&quot;)</code></pre>
-<pre class="r"><code>ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
+<pre class="r"><code>ggplot(humanRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1766,6 +1906,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-1.png" target="_blank">a7536f9</a>
@@ -1792,7 +1943,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
+<pre class="r"><code>ggplot(ChimpRawout_withloc,aes(x=loc,y=X5_usercol,by=SS, fill=SS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1817,6 +1968,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-8-2.png" target="_blank">a7536f9</a>
@@ -1854,7 +2016,7 @@ chimp_ATTAAA=read.table(&quot;../data/SignalSites_doublefilter/PAS_doublefilter_
 human_both=human_ATTAAA %&gt;% inner_join(humanRawout_withloc, by=c(&quot;X1_usercol&quot;, &quot;X2_usercol&quot;, &quot;X3_usercol&quot;, &quot;X4_usercol&quot;, &quot;X5_usercol&quot;, &quot;X6_usercol&quot;, &quot;X7_pct_at&quot;, &quot;X8_pct_gc&quot;, &quot;X9_num_A&quot;, &quot;X10_num_C&quot;, &quot;X11_num_G&quot;, &quot;X12_num_T&quot;, &quot;X13_num_N&quot;, &quot;X14_num_oth&quot;, &quot;X15_seq_len&quot;, &quot;X16_seq&quot;)) %&gt;% mutate(anySS=ifelse(SS == &quot;yes&quot; | SS2 ==&quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;))
 
 chimp_both=chimp_ATTAAA %&gt;% inner_join(ChimpRawout_withloc, by=c(&quot;X1_usercol&quot;, &quot;X2_usercol&quot;, &quot;X3_usercol&quot;, &quot;X4_usercol&quot;, &quot;X5_usercol&quot;, &quot;X6_usercol&quot;, &quot;X7_pct_at&quot;, &quot;X8_pct_gc&quot;, &quot;X9_num_A&quot;, &quot;X10_num_C&quot;, &quot;X11_num_G&quot;, &quot;X12_num_T&quot;, &quot;X13_num_N&quot;, &quot;X14_num_oth&quot;, &quot;X15_seq_len&quot;, &quot;X16_seq&quot;)) %&gt;% mutate(anySS=ifelse(SS == &quot;yes&quot; | SS2 ==&quot;yes&quot;, &quot;yes&quot;, &quot;no&quot;))</code></pre>
-<pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of  ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
+<pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of  ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -1878,6 +2040,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-1.png" target="_blank">a7536f9</a>
@@ -1904,7 +2077,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
+<pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=SS2, fill=SS2)) + geom_boxplot() + labs(x=&quot;Presence of ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1  ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1931,6 +2104,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-11-2.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -1955,7 +2139,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
+<pre class="r"><code>ggplot(human_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Human mean usage&quot;,title=&quot;Human usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -1979,6 +2163,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-1.png" target="_blank">a7536f9</a>
@@ -2005,7 +2200,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;) + stat_compare_means(method = &quot;t.test&quot;,
+<pre class="r"><code>ggplot(chimp_both,aes(x=loc,y=X5_usercol,by=anySS, fill=anySS)) + geom_boxplot() + labs(x=&quot;Presence of AATAAA or ATTAAA&quot;, y=&quot;Chimp mean usage&quot;,title=&quot;Chimp usage by presense of at least 1 AATAAA or ATTAAA&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + stat_compare_means(method = &quot;t.test&quot;,
 label.y.npc = &quot;bottom&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2030,6 +2225,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-12-2.png" target="_blank">a7536f9</a>
@@ -2064,7 +2270,7 @@ chimp_both_loc= chimp_both %&gt;% group_by(loc, anySS) %&gt;% summarise(count=n(
 bothSpeciesLoc=chimp_both_loc %&gt;% inner_join(human_both_loc,by=c(&quot;loc&quot;, &quot;anySS&quot;)) %&gt;% gather(key=&quot;species&quot;, value=&quot;propSS&quot;, -loc, -anySS) %&gt;% filter(anySS==&quot;yes&quot;)
 
 
-ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Presence of top 2 signal sites by location&quot;, x=&quot;Proportion with signal site&quot;, x=&quot;location&quot;)</code></pre>
+ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;) +  scale_fill_brewer(palette = &quot;Set1&quot;) + labs(title=&quot;Presence of top 2 signal sites by location&quot;, x=&quot;Proportion with signal site&quot;, x=&quot;location&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
@@ -2088,6 +2294,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-13-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-13-1.png" target="_blank">a7536f9</a>
@@ -2212,7 +2429,7 @@ Both_AllPAS_ident= Chimp_allPAS_gather %&gt;% bind_rows(Human_allPAS_gather) %&g
 
 Both_AllPAS_group= Both_AllPAS_ident %&gt;% group_by(Species, Signal) %&gt;% summarise(n=n()) %&gt;% mutate(NPAS=44432, propW=n/NPAS)</code></pre>
 <p>Plot:</p>
-<pre class="r"><code>ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(Both_AllPAS_ident, aes(x=Signal, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
@@ -2236,6 +2453,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-20-1.png" target="_blank">a7536f9</a>
@@ -2262,7 +2490,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(Both_AllPAS_group, aes(x=Signal, by=Species, fill=Species,y=propW)) + geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
@@ -2286,6 +2514,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-21-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-21-1.png" target="_blank">a7536f9</a>
@@ -2334,6 +2573,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-23-1.png" target="_blank">a7536f9</a>
@@ -2386,6 +2636,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-24-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-24-1.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -2423,6 +2684,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-24-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-24-2.png" target="_blank">a7536f9</a>
@@ -2463,7 +2735,7 @@ Chimp1Per=read.table(&quot;../data/SignalSites_doublefilter/ChimpSignalSiteperPA
 
 Both1Per=Human1Per %&gt;% bind_rows(Chimp1Per)</code></pre>
 <p>Plot</p>
-<pre class="r"><code>ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>ggplot(Both1Per,aes(x=SS, by=Species, fill=Species)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot;)+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
@@ -2487,6 +2759,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-28-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-28-1.png" target="_blank">a7536f9</a>
@@ -2542,6 +2825,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-30-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-30-1.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -2592,6 +2886,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-31-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-31-1.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -2635,6 +2940,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-33-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-33-1.png" target="_blank">a7536f9</a>
@@ -2688,6 +3004,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-33-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-33-2.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -2709,7 +3036,7 @@ MetaPASwSS_groupH=MetaPASwSS %&gt;% dplyr::select(PAS,HumanPAS,Human) %&gt;% mut
 
 MetaPASwSSBoth=MetaPASwSS_groupC %&gt;% bind_rows(MetaPASwSS_groupH)
 
-ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;) + labs(title=&quot;Usage distribution by Signal and species&quot;)</code></pre>
+ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;) + labs(title=&quot;Usage distribution by Signal and species&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
@@ -2733,6 +3060,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-34-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-34-1.png" target="_blank">a7536f9</a>
@@ -2776,7 +3114,7 @@ MetaPASwSS_match= MetaPASwSS %&gt;% mutate(SameSS=ifelse(ChimpPAS==HumanPAS , &q
 
 
 MetaPASwSS_matchG= MetaPASwSS_match%&gt;% dplyr::select(PAS, SameSS, Chimp, Human) %&gt;% gather(Species, Usage, -SameSS, -PAS)</code></pre>
-<pre class="r"><code>ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = &quot;t.test&quot;,label.y=0) + scale_fill_brewer(palette = &quot;Dark2&quot;,name=&quot;Both Species \nhave Same Signal Site&quot;) +labs(title=&quot;Usage of PAS by same signal in both species&quot;)</code></pre>
+<pre class="r"><code>ggplot(MetaPASwSS_matchG,aes(x=Species, y=Usage, by=SameSS,fill=SameSS)) + geom_boxplot() + stat_compare_means(method = &quot;t.test&quot;,label.y=0) + scale_fill_brewer(palette = &quot;Set1&quot;,name=&quot;Both Species \nhave Same Signal Site&quot;) +labs(title=&quot;Usage of PAS by same signal in both species&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
@@ -2800,6 +3138,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-36-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-36-1.png" target="_blank">a7536f9</a>
@@ -2841,7 +3190,7 @@ brimittleman
 <p>Get proportion plot.</p>
 <pre class="r"><code>MetaPASwSS_Sm = MetaPASwSS %&gt;%  dplyr::select(PAS,ChimpPAS, HumanPAS) %&gt;% gather(&quot;Species&quot;, &quot;SS&quot;, -PAS) %&gt;% group_by(Species,SS) %&gt;% summarise(nSS=n()) %&gt;% mutate(propSS=nSS/nrow(MetaPASwSS))
 
-ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;, label=c(&quot;Chimp&quot;, &quot;Human&quot;))  + labs(y=&quot;Proportion of PAS&quot;,title=&quot;Proportion of PAS with a signal site&quot;, x=&quot;&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
@@ -2865,6 +3214,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-37-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-37-1.png" target="_blank">a7536f9</a>
@@ -2894,7 +3254,7 @@ brimittleman
 <p>By location SS:</p>
 <pre class="r"><code>MetaPASwSS_loc=MetaPASwSS %&gt;% mutate(ChimpWSS=ifelse(ChimpPAS ==&quot;None&quot;, &quot;No&quot;, &quot;Yes&quot;),HumanWSS=ifelse(HumanPAS ==&quot;None&quot;, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% dplyr::select(loc, PAS, ChimpWSS, HumanWSS) %&gt;% gather(&quot;Species&quot;, &quot;SS&quot;, -PAS, -loc) %&gt;% group_by(loc, Species, SS) %&gt;% summarise(n=n()) %&gt;% ungroup() %&gt;% group_by(loc, Species) %&gt;% mutate(nLoc=sum(n),PropWSS=n/nLoc) %&gt;% filter(SS==&quot;Yes&quot;)
 
-ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;)+ labs(x=&quot;&quot;,y=&quot;Proportion of PAS&quot;,title=&quot;PAS with signal site \nby species and location&quot;) + scale_fill_brewer( labels = c(&quot;Chimp&quot;,&quot;Human&quot;), palette = &quot;Dark2&quot;)</code></pre>
+ggplot(MetaPASwSS_loc,aes(x=loc, by=Species, fill=Species, y=PropWSS)) +geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;)+ labs(x=&quot;&quot;,y=&quot;Proportion of PAS&quot;,title=&quot;PAS with signal site \nby species and location&quot;) + scale_fill_brewer( labels = c(&quot;Chimp&quot;,&quot;Human&quot;), palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-38-1">
@@ -2918,6 +3278,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-38-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-38-1.png" target="_blank">a7536f9</a>
@@ -2964,6 +3335,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-41-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-41-1.png" target="_blank">a7536f9</a>
@@ -3027,6 +3409,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-41-2.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-41-2.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -3071,6 +3464,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-42-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-42-1.png" target="_blank">a7536f9</a>
@@ -3129,6 +3533,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-43-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-43-1.png" target="_blank">a7536f9</a>
 </td>
 <td>
@@ -3158,7 +3573,7 @@ MetaPASwSS_topLocC= MetaPASwSS_top %&gt;% dplyr::select(ChimpTopSS,loc) %&gt;% m
 
 MetaPASwSS_topLocBoth= MetaPASwSS_topLocH %&gt;% bind_rows(MetaPASwSS_topLocC) %&gt;% group_by(Species, loc,Signal) %&gt;% summarise(WithSS=n()) %&gt;% ungroup() %&gt;% group_by(Species, loc) %&gt;% mutate(nLoc=sum(WithSS), Prop=WithSS/nLoc) %&gt;% filter(Signal==&quot;Yes&quot;)
 
-ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;)+ labs(title=&quot;Proportion of PAS with a Signal Site&quot;, y=&quot;Proportion of PAS&quot;, x=&quot;&quot;) + scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
+ggplot(MetaPASwSS_topLocBoth, aes(x=loc, y=Prop, by=Species, fill=Species))+geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;)+ labs(title=&quot;Proportion of PAS with a Signal Site&quot;, y=&quot;Proportion of PAS&quot;, x=&quot;&quot;) + scale_fill_brewer(palette = &quot;Set1&quot;) + theme_classic()</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-44-1">
@@ -3182,6 +3597,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-44-1.png" target="_blank">a7e29b9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7536f93a3eff26083d40c9bc79e4337874b201a/docs/figure/signalsites_doublefilter.Rmd/unnamed-chunk-44-1.png" target="_blank">a7536f9</a>
@@ -3239,7 +3665,7 @@ loaded via a namespace (and not attached):
 [16] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
 [19] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
 [22] labeling_0.3       knitr_1.20         httpuv_1.4.5      
-[25] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[25] broom_0.5.1        Rcpp_1.0.4.6       promises_1.0.1    
 [28] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
 [31] fs_1.3.1           hms_0.4.2          digest_0.6.18     
 [34] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   

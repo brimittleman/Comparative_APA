@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-22
+<strong>Last updated:</strong> 2020-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1e814ec9bd54a9c1cb192adba11a48c8c5631264targetblank1e814eca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/1e814ec9bd54a9c1cb192adba11a48c8c5631264" target="_blank">1e814ec</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/bc9be31e8ba6db9966c7e542818393ea32f78291" target="_blank">bc9be31</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree1e814ec9bd54a9c1cb192adba11a48c8c5631264targetblank1e814eca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -711,8 +711,32 @@ Untracked files:
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -925,6 +949,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -965,6 +990,9 @@ Untracked files:
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1163,9 +1191,14 @@ Untracked files:
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1235,6 +1268,7 @@ Untracked files:
     Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1242,15 +1276,18 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
-    Modified:   analysis/NewDomandDE.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
@@ -1261,9 +1298,9 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
-    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1303,6 +1340,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/bc9be31e8ba6db9966c7e542818393ea32f78291/analysis/upsetter_DF.Rmd" target="_blank">bc9be31</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+add dIC overlap 10% and fix enrich dapa
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/upsetter_DF.html" target="_blank">5d82297</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1537,12 +1608,12 @@ library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(RColorBrewer)</code></pre>
@@ -1723,6 +1794,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/upsetter_DF.Rmd/unnamed-chunk-5-1.png" target="_blank">5d82297</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c4f1c7fda46de2b9e2416491e7a8deab9f6645b3/docs/figure/upsetter_DF.Rmd/unnamed-chunk-5-1.png" target="_blank">c4f1c7f</a>
 </td>
 <td>
@@ -1771,78 +1853,91 @@ DEtestedandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;% inner_join
 DeandAPA=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;%  inner_join(DEgenes, by=&quot;Gene.name&quot;)%&gt;% nrow()
 NotDe= nrow(DEgenestested)-nrow(DEgenes)
 
-x=DeandAPA
-m=nrow(DEgenes)
-n=NotDe
-k=DEtestedandAPA
+
+
+TestedAPAandDE=DEgenestested %&gt;% inner_join(apaTested,by=&quot;Gene.name&quot;) %&gt;% mutate(DE=ifelse(Gene.name %in% DEgenes$Gene.name, &quot;Yes&quot;, &quot;No&quot;), dAPA=ifelse(Gene.name %in% NucAPA$gene, &quot;Yes&quot;, &quot;No&quot;))
+
+x=nrow(TestedAPAandDE %&gt;% filter(dAPA==&quot;Yes&quot;, DE==&quot;Yes&quot;))
+m=nrow(TestedAPAandDE %&gt;% filter(DE==&quot;Yes&quot;))
+n=nrow(TestedAPAandDE %&gt;% filter(DE==&quot;No&quot;))
+k=nrow(TestedAPAandDE %&gt;% filter(dAPA==&quot;Yes&quot;))
+N=nrow(TestedAPAandDE)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 546</code></pre>
+k*(m/N)</code></pre>
+<pre><code>[1] 542.9088</code></pre>
 <pre class="r"><code>#actual:
-DeandAPA</code></pre>
+x</code></pre>
 <pre><code>[1] 610</code></pre>
+<pre class="r"><code>#enrichment: 
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.123577</code></pre>
 <pre class="r"><code>#pval
-phyper(DeandAPA, nrow(DEgenes), NotDe, DEtestedandAPA,lower.tail=F)</code></pre>
-<pre><code>[1] 9.105728e-05</code></pre>
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 3.181346e-05</code></pre>
 <p>Translation:<br />
 Success is the overlap, T, not T, sample size is the apagenes tested in DE</p>
-<pre class="r"><code>TranslationTested=read.table(&quot;../data/Wang_ribo/HC_AllTestedTranslation.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;gene&quot;=Gene)
-TranslationNotTE= TranslationTested %&gt;% filter(HvC.FDR&gt;=.05)
-#actual overlap
-TeandAPA=Translation %&gt;% rename(&quot;gene&quot;=Gene) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
-TranslationTestedandAPA= TranslationTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+<pre class="r"><code>TranslationTested=read.table(&quot;../data/Wang_ribo/HC_AllTestedTranslation.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;Gene.name&quot;=Gene)
 
 
-x=nrow(TeandAPA)
-m= nrow(Translation)
-n=nrow(TranslationNotTE)
-k=nrow(TranslationTestedandAPA)
+TestedAPAandDT=TranslationTested %&gt;% inner_join(apaTested,by=&quot;Gene.name&quot;) %&gt;% mutate(DT=ifelse(Gene.name %in% Translation$Gene, &quot;Yes&quot;, &quot;No&quot;), dAPA=ifelse(Gene.name %in% NucAPA$gene, &quot;Yes&quot;, &quot;No&quot;))
+
+x=nrow(TestedAPAandDT %&gt;% filter(dAPA==&quot;Yes&quot;, DT==&quot;Yes&quot;))
+m=nrow(TestedAPAandDT %&gt;% filter(DT==&quot;Yes&quot;))
+n=nrow(TestedAPAandDT %&gt;% filter(DT==&quot;No&quot;))
+k=nrow(TestedAPAandDT %&gt;% filter(dAPA==&quot;Yes&quot;))
+N=nrow(TestedAPAandDT)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 261</code></pre>
+k*(m/N)</code></pre>
+<pre><code>[1] 265.3982</code></pre>
 <pre class="r"><code>#actual:
-nrow(TeandAPA)</code></pre>
+x</code></pre>
 <pre><code>[1] 301</code></pre>
+<pre class="r"><code>#enrichment: 
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.134145</code></pre>
 <pre class="r"><code>#pval
-phyper(nrow(TeandAPA), nrow(Translation), nrow(TranslationNotTE), nrow(TranslationTestedandAPA),lower.tail=F)</code></pre>
-<pre><code>[1] 0.001317099</code></pre>
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.003704064</code></pre>
 <p>Protein</p>
 <p>Success is the overlap, dp, not no dp, sample size is the apagenes tested in dp</p>
-<pre class="r"><code>ProtTested=read.table(&quot;../data/Khan_prot/HC_AlltestedProtein.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;gene&quot;=gene.symbol)
-ProtNotPE= ProtTested %&gt;% filter(HC.qvalues.protein&gt;=.05)
-#actual overlap
-PEandAPA=Protein %&gt;% rename(&quot;gene&quot;=gene.symbol) %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
-ProtTestedandAPA= ProtTested %&gt;% inner_join(NucAPA,by=&quot;gene&quot;)
+<pre class="r"><code>ProtTested=read.table(&quot;../data/Khan_prot/HC_AlltestedProtein.txt&quot;,header = T,stringsAsFactors = F) %&gt;% rename(&quot;Gene.name&quot;=gene.symbol)
 
 
-x=nrow(PEandAPA)
-m= nrow(Protein)
-n=nrow(ProtNotPE)
-k=nrow(ProtTestedandAPA)
+TestedAPAandDP=ProtTested %&gt;% inner_join(apaTested,by=&quot;Gene.name&quot;) %&gt;% mutate(DP=ifelse(Gene.name %in% Protein$gene.symbol, &quot;Yes&quot;, &quot;No&quot;), dAPA=ifelse(Gene.name %in% NucAPA$gene, &quot;Yes&quot;, &quot;No&quot;))
+
+x=nrow(TestedAPAandDP %&gt;% filter(dAPA==&quot;Yes&quot;, DP==&quot;Yes&quot;))
+m=nrow(TestedAPAandDP %&gt;% filter(DP==&quot;Yes&quot;))
+n=nrow(TestedAPAandDP %&gt;% filter(DP==&quot;No&quot;))
+k=nrow(TestedAPAandDP %&gt;% filter(dAPA==&quot;Yes&quot;))
+N=nrow(TestedAPAandDP)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 171</code></pre>
+k*(m/N)</code></pre>
+<pre><code>[1] 171.3092</code></pre>
 <pre class="r"><code>#actual:
-nrow(PEandAPA)</code></pre>
+x</code></pre>
 <pre><code>[1] 181</code></pre>
+<pre class="r"><code>#enrichment: 
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.056569</code></pre>
 <pre class="r"><code>#pval
-phyper(nrow(PEandAPA), nrow(Protein), nrow(ProtNotPE), nrow(ProtTestedandAPA),lower.tail=F)</code></pre>
-<pre><code>[1] 0.1350306</code></pre>
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.1634518</code></pre>
 <p>Use lauren’s code for the 3 set</p>
 <p>Human-chimpanzee-rhesus macaque tissue specific overlap:</p>
 <p>m is the overlap of human+chimpanzee tissue-specific genes n is the Total genes - (overlap of human+chimpanzee tissue-specific genes) x/q is the overlap between human, chimpanzee, rhesus macaque tissue-specific genes k is the total rhesus tissue-specific genes</p>
 <p>phyper(x=overlap all pheno, m=overlap 2 (not apa) , n= total - overlap of 2 (not apa), k=total for apa)</p>
+<p><strong>NOT UPDATED</strong></p>
 <pre class="r"><code>ApaProtTrans=PEandAPA  %&gt;% inner_join(TeandAPA, by=&quot;gene&quot;)
 
-PeandTE=Translation %&gt;% inner_join(Protein) %&gt;% rename(&quot;gene&quot;=Gene)</code></pre>
-<pre><code>Joining, by = &quot;ENSG&quot;</code></pre>
-<pre class="r"><code>#not dp and dt is all tested in both - pe and te set
+PeandTE=Translation %&gt;% inner_join(Protein) %&gt;% rename(&quot;gene&quot;=Gene)
+
+#not dp and dt is all tested in both - pe and te set
 PeandTEtested= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% anti_join(PeandTE,by=&quot;gene&quot;)
   
 apaTestedinboth= ProtTested %&gt;% full_join(TranslationTested, by=&quot;gene&quot;) %&gt;% inner_join(NucAPA, by=&quot;gene&quot;)
@@ -1854,16 +1949,15 @@ k=nrow(apaTestedinboth)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 51</code></pre>
-<pre class="r"><code>#actual:
-nrow(ApaProtTrans)</code></pre>
-<pre><code>[1] 67</code></pre>
-<pre class="r"><code>#pval
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(ApaProtTrans)
+
+#pval
 
 
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 0.007006879</code></pre>
 <p>Expression te and pe</p>
 <p>Success is the overlap, dp and dt, not dp and dt, sample size is the egenes tested in both dp and dt</p>
 <pre class="r"><code>Protein_g = Protein %&gt;% rename(&quot;gene&quot;=gene.symbol)
@@ -1886,56 +1980,17 @@ k=nrow(expressioninboth)
 
 
 #expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 125</code></pre>
-<pre class="r"><code>#actual:
-nrow(EProtTrans)</code></pre>
-<pre><code>[1] 232</code></pre>
-<pre class="r"><code>#pval
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+
+#actual:
+nrow(EProtTrans)
+
+#pval
 phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 3.771448e-30</code></pre>
 <p>I can make a table for this- I’ll have the set, the actual, the expected, the pvalue. I can also add these numbers onto the figure above.</p>
 <p>Splicing results:</p>
 <pre class="r"><code>listInput_Splice &lt;- list(DE=DEgenes$Gene.name, DS=DSgenes$DS, DT=Translation$Gene, DP=Protein$gene.symbol)
 upset(fromList(listInput_Splice), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/upsetter_DF.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0f00c123baf2ea6403ff2e84a5517fc9ed72c22a/docs/figure/upsetter_DF.Rmd/unnamed-chunk-11-1.png" target="_blank">0f00c12</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <pre class="r"><code>DeandAPAList=NucAPA %&gt;%rename(&quot;Gene.name&quot;=gene) %&gt;%  inner_join(DEgenes, by=&quot;Gene.name&quot;) %&gt;% rename(&quot;gene&quot;=Gene.name)
 
 write.table(DeandAPAList,&quot;../data/DiffIso_Nuclear_DF/GeneswithDEanddAPA.txt&quot;, col.names = T,row.names = F,quote = F)</code></pre>
@@ -1978,7 +2033,7 @@ loaded via a namespace (and not attached):
 [13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
 [17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
 [21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
+[25] Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0     backports_1.1.2 
 [29] jsonlite_1.6     fs_1.3.1         gridExtra_2.3    hms_0.4.2       
 [33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
 [37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
