@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-22
+<strong>Last updated:</strong> 2020-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b4e617ede962869e7ef3784c37a96f64a025a527" target="_blank">b4e617e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed37e2f7cd1acfa86bdd5a5d319e7cbe3321551ctargetblanked37e2fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ed37e2f7cd1acfa86bdd5a5d319e7cbe3321551c" target="_blank">ed37e2f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb4e617ede962869e7ef3784c37a96f64a025a527targetblankb4e617ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeed37e2f7cd1acfa86bdd5a5d319e7cbe3321551ctargetblanked37e2fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -711,8 +711,32 @@ Untracked files:
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -925,6 +949,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -965,6 +990,9 @@ Untracked files:
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1163,9 +1191,14 @@ Untracked files:
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1235,6 +1268,7 @@ Untracked files:
     Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1242,11 +1276,14 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
@@ -1260,6 +1297,7 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1301,6 +1339,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ed37e2f7cd1acfa86bdd5a5d319e7cbe3321551c/analysis/DiffTop2SecondDom.Rmd" target="_blank">ed37e2f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+change figure theme
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/53a75707083d909ad1c9cf54e2a9c8f94ce45bc3/docs/DiffTop2SecondDom.html" target="_blank">53a7570</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1380,12 +1452,12 @@ add diff top 2 sec
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <p>I changed the way I look at Dominance. I am looking at the difference between the top used and next used PAS. I want to look at the overall distribution of this metric. This will help when I look on same vs different dominant PAS as well. I will create a python script that writes out the top PAS the gene and how far the next PAS usage is away.</p>
@@ -1770,10 +1842,56 @@ BothResAll_g= BothResAll %&gt;% group_by(cut, Set) %&gt;% summarise(nEach=n()) %
 
 BothResAll_g$cut=as.factor(BothResAll_g$cut)</code></pre>
 <p>Plot:</p>
-<pre class="r"><code>ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat=&quot;identity&quot;,alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Most genes with a domiant PAS share the same dominant PAS&quot;, y=&quot;Proportion of Genes in Set&quot;, x=&quot;Domianance Cutoff&quot;)</code></pre>
+<pre class="r"><code>numberDom=ggplot(BothResAll_g,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat=&quot;identity&quot;) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Most genes with a domiant PAS share the same dominant PAS&quot;, y=&quot;Proportion of Genes in Set&quot;, x=&quot;Domianance Cutoff&quot;)
+
+numberDom</code></pre>
 <p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat=&quot;identity&quot;,alpha=.5) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Proportion of Tested Genes with a Dominant PAS&quot;, y=&quot;Proportion of Tested Genes&quot;, x=&quot;Domianance Cutoff&quot;)</code></pre>
-<p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/53a75707083d909ad1c9cf54e2a9c8f94ce45bc3/docs/figure/DiffTop2SecondDom.Rmd/unnamed-chunk-19-1.png" target="_blank">53a7570</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>propDom=ggplot(BothResAll_g,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat=&quot;identity&quot;) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=2) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(legend.position = &quot;none&quot;) + labs(title=&quot;Proportion of Tested Genes with a Dominant PAS&quot;, y=&quot;Proportion of Tested Genes&quot;, x=&quot;Domianance Cutoff&quot;)</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="r"><code>plot_grid(numberDom, propDom)</code></pre>
+<p><img src="figure/DiffTop2SecondDom.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1801,9 +1919,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
- [9] tidyverse_1.2.1 workflowr_1.6.0
+ [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   reshape2_1.4.3     haven_1.1.2       
@@ -1815,7 +1933,7 @@ loaded via a namespace (and not attached):
 [19] munsell_0.5.0      gtable_0.2.0       cellranger_1.1.0  
 [22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
 [25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
-[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[28] broom_0.5.1        Rcpp_1.0.4.6       promises_1.0.1    
 [31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
 [34] fs_1.3.1           hms_0.4.2          digest_0.6.18     
 [37] stringi_1.2.4      grid_3.5.1         rprojroot_1.3-2   
