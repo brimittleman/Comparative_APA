@@ -103,14 +103,14 @@ NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", heade
 Plot:  
 
 ```{r}
-ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2", name="Signficant")
+ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means(method.args = list(alternative = "l"))+ scale_fill_brewer(palette = "Dark2", name="Signficant")
 
 
 ```
 
 ```{r}
 
-ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2", name="Signficant PAS") + labs(title="Mean PhyloP scores for tested PAS") + annotate("text",label="Wilcoxan, p=1.4e -5",x=6,y=.75)
+ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2", name="Signficant PAS") + labs(title="Mean PhyloP scores for tested PAS") 
 ```
 
 The significant PAS have on average lower phyloP scores. 
@@ -128,15 +128,11 @@ m= nrow(NucReswPhy %>% filter(phyloP<0))
 n=nrow(NucReswPhy %>% filter(phyloP>=0))
 k=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
 
-
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
-
 #actual:
 x
 
 #pval
-phyper(x,m,n,k,lower.tail=F)
+phyper(x-1,m,n,k,lower.tail=F)
 ```
 This means these regions are more likely to be fast evolving.  
 

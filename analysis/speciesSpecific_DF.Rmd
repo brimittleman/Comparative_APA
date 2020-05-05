@@ -83,11 +83,10 @@ Ask if signal sites account for this:
 
 
 ```{r}
-PASSS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS,HumanTopSS ,ChimpTopSS)
+PASSS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS,ChimpPAS ,HumanPAS)
 
-HumanSpec_SS=HumanSpec %>% inner_join(PASSS, by="PAS")  %>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>% mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS=="No" & ChimpSS=="Yes", "Yes", "No"))
-ChimpSpec_SS=ChimpSpec %>% inner_join(PASSS, by="PAS")%>% rename("HumanSS"= HumanTopSS, "ChimpSS"=ChimpTopSS) %>%  mutate(OnlyHuman=ifelse(HumanSS=="Yes" & ChimpSS=="No", "Yes", "No"), OnlyChimp=ifelse(HumanSS =="No" & ChimpSS=="Yes", "Yes", "No"))
-
+HumanSpec_SS=HumanSpec %>% inner_join(PASSS, by="PAS")  %>% rename("HumanSS"= HumanPAS, "ChimpSS"=ChimpPAS) %>% mutate(OnlyHuman=ifelse(HumanSS!="None" & ChimpSS=="None", "Yes", "No"), OnlyChimp=ifelse(HumanSS=="None" & ChimpSS!="None", "Yes", "No"))
+ChimpSpec_SS=ChimpSpec %>% inner_join(PASSS, by="PAS")%>% rename("HumanSS"= HumanPAS, "ChimpSS"=ChimpPAS) %>%  mutate(OnlyHuman=ifelse(HumanSS!="None" & ChimpSS=="None", "Yes", "No"),OnlyChimp=ifelse(HumanSS=="None" & ChimpSS!="None", "Yes", "No"))
 
 
 ```
@@ -115,10 +114,6 @@ HumanSpec_SSexp=HumanSpec_SS  %>% filter(OnlyHuman=="Yes")
 
 ggplot(HumanSpec_SSexp,aes(x=loc, y=Human,fill=loc))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")
 ```
-
-13 sites where there is a gain of a signal site in the human specific.  I can look at them in IGV
-
-13 of 303
 
 
 ```{r}
@@ -165,4 +160,23 @@ Number with opposite relationship.
 
 ChimpSpec_SS %>% filter(OnlyHuman=="Yes")
 ```
+ 
+ 
+##location of PAS set  
+ 
+I will plot the location distributions of each of these after removing the species specific for the opposite species.  
+
+```{r}
+ChimpAll=PAS %>% filter(Chimp>0) %>% select(loc) %>% mutate(species="Chimp")
+
+HumanAll=PAS %>% filter(Human>0) %>% select(loc) %>% mutate(species="Human")
+
+BothAll=ChimpAll %>% bind_rows(HumanAll) %>% group_by(species,loc) %>% summarise(nLoc=n()) %>% ungroup() %>% group_by(species) %>% mutate(nSpecies=sum(nLoc),prop=nLoc/nSpecies) 
+
+ggplot(BothAll,aes(x="",y=prop, fill=loc)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + facet_grid(~species) + scale_fill_brewer(palette = "RdYlBu", name="Genic Location", labels=c("Coding", "5KB downstream", "Intronic","3' UTR", "5' UTR")) 
+```
+```{r}
+BothAll
+```
+ 
  

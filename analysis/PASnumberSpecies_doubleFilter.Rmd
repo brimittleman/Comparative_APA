@@ -74,5 +74,8 @@ PAS_m$nPAS=as.factor(PAS_m$nPAS)
 ggplot(PAS_m,aes(x=nPAS, by=species, fill=species)) + geom_histogram(stat="count",position = "dodge") +  scale_fill_brewer(palette = "Dark2") + labs(title="Distribution for number of PAS at 5% ", x="Number of PAS",y="Genes")
 ```
 
+```{r}
+PAS_m %>% group_by(species) %>% summarise(meanPer=mean(nPAS))
+```
 
 

@@ -351,3 +351,80 @@ ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_b
 ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic()
 ```
 
+
+
+try this plot seperated by location.  
+
+```{r}
+
+PASMetaSm=PASMeta %>% select(PAS,loc)
+ResUpdownAll_gather2_loc=ResUpdownAll_gather2 %>% inner_join(PASMetaSm,by="PAS")
+
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+```
+
+
+```{r}
+ResUpdownAll_gather2_loc_noCoding=ResUpdownAll_gather2_loc %>% filter(loc != "cds")
+
+ggplot(ResUpdownAll_gather2_loc_noCoding, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions after removing coding sites") + guides(fill = FALSE) + theme_classic()
+```
+Only 3' UTR:  
+
+```{r}
+ResUpdownAll_gather2_loc_utr=ResUpdownAll_gather2_loc %>% filter(loc == "utr3")
+
+ggplot(ResUpdownAll_gather2_loc_utr, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="3' UTR PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic()
+```
+
+
+
+kruskal wallis is like a anova, diff in groups, 
+
+wilcox test the true to sourounding regions:  
+
+```{r}
+#ResUpdownAll_gather2
+
+kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2,alternative="less")
+```
+
+
+```{r}
+#ResUpdownAll_gather2_loc_noCoding
+
+kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2_loc_noCoding)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_noCoding,alternative="less")
+```
+
+
+```{r}
+kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2_loc_utr)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_utr,alternative="less")
+
+```
+```{r}
+ResUpdownAll_gather2_loc_int=ResUpdownAll_gather2_loc %>% filter(loc == "intron")
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_int,alternative="less")
+```
+```{r}
+ResUpdownAll_gather2_loc_utr5=ResUpdownAll_gather2_loc %>% filter(loc == "utr5")
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_utr5,alternative="less")
+```
+
+```{r}
+ResUpdownAll_gather2_loc_cds=ResUpdownAll_gather2_loc %>% filter(loc == "cds")
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_cds, alternative="less")
+```
+```{r}
+ResUpdownAll_gather2_loc_end=ResUpdownAll_gather2_loc %>% filter(loc == "end")
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_end,alternative="less")
+```
