@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-04
+<strong>Last updated:</strong> 2020-05-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8564b4ff696c1e6e7292b5b38cfa81b3ea24b7fbtargetblank8564b4fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8564b4ff696c1e6e7292b5b38cfa81b3ea24b7fb" target="_blank">8564b4f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree850079c380a36990518397d0149f94e32ff446f7targetblank850079ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/850079c380a36990518397d0149f94e32ff446f7" target="_blank">850079c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8564b4ff696c1e6e7292b5b38cfa81b3ea24b7fbtargetblank8564b4fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree850079c380a36990518397d0149f94e32ff446f7targetblank850079ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1285,7 +1285,6 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
@@ -1339,6 +1338,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/850079c380a36990518397d0149f94e32ff446f7/analysis/dAPA_Conservation.Rmd" target="_blank">850079c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+<td>
+add metrics during writing
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/72e5102c860f0eb92b511689cda42d66f78412b6/docs/dAPA_Conservation.html" target="_blank">72e5102</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1637,12 +1670,12 @@ add upstream control
 </div>
 <p>In my initial exploration of dAPA PAS I saw they are enriched for negative phylop scores. I will explore this trend further here. I will see if intron location explain the differences.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -2565,6 +2598,101 @@ brimittleman
 </table>
 </div>
 </div>
+<p>try this plot seperated by location.</p>
+<pre class="r"><code>PASMetaSm=PASMeta %&gt;% select(PAS,loc)
+ResUpdownAll_gather2_loc=ResUpdownAll_gather2 %&gt;% inner_join(PASMetaSm,by=&quot;PAS&quot;)
+
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ResUpdownAll_gather2_loc_noCoding=ResUpdownAll_gather2_loc %&gt;% filter(loc != &quot;cds&quot;)
+
+ggplot(ResUpdownAll_gather2_loc_noCoding, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions after removing coding sites&quot;) + guides(fill = FALSE) + theme_classic()</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /> Only 3’ UTR:</p>
+<pre class="r"><code>ResUpdownAll_gather2_loc_utr=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;utr3&quot;)
+
+ggplot(ResUpdownAll_gather2_loc_utr, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;3&#39; UTR PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic()</code></pre>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>kruskal wallis is like a anova, diff in groups,</p>
+<p>wilcox test the true to sourounding regions:</p>
+<pre class="r"><code>#ResUpdownAll_gather2
+
+kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2)</code></pre>
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  PhyloP by Set
+Kruskal-Wallis chi-squared = 1609.6, df = 6, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 111170000, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>#ResUpdownAll_gather2_loc_noCoding
+
+kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2_loc_noCoding)</code></pre>
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  PhyloP by Set
+Kruskal-Wallis chi-squared = 621.46, df = 6, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_noCoding,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 83420000, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>kruskal.test(PhyloP ~ Set, data = ResUpdownAll_gather2_loc_utr)</code></pre>
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  PhyloP by Set
+Kruskal-Wallis chi-squared = 1423, df = 6, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code>wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_utr,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 13907000, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>ResUpdownAll_gather2_loc_int=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;intron&quot;)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_int,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 15030000, p-value = 0.9989
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>ResUpdownAll_gather2_loc_utr5=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;utr5&quot;)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_utr5,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 163620, p-value = 0.01092
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>ResUpdownAll_gather2_loc_cds=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;cds&quot;)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_cds, alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 1517100, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is less than 0</code></pre>
+<pre class="r"><code>ResUpdownAll_gather2_loc_end=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;end&quot;)
+
+wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_end,alternative=&quot;less&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PhyloP by region
+W = 1235600, p-value = 7.024e-06
+alternative hypothesis: true location shift is less than 0</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
