@@ -15,6 +15,7 @@ I want to make pie charts to show differential usage at all three levels.
 ```{r}
 library(workflowr)
 library(tidyverse)
+library(UpSetR)
 library(cowplot)
 ```
 
@@ -94,6 +95,7 @@ BothRes_40wNo=BothRes_40 %>% bind_rows(NoDom) %>% group_by(Set)  %>% summarise(n
 BothRes_40wNo$Set=factor(BothRes_40wNo$Set, levels=c('Same', 'NoDominant', 'Different'))
 
 
+
 Domplot=ggplot(BothRes_40wNo,aes(by=Set, y=prop, x="", fill=Set)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="Genes with \nDominant PAS") +labs(title="Same and Different Dominant PAS")
 Domplot
 ```
@@ -101,5 +103,42 @@ Domplot
 
 ```{r}
 plot_grid(pasplot, genesplot, dICplot, Domplot)
+```
+
+
+
+Use upsetter to compare all of these:  
+
+```{r}
+
+BothRes_40_diff= BothRes_40 %>% filter(Set=="Different")
+dICdata_sig= dICdata %>% filter(sIC10=="Yes")
+listInput <- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene, dDom=BothRes_40_diff$gene)
+
+upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+```{r}
+
+listInputNoDD <- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene )
+
+upset(fromList(listInputNoDD), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+
+
+
+
+How many genes in none:  
+
+```{r}
+DiffAny= dICdata_sig %>% select(gene) %>% bind_rows(dAPAGenes %>% select(gene)) %>% bind_rows(BothRes_40_diff %>% select(gene)) %>% unique()
+
+
+```
+
+
+all tested:  
+
+```{r}
+1-nrow(DiffAny)/nrow(Meta_genes)
 ```
 

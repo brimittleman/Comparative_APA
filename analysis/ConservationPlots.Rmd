@@ -37,6 +37,13 @@ Plot usage correlation:
 ggplot(PASmeta,aes(x=Human, y=Chimp)) + geom_point(alpha=.3)+ stat_cor(col="blue", label.x = .15, label.y=.9) + geom_smooth(method="lm") + labs(title="Usage correlation for All PAS") + geom_abline(intercept = 0, slope =1, col="red")
 ```
 
+Correlation:  
+
+```{r}
+cor.test(PASmeta$Chimp, PASmeta$Human)
+```
+
+
 Correlation is on top of the 1v1 line.
 
 ```{r}
