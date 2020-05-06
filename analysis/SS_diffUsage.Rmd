@@ -38,16 +38,17 @@ DiffUsed_anno=DiffUsed %>% inner_join(MetaPAS,by=c("chr","start", "end","gene"))
 
 Ask how many of the effect size either way are those with SS in one species  
 
-+ upreg in chimp
-- upred in human 
+
++ upreg in human
+- upred in chimp 
 ```{r}
-DiffUsed_anno_humanup=DiffUsed_anno %>% filter(deltaPAU<0)
+DiffUsed_anno_humanup=DiffUsed_anno %>% filter(deltaPAU>0)
 nrow(DiffUsed_anno_humanup)
 
 nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
 
 
-DiffUsed_anno_chimpup=DiffUsed_anno %>% filter(deltaPAU>0)
+DiffUsed_anno_chimpup=DiffUsed_anno %>% filter(deltaPAU<0)
 nrow(DiffUsed_anno_chimpup)
 
 nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
@@ -58,33 +59,135 @@ Significance:
 
 
 ```{r}
-humanOnly=nrow(MetaPAS %>%  filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+humanOnlyPattern=MetaPAS %>%  filter(HumanTopSS=="Yes", ChimpTopSS=="No")
 
-chimpOnly=nrow(MetaPAS %>%  filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+chimpOnlyPattern=MetaPAS %>%  filter(HumanTopSS=="No", ChimpTopSS=="Yes")
 
-humanOnly+chimpOnly
+nrow(humanOnlyPattern)+nrow(chimpOnlyPattern)
 
 ```
-Of the 44432 we see that 720 have the pattern of interest. We choose 1312 of them and 18 come out.  Look to see if it is more than expected by change 
+Of the 44432 we see that 720 have the pattern of interest. We choose 1312 of them and 32 come out.  Look to see if it is more than expected by change 
 
+
+Human up reg: 
 phyper(success in sample, sucesss in possible, failure possible, sample size)
 
+up with pattern
+up reg general
+no up used 
+all with pattern
 ```{r}
-x= 18
-m= 720
-n=44432
-k=1312
+
+#DiffUsed_anno_humanup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No")
+x= nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+m= nrow(DiffUsed_anno_humanup)
+n=nrow(MetaPAS)-m
+k=nrow(humanOnlyPattern)
+N=nrow(MetaPAS)
 
 
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
 
+(x/k)/(m/N)
 
-
-
-phyper(18,720, 44432 , 1312,lower.tail=F)
+x
 ```
-No significant enrichment for the pattern.  
+This means that of those that have a top signal site only in human there is an enrichment for dAPA PAS.
+
+
+Try  oppostie dir. 
+
+```{r}
+
+x= nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+m= nrow(DiffUsed_anno_humanup)
+n=nrow(MetaPAS)-m
+k=nrow(chimpOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+
+x
+```
+So this is 32 vs 14.  
+
+Do this for chimp.  
+
+```{r}
+
+x= nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
+m= nrow(DiffUsed_anno_chimpup)
+n=nrow(MetaPAS)-m
+k=nrow(chimpOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+```
+Strong enrichment here too:  
+
+```{r}
+
+x= nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+m= nrow(DiffUsed_anno_chimpup)
+n=nrow(MetaPAS)-m
+k=nrow(humanOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+
+x
+```
+No enrichment for this pattern. 
+
+This direction has 32 vs 4.
+
+This can be something I use. This suggests that if there are differences in signal site they are likely to lead to differential usage in the expected direction.  
+
+Next question: is the pattern enriched in PAS called as dAPA: 
+Are dAPA more likely than expected to have this pattern?
+
+I can use a chisq test of independence.  
+```{r}
+DiffUsed_annotest= DiffUsed_anno %>% mutate(UpReg=ifelse(deltaPAU< 0, "Chimp", "Human"), Pattern=ifelse(ChimpTopSS=="Yes", ifelse(HumanTopSS=="Yes", "none", "Chimp"), ifelse(HumanTopSS=="Yes", "Human", "none")))  %>% select(PAS, UpReg,Pattern ) %>% filter(Pattern!="none")
+
+DiffUsed_annotest %>% group_by(UpReg, Pattern) %>% summarise(nType=n())
+
+
+toTest=DiffUsed_annotest %>% group_by(UpReg, Pattern) %>% summarise(nType=n()) %>% spread(Pattern, nType) %>% column_to_rownames("UpReg")
+
+chisq.test(toTest)
+```
+This is significant 
+
+```{r}
+DiffUsed_annotest %>% group_by(UpReg, Pattern) %>% summarise(nType=n()) %>% spread(Pattern, nType)
+```
+
+
+
+Are these the strongest differences?  
+```{r}
+DiffUsed_annoPatternAssign= DiffUsed_anno %>% mutate(UpReg=ifelse(deltaPAU< 0, "Chimp", "Human"), Pattern=ifelse(ChimpTopSS=="Yes", ifelse(HumanTopSS=="Yes", "none", "Chimp"), ifelse(HumanTopSS=="Yes", "Human", "none")), ExpectedPattern=ifelse(Pattern!="none", "Yes", "No"))
+
+DiffUsed_annoPatternAssign$ExpectedPattern= as.factor(DiffUsed_annoPatternAssign$ExpectedPattern)
+ggplot(DiffUsed_annoPatternAssign, aes(x=ExpectedPattern, y=abs(deltaPAU), fill=ExpectedPattern))+ geom_boxplot()+ geom_jitter(alpha=.1)+stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(title="delta PAU by signal site in expected direction") + theme(legend.position = "none")
+
+```
+
+
 
 
 Plot dPAU by presence and absense:
@@ -99,11 +202,7 @@ ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS
 
 
 ```
-Test with wilcoxan test:  
 
-
-
-There is a shift. 
 
 
 ```{r}
@@ -115,18 +214,8 @@ ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS
 
 It does not look like presence of a signal within the upregulated matters.  
 
-Overall it does not look like presense of a signal site or not can explain the differences.   
-
-Opposite direction:  
-
-```{r}
-nrow(DiffUsed_anno_humanup %>% filter(HumanTopSS=="No", ChimpTopSS=="Yes"))
-
-nrow(DiffUsed_anno_chimpup %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
-```
 
 
-Look at the regions that have a non cononical signal site.  
 
 I choose these is the original SS analysis. I used the chooseSignalSite.py it was a hierarchical model 
 ```{r}
@@ -139,109 +228,49 @@ This has every PAS with a signal site. I will add information about if the PAS i
 ```{r}
 DiffUsed_small= DiffUsed %>% select(chr,start,end, gene, deltaPAU, p.adjust) %>% inner_join(MetaAllSSsmall,by=c("chr",'start','end'))
 
-DiffUsed_small_human= DiffUsed_small %>% filter(deltaPAU<0)
-DiffUsed_small_chimp= DiffUsed_small %>% filter(deltaPAU>0)
+DiffUsed_small_human= DiffUsed_small %>% filter(deltaPAU>0)
+DiffUsed_small_chimp= DiffUsed_small %>% filter(deltaPAU<0)
 
 MetaAllSS_diffUsage=MetaAllSS %>% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, "yes","no"), HumanUp=ifelse(PAS %in% DiffUsed_small_human$PAS, "yes","no"), ChimpUp=ifelse(PAS %in% DiffUsed_small_chimp$PAS, "yes","no"))
 ```
 
-First question: 
-Are there cononical in one and non connonical in the other species
+Look at any vs none.  
 
 ```{r}
-con=c("AATAAA", "ATTAAA")
-non=c('AAAAAG', 'AAAAAA', 'TATAAA', 'AATATA', 'AGTAAA', 'AATACA', 'GATAAA', 'AATAGA', 'CATAAA', 'ACTAAA')
-ChimpConHumanNon=MetaAllSS_diffUsage %>% filter(ChimpPAS %in% con, HumanPAS %in% non) 
-nrow(ChimpConHumanNon)
+x= nrow(MetaAllSS_diffUsage %>% filter(HumanUp=="yes",HumanPAS!="None", ChimpPAS=="None"))
+m=nrow(MetaAllSS_diffUsage %>% filter(HumanUp=="yes"))
+n=nrow(MetaAllSS_diffUsage %>% filter(HumanUp!="yes"))
+k= nrow(MetaAllSS_diffUsage %>% filter(HumanPAS!="None", ChimpPAS=="None"))
 
-#number up in chim
-ChimpConHumanNon %>% filter(ChimpUp=="yes") %>% nrow()
+N=nrow(MetaAllSS_diffUsage)
 
-#number up in human  
+x
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
 
-ChimpConHumanNon %>% filter(HumanUp=="yes") %>% nrow()
+(x/k)/(m/N)
 
 ```
 
-Opposite direction: 
-
-```{r}
-ChimpNonHumanCon=MetaAllSS_diffUsage %>% filter(ChimpPAS %in% non, HumanPAS %in% con) 
-nrow(ChimpNonHumanCon)
-
-#number up in chim
-ChimpNonHumanCon %>% filter(ChimpUp=="yes") %>% nrow()
-
-#number up in human  
-
-ChimpNonHumanCon %>% filter(HumanUp=="yes") %>% nrow()
-
-```
-This doesnt make a lot of sense.  
-
-
-Question 2: any signal site vs no signal site?  
+Chimp:  
 
 
 ```{r}
-MetaAllSS_diffUsage_add=MetaAllSS_diffUsage %>% mutate(HumanNone=ifelse(ChimpPAS!="None" & HumanPAS=="None", "yes", "no"),ChimpNone=ifelse(ChimpPAS=="None" & HumanPAS!="None", "yes", "no"), EitherNonePatter=ifelse(ChimpNone=="yes" | HumanNone =="yes", "yes","no"))
+x= nrow(MetaAllSS_diffUsage %>% filter(ChimpUp=="yes",HumanPAS=="None", ChimpPAS!="None"))
+m=nrow(MetaAllSS_diffUsage %>% filter(ChimpUp=="yes"))
+n=nrow(MetaAllSS_diffUsage %>% filter(ChimpUp!="yes"))
+k= nrow(MetaAllSS_diffUsage %>% filter(HumanPAS=="None", ChimpPAS!="None"))
+
+N=nrow(MetaAllSS_diffUsage)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+
+
+x
 ```
 
-Enrichment for either:  
 
-```{r}
-x=nrow(MetaAllSS_diffUsage_add %>% filter(EitherNonePatter=="yes", DiffUsed=="yes"))
-m=nrow(MetaAllSS_diffUsage_add %>% filter(DiffUsed=="yes"))
-n=nrow(MetaAllSS_diffUsage_add %>% filter(DiffUsed=="no"))
-k=nrow(MetaAllSS_diffUsage_add %>% filter(EitherNonePatter=="no"))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)
-enrich=(x/k)/(m/N)
-enrich
-```
-
-Human dir  
-
-
-```{r}
-x=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpNone=="yes", HumanUp=="yes"))
-m=nrow(MetaAllSS_diffUsage_add %>% filter(HumanUp=="yes"))
-n=nrow(MetaAllSS_diffUsage_add %>% filter(HumanUp=="no"))
-k=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpNone=="no"))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)
-enrich=(x/k)/(m/N)
-enrich
-```
-Chimp direction  
-
-```{r}
-x=nrow(MetaAllSS_diffUsage_add %>% filter(HumanNone=="yes", ChimpUp=="yes"))
-m=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpUp=="yes"))
-n=nrow(MetaAllSS_diffUsage_add %>% filter(ChimpUp=="no"))
-k=nrow(MetaAllSS_diffUsage_add %>% filter(HumanNone=="no"))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)
-enrich=(x/k)/(m/N)
-enrich
-```
-
-None of these are enriched  
-```{r}
-MetaPAS_diff= MetaPAS %>% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, "yes","no"), HumanNoChimpYes=ifelse(HumanTopSS=="No" & ChimpTopSS=="Yes", "Yes","No"), HumanYesChimpNo=ifelse(HumanTopSS=="Yes" & ChimpTopSS=="No", "Yes","No"), EitherPattern=ifelse(HumanYesChimpNo=="Yes" | HumanNoChimpYes =="Yes", "Yes","No"))
-```
-
-Either pattern  
-
-```{r}
-x=nrow(MetaPAS_diff %>% filter(EitherPattern=="Yes", DiffUsed=="yes"))
-m=nrow(MetaPAS_diff %>% filter(DiffUsed=="yes"))
-n=nrow(MetaPAS_diff %>% filter(DiffUsed=="no"))
-k=nrow(MetaPAS_diff %>% filter(EitherPattern=="No"))
-N=nrow(MetaPAS_diff)
-phyper(x,m,n,k,lower.tail=F)
-enrich=(x/k)/(m/N)
-enrich
-```
-
-No enrichment for any of the patterns  
