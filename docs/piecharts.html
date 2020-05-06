@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-04
+<strong>Last updated:</strong> 2020-05-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb1403670f741effcb7fe55f47a77a75ef33ce8d9targetblankb140367a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b1403670f741effcb7fe55f47a77a75ef33ce8d9" target="_blank">b140367</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0f623d6d4ee1000cd5d9e3858b3d548d54a9a9bbtargetblank0f623d6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/0f623d6d4ee1000cd5d9e3858b3d548d54a9a9bb" target="_blank">0f623d6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb1403670f741effcb7fe55f47a77a75ef33ce8d9targetblankb140367a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree0f623d6d4ee1000cd5d9e3858b3d548d54a9a9bbtargetblank0f623d6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1285,7 +1285,6 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
@@ -1296,6 +1295,7 @@ Unstaged changes:
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/infoContent.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1344,6 +1344,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/0f623d6d4ee1000cd5d9e3858b3d548d54a9a9bb/analysis/piecharts.Rmd" target="_blank">0f623d6</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-06
+</td>
+<td>
+update with writing
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/piecharts.html" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/b1403670f741effcb7fe55f47a77a75ef33ce8d9/analysis/piecharts.Rmd" target="_blank">b140367</a>
 </td>
 <td>
@@ -1368,15 +1402,16 @@ add pie charts
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(cowplot)</code></pre>
+<pre class="r"><code>library(UpSetR)
+library(cowplot)</code></pre>
 <pre><code>
 Attaching package: &#39;cowplot&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:ggplot2&#39;:
@@ -1403,7 +1438,45 @@ dAPAPASGrouped= dAPAwithNottested %&gt;%  group_by(SigPAU2) %&gt;% summarise(n=n
 pasplot=ggplot(dAPAPASGrouped,aes(by=SigPAU2, y=prop, x=&quot;&quot;, fill=SigPAU2)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dAPA PAS&quot;) +labs(title=&quot;Differential APA PAS 5% FDR&quot;)
 
 pasplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /> Gene level:</p>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-4-1.png" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Gene level:</p>
 <pre class="r"><code>dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
 
 dAPAPAS_genes= dAPAPAS %&gt;% select(gene) %&gt;% unique()
@@ -1414,6 +1487,43 @@ dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA
 genesplot=ggplot(dAPATestedGenes,aes(by=dAPA, y=prop, x=&quot;&quot;, fill=dAPA)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dAPA Genes&quot;) +labs(title=&quot;Differential APA genes 5% FDR&quot;)
 genesplot</code></pre>
 <p><img src="figure/piecharts.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-5-1.png" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>dInfo:</p>
 <pre class="r"><code>dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance_10FDR.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC10,gene)
 
@@ -1424,6 +1534,43 @@ dICdata_wnot= dICdata %&gt;% bind_rows(Nottested) %&gt;% group_by(sIC10) %&gt;% 
 dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x=&quot;&quot;, fill=sIC10)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dIC Genes&quot;) +labs(title=&quot;Differential information content\n 10% FDR&quot;)
 dICplot</code></pre>
 <p><img src="figure/piecharts.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-6-1.png" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
 
 ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
@@ -1438,11 +1585,102 @@ BothRes_40wNo=BothRes_40 %&gt;% bind_rows(NoDom) %&gt;% group_by(Set)  %&gt;% su
 BothRes_40wNo$Set=factor(BothRes_40wNo$Set, levels=c(&#39;Same&#39;, &#39;NoDominant&#39;, &#39;Different&#39;))
 
 
+
 Domplot=ggplot(BothRes_40wNo,aes(by=Set, y=prop, x=&quot;&quot;, fill=Set)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;Genes with \nDominant PAS&quot;) +labs(title=&quot;Same and Different Dominant PAS&quot;)
 Domplot</code></pre>
 <p><img src="figure/piecharts.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-7-1.png" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(pasplot, genesplot, dICplot, Domplot)</code></pre>
 <p><img src="figure/piecharts.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-8-1.png" target="_blank">a9de4a1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Use upsetter to compare all of these:</p>
+<pre class="r"><code>BothRes_40_diff= BothRes_40 %&gt;% filter(Set==&quot;Different&quot;)
+dICdata_sig= dICdata %&gt;% filter(sIC10==&quot;Yes&quot;)
+listInput &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene, dDom=BothRes_40_diff$gene)
+
+upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>listInputNoDD &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene )
+
+upset(fromList(listInputNoDD), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>How many genes in none:</p>
+<pre class="r"><code>DiffAny= dICdata_sig %&gt;% select(gene) %&gt;% bind_rows(dAPAGenes %&gt;% select(gene)) %&gt;% bind_rows(BothRes_40_diff %&gt;% select(gene)) %&gt;% unique()</code></pre>
+<p>all tested:</p>
+<pre class="r"><code>1-nrow(DiffAny)/nrow(Meta_genes)</code></pre>
+<pre><code>[1] 0.7129649</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1470,9 +1708,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
- [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
- [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
+ [1] cowplot_0.9.4   UpSetR_1.3.3    forcats_0.3.0   stringr_1.3.1  
+ [5] dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
+ [9] tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
@@ -1482,12 +1720,13 @@ loaded via a namespace (and not attached):
 [17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
 [21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
 [25] Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.5.1      magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4    
-[41] whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
-[45] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
-[49] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+[29] jsonlite_1.6     fs_1.3.1         gridExtra_2.3    hms_0.4.2       
+[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
+[37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
+[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
+[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
+[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
+[53] compiler_3.5.1  </code></pre>
 </div>
 
 
