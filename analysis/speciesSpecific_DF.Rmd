@@ -161,6 +161,80 @@ Number with opposite relationship.
 ChimpSpec_SS %>% filter(OnlyHuman=="Yes")
 ```
  
+Top PAS vs other:  
+
+```{r}
+
+topSS=c("AATAAA", "ATTAAA")
+PASSS_top= PASSS %>% mutate(ChimpTopSS=ifelse(ChimpPAS %in% topSS, "Yes", "No"),HumanTopSS=ifelse(HumanPAS %in% topSS, "Yes", "No"), ChimpSpecific=ifelse(PAS %in% ChimpSpec$PAS, "Yes","No"), HumanSpecific=ifelse(PAS %in% HumanSpec$PAS, "Yes","No")) 
+
+```
+
+```{r}
+x= nrow(PASSS_top %>% filter(HumanTopSS=="Yes",ChimpTopSS=="No", HumanSpecific=="Yes"))
+m= nrow(PASSS_top %>% filter(HumanSpecific=="Yes"))
+n=nrow(PASSS_top %>% filter( HumanSpecific=="No"))
+k=nrow(PASSS_top %>% filter(HumanTopSS=="Yes", ChimpTopSS=="No"))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)
+
+
+(x/k)/(m/N)
+
+x
+
+#opposite dir 
+
+
+x= nrow(PASSS_top %>% filter(HumanTopSS=="Yes",ChimpTopSS=="No",ChimpSpecific=="Yes"))
+m= nrow(PASSS_top %>%  filter(ChimpSpecific=="Yes"))
+n=nrow(PASSS_top %>%  filter(ChimpSpecific=="No"))
+k=nrow(PASSS_top %>% filter(HumanTopSS=="Yes",ChimpTopSS=="No"))
+N=nrow(PASSS_top)
+
+
+
+phyper(x-1,m,n,k,lower.tail=F)
+
+((x/k)/(m/N))
+
+x
+
+```
+Chimp:
+```{r}
+x= nrow(PASSS_top %>% filter(ChimpTopSS=="Yes",HumanTopSS=="No", ChimpSpecific=="Yes"))
+m= nrow(PASSS_top %>%  filter(ChimpSpecific=="Yes"))
+n=nrow(PASSS_top %>%  filter(ChimpSpecific=="No"))
+k=nrow(PASSS_top %>% filter(ChimpTopSS=="Yes",HumanTopSS=="No"))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+
+x
+
+#opp  
+x= nrow(PASSS_top %>% filter(ChimpTopSS=="Yes", HumanTopSS=="No",HumanSpecific=="Yes"))
+m= nrow(PASSS_top %>%  filter(HumanSpecific=="Yes"))
+n=nrow(PASSS_top %>%  filter(HumanSpecific=="No"))
+k=nrow(PASSS_top %>% filter(ChimpTopSS=="Yes",HumanTopSS=="No"))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)
+
+(x/k)/(m/N)
+
+x
+```
+
+
+Among human or chimp specific there is enrichment for one of the top signal sites in only that species.  
  
 ##location of PAS set  
  
@@ -178,5 +252,6 @@ ggplot(BothAll,aes(x="",y=prop, fill=loc)) + geom_bar(stat="identity",width=1, c
 ```{r}
 BothAll
 ```
+ 
  
  
