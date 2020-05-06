@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree850079c380a36990518397d0149f94e32ff446f7targetblank850079ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/850079c380a36990518397d0149f94e32ff446f7" target="_blank">850079c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2c9bdb14b0a27edbeefa84f3447004ed96e613ftargetblanka2c9bdba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a2c9bdb14b0a27edbeefa84f3447004ed96e613f" target="_blank">a2c9bdb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree850079c380a36990518397d0149f94e32ff446f7targetblank850079ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2c9bdb14b0a27edbeefa84f3447004ed96e613ftargetblanka2c9bdba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1343,6 +1343,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a2c9bdb14b0a27edbeefa84f3447004ed96e613f/analysis/speciesSpecific_DF.Rmd" target="_blank">a2c9bdb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+<td>
+fix enrichemnt
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/5a9d38782e286c7532b1b73274a6bc322015281b/docs/speciesSpecific_DF.html" target="_blank">5a9d387</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/850079c380a36990518397d0149f94e32ff446f7/analysis/speciesSpecific_DF.Rmd" target="_blank">850079c</a>
 </td>
 <td>
@@ -2002,6 +2036,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5a9d38782e286c7532b1b73274a6bc322015281b/docs/figure/speciesSpecific_DF.Rmd/unnamed-chunk-9-1.png" target="_blank">5a9d387</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/speciesSpecific_DF.Rmd/unnamed-chunk-9-1.png" target="_blank">a7e29b9</a>
 </td>
 <td>
@@ -2111,6 +2156,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/5a9d38782e286c7532b1b73274a6bc322015281b/docs/figure/speciesSpecific_DF.Rmd/unnamed-chunk-11-1.png" target="_blank">5a9d387</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a7e29b9be53d534be7cb0fd16adecb1a3c4d0335/docs/figure/speciesSpecific_DF.Rmd/unnamed-chunk-11-1.png" target="_blank">a7e29b9</a>
 </td>
 <td>
@@ -2171,6 +2227,68 @@ brimittleman
 3         +    None  AAAAAG       Yes        No
 4         +    None  ATTAAA       Yes        No
 5         +    None  AAAAAG       Yes        No</code></pre>
+<p>Top PAS vs other:</p>
+<pre class="r"><code>topSS=c(&quot;AATAAA&quot;, &quot;ATTAAA&quot;)
+PASSS_top= PASSS %&gt;% mutate(ChimpTopSS=ifelse(ChimpPAS %in% topSS, &quot;Yes&quot;, &quot;No&quot;),HumanTopSS=ifelse(HumanPAS %in% topSS, &quot;Yes&quot;, &quot;No&quot;), ChimpSpecific=ifelse(PAS %in% ChimpSpec$PAS, &quot;Yes&quot;,&quot;No&quot;), HumanSpecific=ifelse(PAS %in% HumanSpec$PAS, &quot;Yes&quot;,&quot;No&quot;)) </code></pre>
+<pre class="r"><code>x= nrow(PASSS_top %&gt;% filter(HumanTopSS==&quot;Yes&quot;,ChimpTopSS==&quot;No&quot;, HumanSpecific==&quot;Yes&quot;))
+m= nrow(PASSS_top %&gt;% filter(HumanSpecific==&quot;Yes&quot;))
+n=nrow(PASSS_top %&gt;% filter( HumanSpecific==&quot;No&quot;))
+k=nrow(PASSS_top %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 2.295284e-07</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 5.705711</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 14</code></pre>
+<pre class="r"><code>#opposite dir 
+
+
+x= nrow(PASSS_top %&gt;% filter(HumanTopSS==&quot;Yes&quot;,ChimpTopSS==&quot;No&quot;,ChimpSpecific==&quot;Yes&quot;))
+m= nrow(PASSS_top %&gt;%  filter(ChimpSpecific==&quot;Yes&quot;))
+n=nrow(PASSS_top %&gt;%  filter(ChimpSpecific==&quot;No&quot;))
+k=nrow(PASSS_top %&gt;% filter(HumanTopSS==&quot;Yes&quot;,ChimpTopSS==&quot;No&quot;))
+N=nrow(PASSS_top)
+
+
+
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.07262278</code></pre>
+<pre class="r"><code>((x/k)/(m/N))</code></pre>
+<pre><code>[1] 2.068577</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 6</code></pre>
+<p>Chimp:</p>
+<pre class="r"><code>x= nrow(PASSS_top %&gt;% filter(ChimpTopSS==&quot;Yes&quot;,HumanTopSS==&quot;No&quot;, ChimpSpecific==&quot;Yes&quot;))
+m= nrow(PASSS_top %&gt;%  filter(ChimpSpecific==&quot;Yes&quot;))
+n=nrow(PASSS_top %&gt;%  filter(ChimpSpecific==&quot;No&quot;))
+k=nrow(PASSS_top %&gt;% filter(ChimpTopSS==&quot;Yes&quot;,HumanTopSS==&quot;No&quot;))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 3.266273e-15</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 8.320404</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 24</code></pre>
+<pre class="r"><code>#opp  
+x= nrow(PASSS_top %&gt;% filter(ChimpTopSS==&quot;Yes&quot;, HumanTopSS==&quot;No&quot;,HumanSpecific==&quot;Yes&quot;))
+m= nrow(PASSS_top %&gt;%  filter(HumanSpecific==&quot;Yes&quot;))
+n=nrow(PASSS_top %&gt;%  filter(HumanSpecific==&quot;No&quot;))
+k=nrow(PASSS_top %&gt;% filter(ChimpTopSS==&quot;Yes&quot;,HumanTopSS==&quot;No&quot;))
+N=nrow(PASSS_top)
+
+
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.228804</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.639285</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 4</code></pre>
+<p>Among human or chimp specific there is enrichment for one of the top signal sites in only that species.</p>
 <div id="location-of-pas-set" class="section level2">
 <h2>location of PAS set</h2>
 <p>I will plot the location distributions of each of these after removing the species specific for the opposite species.</p>
@@ -2181,7 +2299,7 @@ HumanAll=PAS %&gt;% filter(Human&gt;0) %&gt;% select(loc) %&gt;% mutate(species=
 BothAll=ChimpAll %&gt;% bind_rows(HumanAll) %&gt;% group_by(species,loc) %&gt;% summarise(nLoc=n()) %&gt;% ungroup() %&gt;% group_by(species) %&gt;% mutate(nSpecies=sum(nLoc),prop=nLoc/nSpecies) 
 
 ggplot(BothAll,aes(x=&quot;&quot;,y=prop, fill=loc)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + facet_grid(~species) + scale_fill_brewer(palette = &quot;RdYlBu&quot;, name=&quot;Genic Location&quot;, labels=c(&quot;Coding&quot;, &quot;5KB downstream&quot;, &quot;Intronic&quot;,&quot;3&#39; UTR&quot;, &quot;5&#39; UTR&quot;)) </code></pre>
-<p><img src="figure/speciesSpecific_DF.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/speciesSpecific_DF.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>BothAll</code></pre>
 <pre><code># A tibble: 10 x 5
 # Groups:   species [2]

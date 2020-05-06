@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-10
+<strong>Last updated:</strong> 2020-05-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb347d06eb4978aec4be061af75655b0f1453afdtargetblankdb347d0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/db347d06eb4978aec4be061af75655b0f1453afd" target="_blank">db347d0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2c9bdb14b0a27edbeefa84f3447004ed96e613ftargetblanka2c9bdba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a2c9bdb14b0a27edbeefa84f3447004ed96e613f" target="_blank">a2c9bdb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedb347d06eb4978aec4be061af75655b0f1453afdtargetblankdb347d0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea2c9bdb14b0a27edbeefa84f3447004ed96e613ftargetblanka2c9bdba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -460,6 +460,7 @@ Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
     Untracked:  Human/
+    Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -680,6 +681,7 @@ Untracked files:
     Untracked:  code/CrossmapChimp3prime.out
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
+    Untracked:  code/DTUTR.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -699,6 +701,7 @@ Untracked files:
     Untracked:  code/FilterPrimSec.sh
     Untracked:  code/FilterReverseLift.err
     Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindDomXCutoff.py
     Untracked:  code/FindIntronForDomPAS.err
     Untracked:  code/FindIntronForDomPAS.out
     Untracked:  code/FindIntronForDomPAS.sh
@@ -707,8 +710,33 @@ Untracked files:
     Untracked:  code/GencodeDiffSplice.out
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -745,6 +773,11 @@ Untracked files:
     Untracked:  code/MismatchNumbers.err
     Untracked:  code/MismatchNumbers.out
     Untracked:  code/MismatchNumbers.sh
+    Untracked:  code/NuclearDTUTR.err
+    Untracked:  code/NuclearDTUTRt.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.err
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.sh
     Untracked:  code/PAS_ATTAAA.err
     Untracked:  code/PAS_ATTAAA.out
     Untracked:  code/PAS_ATTAAA.sh
@@ -762,6 +795,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
     Untracked:  code/QuantMergeClusters.out
@@ -781,6 +815,8 @@ Untracked files:
     Untracked:  code/RunNegMCMediationDF.out
     Untracked:  code/RunNegMCMediationDF.sh
     Untracked:  code/RunNegMCMediationr.out
+    Untracked:  code/RunNewDom.err
+    Untracked:  code/RunNewDom.out
     Untracked:  code/RunPosMCMediation.err
     Untracked:  code/RunPosMCMediation.sh
     Untracked:  code/RunPosMCMediationDF.err
@@ -803,6 +839,7 @@ Untracked files:
     Untracked:  code/TestFC.sh
     Untracked:  code/TotalTranscriptDTplot.err
     Untracked:  code/TotalTranscriptDTplot.out
+    Untracked:  code/UTR2FASTA.py
     Untracked:  code/Upstream10Bases_general.py
     Untracked:  code/allPASSeq_df.sh
     Untracked:  code/apaQTLsnake.err
@@ -912,6 +949,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -947,10 +985,14 @@ Untracked files:
     Untracked:  code/mediation_test.R
     Untracked:  code/merge.err
     Untracked:  code/mergeChimp3prime_inhg38.sh
+    Untracked:  code/mergeChimpRNA.sh
     Untracked:  code/merge_leafcutter_clusters_redo.py
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1015,6 +1057,7 @@ Untracked files:
     Untracked:  code/runFilterNumChroms.sh
     Untracked:  code/runHumanDiffIso.sh
     Untracked:  code/runHumanDiffIsoDF.sh
+    Untracked:  code/runNewDom.sh
     Untracked:  code/runNuclearDiffIso_DF.sh
     Untracked:  code/runNuclearDifffIso.sh
     Untracked:  code/runTotalDiffIso.sh
@@ -1130,11 +1173,13 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/AREelements/
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
+    Untracked:  data/DiffDomandDE_example/
     Untracked:  data/DiffExpression/
     Untracked:  data/DiffIso_Nuclear/
     Untracked:  data/DiffIso_Nuclear_DF/
@@ -1142,11 +1187,18 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DomDefGreaterX/
+    Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1213,8 +1265,10 @@ Untracked files:
     Untracked:  data/metadata_HCpanel_extra.txt
     Untracked:  data/metadata_HCpanel_frompantro5.txt
     Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
@@ -1222,14 +1276,19 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dtPlots/
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
@@ -1237,6 +1296,7 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1278,6 +1338,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6850c9d551f4a507359bfc045bbd4f8476adcfc4/analysis/SS_diffUsage.Rmd" target="_blank">6850c9d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-05
+</td>
+<td>
+fix enrichemnt
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8f72fb75aada53ce686dd19d52cd954bdbdfbaa1/docs/SS_diffUsage.html" target="_blank">8f72fb7</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1481,12 +1575,12 @@ library(ggpubr)</code></pre>
 <pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -1499,335 +1593,178 @@ MetaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_Bo
 <pre class="r"><code>DiffUsed_anno=DiffUsed %&gt;% inner_join(MetaPAS,by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;))</code></pre>
 <p>Ask how many of the effect size either way are those with SS in one species</p>
 <ul>
-<li>upreg in chimp</li>
-<li>upred in human</li>
+<li>upreg in human</li>
+<li>upred in chimp</li>
 </ul>
-<pre class="r"><code>DiffUsed_anno_humanup=DiffUsed_anno %&gt;% filter(deltaPAU&lt;0)
+<pre class="r"><code>DiffUsed_anno_humanup=DiffUsed_anno %&gt;% filter(deltaPAU&gt;0)
 nrow(DiffUsed_anno_humanup)</code></pre>
-<pre><code>[1] 1312</code></pre>
-<pre class="r"><code>nrow(DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))</code></pre>
-<pre><code>[1] 4</code></pre>
-<pre class="r"><code>DiffUsed_anno_chimpup=DiffUsed_anno %&gt;% filter(deltaPAU&gt;0)
-nrow(DiffUsed_anno_chimpup)</code></pre>
 <pre><code>[1] 1030</code></pre>
+<pre class="r"><code>nrow(DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))</code></pre>
+<pre><code>[1] 32</code></pre>
+<pre class="r"><code>DiffUsed_anno_chimpup=DiffUsed_anno %&gt;% filter(deltaPAU&lt;0)
+nrow(DiffUsed_anno_chimpup)</code></pre>
+<pre><code>[1] 1312</code></pre>
 <pre class="r"><code>nrow(DiffUsed_anno_chimpup %&gt;% filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;))</code></pre>
-<pre><code>[1] 14</code></pre>
+<pre><code>[1] 32</code></pre>
 <p>Significance:</p>
-<pre class="r"><code>humanOnly=nrow(MetaPAS %&gt;%  filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))
+<pre class="r"><code>humanOnlyPattern=MetaPAS %&gt;%  filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;)
 
-chimpOnly=nrow(MetaPAS %&gt;%  filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;))
+chimpOnlyPattern=MetaPAS %&gt;%  filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;)
 
-humanOnly+chimpOnly</code></pre>
+nrow(humanOnlyPattern)+nrow(chimpOnlyPattern)</code></pre>
 <pre><code>[1] 720</code></pre>
-<p>Of the 44432 we see that 720 have the pattern of interest. We choose 1312 of them and 18 come out. Look to see if it is more than expected by change</p>
-<p>phyper(success in sample, sucesss in possible, failure possible, sample size)</p>
-<pre class="r"><code>x= 18
-m= 720
-n=44432
-k=1312
+<p>Of the 44432 we see that 720 have the pattern of interest. We choose 1312 of them and 32 come out. Look to see if it is more than expected by change</p>
+<p>Human up reg: phyper(success in sample, sucesss in possible, failure possible, sample size)</p>
+<p>up with pattern up reg general no up used all with pattern</p>
+<pre class="r"><code>#DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;)
+x= nrow(DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))
+m= nrow(DiffUsed_anno_humanup)
+n=nrow(MetaPAS)-m
+k=nrow(humanOnlyPattern)
+N=nrow(MetaPAS)
 
 
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))</code></pre>
-<pre><code>[1] 18</code></pre>
-<pre class="r"><code>phyper(18,720, 44432 , 1312,lower.tail=F)</code></pre>
-<pre><code>[1] 0.6974493</code></pre>
-<p>No significant enrichment for the pattern.</p>
+#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 1.366468e-10</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 3.823855</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 32</code></pre>
+<p>This means that of those that have a top signal site only in human there is an enrichment for dAPA PAS.</p>
+<p>Try oppostie dir.</p>
+<pre class="r"><code>x= nrow(DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;))
+m= nrow(DiffUsed_anno_humanup)
+n=nrow(MetaPAS)-m
+k=nrow(chimpOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.0420955</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.682257</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 14</code></pre>
+<p>So this is 32 vs 14.</p>
+<p>Do this for chimp.</p>
+<pre class="r"><code>x= nrow(DiffUsed_anno_chimpup %&gt;% filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;))
+m= nrow(DiffUsed_anno_chimpup)
+n=nrow(MetaPAS)-m
+k=nrow(chimpOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 3.906968e-08</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 3.018683</code></pre>
+<p>Strong enrichment here too:</p>
+<pre class="r"><code>x= nrow(DiffUsed_anno_chimpup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))
+m= nrow(DiffUsed_anno_chimpup)
+n=nrow(MetaPAS)-m
+k=nrow(humanOnlyPattern)
+N=nrow(MetaPAS)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.9943171</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 0.3752449</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 4</code></pre>
+<p>No enrichment for this pattern.</p>
+<p>This direction has 32 vs 4.</p>
+<p>This can be something I use. This suggests that if there are differences in signal site they are likely to lead to differential usage in the expected direction.</p>
+<p>Next question: is the pattern enriched in PAS called as dAPA: Are dAPA more likely than expected to have this pattern?</p>
+<p>I can use a chisq test of independence.</p>
+<pre class="r"><code>DiffUsed_annotest= DiffUsed_anno %&gt;% mutate(UpReg=ifelse(deltaPAU&lt; 0, &quot;Chimp&quot;, &quot;Human&quot;), Pattern=ifelse(ChimpTopSS==&quot;Yes&quot;, ifelse(HumanTopSS==&quot;Yes&quot;, &quot;none&quot;, &quot;Chimp&quot;), ifelse(HumanTopSS==&quot;Yes&quot;, &quot;Human&quot;, &quot;none&quot;)))  %&gt;% select(PAS, UpReg,Pattern ) %&gt;% filter(Pattern!=&quot;none&quot;)
+
+DiffUsed_annotest %&gt;% group_by(UpReg, Pattern) %&gt;% summarise(nType=n())</code></pre>
+<pre><code># A tibble: 4 x 3
+# Groups:   UpReg [2]
+  UpReg Pattern nType
+  &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;
+1 Chimp Chimp      32
+2 Chimp Human       4
+3 Human Chimp      14
+4 Human Human      32</code></pre>
+<pre class="r"><code>toTest=DiffUsed_annotest %&gt;% group_by(UpReg, Pattern) %&gt;% summarise(nType=n()) %&gt;% spread(Pattern, nType) %&gt;% column_to_rownames(&quot;UpReg&quot;)
+
+chisq.test(toTest)</code></pre>
+<pre><code>
+    Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+
+data:  toTest
+X-squared = 25.695, df = 1, p-value = 3.998e-07</code></pre>
+<p>This is significant</p>
+<pre class="r"><code>DiffUsed_annotest %&gt;% group_by(UpReg, Pattern) %&gt;% summarise(nType=n()) %&gt;% spread(Pattern, nType)</code></pre>
+<pre><code># A tibble: 2 x 3
+# Groups:   UpReg [2]
+  UpReg Chimp Human
+  &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+1 Chimp    32     4
+2 Human    14    32</code></pre>
+<p>Are these the strongest differences?</p>
+<pre class="r"><code>DiffUsed_annoPatternAssign= DiffUsed_anno %&gt;% mutate(UpReg=ifelse(deltaPAU&lt; 0, &quot;Chimp&quot;, &quot;Human&quot;), Pattern=ifelse(ChimpTopSS==&quot;Yes&quot;, ifelse(HumanTopSS==&quot;Yes&quot;, &quot;none&quot;, &quot;Chimp&quot;), ifelse(HumanTopSS==&quot;Yes&quot;, &quot;Human&quot;, &quot;none&quot;)), ExpectedPattern=ifelse(Pattern!=&quot;none&quot;, &quot;Yes&quot;, &quot;No&quot;))
+
+DiffUsed_annoPatternAssign$ExpectedPattern= as.factor(DiffUsed_annoPatternAssign$ExpectedPattern)
+ggplot(DiffUsed_annoPatternAssign, aes(x=ExpectedPattern, y=abs(deltaPAU), fill=ExpectedPattern))+ geom_boxplot()+ geom_jitter(alpha=.1)+stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;) + labs(title=&quot;delta PAU by signal site in expected direction&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Plot dPAU by presence and absense:</p>
 <pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title=&quot;Human upregualted PAS by presence of Signal&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" target="_blank">2242e4a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/838da9ba6d3ca6ea1f2a42821c15e65f5abb795a/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-8-1.png" target="_blank">838da9b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Human upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Human Signal Site Detected&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-8-2.png" target="_blank">2242e4a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ac2b058b8443776b25704cb05f7ca7d0f02622a0/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-8-2.png" target="_blank">ac2b058</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Test with wilcoxan test:</p>
-<p>There is a shift.</p>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-9-1.png" target="_blank">2242e4a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/838da9ba6d3ca6ea1f2a42821c15e65f5abb795a/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-9-1.png" target="_blank">838da9b</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Chimp Signal Site Detected&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxon, p=0.035&quot;,x=.8,y=7.5)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-2">
-Past versions of unnamed-chunk-9-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/2242e4af582d177c2cef86a1e242760c9246c205/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-9-2.png" target="_blank">2242e4a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ac2b058b8443776b25704cb05f7ca7d0f02622a0/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-9-2.png" target="_blank">ac2b058</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-26
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It does not look like presence of a signal within the upregulated matters.</p>
-<p>Overall it does not look like presense of a signal site or not can explain the differences.</p>
-<p>Opposite direction:</p>
-<pre class="r"><code>nrow(DiffUsed_anno_humanup %&gt;% filter(HumanTopSS==&quot;No&quot;, ChimpTopSS==&quot;Yes&quot;))</code></pre>
-<pre><code>[1] 32</code></pre>
-<pre class="r"><code>nrow(DiffUsed_anno_chimpup %&gt;% filter(HumanTopSS==&quot;Yes&quot;, ChimpTopSS==&quot;No&quot;))</code></pre>
-<pre><code>[1] 32</code></pre>
-<p>Look at the regions that have a non cononical signal site.</p>
 <p>I choose these is the original SS analysis. I used the chooseSignalSite.py it was a hierarchical model</p>
 <pre class="r"><code>MetaAllSS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt&quot;,stringsAsFactors = F,header = T)
 MetaAllSSsmall=MetaAllSS %&gt;% select(chr, start,end,PAS)</code></pre>
 <p>This has every PAS with a signal site. I will add information about if the PAS is differentially used.</p>
 <pre class="r"><code>DiffUsed_small= DiffUsed %&gt;% select(chr,start,end, gene, deltaPAU, p.adjust) %&gt;% inner_join(MetaAllSSsmall,by=c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;))
 
-DiffUsed_small_human= DiffUsed_small %&gt;% filter(deltaPAU&lt;0)
-DiffUsed_small_chimp= DiffUsed_small %&gt;% filter(deltaPAU&gt;0)
+DiffUsed_small_human= DiffUsed_small %&gt;% filter(deltaPAU&gt;0)
+DiffUsed_small_chimp= DiffUsed_small %&gt;% filter(deltaPAU&lt;0)
 
 MetaAllSS_diffUsage=MetaAllSS %&gt;% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, &quot;yes&quot;,&quot;no&quot;), HumanUp=ifelse(PAS %in% DiffUsed_small_human$PAS, &quot;yes&quot;,&quot;no&quot;), ChimpUp=ifelse(PAS %in% DiffUsed_small_chimp$PAS, &quot;yes&quot;,&quot;no&quot;))</code></pre>
-<p>First question: Are there cononical in one and non connonical in the other species</p>
-<pre class="r"><code>con=c(&quot;AATAAA&quot;, &quot;ATTAAA&quot;)
-non=c(&#39;AAAAAG&#39;, &#39;AAAAAA&#39;, &#39;TATAAA&#39;, &#39;AATATA&#39;, &#39;AGTAAA&#39;, &#39;AATACA&#39;, &#39;GATAAA&#39;, &#39;AATAGA&#39;, &#39;CATAAA&#39;, &#39;ACTAAA&#39;)
-ChimpConHumanNon=MetaAllSS_diffUsage %&gt;% filter(ChimpPAS %in% con, HumanPAS %in% non) 
-nrow(ChimpConHumanNon)</code></pre>
-<pre><code>[1] 292</code></pre>
-<pre class="r"><code>#number up in chim
-ChimpConHumanNon %&gt;% filter(ChimpUp==&quot;yes&quot;) %&gt;% nrow()</code></pre>
-<pre><code>[1] 12</code></pre>
-<pre class="r"><code>#number up in human  
+<p>Look at any vs none.</p>
+<pre class="r"><code>x= nrow(MetaAllSS_diffUsage %&gt;% filter(HumanUp==&quot;yes&quot;,HumanPAS!=&quot;None&quot;, ChimpPAS==&quot;None&quot;))
+m=nrow(MetaAllSS_diffUsage %&gt;% filter(HumanUp==&quot;yes&quot;))
+n=nrow(MetaAllSS_diffUsage %&gt;% filter(HumanUp!=&quot;yes&quot;))
+k= nrow(MetaAllSS_diffUsage %&gt;% filter(HumanPAS!=&quot;None&quot;, ChimpPAS==&quot;None&quot;))
 
-ChimpConHumanNon %&gt;% filter(HumanUp==&quot;yes&quot;) %&gt;% nrow()</code></pre>
-<pre><code>[1] 23</code></pre>
-<p>Opposite direction:</p>
-<pre class="r"><code>ChimpNonHumanCon=MetaAllSS_diffUsage %&gt;% filter(ChimpPAS %in% non, HumanPAS %in% con) 
-nrow(ChimpNonHumanCon)</code></pre>
-<pre><code>[1] 295</code></pre>
-<pre class="r"><code>#number up in chim
-ChimpNonHumanCon %&gt;% filter(ChimpUp==&quot;yes&quot;) %&gt;% nrow()</code></pre>
-<pre><code>[1] 28</code></pre>
-<pre class="r"><code>#number up in human  
+N=nrow(MetaAllSS_diffUsage)
 
-ChimpNonHumanCon %&gt;% filter(HumanUp==&quot;yes&quot;) %&gt;% nrow()</code></pre>
-<pre><code>[1] 3</code></pre>
-<p>This doesnt make a lot of sense.</p>
-<p>Question 2: any signal site vs no signal site?</p>
-<pre class="r"><code>MetaAllSS_diffUsage_add=MetaAllSS_diffUsage %&gt;% mutate(HumanNone=ifelse(ChimpPAS!=&quot;None&quot; &amp; HumanPAS==&quot;None&quot;, &quot;yes&quot;, &quot;no&quot;),ChimpNone=ifelse(ChimpPAS==&quot;None&quot; &amp; HumanPAS!=&quot;None&quot;, &quot;yes&quot;, &quot;no&quot;), EitherNonePatter=ifelse(ChimpNone==&quot;yes&quot; | HumanNone ==&quot;yes&quot;, &quot;yes&quot;,&quot;no&quot;))</code></pre>
-<p>Enrichment for either:</p>
-<pre class="r"><code>x=nrow(MetaAllSS_diffUsage_add %&gt;% filter(EitherNonePatter==&quot;yes&quot;, DiffUsed==&quot;yes&quot;))
-m=nrow(MetaAllSS_diffUsage_add %&gt;% filter(DiffUsed==&quot;yes&quot;))
-n=nrow(MetaAllSS_diffUsage_add %&gt;% filter(DiffUsed==&quot;no&quot;))
-k=nrow(MetaAllSS_diffUsage_add %&gt;% filter(EitherNonePatter==&quot;no&quot;))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 1</code></pre>
-<pre class="r"><code>enrich=(x/k)/(m/N)
-enrich</code></pre>
-<pre><code>[1] 0.01733576</code></pre>
-<p>Human dir</p>
-<pre class="r"><code>x=nrow(MetaAllSS_diffUsage_add %&gt;% filter(ChimpNone==&quot;yes&quot;, HumanUp==&quot;yes&quot;))
-m=nrow(MetaAllSS_diffUsage_add %&gt;% filter(HumanUp==&quot;yes&quot;))
-n=nrow(MetaAllSS_diffUsage_add %&gt;% filter(HumanUp==&quot;no&quot;))
-k=nrow(MetaAllSS_diffUsage_add %&gt;% filter(ChimpNone==&quot;no&quot;))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 1</code></pre>
-<pre class="r"><code>enrich=(x/k)/(m/N)
-enrich</code></pre>
-<pre><code>[1] 0.002303643</code></pre>
-<p>Chimp direction</p>
-<pre class="r"><code>x=nrow(MetaAllSS_diffUsage_add %&gt;% filter(HumanNone==&quot;yes&quot;, ChimpUp==&quot;yes&quot;))
-m=nrow(MetaAllSS_diffUsage_add %&gt;% filter(ChimpUp==&quot;yes&quot;))
-n=nrow(MetaAllSS_diffUsage_add %&gt;% filter(ChimpUp==&quot;no&quot;))
-k=nrow(MetaAllSS_diffUsage_add %&gt;% filter(HumanNone==&quot;no&quot;))
-N=nrow(MetaAllSS_diffUsage_add)
-phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 1</code></pre>
-<pre class="r"><code>enrich=(x/k)/(m/N)
-enrich</code></pre>
-<pre><code>[1] 0.01075904</code></pre>
-<p>None of these are enriched</p>
-<pre class="r"><code>MetaPAS_diff= MetaPAS %&gt;% mutate(DiffUsed=ifelse(PAS %in% DiffUsed_small$PAS, &quot;yes&quot;,&quot;no&quot;), HumanNoChimpYes=ifelse(HumanTopSS==&quot;No&quot; &amp; ChimpTopSS==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;), HumanYesChimpNo=ifelse(HumanTopSS==&quot;Yes&quot; &amp; ChimpTopSS==&quot;No&quot;, &quot;Yes&quot;,&quot;No&quot;), EitherPattern=ifelse(HumanYesChimpNo==&quot;Yes&quot; | HumanNoChimpYes ==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))</code></pre>
-<p>Either pattern</p>
-<pre class="r"><code>x=nrow(MetaPAS_diff %&gt;% filter(EitherPattern==&quot;Yes&quot;, DiffUsed==&quot;yes&quot;))
-m=nrow(MetaPAS_diff %&gt;% filter(DiffUsed==&quot;yes&quot;))
-n=nrow(MetaPAS_diff %&gt;% filter(DiffUsed==&quot;no&quot;))
-k=nrow(MetaPAS_diff %&gt;% filter(EitherPattern==&quot;No&quot;))
-N=nrow(MetaPAS_diff)
-phyper(x,m,n,k,lower.tail=F)</code></pre>
-<pre><code>[1] 1</code></pre>
-<pre class="r"><code>enrich=(x/k)/(m/N)
-enrich</code></pre>
-<pre><code>[1] 0.03558952</code></pre>
-<p>No enrichment for any of the patterns</p>
+x</code></pre>
+<pre><code>[1] 8</code></pre>
+<pre class="r"><code>#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.4952338</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.048945</code></pre>
+<p>Chimp:</p>
+<pre class="r"><code>x= nrow(MetaAllSS_diffUsage %&gt;% filter(ChimpUp==&quot;yes&quot;,HumanPAS==&quot;None&quot;, ChimpPAS!=&quot;None&quot;))
+m=nrow(MetaAllSS_diffUsage %&gt;% filter(ChimpUp==&quot;yes&quot;))
+n=nrow(MetaAllSS_diffUsage %&gt;% filter(ChimpUp!=&quot;yes&quot;))
+k= nrow(MetaAllSS_diffUsage %&gt;% filter(HumanPAS==&quot;None&quot;, ChimpPAS!=&quot;None&quot;))
+
+N=nrow(MetaAllSS_diffUsage)
+
+
+#pval
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.00935056</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.858492</code></pre>
+<pre class="r"><code>x</code></pre>
+<pre><code>[1] 18</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1863,18 +1800,19 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
-[21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.2       promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[33] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[37] tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2   
-[41] pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
-[45] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10  R6_2.3.0        
-[49] nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+ [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       utf8_1.1.4      
+ [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
+[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
+[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
+[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1  
+[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
+[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
+[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      lazyeval_0.2.1  
+[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
+[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
+[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
+[53] compiler_3.5.1  </code></pre>
 </div>
 
 
