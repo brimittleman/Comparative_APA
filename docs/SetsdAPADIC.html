@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Pie charts for dAPA at all levels</title>
+<title>dAPA dIC together and sep</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Pie charts for dAPA at all levels</h1>
+<h1 class="title toc-ignore">dAPA dIC together and sep</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>5/4/2020</em></h4>
+<h4 class="date"><em>5/7/2020</em></h4>
 
 </div>
 
@@ -1346,7 +1346,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/341a5c015d274759e5711eb0b33b21eaa716b07e/analysis/piecharts.Rmd" target="_blank">341a5c0</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/341a5c015d274759e5711eb0b33b21eaa716b07e/analysis/SetsdAPADIC.Rmd" target="_blank">341a5c0</a>
 </td>
 <td>
 brimittleman
@@ -1358,74 +1358,6 @@ brimittleman
 add seperation with dapa and dic
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/84965f69c80ab53080ef28f229a305aa5ddf40f2/docs/piecharts.html" target="_blank">84965f6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-06
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/0f623d6d4ee1000cd5d9e3858b3d548d54a9a9bb/analysis/piecharts.Rmd" target="_blank">0f623d6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-06
-</td>
-<td>
-update with writing
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/piecharts.html" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/b1403670f741effcb7fe55f47a77a75ef33ce8d9/analysis/piecharts.Rmd" target="_blank">b140367</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-<td>
-add pie charts
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1433,7 +1365,6 @@ add pie charts
 </div>
 </div>
 </div>
-<p>I want to make pie charts to show differential usage at all three levels.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
@@ -1446,360 +1377,257 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(UpSetR)
-library(cowplot)</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
 <pre><code>
 Attaching package: &#39;cowplot&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
     ggsave</code></pre>
-<pre class="r"><code>useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)</code></pre>
-<p>dAPA, pas and gene level dIC diff Dominant</p>
+<p>I want to look at regulatory phenotype regulation based on dAPA, both, or dIC.</p>
+<p>For this analysis I will use dIC at 5% FDR. Numbers are smaller but overlaps suggest it is more biological.</p>
+<p>I will look at genes tested in all analysis then proportion results to only dAPA, dIC and dAPA, or dIC only. I will test for enrichement in each of these sets with expression, translation, and protein.</p>
+<p>Load APA data:</p>
+<p>For apa I reduce to gene level and count it as sig if at least one PAS is different.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
 
 
 Meta_genes= Meta %&gt;% select(gene) %&gt;% unique()
 
-Meta_PAS=Meta %&gt;%  select(PAS,gene)</code></pre>
-<pre class="r"><code>dAPAPAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS,gene,SigPAU2 ) 
+Meta_PAS=Meta %&gt;%  select(PAS,gene)
 
-NotTestedPAS= Meta_PAS %&gt;% anti_join(dAPAPAS,by=&quot;PAS&quot;) %&gt;% mutate(SigPAU2=&quot;notTested&quot;)
-
-dAPAwithNottested=NotTestedPAS %&gt;% bind_rows(dAPAPAS)
-
-dAPAPASGrouped= dAPAwithNottested %&gt;%  group_by(SigPAU2) %&gt;% summarise(n=n()) %&gt;% mutate(genes=sum(n), prop=n/genes)
-
-
-
-pasplot=ggplot(dAPAPASGrouped,aes(by=SigPAU2, y=prop, x=&quot;&quot;, fill=SigPAU2)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dAPA PAS&quot;) +labs(title=&quot;Differential APA PAS 5% FDR&quot;)
-
-pasplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-4-1.png" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Gene level:</p>
-<pre class="r"><code>dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
+dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
+dAPAPAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS,gene,SigPAU2 ) 
 
 dAPAPAS_genes= dAPAPAS %&gt;% select(gene) %&gt;% unique()
-NotTestedGenes=Meta_genes %&gt;% anti_join(dAPAPAS_genes, by=&quot;gene&quot;) %&gt;% mutate(dAPA=&quot;NotTested&quot;)
 
+dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,&quot;Yes&quot;, &quot;No&quot;)) </code></pre>
+<pre class="r"><code>dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC,gene)</code></pre>
+<pre class="r"><code>dAPAandDic= dICdata %&gt;% inner_join(dAPATestedGenes,by=&quot;gene&quot;) %&gt;% mutate(Both=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyIC=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;No&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyAPA=ifelse(sIC==&quot;No&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))
 
-dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,&quot;Yes&quot;, &quot;No&quot;)) %&gt;% bind_rows(NotTestedGenes)%&gt;% group_by(dAPA) %&gt;% summarise(n=n()) %&gt;% mutate(genes=sum(n), prop=n/genes)
-genesplot=ggplot(dAPATestedGenes,aes(by=dAPA, y=prop, x=&quot;&quot;, fill=dAPA)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dAPA Genes&quot;) +labs(title=&quot;Differential APA genes 5% FDR&quot;)
-genesplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-5-1.png" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
+nrow(dAPAandDic)</code></pre>
+<pre><code>[1] 8422</code></pre>
+<div id="expression" class="section level2">
+<h2>Expression</h2>
+<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFactors = F,header = F, col.names = c(&quot;Gene_stable_ID&quot; ,&quot;logFC&quot; ,&quot;AveExpr&quot; , &quot;t&quot; ,  &quot;P.Value&quot; ,  &quot;adj.P.Val&quot;, &quot;B&quot;  )) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::rename(&#39;gene&#39;=Gene.name) %&gt;% dplyr::select(-Gene_stable_ID) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;.05, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% select(gene,DE)</code></pre>
+<pre class="r"><code>DEandAPA=DiffExp %&gt;% inner_join(dAPAandDic,by=&quot;gene&quot;)
+nrow(DEandAPA)</code></pre>
+<pre><code>[1] 7465</code></pre>
+<p>Erichment for only APA:</p>
+<pre class="r"><code>sets=c(&quot;OnlyAPA&quot;, &quot;OnlyIC&quot;, &quot;Both&quot;)
+DE_pval=c()
+DE_enrich=c()</code></pre>
+<pre class="r"><code>x=nrow(DEandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;, DE==&quot;Yes&quot;))
+m=nrow(DEandAPA %&gt;% filter(DE==&quot;Yes&quot;))
+n=nrow(DEandAPA %&gt;% filter(DE==&quot;No&quot;))
+k=nrow(DEandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.0005193482</code></pre>
+<pre class="r"><code>DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 447</code></pre>
+<pre class="r"><code>DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.122516</code></pre>
+<p>Only dIC</p>
+<pre class="r"><code>x=nrow(DEandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;, DE==&quot;Yes&quot;))
+m=nrow(DEandAPA %&gt;% filter(DE==&quot;Yes&quot;))
+n=nrow(DEandAPA %&gt;% filter(DE==&quot;No&quot;))
+k=nrow(DEandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.2216107</code></pre>
+<pre class="r"><code>DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 154</code></pre>
+<pre class="r"><code>DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.052215</code></pre>
+<p>Both:</p>
+<pre class="r"><code>x=nrow(DEandAPA %&gt;% filter(Both==&quot;Yes&quot;, DE==&quot;Yes&quot;))
+m=nrow(DEandAPA %&gt;% filter(DE==&quot;Yes&quot;))
+n=nrow(DEandAPA %&gt;% filter(DE==&quot;No&quot;))
+k=nrow(DEandAPA %&gt;% filter(Both==&quot;Yes&quot;))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.02681958</code></pre>
+<pre class="r"><code>DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 163</code></pre>
+<pre class="r"><code>DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.128023</code></pre>
+<p>All de res:</p>
+<pre class="r"><code>DEdf=as.data.frame(cbind(sets,DE_pval, DE_enrich)) %&gt;% rename(Pval=DE_pval, Enrichment=DE_enrich) %&gt;% mutate(Pheno=&quot;Expression&quot;)
+DEdf</code></pre>
+<pre><code>     sets                 Pval       Enrichment      Pheno
+1 OnlyAPA 0.000519348163532497 1.12251636247181 Expression
+2  OnlyIC    0.221610701204403 1.05221488574561 Expression
+3    Both   0.0268195798877835 1.12802297586811 Expression</code></pre>
 </div>
+<div id="translation" class="section level2">
+<h2>Translation</h2>
+<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(dTE=ifelse(HvC.FDR &lt;0.05, &quot;Yes&quot;,&quot;No&quot;))
+RiboSmall= Ribo %&gt;% select(gene,dTE)</code></pre>
+<pre class="r"><code>DTandAPA=Ribo %&gt;% inner_join(dAPAandDic,by=&quot;gene&quot;)
+nrow(DTandAPA)</code></pre>
+<pre><code>[1] 6477</code></pre>
+<pre class="r"><code>#sets=c(&quot;OnlyAPA&quot;, &quot;OnlyIC&quot;, &quot;Both&quot;)
+DT_pval=c()
+DT_enrich=c()</code></pre>
+<p>only APA</p>
+<pre class="r"><code>x=nrow(DTandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;, dTE==&quot;Yes&quot;))
+m=nrow(DTandAPA %&gt;% filter(dTE==&quot;Yes&quot;))
+n=nrow(DTandAPA %&gt;% filter(dTE==&quot;No&quot;))
+k=nrow(DTandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.06327494</code></pre>
+<pre class="r"><code>DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 210</code></pre>
+<pre class="r"><code>DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.093646</code></pre>
+<p>Only dIC</p>
+<pre class="r"><code>x=nrow(DTandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;, dTE==&quot;Yes&quot;))
+m=nrow(DTandAPA %&gt;% filter(dTE==&quot;Yes&quot;))
+n=nrow(DTandAPA %&gt;% filter(dTE==&quot;No&quot;))
+k=nrow(DTandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.02205198</code></pre>
+<pre class="r"><code>DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 94</code></pre>
+<pre class="r"><code>DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.205226</code></pre>
+<pre class="r"><code>x=nrow(DTandAPA %&gt;% filter(Both==&quot;Yes&quot;, dTE==&quot;Yes&quot;))
+m=nrow(DTandAPA %&gt;% filter(dTE==&quot;Yes&quot;))
+n=nrow(DTandAPA %&gt;% filter(dTE==&quot;No&quot;))
+k=nrow(DTandAPA %&gt;% filter(Both==&quot;Yes&quot;))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.01134051</code></pre>
+<pre class="r"><code>DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 91</code></pre>
+<pre class="r"><code>DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.240121</code></pre>
+<pre class="r"><code>DTdf=as.data.frame(cbind(sets,DT_pval, DT_enrich)) %&gt;% rename(Pval=DT_pval, Enrichment=DT_enrich) %&gt;% mutate(Pheno=&quot;Translation&quot;)
+DTdf</code></pre>
+<pre><code>     sets               Pval       Enrichment       Pheno
+1 OnlyAPA 0.0632749366195107 1.09364622715088 Translation
+2  OnlyIC 0.0220519791477263 1.20522601526234 Translation
+3    Both 0.0113405052499701 1.24012060208466 Translation</code></pre>
 </div>
-<p>dInfo:</p>
-<pre class="r"><code>dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance_10FDR.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC10,gene)
+<div id="protein" class="section level2">
+<h2>Protein</h2>
+<p>(pval is adjusted already)</p>
+<pre class="r"><code>Prot= read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;,header = T,stringsAsFactors = F)  %&gt;% mutate(dP=ifelse(pval&lt;0.05, &quot;Yes&quot;, &quot;No&quot;))
 
-Nottested= Meta_genes %&gt;% anti_join(dICdata, by=&quot;gene&quot;) %&gt;% mutate(sIC10=&quot;notTested&quot;)
 
-dICdata_wnot= dICdata %&gt;% bind_rows(Nottested) %&gt;% group_by(sIC10) %&gt;% summarise(n=n()) %&gt;% mutate(genes=sum(n), prop=n/genes)
-
-dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x=&quot;&quot;, fill=sIC10)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dIC Genes&quot;) +labs(title=&quot;Differential information content\n 10% FDR&quot;)
-dICplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-6-1.png" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
+ProtSmall=Prot %&gt;% select(gene, dP)</code></pre>
+<pre class="r"><code>DPandAPA=Prot %&gt;% inner_join(dAPAandDic,by=&quot;gene&quot;)
+nrow(DPandAPA)</code></pre>
+<pre><code>[1] 2641</code></pre>
+<pre class="r"><code>#sets=c(&quot;OnlyAPA&quot;, &quot;OnlyIC&quot;, &quot;Both&quot;)
+DP_pval=c()
+DP_enrich=c()</code></pre>
+<p>only APA</p>
+<pre class="r"><code>x=nrow(DPandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;, dP==&quot;Yes&quot;))
+m=nrow(DPandAPA %&gt;% filter(dP==&quot;Yes&quot;))
+n=nrow(DPandAPA %&gt;% filter(dP==&quot;No&quot;))
+k=nrow(DPandAPA %&gt;% filter(OnlyAPA==&quot;Yes&quot;))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.2293006</code></pre>
+<pre class="r"><code>DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 130</code></pre>
+<pre class="r"><code>DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.052798</code></pre>
+<p>Only dIC</p>
+<pre class="r"><code>x=nrow(DPandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;, dP==&quot;Yes&quot;))
+m=nrow(DPandAPA %&gt;% filter(dP==&quot;Yes&quot;))
+n=nrow(DPandAPA %&gt;% filter(dP==&quot;No&quot;))
+k=nrow(DPandAPA %&gt;% filter(OnlyIC==&quot;Yes&quot;))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.8222889</code></pre>
+<pre class="r"><code>DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 68</code></pre>
+<pre class="r"><code>DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 0.925635</code></pre>
+<pre class="r"><code>x=nrow(DPandAPA %&gt;% filter(Both==&quot;Yes&quot;, dP==&quot;Yes&quot;))
+m=nrow(DPandAPA %&gt;% filter(dP==&quot;Yes&quot;))
+n=nrow(DPandAPA %&gt;% filter(dP==&quot;No&quot;))
+k=nrow(DPandAPA %&gt;% filter(Both==&quot;Yes&quot;))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.8802321</code></pre>
+<pre class="r"><code>DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x</code></pre>
+<pre><code>[1] 56</code></pre>
+<pre class="r"><code>DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)</code></pre>
+<pre><code>[1] 0.895688</code></pre>
+<pre class="r"><code>DPdf=as.data.frame(cbind(sets,DP_pval, DP_enrich)) %&gt;% rename(Pval=DP_pval, Enrichment=DP_enrich) %&gt;% mutate(Pheno=&quot;Protein&quot;)
+DPdf</code></pre>
+<pre><code>     sets              Pval        Enrichment   Pheno
+1 OnlyAPA 0.229300585846805  1.05279781179472 Protein
+2  OnlyIC 0.822288948709401 0.925634999175326 Protein
+3    Both 0.880232087900127 0.895687984496124 Protein</code></pre>
 </div>
-</div>
-<pre class="r"><code>dICdata5= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC,gene)
+<div id="plot-together" class="section level2">
+<h2>Plot together:</h2>
+<pre class="r"><code>AllDF= DEdf %&gt;% bind_rows(DTdf) %&gt;% bind_rows(DPdf)</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
 
-Nottested5= Meta_genes %&gt;% anti_join(dICdata5, by=&quot;gene&quot;) %&gt;% mutate(sIC=&quot;notTested&quot;)
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
 
-dICdata5_wnot= dICdata5 %&gt;% bind_rows(Nottested5) %&gt;% group_by(sIC) %&gt;% summarise(n=n()) %&gt;% mutate(genes=sum(n), prop=n/genes)
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
 
-dIC5plot=ggplot(dICdata5_wnot,aes(by=sIC, y=prop, x=&quot;&quot;, fill=sIC)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;dIC Genes&quot;) +labs(title=&quot;Differential information content\n 5% FDR&quot;)
-dIC5plot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-7-1.png" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
 
-ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre class="r"><code>AllDF$Pval=as.numeric(AllDF$Pval)
+AllDF$Enrichment=as.numeric(AllDF$Enrichment)
+AllDF$Pheno=factor(AllDF$Pheno, levels=c(&quot;Expression&quot;, &quot;Translation&quot;, &quot;Protein&quot;))
+useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
 
-BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40) %&gt;% select(gene, Set)
+enrichplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=Enrichment,fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1) + scale_fill_manual(values=useCOl)
 
-NoDom= Meta_genes %&gt;% anti_join(BothRes_40,by=&quot;gene&quot;) %&gt;% mutate(Set=&quot;NoDominant&quot;)
-
-BothRes_40wNo=BothRes_40 %&gt;% bind_rows(NoDom) %&gt;% group_by(Set)  %&gt;% summarise(n=n()) %&gt;% mutate(genes=sum(n), prop=n/genes)
-
-BothRes_40wNo$Set=factor(BothRes_40wNo$Set, levels=c(&#39;Same&#39;, &#39;NoDominant&#39;, &#39;Different&#39;))
+enrichplot</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>enrichpoint=ggplot(AllDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=AllDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title=&quot;Enrichment for APA phenotype differences in other regulatory phenotypes&quot;,x=&quot;Set&quot;, y=&quot;Enrichement&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;none&quot;)
 
 
+enrichpoint</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
 
-Domplot=ggplot(BothRes_40wNo,aes(by=Set, y=prop, x=&quot;&quot;, fill=Set)) + geom_bar(stat=&quot;identity&quot;,width=1, color=&quot;white&quot;)+  coord_polar(&quot;y&quot;, start=0) +theme_void() + scale_fill_manual(values=useCOl, name=&quot;Genes with \nDominant PAS&quot;) +labs(title=&quot;Same and Different Dominant PAS&quot;)
-Domplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-8-1.png" target="_blank">a9de4a1</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot_grid(pasplot, genesplot, dIC5plot, Domplot)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/84965f69c80ab53080ef28f229a305aa5ddf40f2/docs/figure/piecharts.Rmd/unnamed-chunk-9-1.png" target="_blank">84965f6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Use upsetter to compare all of these:</p>
-<pre class="r"><code>BothRes_40_diff= BothRes_40 %&gt;% filter(Set==&quot;Different&quot;)
-dICdata_sig= dICdata5 %&gt;% filter(sIC==&quot;Yes&quot;)
-listInput &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene, dDom=BothRes_40_diff$gene)
-
-upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/84965f69c80ab53080ef28f229a305aa5ddf40f2/docs/figure/piecharts.Rmd/unnamed-chunk-10-1.png" target="_blank">84965f6</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>listInputNoDD &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene )
-
-upset(fromList(listInputNoDD), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>How many genes in none:</p>
-<pre class="r"><code>DiffAny= dICdata_sig %&gt;% select(gene) %&gt;% bind_rows(dAPAGenes %&gt;% select(gene)) %&gt;% bind_rows(BothRes_40_diff %&gt;% select(gene)) %&gt;% unique()</code></pre>
-<p>all tested:</p>
-<pre class="r"><code>1-nrow(DiffAny)/nrow(Meta_genes)</code></pre>
-<pre><code>[1] 0.7757932</code></pre>
+pvalplot</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>plot together:</p>
+<pre class="r"><code>plot_grid(enrichpoint,pvalplot, nrow=2)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1827,25 +1655,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] cowplot_0.9.4   UpSetR_1.3.3    forcats_0.3.0   stringr_1.3.1  
- [5] dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
- [9] tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
+ [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
-[13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
-[17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
-[21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
-[25] Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[29] jsonlite_1.6     fs_1.3.1         gridExtra_2.3    hms_0.4.2       
+ [1] tidyselect_0.2.5 reshape2_1.4.3   haven_1.1.2      lattice_0.20-38 
+ [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
+ [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
+[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
+[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
+[25] broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0    
+[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
 [33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
 [37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
 [41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
 [45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
 [49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
 [53] compiler_3.5.1  </code></pre>
+</div>
 </div>
 
 
