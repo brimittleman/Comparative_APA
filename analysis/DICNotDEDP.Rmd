@@ -1,0 +1,133 @@
+---
+title: "DIC not DE but DP"
+author: "Briana Mittleman"
+date: "5/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(UpSetR)
+library(tidyverse)
+```
+
+I saw that dIC genes are enriched for translation. I want to look at the dIC genes that are not dAPA, are any of these DP but not DE?  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+dIConly=dAPAandDic %>%filter(OnlyIC=="Yes")
+
+```
+
+How many of the dIConly genes are not DE? 
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE) %>% filter(DE=="Yes")
+
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No")) %>% filter(dP=="Yes")
+
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) %>% filter(dTE=="Yes")
+
+```
+
+```{r}
+listInput <- list(IC=dIConly$gene, DE=DiffExp$gene, DT=Ribo$gene, DP=Prot$gene)
+
+upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+
+```{r}
+listInput <- list(IC=dIConly$gene, DE=DiffExp$gene, DP=Prot$gene)
+
+upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+
+
+
+So 40 genes that are dP and dIC not DE.  
+
+Proportion of dIC genes: 
+
+```{r}
+40/nrow(dIConly)
+```
+
+Try only dAPA: 
+
+```{r}
+dAPAonly=dAPAandDic %>%filter(OnlyAPA=="Yes")
+nrow(dAPAonly)
+```
+```{r}
+listInput <- list(dAPA=dAPAonly$gene, DE=DiffExp$gene, DP=Prot$gene)
+
+upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+76 in this set. 
+
+```{r}
+76/nrow(dAPAonly)
+```
+ Smaller proportion. No sure how to test this. 
+ 
+
+Both: 
+
+```{r}
+Both=dAPAandDic %>%filter(Both=="Yes")
+nrow(Both)
+```
+```{r}
+listInput <- list(BothAPA=Both$gene, DE=DiffExp$gene, DP=Prot$gene)
+
+upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
+```
+33 here:  
+
+```{r}
+33/nrow(Both)
+```
+
+
+Plot number in set and proprotion: 
+
+```{r}
+Set=c("OnlydIC", "Both", "OnlyAPA")
+Number=c(40, 33,76)
+SetSize=c(nrow(dIConly),nrow(Both),nrow(dAPAonly) )
+
+useCOl <- c("#d73027", "#4575b4","#fee090")
+DFres=data.frame(cbind(Set,Number,SetSize)) 
+DFres$Number=as.numeric(as.character(DFres$Number))
+DFres$SetSize=as.numeric(as.character(DFres$SetSize))
+
+DFres_prop=DFres %>% mutate(Prop=Number/SetSize)
+ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)
+
+ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity", width=.5)+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are dP not DE", y="Proportion of APA set")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")
+
+```
+
