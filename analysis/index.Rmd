@@ -195,6 +195,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [dInfoContent and other phenotypes](dICandotherD.html)  
 
+* [Seperate dAPA and dIC to relate to other phenotpyes](SetsdAPADIC.html)
+
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 
 List of everything we tried for this section:  
