@@ -325,8 +325,11 @@ ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_p
 ```{r}
 summary(lm(BothInfoTypes$simpOpp_Human ~BothResInfo$numPAS))
 
+cor.test(BothInfoTypes$simpOpp_Human,BothResInfo$numPAS)
 
 summary(lm(BothInfoTypes$simpOpp_Chimp ~BothResInfo$numPAS ))
+
+cor.test(BothInfoTypes$simpOpp_Chimp,BothResInfo$numPAS)
 ```
 
 Number of PAS is less correlated with this index. 
@@ -427,4 +430,10 @@ ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) 
 
 
 
+
+Plot only 1 color to demonstrate:  
+
+```{r}
+ggplot(BothOppSimp_g, aes(x=SimpsonOpp )) + geom_density(fill="grey") +labs(title="Simpson Index", x="Simpson Index")+ theme_classic2()
+```
 
