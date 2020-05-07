@@ -1,0 +1,320 @@
+---
+title: "dAPA dIC together and sep"
+author: "Briana Mittleman"
+date: "5/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+
+```
+
+I want to look at regulatory phenotype regulation based on dAPA, both, or dIC.  
+
+
+For this analysis I will use dIC at 5% FDR. Numbers are smaller but overlaps suggest it is more biological.  
+
+I will look at genes tested in all analysis then proportion results to only dAPA, dIC and dAPA, or dIC only. I will test for enrichement in each of these sets with expression, translation, and protein.  
+
+
+Load APA data:
+
+For apa I reduce to gene level and count it as sig if at least one PAS is different. 
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+
+```
+
+
+```{r}
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+
+```
+
+
+```{r}
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+nrow(dAPAandDic)
+```
+
+
+
+
+##Expression  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE)
+```
+
+```{r}
+DEandAPA=DiffExp %>% inner_join(dAPAandDic,by="gene")
+nrow(DEandAPA)
+```
+
+Erichment for only APA:  
+
+
+```{r}
+sets=c("OnlyAPA", "OnlyIC", "Both")
+DE_pval=c()
+DE_enrich=c()
+```
+
+```{r}
+x=nrow(DEandAPA %>% filter(OnlyAPA=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(OnlyAPA=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+
+Only dIC
+
+```{r}
+x=nrow(DEandAPA %>% filter(OnlyIC=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(OnlyIC=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+```
+
+Both: 
+
+```{r}
+x=nrow(DEandAPA %>% filter(Both=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(Both=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+All de res: 
+
+```{r}
+DEdf=as.data.frame(cbind(sets,DE_pval, DE_enrich)) %>% rename(Pval=DE_pval, Enrichment=DE_enrich) %>% mutate(Pheno="Expression")
+DEdf
+```
+
+##Translation  
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No"))
+RiboSmall= Ribo %>% select(gene,dTE)
+
+```
+
+
+```{r}
+DTandAPA=Ribo %>% inner_join(dAPAandDic,by="gene")
+nrow(DTandAPA)
+```
+```{r}
+#sets=c("OnlyAPA", "OnlyIC", "Both")
+DT_pval=c()
+DT_enrich=c()
+```
+
+only APA
+
+```{r}
+x=nrow(DTandAPA %>% filter(OnlyAPA=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(OnlyAPA=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+Only dIC
+
+```{r}
+x=nrow(DTandAPA %>% filter(OnlyIC=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(OnlyIC=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+```
+
+
+```{r}
+x=nrow(DTandAPA %>% filter(Both=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(Both=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+
+
+```{r}
+DTdf=as.data.frame(cbind(sets,DT_pval, DT_enrich)) %>% rename(Pval=DT_pval, Enrichment=DT_enrich) %>% mutate(Pheno="Translation")
+DTdf
+```
+
+##Protein  
+ 
+(pval is adjusted already)
+```{r}
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No"))
+
+
+ProtSmall=Prot %>% select(gene, dP)
+```
+
+
+```{r}
+DPandAPA=Prot %>% inner_join(dAPAandDic,by="gene")
+nrow(DPandAPA)
+```
+
+
+```{r}
+#sets=c("OnlyAPA", "OnlyIC", "Both")
+DP_pval=c()
+DP_enrich=c()
+```
+only APA
+
+```{r}
+x=nrow(DPandAPA %>% filter(OnlyAPA=="Yes", dP=="Yes"))
+m=nrow(DPandAPA %>% filter(dP=="Yes"))
+n=nrow(DPandAPA %>% filter(dP=="No"))
+k=nrow(DPandAPA %>% filter(OnlyAPA=="Yes"))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+Only dIC
+
+```{r}
+x=nrow(DPandAPA %>% filter(OnlyIC=="Yes", dP=="Yes"))
+m=nrow(DPandAPA %>% filter(dP=="Yes"))
+n=nrow(DPandAPA %>% filter(dP=="No"))
+k=nrow(DPandAPA %>% filter(OnlyIC=="Yes"))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+```
+
+
+```{r}
+x=nrow(DPandAPA %>% filter(Both=="Yes", dP=="Yes"))
+m=nrow(DPandAPA %>% filter(dP=="Yes"))
+n=nrow(DPandAPA %>% filter(dP=="No"))
+k=nrow(DPandAPA %>% filter(Both=="Yes"))
+N=nrow(DPandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DP_pval=c(DP_pval, phyper(x-1,m,n,k,lower.tail=F))
+x
+DP_enrich=c(DP_enrich, (x/k)/(m/N))
+(x/k)/(m/N)
+
+```
+
+
+
+```{r}
+DPdf=as.data.frame(cbind(sets,DP_pval, DP_enrich)) %>% rename(Pval=DP_pval, Enrichment=DP_enrich) %>% mutate(Pheno="Protein")
+DPdf
+```
+
+
+##Plot together:  
+
+```{r}
+AllDF= DEdf %>% bind_rows(DTdf) %>% bind_rows(DPdf)
+
+AllDF$Pval=as.numeric(AllDF$Pval)
+AllDF$Enrichment=as.numeric(AllDF$Enrichment)
+AllDF$Pheno=factor(AllDF$Pheno, levels=c("Expression", "Translation", "Protein"))
+useCOl <- c("#d73027", "#4575b4","#fee090")
+
+enrichplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=Enrichment,fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1) + scale_fill_manual(values=useCOl)
+
+enrichplot
+
+enrichpoint=ggplot(AllDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=AllDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title="Enrichment for APA phenotype differences in other regulatory phenotypes",x="Set", y="Enrichement")+geom_text(color = "black", size = 3) + theme(legend.position = "none")
+
+
+enrichpoint
+
+
+pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = "bottom")
+
+pvalplot
+```
+
+
+
+plot together: 
+
+```{r}
+plot_grid(enrichpoint,pvalplot, nrow=2)
+```
+

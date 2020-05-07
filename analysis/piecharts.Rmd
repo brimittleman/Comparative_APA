@@ -78,6 +78,16 @@ dICdata_wnot= dICdata %>% bind_rows(Nottested) %>% group_by(sIC10) %>% summarise
 dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x="", fill=sIC10)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential information content\n 10% FDR")
 dICplot
 ```
+```{r}
+dICdata5= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+
+Nottested5= Meta_genes %>% anti_join(dICdata5, by="gene") %>% mutate(sIC="notTested")
+
+dICdata5_wnot= dICdata5 %>% bind_rows(Nottested5) %>% group_by(sIC) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
+
+dIC5plot=ggplot(dICdata5_wnot,aes(by=sIC, y=prop, x="", fill=sIC)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential information content\n 5% FDR")
+dIC5plot
+```
 
 
 ```{r}
@@ -102,7 +112,7 @@ Domplot
 
 
 ```{r}
-plot_grid(pasplot, genesplot, dICplot, Domplot)
+plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 ```
 
 
@@ -112,7 +122,7 @@ Use upsetter to compare all of these:
 ```{r}
 
 BothRes_40_diff= BothRes_40 %>% filter(Set=="Different")
-dICdata_sig= dICdata %>% filter(sIC10=="Yes")
+dICdata_sig= dICdata5 %>% filter(sIC=="Yes")
 listInput <- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene, dDom=BothRes_40_diff$gene)
 
 upset(fromList(listInput), order.by = "freq", keep.order = T,empty.intersections = "on")
