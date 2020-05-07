@@ -318,3 +318,28 @@ plot together:
 plot_grid(enrichpoint,pvalplot, nrow=2)
 ```
 
+Plot without protien: 
+
+```{r}
+DETEDF= DEdf %>% bind_rows(DTdf)
+
+DETEDF$Pval=as.numeric(DETEDF$Pval)
+DETEDF$Enrichment=as.numeric(DETEDF$Enrichment)
+DETEDF$Pheno=factor(DETEDF$Pheno, levels=c("Expression", "Translation", "Protein"))
+
+
+enrichpointnoP=ggplot(DETEDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=DETEDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title="Enrichment for APA phenotype differences in other regulatory phenotypes",x="Set", y="Enrichement")+geom_text(color = "black", size = 3) + theme(legend.position = "none")
+
+
+enrichpointnoP
+
+
+pvalplotnoP=ggplot(DETEDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = "bottom")
+
+
+pvalplotnoP
+```
+
+```{r}
+plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)
+```
