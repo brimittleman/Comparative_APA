@@ -437,3 +437,15 @@ Plot only 1 color to demonstrate:
 ggplot(BothOppSimp_g, aes(x=SimpsonOpp )) + geom_density(fill="grey") +labs(title="Simpson Index", x="Simpson Index")+ theme_classic2()
 ```
 
+
+Plot number of PAS and info content to use:  
+
+```{r}
+ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Simpson Index Colored by number of PAS", x="Human", y="Chimp") + theme_classic()
+
+
+
+```
+
+
+
