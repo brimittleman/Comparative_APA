@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeae7d82bd3533aa0f5c25d659a216b75a9d033304targetblankae7d82ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/ae7d82bd3533aa0f5c25d659a216b75a9d033304" target="_blank">ae7d82b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed680b86d96fc3c230a47e5133a3372920503060ftargetblankd680b86a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d680b86d96fc3c230a47e5133a3372920503060f" target="_blank">d680b86</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeae7d82bd3533aa0f5c25d659a216b75a9d033304targetblankae7d82ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed680b86d96fc3c230a47e5133a3372920503060ftargetblankd680b86a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,6 +461,7 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
+    Untracked:  analysis/AllLoc_effectSizeCor.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -1284,10 +1285,12 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/SetsdAPADIC.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -1338,6 +1341,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d680b86d96fc3c230a47e5133a3372920503060f/analysis/infoContent.Rmd" target="_blank">d680b86</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+add number PAS plot for pp
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/10590eab89ae2227ac20b30fe7e1814af0ce2672/docs/infoContent.html" target="_blank">10590ea</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1499,12 +1536,12 @@ add info content
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -3108,6 +3145,46 @@ brimittleman
 <p>Plot only 1 color to demonstrate:</p>
 <pre class="r"><code>ggplot(BothOppSimp_g, aes(x=SimpsonOpp )) + geom_density(fill=&quot;grey&quot;) +labs(title=&quot;Simpson Index&quot;, x=&quot;Simpson Index&quot;)+ theme_classic2()</code></pre>
 <p><img src="figure/infoContent.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-36-1">
+Past versions of unnamed-chunk-36-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-36-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/10590eab89ae2227ac20b30fe7e1814af0ce2672/docs/figure/infoContent.Rmd/unnamed-chunk-36-1.png" target="_blank">10590ea</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plot number of PAS and info content to use:</p>
+<pre class="r"><code>ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title=&quot;Simpson Index Colored by number of PAS&quot;, x=&quot;Human&quot;, y=&quot;Chimp&quot;) + theme_classic()</code></pre>
+<p><img src="figure/infoContent.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
