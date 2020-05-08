@@ -38,9 +38,9 @@ mkdir ../data/files4viz_nuclear_DF/
 Vector with humans:
 
 ```{r}
-humans=c('NA18498', 'NA18502' ,'NA18504', 'NA18510', 'NA18523')
+humans=c('NA18498_N', 'NA18502_N' ,'NA18504_N', 'NA18510_N', 'NA18523_N')
 
-chimps=c( 'NA18358', 'NA3622' ,'NA3659', 'NA4973', 'NApt30', 'NApt91')
+chimps=c( 'NA18358_N', 'NA3622_N' ,'NA3659_N', 'NA4973_N', 'NApt30_N', 'NApt91_N')
 ```
 
 LOC100288069_+_utr3-Both-human23
@@ -50,12 +50,42 @@ utr3-Chimp-chimp242477
 
 
 I will double filter here as well.  
-```{r}
+```{r,eval=F}
 NuclearUsage=read.table("../data/Pheno_5perc_nuclear/ALLPAS_postLift_LocParsed_bothSpecies_pheno_5perc_Nuclear.txt.gz", header = T)
 
 PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::rename("PASnum" = PAS)
 
-Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_") %>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-") %>% filter(PASnum %in% PASMeta$PASnum) %>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(chr,start,end, strand, PAS, species,Gene, sample,numUsage)
+Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% separate(Frac, into=c("num", "denom"), sep="/") %>% mutate(numUsage=as.integer(num)/as.integer(denom)) %>% replace_na(list(numUsage=0)) %>% separate(Ind, into=c("sample", "fraction"), by="_") %>% mutate(species=ifelse(sample %in% humans, "Human","Chimp")) %>% separate(chrom, into=c("chr","start","end","PASid"), sep=":")%>% separate(PASid, into=c("Gene", "strand", "PASinf"), sep="_")%>% separate(PASinf, into=c("loc", "disc", "PASnum"), sep="-") 
+
+%>% filter(PASnum %in% PASMeta$PASnum) 
+
+%>% mutate(PAS=paste(PASnum,loc,sep="_")) %>% dplyr::select(chr,start,end, strand, PAS, species,Gene, sample,numUsage)
+```
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+ 
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+
+Nuclear_gather=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% filter(PAS %in% Meta$PAS)  %>% select(-contains("_T")) %>% mutate(PAS=paste(PAS,loc,sep="_")) %>% select(-loc, -disc) %>% gather("Sample", "numUsage", -chr,-start,-end,-gene,-strand,-PAS ) %>%mutate(species=ifelse(Sample %in% humans, "Human","Chimp"))%>% dplyr::select(chr,start,end, strand, PAS, species,gene, Sample,numUsage)
 ```
 
 
@@ -63,12 +93,12 @@ Nuclear_gather=NuclearUsage %>% gather(key="Ind", value="Frac", -chrom) %>% sepa
 example gene:  
 DFFB
 ```{r}
-Nuclear_gather_DFFB=Nuclear_gather %>% filter(Gene=="DFFB")
+Nuclear_gather_DFFB=Nuclear_gather %>% filter(gene=="DFFB")
 
 Nuclear_gather_DFFB$start=as.integer(Nuclear_gather_DFFB$start)
 
 
-ggplot(Nuclear_gather_DFFB,aes(x=(reorder(PAS, start)), y=numUsage, by=species, fill=species))+ geom_boxplot() + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90)) + labs(y="Usage", title="Usage by species for DFFB",x="PAS")
+ggplot(Nuclear_gather_DFFB,aes(x=(reorder(PAS, start)), y=numUsage, by=species, fill=species))+ geom_boxplot(notch =F, width=.5) + scale_fill_brewer(palette = "Dark2")+theme(axis.text.x = element_text(angle = 90), legend.position = "top",panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(), axis.line = element_line(colour = "black")) + labs(y="Usage", title="Usage by species for DFFB",x="PAS") 
 ```
 
 
@@ -93,5 +123,27 @@ genes are in ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt
 ```{bash,eval=F}
 sed '1d' ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt > ../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear_noHead.txt
 sbatch makeNuclearDapaplots_DF.sh
+```
+
+
+Run for DIC genes as well
+
+
+
+```{bash,eval=F}
+PlotNuclearUsagebySpecies_DF_4DIC.R
+
+mkdir ../data/DIC_Viz
+```
+
+
+```{r}
+DiC5=read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt",header = T, stringsAsFactors = F) %>% filter(sIC=="Yes") %>% select(gene)
+
+write.table(DiC5,"../data/DIC_Viz/DiCGenes_5fdr.txt", col.names = F, row.names = F,quote = F)
+```
+
+```{bash,eval=F}
+sbatch makedICPlots_DF.sh
 ```
 

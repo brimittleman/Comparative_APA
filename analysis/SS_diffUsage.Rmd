@@ -274,3 +274,16 @@ x
 ```
 
 
+
+Examples:  
+
+```{r}
+DiffUsed_annoPatternAssign %>% filter(ExpectedPattern=="Yes") %>% filter(gene=="IRF5")
+```
+
+IRF5 is interesting because it is an apaQTL and associated with SLE 
+
+```{r}
+DiffUsed_annoPatternAssign %>% filter(ExpectedPattern=="Yes") 
+```
+
