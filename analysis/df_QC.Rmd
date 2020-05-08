@@ -1,0 +1,185 @@
+---
+title: "QC metrics on double filtered PAS"
+author: "Briana Mittleman"
+date: "5/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(workflowr)
+library("gplots")
+library(tidyverse)
+library(ggpubr)
+library("RColorBrewer")
+library(cowplot)
+```
+
+In this analysis file I will run a few QC anaylsis using the double filtered PAS phenotype. I will first test if our ability to detect PAS is assoicteated with gene exprression by comparing the number of PAS per gene to gene expression. I did a similar analysis for the revisions in my apaQTL paper. I am going to use normalized RNA seq from this study and the double filtered PAS.  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+
+HumannPAS=Meta %>% select(Human,PAS, gene) %>% filter(Human>0) %>% group_by(gene) %>% summarise(HumanNPAS=n())
+
+ChimpnPAS=Meta %>% select(Chimp,PAS, gene) %>% filter(Chimp>0) %>% group_by(gene) %>% summarise(ChimpNPAS=n())
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID,Gene.name)
+NormExp= read.table("../data/DiffExpression/NoramalizedExpression.txt", header=T,stringsAsFactors = F) %>% rename(Gene_stable_ID=genes) %>% inner_join(nameID, by="Gene_stable_ID") %>% rename(gene=Gene.name)
+
+AllInfo=NormExp %>% inner_join(ChimpnPAS, by="gene") %>% inner_join(HumannPAS, by="gene")
+```
+
+
+
+```{r}
+chimppas=ggplot(AllInfo,aes(x=ChimpNPAS, y=Chimp)) +geom_point()+ stat_cor() +geom_smooth(method="lm") +labs(x="Chimp number of PAS",y="Normalized Expression Chimp", title="Negative correlation between \nexpression and PAS number")
+
+humanPAS=ggplot(AllInfo,aes(x=HumanNPAS, y=Human)) +geom_point()+ stat_cor() +geom_smooth(method="lm") +labs(x="Human number of PAS",y="Normalized Expression Human", title="Negative correlation between \nexpression and PAS number")
+
+
+plot_grid(chimppas,humanPAS)
+```
+
+Second I will run PCA and look at variation in the filtered phenotypes.  
+
+```{r}
+HumanAnno=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+
+HumanUsage=read.table("../Human/data/phenotype/ALLPAS_postLift_LocParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+
+
+ChimpAnno=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno.txt", header = T, stringsAsFactors = F) %>% tidyr::separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% tidyr::separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndC=colnames(ChimpAnno)[9:ncol(ChimpAnno)]
+
+ChimpUsage=read.table("../Chimp/data/phenotype/ALLPAS_postLift_LocParsed_Chimp_Pheno_countOnlyNumeric.txt", col.names = IndC)
+
+ChimpMean=as.data.frame(cbind(ChimpAnno[,1:8], Chimp=rowMeans(ChimpUsage)))
+
+ChimpUsage_anno=as.data.frame(cbind(ChimpAnno[,1:8],ChimpUsage ))
+
+allPheno=ChimpUsage_anno %>% full_join(HumanUsage_anno,by=c("chr", "start", "end", "gene","strand","loc", "disc", "PAS")) %>% filter(PAS %in% Meta$PAS) %>% dplyr::select(-chr, -start,-end, -gene,-strand,-loc,-disc, -PAS)
+
+
+allPheno_nuc= allPheno %>% select(contains("_N"))
+
+allPheno_nuc_matrix=as.matrix(allPheno_nuc)
+```
+
+
+```{r}
+pca_Pheno=prcomp(t(allPheno_nuc_matrix), scale=F)
+scores = pca_Pheno$x
+```
+
+
+```{r}
+#PCA function (original code from Julien Roux)
+#Load in the plot_scores function
+plot_scores <- function(pca, scores, n, m, cols, points=F, pchs =20, legend=T){
+  xmin <- min(scores[,n]) - (max(scores[,n]) - min(scores[,n]))*0.05
+  if (legend == T){ ## let some room (35%) for a legend                                                                                                                                                 
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.50
+  }
+  else {
+    xmax <- max(scores[,n]) + (max(scores[,n]) - min(scores[,n]))*0.05
+  }
+  ymin <- min(scores[,m]) - (max(scores[,m]) - min(scores[,m]))*0.05
+  ymax <- max(scores[,m]) + (max(scores[,m]) - min(scores[,m]))*0.05
+  plot(scores[,n], scores[,m], xlab=paste("PC", n, ": ", round(summary(pca)$importance[2,n],3)*100, "% variance explained", sep=""), ylab=paste("PC", m, ": ", round(summary(pca)$importance[2,m],3)*100, "% variance explained", sep=""), xlim=c(xmin, xmax), ylim=c(ymin, ymax), type="n")
+  if (points == F){
+    text(scores[,n],scores[,m], rownames(scores), col=cols, cex=1)
+  }
+  else {
+    points(scores[,n],scores[,m], col=cols, pch=pchs, cex=1.3)
+  }
+}
+```
+
+
+```{r}
+
+colors <- colorRampPalette(c(brewer.pal(9, "Blues")[1],brewer.pal(9, "Blues")[9]))(100)
+
+pal <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"), brewer.pal(12, "Set3"))
+
+metaData=as.data.frame(cbind(ind=rownames(pca_Pheno$x), species=c(rep("Chimp", 6), rep("Human",5))))
+
+metaData$species=as.factor(metaData$species)
+for (n in 1:1){
+  col.v <- pal[as.integer(metaData$species)]
+  plot_scores(pca_Pheno, scores, n, n+1, col.v)
+}
+```
+
+```{r}
+for (n in 2:2){
+  col.v <- pal[as.integer(metaData$species)]
+  plot_scores(pca_Pheno, scores, n, n+1, col.v)
+}
+```
+
+
+
+```{r}
+eigs <- pca_Pheno$sdev^2
+proportion = eigs/sum(eigs)
+
+plot(proportion)
+
+metaData= metaData %>% mutate(specNum=ifelse(species=="Chimp", 0, 1))
+
+pc1=as.vector(as.numeric(pca_Pheno$x[,1]))
+cor.test(pc1, metaData$specNum)
+```
+```{r}
+metaData=read.table("../data/metadata_HCpanel.txt", header = T, stringsAsFactors = F) %>% filter(Fraction=="Nuclear")
+
+x.pca <- pca_Pheno
+
+tech_factors <- metaData
+tech_factors_sum <- tech_factors[,c(2:15)] %>% dplyr::select(Species,Extraction_date,Collection_person,AverageAlive,RIN,Concentration)
+
+p_comps <- 1:6
+pc_cov_cor <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                     dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+for (pc in p_comps) {
+  for (covariate in 1:ncol(tech_factors_sum)) {
+    lm_result <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate])
+    r2 <- summary(lm_result)$r.squared
+    pc_cov_cor[covariate, pc] <- r2
+  }
+}
+
+pc_cov_pval <- matrix(nrow = ncol(tech_factors_sum), ncol = length(p_comps),
+                      dimnames = list(colnames(tech_factors_sum), colnames(x.pca$x)[p_comps]))
+
+for (pc in p_comps) {
+  for (covariate_2 in 1:ncol(tech_factors_sum)) {
+    lm_result_2 <- lm(x.pca$x[, pc] ~ tech_factors_sum[, covariate_2])
+    pval <- anova(lm_result_2)$'Pr(>F)'[1]
+    pc_cov_pval[covariate_2, pc] <- pval
+  }
+}
+
+PCs <- c("PC1", "PC2", "PC3", "PC4", "PC5", "PC6")
+Tech_fac <- colnames(tech_factors_sum)
+#Tech_fac <- c("Species",   "Extraction", "Person",  "Alive" , "RIN", "RNA_Concentration")
+
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Blues"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
+```
+```{r}
+metaData %>% select(Line, Collection_person,Extraction_date)
+```
+
