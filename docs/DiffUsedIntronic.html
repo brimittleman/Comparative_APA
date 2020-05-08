@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree715fb50607f9ba15c2b57b1ea5fe2c301ace04c7targetblank715fb50a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/715fb50607f9ba15c2b57b1ea5fe2c301ace04c7" target="_blank">715fb50</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea29b1d2ee5421072c5a3239d0f3d4a71cbd751b2targetblanka29b1d2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a29b1d2ee5421072c5a3239d0f3d4a71cbd751b2" target="_blank">a29b1d2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree715fb50607f9ba15c2b57b1ea5fe2c301ace04c7targetblank715fb50a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea29b1d2ee5421072c5a3239d0f3d4a71cbd751b2targetblanka29b1d2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1346,6 +1346,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a29b1d2ee5421072c5a3239d0f3d4a71cbd751b2/analysis/DiffUsedIntronic.Rmd" target="_blank">a29b1d2</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+<td>
+add QC double filt
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/02805ae202ab9405f9975816e2dded3a7a839e29/docs/DiffUsedIntronic.html" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/715fb50607f9ba15c2b57b1ea5fe2c301ace04c7/analysis/DiffUsedIntronic.Rmd" target="_blank">715fb50</a>
 </td>
 <td>
@@ -1629,12 +1663,12 @@ Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(limma)
 library(qvalue)
 library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -2587,7 +2621,7 @@ brimittleman
 <pre class="r"><code>allboth=ggplot(DeandAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;) + labs(title=&quot;All APA and all expression&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(label.x = c(-6), label.y=-1) +theme_classic(base_size = 12) 
 allSep= ggplot(DeandAPA_topPAS,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  + labs(title=&quot;All APA and all expression&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;)) + stat_cor(aes(color = loc), label.x = c(-8,1),label.y=-1)+theme_classic(base_size = 12) 
 sigAPAboth=ggplot(DeandAPA_sigAPA,aes(y=deltaPAU, x=logFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA and all Expression&quot;)+ scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(label.x = -8,label.y=-1)+theme_classic(base_size = 12) 
-sigAPSep=ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA and all Expressio &quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(color = loc), label.x = c(-8,1),label.y=-1)+theme_classic(base_size = 12) 
+sigAPSep=ggplot(DeandAPA_topPASsigAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.4) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant APA and all Expression&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(color = loc), label.x = c(-8,1),label.y=-1)+theme_classic(base_size = 12) 
 SigBoth= ggplot(DeandAPA_sigAPAandE,aes(y=deltaPAU, x=logFC)) + geom_point() + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA and Significant DE&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor( label.x = -8,label.y=-1)+theme_classic(base_size = 12) 
 SigSep=ggplot(DeandAPA_topPASsigAPAandE,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA and Significant DE&quot;) +  scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(color = loc), label.x = c(-8,1),label.y=-1)+theme_classic(base_size = 12) </code></pre>
 <pre class="r"><code>plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)</code></pre>
@@ -2614,6 +2648,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/97e62e1d5144304e57b5ab3373a20a24de387d62/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-18-1.png" target="_blank">97e62e1</a>
@@ -3558,6 +3603,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-33-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/97e62e1d5144304e57b5ab3373a20a24de387d62/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-33-1.png" target="_blank">97e62e1</a>
 </td>
 <td>
@@ -3628,6 +3684,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-34-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-34-1.png" target="_blank">c9c6b6a</a>
@@ -3713,6 +3780,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-38-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-38-1.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -3774,6 +3852,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-1.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -3822,6 +3911,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-40-2.png" target="_blank">c9c6b6a</a>
@@ -3876,6 +3976,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-1.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -3924,6 +4035,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-42-2.png" target="_blank">c9c6b6a</a>
@@ -3978,6 +4100,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-1.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -4028,6 +4161,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-44-2.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -4058,8 +4202,82 @@ brimittleman
 <pre class="r"><code>PandAPA_topPAS= DPandAPA %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA, top PAS v DP&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-46-1">
+Past versions of unnamed-chunk-46-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-46-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-46-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(PandAPA_topPAS,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor( label.x = 1)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-46-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-46-2">
+Past versions of unnamed-chunk-46-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-46-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-46-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>PandAPA_topPAS_sigAPA= PandAPA_topPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPA,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA, top PAS v Protein&quot;)+ scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -4085,6 +4303,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-1.png" target="_blank">c9c6b6a</a>
@@ -4137,6 +4366,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c9c6b6af7c2895062dc77d9740d5139fb10066f1/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-48-2.png" target="_blank">c9c6b6a</a>
 </td>
 <td>
@@ -4165,8 +4405,82 @@ brimittleman
 <pre class="r"><code>PandAPA_topPAS_sigAPAandP= PandAPA_topPAS_sigAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;, pval &lt;.05)</code></pre>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(aes(color = loc), label.x = 1)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-50-1">
+Past versions of unnamed-chunk-50-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-50-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-50-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor( label.x = 1)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-50-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-50-2">
+Past versions of unnamed-chunk-50-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-50-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-50-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Check pvalues:</p>
 <pre class="r"><code>protKhan=read.csv(&quot;../data/Khan_prot/Khan_TableS4.csv&quot;,header = T)  %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;)  %&gt;% rename(&quot;gene&quot;=Gene.name) </code></pre>
 <pre><code>Warning: Column `Gene_stable_ID` joining factor and character vector,
@@ -4196,8 +4510,82 @@ deltaPandAPA %&gt;% group_by(gene) %&gt;% summarise(n()) %&gt;% nrow()</code></p
 <p>2607 genes</p>
 <pre class="r"><code>ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(aes(color = loc), label.x = 2)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-54-1">
+Past versions of unnamed-chunk-54-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-54-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-54-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(deltaPandAPA,aes(y=deltaPAU, x=Effect)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Intronic and 3&#39; UTR APA v DP&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor( label.x = 2)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-54-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-54-2">
+Past versions of unnamed-chunk-54-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-54-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-54-2.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Correlation effect sizes:</p>
 <pre class="r"><code>protKhanSmall_withmone= protKhanSmall %&gt;% inner_join(effectsizeDF, by=&quot;gene&quot;)
 protKhanSmall_withmone$logEf=as.numeric(as.character(protKhanSmall_withmone$logEf))
@@ -4228,6 +4616,43 @@ protsigall=ggplot(PandAPA_sigAPAandP,aes(y=deltaPAU, x=logEf)) + geom_point(alph
 protsigallsep=ggplot(PandAPA_topPAS_sigAPAandP,aes(y=deltaPAU, x=logEf,col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)+ labs(title=&quot;Significant APA top PAS v Signficant Protein&quot;)+ scale_color_brewer(palette = &quot;Set1&quot;)+ stat_cor(aes(color = loc), label.x = 1)+theme_classic(base_size = 12) </code></pre>
 <pre class="r"><code>plot_grid(protboth,protsep,protsigapa,protsigapasep,protsigall,protsigallsep, ncol=2)</code></pre>
 <p><img src="figure/DiffUsedIntronic.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-57-1">
+Past versions of unnamed-chunk-57-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-57-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/02805ae202ab9405f9975816e2dded3a7a839e29/docs/figure/DiffUsedIntronic.Rmd/unnamed-chunk-57-1.png" target="_blank">02805ae</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
