@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-07
+<strong>Last updated:</strong> 2020-05-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree88c1a33b09c3590e6ec34acf3ca2b9434e55a12etargetblank88c1a33a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/88c1a33b09c3590e6ec34acf3ca2b9434e55a12e" target="_blank">88c1a33</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11ba50b33ac0fb1a33b4a977bea32c14bc4c50btargetblankf11ba50a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/f11ba50b33ac0fb1a33b4a977bea32c14bc4c50b" target="_blank">f11ba50</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree88c1a33b09c3590e6ec34acf3ca2b9434e55a12etargetblank88c1a33a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreef11ba50b33ac0fb1a33b4a977bea32c14bc4c50btargetblankf11ba50a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -796,6 +796,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -963,6 +964,8 @@ Untracked files:
     Untracked:  code/liftoverPAShg19to38.out
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
     Untracked:  code/makeNuclearDapaplots_DF.sh
@@ -973,6 +976,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
     Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
@@ -1178,6 +1182,7 @@ Untracked files:
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffDomandDE_example/
@@ -1284,6 +1289,7 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DICNotDEDP.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
@@ -1297,7 +1303,6 @@ Unstaged changes:
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/establishCutoffs.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
@@ -1341,6 +1346,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f11ba50b33ac0fb1a33b4a977bea32c14bc4c50b/analysis/SetsdAPADIC.Rmd" target="_blank">f11ba50</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-09
+</td>
+<td>
+add ex
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/SetsdAPADIC.html" target="_blank">747e064</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1402,13 +1441,17 @@ add seperation with dapa and dic
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
+<pre class="r"><code>library(UpSetR)
+library(VennDiagram)</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1435,11 +1478,33 @@ dAPAPAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;
 dAPAPAS_genes= dAPAPAS %&gt;% select(gene) %&gt;% unique()
 
 dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,&quot;Yes&quot;, &quot;No&quot;)) </code></pre>
-<pre class="r"><code>dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC,gene)</code></pre>
+<pre class="r"><code>dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC,gene)
+dICdata_sig= dICdata %&gt;% filter(sIC==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>dAPAandDic= dICdata %&gt;% inner_join(dAPATestedGenes,by=&quot;gene&quot;) %&gt;% mutate(Both=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyIC=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;No&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyAPA=ifelse(sIC==&quot;No&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))
 
 nrow(dAPAandDic)</code></pre>
 <pre><code>[1] 8422</code></pre>
+<p>Make an upsetter plot first:</p>
+<pre class="r"><code>#useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
+
+
+listInput &lt;- list(dAPA=dAPAGenes$gene, dIC=dICdata_sig$gene)
+
+upset(fromList(listInput), order.by = &quot;freq&quot;, empty.intersections = &quot;on&quot;)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /> Ven diagram:</p>
+<pre class="r"><code>overlap=intersect(dAPAGenes$gene,dICdata_sig$gene)
+
+grid.newpage()
+venn.plot &lt;- draw.pairwise.venn(area1 = length(dAPAGenes$gene),
+                           area2 = length(dICdata_sig$gene),
+                           cross.area = length(overlap),
+                           c(&quot;dAPA&quot;, &quot;dIC&quot;), scaled = TRUE,
+                           fill = c(&quot;#d73027&quot;, &quot;#fee090&quot;),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) </code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="expression" class="section level2">
 <h2>Expression</h2>
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
@@ -1649,13 +1714,13 @@ useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
 enrichplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=Enrichment,fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1) + scale_fill_manual(values=useCOl)
 
 enrichplot</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
-Past versions of unnamed-chunk-26-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div id="fig-unnamed-chunk-28-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1674,7 +1739,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-26-1.png" target="_blank">3fe9930</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" target="_blank">747e064</a>
 </td>
 <td>
 brimittleman
@@ -1691,13 +1756,13 @@ brimittleman
 
 
 enrichpoint</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
-Past versions of unnamed-chunk-26-2.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-2">
+Past versions of unnamed-chunk-28-2.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-26-2" class="collapse">
+<div id="fig-unnamed-chunk-28-2" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1716,7 +1781,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-26-2.png" target="_blank">3fe9930</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" target="_blank">747e064</a>
 </td>
 <td>
 brimittleman
@@ -1732,53 +1797,16 @@ brimittleman
 <pre class="r"><code>pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
 
 pvalplot</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-3">
-Past versions of unnamed-chunk-26-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-26-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-26-3.png" target="_blank">3fe9930</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>plot together:</p>
 <pre class="r"><code>plot_grid(enrichpoint,pvalplot, nrow=2)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
-Past versions of unnamed-chunk-27-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div id="fig-unnamed-chunk-29-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1797,7 +1825,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-27-1.png" target="_blank">3fe9930</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" target="_blank">747e064</a>
 </td>
 <td>
 brimittleman
@@ -1833,14 +1861,26 @@ enrichpointnoP=ggplot(DETEDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enri
 
 
 enrichpointnoP</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>pvalplotnoP=ggplot(DETEDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
 
 
 pvalplotnoP</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Examples:</p>
+<p>Only dIC</p>
+<pre class="r"><code>dIConly=dAPAandDic %&gt;% filter(OnlyIC==&quot;Yes&quot;) 
+dIConly_translation=dIConly  %&gt;% inner_join(Ribo, by=&quot;gene&quot;) %&gt;% filter(dTE ==&quot;Yes&quot;)</code></pre>
+<ul>
+<li><p>CLECL1 chimp uses 2 more often human uses 1 most often</p></li>
+<li><p>GRHPR- human intronic just enough to change the utr ratio</p></li>
+<li><p>hadha- human proximal, chimp 2 UTR</p></li>
+<li><p>IVNS1ABP- chimp 1, human more</p></li>
+<li><p>OGFOD3 - chimp more PAS used (good igv example)</p></li>
+<li><p>ZNF512B human more spread</p></li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1865,28 +1905,36 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
- [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
- [9] ggplot2_3.1.1   tidyverse_1.2.1 workflowr_1.6.0
+ [1] cowplot_0.9.4       forcats_0.3.0       stringr_1.3.1      
+ [4] dplyr_0.8.0.1       purrr_0.3.2         readr_1.3.1        
+ [7] tidyr_0.8.3         tibble_2.1.1        ggplot2_3.1.1      
+[10] tidyverse_1.2.1     VennDiagram_1.6.20  futile.logger_1.4.3
+[13] UpSetR_1.3.3        workflowr_1.6.0    
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 reshape2_1.4.3   haven_1.1.2      lattice_0.20-38 
- [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
- [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
-[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
-[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0    
-[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
-[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
-[37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
-[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
-[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
-[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
-[53] compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5     reshape2_1.4.3       haven_1.1.2         
+ [4] lattice_0.20-38      colorspace_1.3-2     generics_0.0.2      
+ [7] htmltools_0.3.6      yaml_2.2.0           rlang_0.4.0         
+[10] later_0.7.5          pillar_1.3.1         withr_2.1.2         
+[13] glue_1.3.0           lambda.r_1.2.3       modelr_0.1.2        
+[16] readxl_1.1.0         plyr_1.8.4           cellranger_1.1.0    
+[19] munsell_0.5.0        gtable_0.2.0         rvest_0.3.2         
+[22] evaluate_0.12        labeling_0.3         knitr_1.20          
+[25] httpuv_1.4.5         broom_0.5.1          Rcpp_1.0.4.6        
+[28] promises_1.0.1       scales_1.0.0         backports_1.1.2     
+[31] formatR_1.5          jsonlite_1.6         fs_1.3.1            
+[34] gridExtra_2.3        hms_0.4.2            digest_0.6.18       
+[37] stringi_1.2.4        rprojroot_1.3-2      cli_1.1.0           
+[40] tools_3.5.1          magrittr_1.5         lazyeval_0.2.1      
+[43] futile.options_1.0.1 crayon_1.3.4         whisker_0.3-2       
+[46] pkgconfig_2.0.2      xml2_1.2.0           lubridate_1.7.4     
+[49] rstudioapi_0.10      assertthat_0.2.0     rmarkdown_1.10      
+[52] httr_1.3.1           R6_2.3.0             nlme_3.1-137        
+[55] git2r_0.26.1         compiler_3.5.1      </code></pre>
 </div>
 </div>
 
