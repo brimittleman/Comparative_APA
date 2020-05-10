@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(workflowr)
+library(UpSetR)
+library(VennDiagram)
 library(tidyverse)
 library(cowplot)
 
@@ -48,7 +50,7 @@ dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(g
 
 ```{r}
 dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
-
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
 ```
 
 
@@ -58,6 +60,34 @@ dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=if
 nrow(dAPAandDic)
 ```
 
+Make an upsetter plot first:  
+
+```{r}
+#useCOl <- c("#d73027", "#4575b4","#fee090")
+
+
+listInput <- list(dAPA=dAPAGenes$gene, dIC=dICdata_sig$gene)
+
+upset(fromList(listInput), order.by = "freq", empty.intersections = "on")
+      
+```
+Ven diagram:
+
+```{r}
+
+overlap=intersect(dAPAGenes$gene,dICdata_sig$gene)
+
+grid.newpage()
+venn.plot <- draw.pairwise.venn(area1 = length(dAPAGenes$gene),
+                           area2 = length(dICdata_sig$gene),
+                           cross.area = length(overlap),
+                           c("dAPA", "dIC"), scaled = TRUE,
+                           fill = c("#d73027", "#fee090"),
+                           cex = 1.5,
+                           cat.cex = 1.5,
+                           cat.pos = c(320, 25),
+                           cat.dist = .05) 
+```
 
 
 
@@ -343,3 +373,24 @@ pvalplotnoP
 ```{r}
 plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)
 ```
+
+Examples:  
+
+Only dIC
+```{r}
+dIConly=dAPAandDic %>% filter(OnlyIC=="Yes") 
+dIConly_translation=dIConly  %>% inner_join(Ribo, by="gene") %>% filter(dTE =="Yes")
+```
+
+
+* CLECL1 chimp uses 2 more often human uses 1 most often  
+
+* GRHPR- human intronic just enough to change the utr ratio 
+
+* hadha- human proximal, chimp 2 UTR  
+
+* IVNS1ABP- chimp 1, human more 
+
+* OGFOD3 - chimp more PAS used (good igv example)  
+
+* ZNF512B human more spread 
