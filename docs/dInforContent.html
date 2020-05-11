@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-04
+<strong>Last updated:</strong> 2020-05-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/bc9be31e8ba6db9966c7e542818393ea32f78291" target="_blank">bc9be31</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7a8f1a9201c590913c4efd536579f9f1e4ae7d48targetblank7a8f1a9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7a8f1a9201c590913c4efd536579f9f1e4ae7d48" target="_blank">7a8f1a9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreebc9be31e8ba6db9966c7e542818393ea32f78291targetblankbc9be31a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7a8f1a9201c590913c4efd536579f9f1e4ae7d48targetblank7a8f1a9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,7 +447,6 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
@@ -462,6 +461,7 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
+    Untracked:  analysis/AllLoc_effectSizeCor.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -796,6 +796,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -963,6 +964,8 @@ Untracked files:
     Untracked:  code/liftoverPAShg19to38.out
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
     Untracked:  code/makeNuclearDapaplots_DF.sh
@@ -973,6 +976,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
     Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
@@ -1178,6 +1182,7 @@ Untracked files:
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffDomandDE_example/
@@ -1284,10 +1289,10 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/DICNotDEDP.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
-    Modified:   analysis/DiffTop2SecondDom.Rmd
+    Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
@@ -1302,6 +1307,7 @@ Unstaged changes:
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/pol2.Rmd
+    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1341,6 +1347,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7a8f1a9201c590913c4efd536579f9f1e4ae7d48/analysis/dInforContent.Rmd" target="_blank">7a8f1a9</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-11
+</td>
+<td>
+add plots by set
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/dInforContent.html" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1468,12 +1508,12 @@ info by ind
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(&quot;edgeR&quot;)</code></pre>
@@ -5302,6 +5342,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-23-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f8b25dd05ce0913f551acc1d3dd154a6063b387d/docs/figure/dInforContent.Rmd/unnamed-chunk-23-1.png" target="_blank">f8b25dd</a>
 </td>
 <td>
@@ -5325,8 +5376,82 @@ SimpMeanVar= BothSimplong %&gt;% group_by(species, gene) %&gt;% summarise(mean=m
 
 ggplot(SimpMeanVar, aes(y=mean, x=species))+ geom_boxplot()</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-24-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(SimpMeanVar, aes(y=var, x=species))+ geom_boxplot()</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
+Past versions of unnamed-chunk-24-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-24-2.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>SimpMeanVar= BothSimplong %&gt;% group_by(species, gene) %&gt;% summarise(mean=mean(simpson)) %&gt;% spread(species, mean)
 SimpHuman=read.table(&quot;../data/InfoContent/Human_SimpsonInfoContent.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(simpson_Human=simpson) %&gt;% mutate(simpOpp_Human=1-simpson_Human)
 SimpChimp=read.table(&quot;../data/InfoContent/Chimp_SimpsonInfoContent.txt&quot;, header = T, stringsAsFactors = F)%&gt;% rename(simpson_Chimp=simpson)%&gt;% mutate(simpOpp_Chimp=1-simpson_Chimp)
@@ -5392,6 +5517,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-26-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f8b25dd05ce0913f551acc1d3dd154a6063b387d/docs/figure/dInforContent.Rmd/unnamed-chunk-26-1.png" target="_blank">f8b25dd</a>
 </td>
 <td>
@@ -5431,6 +5567,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-26-2.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f8b25dd05ce0913f551acc1d3dd154a6063b387d/docs/figure/dInforContent.Rmd/unnamed-chunk-26-2.png" target="_blank">f8b25dd</a>
 </td>
 <td>
@@ -5454,11 +5601,122 @@ med5=ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_point() + labs
 
 med5</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-27-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>mean5=ggplot(allSImpsonMed, aes(x=simpOpp_Human, y=simpOpp_Chimp, col=sIC)) + geom_point() + labs(x=&quot;Human Simpson (calculated on mean usage)&quot;, y=&quot;Chimp Simpson (calculated on mean usage)&quot;, title=&quot;5% FDR dIC plotted on \nvalues calculated by mean usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;))
 mean5</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
+Past versions of unnamed-chunk-27-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-27-2.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(allSImpsonMed, aes(x=Human, y=Chimp, col=sIC)) + geom_density_2d()</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-27-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-3">
+Past versions of unnamed-chunk-27-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-27-3.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>allSImpsonMed %&gt;% group_by(sIC) %&gt;% summarise(n=n())</code></pre>
 <pre><code># A tibble: 2 x 2
   sIC       n
@@ -5479,11 +5737,164 @@ write.table(allSImpsonMed10,&quot;../data/IndInfoContent/SimpsonMedianSignifican
 <pre class="r"><code>med10=ggplot(allSImpsonMed10, aes(x=Human, y=Chimp, col=sIC10)) + geom_point() + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;10% FDR dIC plotted on median values&quot;)+scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;))
 med10</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-31-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>mean10=ggplot(allSImpsonMed10, aes(x=simpOpp_Human, y=simpOpp_Chimp, col=sIC10)) + geom_point() + labs(x=&quot;Human Simpson (calculated on mean usage)&quot;, y=&quot;Chimp Simpson (calculated on mean usage)&quot;, title=&quot;10% FDR dIC plotted on values\n calculated by mean usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;))
 mean10</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-2">
+Past versions of unnamed-chunk-31-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-31-2.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(med5,mean5,med10,mean10)</code></pre>
 <p><img src="figure/dInforContent.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3fa8c0c604ac81bd9389a20a69b24717560cb34f/docs/figure/dInforContent.Rmd/unnamed-chunk-32-1.png" target="_blank">3fa8c0c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Color dIC only, dAPA, and both.</p>
+<pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %&gt;% select(gene) %&gt;% unique()
+
+Meta_PAS=Meta %&gt;%  select(PAS,gene)
+
+dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
+dAPAPAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %&gt;% select(gene) %&gt;% unique()
+
+dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,&quot;Yes&quot;, &quot;No&quot;)) 
+
+dAPAandDic= allSImpsonMed %&gt;% inner_join(dAPATestedGenes,by=&quot;gene&quot;) %&gt;% mutate(Both=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyIC=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;No&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyAPA=ifelse(sIC==&quot;No&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))</code></pre>
+<pre class="r"><code>ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=Both)) + geom_point() + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;Median IC colored by genes in both sets&quot;)+scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;)) + facet_grid(~Both)</code></pre>
+<p><img src="figure/dInforContent.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=OnlyAPA)) + geom_point() + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;Median IC colored by Only dAPA&quot;)+scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;))+ facet_grid(~OnlyAPA)</code></pre>
+<p><img src="figure/dInforContent.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=OnlyIC)) + geom_point() + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;Median IC colored by Only dIC&quot;)+scale_color_brewer(palette = &quot;Set1&quot;)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;)) + facet_grid(~OnlyIC)</code></pre>
+<p><img src="figure/dInforContent.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>plot together:</p>
+<pre class="r"><code>dAPAandDic_both= dAPAandDic %&gt;% filter(Both==&quot;Yes&quot;) %&gt;% mutate(set=&quot;Both&quot;) %&gt;% select(gene,Human, Chimp, set)
+
+
+dAPAandDic_onlyIC= dAPAandDic %&gt;% filter(OnlyIC==&quot;Yes&quot;) %&gt;% mutate(set=&quot;OnlyIC&quot;) %&gt;% select(gene,Human, Chimp, set)
+
+dAPAandDic_onlyAPA= dAPAandDic %&gt;% filter(OnlyAPA==&quot;Yes&quot;) %&gt;% mutate(set=&quot;OnlyAPA&quot;) %&gt;% select(gene,Human, Chimp, set)
+
+
+dAPAandDic_g= dAPAandDic_both %&gt;% bind_rows(dAPAandDic_onlyIC,dAPAandDic_onlyAPA)</code></pre>
+<pre class="r"><code>useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#FFB833&quot;)
+
+
+colordots=ggplot(dAPAandDic_g, aes(x=Human, y=Chimp, col=set)) + geom_point(alpha=.8) + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;Median IC colored by dAPA structure&quot;)+scale_color_manual(values = useCOl)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;), legend.position = &quot;bottom&quot;)
+
+colordots</code></pre>
+<p><img src="figure/dInforContent.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>densityplot=ggplot(dAPAandDic_g, aes(x=Human, y=Chimp, col=set)) + geom_density2d() + labs(x=&quot;Median Human Simpson&quot;, y=&quot;Median Simpson Chimp&quot;, title=&quot;Median IC colored by dAPA structure&quot;)+scale_color_manual(values = useCOl)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face=&quot;bold&quot;),legend.position = &quot;bottom&quot; )</code></pre>
+<pre class="r"><code>plot_grid(colordots,densityplot)</code></pre>
+<p><img src="figure/dInforContent.Rmd/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -5543,11 +5954,11 @@ loaded via a namespace (and not attached):
 [61] lattice_0.20-38    haven_1.1.2        splines_3.5.1     
 [64] hms_0.4.2          locfit_1.5-9.1     knitr_1.20        
 [67] pillar_1.3.1       EMT_1.1            boot_1.3-20       
-[70] codetools_0.2-15   stats4_3.5.1       glue_1.3.0        
-[73] evaluate_0.12      modelr_0.1.2       httpuv_1.4.5      
-[76] cellranger_1.1.0   gtable_0.2.0       assertthat_0.2.0  
-[79] libcoin_1.0-4      broom_0.5.1        later_0.7.5       
-[82] workflowr_1.6.0    TH.data_1.0-9     </code></pre>
+[70] reshape2_1.4.3     codetools_0.2-15   stats4_3.5.1      
+[73] glue_1.3.0         evaluate_0.12      modelr_0.1.2      
+[76] httpuv_1.4.5       cellranger_1.1.0   gtable_0.2.0      
+[79] assertthat_0.2.0   libcoin_1.0-4      broom_0.5.1       
+[82] later_0.7.5        workflowr_1.6.0    TH.data_1.0-9     </code></pre>
 </div>
 </div>
 
