@@ -394,3 +394,173 @@ dIConly_translation=dIConly  %>% inner_join(Ribo, by="gene") %>% filter(dTE =="Y
 * OGFOD3 - chimp more PAS used (good igv example)  
 
 * ZNF512B human more spread 
+
+```{r}
+dIC_both= dAPAandDic %>% filter(Both=="Yes")
+```
+
+
+##Selection sets from Khan  
+
+```{r}
+KhanData=read.csv("../data/Khan_prot/Khan_TableS4.csv",stringsAsFactors = F)  %>% select(gene.symbol,contains("model") ) %>% rename("gene"=gene.symbol, "Protein"=model.num.protein, "RNA"=model.num.rna)
+
+KhanData_g=KhanData %>% gather("Set", "Model", -gene)
+
+KhanData_g$Model= as.factor(KhanData_g$Model)
+
+KhanData_g_RNA= KhanData_g %>% filter(Set=="RNA")
+
+
+KhanData_g_Prot= KhanData_g %>% filter(Set=="Protein")
+```
+Join with all of the tested gene.  
+
+```{r}
+KhanWithapa=dAPAandDic %>% inner_join(KhanData_g_RNA, by="gene")
+```
+
+
+Test only APA:  
+
+```{r}
+Model=seq(1,6)
+EnrichmentRNA_apaOnly=c()
+PvalueRNA_apaOnly=c()
+for (i in seq(1:6)){
+  x=nrow(KhanWithapa %>% filter(OnlyAPA=="Yes", Model==i))
+  m=nrow(KhanWithapa %>% filter(Model==i))
+  n=nrow(KhanWithapa %>% filter(Model!=i))
+  k=nrow(KhanWithapa %>% filter(OnlyAPA=="Yes"))
+  N=nrow(KhanWithapa)
+  PvalueRNA_apaOnly=c(PvalueRNA_apaOnly, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentRNA_apaOnly=c(EnrichmentRNA_apaOnly, enrich)
+}
+
+EnrichmentRNA_apaOnly
+PvalueRNA_apaOnly
+```
+```{r}
+EnrichmentRNA_ICOnly=c()
+PvalueRNA_ICOnly=c()
+for (i in seq(1:6)){
+  x=nrow(KhanWithapa %>% filter(OnlyIC=="Yes", Model==i))
+  m=nrow(KhanWithapa %>% filter(Model==i))
+  n=nrow(KhanWithapa %>% filter(Model!=i))
+  k=nrow(KhanWithapa %>% filter(OnlyIC=="Yes"))
+  N=nrow(KhanWithapa)
+  PvalueRNA_ICOnly=c(PvalueRNA_ICOnly, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentRNA_ICOnly=c(EnrichmentRNA_ICOnly, enrich)
+}
+
+EnrichmentRNA_ICOnly
+PvalueRNA_ICOnly
+```
+Both  
+
+```{r}
+EnrichmentRNA_both=c()
+PvalueRNA_both=c()
+for (i in seq(1:6)){
+  x=nrow(KhanWithapa %>% filter(Both=="Yes", Model==i))
+  m=nrow(KhanWithapa %>% filter(Model==i))
+  n=nrow(KhanWithapa %>% filter(Model!=i))
+  k=nrow(KhanWithapa %>% filter(Both=="Yes"))
+  N=nrow(KhanWithapa)
+  PvalueRNA_both=c(PvalueRNA_both, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentRNA_both=c(EnrichmentRNA_both, enrich)
+}
+
+EnrichmentRNA_both
+PvalueRNA_both
+```
+
+Prot:  
+
+```{r}
+KhanPWithapa=dAPAandDic %>% inner_join(KhanData_g_Prot, by="gene")
+
+```
+
+Only APA  
+
+```{r}
+
+EnrichmentProt_apaOnly=c()
+PvalueProp_apaOnly=c()
+for (i in seq(1:6)){
+  x=nrow(KhanPWithapa %>% filter(OnlyAPA=="Yes", Model==i))
+  m=nrow(KhanPWithapa %>% filter(Model==i))
+  n=nrow(KhanPWithapa %>% filter(Model!=i))
+  k=nrow(KhanPWithapa %>% filter(OnlyAPA=="Yes"))
+  N=nrow(KhanPWithapa)
+  PvalueProp_apaOnly=c(PvalueProp_apaOnly, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentProt_apaOnly=c(EnrichmentProt_apaOnly, enrich)
+}
+
+EnrichmentProt_apaOnly
+PvalueProp_apaOnly
+```
+```{r}
+EnrichmentProt_ICOnly=c()
+PvalueProt_ICOnly=c()
+for (i in seq(1:6)){
+  x=nrow(KhanPWithapa %>% filter(OnlyIC=="Yes", Model==i))
+  m=nrow(KhanPWithapa %>% filter(Model==i))
+  n=nrow(KhanPWithapa %>% filter(Model!=i))
+  k=nrow(KhanPWithapa %>% filter(OnlyIC=="Yes"))
+  N=nrow(KhanPWithapa)
+  PvalueProt_ICOnly=c(PvalueProt_ICOnly, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentProt_ICOnly=c(EnrichmentProt_ICOnly, enrich)
+}
+
+EnrichmentProt_ICOnly
+PvalueProt_ICOnly
+```
+
+Both:  
+
+```{r}
+EnrichmentProt_both=c()
+PvalueProt_both=c()
+for (i in seq(1:6)){
+  x=nrow(KhanPWithapa %>% filter(Both=="Yes", Model==i))
+  m=nrow(KhanPWithapa %>% filter(Model==i))
+  n=nrow(KhanPWithapa %>% filter(Model!=i))
+  k=nrow(KhanPWithapa %>% filter(Both=="Yes"))
+  N=nrow(KhanPWithapa)
+  PvalueProt_both=c(PvalueProt_both, phyper(x-1,m,n,k,lower.tail=F))
+  enrich=(x/k)/(m/N)
+  EnrichmentProt_both=c(EnrichmentProt_both, enrich)
+}
+
+EnrichmentProt_both
+PvalueProt_both
+```
+
+
+Significant: 
+
+Both RNA:  2 (1.6X, 0.01547134)
+
+mRNA expression level pattern consistent with directional selection along chimpanzee lineage
+
+
+```{r}
+nrow(KhanWithapa %>% filter(Both=="Yes", Model==2))
+```
+
+ 6 = evidence of relaxation of constraint along chimpanzee lineage
+ 
+```{r}
+nrow(KhanPWithapa %>% filter(Both=="Yes", Model==6))
+```
+ 
+
+Both Protien:  6 (3.87X, 0.038)
+
