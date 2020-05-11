@@ -358,3 +358,73 @@ mean10
 plot_grid(med5,mean5,med10,mean10)
 ```
 
+
+Color dIC only, dAPA, and both.  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dAPAandDic= allSImpsonMed %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+```
+
+
+```{r}
+ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=Both)) + geom_point() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="Median IC colored by genes in both sets")+scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold")) + facet_grid(~Both)
+```
+
+```{r}
+ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=OnlyAPA)) + geom_point() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="Median IC colored by Only dAPA")+scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"))+ facet_grid(~OnlyAPA)
+```
+```{r}
+ggplot(dAPAandDic, aes(x=Human, y=Chimp, col=OnlyIC)) + geom_point() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="Median IC colored by Only dIC")+scale_color_brewer(palette = "Set1")+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold")) + facet_grid(~OnlyIC)
+```
+
+
+plot together: 
+
+```{r}
+
+
+dAPAandDic_both= dAPAandDic %>% filter(Both=="Yes") %>% mutate(set="Both") %>% select(gene,Human, Chimp, set)
+
+
+dAPAandDic_onlyIC= dAPAandDic %>% filter(OnlyIC=="Yes") %>% mutate(set="OnlyIC") %>% select(gene,Human, Chimp, set)
+
+dAPAandDic_onlyAPA= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% mutate(set="OnlyAPA") %>% select(gene,Human, Chimp, set)
+
+
+dAPAandDic_g= dAPAandDic_both %>% bind_rows(dAPAandDic_onlyIC,dAPAandDic_onlyAPA)
+```
+
+```{r}
+
+useCOl <- c("#d73027", "#4575b4","#FFB833")
+
+
+colordots=ggplot(dAPAandDic_g, aes(x=Human, y=Chimp, col=set)) + geom_point(alpha=.8) + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="Median IC colored by dAPA structure")+scale_color_manual(values = useCOl)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"), legend.position = "bottom")
+
+colordots
+```
+
+```{r}
+densityplot=ggplot(dAPAandDic_g, aes(x=Human, y=Chimp, col=set)) + geom_density2d() + labs(x="Median Human Simpson", y="Median Simpson Chimp", title="Median IC colored by dAPA structure")+scale_color_manual(values = useCOl)+theme(axis.text=element_text(size=10),axis.title=element_text(size=10,face="bold"),legend.position = "bottom" )
+```
+
+
+```{r}
+plot_grid(colordots,densityplot)
+```
+
