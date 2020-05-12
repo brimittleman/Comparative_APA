@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggpubr)
 library(workflowr)
+library(cowplot)
 ```
 
 Packages/functions for this:
@@ -447,5 +448,43 @@ ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_p
 
 ```
 
+Plot shannon with HC colors 
+```{r}
+ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index", x="Simpson Index")+ theme_classic2()
+```
 
+
+```{r}
+ggplot(BothInfoTypes,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Shannon Index Colored by number of PAS", x="Human", y="Chimp") + theme_classic()
+
+
+```
+
+
+Plot number of PAS by index:
+
+```{r}
+ggplot(BothInfoTypes,aes(x=numPAS,y= Chimp_Base2 )) + geom_point(alpha=.4) + stat_cor()+ theme_classic()
+
+ggplot(BothInfoTypes,aes(x=numPAS,y= Human_Base2 )) + geom_point(alpha=.4) + stat_cor()+ theme_classic()
+```
+```{r}
+BothInfoTypesShanG= BothInfoTypes %>% select(gene, numPAS,Human_Base2,Chimp_Base2 )  %>% rename(Human=Human_Base2, Chimp=Chimp_Base2) %>% gather("Species", "value", -gene, -numPAS) 
+
+shanoNum=ggplot(BothInfoTypesShanG,aes(x=numPAS,y= value ,col=Species)) + geom_point(alpha=.4) + stat_cor(col="black",label.y.npc="bottom")+ theme_classic() + facet_grid(~Species) + scale_color_brewer(palette = "Dark2") + labs(y="Shannon Information Content", title="Shannon Information Content and PAS number", x= "number of PAS in gene") 
+
+shanoNum
+```
+```{r}
+BothInfoTypesSimpG= BothInfoTypes %>% select(gene, numPAS,simpOpp_Human,simpOpp_Chimp )  %>% rename(Human=simpOpp_Human, Chimp=simpOpp_Chimp) %>% gather("Species", "value", -gene, -numPAS) 
+
+simpnum=ggplot(BothInfoTypesSimpG,aes(x=numPAS,y= value ,col=Species)) + geom_point(alpha=.4) + stat_cor(col="black",label.y.npc="bottom")+ theme_classic() + facet_grid(~Species) + scale_color_brewer(palette = "Dark2")+ labs(y="Simpson Diversity", title="Simpson Diversity and PAS number", x= "number of PAS in gene") 
+
+simpnum
+```
+
+
+```{r}
+plot_grid(shanoNum,simpnum, nrow=2)
+```
 
