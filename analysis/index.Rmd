@@ -146,6 +146,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [H3K36me3](h3k36me3.html)
 
+* [Sequence between dominant PAS and DE status](seqBetweenDomPAS.html)
 
 ##Selection exploration  
 

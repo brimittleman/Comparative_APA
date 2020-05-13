@@ -1,0 +1,123 @@
+---
+title: "Sequence between dominant PAS"
+author: "Briana Mittleman"
+date: "5/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to get the sequence between the dominant PAS when they are different. I can test for different destabilizing motifs in these regions. I will start with the .4 cutoff. 
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(Biostrings)
+library(ggpubr)
+library(cowplot)
+
+```
+
+```{bash,eval=F}
+mkdir ../data/DistTwoDom
+```
+
+
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+
+
+BothRes_40_diff= BothRes_40 %>% filter(Set=="Different")
+```
+
+
+I need the meta data for the PAS:
+
+```{r}
+metaPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T) %>% mutate(midpoint=start+100)
+metaPAS_sm= metaPAS %>% select(PAS, gene, midpoint)
+
+metaPAS_bed= metaPAS %>% select(chr, gene, strandFix) %>% unique()
+
+BothRes_40_diff_sm= BothRes_40_diff %>% select(gene, Chimp_PAS, Human_PAS) %>% gather("species", "PAS", -gene) %>% inner_join(metaPAS_sm, by=c("gene", "PAS"))
+```
+Spread this back out so i have both midpoints  
+
+```{r}
+BothRes_40_diff_spread=BothRes_40_diff_sm %>% mutate(extra="PAS") %>%  spread(extra,midpoint) %>% group_by(gene) %>% summarise(minPAS=min(PAS), maxPAS=max(PAS)) %>% inner_join(metaPAS_bed, by="gene") %>%mutate(score=0) %>% select(chr, minPAS, maxPAS, gene, score, strandFix ) %>% arrange(chr, minPAS)
+
+write.table(BothRes_40_diff_spread, "../data/DistTwoDom/SeqBetweenDom_4.bed", quote = F, col.names = F, row.names = F, sep="\t")
+
+```
+
+
+```{bash,eval=F}
+bedtools nuc -s -seq -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/DistTwoDom/SeqBetweenDom_4.bed > ../data/DistTwoDom/SeqBetweenDom_4_sort_nuc.bed
+```
+
+Look at results: 
+
+```{r}
+SeqBetween=read.table("../data/DistTwoDom/SeqBetweenDom_4_sort_nuc.bed", col.names = c(colnames(BothRes_40_diff_spread),"AT", "GC", "A", "C", "G", "T","N", "other", "len", "seq" ))
+
+summary(SeqBetween$len)
+
+plot(sort(SeqBetween$len))
+```
+
+
+```{r}
+ggplot(SeqBetween, aes(x=len))+geom_density()
+```
+
+Compare those that are de and those that are not:  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DEgenes=read.table("../data/DiffExpression/DE_genes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name) %>% dplyr::rename("gene"=Gene.name)
+DEgenestested=read.table("../data/DiffExpression/DE_Testedgenes.txt", header = F,col.names = c("Gene_stable_ID"),stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(Gene.name) %>% dplyr::rename("gene"=Gene.name) %>% mutate(DE=ifelse(gene %in% DEgenes$gene, "Yes", "No"))
+```
+
+
+ 
+```{r}
+SeqBetweenFix= SeqBetween %>% mutate(seqUp=toupper(seq))  %>% inner_join(DEgenestested, by="gene")
+
+ggplot(SeqBetweenFix, aes(x=log10(len), fill=DE))+geom_density(alpha=.4)
+```
+
+```{r}
+Seq_de= SeqBetweenFix %>% filter(DE=="Yes")
+Seq_node= SeqBetweenFix %>% filter(DE=="No")
+
+wilcox.test(Seq_de$len,Seq_node$len )
+```
+
+
+```{r}
+atplot=ggplot(SeqBetweenFix, aes(x=DE, y=AT, fill=DE)) +geom_boxplot()+geom_jitter()+stat_compare_means() +scale_fill_brewer(palette = "Set1")+ theme(legend.position = "none")
+atplot
+```
+```{r}
+GCplot=ggplot(SeqBetweenFix, aes(x=DE, y=GC,fill=DE)) +geom_boxplot() +geom_jitter()+stat_compare_means()+scale_fill_brewer(palette = "Set1") + theme(legend.position = "none")
+
+GCplot
+```
+
+No difference in length, AT, or GC proportion in these.
+
+```{r}
+plot_grid(GCplot, atplot)
+```
+
+
