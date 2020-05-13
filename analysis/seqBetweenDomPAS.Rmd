@@ -120,4 +120,57 @@ No difference in length, AT, or GC proportion in these.
 plot_grid(GCplot, atplot)
 ```
 
+I can use homer to look for enrichment in the -rna mode:
+
+findMotifsGenome.pl bedfile genome.fa output dir -rna -seqlogo -h -len 8 
+
+no background at first  
+```{bash,eval=F}
+
+mkdir ../data/DistTwoDom/FindMotif
+mkdir ../data/DistTwoDom/mRNAMotif
+cut -f 4 ../data/DistTwoDom/SeqBetweenDom_4.bed > ../data/DistTwoDom/SeqBetweenDom_4_genes.txt
+
+sbatch DiffDom_RNAmotif_4.sh
+```
+
+Try running with DE v no DE as background:  
+
+```{r}
+Seq_de= SeqBetweenFix %>% filter(DE=="Yes")
+Seq_node= SeqBetweenFix %>% filter(DE=="No")
+
+Seq_de_bed= Seq_de %>% select(chr, minPAS, maxPAS, gene, score, strandFix)
+write.table(Seq_de_bed, "../data/DistTwoDom/SeqBetweenDom_4_withDE.bed", col.names = F, quote = F, row.names = F, sep="\t")
+
+Seq_node_bed= Seq_node %>% select(chr, minPAS, maxPAS, gene, score, strandFix)
+write.table(Seq_node_bed, "../data/DistTwoDom/SeqBetweenDom_4_withNODE.bed", col.names = F, quote = F, row.names = F, sep="\t")
+```
+
+```{bash,eval=F}
+mkdir ../data/DistTwoDom/DE_8
+
+mkdir ../data/DistTwoDom/DE_10
+
+mkdir ../data/DistTwoDom/DE_12
+
+
+sbatch DiffDom_RNAmotif_4_splitDE.sh
+```
+
+
+try homer on all pas: 
+rna sites 6 bp
+
+```{bash,eval=F}
+mkdir ../data/PAS_doubleFilter/FindMotif/
+
+mkdir ../data/PAS_doubleFilter/FindMotif_chimp/
+sbatch RNAmotif_PAS.sh
+
+sbatch RNAmotif_PAS_chimp.sh
+
+
+```
+
 
