@@ -1,0 +1,265 @@
+---
+title: "Classify PAS in ortho UTRs"
+author: "Briana Mittleman"
+date: "5/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Previously I mapped PAS to ortho exons. I want genes where the only PAS are those in the ortho UTRs:  
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+library(ggpubr)
+```
+
+```{r}
+OverlapOrtho=read.table("../data/orthoUTR/FilteredPASOverlapOrthoUTR.text", header = T,stringsAsFactors = F) 
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors = F) 
+OverlapOrtho_nper=  OverlapOrtho %>% group_by(gene) %>% summarise(nPASOrtho=n())
+
+
+PASperGene= PASMeta %>% group_by(gene) %>% summarise(nPAS=n())
+```
+
+First inner join genes. Then those with the same nunmber of PAS: 
+
+```{r}
+PASperGene_inortho=PASperGene %>% inner_join(OverlapOrtho_nper,by="gene") %>% filter(nPAS==nPASOrtho)
+
+
+```
+
+Now i will grab these genes from the meta data: 
+
+use if else to get the first, middle, last.. 
+
+```{r}
+Meta_allOrtho=PASMeta %>% filter(gene %in% PASperGene_inortho$gene) %>% group_by(gene) %>% arrange(start) %>% mutate(NumPAS=ifelse(strandFix=="+", 1:n(), n():1),number=n()) %>% mutate(WhichSite=ifelse(number==NumPAS, ifelse(NumPAS==1, "single", "last"), ifelse(NumPAS==1, "first", "middle")))
+                                
+```
+
+```{r}
+max(Meta_allOrtho$NumPAS)
+```
+
+
+```{r}
+Meta_allOrtho %>% ungroup() %>% group_by(WhichSite) %>% summarise(n())
+```
+
+this means 836 have 1, 480 have more than one
+
+Start to ask about which ones are dominant?, dAPA ect. 
+filter diff used to ony those in the ortho exon only gene set. 
+
+```{r}
+PASGene=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T) %>% select(PAS, chr, start, end,loc)
+DiffUsed=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T,stringsAsFactors = F) %>% inner_join(PASGene, by=c("chr",'start','end')) %>% filter(gene %in% PASperGene_inortho$gene) %>% select(PAS, SigPAU2)
+```
+
+```{r}
+
+useCOl <- c("#d73027", "#4575b4","#fee090")
+Meta_allOrtho_SIG= Meta_allOrtho %>% inner_join(DiffUsed, by="PAS")
+
+Meta_allOrtho_SIG$WhichSite=factor(Meta_allOrtho_SIG$WhichSite, levels=c("last", "middle", "first"))
+
+ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat="count", position = "fill") + labs(x="dAPA PAS",y="Proportion", title="Orthologous UTR PAS by dAPA") + scale_fill_manual(values=useCOl)
+```
+anavo test: 
+
+```{r}
+PropdAPA=Meta_allOrtho_SIG %>% group_by(SigPAU2, WhichSite) %>% summarise(n=n()) %>% ungroup() %>% group_by(SigPAU2) %>% mutate(nDapa=sum(n), prop=n/nDapa,dAPA=ifelse(SigPAU2=="Yes",1,0))
+
+PropdAPA_no=as.vector(PropdAPA[1:3,5])
+
+PropdAPA_yes=unlist(as.vector(PropdAPA[4:6,5]))
+
+wilcox.test(PropdAPA$prop, PropdAPA$dAPA)
+
+prop.test(x=c(47,442), n=c(84,1168))
+```
+
+Test dominant:  
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+```
+
+Filter the genes in the utr only set:  
+
+```{r}
+BothRes_40_filt= BothRes_40 %>% filter(gene %in% PASperGene_inortho$gene )
+
+nrow(BothRes_40_filt)
+
+BothRes_40_filt %>% group_by(Set) %>% summarise(n())
+```
+
+Same:  
+
+```{r}
+Meta_allOrthoSm= Meta_allOrtho %>% ungroup() %>% select(PAS, WhichSite)
+
+BothRes_40_filt_same= BothRes_40_filt %>% filter(Set=="Same") %>% dplyr::rename("PAS" = Human_PAS) %>% inner_join(Meta_allOrthoSm, by="PAS")
+
+BothRes_40_filt_same$WhichSite= factor(BothRes_40_filt_same$WhichSite, levels=c("last", "middle","first"))
+ggplot(BothRes_40_filt_same, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat="count" ) + scale_fill_manual(values=useCOl)
+```
+
+Diff dominant:  
+
+```{r}
+BothRes_40_filt_diff= BothRes_40_filt%>% filter(Set=="Different") %>% select(gene, Human_PAS, Chimp_PAS) %>% gather("Species","PAS", -gene) %>%   inner_join(Meta_allOrthoSm, by="PAS")
+
+ggplot(BothRes_40_filt_diff, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat="count",position = "dodge" ) + scale_fill_manual(values=useCOl) 
+```
+This may be due to the low numbers: try different cutoffs:  
+
+
+```{r}
+number=seq(1,9,1)
+#BothResAll
+plotlist=list()
+for (i in number){
+  val=i *10
+  df=BothResAll %>% filter(Set=="Same", cut==val) %>% dplyr::rename("PAS" = Human_PAS) %>% inner_join(Meta_allOrthoSm, by="PAS")
+  df$WhichSite= factor(df$WhichSite, levels=c("first", "middle","last"))
+  plotlist[[i]]=ggplot(df, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat="count" ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, "Same Dominant" , nrow(df), sep="_")) +theme(legend.position = "bottom")
+}
+```
+
+
+```{r}
+plot_grid(plotlist[[1]], plotlist[[2]], plotlist[[3]], plotlist[[4]], plotlist[[5]], plotlist[[6]], plotlist[[7]], plotlist[[8]], plotlist[[9]]) 
+```
+
+```{r}
+
+#BothResAll
+plotlistdiff=list()
+for (i in number){
+  val=i *10
+  df=BothResAll %>% filter(Set=="Different", cut==val) %>% select(gene, Human_PAS, Chimp_PAS) %>% gather("Species","PAS", -gene) %>%   inner_join(Meta_allOrthoSm, by="PAS")
+  df$WhichSite= factor(df$WhichSite, levels=c("first", "middle","last"))
+  plotlistdiff[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat="count",position = "dodge" ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, "Different Dominant" , nrow(df), sep="_")) +theme(legend.position = "bottom")
+}
+```
+
+```{r}
+plot_grid(plotlistdiff[[1]], plotlistdiff[[2]], plotlistdiff[[3]], plotlistdiff[[4]], plotlistdiff[[5]], plotlistdiff[[6]], plotlistdiff[[7]], plotlistdiff[[8]], plotlistdiff[[9]])
+```
+
+Seperate by DE:
+
+```{r}
+ 
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% dplyr::rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+DE_yes= DE %>% filter(DE=="Yes")
+
+numbersmall=seq(1,4)
+#BothResAll
+plotlistdiffDE=list()
+for (i in numbersmall){
+  val=i *10
+  df=BothResAll %>% filter(Set=="Different", cut==val) %>% select(gene, Human_PAS, Chimp_PAS) %>% gather("Species","PAS", -gene) %>%   inner_join(Meta_allOrthoSm, by="PAS") %>% mutate(DEgenes=ifelse(gene %in%DE_yes$gene, "DE", "Not"))
+  df$WhichSite= factor(df$WhichSite, levels=c("first", "middle","last"))
+  plotlistdiffDE[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat="count",position = "dodge" ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, "Different Dominant" , nrow(df), sep="_")) +theme(legend.position = "bottom") + facet_grid(~DEgenes)
+}
+```
+
+```{r}
+plot_grid(plotlistdiffDE[[1]], plotlistdiffDE[[2]], plotlistdiffDE[[3]], plotlistdiffDE[[4]])
+
+```
+
+```{r}
+
+metaPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",stringsAsFactors = F, header = T) %>% mutate(midpoint=start+100)
+metaPAS_sm= metaPAS %>% select(PAS, gene, midpoint)
+BothResallDiff= BothResAll %>%
+  filter(Set=="Different") %>% 
+  select(gene, Chimp_PAS, Human_PAS, cut) %>% 
+  gather("species", "PAS", -gene, -cut) %>% 
+  inner_join(metaPAS_sm, by=c("gene", "PAS")) %>% 
+  mutate(extra="PAS") %>% 
+  spread(extra,midpoint) %>% 
+  group_by(cut, gene) %>% 
+  summarise(minPAS=min(PAS), maxPAS=max(PAS)) %>% 
+  mutate(length= maxPAS-minPAS) %>% 
+  filter(gene %in% PASperGene_inortho$gene)
+BothResallDiff$cut=factor(BothResallDiff$cut)
+
+
+ggplot(BothResallDiff, aes(x=cut, y=length,fill=cut)) +geom_boxplot() + theme(legend.position = "none")+ scale_fill_brewer(palette = "Set1")  + geom_jitter() + labs(title="Distance between center of different Dominant PAS",y="basepairs",x="cutoff")
+
+```
+```{r}
+BothResallDiff %>% group_by(cut) %>% summarise(n())
+```
+
+Run nuc for these:  
+
+```{r}
+
+metaPAS_bed= metaPAS %>% select(chr, gene, strandFix) %>% unique()
+BothResallDiff_Bed= BothResallDiff%>% inner_join(metaPAS_bed, by="gene") %>% select(chr, minPAS, maxPAS, gene, cut, strandFix ) %>% arrange(chr, minPAS)
+
+write.table(BothResallDiff_Bed, "../data/DistTwoDom/SeqBetweenDom_Allcutt.bed", quote = F, col.names = F, row.names = F, sep="\t")
+
+
+```
+
+
+```{bash,eval=F}
+
+bedtools nuc -s -seq -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/DistTwoDom/SeqBetweenDom_Allcutt.bed > ../data/DistTwoDom/SeqBetweenDom_Allcutt_nuc.bed
+```
+
+```{r}
+SeqBetween=read.table("../data/DistTwoDom/SeqBetweenDom_Allcutt_nuc.bed", col.names = c(colnames(BothResallDiff_Bed),"AT", "GC", "A", "C", "G", "T","N", "other", "len", "seq" )) %>% mutate(DEgenes=ifelse(gene %in%DE_yes$gene, "DE", "Not")) 
+
+SeqBetween %>% group_by(cut) %>% summarise(n())
+```
+
+```{r}
+SeqBetween$cut=as.factor(SeqBetween$cut)
+ggplot(SeqBetween, aes(y=len, by=DEgenes,fill=DEgenes, x=cut))+geom_boxplot() + geom_jitter()+scale_fill_brewer(palette = "Set1")+ labs(y="Nucleotides", title="Distance between Dominant PAS")+ theme(legend.position = "bottom") 
+```
+
+```{r}
+atplot=ggplot(SeqBetween, aes(by=DEgenes, y=AT, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = "Set1")+ labs(y="AT proportion", title="AT proportion for Seq between dominat")+ theme(legend.position = "bottom") 
+```
+```{r}
+gcplot=ggplot(SeqBetween, aes(by=DEgenes, y=GC, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = "Set1")+ theme(legend.position = "bottom") +labs(y="GC proportion", title="GC proportion for Seq between dominat")
+```
+
+```{r}
+plot_grid(atplot,gcplot)
+```
+
+

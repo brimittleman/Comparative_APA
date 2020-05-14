@@ -120,6 +120,51 @@ No difference in length, AT, or GC proportion in these.
 plot_grid(GCplot, atplot)
 ```
 
+Expand length analysis to all 9 cutoffs: 
+
+```{r}
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+```
+
+
+
+```{r}
+BothResallDiff= BothResAll %>%
+  filter(Set=="Different") %>% 
+  select(gene, Chimp_PAS, Human_PAS, cut) %>% 
+  gather("species", "PAS", -gene, -cut) %>% 
+  inner_join(metaPAS_sm, by=c("gene", "PAS")) %>% 
+  mutate(extra="PAS") %>% 
+  spread(extra,midpoint) %>% 
+  group_by(cut, gene) %>% 
+  summarise(minPAS=min(PAS), maxPAS=max(PAS)) %>% 
+  mutate(length= maxPAS-minPAS)
+  
+BothResallDiff$cut=factor(BothResallDiff$cut)
+ggplot(BothResallDiff, aes(x=cut, y=length,fill=cut)) +geom_boxplot() + theme(legend.position = "none")+ scale_fill_brewer(palette = "Set1")  
+
+
+ggplot(BothResallDiff, aes(x=cut, y=log10(length),fill=cut)) +geom_boxplot() + theme(legend.position = "none")+ scale_fill_brewer(palette = "Set1")  
+```
+Number of genes in each:  
+
+```{r}
+BothResallDiff %>% group_by(cut) %>% summarise(n())
+```
+
+
+
+
 I can use homer to look for enrichment in the -rna mode:
 
 findMotifsGenome.pl bedfile genome.fa output dir -rna -seqlogo -h -len 8 
