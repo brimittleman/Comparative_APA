@@ -1,0 +1,162 @@
+---
+title: "PhastCon scores"
+author: "Briana Mittleman"
+date: "5/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+
+I tested conservation with phylop scores. I want to test phastcon scores as a complementary measure of conservations.
+
+Download phast cons scores from UCSC. Use 100 way, like the phylop analysis.  
+
+"The PhastCons score is a probability that each nucleotide belongs to a conserved element"
+
+phastcon is better at looking for runs so for conserved elements. 
+
+http://hgdownload.soe.ucsc.edu/goldenPath/hg38/phastCons100way/
+```{bash,eval=F}
+mkdir ../data/PhastCon
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/phastCons100way/hg38.phastCons100way.bw
+
+
+
+python extractPhaastConGeneral.py
+
+python extractPhaastConGeneral.py ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.bed  ../data/PhastCon/PAS_doublefilter_phastCon.txt
+
+ python extractPhaastConGeneral.py ../data/PhyloP/PAS_200downpregions3.bed  ../data/PhastCon/PAS_200downpregions3_phastCon.txt
+ 
+ python extractPhaastConGeneral.py ../data/PhyloP/PAS_200upregions2.bed ../data/PhastCon/PAS_200upregions2_phastCon.txt
+ 
+ python extractPhaastConGeneral.py ../data/PhyloP/PAS_200upregions.bed ../data/PhastCon/PAS_200upregions_phastCon.txt
+ 
+ python extractPhaastConGeneral.py ../data/PhyloP/PAS_200downpregions2.bed ../data/PhastCon/PAS_200downpregions2_phastCon.txt
+ 
+python extractPhaastConGeneral.py ../data/PhyloP/PAS_200downpregions.bed  ../data/PhastCon/PAS_200downpregions_phastCon.txt
+
+python extractPhaastConGeneral.py ../data/PhyloP/PAS_200upregions3.bed ../data/PhastCon/PAS_200upregions3_phastCon.txt
+```
+
+
+```{r}
+PASPhas=read.table("../data/PhastCon/PAS_doublefilter_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Actual"),stringsAsFactors = F)
+
+Down=read.table("../data/PhastCon/PAS_200downpregions_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Down"),stringsAsFactors = F) %>% select(PAS, Down)%>% drop_na()
+Down2=read.table("../data/PhastCon/PAS_200downpregions2_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Down2"),stringsAsFactors = F) %>% select(PAS, Down2)%>% drop_na()
+Down3=read.table("../data/PhastCon/PAS_200downpregions3_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Down3"),stringsAsFactors = F) %>% select(PAS, Down3)%>% drop_na()
+
+Up=read.table("../data/PhastCon/PAS_200upregions_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Up"),stringsAsFactors = F) %>% select(PAS, Up)%>% drop_na()
+Up2=read.table("../data/PhastCon/PAS_200upregions2_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Up2"),stringsAsFactors = F) %>% select(PAS, Up2)%>% drop_na()
+Up3=read.table("../data/PhastCon/PAS_200upregions3_phastCon.txt",col.names = c("chr", "start", "end", "PAS", "Up3"),stringsAsFactors = F) %>% select(PAS, Up3)%>% drop_na()
+
+```
+
+Join all: 
+```{r}
+ResUpdownAll= PASPhas %>% 
+  inner_join(Down2, by="PAS")%>% 
+  inner_join(Down3, by="PAS") %>% 
+  inner_join(Up2, by="PAS") %>% 
+  inner_join(Up, by="PAS")%>%
+  inner_join(Up3, by="PAS")%>% 
+  inner_join(Down, by="PAS") %>% 
+  select(-chr,-start,-end)
+
+
+ResUpdownAll_gather= ResUpdownAll %>% gather("Set", "PhastCon", -PAS) %>% mutate(region=ifelse(Set=="Actual", "Yes", "No"))
+ResUpdownAll_gather$Set=factor(ResUpdownAll_gather$Set, levels=c("Up3", "Up2","Up", "Actual","Down", "Down2", "Down3" ))
+
+```
+
+Plot:  
+
+```{r}
+ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=region, y=PhastCon)) + geom_boxplot(notch=T) + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions ") + theme(legend.position = "none")+ scale_fill_brewer(palette = "RdYlBu") 
+```
+By location:  
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T, stringsAsFactors = F)
+PASMetaSm=PASMeta %>% select(PAS,loc)
+ResUpdownAll_loc=ResUpdownAll_gather %>% inner_join(PASMetaSm,by="PAS")
+
+
+ggplot(ResUpdownAll_loc, aes(x=Set, by=Set, fill=region, y=PhastCon)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+```
+Test significance in each:  
+
+```{r}
+kruskal.test(PhastCon ~ Set, data = ResUpdownAll_loc)
+
+```
+
+```{r}
+ResUpdownAll_loc_UTR3= ResUpdownAll_loc %>% filter(loc=="utr3")
+ResUpdownAll_loc_UTR5= ResUpdownAll_loc %>% filter(loc=="utr5")
+ResUpdownAll_loc_intron= ResUpdownAll_loc %>% filter(loc=="intron")
+ResUpdownAll_loc_cds= ResUpdownAll_loc %>% filter(loc=="cds")
+ResUpdownAll_loc_end= ResUpdownAll_loc %>% filter(loc=="end")
+```
+
+```{r}
+wilcox.test(PhastCon ~ region, data = ResUpdownAll_loc_UTR3,alternative="less")
+```
+
+```{r}
+wilcox.test(PhastCon ~ region, data = ResUpdownAll_loc_UTR5,alternative="less")
+```
+
+```{r}
+wilcox.test(PhastCon ~ region, data = ResUpdownAll_loc_cds,alternative="less")
+```
+```{r}
+wilcox.test(PhastCon ~ region, data = ResUpdownAll_loc_intron,alternative="less")
+```
+
+```{r}
+wilcox.test(PhastCon ~ region, data = ResUpdownAll_loc_end,alternative="less")
+```
+
+Same trends as with phylop.  
+
+##Seperate by significant  
+
+```{r}
+DiffUsage=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F)
+DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end")) %>% select(PAS,SigPAU2)
+```
+
+Join with phast con res:  
+```{r}
+ResUpdownAll_loc_sig= ResUpdownAll_loc %>% inner_join(DiffUsagePAS, by="PAS")
+
+ggplot(ResUpdownAll_loc_sig, aes(x=Set, by=Set, fill=region, y=PhastCon)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(loc~SigPAU2)
+```
+
+Filter to actual:
+
+```{r}
+ResUpdownAll_loc_sig_act=ResUpdownAll_loc_sig %>% filter(Set=="Actual")
+
+ggplot(ResUpdownAll_loc_sig_act, aes(x=SigPAU2, y=PhastCon, fill=SigPAU2)) +geom_boxplot(notch=T)+ scale_fill_brewer(palette = "Dark2")  + stat_compare_means()
+```
+
+Not significant:  
+
+
+```{r}
+ggplot(ResUpdownAll_loc_sig_act, aes(x=loc, by=SigPAU2, y=PhastCon, fill=SigPAU2)) +geom_boxplot(notch=T)+ scale_fill_brewer(palette = "Dark2")  + stat_compare_means()
+```
+

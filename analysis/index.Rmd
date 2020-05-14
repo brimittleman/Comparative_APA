@@ -159,6 +159,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Conservation based on new dominance categories](ConsandDomNewDef.html)
 
+* [Orthgonal analysis with PhastCon](phastCon.html)
 
 ##Explore effect size relationships  
 

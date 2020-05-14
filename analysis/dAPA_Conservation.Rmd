@@ -428,3 +428,14 @@ ResUpdownAll_gather2_loc_end=ResUpdownAll_gather2_loc %>% filter(loc == "end")
 
 wilcox.test(PhyloP ~ region, data = ResUpdownAll_gather2_loc_end,alternative="less")
 ```
+
+dAPA vs not by loc:  
+```{r}
+
+ResUpdownAll_gather2_loc_sig= ResUpdownAll_gather2_loc %>% filter(Set=="phyloP") 
+
+
+ggplot(ResUpdownAll_gather2_loc_sig, aes(x=loc, by=SigPAU2, y=PhyloP, fill=SigPAU2)) +geom_boxplot()+ scale_fill_brewer(palette = "Dark2")  + stat_compare_means()
+
+```
+
