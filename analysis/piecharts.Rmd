@@ -115,6 +115,11 @@ Domplot
 plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 ```
 
+```{r}
+plot_grid(pasplot, genesplot)
+```
+
+
 
 
 Use upsetter to compare all of these:  
@@ -150,5 +155,50 @@ all tested:
 
 ```{r}
 1-nrow(DiffAny)/nrow(Meta_genes)
+```
+
+
+dAPA location  
+
+```{r}
+dAPAPASYes=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% filter(SigPAU2=="Yes") %>% select(PAS,loc )  %>% group_by(loc)  %>% summarise(n=n()) %>% mutate(PAS=sum(n), prop=n/PAS)
+
+dAPAPASYes
+
+
+pasLocplot=ggplot(dAPAPASYes,aes(by=loc, y=prop, x="", fill=loc)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_brewer(palette="RdYlBu", name="dAPA PAS") +labs(title="Differential APA PAS 5% FDR")
+
+
+pasLocplot
+```
+
+
+are these enriched:  
+
+```{r}
+dAPAPASallwithloc=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(SigPAU2, PAS, loc)
+```
+
+```{r}
+enrich=c()
+pval=c()
+
+for (i in c("cds", "end", "intron", "utr3", "utr5")){
+  x=nrow(dAPAPASallwithloc %>% filter(SigPAU2=="Yes", loc==i))
+  m=nrow(dAPAPASallwithloc %>% filter( loc==i))
+  n=nrow(dAPAPASallwithloc %>% filter(loc!=i))
+  k=nrow(dAPAPASallwithloc %>% filter(SigPAU2=="Yes"))
+  N=nrow(dAPAPASallwithloc)
+  pval=c(pval, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrich=c(enrich, enrichval)
+}
+
+loc=c("cds", "end", "intron", "utr3", "utr5")
+enrich
+pval
+
+enrichlocdf=as.data.frame(cbind(loc, enrich,pval))
+enrichlocdf
 ```
 

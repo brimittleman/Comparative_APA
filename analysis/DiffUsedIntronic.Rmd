@@ -178,8 +178,9 @@ plot_grid(allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep, ncol=2)
 
 ##Ribosome occupancy  
 
+Flip direction to match the expression results 
 ```{r}
-Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)  %>% mutate(HvC.beta2=-1*HvC.beta)
 ```
 
 Join with APA  
@@ -192,10 +193,10 @@ RiboandAPA %>% group_by(gene) %>% n_distinct()
 ```
 
 ```{r}
-ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta2, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany", x="-HvC.beta")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
 
-ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = 3)
+ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v Ribosome Occupany",x="-HvC.beta")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = 3)
 ```
 
 
@@ -208,9 +209,9 @@ RiboandAPA_sigAPA= RiboandAPA %>% filter(SigPAU2=="Yes")
 
 
 ```{r}
-ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
-ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = 3)
+ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = 3)
 ```
 
 
@@ -225,9 +226,9 @@ RiboandAPA_sigAPAandR= RiboandAPA_sigAPA %>% filter(SigPAU2=="Yes",  HvC.FDR<.05
 
 
 ```{r}
-ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
-ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
+ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
 
 ```
 
@@ -256,9 +257,9 @@ nrow(RiboandAPA_topPAS %>% filter(loc=="utr3"))
 Plot the correlation in effect size  
 
 ```{r}
-ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
-ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
+ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="APA, top PAS v Ribosome Occupany")+ scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
 
 
 ```
@@ -278,9 +279,9 @@ nrow(RiboandAPA_topPASsigAPA %>% filter(loc=="utr3"))
 199 intronic significant, 910 significant 3' utr
 
 ```{r}
-ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
-ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
+ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS v Ribosome Occupany") +scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
 
 ```
 
@@ -301,10 +302,10 @@ nrow(RiboandAPA_topPASsigAPAandR %>% filter(loc=="utr3"))
 47 PAS for intrnic 229 for 3' UTR
 
 ```{r}
-ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
 
 
-ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
+ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA, top PAS  v Significant Ribosome Occupany") + scale_color_brewer(palette = "Set1")+ stat_cor(label.x = 3)
 ```
 
 
@@ -314,16 +315,16 @@ Correlation in UTR but not intronic. Not sure if this is due to the number of PA
 ###Plot all together 
 
 ```{r}
-riboBoth=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="All APA and translation values")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = c( -8, 5), label.y = -1)+theme_classic(base_size = 12) 
-riboTop=ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="All APA and translation values")+ scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3'"))+ stat_cor(aes(color = loc), label.x =c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
+riboBoth=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="All APA and translation values",x="-HvC.beta")+ scale_color_brewer(palette = "Set1")+ stat_cor( label.x = c( -8, 5), label.y = -1)+theme_classic(base_size = 12) 
+riboTop=ggplot(RiboandAPA_topPAS,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="All APA and translation values",x="-HvC.beta")+ scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(color = loc), label.x =c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
 
-ribosigapaboth=ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA and all Translation")+ scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor( label.x = -8,label.y = -1)+theme_classic(base_size = 12) 
+ribosigapaboth=ggplot(RiboandAPA_sigAPA,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA and all Translation",x="-HvC.beta")+ scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor( label.x = -8,label.y = -1)+theme_classic(base_size = 12) 
 
-ribosigapasep=ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA and Significant Translation") +scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(color = loc), label.x =c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
+ribosigapasep=ggplot(RiboandAPA_topPASsigAPA,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA and Significant Translation",x="-HvC.beta") +scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(color = loc), label.x =c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
 
-sigapasigriboboth=ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA and all Translation") + scale_color_brewer(palette = "Set1", name="")+ stat_cor(label.x = -8,label.y = -1)+theme_classic(base_size = 12) 
+sigapasigriboboth=ggplot(RiboandAPA_sigAPAandR,aes(y=deltaPAU, x=HvC.beta2)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant APA and all Translation",x="-HvC.beta") + scale_color_brewer(palette = "Set1", name="")+ stat_cor(label.x = -8,label.y = -1)+theme_classic(base_size = 12) 
 
-sigapasigribosep=ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA and Significant Translation") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(color = loc), label.x = c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
+sigapasigribosep=ggplot(RiboandAPA_topPASsigAPAandR,aes(y=deltaPAU, x=HvC.beta2,col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")+ labs(title="Significant  APA and Significant Translation",x="-HvC.beta") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(color = loc), label.x = c( -8, 1),label.y = -1)+theme_classic(base_size = 12) 
 
 
 ```
@@ -354,6 +355,16 @@ plot_grid(riboBoth,riboTop,ribosigapaboth, ribosigapasep,sigapasigriboboth,sigap
 
 
 ```
+
+
+Plot top ribo and expression next to eachother:  
+
+
+allboth,allSep,sigAPAboth,sigAPSep,SigBoth,SigSep
+```{r}
+plot_grid(allSep,riboTop,sigAPSep, ribosigapasep,SigSep,sigapasigribosep, ncol=2)
+```
+
 ##Protein  
 
 I will use code from https://github.com/siddisis/project_primate_ribo to fit the linear model again and get effect sizes.  
