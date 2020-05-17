@@ -564,3 +564,191 @@ nrow(KhanPWithapa %>% filter(Both=="Yes", Model==6))
 
 Both Protien:  6 (3.87X, 0.038)
 
+##location enrichment:  
+
+For the dAPA only and both. where are the PAS contibuting to the relationship. are they enriched among dAPA PAS 
+
+want those that are DE genes 
+
+```{r}
+dAPAPAS_wLoc=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS, loc, SigPAU2, gene)
+
+DiffExpSig= DiffExp %>% filter(DE=='Yes')
+BothAPAgenes= dAPAandDic %>% filter(Both=="Yes") %>% inner_join(DiffExpSig, by="gene")
+OnlyAPAgenes=dAPAandDic %>% filter(OnlyAPA=="Yes")%>% inner_join(DiffExpSig, by="gene")
+
+dAPAPAS_wLocAndBoth= dAPAPAS_wLoc %>% filter(SigPAU2=="Yes") %>% mutate(dAPAonly=ifelse(gene %in%OnlyAPAgenes$gene,"Yes","No"), Both=ifelse(gene %in% BothAPAgenes$gene, "Yes", "No"))
+
+
+```
+
+
+```{r}
+enrichdAPAloc=c()
+pvaldAPAloc=c()
+expectddAPA=c()
+pvaldAPAlocDep=c()
+actualdAPA=c()
+for (i in c("cds", "end", "intron", "utr3", "utr5")){
+  x=nrow(dAPAPAS_wLocAndBoth %>% filter(dAPAonly=="Yes", loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth %>% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth %>% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth %>% filter(dAPAonly=="Yes"))
+  N=nrow(dAPAPAS_wLocAndBoth)
+  actualdAPA=c(actualdAPA, x)
+  exp=k*(m/N)
+  expectddAPA=c(expectddAPA,exp)
+  pvaldAPAloc=c(pvaldAPAloc, phyper(x-1,m,n,k,lower.tail=F))
+  pvaldAPAlocDep=c(pvaldAPAlocDep, phyper(x,m,n,k,lower.tail=T))
+  enrichval=(x/k)/(m/N)
+  enrichdAPAloc=c(enrichdAPAloc, enrichval)
+}
+
+loc=c("cds", "end", "intron", "utr3", "utr5")
+enrichdAPAloc
+pvaldAPAloc
+
+enrichdapalocdf=as.data.frame(cbind(loc, Actual=actualdAPA,Expected=expectddAPA, Enrichment=enrichdAPAloc,PvalEn=pvaldAPAloc, PvalDep=pvaldAPAlocDep)) %>% mutate(set="dAPAOnly")
+enrichdapalocdf
+
+```
+
+```{r}
+enrichBothloc=c()
+pvalBothloc=c()
+pvalBothDepletloc=c()
+expectBoth=c()
+actualBoth=c()
+for (i in c("cds", "end", "intron", "utr3", "utr5")){
+  x=nrow(dAPAPAS_wLocAndBoth %>% filter(Both=="Yes", loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth %>% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth %>% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth %>% filter(Both=="Yes"))
+  N=nrow(dAPAPAS_wLocAndBoth)
+  actualBoth=c(actualBoth, x)
+  exp=k*(m/N)
+  expectBoth=c(expectBoth,exp)
+  pvalBothDepletloc=c(pvalBothDepletloc, phyper(x,m,n,k,lower.tail=T))
+  pvalBothloc=c(pvalBothloc, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichBothloc=c(enrichBothloc, enrichval)
+}
+
+loc=c("cds", "end", "intron", "utr3", "utr5")
+enrichBothloc
+pvalBothloc
+
+
+
+enrichbothlocdf=as.data.frame(cbind(loc,Actual=actualBoth,Expected=expectBoth, Enrichment=enrichBothloc,PvalEn=pvalBothloc,PvalDep=pvalBothDepletloc))%>% mutate(set="Both")
+enrichbothlocdf
+
+```
+
+
+Join both and plot: 
+```{r}
+deLocALl=enrichdapalocdf %>% bind_rows(enrichbothlocdf)
+deLocALl
+```
+
+```{r}
+#ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichment",title="Enrichment for DE by Domianance") + theme(legend.position = "none")
+deLocALl$Enrichment=as.numeric(deLocALl$Enrichment)
+ggplot(deLocALl, aes(x=loc, col=loc, y=Enrichment)) + geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrichment,2)))+ facet_grid(~set)
+```
+
+Check any dAPA:  
+
+```{r}
+
+dAPAPAS_wLocAndBoth_either =dAPAPAS_wLocAndBoth %>% mutate(anydAPA=ifelse(Both=="Yes" | dAPAonly=="Yes", "Yes","No"))
+enrichEither=c()
+pvalEither=c()
+pvalEitherDep=c()
+expectEither=c()
+actualEither=c()
+for (i in c("cds", "end", "intron", "utr3", "utr5")){
+  x=nrow(dAPAPAS_wLocAndBoth_either %>% filter(anydAPA=="Yes", loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth_either %>% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth_either %>% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth_either %>% filter(anydAPA=="Yes"))
+  N=nrow(dAPAPAS_wLocAndBoth_either)
+  actualEither=c(actualEither, x)
+  exp=k*(m/N)
+  expectEither=c(expectEither,exp)
+  pvalEitherDep=c(pvalEitherDep, phyper(x,m,n,k,lower.tail=T))
+  pvalEither=c(pvalEither, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichEither=c(enrichEither, enrichval)
+}
+
+loc=c("cds", "end", "intron", "utr3", "utr5")
+
+
+enrichEitherDf=as.data.frame(cbind(loc,Actual=actualEither,Expected=expectEither, Enrichment=enrichEither,PvalEn=pvalEither,PvalDep=pvalEitherDep))%>% mutate(set="Both", Location=c("Coding", "End", "intronic","3'UTR", "5'UTR"))
+enrichEitherDf
+```
+
+Plot:  
+
+```{r}
+enrichEitherDf$Enrichment=as.numeric(as.character(enrichEitherDf$Enrichment))
+ggplot(enrichEitherDf, aes(x=Location, col=Location, y=Enrichment)) + geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrichment,2))) + theme(legend.position = "none") +labs(title="Genic location enrichment for dAPA PAS in DE genes")
+
+
+```
+
+Barplot:  
+
+```{r}
+ggplot(enrichEitherDf, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat="identity") +scale_fill_brewer(palette="RdYlBu") + geom_hline(yintercept = 1)+geom_text(col="black",aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = "none") +labs(title="Genic location enrichment for dAPA PAS in DE genes")
+```
+
+
+Either dIC and TE:  
+
+
+```{r}
+RiboSmallSig= RiboSmall %>% filter(dTE=='Yes')
+BothgeneTE= dAPAandDic %>% filter(Both=="Yes") %>% inner_join(RiboSmallSig, by="gene")
+OnlyICgenes=dAPAandDic %>% filter(OnlyIC=="Yes")%>% inner_join(RiboSmallSig, by="gene")
+
+dAPAPAS_wLocAndBothTE= dAPAPAS_wLoc %>% filter(SigPAU2=="Yes") %>% mutate(dIConly=ifelse(gene %in% OnlyICgenes$gene,"Yes","No"), Both=ifelse(gene %in% BothgeneTE$gene, "Yes", "No"))%>% mutate(anydIC=ifelse(Both=="Yes" | dIConly=="Yes", "Yes","No"))
+```
+
+```{r}
+enrichEitherTE=c()
+pvalEitherTE=c()
+pvalEitherDepTE=c()
+expectEitherTE=c()
+actualEitherTE=c()
+for (i in c("cds", "end", "intron", "utr3", "utr5")){
+  x=nrow(dAPAPAS_wLocAndBothTE %>% filter(anydIC=="Yes", loc==i))
+  m=nrow(dAPAPAS_wLocAndBothTE %>% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBothTE %>% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBothTE %>% filter(anydIC=="Yes"))
+  N=nrow(dAPAPAS_wLocAndBothTE)
+  actualEitherTE=c(actualEitherTE, x)
+  exp=k*(m/N)
+  expectEitherTE=c(expectEitherTE,exp)
+  pvalEitherDepTE=c(pvalEitherDepTE, phyper(x,m,n,k,lower.tail=T))
+  pvalEitherTE=c(pvalEitherTE, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichEitherTE=c(enrichEitherTE, enrichval)
+}
+
+loc=c("cds", "end", "intron", "utr3", "utr5")
+
+
+enrichEitherDfTE=as.data.frame(cbind(loc,Actual=actualEitherTE,Expected=expectEitherTE, Enrichment=enrichEitherTE,PvalEn=pvalEitherTE,PvalDep=pvalEitherDepTE))%>% mutate(set="Both", Location=c("Coding", "End", "intronic","3'UTR", "5'UTR"))
+enrichEitherDfTE
+```
+
+```{r}
+
+enrichEitherDfTE$Enrichment=as.numeric(as.character(enrichEitherDfTE$Enrichment))
+ggplot(enrichEitherDfTE, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat="identity") +scale_fill_brewer(palette="RdYlBu") + geom_hline(yintercept = 1)+geom_text(col="black",aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = "none") +labs(title="Genic location enrichment for dAPA PAS in dT genes")
+
+```
+

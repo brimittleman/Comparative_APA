@@ -237,8 +237,8 @@ ResDF$set=as.factor(ResDF$set)
 ResDF$Pval=as.numeric(as.character(ResDF$Pval))
 ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
 
-diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
-diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
 
 ```{r}
@@ -271,8 +271,8 @@ ResDFSame$set=as.factor(ResDFSame$set)
 ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
 ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
 
-Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
-SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n condition on tested in both")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
 ```
 ```{r}
 
@@ -318,7 +318,8 @@ ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
 
 
 ```{r}
-ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichement",title="Enrichment for DE by Domianance") + theme(legend.position = "none")
+DEdomPlot=ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichment",title="Enrichment for DE by Domianance") + theme(legend.position = "none")
+DEdomPlot
 ```
 
 
@@ -447,5 +448,14 @@ oppenrichp=ggplot(ResDFSameApaBoth,aes(x=set, by=dAPA, fill=set, y=-log10(pvalOp
 
 ```{r}
 plot_grid(enrichmentp,oppenrichp, nrow=2)
+```
+
+Plot pvalue with enriichemtn 
+```{r}
+
+pvals=plot_grid( diffP, Samep)
+
+
+plot_grid(DEdomPlot,pvals, nrow = 2)
 ```
 
