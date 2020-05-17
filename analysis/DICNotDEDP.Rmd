@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(workflowr)
 library(UpSetR)
+library(cowplot)
+library(ggpubr)
 library(tidyverse)
 ```
 
@@ -125,9 +127,59 @@ DFres$Number=as.numeric(as.character(DFres$Number))
 DFres$SetSize=as.numeric(as.character(DFres$SetSize))
 
 DFres_prop=DFres %>% mutate(Prop=Number/SetSize)
-ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)
 
-ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity", width=.5)+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are dP not DE", y="Proportion of APA set")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")
+numberPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)+geom_text(aes(label=Number), position=position_dodge(width=0.9), vjust=2)+ theme(legend.position = "none") + labs(title="Number of dP not DE genes", y="Number of Genes",x="")
 
+propPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are dP not DE", y="Proportion of APA set",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")
+
+```
+
+
+
+```{r}
+numberprop=plot_grid(numberPlot,propPlot)
+numberprop
+```
+
+Are there differences in number of protein for these sets? 
+
+```{r}
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) 
+
+OrthoUTR=read.table("../data/orthoUTR/HumanDistal3UTR.sort.bed", col.names = c("chr",'start','end','gene','score','strand'),stringsAsFactors = F) %>% mutate(length=end-start) %>% select(gene, length)
+
+UTRInt=OrthoUTR %>% inner_join(Interactions, by="gene") %>% mutate(Density=nInt/length)
+
+#DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
+
+dAPAandDic_wP=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(UTRInt, by="gene")
+
+dAPAandDic_wP_dAPA= dAPAandDic_wP %>% filter(dAPA=="Yes")
+
+dAPAandDic_wP_both= dAPAandDic_wP %>% filter(Both=="Yes")
+
+
+dAPAandDic_wP_IC= dAPAandDic_wP %>% filter(OnlyIC=="Yes")
+```
+
+Plot for all 3 sets: 
+
+```{r}
+dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \ndAPA only genes") +geom_jitter(alpha=.1)
+
+
+bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \n dAPA and dIC genes")+geom_jitter(alpha=.1)
+
+dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \n dIC only genes")+geom_jitter(alpha=.1)
+
+```
+
+```{r}
+interactionplots=plot_grid(bothProt,dapaProt,dicProt, nrow=1)
+```
+Plot full: 
+
+```{r}
+plot_grid(numberprop, interactionplots, nrow = 2)
 ```
 
