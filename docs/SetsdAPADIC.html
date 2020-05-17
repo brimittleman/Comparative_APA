@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-11
+<strong>Last updated:</strong> 2020-05-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefc1a2bd1f6cf2f500a1fee190d3c8648f4841f7atargetblankfc1a2bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fc1a2bd1f6cf2f500a1fee190d3c8648f4841f7a" target="_blank">fc1a2bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4b2ff4a03156b795718666f84cd9c761b952f752targetblank4b2ff4aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/4b2ff4a03156b795718666f84cd9c761b952f752" target="_blank">4b2ff4a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefc1a2bd1f6cf2f500a1fee190d3c8648f4841f7atargetblankfc1a2bda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree4b2ff4a03156b795718666f84cd9c761b952f752targetblank4b2ff4aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -683,6 +683,12 @@ Untracked files:
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -805,6 +811,12 @@ Untracked files:
     Untracked:  code/RNATranscriptDTplot.err
     Untracked:  code/RNATranscriptDTplot.out
     Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -903,6 +915,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -1193,6 +1206,7 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
@@ -1222,6 +1236,7 @@ Untracked files:
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1291,6 +1306,7 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/DICNotDEDP.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
@@ -1302,10 +1318,13 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1347,6 +1366,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4b2ff4a03156b795718666f84cd9c761b952f752/analysis/SetsdAPADIC.Rmd" target="_blank">4b2ff4a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-17
+</td>
+<td>
+add loc enrich and diff dom plot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/85826ad278570a45685b995e6af52f1f7ae9b2e7/docs/SetsdAPADIC.html" target="_blank">85826ad</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1481,12 +1534,12 @@ library(VennDiagram)</code></pre>
 <pre><code>Loading required package: grid</code></pre>
 <pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -2306,6 +2359,247 @@ EnrichmentProt_both</code></pre>
 <pre class="r"><code>nrow(KhanPWithapa %&gt;% filter(Both==&quot;Yes&quot;, Model==6))</code></pre>
 <pre><code>[1] 3</code></pre>
 <p>Both Protien: 6 (3.87X, 0.038)</p>
+</div>
+<div id="location-enrichment" class="section level2">
+<h2>location enrichment:</h2>
+<p>For the dAPA only and both. where are the PAS contibuting to the relationship. are they enriched among dAPA PAS</p>
+<p>want those that are DE genes</p>
+<pre class="r"><code>dAPAPAS_wLoc=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS, loc, SigPAU2, gene)
+
+DiffExpSig= DiffExp %&gt;% filter(DE==&#39;Yes&#39;)
+BothAPAgenes= dAPAandDic %&gt;% filter(Both==&quot;Yes&quot;) %&gt;% inner_join(DiffExpSig, by=&quot;gene&quot;)
+OnlyAPAgenes=dAPAandDic %&gt;% filter(OnlyAPA==&quot;Yes&quot;)%&gt;% inner_join(DiffExpSig, by=&quot;gene&quot;)
+
+dAPAPAS_wLocAndBoth= dAPAPAS_wLoc %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% mutate(dAPAonly=ifelse(gene %in%OnlyAPAgenes$gene,&quot;Yes&quot;,&quot;No&quot;), Both=ifelse(gene %in% BothAPAgenes$gene, &quot;Yes&quot;, &quot;No&quot;))</code></pre>
+<pre class="r"><code>enrichdAPAloc=c()
+pvaldAPAloc=c()
+expectddAPA=c()
+pvaldAPAlocDep=c()
+actualdAPA=c()
+for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)){
+  x=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(dAPAonly==&quot;Yes&quot;, loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(dAPAonly==&quot;Yes&quot;))
+  N=nrow(dAPAPAS_wLocAndBoth)
+  actualdAPA=c(actualdAPA, x)
+  exp=k*(m/N)
+  expectddAPA=c(expectddAPA,exp)
+  pvaldAPAloc=c(pvaldAPAloc, phyper(x-1,m,n,k,lower.tail=F))
+  pvaldAPAlocDep=c(pvaldAPAlocDep, phyper(x,m,n,k,lower.tail=T))
+  enrichval=(x/k)/(m/N)
+  enrichdAPAloc=c(enrichdAPAloc, enrichval)
+}
+
+loc=c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)
+enrichdAPAloc</code></pre>
+<pre><code>[1] 1.1101576 0.5710053 0.9253642 1.0860081 0.6995221</code></pre>
+<pre class="r"><code>pvaldAPAloc</code></pre>
+<pre><code>[1] 0.144559704 0.999924051 0.895180830 0.003461421 0.966377338</code></pre>
+<pre class="r"><code>enrichdapalocdf=as.data.frame(cbind(loc, Actual=actualdAPA,Expected=expectddAPA, Enrichment=enrichdAPAloc,PvalEn=pvaldAPAloc, PvalDep=pvaldAPAlocDep)) %&gt;% mutate(set=&quot;dAPAOnly&quot;)
+enrichdapalocdf</code></pre>
+<pre><code>     loc Actual         Expected        Enrichment              PvalEn
+1    cds     77 69.3595217762596  1.11015759665107   0.144559704469824
+2    end     26  45.533731853117 0.571005251312828   0.999924050908696
+3 intron    134 144.807856532878 0.925364156395589   0.895180830348247
+4   utr3    368 338.855678906917  1.08600806451613 0.00346142063512895
+5   utr5     15 21.4432109308284 0.699522102747909   0.966377337513707
+               PvalDep      set
+1    0.886053815761103 dAPAOnly
+2 0.000168192607453154 dAPAOnly
+3    0.126610345939535 dAPAOnly
+4    0.997406075194543 dAPAOnly
+5   0.0601740116394651 dAPAOnly</code></pre>
+<pre class="r"><code>enrichBothloc=c()
+pvalBothloc=c()
+pvalBothDepletloc=c()
+expectBoth=c()
+actualBoth=c()
+for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)){
+  x=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(Both==&quot;Yes&quot;, loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth %&gt;% filter(Both==&quot;Yes&quot;))
+  N=nrow(dAPAPAS_wLocAndBoth)
+  actualBoth=c(actualBoth, x)
+  exp=k*(m/N)
+  expectBoth=c(expectBoth,exp)
+  pvalBothDepletloc=c(pvalBothDepletloc, phyper(x,m,n,k,lower.tail=T))
+  pvalBothloc=c(pvalBothloc, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichBothloc=c(enrichBothloc, enrichval)
+}
+
+loc=c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)
+enrichBothloc</code></pre>
+<pre><code>[1] 1.2875004 0.3362044 0.6519211 1.1444959 1.5468171</code></pre>
+<pre class="r"><code>pvalBothloc</code></pre>
+<pre><code>[1] 0.061213041 0.999858359 0.999633975 0.005274121 0.070347462</code></pre>
+<pre class="r"><code>enrichbothlocdf=as.data.frame(cbind(loc,Actual=actualBoth,Expected=expectBoth, Enrichment=enrichBothloc,PvalEn=pvalBothloc,PvalDep=pvalBothDepletloc))%&gt;% mutate(set=&quot;Both&quot;)
+enrichbothlocdf</code></pre>
+<pre><code>     loc Actual         Expected        Enrichment              PvalEn
+1    cds     35 27.1844577284372  1.28750039267427  0.0612130405890235
+2    end      6 17.8462852263023 0.336204421475739   0.999858358871073
+3 intron     37 56.7553373185312 0.651921065896284   0.999633975420797
+4   utr3    152 132.809564474808  1.14449588477366 0.00527412051670923
+5   utr5     13 8.40435525192144  1.54681705024641  0.0703474621902344
+               PvalDep  set
+1    0.959605041842023 Both
+2 0.000516899738502834 Both
+3 0.000683333042635172 Both
+4    0.996485012447578 Both
+5     0.96410046531306 Both</code></pre>
+<p>Join both and plot:</p>
+<pre class="r"><code>deLocALl=enrichdapalocdf %&gt;% bind_rows(enrichbothlocdf)</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre class="r"><code>deLocALl</code></pre>
+<pre><code>      loc Actual         Expected        Enrichment              PvalEn
+1     cds     77 69.3595217762596  1.11015759665107   0.144559704469824
+2     end     26  45.533731853117 0.571005251312828   0.999924050908696
+3  intron    134 144.807856532878 0.925364156395589   0.895180830348247
+4    utr3    368 338.855678906917  1.08600806451613 0.00346142063512895
+5    utr5     15 21.4432109308284 0.699522102747909   0.966377337513707
+6     cds     35 27.1844577284372  1.28750039267427  0.0612130405890235
+7     end      6 17.8462852263023 0.336204421475739   0.999858358871073
+8  intron     37 56.7553373185312 0.651921065896284   0.999633975420797
+9    utr3    152 132.809564474808  1.14449588477366 0.00527412051670923
+10   utr5     13 8.40435525192144  1.54681705024641  0.0703474621902344
+                PvalDep      set
+1     0.886053815761103 dAPAOnly
+2  0.000168192607453154 dAPAOnly
+3     0.126610345939535 dAPAOnly
+4     0.997406075194543 dAPAOnly
+5    0.0601740116394651 dAPAOnly
+6     0.959605041842023     Both
+7  0.000516899738502834     Both
+8  0.000683333042635172     Both
+9     0.996485012447578     Both
+10     0.96410046531306     Both</code></pre>
+<pre class="r"><code>#ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichment&quot;,title=&quot;Enrichment for DE by Domianance&quot;) + theme(legend.position = &quot;none&quot;)
+deLocALl$Enrichment=as.numeric(deLocALl$Enrichment)
+ggplot(deLocALl, aes(x=loc, col=loc, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2)))+ facet_grid(~set)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Check any dAPA:</p>
+<pre class="r"><code>dAPAPAS_wLocAndBoth_either =dAPAPAS_wLocAndBoth %&gt;% mutate(anydAPA=ifelse(Both==&quot;Yes&quot; | dAPAonly==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))
+enrichEither=c()
+pvalEither=c()
+pvalEitherDep=c()
+expectEither=c()
+actualEither=c()
+for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)){
+  x=nrow(dAPAPAS_wLocAndBoth_either %&gt;% filter(anydAPA==&quot;Yes&quot;, loc==i))
+  m=nrow(dAPAPAS_wLocAndBoth_either %&gt;% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBoth_either %&gt;% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBoth_either %&gt;% filter(anydAPA==&quot;Yes&quot;))
+  N=nrow(dAPAPAS_wLocAndBoth_either)
+  actualEither=c(actualEither, x)
+  exp=k*(m/N)
+  expectEither=c(expectEither,exp)
+  pvalEitherDep=c(pvalEitherDep, phyper(x,m,n,k,lower.tail=T))
+  pvalEither=c(pvalEither, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichEither=c(enrichEither, enrichval)
+}
+
+loc=c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)
+
+
+enrichEitherDf=as.data.frame(cbind(loc,Actual=actualEither,Expected=expectEither, Enrichment=enrichEither,PvalEn=pvalEither,PvalDep=pvalEitherDep))%&gt;% mutate(set=&quot;Both&quot;, Location=c(&quot;Coding&quot;, &quot;End&quot;, &quot;intronic&quot;,&quot;3&#39;UTR&quot;, &quot;5&#39;UTR&quot;))
+enrichEitherDf</code></pre>
+<pre><code>     loc Actual         Expected        Enrichment               PvalEn
+1    cds    112 96.5439795046968  1.16009305370048   0.0216944727729284
+2    end     32 63.3800170794193 0.504890996793231    0.999999980216832
+3 intron    171 201.563193851409 0.848369172628114    0.999236414270241
+4   utr3    520 471.665243381725  1.10247682502897 1.85595444296267e-05
+5   utr5     28 29.8475661827498 0.938099938486188     0.70650097845013
+               PvalDep  set Location
+1    0.984367879949983 Both   Coding
+2 5.53449882399961e-08 Both      End
+3  0.00108331305417675 Both intronic
+4    0.999987300694221 Both    3&#39;UTR
+5    0.379451460165918 Both    5&#39;UTR</code></pre>
+<p>Plot:</p>
+<pre class="r"><code>enrichEitherDf$Enrichment=as.numeric(as.character(enrichEitherDf$Enrichment))
+ggplot(enrichEitherDf, aes(x=Location, col=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2))) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in DE genes&quot;)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Barplot:</p>
+<pre class="r"><code>ggplot(enrichEitherDf, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + geom_hline(yintercept = 1)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in DE genes&quot;)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Either dIC and TE:</p>
+<pre class="r"><code>RiboSmallSig= RiboSmall %&gt;% filter(dTE==&#39;Yes&#39;)
+BothgeneTE= dAPAandDic %&gt;% filter(Both==&quot;Yes&quot;) %&gt;% inner_join(RiboSmallSig, by=&quot;gene&quot;)
+OnlyICgenes=dAPAandDic %&gt;% filter(OnlyIC==&quot;Yes&quot;)%&gt;% inner_join(RiboSmallSig, by=&quot;gene&quot;)
+
+dAPAPAS_wLocAndBothTE= dAPAPAS_wLoc %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% mutate(dIConly=ifelse(gene %in% OnlyICgenes$gene,&quot;Yes&quot;,&quot;No&quot;), Both=ifelse(gene %in% BothgeneTE$gene, &quot;Yes&quot;, &quot;No&quot;))%&gt;% mutate(anydIC=ifelse(Both==&quot;Yes&quot; | dIConly==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))</code></pre>
+<pre class="r"><code>enrichEitherTE=c()
+pvalEitherTE=c()
+pvalEitherDepTE=c()
+expectEitherTE=c()
+actualEitherTE=c()
+for (i in c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)){
+  x=nrow(dAPAPAS_wLocAndBothTE %&gt;% filter(anydIC==&quot;Yes&quot;, loc==i))
+  m=nrow(dAPAPAS_wLocAndBothTE %&gt;% filter(loc==i))
+  n=nrow(dAPAPAS_wLocAndBothTE %&gt;% filter(loc!=i))
+  k=nrow(dAPAPAS_wLocAndBothTE %&gt;% filter(anydIC==&quot;Yes&quot;))
+  N=nrow(dAPAPAS_wLocAndBothTE)
+  actualEitherTE=c(actualEitherTE, x)
+  exp=k*(m/N)
+  expectEitherTE=c(expectEitherTE,exp)
+  pvalEitherDepTE=c(pvalEitherDepTE, phyper(x,m,n,k,lower.tail=T))
+  pvalEitherTE=c(pvalEitherTE, phyper(x-1,m,n,k,lower.tail=F))
+  enrichval=(x/k)/(m/N)
+  enrichEitherTE=c(enrichEitherTE, enrichval)
+}
+
+loc=c(&quot;cds&quot;, &quot;end&quot;, &quot;intron&quot;, &quot;utr3&quot;, &quot;utr5&quot;)
+
+
+enrichEitherDfTE=as.data.frame(cbind(loc,Actual=actualEitherTE,Expected=expectEitherTE, Enrichment=enrichEitherTE,PvalEn=pvalEitherTE,PvalDep=pvalEitherDepTE))%&gt;% mutate(set=&quot;Both&quot;, Location=c(&quot;Coding&quot;, &quot;End&quot;, &quot;intronic&quot;,&quot;3&#39;UTR&quot;, &quot;5&#39;UTR&quot;))
+enrichEitherDfTE</code></pre>
+<pre><code>     loc Actual         Expected        Enrichment              PvalEn
+1    cds     18 14.8787361229718  1.20978017562991   0.224435998901782
+2    end      4 9.76771989752348 0.409512152474209   0.991339820772879
+3 intron     21 31.0636208368915 0.676031944578081   0.989569116664339
+4   utr3     87 72.6900085397097   1.1968632518797 0.00625939079480355
+5   utr5      3  4.5999146029035 0.652186020607073    0.85008031316646
+             PvalDep  set Location
+1  0.847506438642276 Both   Coding
+2 0.0261976848806088 Both      End
+3 0.0187659660554926 Both intronic
+4  0.996328710378025 Both    3&#39;UTR
+5  0.313553277553297 Both    5&#39;UTR</code></pre>
+<pre class="r"><code>enrichEitherDfTE$Enrichment=as.numeric(as.character(enrichEitherDfTE$Enrichment))
+ggplot(enrichEitherDfTE, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + geom_hline(yintercept = 1)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in dT genes&quot;)</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2345,21 +2639,21 @@ loaded via a namespace (and not attached):
  [4] lattice_0.20-38      colorspace_1.3-2     generics_0.0.2      
  [7] htmltools_0.3.6      yaml_2.2.0           rlang_0.4.0         
 [10] later_0.7.5          pillar_1.3.1         withr_2.1.2         
-[13] glue_1.3.0           lambda.r_1.2.3       modelr_0.1.2        
-[16] readxl_1.1.0         plyr_1.8.4           cellranger_1.1.0    
-[19] munsell_0.5.0        gtable_0.2.0         rvest_0.3.2         
-[22] evaluate_0.12        labeling_0.3         knitr_1.20          
-[25] httpuv_1.4.5         broom_0.5.1          Rcpp_1.0.4.6        
-[28] promises_1.0.1       scales_1.0.0         backports_1.1.2     
-[31] formatR_1.5          jsonlite_1.6         fs_1.3.1            
-[34] gridExtra_2.3        hms_0.4.2            digest_0.6.18       
-[37] stringi_1.2.4        rprojroot_1.3-2      cli_1.1.0           
-[40] tools_3.5.1          magrittr_1.5         lazyeval_0.2.1      
-[43] futile.options_1.0.1 crayon_1.3.4         whisker_0.3-2       
-[46] pkgconfig_2.0.2      xml2_1.2.0           lubridate_1.7.4     
-[49] rstudioapi_0.10      assertthat_0.2.0     rmarkdown_1.10      
-[52] httr_1.3.1           R6_2.3.0             nlme_3.1-137        
-[55] git2r_0.26.1         compiler_3.5.1      </code></pre>
+[13] glue_1.3.0           RColorBrewer_1.1-2   lambda.r_1.2.3      
+[16] modelr_0.1.2         readxl_1.1.0         plyr_1.8.4          
+[19] cellranger_1.1.0     munsell_0.5.0        gtable_0.2.0        
+[22] rvest_0.3.2          evaluate_0.12        labeling_0.3        
+[25] knitr_1.20           httpuv_1.4.5         broom_0.5.1         
+[28] Rcpp_1.0.4.6         promises_1.0.1       scales_1.0.0        
+[31] backports_1.1.2      formatR_1.5          jsonlite_1.6        
+[34] fs_1.3.1             gridExtra_2.3        hms_0.4.2           
+[37] digest_0.6.18        stringi_1.2.4        rprojroot_1.3-2     
+[40] cli_1.1.0            tools_3.5.1          magrittr_1.5        
+[43] lazyeval_0.2.1       futile.options_1.0.1 crayon_1.3.4        
+[46] whisker_0.3-2        pkgconfig_2.0.2      xml2_1.2.0          
+[49] lubridate_1.7.4      rstudioapi_0.10      assertthat_0.2.0    
+[52] rmarkdown_1.10       httr_1.3.1           R6_2.3.0            
+[55] nlme_3.1-137         git2r_0.26.1         compiler_3.5.1      </code></pre>
 </div>
 </div>
 
