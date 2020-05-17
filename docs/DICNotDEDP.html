@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-07
+<strong>Last updated:</strong> 2020-05-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed13b414dec186ad671bae558fe66ccbe5cda1ca2targetblankd13b414a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d13b414dec186ad671bae558fe66ccbe5cda1ca2" target="_blank">d13b414</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree08fda9dccc57d6572534de51178b54d04de57890targetblank08fda9da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/08fda9dccc57d6572534de51178b54d04de57890" target="_blank">08fda9d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed13b414dec186ad671bae558fe66ccbe5cda1ca2targetblankd13b414a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree08fda9dccc57d6572534de51178b54d04de57890targetblank08fda9da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,6 +447,7 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
     Ignored:    code/chimp_log/
     Ignored:    code/human_log/
     Ignored:    data/.DS_Store
@@ -683,6 +684,12 @@ Untracked files:
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -796,6 +803,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -804,6 +812,12 @@ Untracked files:
     Untracked:  code/RNATranscriptDTplot.err
     Untracked:  code/RNATranscriptDTplot.out
     Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -902,6 +916,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -963,6 +978,8 @@ Untracked files:
     Untracked:  code/liftoverPAShg19to38.out
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
     Untracked:  code/makeNuclearDapaplots_DF.sh
@@ -973,6 +990,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
     Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
@@ -1178,6 +1196,7 @@ Untracked files:
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffDomandDE_example/
@@ -1188,6 +1207,7 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
@@ -1217,6 +1237,7 @@ Untracked files:
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1285,6 +1306,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
@@ -1296,11 +1318,15 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
+    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1345,6 +1371,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/08fda9dccc57d6572534de51178b54d04de57890/analysis/DICNotDEDP.Rmd" target="_blank">08fda9d</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-17
+</td>
+<td>
+add agg plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/b418f79acb709b529405e4bcc899f4e47706fe15/docs/DICNotDEDP.html" target="_blank">b418f79</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/d13b414dec186ad671bae558fe66ccbe5cda1ca2/analysis/DICNotDEDP.Rmd" target="_blank">d13b414</a>
 </td>
 <td>
@@ -1368,15 +1428,32 @@ add dp not de
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(UpSetR)
-library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-✔ tidyr   0.8.3       ✔ stringr 1.3.1  
-✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+library(cowplot)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre><code>
+Attaching package: &#39;ggpubr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:cowplot&#39;:
+
+    get_legend</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ──────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
+✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
+✔ readr   1.3.1       ✔ stringr 1.3.1  
+✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+✖ tidyr::extract()   masks magrittr::extract()
+✖ dplyr::filter()    masks stats::filter()
+✖ cowplot::ggsave()  masks ggplot2::ggsave()
+✖ dplyr::lag()       masks stats::lag()
+✖ purrr::set_names() masks magrittr::set_names()</code></pre>
 <p>I saw that dIC genes are enriched for translation. I want to look at the dIC genes that are not dAPA, are any of these DP but not DE?</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
 
@@ -1409,10 +1486,84 @@ Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.
 
 upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
 <p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b418f79acb709b529405e4bcc899f4e47706fe15/docs/figure/DICNotDEDP.Rmd/unnamed-chunk-4-1.png" target="_blank">b418f79</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>listInput &lt;- list(IC=dIConly$gene, DE=DiffExp$gene, DP=Prot$gene)
 
 upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
 <p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b418f79acb709b529405e4bcc899f4e47706fe15/docs/figure/DICNotDEDP.Rmd/unnamed-chunk-5-1.png" target="_blank">b418f79</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>So 40 genes that are dP and dIC not DE.</p>
 <p>Proportion of dIC genes:</p>
 <pre class="r"><code>40/nrow(dIConly)</code></pre>
@@ -1424,7 +1575,45 @@ nrow(dAPAonly)</code></pre>
 <pre class="r"><code>listInput &lt;- list(dAPA=dAPAonly$gene, DE=DiffExp$gene, DP=Prot$gene)
 
 upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> 76 in this set.</p>
+<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b418f79acb709b529405e4bcc899f4e47706fe15/docs/figure/DICNotDEDP.Rmd/unnamed-chunk-8-1.png" target="_blank">b418f79</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>76 in this set.</p>
 <pre class="r"><code>76/nrow(dAPAonly)</code></pre>
 <pre><code>[1] 0.0607514</code></pre>
 <p>Smaller proportion. No sure how to test this.</p>
@@ -1435,7 +1624,45 @@ nrow(Both)</code></pre>
 <pre class="r"><code>listInput &lt;- list(BothAPA=Both$gene, DE=DiffExp$gene, DP=Prot$gene)
 
 upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /> 33 here:</p>
+<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b418f79acb709b529405e4bcc899f4e47706fe15/docs/figure/DICNotDEDP.Rmd/unnamed-chunk-11-1.png" target="_blank">b418f79</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>33 here:</p>
 <pre class="r"><code>33/nrow(Both)</code></pre>
 <pre><code>[1] 0.07268722</code></pre>
 <p>Plot number in set and proprotion:</p>
@@ -1449,10 +1676,41 @@ DFres$Number=as.numeric(as.character(DFres$Number))
 DFres$SetSize=as.numeric(as.character(DFres$SetSize))
 
 DFres_prop=DFres %&gt;% mutate(Prop=Number/SetSize)
-ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat=&quot;identity&quot;)+ scale_fill_manual(values=useCOl)</code></pre>
-<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat=&quot;identity&quot;, width=.5)+ scale_fill_manual(values=useCOl) + labs(title=&quot;Proportion of APA set that are dP not DE&quot;, y=&quot;Proportion of APA set&quot;)+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+
+numberPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat=&quot;identity&quot;)+ scale_fill_manual(values=useCOl)+geom_text(aes(label=Number), position=position_dodge(width=0.9), vjust=2)+ theme(legend.position = &quot;none&quot;) + labs(title=&quot;Number of dP not DE genes&quot;, y=&quot;Number of Genes&quot;,x=&quot;&quot;)
+
+propPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat=&quot;identity&quot;)+ scale_fill_manual(values=useCOl) + labs(title=&quot;Proportion of APA set that are dP not DE&quot;, y=&quot;Proportion of APA set&quot;,x=&quot;&quot;)+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = &quot;none&quot;)</code></pre>
+<pre class="r"><code>numberprop=plot_grid(numberPlot,propPlot)
+numberprop</code></pre>
+<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Are there differences in number of protein for these sets?</p>
+<pre class="r"><code>Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,stringsAsFactors = F, header = T) 
+
+OrthoUTR=read.table(&quot;../data/orthoUTR/HumanDistal3UTR.sort.bed&quot;, col.names = c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;),stringsAsFactors = F) %&gt;% mutate(length=end-start) %&gt;% select(gene, length)
+
+UTRInt=OrthoUTR %&gt;% inner_join(Interactions, by=&quot;gene&quot;) %&gt;% mutate(Density=nInt/length)
+
+#DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
+
+dAPAandDic_wP=dAPAandDic %&gt;% mutate(dE=ifelse(gene %in%DiffExp$gene, &quot;Yes&quot;, &quot;No&quot; ), dP=ifelse(gene %in%Prot$gene,&quot;Yes&quot;,&quot;No&quot; ), dPnotDE=ifelse(dE==&quot;No&quot;&amp;dP==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(UTRInt, by=&quot;gene&quot;)
+
+dAPAandDic_wP_dAPA= dAPAandDic_wP %&gt;% filter(dAPA==&quot;Yes&quot;)
+
+dAPAandDic_wP_both= dAPAandDic_wP %&gt;% filter(Both==&quot;Yes&quot;)
+
+
+dAPAandDic_wP_IC= dAPAandDic_wP %&gt;% filter(OnlyIC==&quot;Yes&quot;)</code></pre>
+<p>Plot for all 3 sets:</p>
+<pre class="r"><code>dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#4575b4&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = &quot;false&quot;) + labs(x=&quot;Expression independent set&quot;, y=&quot;log10(Interaction Density)&quot;, title=&quot;Protein Interactions \ndAPA only genes&quot;) +geom_jitter(alpha=.1)
+
+
+bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#d73027&quot;))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = &quot;false&quot;) + labs(x=&quot;Expression independent set&quot;, y=&quot;log10(Interaction Density)&quot;, title=&quot;Protein Interactions \n dAPA and dIC genes&quot;)+geom_jitter(alpha=.1)
+
+dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#fee090&quot;))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = &quot;false&quot;) + labs(x=&quot;Expression independent set&quot;, y=&quot;log10(Interaction Density)&quot;, title=&quot;Protein Interactions \n dIC only genes&quot;)+geom_jitter(alpha=.1)</code></pre>
+<pre class="r"><code>interactionplots=plot_grid(bothProt,dapaProt,dicProt, nrow=1)</code></pre>
+<p>Plot full:</p>
+<pre class="r"><code>plot_grid(numberprop, interactionplots, nrow = 2)</code></pre>
+<p><img src="figure/DICNotDEDP.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1481,24 +1739,24 @@ attached base packages:
 
 other attached packages:
  [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
- [9] tidyverse_1.2.1 UpSetR_1.3.3    workflowr_1.6.0
+ [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    tidyverse_1.2.1
+ [9] ggpubr_0.2      magrittr_1.5    cowplot_0.9.4   ggplot2_3.1.1  
+[13] UpSetR_1.3.3    workflowr_1.6.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
  [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       rlang_0.4.0     
- [9] later_0.7.5      pillar_1.3.1     withr_2.1.2      glue_1.3.0      
+ [9] later_0.7.5      pillar_1.3.1     glue_1.3.0       withr_2.1.2     
 [13] modelr_0.1.2     readxl_1.1.0     plyr_1.8.4       munsell_0.5.0   
 [17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
 [21] labeling_0.3     knitr_1.20       httpuv_1.4.5     broom_0.5.1     
 [25] Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0     backports_1.1.2 
 [29] jsonlite_1.6     fs_1.3.1         gridExtra_2.3    hms_0.4.2       
 [33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
-[37] cli_1.1.0        tools_3.5.1      magrittr_1.5     lazyeval_0.2.1  
-[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
-[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
-[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
-[53] compiler_3.5.1  </code></pre>
+[37] cli_1.1.0        tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4    
+[41] whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4 
+[45] rstudioapi_0.10  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
+[49] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
 </div>
 
 
