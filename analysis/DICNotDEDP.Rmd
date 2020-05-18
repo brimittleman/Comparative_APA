@@ -53,6 +53,8 @@ Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsA
 
 Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) %>% filter(dTE=="Yes")
 
+
+RiboAll=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) 
 ```
 
 ```{r}
@@ -182,4 +184,55 @@ Plot full:
 ```{r}
 plot_grid(numberprop, interactionplots, nrow = 2)
 ```
+
+
+##are these diff in translation:  
+```{r}
+nrow(RiboAll)
+nrow(dAPAandDic_wP)
+dAPAandDic_wP_trans= dAPAandDic_wP %>% inner_join(RiboAll,by="gene")
+
+
+
+dAPAandDic_wP_trans_dpnote= dAPAandDic_wP_trans %>% filter(dPnotDE=="Yes") %>% select(gene,Both, OnlyIC, OnlyAPA,dTE)
+
+
+dAPAandDic_wP_trans_dpnoteOnlyAPA=dAPAandDic_wP_trans_dpnote  %>% filter(OnlyAPA=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="OnlyAPA")
+
+dAPAandDic_wP_trans_dpnoteBoth=dAPAandDic_wP_trans_dpnote  %>% filter(Both=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="Both")
+
+dAPAandDic_wP_trans_dpnoteIC=dAPAandDic_wP_trans_dpnote  %>% filter(OnlyIC=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="OnlyIC")
+
+
+AllTenum= dAPAandDic_wP_trans_dpnoteOnlyAPA %>% bind_rows(dAPAandDic_wP_trans_dpnoteBoth) %>% bind_rows(dAPAandDic_wP_trans_dpnoteIC)
+```
+
+```{r}
+numTE=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "dodge") + labs(title="Most dP not dE genes are not dTE", y="Number of Genes",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1)) + theme(legend.position = "bottom") + geom_text(aes(label=ndTE), position=position_dodge(width=0.9), vjust=1)+guides(fill = FALSE)
+numTE
+```
+```{r}
+propTe=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="dIC set more likey to be dTE", y="Proportion",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.4, 1)) + theme(legend.position = "bottom")+guides(fill = FALSE)
+propTe
+```
+
+Of 6477 we have data for each of the 3 phenotypes
+
+
+from 149 to 142 
+```{r}
+dAPAandDic_wP_trans %>% filter(dPnotDE=="Yes") %>% filter(Both=="Yes" | OnlyIC=="Yes" | OnlyAPA=="Yes") %>% group_by(dTE) %>% summarise(n())
+```
+```{r}
+teplots=plot_grid(numTE, propTe, nrow =1)
+teplots
+```
+
+
+diff figures together: 
+
+```{r}
+plot_grid(numberprop, teplots,interactionplots, nrow = 3)
+```
+
 
