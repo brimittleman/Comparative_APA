@@ -1,0 +1,174 @@
+---
+title: "New dom and TE"
+author: "Briana Mittleman"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+library(ggpubr)
+library(RColorBrewer)
+```
+
+
+
+I will ask if there if dominance and DE are related. First I can ask if genes with dominant PAS are enriched in the DE genes.  
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+MetaCol=colnames(PAS)
+
+
+Ribo=read.table("../data/Wang_ribo/HC_SigTranslation.txt",header = T, stringsAsFactors = F)  %>% rename("gene"=Gene)
+
+RiboAll=read.table("../data/Wang_ribo/HC_AllTestedTranslation.txt",header = T, stringsAsFactors = F)  %>% rename("gene"=Gene)
+
+
+TEres= RiboAll %>% select(gene) %>% mutate(TE=ifelse(gene %in% Ribo$gene, "Yes", "No"))
+```
+
+
+
+
+##Same vs different dominant:  
+
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90)
+
+
+```
+
+```{r}
+Pval=c()
+Enrich=c()
+set=c(10,20,30,40,50,60,70,80,90)
+expected=c()
+actual=c()
+
+All4= BothResAll  %>% select(gene,cut,Set) %>% inner_join(TEres, by="gene")
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Different", TE=="Yes"))
+  actual=c(actual, x)
+  m=nrow(All4 %>% filter(cut==i, TE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, TE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Different"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  Pval= c(Pval, val)
+  en=(x/k)/(m/N)
+  Enrich=c(Enrich, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  expected=c(expected,ex)
+}
+
+ResDF=as.data.frame(cbind(set,Pval,Enrich, actual, expected))
+ResDF$set=as.factor(ResDF$set)
+ResDF$Pval=as.numeric(as.character(ResDF$Pval))
+ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
+
+diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for TE and different dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1)
+diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for TE and different dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+```
+
+```{r}
+
+PvalSame=c()
+EnrichSame=c()
+expectedSame=c()
+actualSame=c()
+
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Same", TE=="Yes"))
+  actualSame=c(actualSame, x)
+  m=nrow(All4 %>% filter(cut==i, TE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, TE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Same"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSame= c(PvalSame, val)
+  en=(x/k)/(m/N)
+  EnrichSame=c(EnrichSame, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  expectedSame=c(expectedSame,ex)
+}
+
+ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame, actualSame,expectedSame))
+ResDFSame$set=as.factor(ResDFSame$set)
+ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
+ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
+
+Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for TE and same dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1)
+SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for TE and same dominant")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+```
+
+
+```{r}
+
+
+ResDF
+
+
+ResDFSame
+
+
+```
+
+
+plot grid:  
+
+```{r}
+plot_grid(diffE, SameE, diffP, Samep)
+
+tepplot=plot_grid( diffP, Samep)
+```
+
+
+```{r}
+ResDFfix=ResDF %>% mutate(type="Different")
+ResDFSamefix=ResDFSame %>% mutate(type="Same") 
+
+colnames(ResDFSamefix)=colnames(ResDFfix)
+ResDFfix_both=ResDFfix %>% bind_rows(ResDFSamefix)
+```
+
+
+```{r}
+TEdomPlot=ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichment",title="Enrichment for TE by Domianance") + theme(legend.position = "none")
+TEdomPlot
+```
+
+
+```{r}
+plot_grid(TEdomPlot, tepplot, nrow = 2)
+```
+
+some signal...nothing like the DE, may be underpowered becaue way fewer TE genes.  

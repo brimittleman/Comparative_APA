@@ -142,7 +142,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [New Dominance method and DE](NewDomandDE.html)
 
-* [New Dominance and protein/translation](enrichDomdribodp.html)
+* [New Dominance and translation](NewDomandTE.html)  
 
 * [H3K36me3](h3k36me3.html)
 
