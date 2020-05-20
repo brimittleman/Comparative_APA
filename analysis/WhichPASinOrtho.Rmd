@@ -71,9 +71,21 @@ Meta_allOrtho_SIG= Meta_allOrtho %>% inner_join(DiffUsed, by="PAS")
 
 Meta_allOrtho_SIG$WhichSite=factor(Meta_allOrtho_SIG$WhichSite, levels=c("last", "middle", "first"))
 
-ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat="count", position = "fill") + labs(x="dAPA PAS",y="Proportion", title="Orthologous UTR PAS by dAPA") + scale_fill_manual(values=useCOl)
+whichSiteplot=ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat="count", position = "fill") + labs(x="Differentially used PAS",y="Proportion of sites", title="Differentially used PAS are more likely to be the \nfirst site in orthologous 3' UTRs") + scale_fill_manual(values=useCOl, name="") + theme(legend.position = "bottom")
+
+whichSiteplot
 ```
-anavo test: 
+
+```{r,include=FALSE, eval=F}
+pdf("../output/whichSiteplot.pdf", height=6, width=6)
+whichSiteplot
+dev.off()
+```
+
+pdf of figures 
+```{r whichsite, include=FALSE, dev="pdf", fig.height=6, fig.width=6, crop=FALSE}
+whichSiteplot
+```
 
 ```{r}
 PropdAPA=Meta_allOrtho_SIG %>% group_by(SigPAU2, WhichSite) %>% summarise(n=n()) %>% ungroup() %>% group_by(SigPAU2) %>% mutate(nDapa=sum(n), prop=n/nDapa,dAPA=ifelse(SigPAU2=="Yes",1,0))

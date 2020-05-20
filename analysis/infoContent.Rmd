@@ -425,10 +425,14 @@ ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=numPAS )) + geom_poi
 plot simpson h/c colors:  
 
 ```{r}
-ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Simpson Index", x="Simpson Index")+ theme_classic2()
+simpsonind=ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Simpson Index to measure isoform diversity", x="Simpson Index")+ theme_classic2()
+
+simpsonind
 ```
 
-
+```{r simpson, include=FALSE, dev="pdf", fig.height=6, fig.width=6, crop=FALSE}
+simpsonind
+```
 
 
 
@@ -450,9 +454,19 @@ ggplot(BothInfoTypes,aes(x=simpOpp_Human,y= simpOpp_Chimp ,col=numPAS)) + geom_p
 
 Plot shannon with HC colors 
 ```{r}
-ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index", x="Simpson Index")+ theme_classic2()
+ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index to measure isoform diversity", x="Shannon Index")+ theme_classic2()
 ```
 
+
+```{r}
+shannonPlot=ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index to measure isoform diversity", x="Shannon Index")+ theme_classic2()
+shannonPlot
+```
+
+pdf of figures 
+```{r shannon, include=FALSE, dev="pdf", fig.height=6, fig.width=6, crop=FALSE}
+shannonPlot
+```
 
 ```{r}
 ggplot(BothInfoTypes,aes(x=Human_Base2,y= Chimp_Base2 ,col=numPAS)) + geom_point(alpha=.4) + geom_abline(slope=1, intercept = 0)+labs(title="Shannon Index Colored by number of PAS", x="Human", y="Chimp") + theme_classic()
@@ -475,6 +489,12 @@ shanoNum=ggplot(BothInfoTypesShanG,aes(x=numPAS,y= value ,col=Species)) + geom_p
 
 shanoNum
 ```
+
+
+```{r shannonNum, include=FALSE, dev="pdf", fig.height=6, fig.width=10, crop=FALSE}
+shanoNum
+```
+
 ```{r}
 BothInfoTypesSimpG= BothInfoTypes %>% select(gene, numPAS,simpOpp_Human,simpOpp_Chimp )  %>% rename(Human=simpOpp_Human, Chimp=simpOpp_Chimp) %>% gather("Species", "value", -gene, -numPAS) 
 
@@ -483,6 +503,9 @@ simpnum=ggplot(BothInfoTypesSimpG,aes(x=numPAS,y= value ,col=Species)) + geom_po
 simpnum
 ```
 
+```{r simpsonNum, include=FALSE, dev="pdf", fig.height=6, fig.width=10, crop=FALSE}
+simpnum
+```
 
 ```{r}
 plot_grid(shanoNum,simpnum, nrow=2)
