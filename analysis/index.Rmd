@@ -202,9 +202,16 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [dInfoContent and other phenotypes](dICandotherD.html)  
 
+* [Isoform diversity and DE direction](DirICandDE.html)  
+
 * [Seperate dAPA and dIC to relate to other phenotpyes](SetsdAPADIC.html)
 
 * [Genes that are dIC and dP but not DE](DICNotDEDP.html)
+
+
+Characterize conserved genes:  
+
+* [Expression levels](ExpressionLevelsdAPA.html)
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

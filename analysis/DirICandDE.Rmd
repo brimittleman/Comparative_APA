@@ -1,0 +1,45 @@
+---
+title: "Direction of Isoform Diversity difference and DE"
+author: "Briana Mittleman"
+date: "5/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Pai et al reported that increased isoform diversity may reflect a shift toward less stable isoforms and decrease expression. I want to check this pattern in my data.  
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+```
+
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(Direction=ifelse(logFC > 0, "Chimp", "Human"))
+
+DEsig= DE %>% filter(adj.P.Val<0.05) %>% select(gene,Direction)
+
+
+```
+
+```{r}
+IsoformDiv=read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T,stringsAsFactors = F) %>% mutate(IsoformDiff=Human-Chimp, DirIso=ifelse(IsoformDiff>0, "Chimp", "Human"))
+
+IsoformDiv_sig= IsoformDiv %>% filter(sIC=="Yes") %>% select(gene, DirIso)
+```
+
+
+Join sig in both: 
+
+```{r}
+BothSig= IsoformDiv_sig  %>% inner_join(DEsig, by="gene")
+
+BothSig %>% group_by(DirIso, Direction) %>% summarise(n())
+```
+doesnt look like we have a directional effect either way. 

@@ -1,0 +1,71 @@
+---
+title: "Expression Level of Conserved genes"
+author: "Briana Mittleman"
+date: "5/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+
+I want to characterize expression levels in general for the conserved and dAPA genes.  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes)
+```
+
+Join with the expression data:  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+Expression=read.table("../data/DiffExpression/NoramalizedExpression.txt",stringsAsFactors = F,header = T, col.names = c("Gene_stable_ID" ,"Chimp", "Human" )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name)  %>% select(-Gene_stable_ID)
+
+CharacterizeAllGenesExp=CharacterizeAllGenes %>% inner_join(Expression, by="gene") %>% gather("Species", "Expression", -gene, -set ) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No"))
+
+
+```
+
+Plot human: 
+
+```{r}
+ggplot(CharacterizeAllGenesExp, aes(x=set, y=Expression, fill=set))+geom_boxplot() + facet_grid(~Species) + stat_compare_means() + scale_fill_brewer(palette = "RdYlBu") +labs(x="APA conservation state", y="Normalized Expression")
+
+```
+```{r}
+
+ggplot(CharacterizeAllGenesExp, aes(x=OverAllCons, y=Expression, fill=OverAllCons))+geom_boxplot() + facet_grid(~Species) + stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(x="Is gene conserved on all APA levels", y="Normalized Expression") + theme(legend.position="none")
+```
+
+
