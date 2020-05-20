@@ -1,0 +1,109 @@
+---
+title: "AU content of Ortho 3' UTRs"
+author: "Briana Mittleman"
+date: "5/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+AU content in 3' UTRs are usually related to stability through	AU rich elements driving instability.
+
+I will look at the correlation between AT content for the ortho UTRs seperated by if they are conserved at the APA level: 
+
+../data/orthoUTR/ChimpDistal3UTR.sort.bed
+../data/orthoUTR/HumanDistal3UTR.sort.bed
+
+
+Run bedtools nuc:  
+```{bash,eval=F}
+bedtools nuc -s -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/orthoUTR/HumanDistal3UTR.sort.bed > ../data/orthoUTR/Human3UTR_nuc.txt
+
+
+bedtools nuc -s -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/orthoUTR/ChimpDistal3UTR.sort.bed > ../data/orthoUTR/Chimp3UTR_nuc.txt
+```
+1_usercol	2_usercol	3_usercol	4_usercol	5_usercol	6_usercol	7_pct_at	8_pct_gc	9_num_A	10_num_C	11_num_G	12_num_T	13_num_N	14_num_oth	15_seq_len
+
+```{r}
+names=c("chr", "start",'end', 'gene','score','strand','pct_at',	'pct_gc',	'num_A',	'num_C',	'num_G',	'num_T',	'num_N',	'num_oth',	'seq_len')
+HumanUTRSeq=read.table("../data/orthoUTR/Human3UTR_nuc.txt", header = F,stringsAsFactors = F,col.names = names)%>% select(gene,pct_at, seq_len ) %>% rename(humanLen=seq_len, humanAT=pct_at)
+ChimpUTRSeq=read.table("../data/orthoUTR/Chimp3UTR_nuc.txt", header = F,stringsAsFactors = F, col.names = names) %>% select(gene,pct_at, seq_len ) %>% rename(chimpLen=seq_len, chimpAT=pct_at)
+
+BothUTR=HumanUTRSeq %>% inner_join(ChimpUTRSeq, by="gene")
+```
+
+plot human v chimp:  
+
+```{r}
+ggplot(BothUTR, aes(x=humanLen,y=chimpLen)) + geom_point() + stat_cor()
+```
+basically the same length
+
+```{r}
+
+ggplot(BothUTR, aes(x=humanAT,y=chimpAT)) + geom_point() + stat_cor()
+```
+
+
+Join data about conservation:  
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No"))
+```
+
+
+```{r}
+CharacterizeAllGenesUTR= CharacterizeAllGenes %>% inner_join(BothUTR, by="gene")
+
+lengthplot=ggplot(CharacterizeAllGenesUTR, aes(x=set, y= humanLen, fill=set))+ geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "RdYlBu")+ theme(legend.position = "none")+ labs(y="length orthologous 3' UTR", title="No difference in UTR length")
+
+lengthplot
+ggplot(CharacterizeAllGenesUTR, aes(x=OverAllCons, y= humanLen, fill=OverAllCons))+ geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Set1")
+```
+No differences in UTR length:  
+
+```{r}
+AUProp=ggplot(CharacterizeAllGenesUTR, aes(x=set, y= humanAT, fill=set))+ geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none") + labs(y="%AU in orthologous 3' UTR", title="No difference in %AU")
+AUProp
+ggplot(CharacterizeAllGenesUTR, aes(x=OverAllCons, y= humanAT, fill=OverAllCons))+ geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Set1") + labs(title="No differnece")
+```
+
+
+```{r}
+plot_grid(lengthplot, AUProp)
+```
+

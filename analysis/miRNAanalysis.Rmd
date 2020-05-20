@@ -14,6 +14,10 @@ I have the miRNA target info from TargetScanHuman. I downloaded the predicted ta
 
 I will look from the human perspective and ask if genes with conserved vs non concerved sites have different numbers of miRNA binding sites.  I will standaradize this by length of 3' UTR. This means I can only look at those with orthologous utrs.  
 
+
+"All predicted miRNA target sites within annotated Tande- mUTR core and core+extended regions were obtained using TargetScan (v6.2) (34). Further analyses used target sites matching the following set of criteria:"
+
+
 ```{r}
 library(workflowr)
 library(ggpubr)
@@ -153,3 +157,54 @@ miRNADBgenes_dom= miRNADBgenes %>% mutate(Dom=ifelse(gene %in% BothRes$gene, "Ye
 ggplot(miRNADBgenes_dom, aes(x=Dom, y=log10(density),fill=Dom)) +geom_boxplot() + stat_compare_means() +labs(title="Density of annotated miRNA sites") + theme(legend.position = "none")+ scale_fill_brewer(palette = "Dark2")
 ```
 This shows that genes with a domiant PAS have higher density of miRNA. 
+
+
+##Expand to all 
+
+from pai et al:  
+fold enrichment = mean(xi) for significant TandemUTRs/ mean(xi) for non-significant TandemUTRs
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No"))
+```
+
+
+put miDensity with tested: 
+
+```{r}
+CharacterizeAllGenesmi= miRNADBgenes %>% inner_join(CharacterizeAllGenes,by="gene") 
+
+nrow(CharacterizeAllGenesmi)
+```
+```{r}
+ggplot(CharacterizeAllGenesmi,aes(x=set, fill=set, y=log10(density))) +geom_boxplot() + theme(legend.position = "none") + stat_compare_means()+ scale_fill_brewer(palette = "RdYlBu")+ labs(title="miRNA density by APA conservation")
+```
+```{r}
+ggplot(CharacterizeAllGenesmi,aes(x=OverAllCons, fill=OverAllCons, y=log10(density))) +geom_boxplot() + theme(legend.position = "none")
+```
+

@@ -103,13 +103,20 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 ###Use annotations to understand mechanisms
 
-* [Identify orthologous 3'UTR set](ortho3UTR.html)
+* [Identify orthologous 3'UTR set](ortho3UTR.html)  
 
-* [Look at differentially used PAS by length of UTR](LongShortUTR_2PAS.html)
+* [Look at differentially used PAS by length of UTR](LongShortUTR_2PAS.html)  
 
-* [Proportion of ortho 3' UTR](percetnUTR.html)
+* [Proportion of ortho 3' UTR](percetnUTR.html)  
 
-* [Look at miRNA density](miRNAanalysis.html)
+* [Look at miRNA density](miRNAanalysis.html)  
+
+* [3' UTR biology- length and AU](AT_richUTRs.html)  
+
+* [Expression levels](ExpressionLevelsdAPA.html)  
+
+
+
 
 ##Quantify Phenotypes with RNA:   
 
@@ -209,9 +216,6 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Genes that are dIC and dP but not DE](DICNotDEDP.html)
 
 
-Characterize conserved genes:  
-
-* [Expression levels](ExpressionLevelsdAPA.html)
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

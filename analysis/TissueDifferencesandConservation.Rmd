@@ -1,0 +1,79 @@
+---
+title: "Tissue Variance as a measure of house keeping genes"
+author: "Briana Mittleman"
+date: "5/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Are conserved genes more likely to be housekeeping genes. These would have less tissue diversity. I can use variation across tissues from gtex as a measure.  
+
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+```
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No"))
+```
+
+I did a similar analysis for my QTL paper revisions 
+
+https://brimittleman.github.io/apaQTL/apaQTL_tissueSpec.html
+
+
+```{r}
+geneNames=read.table("../../genome_anotation_data/ensemble_to_genename.txt", sep="\t", col.names = c('gene_id', 'gene', 'source' ),stringsAsFactors = F, header = T)  %>% select(gene_id, gene)
+GTEXvar=read.table("../../apaQTL/data/nPAS/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct", header = T, skip=2, sep = '\t',stringsAsFactors = F) %>% 
+  separate(Name,into=c("gene_id","extra"), sep="\\.") %>% 
+  inner_join(geneNames, by="gene_id") %>% 
+  select(-gene_id, -extra, -Description) %>% 
+  gather("Tissue", "TPM", -gene) %>%
+  group_by(gene) %>% 
+  summarise(TissueVar=var(TPM))
+
+
+GTEXvar_conservation=GTEXvar %>% inner_join(CharacterizeAllGenes,by="gene")
+```
+
+```{r}
+byset=ggplot(GTEXvar_conservation, aes(x=set, fill=set, y=log10(TissueVar+1)))+geom_boxplot() + theme(legend.position = "none") + stat_compare_means()+ scale_fill_brewer(palette = "RdYlBu") + labs(title="variance in gtex tissues by APA conservation" )
+byset
+consany=ggplot(GTEXvar_conservation, aes(x=OverAllCons, fill=OverAllCons, y=log10(TissueVar+1)))+geom_boxplot() + theme(legend.position = "none") + stat_compare_means()+ scale_fill_brewer(palette = "Set1") + labs(x="conserved by all metrics")
+consany
+```
+
+Conserved have higher tissue variance.  
+
+isoform differences have higher tissue variance than the ones with site specific differences 
+
+
