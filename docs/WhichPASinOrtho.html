@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-14
+<strong>Last updated:</strong> 2020-05-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3c192336939903a265cb3938f33c72a8f1fa4ba9targetblank3c19233a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3c192336939903a265cb3938f33c72a8f1fa4ba9" target="_blank">3c19233</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3cd8e7cd2e73adb106fc5990396f908d848a15detargetblank3cd8e7ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/3cd8e7cd2e73adb106fc5990396f908d848a15de" target="_blank">3cd8e7c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3c192336939903a265cb3938f33c72a8f1fa4ba9targetblank3c19233a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree3cd8e7cd2e73adb106fc5990396f908d848a15detargetblank3cd8e7ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -915,6 +915,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -1235,6 +1236,7 @@ Untracked files:
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1297,13 +1299,16 @@ Untracked files:
     Untracked:  output/._.DS_Store
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
+    Untracked:  output/exandte
+    Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DICNotDEDP.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
@@ -1315,10 +1320,13 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
@@ -1365,6 +1373,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/3cd8e7cd2e73adb106fc5990396f908d848a15de/analysis/WhichPASinOrtho.Rmd" target="_blank">3cd8e7c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-20
+</td>
+<td>
+update figures for new levels
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/ab6b356c740823039f556e699e2a406b2b08679b/docs/WhichPASinOrtho.html" target="_blank">ab6b356</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/3c192336939903a265cb3938f33c72a8f1fa4ba9/analysis/WhichPASinOrtho.Rmd" target="_blank">3c19233</a>
 </td>
 <td>
@@ -1389,12 +1431,12 @@ add which PAS and seq between
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1448,8 +1490,48 @@ Meta_allOrtho_SIG= Meta_allOrtho %&gt;% inner_join(DiffUsed, by=&quot;PAS&quot;)
 
 Meta_allOrtho_SIG$WhichSite=factor(Meta_allOrtho_SIG$WhichSite, levels=c(&quot;last&quot;, &quot;middle&quot;, &quot;first&quot;))
 
-ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;, position = &quot;fill&quot;) + labs(x=&quot;dAPA PAS&quot;,y=&quot;Proportion&quot;, title=&quot;Orthologous UTR PAS by dAPA&quot;) + scale_fill_manual(values=useCOl)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> anavo test:</p>
+whichSiteplot=ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;, position = &quot;fill&quot;) + labs(x=&quot;Differentially used PAS&quot;,y=&quot;Proportion of sites&quot;, title=&quot;Differentially used PAS are more likely to be the \nfirst site in orthologous 3&#39; UTRs&quot;) + scale_fill_manual(values=useCOl, name=&quot;&quot;) + theme(legend.position = &quot;bottom&quot;)
+
+whichSiteplot</code></pre>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" target="_blank">ab6b356</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>pdf of figures</p>
 <pre class="r"><code>PropdAPA=Meta_allOrtho_SIG %&gt;% group_by(SigPAU2, WhichSite) %&gt;% summarise(n=n()) %&gt;% ungroup() %&gt;% group_by(SigPAU2) %&gt;% mutate(nDapa=sum(n), prop=n/nDapa,dAPA=ifelse(SigPAU2==&quot;Yes&quot;,1,0))
 
 PropdAPA_no=as.vector(PropdAPA[1:3,5])
@@ -1514,12 +1596,49 @@ BothRes_40_filt_same= BothRes_40_filt %&gt;% filter(Set==&quot;Same&quot;) %&gt;
 
 BothRes_40_filt_same$WhichSite= factor(BothRes_40_filt_same$WhichSite, levels=c(&quot;last&quot;, &quot;middle&quot;,&quot;first&quot;))
 ggplot(BothRes_40_filt_same, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot; ) + scale_fill_manual(values=useCOl)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-13-1.png" target="_blank">ab6b356</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Diff dominant:</p>
 <pre class="r"><code>BothRes_40_filt_diff= BothRes_40_filt%&gt;% filter(Set==&quot;Different&quot;) %&gt;% select(gene, Human_PAS, Chimp_PAS) %&gt;% gather(&quot;Species&quot;,&quot;PAS&quot;, -gene) %&gt;%   inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;)
 
 ggplot(BothRes_40_filt_diff, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> This may be due to the low numbers: try different cutoffs:</p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /> This may be due to the low numbers: try different cutoffs:</p>
 <pre class="r"><code>number=seq(1,9,1)
 #BothResAll
 plotlist=list()
@@ -1530,7 +1649,7 @@ for (i in number){
   plotlist[[i]]=ggplot(df, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Same Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;)
 }</code></pre>
 <pre class="r"><code>plot_grid(plotlist[[1]], plotlist[[2]], plotlist[[3]], plotlist[[4]], plotlist[[5]], plotlist[[6]], plotlist[[7]], plotlist[[8]], plotlist[[9]]) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#BothResAll
 plotlistdiff=list()
 for (i in number){
@@ -1540,7 +1659,7 @@ for (i in number){
   plotlistdiff[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Different Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;)
 }</code></pre>
 <pre class="r"><code>plot_grid(plotlistdiff[[1]], plotlistdiff[[2]], plotlistdiff[[3]], plotlistdiff[[4]], plotlistdiff[[5]], plotlistdiff[[6]], plotlistdiff[[7]], plotlistdiff[[8]], plotlistdiff[[9]])</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Seperate by DE:</p>
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
 DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% dplyr::rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,DE)
@@ -1556,7 +1675,44 @@ for (i in numbersmall){
   plotlistdiffDE[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Different Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;) + facet_grid(~DEgenes)
 }</code></pre>
 <pre class="r"><code>plot_grid(plotlistdiffDE[[1]], plotlistdiffDE[[2]], plotlistdiffDE[[3]], plotlistdiffDE[[4]])</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-20-1.png" target="_blank">ab6b356</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>metaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% mutate(midpoint=start+100)
 metaPAS_sm= metaPAS %&gt;% select(PAS, gene, midpoint)
 BothResallDiff= BothResAll %&gt;%
@@ -1574,7 +1730,7 @@ BothResallDiff$cut=factor(BothResallDiff$cut)
 
 
 ggplot(BothResallDiff, aes(x=cut, y=length,fill=cut)) +geom_boxplot() + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Set1&quot;)  + geom_jitter() + labs(title=&quot;Distance between center of different Dominant PAS&quot;,y=&quot;basepairs&quot;,x=&quot;cutoff&quot;)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>BothResallDiff %&gt;% group_by(cut) %&gt;% summarise(n())</code></pre>
 <pre><code># A tibble: 8 x 2
   cut   `n()`
@@ -1610,11 +1766,11 @@ SeqBetween %&gt;% group_by(cut) %&gt;% summarise(n())</code></pre>
 8    80     2</code></pre>
 <pre class="r"><code>SeqBetween$cut=as.factor(SeqBetween$cut)
 ggplot(SeqBetween, aes(y=len, by=DEgenes,fill=DEgenes, x=cut))+geom_boxplot() + geom_jitter()+scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(y=&quot;Nucleotides&quot;, title=&quot;Distance between Dominant PAS&quot;)+ theme(legend.position = &quot;bottom&quot;) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>atplot=ggplot(SeqBetween, aes(by=DEgenes, y=AT, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(y=&quot;AT proportion&quot;, title=&quot;AT proportion for Seq between dominat&quot;)+ theme(legend.position = &quot;bottom&quot;) </code></pre>
 <pre class="r"><code>gcplot=ggplot(SeqBetween, aes(by=DEgenes, y=GC, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = &quot;Set1&quot;)+ theme(legend.position = &quot;bottom&quot;) +labs(y=&quot;GC proportion&quot;, title=&quot;GC proportion for Seq between dominat&quot;)</code></pre>
 <pre class="r"><code>plot_grid(atplot,gcplot)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
