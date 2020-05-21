@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Briana Mittleman" />
+
+
+<title>U rich elements</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Comparative_APA</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/brimittleman/Comparative_APA">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">U rich elements</h1>
+<h4 class="author"><em>Briana Mittleman</em></h4>
+<h4 class="date"><em>5/21/2020</em></h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-05-21
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Comparative_APA/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190902code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190902)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190902code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190902)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefd04a01f39a0d75f822d40c3cebcd614ec2e3337targetblankfd04a01a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/fd04a01f39a0d75f822d40c3cebcd614ec2e3337" target="_blank">fd04a01</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefd04a01f39a0d75f822d40c3cebcd614ec2e3337targetblankfd04a01a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    code/chimp_log/
+    Ignored:    code/human_log/
+    Ignored:    data/.DS_Store
+    Ignored:    data/TrialFiltersMeta.txt.sb-9845453e-R58Y0Q/
+    Ignored:    data/mediation_prot/
+    Ignored:    data/metadata_HCpanel.txt.sb-284518db-RGf0kd/
+    Ignored:    data/metadata_HCpanel.txt.sb-a5794dd2-i594qs/
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  ._.DS_Store
+    Untracked:  Chimp/
+    Untracked:  Human/
+    Untracked:  analysis/AREstabilityScores.Rmd
+    Untracked:  analysis/AllLoc_effectSizeCor.Rmd
+    Untracked:  analysis/Conservation_bydAPAset.Rmd
+    Untracked:  analysis/CrossChimpThreePrime.Rmd
+    Untracked:  analysis/DiffTransProtvsExpression.Rmd
+    Untracked:  analysis/DiffUsedUTR.Rmd
+    Untracked:  analysis/GvizPlots.Rmd
+    Untracked:  analysis/HandC.TvN
+    Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/annotationBias.Rmd
+    Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  code/._AlignmentScores.sh
+    Untracked:  code/._BothFCMM.sh
+    Untracked:  code/._BothFCMMPrim.sh
+    Untracked:  code/._BothFCnewOInclusive.sh
+    Untracked:  code/._ChimpStarMM2.sh
+    Untracked:  code/._ClassifyLeafviz.sh
+    Untracked:  code/._ClosestorthoEx.sh
+    Untracked:  code/._Config_chimp.yaml
+    Untracked:  code/._Config_chimp_full.yaml
+    Untracked:  code/._Config_human.yaml
+    Untracked:  code/._ConvertJunc2Bed.sh
+    Untracked:  code/._CountNucleotides.py
+    Untracked:  code/._CrossMapChimpRNA.sh
+    Untracked:  code/._CrossMapThreeprime.sh
+    Untracked:  code/._DiffSplice.sh
+    Untracked:  code/._DiffSplicePlots.sh
+    Untracked:  code/._DiffSplicePlots_gencode.sh
+    Untracked:  code/._DiffSplice_gencode.sh
+    Untracked:  code/._DiffSplice_removebad.sh
+    Untracked:  code/._Filter255MM.sh
+    Untracked:  code/._FilterPrimSec.sh
+    Untracked:  code/._FindIntronForDomPAS.sh
+    Untracked:  code/._FindIntronForDomPAS_DF.sh
+    Untracked:  code/._GetMAPQscore.py
+    Untracked:  code/._GetSecondaryMap.py
+    Untracked:  code/._Lift5perPAS.sh
+    Untracked:  code/._LiftFinalChimpJunc2Human.sh
+    Untracked:  code/._LiftOrthoPAS2chimp.sh
+    Untracked:  code/._MapBadSamples.sh
+    Untracked:  code/._MismatchNumbers.sh
+    Untracked:  code/._PAS_ATTAAA.sh
+    Untracked:  code/._PAS_ATTAAA_df.sh
+    Untracked:  code/._PAS_seqExpanded.sh
+    Untracked:  code/._PASsequences.sh
+    Untracked:  code/._PASsequences_DF.sh
+    Untracked:  code/._PlotNuclearUsagebySpecies.R
+    Untracked:  code/._PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/._QuantMergedClusters.sh
+    Untracked:  code/._RNATranscriptDTplot.sh
+    Untracked:  code/._ReverseLiftFilter.R
+    Untracked:  code/._RunFixLeafCluster.sh
+    Untracked:  code/._RunNegMCMediation.sh
+    Untracked:  code/._RunNegMCMediationDF.sh
+    Untracked:  code/._RunPosMCMediationDF.err
+    Untracked:  code/._RunPosMCMediationDF.sh
+    Untracked:  code/._SAF2Bed.py
+    Untracked:  code/._Snakefile
+    Untracked:  code/._SnakefilePAS
+    Untracked:  code/._SnakefilePASfilt
+    Untracked:  code/._SortIndexBadSamples.sh
+    Untracked:  code/._StarMM2.sh
+    Untracked:  code/._TestFC.sh
+    Untracked:  code/._assignPeak2Intronicregion
+    Untracked:  code/._assignPeak2Intronicregion.sh
+    Untracked:  code/._bed215upbed.py
+    Untracked:  code/._bed2Bedbothstrand.py
+    Untracked:  code/._bed2SAF_gen.py
+    Untracked:  code/._buildIndecpantro5
+    Untracked:  code/._buildIndecpantro5.sh
+    Untracked:  code/._buildLeafviz.sh
+    Untracked:  code/._buildLeafviz_leadAnno.sh
+    Untracked:  code/._buildStarIndex.sh
+    Untracked:  code/._chimpChromprder.sh
+    Untracked:  code/._chimpMultiCov.sh
+    Untracked:  code/._chimpMultiCov255.sh
+    Untracked:  code/._chimpMultiCovInclusive.sh
+    Untracked:  code/._chooseSignalSite.py
+    Untracked:  code/._cleanbed2saf.py
+    Untracked:  code/._cluster.json
+    Untracked:  code/._cluster2bed.py
+    Untracked:  code/._clusterLiftReverse.sh
+    Untracked:  code/._clusterLiftReverse_removebad.sh
+    Untracked:  code/._clusterLiftprimary.sh
+    Untracked:  code/._clusterLiftprimary_removebad.sh
+    Untracked:  code/._converBam2Junc.sh
+    Untracked:  code/._converBam2Junc_removeBad.sh
+    Untracked:  code/._extraSnakefiltpas
+    Untracked:  code/._extractPhyloReg.py
+    Untracked:  code/._extractPhyloRegGene.py
+    Untracked:  code/._extractPhylopGeneral.ph
+    Untracked:  code/._extractPhylopGeneral.py
+    Untracked:  code/._extractPhylopReg200down.py
+    Untracked:  code/._extractPhylopReg200up.py
+    Untracked:  code/._filter5percPAS.py
+    Untracked:  code/._filterNumChroms.py
+    Untracked:  code/._filterPASforMP.py
+    Untracked:  code/._filterPostLift.py
+    Untracked:  code/._filterPrimaryread.py
+    Untracked:  code/._filterSecondaryread.py
+    Untracked:  code/._fixExonFC.py
+    Untracked:  code/._fixFCheadforExp.py
+    Untracked:  code/._fixLeafCluster.py
+    Untracked:  code/._fixLiftedJunc.py
+    Untracked:  code/._fixUTRexonanno.py
+    Untracked:  code/._formathg38Anno.py
+    Untracked:  code/._formatpantro6Anno.py
+    Untracked:  code/._getRNAseqMapStats.sh
+    Untracked:  code/._hg19MapStats.sh
+    Untracked:  code/._humanChromorder.sh
+    Untracked:  code/._humanMultiCov.sh
+    Untracked:  code/._humanMultiCov255.sh
+    Untracked:  code/._humanMultiCov_inclusive.sh
+    Untracked:  code/._intersectLiftedPAS.sh
+    Untracked:  code/._liftJunctionFiles.sh
+    Untracked:  code/._liftPAS19to38.sh
+    Untracked:  code/._liftedchimpJunc2human.sh
+    Untracked:  code/._makeNuclearDapaplots.sh
+    Untracked:  code/._makeNuclearDapaplots_DF.sh
+    Untracked:  code/._makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/._mapRNAseqhg19.sh
+    Untracked:  code/._mapRNAseqhg19_newPipeline.sh
+    Untracked:  code/._maphg19.sh
+    Untracked:  code/._maphg19_subjunc.sh
+    Untracked:  code/._mediation_test.R
+    Untracked:  code/._mergeChimp3prime_inhg38.sh
+    Untracked:  code/._mergeandBWRNAseq.sh
+    Untracked:  code/._mergedBam2BW.sh
+    Untracked:  code/._nameClusters.py
+    Untracked:  code/._negativeMediation_montecarlo.R
+    Untracked:  code/._negativeMediation_montecarloDF.R
+    Untracked:  code/._numMultimap.py
+    Untracked:  code/._overlapMMandOrthoexon.sh
+    Untracked:  code/._overlapPASandOrthoexon.sh
+    Untracked:  code/._overlapapaQTLPAS.sh
+    Untracked:  code/._parseHg38.py
+    Untracked:  code/._postiveMediation_montecarlo_DF.R
+    Untracked:  code/._prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/._prepareLeafvizAnno.sh
+    Untracked:  code/._preparePAS4lift.py
+    Untracked:  code/._primaryLift.sh
+    Untracked:  code/._processhg38exons.py
+    Untracked:  code/._quantJunc.sh
+    Untracked:  code/._quantJunc_TEST.sh
+    Untracked:  code/._quantJunc_removeBad.sh
+    Untracked:  code/._quantLiftedPASPrimary.sh
+    Untracked:  code/._quantMerged_seperatly.sh
+    Untracked:  code/._recLiftchim2human.sh
+    Untracked:  code/._revLiftPAShg38to19.sh
+    Untracked:  code/._reverseLift.sh
+    Untracked:  code/._runCheckReverseLift.sh
+    Untracked:  code/._runChimpDiffIso.sh
+    Untracked:  code/._runCountNucleotides.sh
+    Untracked:  code/._runFilterNumChroms.sh
+    Untracked:  code/._runHumanDiffIso.sh
+    Untracked:  code/._runNuclearDiffIso_DF.sh
+    Untracked:  code/._runNuclearDifffIso.sh
+    Untracked:  code/._runTotalDiffIso.sh
+    Untracked:  code/._run_chimpverifybam.sh
+    Untracked:  code/._run_verifyBam.sh
+    Untracked:  code/._snakemake.batch
+    Untracked:  code/._snakemakePAS.batch
+    Untracked:  code/._snakemakePASchimp.batch
+    Untracked:  code/._snakemakePAShuman.batch
+    Untracked:  code/._snakemake_chimp.batch
+    Untracked:  code/._snakemake_human.batch
+    Untracked:  code/._snakemakefiltPAS.batch
+    Untracked:  code/._snakemakefiltPAS_chimp
+    Untracked:  code/._snakemakefiltPAS_chimp.sh
+    Untracked:  code/._snakemakefiltPAS_human.sh
+    Untracked:  code/._spliceSite2Fasta.py
+    Untracked:  code/._submit-snakemake-chimp.sh
+    Untracked:  code/._submit-snakemake-human.sh
+    Untracked:  code/._submit-snakemakePAS-chimp.sh
+    Untracked:  code/._submit-snakemakePAS-human.sh
+    Untracked:  code/._submit-snakemakefiltPAS-chimp.sh
+    Untracked:  code/._submit-snakemakefiltPAS-human.sh
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/._subset_diffisopheno_Nuclear_HvC_DF.py
+    Untracked:  code/._subset_diffisopheno_Total_HvC.py
+    Untracked:  code/._threeprimeOrthoFC.sh
+    Untracked:  code/._transcriptDTplotsNuclear.sh
+    Untracked:  code/._verifyBam4973.sh
+    Untracked:  code/._verifyBam4973inHuman.sh
+    Untracked:  code/._wrap_chimpverifybam.sh
+    Untracked:  code/._wrap_verifyBam.sh
+    Untracked:  code/._writeMergecode.py
+    Untracked:  code/.snakemake/
+    Untracked:  code/ALLPAS_sequenceDF.err
+    Untracked:  code/ALLPAS_sequenceDF.out
+    Untracked:  code/AlignmentScores.err
+    Untracked:  code/AlignmentScores.out
+    Untracked:  code/AlignmentScores.sh
+    Untracked:  code/BothFCMM.err
+    Untracked:  code/BothFCMM.out
+    Untracked:  code/BothFCMM.sh
+    Untracked:  code/BothFCMMPrim.err
+    Untracked:  code/BothFCMMPrim.out
+    Untracked:  code/BothFCMMPrim.sh
+    Untracked:  code/BothFCnewOInclusive.sh
+    Untracked:  code/BothFCnewOInclusive.sh.err
+    Untracked:  code/BothFCnewOInclusive.sh.out
+    Untracked:  code/ChimpStarMM2.err
+    Untracked:  code/ChimpStarMM2.out
+    Untracked:  code/ChimpStarMM2.sh
+    Untracked:  code/ClassifyLeafviz.sh
+    Untracked:  code/ClosestorthoEx.err
+    Untracked:  code/ClosestorthoEx.out
+    Untracked:  code/ClosestorthoEx.sh
+    Untracked:  code/Config_chimp.yaml
+    Untracked:  code/Config_chimp_full.yaml
+    Untracked:  code/Config_human.yaml
+    Untracked:  code/ConvertJunc2Bed.err
+    Untracked:  code/ConvertJunc2Bed.out
+    Untracked:  code/ConvertJunc2Bed.sh
+    Untracked:  code/CountNucleotides.py
+    Untracked:  code/CrossMapChimpRNA.sh
+    Untracked:  code/CrossMapThreeprime.sh
+    Untracked:  code/CrossmapChimp3prime.err
+    Untracked:  code/CrossmapChimp3prime.out
+    Untracked:  code/CrossmapChimpRNA.err
+    Untracked:  code/CrossmapChimpRNA.out
+    Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
+    Untracked:  code/DiffSplice.err
+    Untracked:  code/DiffSplice.out
+    Untracked:  code/DiffSplice.sh
+    Untracked:  code/DiffSplicePlots.err
+    Untracked:  code/DiffSplicePlots.out
+    Untracked:  code/DiffSplicePlots.sh
+    Untracked:  code/DiffSplicePlots_gencode.sh
+    Untracked:  code/DiffSplice_gencode.sh
+    Untracked:  code/DiffSplice_removebad.err
+    Untracked:  code/DiffSplice_removebad.out
+    Untracked:  code/DiffSplice_removebad.sh
+    Untracked:  code/Filter255.err
+    Untracked:  code/Filter255.out
+    Untracked:  code/Filter255MM.sh
+    Untracked:  code/FilterPrimSec.err
+    Untracked:  code/FilterPrimSec.out
+    Untracked:  code/FilterPrimSec.sh
+    Untracked:  code/FilterReverseLift.err
+    Untracked:  code/FilterReverseLift.out
+    Untracked:  code/FindDomXCutoff.py
+    Untracked:  code/FindIntronForDomPAS.err
+    Untracked:  code/FindIntronForDomPAS.out
+    Untracked:  code/FindIntronForDomPAS.sh
+    Untracked:  code/FindIntronForDomPAS_DF.sh
+    Untracked:  code/GencodeDiffSplice.err
+    Untracked:  code/GencodeDiffSplice.out
+    Untracked:  code/GetMAPQscore.py
+    Untracked:  code/GetSecondaryMap.py
+    Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
+    Untracked:  code/HchromOrder.err
+    Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
+    Untracked:  code/IntersectMMandOrtho.err
+    Untracked:  code/IntersectMMandOrtho.out
+    Untracked:  code/IntersectPASandOrtho.err
+    Untracked:  code/IntersectPASandOrtho.out
+    Untracked:  code/JunctionLift.err
+    Untracked:  code/JunctionLift.out
+    Untracked:  code/JunctionLiftFinalChimp.err
+    Untracked:  code/JunctionLiftFinalChimp.out
+    Untracked:  code/Lift5perPAS.sh
+    Untracked:  code/Lift5perPASbed.err
+    Untracked:  code/Lift5perPASbed.out
+    Untracked:  code/LiftClustersFirst.err
+    Untracked:  code/LiftClustersFirst.out
+    Untracked:  code/LiftClustersFirst_remove.err
+    Untracked:  code/LiftClustersFirst_remove.out
+    Untracked:  code/LiftClustersSecond.err
+    Untracked:  code/LiftClustersSecond.out
+    Untracked:  code/LiftClustersSecond_remove.err
+    Untracked:  code/LiftClustersSecond_remove.out
+    Untracked:  code/LiftFinalChimpJunc2Human.sh
+    Untracked:  code/LiftOrthoPAS2chimp.sh
+    Untracked:  code/LiftorthoPAS.err
+    Untracked:  code/LiftorthoPASt.out
+    Untracked:  code/Log.out
+    Untracked:  code/MapBadSamples.err
+    Untracked:  code/MapBadSamples.out
+    Untracked:  code/MapBadSamples.sh
+    Untracked:  code/MapStats.err
+    Untracked:  code/MapStats.out
+    Untracked:  code/MaxEntCode/
+    Untracked:  code/MergeClusters.err
+    Untracked:  code/MergeClusters.out
+    Untracked:  code/MergeClusters.sh
+    Untracked:  code/MismatchNumbers.err
+    Untracked:  code/MismatchNumbers.out
+    Untracked:  code/MismatchNumbers.sh
+    Untracked:  code/NuclearDTUTR.err
+    Untracked:  code/NuclearDTUTRt.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.err
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.out
+    Untracked:  code/NuclearPlotsDEandDiffDom_4.sh
+    Untracked:  code/PAS_ATTAAA.err
+    Untracked:  code/PAS_ATTAAA.out
+    Untracked:  code/PAS_ATTAAA.sh
+    Untracked:  code/PAS_ATTAAADF.err
+    Untracked:  code/PAS_ATTAAADF.out
+    Untracked:  code/PAS_ATTAAA_df.sh
+    Untracked:  code/PAS_seqExpanded.sh
+    Untracked:  code/PAS_sequence.err
+    Untracked:  code/PAS_sequence.out
+    Untracked:  code/PAS_sequenceDF.err
+    Untracked:  code/PAS_sequenceDF.out
+    Untracked:  code/PASexpanded_sequenceDF.err
+    Untracked:  code/PASexpanded_sequenceDF.out
+    Untracked:  code/PASsequences.sh
+    Untracked:  code/PASsequences_DF.sh
+    Untracked:  code/PlotNuclearUsagebySpecies.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
+    Untracked:  code/QuantMergeClusters
+    Untracked:  code/QuantMergeClusters.err
+    Untracked:  code/QuantMergeClusters.out
+    Untracked:  code/QuantMergedClusters.sh
+    Untracked:  code/RNATranscriptDTplot.err
+    Untracked:  code/RNATranscriptDTplot.out
+    Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
+    Untracked:  code/Rev_liftoverPAShg19to38.err
+    Untracked:  code/Rev_liftoverPAShg19to38.out
+    Untracked:  code/ReverseLiftFilter.R
+    Untracked:  code/RunFixCluster.err
+    Untracked:  code/RunFixCluster.out
+    Untracked:  code/RunFixLeafCluster.sh
+    Untracked:  code/RunNegMCMediation.err
+    Untracked:  code/RunNegMCMediation.sh
+    Untracked:  code/RunNegMCMediationDF.err
+    Untracked:  code/RunNegMCMediationDF.out
+    Untracked:  code/RunNegMCMediationDF.sh
+    Untracked:  code/RunNegMCMediationr.out
+    Untracked:  code/RunNewDom.err
+    Untracked:  code/RunNewDom.out
+    Untracked:  code/RunPosMCMediation.err
+    Untracked:  code/RunPosMCMediation.sh
+    Untracked:  code/RunPosMCMediationDF.err
+    Untracked:  code/RunPosMCMediationDF.out
+    Untracked:  code/RunPosMCMediationDF.sh
+    Untracked:  code/RunPosMCMediationr.out
+    Untracked:  code/SAF215upbed_gen.py
+    Untracked:  code/SAF2Bed.py
+    Untracked:  code/Snakefile
+    Untracked:  code/SnakefilePAS
+    Untracked:  code/SnakefilePASfilt
+    Untracked:  code/SortIndexBadSamples.err
+    Untracked:  code/SortIndexBadSamples.out
+    Untracked:  code/SortIndexBadSamples.sh
+    Untracked:  code/StarMM2.err
+    Untracked:  code/StarMM2.out
+    Untracked:  code/StarMM2.sh
+    Untracked:  code/TestFC.err
+    Untracked:  code/TestFC.out
+    Untracked:  code/TestFC.sh
+    Untracked:  code/TotalTranscriptDTplot.err
+    Untracked:  code/TotalTranscriptDTplot.out
+    Untracked:  code/UTR2FASTA.py
+    Untracked:  code/Upstream10Bases_general.py
+    Untracked:  code/allPASSeq_df.sh
+    Untracked:  code/apaQTLsnake.err
+    Untracked:  code/apaQTLsnake.out
+    Untracked:  code/apaQTLsnakePAS.err
+    Untracked:  code/apaQTLsnakePAS.out
+    Untracked:  code/apaQTLsnakePAShuman.err
+    Untracked:  code/apaQTLsnakefiltPAS.err
+    Untracked:  code/apaQTLsnakefiltPAS.out
+    Untracked:  code/assignPeak2Intronicregion.err
+    Untracked:  code/assignPeak2Intronicregion.out
+    Untracked:  code/assignPeak2Intronicregion.sh
+    Untracked:  code/bam2junc.err
+    Untracked:  code/bam2junc.out
+    Untracked:  code/bam2junc_remove.err
+    Untracked:  code/bam2junc_remove.out
+    Untracked:  code/bed215upbed.py
+    Untracked:  code/bed2Bedbothstrand.py
+    Untracked:  code/bed2SAF_gen.py
+    Untracked:  code/bed2saf.py
+    Untracked:  code/bg_to_cov.py
+    Untracked:  code/buildIndecpantro5
+    Untracked:  code/buildIndecpantro5.sh
+    Untracked:  code/buildLeafviz.err
+    Untracked:  code/buildLeafviz.out
+    Untracked:  code/buildLeafviz.sh
+    Untracked:  code/buildLeafviz_leadAnno.sh
+    Untracked:  code/buildLeafviz_leafanno.err
+    Untracked:  code/buildLeafviz_leafanno.out
+    Untracked:  code/buildStarIndex.sh
+    Untracked:  code/callPeaksYL.py
+    Untracked:  code/chimpChromprder.sh
+    Untracked:  code/chimpMultiCov.err
+    Untracked:  code/chimpMultiCov.out
+    Untracked:  code/chimpMultiCov.sh
+    Untracked:  code/chimpMultiCov255.sh
+    Untracked:  code/chimpMultiCovInclusive.err
+    Untracked:  code/chimpMultiCovInclusive.out
+    Untracked:  code/chimpMultiCovInclusive.sh
+    Untracked:  code/chooseAnno2Bed.py
+    Untracked:  code/chooseAnno2SAF.py
+    Untracked:  code/chooseSignalSite.py
+    Untracked:  code/chromOrder.err
+    Untracked:  code/chromOrder.out
+    Untracked:  code/classifyLeafviz.err
+    Untracked:  code/classifyLeafviz.out
+    Untracked:  code/cleanbed2saf.py
+    Untracked:  code/cluster.json
+    Untracked:  code/cluster2bed.py
+    Untracked:  code/clusterLiftReverse.sh
+    Untracked:  code/clusterLiftReverse_removebad.sh
+    Untracked:  code/clusterLiftprimary.sh
+    Untracked:  code/clusterLiftprimary_removebad.sh
+    Untracked:  code/clusterPAS.json
+    Untracked:  code/clusterfiltPAS.json
+    Untracked:  code/comands2Mege.sh
+    Untracked:  code/converBam2Junc.sh
+    Untracked:  code/converBam2Junc_removeBad.sh
+    Untracked:  code/convertNumeric.py
+    Untracked:  code/environment.yaml
+    Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
+    Untracked:  code/extractPhyloReg.py
+    Untracked:  code/extractPhyloRegGene.py
+    Untracked:  code/extractPhylopGeneral.py
+    Untracked:  code/extractPhylopReg200down.py
+    Untracked:  code/extractPhylopReg200up.py
+    Untracked:  code/filter5perc.R
+    Untracked:  code/filter5percPAS.py
+    Untracked:  code/filter5percPheno.py
+    Untracked:  code/filterBamforMP.pysam2_gen.py
+    Untracked:  code/filterJuncChroms.err
+    Untracked:  code/filterJuncChroms.out
+    Untracked:  code/filterMissprimingInNuc10_gen.py
+    Untracked:  code/filterNumChroms.py
+    Untracked:  code/filterPASforMP.py
+    Untracked:  code/filterPostLift.py
+    Untracked:  code/filterPrimaryread.py
+    Untracked:  code/filterSAFforMP_gen.py
+    Untracked:  code/filterSecondaryread.py
+    Untracked:  code/filterSortBedbyCleanedBed_gen.R
+    Untracked:  code/filterpeaks.py
+    Untracked:  code/fixExonFC.py
+    Untracked:  code/fixFChead.py
+    Untracked:  code/fixFChead_bothfrac.py
+    Untracked:  code/fixFCheadforExp.py
+    Untracked:  code/fixLeafCluster.py
+    Untracked:  code/fixLiftedJunc.py
+    Untracked:  code/fixUTRexonanno.py
+    Untracked:  code/formathg38Anno.py
+    Untracked:  code/generateStarIndex.err
+    Untracked:  code/generateStarIndex.out
+    Untracked:  code/generateStarIndexHuman.err
+    Untracked:  code/generateStarIndexHuman.out
+    Untracked:  code/getAlloverlap.py
+    Untracked:  code/getRNAseqMapStats.sh
+    Untracked:  code/hg19MapStats.err
+    Untracked:  code/hg19MapStats.out
+    Untracked:  code/hg19MapStats.sh
+    Untracked:  code/humanChromorder.sh
+    Untracked:  code/humanFiles
+    Untracked:  code/humanMultiCov.err
+    Untracked:  code/humanMultiCov.out
+    Untracked:  code/humanMultiCov.sh
+    Untracked:  code/humanMultiCov255.err
+    Untracked:  code/humanMultiCov255.out
+    Untracked:  code/humanMultiCov255.sh
+    Untracked:  code/humanMultiCovInclusive.err
+    Untracked:  code/humanMultiCovInclusive.out
+    Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
+    Untracked:  code/intersectAnno.err
+    Untracked:  code/intersectAnno.out
+    Untracked:  code/intersectAnnoExt.err
+    Untracked:  code/intersectAnnoExt.out
+    Untracked:  code/intersectLiftedPAS.sh
+    Untracked:  code/leafcutter_merge_regtools_redo.py
+    Untracked:  code/liftJunctionFiles.sh
+    Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftoverPAShg19to38.err
+    Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/log/
+    Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
+    Untracked:  code/makeFileID.py
+    Untracked:  code/makeNuclearDapaplots.sh
+    Untracked:  code/makeNuclearDapaplots_DF.sh
+    Untracked:  code/makeNuclearPlots.err
+    Untracked:  code/makeNuclearPlots.out
+    Untracked:  code/makeNuclearPlotsDF.err
+    Untracked:  code/makeNuclearPlotsDF.out
+    Untracked:  code/makePheno.py
+    Untracked:  code/makeSamplyGroupsChimp_TvN.py
+    Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
+    Untracked:  code/mapRNAseqhg19.sh
+    Untracked:  code/mapRNAseqhg19_newPipeline.sh
+    Untracked:  code/maphg19.err
+    Untracked:  code/maphg19.out
+    Untracked:  code/maphg19.sh
+    Untracked:  code/maphg19_new.err
+    Untracked:  code/maphg19_new.out
+    Untracked:  code/maphg19_sub.err
+    Untracked:  code/maphg19_sub.out
+    Untracked:  code/maphg19_subjunc.sh
+    Untracked:  code/mediation_test.R
+    Untracked:  code/merge.err
+    Untracked:  code/mergeChimp3prime_inhg38.sh
+    Untracked:  code/mergeChimpRNA.sh
+    Untracked:  code/merge_leafcutter_clusters_redo.py
+    Untracked:  code/mergeandBWRNAseq.sh
+    Untracked:  code/mergeandsort_ChimpinHuman.err
+    Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
+    Untracked:  code/mergedBam2BW.sh
+    Untracked:  code/mergedbam2bw.err
+    Untracked:  code/mergedbam2bw.out
+    Untracked:  code/mergedbamRNAand2bw.err
+    Untracked:  code/mergedbamRNAand2bw.out
+    Untracked:  code/nameClusters.py
+    Untracked:  code/namePeaks.py
+    Untracked:  code/negativeMediation_montecarlo.R
+    Untracked:  code/negativeMediation_montecarloDF.R
+    Untracked:  code/nuclearTranscriptDTplot.err
+    Untracked:  code/nuclearTranscriptDTplot.out
+    Untracked:  code/numMultimap.py
+    Untracked:  code/overlapMMandOrthoexon.sh
+    Untracked:  code/overlapPAS.err
+    Untracked:  code/overlapPAS.out
+    Untracked:  code/overlapPASandOrthoexon.sh
+    Untracked:  code/overlapapaQTLPAS.sh
+    Untracked:  code/overlapapaQTLPAS_extended.sh
+    Untracked:  code/overlapapaQTLPAS_samples.sh
+    Untracked:  code/parseHg38.py
+    Untracked:  code/peak2PAS.py
+    Untracked:  code/pheno2countonly.R
+    Untracked:  code/postiveMediation_montecarlo.R
+    Untracked:  code/postiveMediation_montecarlo_DF.R
+    Untracked:  code/prepareAnnoLeafviz.err
+    Untracked:  code/prepareAnnoLeafviz.out
+    Untracked:  code/prepareCleanLiftedFC_5perc4LC.py
+    Untracked:  code/prepareLeafvizAnno.sh
+    Untracked:  code/preparePAS4lift.py
+    Untracked:  code/prepare_phenotype_table.py
+    Untracked:  code/primaryLift.err
+    Untracked:  code/primaryLift.out
+    Untracked:  code/primaryLift.sh
+    Untracked:  code/processhg38exons.py
+    Untracked:  code/quantJunc.sh
+    Untracked:  code/quantJunc_TEST.sh
+    Untracked:  code/quantJunc_removeBad.sh
+    Untracked:  code/quantLiftedPAS.err
+    Untracked:  code/quantLiftedPAS.out
+    Untracked:  code/quantLiftedPAS.sh
+    Untracked:  code/quantLiftedPASPrimary.err
+    Untracked:  code/quantLiftedPASPrimary.out
+    Untracked:  code/quantLiftedPASPrimary.sh
+    Untracked:  code/quatJunc.err
+    Untracked:  code/quatJunc.out
+    Untracked:  code/recChimpback2Human.err
+    Untracked:  code/recChimpback2Human.out
+    Untracked:  code/recLiftchim2human.sh
+    Untracked:  code/revLift.err
+    Untracked:  code/revLift.out
+    Untracked:  code/revLiftPAShg38to19.sh
+    Untracked:  code/reverseLift.sh
+    Untracked:  code/runCheckReverseLift.sh
+    Untracked:  code/runChimpDiffIso.sh
+    Untracked:  code/runChimpDiffIsoDF.sh
+    Untracked:  code/runCountNucleotides.err
+    Untracked:  code/runCountNucleotides.out
+    Untracked:  code/runCountNucleotides.sh
+    Untracked:  code/runCountNucleotidesPantro6.err
+    Untracked:  code/runCountNucleotidesPantro6.out
+    Untracked:  code/runCountNucleotides_pantro6.sh
+    Untracked:  code/runFilterNumChroms.sh
+    Untracked:  code/runHumanDiffIso.sh
+    Untracked:  code/runHumanDiffIsoDF.sh
+    Untracked:  code/runNewDom.sh
+    Untracked:  code/runNuclearDiffIso_DF.sh
+    Untracked:  code/runNuclearDifffIso.sh
+    Untracked:  code/runTotalDiffIso.sh
+    Untracked:  code/run_Chimpleafcutter_ds.err
+    Untracked:  code/run_Chimpleafcutter_ds.out
+    Untracked:  code/run_Chimpverifybam.err
+    Untracked:  code/run_Chimpverifybam.out
+    Untracked:  code/run_Humanleafcutter_dF.err
+    Untracked:  code/run_Humanleafcutter_dF.out
+    Untracked:  code/run_Humanleafcutter_ds.err
+    Untracked:  code/run_Humanleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_ds.err
+    Untracked:  code/run_Nuclearleafcutter_ds.out
+    Untracked:  code/run_Nuclearleafcutter_dsDF.err
+    Untracked:  code/run_Nuclearleafcutter_dsDF.out
+    Untracked:  code/run_Totalleafcutter_ds.err
+    Untracked:  code/run_Totalleafcutter_ds.out
+    Untracked:  code/run_chimpverifybam.sh
+    Untracked:  code/run_verifyBam.sh
+    Untracked:  code/run_verifybam.err
+    Untracked:  code/run_verifybam.out
+    Untracked:  code/slurm-62824013.out
+    Untracked:  code/slurm-62825841.out
+    Untracked:  code/slurm-62826116.out
+    Untracked:  code/slurm-64108209.out
+    Untracked:  code/slurm-64108521.out
+    Untracked:  code/slurm-64108557.out
+    Untracked:  code/snakePASChimp.err
+    Untracked:  code/snakePASChimp.out
+    Untracked:  code/snakePAShuman.out
+    Untracked:  code/snakemake.batch
+    Untracked:  code/snakemakeChimp.err
+    Untracked:  code/snakemakeChimp.out
+    Untracked:  code/snakemakeHuman.err
+    Untracked:  code/snakemakeHuman.out
+    Untracked:  code/snakemakePAS.batch
+    Untracked:  code/snakemakePASFiltChimp.err
+    Untracked:  code/snakemakePASFiltChimp.out
+    Untracked:  code/snakemakePASFiltHuman.err
+    Untracked:  code/snakemakePASFiltHuman.out
+    Untracked:  code/snakemakePAS_Human.batch
+    Untracked:  code/snakemakePASchimp.batch
+    Untracked:  code/snakemakePAShuman.batch
+    Untracked:  code/snakemake_chimp.batch
+    Untracked:  code/snakemake_human.batch
+    Untracked:  code/snakemakefiltPAS.batch
+    Untracked:  code/snakemakefiltPAS_chimp.sh
+    Untracked:  code/snakemakefiltPAS_human.batch
+    Untracked:  code/snakemakefiltPAS_human.sh
+    Untracked:  code/spliceSite2Fasta.py
+    Untracked:  code/submit-snakemake-chimp.sh
+    Untracked:  code/submit-snakemake-human.sh
+    Untracked:  code/submit-snakemakePAS-chimp.sh
+    Untracked:  code/submit-snakemakePAS-human.sh
+    Untracked:  code/submit-snakemakefiltPAS-chimp.sh
+    Untracked:  code/submit-snakemakefiltPAS-human.sh
+    Untracked:  code/subset_diffisopheno.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN.py
+    Untracked:  code/subset_diffisopheno_Chimp_tvN_DF.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN.py
+    Untracked:  code/subset_diffisopheno_Huma_tvN_DF.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC.py
+    Untracked:  code/subset_diffisopheno_Nuclear_HvC_DF.py
+    Untracked:  code/subset_diffisopheno_Total_HvC.py
+    Untracked:  code/test
+    Untracked:  code/test.txt
+    Untracked:  code/threeprimeOrthoFC.out
+    Untracked:  code/threeprimeOrthoFC.sh
+    Untracked:  code/threeprimeOrthoFCcd.err
+    Untracked:  code/transcriptDTplotsNuclear.sh
+    Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/verifyBam4973.sh
+    Untracked:  code/verifyBam4973inHuman.sh
+    Untracked:  code/verifybam4973.err
+    Untracked:  code/verifybam4973.out
+    Untracked:  code/verifybam4973HumanMap.err
+    Untracked:  code/verifybam4973HumanMap.out
+    Untracked:  code/wrap_Chimpverifybam.err
+    Untracked:  code/wrap_Chimpverifybam.out
+    Untracked:  code/wrap_chimpverifybam.sh
+    Untracked:  code/wrap_verifyBam.sh
+    Untracked:  code/wrap_verifybam.err
+    Untracked:  code/wrap_verifybam.out
+    Untracked:  code/writeMergecode.py
+    Untracked:  data/._.DS_Store
+    Untracked:  data/._HC_filenames.txt
+    Untracked:  data/._HC_filenames.txt.sb-4426323c-IKIs0S
+    Untracked:  data/._HC_filenames.xlsx
+    Untracked:  data/._MapPantro6_meta.txt
+    Untracked:  data/._MapPantro6_meta.txt.sb-a5794dd2-Cskmlm
+    Untracked:  data/._MapPantro6_meta.xlsx
+    Untracked:  data/._OppositeSpeciesMap.txt
+    Untracked:  data/._OppositeSpeciesMap.txt.sb-a5794dd2-mayWJf
+    Untracked:  data/._OppositeSpeciesMap.xlsx
+    Untracked:  data/._RNASEQ_metadata.txt
+    Untracked:  data/._RNASEQ_metadata.txt.sb-4426323c-TE4ns3
+    Untracked:  data/._RNASEQ_metadata.txt.sb-51f67ae1-HXp7Gq
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt
+    Untracked:  data/._RNASEQ_metadata_2Removed.txt.sb-4426323c-a4lBwx
+    Untracked:  data/._RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/._RNASEQ_metadata_stranded.txt
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-D659m2
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-a5794dd2-ImNMoY
+    Untracked:  data/._RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl
+    Untracked:  data/._RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/._TrialFiltersMeta.txt
+    Untracked:  data/._TrialFiltersMeta.txt.sb-9845453e-R58Y0Q
+    Untracked:  data/._metadata_HCpanel.txt
+    Untracked:  data/._metadata_HCpanel.txt.sb-a3d92a2d-b9cYoF
+    Untracked:  data/._metadata_HCpanel.txt.sb-a5794dd2-i594qs
+    Untracked:  data/._metadata_HCpanel.txt.sb-f4823d1e-qihGek
+    Untracked:  data/._metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/._~$RNASEQ_metadata.xlsx
+    Untracked:  data/._~$metadata_HCpanel.xlsx
+    Untracked:  data/._.xlsx
+    Untracked:  data/AREelements/
+    Untracked:  data/BaseComp/
+    Untracked:  data/CleanLiftedPeaks_FC_primary/
+    Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
+    Untracked:  data/DNDS/
+    Untracked:  data/DTmatrix/
+    Untracked:  data/DiffDomandDE_example/
+    Untracked:  data/DiffExpression/
+    Untracked:  data/DiffIso_Nuclear/
+    Untracked:  data/DiffIso_Nuclear_DF/
+    Untracked:  data/DiffIso_Total/
+    Untracked:  data/DiffSplice/
+    Untracked:  data/DiffSplice_liftedJunc/
+    Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DistTwoDom/
+    Untracked:  data/DomDefGreaterX/
+    Untracked:  data/DomStructure_4/
+    Untracked:  data/DominantPAS/
+    Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
+    Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
+    Untracked:  data/HC_filenames.txt
+    Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
+    Untracked:  data/Khan_prot/
+    Untracked:  data/Li_eqtls/
+    Untracked:  data/MapPantro6_meta.txt
+    Untracked:  data/MapPantro6_meta.xlsx
+    Untracked:  data/MapStats/
+    Untracked:  data/NormalizedClusters/
+    Untracked:  data/NuclearHvC/
+    Untracked:  data/NuclearHvC_DF/
+    Untracked:  data/OppositeSpeciesMap.txt
+    Untracked:  data/OppositeSpeciesMap.xlsx
+    Untracked:  data/OrthoExonBed/
+    Untracked:  data/OverlapBenchmark/
+    Untracked:  data/OverlappingPAS/
+    Untracked:  data/PAS/
+    Untracked:  data/PAS_SAF/
+    Untracked:  data/PAS_doubleFilter/
+    Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
+    Untracked:  data/Pheno_5perc/
+    Untracked:  data/Pheno_5perc_DF_nuclear/
+    Untracked:  data/Pheno_5perc_nuclear/
+    Untracked:  data/Pheno_5perc_nuclear_old/
+    Untracked:  data/Pheno_5perc_total/
+    Untracked:  data/PhyloP/
+    Untracked:  data/Pol2Chip/
+    Untracked:  data/RNASEQ_metadata.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.txt
+    Untracked:  data/RNASEQ_metadata_2Removed.xlsx
+    Untracked:  data/RNASEQ_metadata_stranded.txt
+    Untracked:  data/RNASEQ_metadata_stranded.txt.sb-e4bf31f0-ZGnGgl/
+    Untracked:  data/RNASEQ_metadata_stranded.xlsx
+    Untracked:  data/SignalSites/
+    Untracked:  data/SignalSites_doublefilter/
+    Untracked:  data/SpliceSite/
+    Untracked:  data/TestAnnoBiasOE/
+    Untracked:  data/TestMM2/
+    Untracked:  data/TestMM2_AS/
+    Untracked:  data/TestMM2_PrimaryRead/
+    Untracked:  data/TestMM2_SeondaryRead/
+    Untracked:  data/TestMM2_mismatch/
+    Untracked:  data/TestMM2_quality/
+    Untracked:  data/TestWithinMergePAS/
+    Untracked:  data/Test_FC_methods/
+    Untracked:  data/Threeprime2Ortho/
+    Untracked:  data/TotalFractionPAS/
+    Untracked:  data/TotalHvC/
+    Untracked:  data/TrialFiltersMeta.txt
+    Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UrichElements/
+    Untracked:  data/Wang_ribo/
+    Untracked:  data/apaQTLGenes/
+    Untracked:  data/bioGRID/
+    Untracked:  data/chainFiles/
+    Untracked:  data/cleanPeaks_anno/
+    Untracked:  data/cleanPeaks_byspecies/
+    Untracked:  data/cleanPeaks_lifted/
+    Untracked:  data/files4viz_nuclear/
+    Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gviz/
+    Untracked:  data/leafviz/
+    Untracked:  data/liftover_files/
+    Untracked:  data/mediation/
+    Untracked:  data/mediation_DF/
+    Untracked:  data/metadata_HCpanel.txt
+    Untracked:  data/metadata_HCpanel.xlsx
+    Untracked:  data/metadata_HCpanel_extra.txt
+    Untracked:  data/metadata_HCpanel_frompantro5.txt
+    Untracked:  data/metadata_HCpanel_frompantro5.xlsx
+    Untracked:  data/miRNA/
+    Untracked:  data/multimap/
+    Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
+    Untracked:  data/primaryLift/
+    Untracked:  data/reverseLift/
+    Untracked:  data/testQuant/
+    Untracked:  data/utrDB/
+    Untracked:  data/~$RNASEQ_metadata.xlsx
+    Untracked:  data/~$metadata_HCpanel.xlsx
+    Untracked:  data/.xlsx
+    Untracked:  output/._.DS_Store
+    Untracked:  output/dAPAandDomEnrich.png
+    Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dpnotDE
+    Untracked:  output/dtPlots/
+    Untracked:  output/exandte
+    Untracked:  output/whichSiteplot.pdf
+    Untracked:  projectNotes.Rmd
+    Untracked:  proteinModelSet.Rmd
+
+Unstaged changes:
+    Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
+    Modified:   analysis/DirSelectionKhan.Rmd
+    Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/MMExpreiment.Rmd
+    Modified:   analysis/OppositeMap.Rmd
+    Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/TotalDomStructure.Rmd
+    Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/annotationInfo.Rmd
+    Modified:   analysis/changeMisprimcut.Rmd
+    Modified:   analysis/comp2apaQTLPAS.Rmd
+    Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/diffExpression.Rmd
+    Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
+    Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
+    Modified:   analysis/pol2.Rmd
+    Modified:   analysis/signalsites_doublefilter.Rmd
+    Modified:   analysis/speciesSpecific.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/fd04a01f39a0d75f822d40c3cebcd614ec2e3337/analysis/UrichElements.Rmd" target="_blank">fd04a01</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-21
+</td>
+<td>
+add U rich analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>there are downstream and upstream U rich elements that direct APA. I will test if PAS differentially used have different U content.</p>
+<pre class="r"><code>library(workflowr)</code></pre>
+<pre><code>This is workflowr version 1.6.0
+Run ?workflowr for help getting started</code></pre>
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
+✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
+✔ readr   1.3.1       ✔ stringr 1.3.1  
+✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>── Conflicts ─────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ tidyr::extract()   masks magrittr::extract()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::lag()       masks stats::lag()
+✖ purrr::set_names() masks magrittr::set_names()</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="bash"><code>mkdir ../data/UrichElements</code></pre>
+<p>I will use bedtools nuc to get the T (U) content.</p>
+<pre class="bash"><code>bedtools nuc -s -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed &gt; ../data/UrichElements/HumanPAS_Nuc.txt
+
+
+bedtools nuc -s -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed &gt; ../data/UrichElements/ChimpPAS_Nuc.txt</code></pre>
+<pre class="r"><code>PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T,stringsAsFactors =F)
+
+names=c(&quot;chr&quot;, &quot;start&quot;,&#39;end&#39;, &#39;PAS&#39;,&#39;score&#39;,&#39;strand&#39;,&#39;pct_at&#39;,  &#39;pct_gc&#39;,   &#39;num_A&#39;,    &#39;num_C&#39;,    &#39;num_G&#39;,    &#39;num_T&#39;,    &#39;num_N&#39;,    &#39;num_oth&#39;,  &#39;seq_len&#39;)
+HumanPASSeq=read.table(&quot;../data/UrichElements/HumanPAS_Nuc.txt&quot;, col.names = names, header = F, stringsAsFactors = F) %&gt;% mutate(HumanPropT=num_T/seq_len) %&gt;% select(PAS, HumanPropT)
+
+ChimpPASSeq=read.table(&quot;../data/UrichElements/ChimpPAS_Nuc.txt&quot;, col.names = names, header = F, stringsAsFactors = F)%&gt;% mutate(ChimpPropT=num_T/seq_len)%&gt;% select(PAS, ChimpPropT)
+
+
+PASMetaWithT=PASMeta %&gt;% inner_join(ChimpPASSeq, by=&quot;PAS&quot;) %&gt;% inner_join(HumanPASSeq, by=&quot;PAS&quot;) %&gt;% mutate(DiffHminT=HumanPropT-ChimpPropT)</code></pre>
+<pre class="r"><code>ggplot(PASMetaWithT, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col=&quot;blue&quot;) + stat_cor()</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMetaWithT, aes(x=DiffHminT)) + geom_density() </code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(lm(PASMetaWithT$ChimpPropT~PASMetaWithT$HumanPropT ))</code></pre>
+<pre><code>
+Call:
+lm(formula = PASMetaWithT$ChimpPropT ~ PASMetaWithT$HumanPropT)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.037455 -0.002197 -0.000013  0.002008  0.040090 
+
+Coefficients:
+                         Estimate Std. Error  t value Pr(&gt;|t|)    
+(Intercept)             0.0005890  0.0001016    5.795 6.88e-09 ***
+PASMetaWithT$HumanPropT 0.9979439  0.0003491 2858.919  &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.005109 on 44430 degrees of freedom
+Multiple R-squared:  0.9946,    Adjusted R-squared:  0.9946 
+F-statistic: 8.173e+06 on 1 and 44430 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Color by differentially used:</p>
+<pre class="r"><code>Meta_genes= PASMeta %&gt;% select(gene) %&gt;% unique()
+
+Meta_PAS=PASMeta %&gt;%  select(PAS,gene)
+
+dAPAGenes=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
+dAPAPAS=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(PASMeta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %&gt;% select(gene) %&gt;% unique()
+
+dAPATestedGenes= dAPAPAS  %&gt;% select(gene) %&gt;% unique() %&gt;% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,&quot;Yes&quot;, &quot;No&quot;))
+dICdata= read.table(&quot;../data/IndInfoContent/SimpsonMedianSignificance.txt&quot;, header = T, stringsAsFactors = F)%&gt;% select(sIC,gene)
+dICdata_sig= dICdata %&gt;% filter(sIC==&quot;Yes&quot;)
+dAPAandDic= dICdata %&gt;% inner_join(dAPATestedGenes,by=&quot;gene&quot;) %&gt;% mutate(Both=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyIC=ifelse(sIC==&quot;Yes&quot; &amp; dAPA==&quot;No&quot;, &quot;Yes&quot;,&quot;No&quot;),OnlyAPA=ifelse(sIC==&quot;No&quot; &amp; dAPA==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;))
+
+
+OnlyAPAGenes= dAPAandDic %&gt;% filter(OnlyAPA==&quot;Yes&quot;) %&gt;% select(gene) %&gt;% mutate(set=&quot;Site&quot;)
+IsoformGenes=  dAPAandDic %&gt;% filter(OnlyIC==&quot;Yes&quot;) %&gt;% select(gene) %&gt;% mutate(set=&quot;Isoform&quot;)
+BothGenes=  dAPAandDic %&gt;% filter(Both==&quot;Yes&quot;) %&gt;% select(gene) %&gt;% mutate(set=&quot;Both&quot;)
+NoneGenes=dAPAandDic %&gt;% filter(dAPA==&quot;No&quot; &amp; sIC==&quot;No&quot; ) %&gt;% select(gene) %&gt;% mutate(set=&quot;Conserved&quot;)
+
+
+CharacterizeAllGenes= OnlyAPAGenes %&gt;% bind_rows(IsoformGenes) %&gt;% bind_rows(BothGenes)%&gt;% bind_rows(BothGenes) %&gt;% bind_rows(NoneGenes) %&gt;% mutate(OverAllCons=ifelse(set==&quot;Conserved&quot;, &quot;Yes&quot;,&quot;No&quot;))
+
+
+
+CharacterizeAllGenes_T= PASMetaWithT %&gt;% inner_join(CharacterizeAllGenes,by=&quot;gene&quot;)</code></pre>
+<p>First seperate by these genes:</p>
+<pre class="r"><code>ggplot(CharacterizeAllGenes_T, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col=&quot;blue&quot;) + stat_cor()+ facet_grid(~set)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(CharacterizeAllGenes_T, aes(x=DiffHminT, col=set)) + geom_density(alpha=.5)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(CharacterizeAllGenes_T, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col=&quot;blue&quot;) + stat_cor()+ facet_grid(~OverAllCons)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(CharacterizeAllGenes_T, aes(x=DiffHminT, fill=OverAllCons)) + geom_density(alpha=.5)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-8-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at site level PAS difference:</p>
+<pre class="r"><code>PASMetaWithT_sigPAS= PASMetaWithT %&gt;% inner_join(dAPAPAS, by=c(&quot;PAS&quot;, &quot;gene&quot;))
+
+
+ggplot(PASMetaWithT_sigPAS, aes(y=ChimpPropT,x=HumanPropT, col=SigPAU2)) + geom_point() + geom_density_2d() + stat_cor()</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMetaWithT_sigPAS, aes(y=ChimpPropT,x=HumanPropT, col=SigPAU2))  + geom_density_2d() + stat_cor()</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMetaWithT_sigPAS, aes(x=DiffHminT, fill=SigPAU2)) + geom_density(alpha=.5)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(PASMetaWithT_sigPAS, aes(x=DiffHminT, col=SigPAU2)) + stat_ecdf()</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /> difference in the distribution?</p>
+<pre class="r"><code>PASMetaWithT_sigPAS_sig= PASMetaWithT_sigPAS %&gt;% filter(SigPAU2==&quot;Yes&quot;)
+
+PASMetaWithT_sigPAS_Nosig= PASMetaWithT_sigPAS %&gt;% filter(SigPAU2==&quot;No&quot;)
+
+
+wilcox.test(PASMetaWithT_sigPAS_sig$DiffHminT, PASMetaWithT_sigPAS_Nosig$DiffHminT)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PASMetaWithT_sigPAS_sig$DiffHminT and PASMetaWithT_sigPAS_Nosig$DiffHminT
+W = 47081000, p-value = 0.3036
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Plot T vs deltaPAU:</p>
+<pre class="r"><code>dAPAPASPAU=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(PASMeta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(PAS,deltaPAU) 
+
+PASMetaWithT_sigPAS_pau=PASMetaWithT_sigPAS %&gt;% inner_join(dAPAPASPAU,by=&quot;PAS&quot;)</code></pre>
+<pre class="r"><code>ggplot(PASMetaWithT_sigPAS_pau, aes(x=deltaPAU, y=DiffHminT)) +geom_point() +stat_cor() + facet_grid(~SigPAU2)</code></pre>
+<p><img src="figure/UrichElements.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Do this the way i did the signal site analysis. Are significant PAS more likely to have non zero differences?</p>
+<pre class="r"><code>PASMetaWithT_sigPAS_pau_cat= PASMetaWithT_sigPAS_pau %&gt;% mutate(DiffTeither= ifelse(DiffHminT != 0, &quot;Yes&quot;, &quot;No&quot;))</code></pre>
+<pre class="r"><code>x= nrow(PASMetaWithT_sigPAS_pau_cat %&gt;% filter(SigPAU2==&quot;Yes&quot;,DiffTeither==&quot;Yes&quot;))
+m=nrow(PASMetaWithT_sigPAS_pau_cat %&gt;% filter(DiffTeither==&quot;Yes&quot;))
+n=nrow(PASMetaWithT_sigPAS_pau_cat %&gt;% filter(DiffTeither!=&quot;Yes&quot;))
+k= nrow(PASMetaWithT_sigPAS_pau_cat %&gt;% filter(SigPAU2==&quot;Yes&quot;))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat)
+
+x</code></pre>
+<pre><code>[1] 1426</code></pre>
+<pre class="r"><code>phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 3.458623e-08</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.09697</code></pre>
+<p>Check direction.</p>
+<p>I exprect lower T content to mean lower usage. or opposite</p>
+<ul>
+<li><p>PAU upreg in chimp</p></li>
+<li><p>T diff is chimp higher value</p></li>
+</ul>
+<p>direction:</p>
+<p>we expect chimp upregulation, when the chimps have higher T/U content</p>
+<p>DO this among sig values:</p>
+<pre class="r"><code>PASMetaWithT_sigPAS_pau_cat_sig=PASMetaWithT_sigPAS_pau_cat %&gt;% filter(SigPAU2==&quot;Yes&quot;,DiffHminT!=0)
+
+x= nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(deltaPAU&lt;0,DiffHminT&lt;0))
+m=nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(DiffHminT&lt;0))
+n=nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(DiffHminT&gt;=0))
+k= nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(deltaPAU&lt;0))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat_sig)
+
+x</code></pre>
+<pre><code>[1] 415</code></pre>
+<pre class="r"><code>phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.03298297</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.044766</code></pre>
+<p>Human direction</p>
+<pre class="r"><code>x= nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(deltaPAU&gt;0,DiffHminT&gt;0))
+m=nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(DiffHminT&gt;0))
+n=nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(DiffHminT&lt;=0))
+k= nrow(PASMetaWithT_sigPAS_pau_cat_sig %&gt;% filter(deltaPAU&gt;0))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat_sig)
+
+x</code></pre>
+<pre><code>[1] 335</code></pre>
+<pre class="r"><code>phyper(x-1,m,n,k,lower.tail=F)</code></pre>
+<pre><code>[1] 0.03298297</code></pre>
+<pre class="r"><code>(x/k)/(m/N)</code></pre>
+<pre><code>[1] 1.056056</code></pre>
+<p>This is like the signal site analysis. If there is a difference in T/U content then site is more likley to be diff used in the correct direction.</p>
+<p>Difference in U content does not explain difference is usage.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] cowplot_0.9.4   forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.1   
+ [9] tidyverse_1.2.1 ggpubr_0.2      magrittr_1.5    ggplot2_3.1.1  
+[13] workflowr_1.6.0
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5 reshape2_1.4.3   haven_1.1.2      lattice_0.20-38 
+ [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
+ [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
+[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
+[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
+[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
+[25] broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0    
+[29] backports_1.1.2  jsonlite_1.6     fs_1.3.1         hms_0.4.2       
+[33] digest_0.6.18    stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2 
+[37] cli_1.1.0        tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4    
+[41] whisker_0.3-2    pkgconfig_2.0.2  MASS_7.3-51.1    xml2_1.2.0      
+[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
+[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
+[53] compiler_3.5.1  </code></pre>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
