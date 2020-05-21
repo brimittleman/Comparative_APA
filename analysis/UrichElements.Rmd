@@ -1,0 +1,214 @@
+---
+title: "U rich elements"
+author: "Briana Mittleman"
+date: "5/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+there are downstream and upstream U rich elements that direct APA. I will test if PAS differentially used have different U content.  
+
+```{r}
+library(workflowr)
+library(ggpubr)
+library(tidyverse)
+library(cowplot)
+```
+
+```{bash,eval=F}
+mkdir ../data/UrichElements
+```
+I will use bedtools nuc to get the T (U) content. 
+
+
+  
+```{bash,eval=F}
+bedtools nuc -s -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed > ../data/UrichElements/HumanPAS_Nuc.txt
+
+
+bedtools nuc -s -fi /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa -bed ../data/PAS_doubleFilter/PAS_doublefilter_either_ChimpCoordChimpUsage.sort.bed > ../data/UrichElements/ChimpPAS_Nuc.txt
+```
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header = T,stringsAsFactors =F)
+
+names=c("chr", "start",'end', 'PAS','score','strand','pct_at',	'pct_gc',	'num_A',	'num_C',	'num_G',	'num_T',	'num_N',	'num_oth',	'seq_len')
+HumanPASSeq=read.table("../data/UrichElements/HumanPAS_Nuc.txt", col.names = names, header = F, stringsAsFactors = F) %>% mutate(HumanPropT=num_T/seq_len) %>% select(PAS, HumanPropT)
+
+ChimpPASSeq=read.table("../data/UrichElements/ChimpPAS_Nuc.txt", col.names = names, header = F, stringsAsFactors = F)%>% mutate(ChimpPropT=num_T/seq_len)%>% select(PAS, ChimpPropT)
+
+
+PASMetaWithT=PASMeta %>% inner_join(ChimpPASSeq, by="PAS") %>% inner_join(HumanPASSeq, by="PAS") %>% mutate(DiffHminT=HumanPropT-ChimpPropT)
+```
+
+
+```{r}
+ggplot(PASMetaWithT, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col="blue") + stat_cor()
+
+ggplot(PASMetaWithT, aes(x=DiffHminT)) + geom_density() 
+```
+```{r}
+summary(lm(PASMetaWithT$ChimpPropT~PASMetaWithT$HumanPropT ))
+```
+
+Color by differentially used: 
+
+```{r}
+Meta_genes= PASMeta %>% select(gene) %>% unique()
+
+Meta_PAS=PASMeta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(PASMeta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No"))
+
+
+
+CharacterizeAllGenes_T= PASMetaWithT %>% inner_join(CharacterizeAllGenes,by="gene")
+```
+
+
+First seperate by these genes: 
+
+```{r}
+ggplot(CharacterizeAllGenes_T, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col="blue") + stat_cor()+ facet_grid(~set)
+
+ggplot(CharacterizeAllGenes_T, aes(x=DiffHminT, col=set)) + geom_density(alpha=.5)
+
+
+ggplot(CharacterizeAllGenes_T, aes(y=ChimpPropT,x=HumanPropT)) + geom_point() + geom_density_2d(col="blue") + stat_cor()+ facet_grid(~OverAllCons)
+
+ggplot(CharacterizeAllGenes_T, aes(x=DiffHminT, fill=OverAllCons)) + geom_density(alpha=.5)
+
+```
+
+Look at site level PAS difference: 
+
+```{r}
+PASMetaWithT_sigPAS= PASMetaWithT %>% inner_join(dAPAPAS, by=c("PAS", "gene"))
+
+
+ggplot(PASMetaWithT_sigPAS, aes(y=ChimpPropT,x=HumanPropT, col=SigPAU2)) + geom_point() + geom_density_2d() + stat_cor()
+
+```
+```{r}
+ggplot(PASMetaWithT_sigPAS, aes(y=ChimpPropT,x=HumanPropT, col=SigPAU2))  + geom_density_2d() + stat_cor()
+```
+
+```{r}
+ggplot(PASMetaWithT_sigPAS, aes(x=DiffHminT, fill=SigPAU2)) + geom_density(alpha=.5)
+
+ggplot(PASMetaWithT_sigPAS, aes(x=DiffHminT, col=SigPAU2)) + stat_ecdf()
+```
+difference in the distribution?
+
+```{r}
+PASMetaWithT_sigPAS_sig= PASMetaWithT_sigPAS %>% filter(SigPAU2=="Yes")
+
+PASMetaWithT_sigPAS_Nosig= PASMetaWithT_sigPAS %>% filter(SigPAU2=="No")
+
+
+wilcox.test(PASMetaWithT_sigPAS_sig$DiffHminT, PASMetaWithT_sigPAS_Nosig$DiffHminT)
+```
+
+
+Plot T vs deltaPAU: 
+
+```{r}
+dAPAPASPAU=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(PASMeta, by=c("chr","start", "end","gene")) %>% select(PAS,deltaPAU) 
+
+PASMetaWithT_sigPAS_pau=PASMetaWithT_sigPAS %>% inner_join(dAPAPASPAU,by="PAS")
+```
+
+
+```{r}
+ggplot(PASMetaWithT_sigPAS_pau, aes(x=deltaPAU, y=DiffHminT)) +geom_point() +stat_cor() + facet_grid(~SigPAU2)
+```
+
+
+Do this the way i did the signal site analysis. Are significant PAS more likely to have non zero differences? 
+
+```{r}
+PASMetaWithT_sigPAS_pau_cat= PASMetaWithT_sigPAS_pau %>% mutate(DiffTeither= ifelse(DiffHminT != 0, "Yes", "No"))
+```
+
+
+```{r}
+x= nrow(PASMetaWithT_sigPAS_pau_cat %>% filter(SigPAU2=="Yes",DiffTeither=="Yes"))
+m=nrow(PASMetaWithT_sigPAS_pau_cat %>% filter(DiffTeither=="Yes"))
+n=nrow(PASMetaWithT_sigPAS_pau_cat %>% filter(DiffTeither!="Yes"))
+k= nrow(PASMetaWithT_sigPAS_pau_cat %>% filter(SigPAU2=="Yes"))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat)
+
+x
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+
+```
+
+Check direction.
+
+I exprect lower T content to mean lower usage.  or opposite
+
+- PAU upreg in chimp 
+
+- T diff is chimp higher value  
+
+direction: 
+
+we expect chimp upregulation, when the chimps have higher T/U content
+
+
+DO this among sig values:
+```{r}
+PASMetaWithT_sigPAS_pau_cat_sig=PASMetaWithT_sigPAS_pau_cat %>% filter(SigPAU2=="Yes",DiffHminT!=0)
+
+x= nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(deltaPAU<0,DiffHminT<0))
+m=nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(DiffHminT<0))
+n=nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(DiffHminT>=0))
+k= nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(deltaPAU<0))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat_sig)
+
+x
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+Human direction  
+```{r}
+
+x= nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(deltaPAU>0,DiffHminT>0))
+m=nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(DiffHminT>0))
+n=nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(DiffHminT<=0))
+k= nrow(PASMetaWithT_sigPAS_pau_cat_sig %>% filter(deltaPAU>0))
+
+N=nrow(PASMetaWithT_sigPAS_pau_cat_sig)
+
+x
+phyper(x-1,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+This is like the signal site analysis. If there is a difference in T/U content then site is more likley to be diff used in the correct direction. 
+
+Difference in U content does not explain difference is usage.  
