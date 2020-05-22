@@ -1,0 +1,148 @@
+---
+title: "Explore effect size intronic relationship"
+author: "Briana Mittleman"
+date: "5/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggpubr)
+library(qvalue)
+library(tidyverse)
+library("viridis") 
+library(cowplot)
+```
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
+```
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)
+
+
+DeandAPA= DiffIso %>% inner_join(DE, by="gene")
+
+
+ggplot(DeandAPA,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 3)
+```
+
+Restrict to small effect sizes:  
+```{r}
+DeandAPA_smallEff= DeandAPA %>% filter(logFC>=-.2 & logFC <=.2)
+
+
+ggplot(DeandAPA_smallEff,aes(y=deltaPAU, x=logFC,col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc), method="lm") + labs(title="Intronic and 3' UTR APA v DE") + scale_color_brewer(palette = "Set1")+ stat_cor(aes(color = loc), label.x = 0)
+```
+Top PAS anf
+```{r}
+DeandAPA_topPAS= DeandAPA %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+
+
+DeandAPA_topPASFilt= DeandAPA_topPAS%>% filter(logFC>=-.2 & logFC <=.2)
+```
+
+```{r}
+ggplot(DeandAPA_topPASFilt,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + scale_color_brewer(palette = "Set1") + stat_cor(aes(color = loc), label.x = 0)
+```
+Color by usage: 
+
+```{r}
+DeandAPA_topPASIntron= DeandAPA_topPAS %>% filter(loc=="intron")
+
+chimpusage=ggplot(DeandAPA_topPASIntron,aes(y=deltaPAU, x=logFC, col=Chimp)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor()+ scale_color_viridis()
+
+
+humanusage=ggplot(DeandAPA_topPASIntron,aes(y=deltaPAU, x=logFC, col=Human)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor() + scale_color_viridis()
+```
+
+
+```{r}
+plot_grid(humanusage,chimpusage)
+```
+
+
+Filter to low usage, less than .3
+
+```{r}
+DeandAPA_topPASIntronlow= DeandAPA_topPAS %>% filter(loc=="intron") %>% filter(Chimp<0.3 & Human<0.3)
+
+chimpusagelo=ggplot(DeandAPA_topPASIntronlow,aes(y=deltaPAU, x=logFC, col=Chimp)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor()+ scale_color_viridis()
+
+
+humanusagelow=ggplot(DeandAPA_topPASIntronlow,aes(y=deltaPAU, x=logFC, col=Human)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor() + scale_color_viridis()
+```
+
+```{r}
+plot_grid(humanusage,chimpusage)
+```
+
+Not due to low usage PAS.  
+
+```{r}
+DeandAPA_topPASIntronHigh= DeandAPA_topPAS %>% filter(loc=="intron") %>% filter(Chimp>0.5 & Human>0.5)
+
+chimpusagehigh=ggplot(DeandAPA_topPASIntronHigh,aes(y=deltaPAU, x=logFC, col=Chimp)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor()+ scale_color_viridis()
+
+
+humanusagehigh=ggplot(DeandAPA_topPASIntronHigh,aes(y=deltaPAU, x=logFC, col=Human)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor() + scale_color_viridis()
+```
+
+```{r}
+plot_grid(chimpusagehigh,humanusagehigh)
+```
+
+Do this for UTR:  
+
+```{r}
+DeandAPA_topPASUTR= DeandAPA_topPAS %>% filter(loc=="utr3")
+```
+
+low: 
+
+```{r}
+DeandAPA_topPASutrlow= DeandAPA_topPASUTR %>% filter(Chimp<0.3 & Human<0.3)
+
+chimpusageloutr=ggplot(DeandAPA_topPASutrlow,aes(y=deltaPAU, x=logFC, col=Chimp)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor()+ scale_color_viridis()
+
+
+humanusagelowutr=ggplot(DeandAPA_topPASutrlow,aes(y=deltaPAU, x=logFC, col=Human)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor() + scale_color_viridis()
+```
+```{r}
+plot_grid(humanusagelowutr,chimpusageloutr)
+```
+
+high usage: 
+
+```{r}
+DeandAPA_topPASutrhigh= DeandAPA_topPASUTR %>% filter(Chimp>0.5 & Human>0.5)
+
+chimpusagehighutr=ggplot(DeandAPA_topPASutrhigh,aes(y=deltaPAU, x=logFC, col=Chimp)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor()+ scale_color_viridis()
+
+
+humanusagehighutr=ggplot(DeandAPA_topPASutrhigh,aes(y=deltaPAU, x=logFC, col=Human)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + stat_cor() + scale_color_viridis()
+```
+
+```{r}
+plot_grid(humanusagehighutr,chimpusagehighutr)
+```
+
+
+
+Just over 50 percent for both:  
+
+```{r}
+DeandAPA_highUsage= DeandAPA %>% filter(Human>=.5 & Chimp >=.5)
+
+
+ggplot(DeandAPA_highUsage,aes(y=deltaPAU, x=logFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(method="lm")  + labs(title="Intronic and 3' UTR APA top PAS v DE") + scale_color_brewer(palette = "Set1") + stat_cor(aes(color = loc), label.x = 0)
+```
+
