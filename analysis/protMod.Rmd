@@ -1,0 +1,277 @@
+---
+title: "Protein modificiations"
+author: "Briana Mittleman"
+date: "5/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(cowplot)
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+```
+
+Test protien modifications for the genes that have differences at the protein level and in APA but not in the expression data. Using the same database that Sidney used for the translation paper. 
+
+PhosphoSitePlus - https://www.phosphosite.org/staticDownloads
+
+I will use the newest version for now.  
+
+050320
+PhosphoSitePlus(R) (PSP) was created by Cell Signaling Technology Inc. It is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. When using PSP data or analyses in printed publications or in online resources, the following acknowledgements must be included: (a) the words "PhosphoSitePlus(R), www.phosphosite.org" must be included at appropriate places in the text or webpage, and (b) the following citation must be included in the bibliography: "Hornbeck PV, Zhang B, Murray B, Kornhauser JM, Latham V, Skrzypek E PhosphoSitePlus, 2014: mutations, PTMs and recalibrations. Nucleic Acids Res. 2015 43:D512-20. PMID: 25514926."
+
+download on 5/22/20  
+```{bash,eval=F}
+mkdir ../data/PTM
+```
+
+Download the protein length data from  UniProtKB 5/22/20  
+use the primary gene name and the length. subset to the reviewed for high confidence  
+
+
+
+```{r}
+
+ProtInfo=read.table("../data/PTM/ProtLength.txt", sep = "\t",stringsAsFactors = F,header = T,col.names = c("entry","organism", "nAA", "gene")) %>% select(nAA, gene)
+
+Ubiq=read.table("../data/PTM/Ubiquitination_site_dataset", header = T, sep="\t",stringsAsFactors = FALSE) %>% filter(ORGANISM=="human",GENE!="") %>% rename("gene"=GENE)
+
+
+NUbiqSites=Ubiq %>% group_by(gene) %>% summarise(nUBsites=n())  %>% inner_join(ProtInfo,by="gene") %>% mutate(nUBNorm=nUBsites/nAA)
+
+nrow(NUbiqSites)
+```
+
+
+Pull in P not e genes.  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+dIConly=dAPAandDic %>%filter(OnlyIC=="Yes")
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE) %>% filter(DE=="Yes")
+
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No")) 
+Protsm=Prot %>% select(gene,dP)
+Prot_sig= Prot %>% filter(dP=="Yes")
+
+
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) %>% filter(dTE=="Yes")
+
+
+RiboAll=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No"))
+```
+
+
+```{r}
+dAPAandDic_wP=dAPAandDic %>% inner_join(Protsm, by="gene") %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No"), dte=ifelse(gene %in% Ribo$gene, "Yes", "No"))  %>% inner_join(NUbiqSites,by="gene")
+
+
+dAPAandDic_wP_dAPA= dAPAandDic_wP %>% filter(OnlyAPA=="Yes") %>% mutate(set="Site")%>% mutate(dpnoTE=ifelse(dPnotDE=="Yes" & dte=="No","Yes", "No"))
+dAPAandDic_wP_dAPA %>% group_by(dPnotDE) %>% summarise(n())
+
+dAPAandDic_wP_dIC= dAPAandDic_wP %>% filter(OnlyIC=="Yes") %>% mutate(set="Diversity")%>% mutate(dpnoTE=ifelse(dPnotDE=="Yes" & dte=="No","Yes", "No"))
+dAPAandDic_wP_dIC %>% group_by(dPnotDE) %>% summarise(n())
+
+dAPAandDic_wP_both= dAPAandDic_wP %>% filter(Both=="Yes") %>% mutate(set="Both")%>% mutate(dpnoTE=ifelse(dPnotDE=="Yes" & dte=="No","Yes", "No"))
+dAPAandDic_wP_both %>% group_by(dPnotDE) %>% summarise(n())
+
+
+anyAPA=c(dAPAandDic_wP_dAPA$gene, dAPAandDic_wP_dIC$gene,dAPAandDic_wP_both$gene )
+
+TogetherWP= dAPAandDic_wP_dAPA %>% bind_rows(dAPAandDic_wP_dIC) %>% bind_rows(dAPAandDic_wP_both) %>% select(gene, set,dE, dP, dPnotDE, dte,nUBNorm ,dpnoTE) 
+
+
+AllGenestest= dAPAandDic_wP %>%  mutate(AnyAPA=ifelse(gene %in% anyAPA, "Yes", "No"))
+
+```
+
+
+Plot:
+```{r}
+ggplot(TogetherWP, aes(x=set, y=nUBNorm, by=dPnotDE,fill=dPnotDE)) + geom_boxplot() + stat_compare_means()
+
+```
+
+
+
+```{r}
+ggplot(TogetherWP, aes(x=set, y=nUBNorm, by=dpnoTE,fill=dpnoTE)) + geom_boxplot() + stat_compare_means()
+```
+
+Any apa and protein 
+
+```{r}
+ggplot(AllGenestest, aes(x=dP,by=AnyAPA, y=nUBNorm,fill=AnyAPA)) +geom_boxplot() +stat_compare_means()
+```
+
+
+```{r}
+ggplot(AllGenestest, aes(x=dPnotDE,by=AnyAPA, y=nUBNorm,fill=AnyAPA)) +geom_boxplot() +stat_compare_means()
+```
+
+
+
+
+What about just any difference in APA 
+
+```{r}
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+
+OnlyAPAGenes= dAPAandDic %>% filter(OnlyAPA=="Yes") %>% select(gene) %>% mutate(set="Site")
+IsoformGenes=  dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene) %>% mutate(set="Isoform")
+BothGenes=  dAPAandDic %>% filter(Both=="Yes") %>% select(gene) %>% mutate(set="Both")
+NoneGenes=dAPAandDic %>% filter(dAPA=="No" & sIC=="No" ) %>% select(gene) %>% mutate(set="Conserved")
+
+
+CharacterizeAllGenes= OnlyAPAGenes %>% bind_rows(IsoformGenes) %>% bind_rows(BothGenes)%>% bind_rows(BothGenes) %>% bind_rows(NoneGenes) %>% mutate(OverAllCons=ifelse(set=="Conserved", "Yes","No")) %>% inner_join(NUbiqSites,by="gene")
+nrow(CharacterizeAllGenes)
+```
+
+
+
+
+```{r}
+ggplot(CharacterizeAllGenes, aes(x=OverAllCons, y=nUBNorm, fill=OverAllCons)) + geom_boxplot() + stat_compare_means()  +scale_fill_brewer(palette = "Set1")+ labs(x="Differences in P and APA", y="Ubiquitnation", title="genes with site level differences")
+```
+
+Nothing super interesting here..  
+
+
+correlation between the nUBNorm and effect size...
+
+
+Look at the UTR dAPA PAS  
+```{r}
+DiffIsoUTR=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NUbiqSites,by="gene") %>% filter(loc=="utr3")
+
+DiffIsoIntron=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NUbiqSites,by="gene") %>% filter(loc=="intron")
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NUbiqSites,by="gene") 
+
+DiffIsoSig= DiffIso %>%filter(SigPAU2=="Yes")
+DiffIsoIntronSig=DiffIsoIntron %>% filter(SigPAU2=="Yes")
+DiffIsoUTRsig= DiffIsoUTR %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+
+UTR=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in 3' UTR APA sites \n correlated with mark signalling protein decay")+theme_classic()
+UTR
+
+Intronic=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="blue", label.x=.5) +geom_smooth(col="blue", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in intronic APA site \n are not correlated with mark signalling protein decay") +theme_classic()
+Intronic
+all=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="purple", label.x=.5) +geom_smooth(col="purple", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in APA sites\n correlated with mark signalling protein decay")+theme_classic()
+all
+```
+
+
+```{r}
+plot_grid(UTR,Intronic )
+```
+
+```{r,include=FALSE, eval=F}
+pdf("../output/Ubiqplot", height=6, width=10)
+plot_grid(UTR,Intronic )
+dev.off()
+```
+
+```{r ubiq, include=FALSE, dev="pdf", fig.height=12, fig.width=14, crop=FALSE}
+plot_grid(UTR,Intronic )
+```
+
+subset to those that also have protien diff: 
+
+```{r}
+DiffIsosigP= DiffIsoSig %>%  inner_join(Prot, by="gene")
+dAPAandDic_wPnotE= dAPAandDic_wP %>% select(gene, dPnotDE, dte)
+DiffIsosigPnotE= DiffIsoSig %>%  inner_join(dAPAandDic_wPnotE, by="gene")
+
+
+
+ggplot(DiffIsosigP,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm") +facet_grid(~dP)
+
+
+ggplot(DiffIsosigPnotE,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm") +facet_grid(dPnotDE~dte ) +labs(title="rows=dPnotDE, col=dTE")
+```
+
+
+Check location results with a second mark tested in translation paper  
+
+
+Acytelation 
+
+PhosphoSitePlus(R) (PSP) was created by Cell Signaling Technology Inc. It is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. When using PSP data or analyses in printed publications or in online resources, the following acknowledgements must be included: (a) the words "PhosphoSitePlus(R), www.phosphosite.org" must be included at appropriate places in the text or webpage, and (b) the following citation must be included in the bibliography: "Hornbeck PV, Zhang B, Murray B, Kornhauser JM, Latham V, Skrzypek E PhosphoSitePlus, 2014: mutations, PTMs and recalibrations. Nucleic Acids Res. 2015 43:D512-20. PMID: 25514926."
+
+ 
+```{r}
+Acty=read.table("../data/PTM/Acetylation_site_dataset", header = T, sep="\t",stringsAsFactors = FALSE) %>% filter(ORGANISM=="human",GENE!="") %>% rename("gene"=GENE)
+
+
+NActySites=Acty %>% group_by(gene) %>% summarise(nACsites=n())  %>% inner_join(ProtInfo,by="gene") %>% mutate(nAcNorm=nACsites/nAA)
+
+```
+
+
+```{r}
+DiffIsoUTR=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NActySites,by="gene") %>% filter(loc=="utr3")
+
+DiffIsoIntron=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NActySites,by="gene") %>% filter(loc=="intron")
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene"))  %>%  inner_join(NActySites,by="gene") 
+
+DiffIsoSig= DiffIso %>%filter(SigPAU2=="Yes")
+DiffIsoIntronSig=DiffIsoIntron %>% filter(SigPAU2=="Yes")
+DiffIsoUTRsig= DiffIsoUTR %>% filter(SigPAU2=="Yes")
+```
+
+
+```{r}
+UTRAC=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm")+labs(y="Normalized Acytelation")+theme_classic()
+UTRAC
+
+IntronicAC=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col="blue", label.x=.5) +geom_smooth(col="blue", method="lm")+labs(y="Normalized Acytelation" ) +theme_classic()
+IntronicAC
+allAC=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col="purple", label.x=.5) +geom_smooth(col="purple", method="lm")+labs(y="Normalized Acytelation")+theme_classic()
+allAC
+```
+

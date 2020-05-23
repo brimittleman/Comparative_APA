@@ -145,16 +145,16 @@ numberprop
 
 Are there differences in number of protein for these sets? 
 
+normalize interactions by length of gene.  
 ```{r}
-Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) 
 
-OrthoUTR=read.table("../data/orthoUTR/HumanDistal3UTR.sort.bed", col.names = c("chr",'start','end','gene','score','strand'),stringsAsFactors = F) %>% mutate(length=end-start) %>% select(gene, length)
+ProtInfo=read.table("../data/PTM/ProtLength.txt", sep = "\t",stringsAsFactors = F,header = T,col.names = c("entry","organism", "nAA", "gene")) %>% select(nAA, gene)
 
-UTRInt=OrthoUTR %>% inner_join(Interactions, by="gene") %>% mutate(Density=nInt/length)
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) %>% inner_join(ProtInfo, by="gene")%>% mutate(NormInter=nInt/nAA)
 
 #DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
 
-dAPAandDic_wP=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(UTRInt, by="gene")
+dAPAandDic_wP=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(Interactions, by="gene")
 
 dAPAandDic_wP_dAPA= dAPAandDic_wP %>% filter(dAPA=="Yes")
 
@@ -167,12 +167,12 @@ dAPAandDic_wP_IC= dAPAandDic_wP %>% filter(OnlyIC=="Yes")
 Plot for all 3 sets: 
 
 ```{r}
-dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \ngenes with site level differences") +geom_jitter(alpha=.1)
+dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \ngenes with site level differences") +geom_jitter(alpha=.1)
 
 
-bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \n with difference in both levles")+geom_jitter(alpha=.1)
+bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n with difference in both levles")+geom_jitter(alpha=.1)
 
-dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(Density),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Interaction Density)", title="Protein Interactions \n genes with isoform diversity differences")+geom_jitter(alpha=.1)
+dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n genes with isoform diversity differences")+geom_jitter(alpha=.1)
 
 ```
 
@@ -245,4 +245,5 @@ dev.off()
 ```{r exandte, include=FALSE, dev="pdf", fig.height=12, fig.width=14, crop=FALSE}
 fullplot
 ```
+
 

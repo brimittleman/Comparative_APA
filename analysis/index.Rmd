@@ -186,6 +186,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Effect size plots with same direction for betas](EffectSizeRelationshipFixDir.html)
 
+* [try to incorporate ancestral allele from QTL](incorporateQTLsAncestral.html)
+
+* [Test for differences in protein marks](protMod.html)
+
 ##Domiance and DE (test for mechanisms)  
 
 * [Could standardization with length account for differences?](DiffDomDE_length.html)  
