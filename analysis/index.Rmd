@@ -190,6 +190,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Test for differences in protein marks](protMod.html)
 
+* [Test relationship is driven by switching 3' UTR pas and intronic](IntronUTRSwitch.html)
+
 ##Domiance and DE (test for mechanisms)  
 
 * [Could standardization with length account for differences?](DiffDomDE_length.html)  

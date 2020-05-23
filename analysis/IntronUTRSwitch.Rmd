@@ -1,0 +1,137 @@
+---
+title: "UTR and intronic switches"
+author: "Briana Mittleman"
+date: "5/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to look at a set of genes where there is a switch between a UTR and intronic site. This means i am looking for genes with a signficant difference in an intronic PAS and a 3' UTR.  
+
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% select(chr,start,end, gene, PAS, loc)
+
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta,by=c("chr", 'start', 'end','gene'))
+
+
+DiffIso_sig= DiffIso %>% filter(SigPAU2=="Yes") 
+
+DiffIso_sig_geneloc= DiffIso_sig %>% group_by(gene,loc) %>% summarise(nsite=n()) %>% ungroup() %>%  group_by(gene) %>% summarise(locList=paste(loc, collapse = ",")) %>% filter(locList=="intron,utr3")
+```
+
+
+Select these genes and plot with expression:  
+
+```{r}
+DiffIso_utrinton=DiffIso %>% filter(gene %in% DiffIso_sig_geneloc$gene)
+```
+
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID)%>% mutate(CorrectedlogFC=-1*logFC)
+
+```
+
+
+
+```{r}
+DEandAPA=DE %>% inner_join(DiffIso_utrinton,by="gene")
+
+DEandAPAIntron=DEandAPA %>% filter(loc=="intron")
+DEandAPAUTR=DEandAPA %>% filter(loc=="utr3")
+```
+
+
+```{r}
+intronplot=ggplot(DEandAPAIntron,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm") + labs(title="Significant Intronic APA v DE\n141 genes with a significant difference \nin intronic and 3' UTR PAS", x="DE log effect size", y="Differnece in PAS usage") + stat_cor(label.x = -4,col="blue")
+
+
+utrplot=ggplot(DEandAPAUTR,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm") + labs(title="Significant 3' UTR APA v DE\n 141 genes with a significant difference \nin intronic and 3' UTR PAS",x="DE log effect size", y="Differnece in PAS usage") + stat_cor(label.x = -4,col="blue")
+```
+
+```{r}
+plot_grid(intronplot,utrplot)
+```
+
+3' UTR PAS are stronger
+
+
+what about genes with only significant UTR pas:  
+
+```{r}
+DiffIsoUTRgenes=DiffIso %>% filter(SigPAU2=="Yes") %>% group_by(gene,loc) %>% summarise(nsite=n()) %>% ungroup() %>%  group_by(gene) %>% summarise(locList=paste(loc, collapse = ",")) %>% filter(locList=="utr3")
+
+DiffIso_mostused=DiffIso %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+
+DiffIsoUTRDE= DiffIso_mostused %>% filter(gene %in% DiffIsoUTRgenes$gene) %>% inner_join(DE,by="gene")
+
+allonlyutr=ggplot(DiffIsoUTRDE,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm") + labs(title="Top used 3' UTR APA v DE\n 763 genes with only significant differnces in 3'UTR",x="DE log effect size", y="Differnece in PAS usage") + stat_cor(label.x = -4,col="blue")
+allonlyutr
+
+```
+
+Filter sig:  
+
+```{r}
+DiffIsoUTRDE_sig=DiffIsoUTRDE %>% filter(SigPAU2=="Yes")
+
+sigutronly=ggplot(DiffIsoUTRDE_sig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm") + labs(title="Significant Most used 3' UTR APA v DE\n 590 genes",x="DE log effect size", y="Differnece in PAS usage") + stat_cor(label.x = -4,col="blue")
+
+
+sigutronly
+
+```
+
+```{r}
+
+
+plot_grid(intronplot,utrplot,allonlyutr)
+```
+
+
+plot both
+
+```{r}
+plot_grid(allonlyutr,sigutronly)
+```
+
+
+
+This is interesting. This is showing that the relationship is likely due to difference in switching. When you look at genes only with 3' UTR PAS you don't see a relationship. 
+
+I wonder if this gene set has a relationship with translation   
+
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
+
+
+DiffIsoUTRRibo=DiffIso_mostused %>% filter(gene %in% DiffIsoUTRgenes$gene) %>% inner_join(Ribo, by="gene")
+
+
+
+ggplot(DiffIsoUTRRibo, aes(x=HvC.beta,y=deltaPAU)) + geom_point()+ geom_smooth(method="lm") + stat_cor()
+
+DiffIsoUTRRiboSig=DiffIso_mostused %>% filter(gene %in% DiffIsoUTRgenes$gene) %>% inner_join(Ribo, by="gene")  %>% filter(SigPAU2=="Yes")
+
+
+
+ggplot(DiffIsoUTRRiboSig, aes(x=HvC.beta,y=deltaPAU)) + geom_point()+ geom_smooth(method="lm") + stat_cor()
+```
+
+
+
