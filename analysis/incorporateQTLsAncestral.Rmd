@@ -1,0 +1,249 @@
+---
+title: "Identify ancestral allele for QTLs"
+author: "Briana Mittleman"
+date: "5/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I have noticed that the intronic apaQTL relationship with eQTLs are in the opposite direction from the interspecies relationship between delta PAS and expression effect size. 
+```{r}
+library(tidyverse)
+```
+
+
+First step:
+
+-get the human specific and chimp allele for apaQTLs and eQTLs
+
+bcftools annotate
+
+lift human vcf 
+
+Before I get too far. I need to make sure the apaQTL PAS are tested in this study.  
+
+interect the QTL pas with the new ones. Then see if the QTL PAS are in this set.  
+
+
+```{bash,eval=F}
+mkdir ../data/QTLPASoverlap
+```
+
+
+```{r}
+apaQTLPAS=read.table("../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.sort.bed", col.names = c("chr", "start", "end","apaName", "score","strand"))
+
+write.table(apaQTLPAS, "../data/QTLPASoverlap/allPASfromapaQTL.bed", sep="\t", col.names = F, row.names = F, quote = F)
+
+
+CompPAS=read.table("../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed", col.names = c("chr","start", "end", "name", "score", "strand"))
+```
+
+
+```{bash,eval=F}
+bedtools intersect -sorted  -s -wa -wb -a ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed -b ../data/liftover_files/APAPAS_GeneLocAnno.5perc.hg19lifted_extended.sort.bed  > ../data/QTLPASoverlap/OverlappingPASbothprojects.txt
+```
+
+```{r}
+Overlap=read.table("../data/QTLPASoverlap/OverlappingPASbothprojects.txt", col.names = c(colnames(CompPAS),colnames(apaQTLPAS) ))%>% select(name, score,apaName ) %>% separate(apaName,into=c("num", "geneloc"),sep=":") %>% mutate(peak=paste("peak", num,sep="")) %>% separate(geneloc,into=c("gene", "loc"), sep="_")
+
+
+Overlap %>% filter(gene=="TMEM156")
+```
+
+
+PAS with apaQTL  
+
+```{r}
+apaQTL= read.table("../../apaQTL/data/apaQTLs/NuclearQTLs_PeakSNP.txt",stringsAsFactors = F, col.names = c("peak", "snp", "gene"))
+
+
+Overlap_qtl=Overlap %>% inner_join(apaQTL,by=c("peak","gene"))
+Overlap_qtl %>% select(gene) %>% unique() %>% nrow()
+
+Overlap_qtl %>% group_by(loc) %>% summarise(n())
+```
+I will be able to compare 98 intronic and 279 3' UTR sites if the genotype info exists.  
+
+310 QTLs 
+
+do these genes have eQTL info?
+
+Look in the nominal for the expression relationships at these sites: 
+
+```{r}
+overlapgenesnp= Overlap_qtl %>% select(gene, snp) %>% unique()
+
+
+
+eQTL=read.table("../../apaQTL/data/molQTLs/fastqtl_qqnorm_RNAseq_phase2.fixed.nominal.AllNomRes.GeneName.txt", col.names = c("gene", "snp", "dist", "pval", "slope"),stringsAsFactors = F) %>% inner_join(overlapgenesnp, by=c("gene","snp"))
+
+nrow(eQTL)
+```
+
+323 of these relationships have been tested in eQTL:
+
+are any of these significant.
+
+```{r}
+eQTL_sig= eQTL %>% filter(pval <0.05)
+
+nrow(eQTL_sig)
+
+eQTL_sig %>% select(gene) %>% unique() %>% nrow()
+```
+Are any of these intronic: 
+
+
+```{r}
+eQTL_sig_apaloc= eQTL_sig %>% inner_join(Overlap_qtl,by=c('gene', 'snp' )) 
+eQTL_sig_apaloc_intron=eQTL_sig_apaloc %>% filter(loc=="intron")
+
+nrow(eQTL_sig_apaloc_intron)
+
+eQTL_sig_apaloc_intron
+```
+12 gene snp pairs we could even test... 
+
+
+lift vcf
+
+
+```{bash,eval=F}
+
+
+
+java -jar $PICARD CreateSequenceDictionary REFERENCE=/project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa OUTPUT=/project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.dict
+```
+
+
+Try to lift the VCF file to chimp.  
+
+
+DO this interactivly with the loaded module. 
+```{bash,eval=F}
+#!/bin/bash
+
+
+#SBATCH --job-name=liftVCF
+#SBATCH --output=liftVCF.out
+#SBATCH --error=lliftVCF.err
+#SBATCH --time=10:00:00
+#SBATCH --partition=gilad
+#SBATCH --nodelist=midway-l16b-31 
+#SBATCH --mem=550G
+#SBATCH --mail-type=END
+
+module load picard 
+
+#test chrom 4
+java -jar $PICARD LiftoverVcf I=/project2/gilad/briana/li_genotypes/genotypesYRI.gen.proc.5MAF.chr4_test.vcf O=../data/QTLPASoverlap/Ch4_geno2pantro.vcf   CHAIN=../data/chainFiles/hg19ToPanTro6.over.chain.gz  REJECT=../data/QTLPASoverlap/Ch4_rejected_variants.vcf  R=/project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa
+     
+```
+
+ VCF version, for input source: file:///project2/gilad/briana/li_genotypes/genotypesYRI.gen.proc.5MAF.chr4_test.vcf
+
+had to add ##fileformat=VCFv4.2 to the vcf head  
+
+To get help, see http://broadinstitute.github.io/picard/index.html#GettingHelp
+Exception in thread "main" java.lang.IllegalStateException: Key INFO found in VariantContext field INFO at 4:11961 but this key isn't defined in the VCFHeader.  We require all VCFs to have complete VCF headers by default.
+
+
+
+##known examples:
+
+I know the chimp allele for the TMEM156- rs2711981 QTL is T. 
+
+look at this gene using example plot boxplot:  
+
+
+human have increased usage of the PAS. this is opposite of the chimp allele in the APA. 
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) 
+```
+
+```{r}
+DiffIso %>% filter(PAS=="human255282") %>% select(PAS, Human, Chimp,deltaPAU)
+```
+
+apaQTL info:
+
+pid nvar shape1 shape2 dummy sid dist npval slope ppval bpval bh
+4:39029993:39030080:TMEM156_intron_+_peak96746 157 0.887098 26.4876 44.6684 rs2711981 9264 3.17459e-09 1.49328 0.000999001 1.22893e-06 0.000368808094594595
+
+
+```{r}
+permRes=read.table("/project2/gilad/briana/apaQTL/data/apaQTLPermuted_4pc/APApeak_Phenotype_GeneLocAnno.Nuclear_permResBH.txt", header = T) 
+
+```
+
+1.560980 
+
+
+ ../data/phenotype_5perc/APApeak_Phenotype_GeneLocAnno.Nuclear.5perc.fc.gz.qqnorm_chr$i.gz 
+ 
+  ../data/phenotype_5perc/APApeak_Phenotype_GeneLocAnno.Nuclear.5perc.fc.gz.qqnorm_chr4.gz 
+  
+How many of the intronic apaQTLs are sig in this work  
+
+```{r}
+Overlap_qtl_int=Overlap_qtl %>% filter(loc=="intron") %>% rename("PAS"=name)
+DiffIsoSig= DiffIso %>% filter(SigPAU2=="Yes")
+
+DiffIsoSigOverlapint= Overlap_qtl_int %>% inner_join(DiffIsoSig, by=c("PAS"))
+
+DiffIsoSigOverlapint
+```
+
+checking BICD1 example:  
+
+rs1673864 - chimp is a T allele.  
+
+This is in the correct direction.   
+
+
+DRAM1 
+rs2138257 chimp allele is T  
+
+
+KPNB1_intron  
+
+rs8071832 chimp allele is C  
+
+
+YES1
+
+rs78139339- cant find snp.  
+
+
+ZNF146 rs11882933
+
+chimp is C allele (wrong dir)  
+
+rs9974603 IFNGR2  
+
+chimp is C allele (correct dir.)
+
+
+AFF1  - no comp apa plot  
+
+rs7677039
+
+LY86-AS1
+
+rs115728940- chimp is an A 
+wrong dir  
+
+CDK6- no QTL plot  
+
+
+ABL1-no qtl plot 
+
+
+Made figures in illustrator on comp.  
