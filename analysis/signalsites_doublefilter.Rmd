@@ -436,7 +436,8 @@ Get proportion plot.
 ```{r}
 MetaPASwSS_Sm = MetaPASwSS %>%  dplyr::select(PAS,ChimpPAS, HumanPAS) %>% gather("Species", "SS", -PAS) %>% group_by(Species,SS) %>% summarise(nSS=n()) %>% mutate(propSS=nSS/nrow(MetaPASwSS))
 
-ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="")
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Dark2", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="")+ theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),panel.background = element_blank())
 ```
 
 By location SS:  
@@ -507,9 +508,13 @@ Write out this extra info:
 write.table(MetaPASwSS_top, "../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt", col.names = T, quote = F, row.names = F)
 ```
 
+```{r}
+MetaPASwSS_SmnoNone= MetaPASwSS_Sm %>% filter(SS!="None")
+```
 
 
 ```{r,ss,include=FALSE, dev="pdf",crop=FALSE}
-ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="") + theme_classic()
+ggplot(MetaPASwSS_SmnoNone, aes(y=propSS,by=Species,fill=Species,x=reorder(SS, -propSS))) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90),panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + scale_fill_brewer(palette = "Dark2", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="") 
 ```
 
