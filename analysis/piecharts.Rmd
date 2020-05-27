@@ -48,7 +48,7 @@ dAPAPASGrouped= dAPAwithNottested %>%  group_by(SigPAU2) %>% summarise(n=n()) %>
 
 
 
-pasplot=ggplot(dAPAPASGrouped,aes(by=SigPAU2, y=prop, x="", fill=SigPAU2)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA PAS") +labs(title="Differential APA PAS 5% FDR")
+pasplot=ggplot(dAPAPASGrouped,aes(by=SigPAU2, y=prop, x="", fill=SigPAU2)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA PAS") +labs(title="Site Level differences 5% FDR")
 
 pasplot
 ```
@@ -62,7 +62,7 @@ NotTestedGenes=Meta_genes %>% anti_join(dAPAPAS_genes, by="gene") %>% mutate(dAP
 
 
 dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) %>% bind_rows(NotTestedGenes)%>% group_by(dAPA) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
-genesplot=ggplot(dAPATestedGenes,aes(by=dAPA, y=prop, x="", fill=dAPA)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA Genes") +labs(title="Differential APA genes 5% FDR")
+genesplot=ggplot(dAPATestedGenes,aes(by=dAPA, y=prop, x="", fill=dAPA)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dAPA Genes") +labs(title="Genes with site level differences 5% FDR")
 genesplot
 ```
 
@@ -75,7 +75,7 @@ Nottested= Meta_genes %>% anti_join(dICdata, by="gene") %>% mutate(sIC10="notTes
 
 dICdata_wnot= dICdata %>% bind_rows(Nottested) %>% group_by(sIC10) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
 
-dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x="", fill=sIC10)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential information content\n 10% FDR")
+dICplot=ggplot(dICdata_wnot,aes(by=sIC10, y=prop, x="", fill=sIC10)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential Isoform Diversity \n 10% FDR")
 dICplot
 ```
 ```{r}
@@ -85,7 +85,7 @@ Nottested5= Meta_genes %>% anti_join(dICdata5, by="gene") %>% mutate(sIC="notTes
 
 dICdata5_wnot= dICdata5 %>% bind_rows(Nottested5) %>% group_by(sIC) %>% summarise(n=n()) %>% mutate(genes=sum(n), prop=n/genes)
 
-dIC5plot=ggplot(dICdata5_wnot,aes(by=sIC, y=prop, x="", fill=sIC)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential information content\n 5% FDR")
+dIC5plot=ggplot(dICdata5_wnot,aes(by=sIC, y=prop, x="", fill=sIC)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=useCOl, name="dIC Genes") +labs(title="Differential Isoform Diversity 5% FDR")
 dIC5plot
 ```
 
@@ -116,6 +116,20 @@ plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 ```
 
 ```{r}
+
+pdf("../output/piecharts.pdf", height=8, width=11)
+plot_grid(pasplot, genesplot, dIC5plot, Domplot)
+dev.off()
+```
+
+
+```{r piecharts, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
+plot_grid(pasplot, genesplot, dIC5plot, Domplot)
+```
+
+
+```{r}
+
 plot_grid(pasplot, genesplot)
 ```
 

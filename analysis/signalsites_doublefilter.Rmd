@@ -514,7 +514,6 @@ MetaPASwSS_SmnoNone= MetaPASwSS_Sm %>% filter(SS!="None")
 
 
 ```{r,ss,include=FALSE, dev="pdf",crop=FALSE}
-ggplot(MetaPASwSS_SmnoNone, aes(y=propSS,by=Species,fill=Species,x=reorder(SS, -propSS))) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90),panel.border = element_blank(), panel.grid.major = element_blank(),
-panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + scale_fill_brewer(palette = "Dark2", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="") 
+ggplot(MetaPASwSS_SmnoNone, aes(y=propSS,by=Species,fill=Species,x=reorder(SS, -propSS))) + geom_bar(stat="identity", position = "dodge") + theme(axis.text.x = element_text(angle = 90),panel.border = element_blank(), panel.grid.major = element_blank(),panel.background = element_blank(),panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + scale_fill_brewer(palette = "Dark2", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="") 
 ```
 
