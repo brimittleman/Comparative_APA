@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-04
+<strong>Last updated:</strong> 2020-05-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9dacbd4f17c1f957e0d2c10dce84e319b0fcfe31targetblank9dacbd4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9dacbd4f17c1f957e0d2c10dce84e319b0fcfe31" target="_blank">9dacbd4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree157b557eabbb225d9d30c8ca7155d66f1b219c70targetblank157b557a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/157b557eabbb225d9d30c8ca7155d66f1b219c70" target="_blank">157b557</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9dacbd4f17c1f957e0d2c10dce84e319b0fcfe31targetblank9dacbd4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree157b557eabbb225d9d30c8ca7155d66f1b219c70targetblank157b557a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,6 +461,8 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
+    Untracked:  analysis/AllLoc_effectSizeCor.Rmd
+    Untracked:  analysis/Conservation_bydAPAset.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
@@ -682,6 +684,12 @@ Untracked files:
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -795,6 +803,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -803,6 +812,12 @@ Untracked files:
     Untracked:  code/RNATranscriptDTplot.err
     Untracked:  code/RNATranscriptDTplot.out
     Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -901,6 +916,7 @@ Untracked files:
     Untracked:  code/convertNumeric.py
     Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -958,10 +974,15 @@ Untracked files:
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftVCF.out
+    Untracked:  code/liftVCF.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/lliftVCF.err
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
     Untracked:  code/makeNuclearDapaplots_DF.sh
@@ -972,6 +993,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
     Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
@@ -1177,6 +1199,7 @@ Untracked files:
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffDomandDE_example/
@@ -1187,6 +1210,7 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
@@ -1215,7 +1239,9 @@ Untracked files:
     Untracked:  data/PAS/
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
+    Untracked:  data/PTM/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1223,6 +1249,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
     Untracked:  data/Pol2Chip/
+    Untracked:  data/QTLPASoverlap/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1246,6 +1273,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
     Untracked:  data/bioGRID/
@@ -1272,20 +1300,30 @@ Untracked files:
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
+    Untracked:  data/utrDB/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/DEandTEeffectsize
+    Untracked:  output/DEeffectsize
+    Untracked:  output/TEeffectsize
+    Untracked:  output/Ubiqplot
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
+    Untracked:  output/exandte
+    Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DiffTop2SecondDom.Rmd
+    Modified:   analysis/DirSelectionKhan.Rmd
+    Modified:   analysis/EffectSizeRelationshipFixDir.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
@@ -1295,10 +1333,15 @@ Unstaged changes:
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/incorporateQTLsAncestral.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
+    Modified:   analysis/miRNAanalysis.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
@@ -1339,6 +1382,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/157b557eabbb225d9d30c8ca7155d66f1b219c70/analysis/signalsites_doublefilter.Rmd" target="_blank">157b557</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+<td>
+fix plot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/91ddb003f295b94a91588da4cc1b27930c3d1e36/docs/signalsites_doublefilter.html" target="_blank">91ddb00</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1679,12 +1756,12 @@ add ss and PAS num DF
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ tidyr::extract()   masks magrittr::extract()
 ✖ dplyr::filter()    masks stats::filter()
 ✖ dplyr::lag()       masks stats::lag()
@@ -3411,7 +3488,8 @@ brimittleman
 <p>Get proportion plot.</p>
 <pre class="r"><code>MetaPASwSS_Sm = MetaPASwSS %&gt;%  dplyr::select(PAS,ChimpPAS, HumanPAS) %&gt;% gather(&quot;Species&quot;, &quot;SS&quot;, -PAS) %&gt;% group_by(Species,SS) %&gt;% summarise(nSS=n()) %&gt;% mutate(propSS=nSS/nrow(MetaPASwSS))
 
-ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Set1&quot;, label=c(&quot;Chimp&quot;, &quot;Human&quot;))  + labs(y=&quot;Proportion of PAS&quot;,title=&quot;Proportion of PAS with a signal site&quot;, x=&quot;&quot;)</code></pre>
+ggplot(MetaPASwSS_Sm, aes(x=SS,y=propSS,by=Species,fill=Species)) + geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = &quot;Dark2&quot;, label=c(&quot;Chimp&quot;, &quot;Human&quot;))  + labs(y=&quot;Proportion of PAS&quot;,title=&quot;Proportion of PAS with a signal site&quot;, x=&quot;&quot;)+ theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = &quot;black&quot;),panel.background = element_blank())</code></pre>
 <p><img src="figure/signalsites_doublefilter.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-37-1">
@@ -3879,6 +3957,7 @@ brimittleman
 </div>
 <p>Write out this extra info:</p>
 <pre class="r"><code>write.table(MetaPASwSS_top, &quot;../data/PAS_doubleFilter/PAS_10perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSSTop2.txt&quot;, col.names = T, quote = F, row.names = F)</code></pre>
+<pre class="r"><code>MetaPASwSS_SmnoNone= MetaPASwSS_Sm %&gt;% filter(SS!=&quot;None&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
