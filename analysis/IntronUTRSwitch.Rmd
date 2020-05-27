@@ -113,6 +113,33 @@ plot_grid(allonlyutr,sigutronly)
 
 This is interesting. This is showing that the relationship is likely due to difference in switching. When you look at genes only with 3' UTR PAS you don't see a relationship. 
 
+
+
+What about sites with only significance PAS in introns: 
+
+```{r}
+DiffIso_sig_genelocItron= DiffIso_sig %>% group_by(gene,loc) %>% summarise(nsite=n()) %>% ungroup() %>%  group_by(gene) %>% summarise(locList=paste(loc, collapse = ",")) %>% filter(locList=="intron")
+
+nrow(DiffIso_sig_genelocItron)
+
+DiffIso_intonDE=DiffIso_mostused %>% filter(gene %in% DiffIso_sig_genelocItron$gene) %>% inner_join(DE,by="gene")
+
+DiffIso_intonDEsigpas=DiffIso_sig %>% filter(gene %in% DiffIso_sig_genelocItron$gene) %>% inner_join(DE,by="gene")
+
+Intrononly=ggplot(DiffIso_intonDE,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm")  + stat_cor(label.x = -4,col="blue")+  labs(title="Top used APA v DE\n 222 genes with only significant differences in introns",x="DE log effect size", y="Differnece in PAS usage") 
+
+Intrononly
+ggplot(DiffIso_intonDEsigpas,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method="lm")  + stat_cor(label.x = -4,col="blue")
+
+```
+
+plot 4 together:  
+
+```{r}
+plot_grid(intronplot,utrplot,allonlyutr,Intrononly)
+```
+
+
 I wonder if this gene set has a relationship with translation   
 
 
@@ -132,6 +159,9 @@ DiffIsoUTRRiboSig=DiffIso_mostused %>% filter(gene %in% DiffIsoUTRgenes$gene) %>
 
 ggplot(DiffIsoUTRRiboSig, aes(x=HvC.beta,y=deltaPAU)) + geom_point()+ geom_smooth(method="lm") + stat_cor()
 ```
+
+
+
 
 
 
