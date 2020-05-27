@@ -430,6 +430,16 @@ simpsonind=ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density
 simpsonind
 ```
 
+
+```{r}
+
+pdf("../output/simpson.pdf", height=6, width=8)
+simpsonind
+dev.off()
+
+```
+
+
 ```{r simpson, include=FALSE, dev="pdf", fig.height=6, fig.width=6, crop=FALSE}
 simpsonind
 ```
