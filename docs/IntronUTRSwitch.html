@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-23
+<strong>Last updated:</strong> 2020-05-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree34708c2c6030614216ec0cce5a45031fa06fd8c8targetblank34708c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/34708c2c6030614216ec0cce5a45031fa06fd8c8" target="_blank">34708c2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed0097b3b82511c61509c9a7d5965152f0f695619targetblankd0097b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d0097b3b82511c61509c9a7d5965152f0f695619" target="_blank">d0097b3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree34708c2c6030614216ec0cce5a45031fa06fd8c8targetblank34708c2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed0097b3b82511c61509c9a7d5965152f0f695619targetblankd0097b3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -472,7 +472,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/incorporateQTLsAncestral.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -975,8 +974,11 @@ Untracked files:
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftVCF.out
+    Untracked:  code/liftVCF.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/lliftVCF.err
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeDIC.err
@@ -1334,6 +1336,7 @@ Unstaged changes:
     Modified:   analysis/dInforContent.Rmd
     Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/incorporateQTLsAncestral.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/miRNAanalysis.Rmd
@@ -1385,6 +1388,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d0097b3b82511c61509c9a7d5965152f0f695619/analysis/IntronUTRSwitch.Rmd" target="_blank">d0097b3</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+<td>
+add intron only
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/IntronUTRSwitch.html" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/34708c2c6030614216ec0cce5a45031fa06fd8c8/analysis/IntronUTRSwitch.Rmd" target="_blank">34708c2</a>
 </td>
 <td>
@@ -1409,12 +1446,12 @@ check switch genes
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1459,6 +1496,43 @@ DEandAPAUTR=DEandAPA %&gt;% filter(loc==&quot;utr3&quot;)</code></pre>
 utrplot=ggplot(DEandAPAUTR,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;) + labs(title=&quot;Significant 3&#39; UTR APA v DE\n 141 genes with a significant difference \nin intronic and 3&#39; UTR PAS&quot;,x=&quot;DE log effect size&quot;, y=&quot;Differnece in PAS usage&quot;) + stat_cor(label.x = -4,col=&quot;blue&quot;)</code></pre>
 <pre class="r"><code>plot_grid(intronplot,utrplot)</code></pre>
 <p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-7-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>3’ UTR PAS are stronger</p>
 <p>what about genes with only significant UTR pas:</p>
 <pre class="r"><code>DiffIsoUTRgenes=DiffIso %&gt;% filter(SigPAU2==&quot;Yes&quot;) %&gt;% group_by(gene,loc) %&gt;% summarise(nsite=n()) %&gt;% ungroup() %&gt;%  group_by(gene) %&gt;% summarise(locList=paste(loc, collapse = &quot;,&quot;)) %&gt;% filter(locList==&quot;utr3&quot;)
@@ -1470,6 +1544,43 @@ DiffIsoUTRDE= DiffIso_mostused %&gt;% filter(gene %in% DiffIsoUTRgenes$gene) %&g
 allonlyutr=ggplot(DiffIsoUTRDE,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;) + labs(title=&quot;Top used 3&#39; UTR APA v DE\n 763 genes with only significant differnces in 3&#39;UTR&quot;,x=&quot;DE log effect size&quot;, y=&quot;Differnece in PAS usage&quot;) + stat_cor(label.x = -4,col=&quot;blue&quot;)
 allonlyutr</code></pre>
 <p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-8-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Filter sig:</p>
 <pre class="r"><code>DiffIsoUTRDE_sig=DiffIsoUTRDE %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
@@ -1478,12 +1589,215 @@ sigutronly=ggplot(DiffIsoUTRDE_sig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_poi
 
 sigutronly</code></pre>
 <p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-9-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(intronplot,utrplot,allonlyutr)</code></pre>
 <p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-10-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>plot both</p>
 <pre class="r"><code>plot_grid(allonlyutr,sigutronly)</code></pre>
 <p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-11-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This is interesting. This is showing that the relationship is likely due to difference in switching. When you look at genes only with 3’ UTR PAS you don’t see a relationship.</p>
+<p>What about sites with only significance PAS in introns:</p>
+<pre class="r"><code>DiffIso_sig_genelocItron= DiffIso_sig %&gt;% group_by(gene,loc) %&gt;% summarise(nsite=n()) %&gt;% ungroup() %&gt;%  group_by(gene) %&gt;% summarise(locList=paste(loc, collapse = &quot;,&quot;)) %&gt;% filter(locList==&quot;intron&quot;)
+
+nrow(DiffIso_sig_genelocItron)</code></pre>
+<pre><code>[1] 299</code></pre>
+<pre class="r"><code>DiffIso_intonDE=DiffIso_mostused %&gt;% filter(gene %in% DiffIso_sig_genelocItron$gene) %&gt;% inner_join(DE,by=&quot;gene&quot;)
+
+DiffIso_intonDEsigpas=DiffIso_sig %&gt;% filter(gene %in% DiffIso_sig_genelocItron$gene) %&gt;% inner_join(DE,by=&quot;gene&quot;)
+
+Intrononly=ggplot(DiffIso_intonDE,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;)  + stat_cor(label.x = -4,col=&quot;blue&quot;)+  labs(title=&quot;Top used APA v DE\n 222 genes with only significant differences in introns&quot;,x=&quot;DE log effect size&quot;, y=&quot;Differnece in PAS usage&quot;) 
+
+Intrononly</code></pre>
+<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-1.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>ggplot(DiffIso_intonDEsigpas,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth( method=&quot;lm&quot;)  + stat_cor(label.x = -4,col=&quot;blue&quot;)</code></pre>
+<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-2">
+Past versions of unnamed-chunk-12-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/957e64082ddfb58d084eebed950b2cdd7d84d095/docs/figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-2.png" target="_blank">957e640</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>plot 4 together:</p>
+<pre class="r"><code>plot_grid(intronplot,utrplot,allonlyutr,Intrononly)</code></pre>
+<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I wonder if this gene set has a relationship with translation</p>
 <pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name)
 
@@ -1493,13 +1807,13 @@ DiffIsoUTRRibo=DiffIso_mostused %&gt;% filter(gene %in% DiffIsoUTRgenes$gene) %&
 
 
 ggplot(DiffIsoUTRRibo, aes(x=HvC.beta,y=deltaPAU)) + geom_point()+ geom_smooth(method=&quot;lm&quot;) + stat_cor()</code></pre>
-<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>DiffIsoUTRRiboSig=DiffIso_mostused %&gt;% filter(gene %in% DiffIsoUTRgenes$gene) %&gt;% inner_join(Ribo, by=&quot;gene&quot;)  %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 
 
 
 ggplot(DiffIsoUTRRiboSig, aes(x=HvC.beta,y=deltaPAU)) + geom_point()+ geom_smooth(method=&quot;lm&quot;) + stat_cor()</code></pre>
-<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/IntronUTRSwitch.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
