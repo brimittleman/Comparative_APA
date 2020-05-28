@@ -1,0 +1,173 @@
+---
+title: "APA and expression effect size relationship in total"
+author: "Briana Mittleman"
+date: "5/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will call site level dAPA in the total fraction the compare the effect size relationships with the de data.  
+
+I ran the original total human v chimp data in https://brimittleman.github.io/Comparative_APA/Total_HvC.html
+
+```{r}
+
+library(qvalue)
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Total/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
+
+DiffIsoTop=DiffIso %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+
+DiffIsoTop %>% group_by(loc) %>% summarise(n())
+```
+
+
+Expression:
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(CorrectedlogFC=-1*logFC)
+
+```
+
+Translation: 
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name)
+
+```
+
+```{r}
+DeandAPA= DiffIsoTop %>% inner_join(DE, by="gene")
+
+nrow(DeandAPA)
+DeandAPA %>% group_by(loc) %>% summarise(n())
+```
+
+```{r}
+DE_all=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Total APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_all
+```
+
+```{r}
+DE_split=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Total APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+
+DE_split
+```
+
+```{r}
+DeandAPASig= DeandAPA %>% filter(SigPAU2=="Yes", adj.P.Val<=0.05)
+
+nrow(DeandAPASig)
+
+DeandAPASig %>% group_by(loc) %>% summarise(n())
+```
+
+```{r}
+DE_sig_all=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="TotalSignificant differences in Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_all
+```
+
+```{r}
+DE_sig_split=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_split
+```
+
+
+```{r}
+plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
+```
+
+```{r}
+RiboandAPA= DiffIsoTop %>% inner_join(Ribo, by="gene")
+
+nrow(RiboandAPA)
+```
+
+```{r}
+TE_all=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Total APA v TE", x="TE effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+TE_all
+```
+
+```{r}
+TE_split=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Total APA v TE", x="TE effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,1),label.y = -1) +theme_classic(base_size = 12)
+
+TE_split
+```
+
+
+```{r}
+RiboandAPASig= RiboandAPA %>% filter(SigPAU2=="Yes", HvC.FDR<=0.05)
+
+nrow(RiboandAPASig)
+```
+
+```{r}
+TE_sig_all=ggplot(RiboandAPASig,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in Total APA and translation", x="TE effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+TE_sig_all
+```
+
+```{r}
+TE_sig_split=ggplot(RiboandAPASig,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in Total APA and translation", x="TE effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,1),label.y = -1) +theme_classic(base_size = 12)
+
+TE_sig_split
+```
+```{r}
+plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
+```
+
+
+```{r,include=FALSE, eval=F}
+pdf("../output/Total_TEeffectsize.pdf", height=8, width=10)
+plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
+dev.off()
+```
+
+
+```{r,include=FALSE, eval=F}
+pdf("../output/Total_DEeffectsize.pdf", height=8, width=10)
+plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
+dev.off()
+```
+
+
+Make the DE plot without the top used. Count all  
+
+```{r}
+DeandAPAAll= DiffIso %>% inner_join(DE, by="gene")
+
+DeandAPAAll %>% group_by(loc) %>% summarise(n())
+
+DeandAPAAllsig= DeandAPAAll%>% filter(SigPAU2=="Yes", adj.P.Val<=0.05)
+
+denotsubsig=ggplot(DeandAPAAllsig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in Total APA and expression \n(not just top used)", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+
+
+denotsub=ggplot(DeandAPAAll,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title=" Total APA and expression\n (not just top used)", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+```
+
+```{r}
+plot_grid(denotsub,denotsubsig)
+```
+
+```{r,include=FALSE, eval=F}
+pdf("../output/Total_DEeffectsizeNotJusttop.pdf", height=6, width=12)
+plot_grid(denotsub,denotsubsig)
+dev.off()
+```

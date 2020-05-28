@@ -205,6 +205,12 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Which PAS within Ortho UTRs and seq between for these](WhichPASinOrtho.html)
 
 
+##Verify effect sizes in total  
+
+* [Total Human vs. Chimp Analysis](Total_HvC.html)  
+
+* [Total effect size relationships](Total_dapavDE.html)
+
 ##Information content  
 
 * [Calculate Information content measures](infoContent.html)  
