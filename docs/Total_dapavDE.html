@@ -11,9 +11,8 @@
 
 <meta name="author" content="Briana Mittleman" />
 
-<meta name="date" content="2019-12-19" />
 
-<title>Total fraction diff APA H v C</title>
+<title>APA and expression effect size relationship in total</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -317,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Total fraction diff APA H v C</h1>
+<h1 class="title toc-ignore">APA and expression effect size relationship in total</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>12/19/2019</em></h4>
+<h4 class="date"><em>5/28/2020</em></h4>
 
 </div>
 
@@ -1401,7 +1400,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1cc5ab7e801272f5eb22f0b35ece83afd5034cc2/analysis/Total_HvC.Rmd" target="_blank">1cc5ab7</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/1cc5ab7e801272f5eb22f0b35ece83afd5034cc2/analysis/Total_dapavDE.Rmd" target="_blank">1cc5ab7</a>
 </td>
 <td>
 brimittleman
@@ -1413,142 +1412,6 @@ brimittleman
 add total diff
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/71ce188bf5eab1f874e3ff6f0919b03dd0d58c25/docs/Total_HvC.html" target="_blank">71ce188</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3aee984f7420f857de61a077c365259510226d2c/analysis/Total_HvC.Rmd" target="_blank">3aee984</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-10
-</td>
-<td>
-delta pau and sig
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/417783c24259ffe80b5906725bce6ee4a55a12cb/docs/Total_HvC.html" target="_blank">417783c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/521dc81b697b863aced8fd0e9c3d687d3870782d/analysis/Total_HvC.Rmd" target="_blank">521dc81</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-01-10
-</td>
-<td>
-update dPAS &gt; 0.2
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/fa86df3e536947d072bc199f941f6476827144a0/docs/Total_HvC.html" target="_blank">fa86df3</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/771d239b4ffec7233b88bfe3efdbef713ea23174/analysis/Total_HvC.Rmd" target="_blank">771d239</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-30
-</td>
-<td>
-add write out
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/26447479c3188b6643bf89ec83ac1c4042b4369b/docs/Total_HvC.html" target="_blank">2644747</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/4c8973d5a093a6450fa78c96b3fc524bb3ca971a/analysis/Total_HvC.Rmd" target="_blank">4c8973d</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-<td>
-add total human vs chimp
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1556,7 +1419,9 @@ add total human vs chimp
 </div>
 </div>
 </div>
-<pre class="r"><code>library(reshape2)
+<p>In this analysis I will call site level dAPA in the total fraction the compare the effect size relationships with the de data.</p>
+<p>I ran the original total human v chimp data in <a href="https://brimittleman.github.io/Comparative_APA/Total_HvC.html" class="uri">https://brimittleman.github.io/Comparative_APA/Total_HvC.html</a></p>
+<pre class="r"><code>library(qvalue)
 library(tidyverse)</code></pre>
 <pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
@@ -1566,182 +1431,123 @@ library(tidyverse)</code></pre>
 <pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<p>Compare nuclear fraction PAS between human and chimp. I need to merge the 5% phenotypes from the human and chimp. I need a fc file with the human and chimp total samples. I will make a group file with the identifier being human or chimp. I am using the same double filter that I used for the nuclear for consistency.</p>
-<p>../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc ../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc</p>
-<pre class="bash"><code>mkdir ../data/TotalHvC</code></pre>
-<pre class="r"><code>PAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% mutate(chrom=paste(chr,start,end,gene, sep=&quot;:&quot;)) %&gt;% select(-Chimp, -Human) 
+<pre class="r"><code>library(ggpubr)</code></pre>
+<pre><code>Loading required package: magrittr</code></pre>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    extract</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
+<pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)  %&gt;% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table(&quot;../data/DiffIso_Total/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;)) %&gt;% filter(loc %in% c(&quot;intron&quot;,&quot;utr3&quot;))
+
+DiffIsoTop=DiffIso %&gt;% mutate(AvgUsageBoth=(Human+Chimp)/2) %&gt;% group_by(gene) %&gt;% arrange(p.adjust,desc(AvgUsageBoth)) %&gt;% slice(1) %&gt;% ungroup()
+
+DiffIsoTop %&gt;% group_by(loc) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  loc    `n()`
+  &lt;chr&gt;  &lt;int&gt;
+1 intron   751
+2 utr3    7310</code></pre>
+<p>Expression:</p>
+<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,stringsAsFactors = F,header = F, col.names = c(&quot;Gene_stable_ID&quot; ,&quot;logFC&quot; ,&quot;AveExpr&quot; , &quot;t&quot; ,  &quot;P.Value&quot; ,  &quot;adj.P.Val&quot;, &quot;B&quot;  )) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::rename(&#39;gene&#39;=Gene.name) %&gt;% dplyr::select(-Gene_stable_ID) %&gt;% mutate(CorrectedlogFC=-1*logFC)</code></pre>
+<p>Translation:</p>
+<pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name)</code></pre>
+<pre class="r"><code>DeandAPA= DiffIsoTop %&gt;% inner_join(DE, by=&quot;gene&quot;)
+
+nrow(DeandAPA)</code></pre>
+<pre><code>[1] 7366</code></pre>
+<pre class="r"><code>DeandAPA %&gt;% group_by(loc) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  loc    `n()`
+  &lt;chr&gt;  &lt;int&gt;
+1 intron   413
+2 utr3    6953</code></pre>
+<pre class="r"><code>DE_all=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Total APA v DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_all</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DE_split=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Total APA v DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+
+DE_split</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DeandAPASig= DeandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;, adj.P.Val&lt;=0.05)
+
+nrow(DeandAPASig)</code></pre>
+<pre><code>[1] 352</code></pre>
+<pre class="r"><code>DeandAPASig %&gt;% group_by(loc) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  loc    `n()`
+  &lt;chr&gt;  &lt;int&gt;
+1 intron    24
+2 utr3     328</code></pre>
+<pre class="r"><code>DE_sig_all=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;TotalSignificant differences in Total APA and expression&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_all</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DE_sig_split=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in Total APA and expression&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_split</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>RiboandAPA= DiffIsoTop %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
+
+nrow(RiboandAPA)</code></pre>
+<pre><code>[1] 6389</code></pre>
+<pre class="r"><code>TE_all=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Total APA v TE&quot;, x=&quot;TE effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+TE_all</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>TE_split=ggplot(RiboandAPA,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Total APA v TE&quot;, x=&quot;TE effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,1),label.y = -1) +theme_classic(base_size = 12)
+
+TE_split</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>RiboandAPASig= RiboandAPA %&gt;% filter(SigPAU2==&quot;Yes&quot;, HvC.FDR&lt;=0.05)
+
+nrow(RiboandAPASig)</code></pre>
+<pre><code>[1] 163</code></pre>
+<pre class="r"><code>TE_sig_all=ggplot(RiboandAPASig,aes(y=deltaPAU, x=HvC.beta)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant differences in Total APA and translation&quot;, x=&quot;TE effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+TE_sig_all</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>TE_sig_split=ggplot(RiboandAPASig,aes(y=deltaPAU, x=HvC.beta, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in Total APA and translation&quot;, x=&quot;TE effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,1),label.y = -1) +theme_classic(base_size = 12)
+
+TE_sig_split</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Make the DE plot without the top used. Count all</p>
+<pre class="r"><code>DeandAPAAll= DiffIso %&gt;% inner_join(DE, by=&quot;gene&quot;)
+
+DeandAPAAll %&gt;% group_by(loc) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  loc    `n()`
+  &lt;chr&gt;  &lt;int&gt;
+1 intron 11217
+2 utr3   15661</code></pre>
+<pre class="r"><code>DeandAPAAllsig= DeandAPAAll%&gt;% filter(SigPAU2==&quot;Yes&quot;, adj.P.Val&lt;=0.05)
+
+denotsubsig=ggplot(DeandAPAAllsig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in Total APA and expression \n(not just top used)&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
 
 
-human=read.table(&quot;../Human/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Human_fixed4LC.fc&quot;, stringsAsFactors = F, header = T) %&gt;% rownames_to_column(var=&quot;chrom&quot;)%&gt;% filter(chrom %in% PAS$chrom)
-
-chimp=read.table(&quot;../Chimp/data/CleanLiftedPeaks4LC/ALLPAS_postLift_LocParsed_Chimp_fixed4LC.fc&quot;, stringsAsFactors = F, header = T)%&gt;% rownames_to_column(var=&quot;chrom&quot;)%&gt;% filter(chrom %in% PAS$chrom)</code></pre>
-<pre class="r"><code>Allsamps=human %&gt;% full_join(chimp,by=&quot;chrom&quot;) 
-
-AllTotal=Allsamps %&gt;% dplyr::select(chrom,contains(&quot;_T&quot;)) %&gt;% column_to_rownames(var=&quot;chrom&quot;)
-
-write.table(AllTotal, &quot;../data/TotalHvC/ALLPAS_postLift_LocParsed_HvC_Total_fixed4LC.fc&quot;,row.names = T, col.names = T, quote = F)</code></pre>
-<p>I will make the id file here.</p>
-<pre class="r"><code>Inds=colnames(AllTotal) 
-Species=c(rep(&quot;Human&quot;,5), rep(&quot;Chimp&quot;, 6))
-
-idFileDF=as.data.frame(cbind(Inds,Species))
-
-write.table(idFileDF, &quot;../data/TotalHvC/sample_goups.txt&quot;,row.names = F, col.names = F, quote = F)</code></pre>
-<p>Split by chromosome.</p>
-<pre class="bash"><code>mkdir ../data/DiffIso_Total/
-
-python subset_diffisopheno_Total_HvC.py 1
-python subset_diffisopheno_Total_HvC.py 2
-python subset_diffisopheno_Total_HvC.py 3
-python subset_diffisopheno_Total_HvC.py 4
-python subset_diffisopheno_Total_HvC.py 5
-python subset_diffisopheno_Total_HvC.py 6
-python subset_diffisopheno_Total_HvC.py 7
-python subset_diffisopheno_Total_HvC.py 8
-python subset_diffisopheno_Total_HvC.py 9
-python subset_diffisopheno_Total_HvC.py 10
-python subset_diffisopheno_Total_HvC.py 11
-python subset_diffisopheno_Total_HvC.py 12
-python subset_diffisopheno_Total_HvC.py 13
-python subset_diffisopheno_Total_HvC.py 14
-python subset_diffisopheno_Total_HvC.py 16
-python subset_diffisopheno_Total_HvC.py 18
-python subset_diffisopheno_Total_HvC.py 19
-python subset_diffisopheno_Total_HvC.py 20
-python subset_diffisopheno_Total_HvC.py 21
-python subset_diffisopheno_Total_HvC.py 22</code></pre>
-<p>Run leafcutter:</p>
-<pre class="bash"><code>
-sbatch runTotalDiffIso.sh</code></pre>
-<p>Concatinate results:</p>
-<pre class="bash"><code>awk &#39;{if(NR&gt;1)print}&#39; ../data/DiffIso_Total/TN_diff_isoform_chr*.txt_effect_sizes.txt &gt; ../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_effect_sizes.txt
-
-
-awk &#39;{if(NR&gt;1)print}&#39; ../data/DiffIso_Total/TN_diff_isoform_chr*.txt_cluster_significance.txt &gt; ../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt
-</code></pre>
-<p>Significant clusters:</p>
-<pre class="r"><code>sig=read.table(&quot;../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_significance.txt&quot;,sep=&quot;\t&quot; ,col.names = c(&#39;status&#39;,&#39;loglr&#39;,&#39;df&#39;,&#39;p&#39;,&#39;cluster&#39;,&#39;p.adjust&#39;),stringsAsFactors = F) %&gt;% filter(status==&quot;Success&quot;) 
-
-sig$p.adjust=as.numeric(as.character(sig$p.adjust))</code></pre>
-<pre class="r"><code>qqplot(-log10(runif(nrow(sig))), -log10(sig$p.adjust),ylab=&quot;-log10 Adjusted Leafcutter pvalue&quot;, xlab=&quot;-log 10 Uniform expectation&quot;, main=&quot;Leafcutter differencial isoform analysis between Species Total Fraction&quot;)
-abline(0,1)</code></pre>
-<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
-Past versions of unnamed-chunk-10-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/26447479c3188b6643bf89ec83ac1c4042b4369b/docs/figure/Total_HvC.Rmd/unnamed-chunk-10-1.png" target="_blank">2644747</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>tested_genes=nrow(sig)
-tested_genes</code></pre>
-<pre><code>[1] 8333</code></pre>
-<pre class="r"><code>sig_genes=sig %&gt;% filter(p.adjust&lt;.05)
-number_sig_genes=nrow(sig_genes)
-number_sig_genes</code></pre>
-<pre><code>[1] 5381</code></pre>
-<p>Effect Sizes</p>
-<pre class="r"><code>effectsize=read.table(&quot;../data/DiffIso_Total/TN_diff_isoform_allChrom.txt_effect_sizes.txt&quot;, stringsAsFactors = F, col.names=c(&#39;intron&#39;,  &#39;logef&#39; ,&#39;Chimp&#39;, &#39;Human&#39;,&#39;deltaPAU&#39;)) %&gt;% filter(intron != &quot;intron&quot;)
-
-effectsize$deltaPAU=as.numeric(as.character(effectsize$deltaPAU))
-effectsize$logef=as.numeric(as.character(effectsize$logef))</code></pre>
-<pre class="r"><code>plot(sort(effectsize$deltaPAU),main=&quot;Leafcutter delta PAU&quot;, ylab=&quot;Delta PAU&quot;, xlab=&quot;PAS Index&quot;)</code></pre>
-<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/26447479c3188b6643bf89ec83ac1c4042b4369b/docs/figure/Total_HvC.Rmd/unnamed-chunk-14-1.png" target="_blank">2644747</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2019-12-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Are those discovered used more in chimp those discovered in chimp?</p>
-<p>Join this with the effect sizes.</p>
-<pre class="r"><code>effectsize_sep=effectsize %&gt;% separate(intron, into=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;),sep=&quot;:&quot;)
-effectsize_sep$start=as.integer(effectsize_sep$start)
-effectsize_sep$end=as.integer(effectsize_sep$end)
-effectsize_anno=effectsize_sep %&gt;% inner_join(PAS, by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;,&quot;gene&quot;))</code></pre>
-<pre class="r"><code>ggplot(effectsize_anno, aes(x=disc, y=deltaPAU)) + geom_boxplot()</code></pre>
-<p><img src="figure/Total_HvC.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>sig_geneP=sig %&gt;% separate(cluster,into = c(&quot;chr&quot;, &quot;gene&quot;), sep=&quot;:&quot;) %&gt;% dplyr::select(gene, p.adjust)</code></pre>
-<p>Write out the significant genes with &gt;.2 difference.</p>
-<pre class="r"><code>effectsize_sep_pval=effectsize_sep %&gt;% full_join(sig_geneP, by=&quot;gene&quot;)
-#significant &gt; .2
-nrow(effectsize_sep_pval)</code></pre>
-<pre><code>[1] 41913</code></pre>
-<pre class="r"><code>effectsize_sep_pval_sig= effectsize_sep_pval %&gt;% filter(p.adjust &lt;= .05,abs(deltaPAU) &gt;=0.2)
-nrow(effectsize_sep_pval_sig)</code></pre>
-<pre><code>[1] 2064</code></pre>
-<pre class="r"><code>#genes
-effectsize_sep_pval_sig_genes=effectsize_sep_pval_sig %&gt;% dplyr::select(gene) %&gt;% unique()
-nrow(effectsize_sep_pval_sig_genes)</code></pre>
-<pre><code>[1] 1424</code></pre>
-<pre class="r"><code>write.table(effectsize_sep_pval_sig,&quot;../data/DiffIso_Total/SignifianceEitherPAS_Total.txt&quot;,col.names =T, row.names = F,quote = F)
-
-write.table(effectsize_sep_pval_sig_genes,&quot;../data/DiffIso_Total/SignifianceEitherGENES_Total.txt&quot;,col.names =T, row.names = F,quote = F)
-
-effectsize_sep_pval_colforsig=effectsize_sep_pval %&gt;% mutate(SigPAU2=ifelse(p.adjust &lt;= .05 &amp;abs(deltaPAU) &gt;=0.2, &quot;Yes&quot;,&quot;No&quot;))
-
-write.table(effectsize_sep_pval_colforsig,&quot;../data/DiffIso_Total/AllPAS_withGeneSig.txt&quot;, col.names = T, row.names = F, quote = F )</code></pre>
+denotsub=ggplot(DeandAPAAll,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot; Total APA and expression\n (not just top used)&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)</code></pre>
+<pre class="r"><code>plot_grid(denotsub,denotsubsig)</code></pre>
+<p><img src="figure/Total_dapavDE.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1769,25 +1575,31 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
- [5] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
- [9] tidyverse_1.2.1 reshape2_1.4.3 
+ [1] cowplot_0.9.4   ggpubr_0.2      magrittr_1.5    forcats_0.3.0  
+ [5] stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1    
+ [9] tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
+[13] qvalue_2.14.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.4.6     cellranger_1.1.0 compiler_3.5.1   pillar_1.3.1    
- [5] later_0.7.5      git2r_0.26.1     plyr_1.8.4       workflowr_1.6.0 
- [9] tools_3.5.1      digest_0.6.18    lubridate_1.7.4  jsonlite_1.6    
-[13] evaluate_0.12    nlme_3.1-137     gtable_0.2.0     lattice_0.20-38 
-[17] pkgconfig_2.0.2  rlang_0.4.0      cli_1.1.0        rstudioapi_0.10 
-[21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
-[25] httr_1.3.1       knitr_1.20       hms_0.4.2        generics_0.0.2  
-[29] fs_1.3.1         rprojroot_1.3-2  grid_3.5.1       tidyselect_0.2.5
-[33] glue_1.3.0       R6_2.3.0         readxl_1.1.0     rmarkdown_1.10  
-[37] modelr_0.1.2     magrittr_1.5     whisker_0.3-2    scales_1.0.0    
-[41] backports_1.1.2  promises_1.0.1   htmltools_0.3.6  rvest_0.3.2     
-[45] assertthat_0.2.0 colorspace_1.3-2 httpuv_1.4.5     labeling_0.3    
-[49] stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0    broom_0.5.1     
-[53] crayon_1.3.4    </code></pre>
+ [1] tidyselect_0.2.5   reshape2_1.4.3     splines_3.5.1     
+ [4] haven_1.1.2        lattice_0.20-38    colorspace_1.3-2  
+ [7] generics_0.0.2     htmltools_0.3.6    yaml_2.2.0        
+[10] utf8_1.1.4         rlang_0.4.0        later_0.7.5       
+[13] pillar_1.3.1       withr_2.1.2        glue_1.3.0        
+[16] RColorBrewer_1.1-2 modelr_0.1.2       readxl_1.1.0      
+[19] plyr_1.8.4         munsell_0.5.0      gtable_0.2.0      
+[22] workflowr_1.6.0    cellranger_1.1.0   rvest_0.3.2       
+[25] evaluate_0.12      labeling_0.3       knitr_1.20        
+[28] httpuv_1.4.5       fansi_0.4.0        broom_0.5.1       
+[31] Rcpp_1.0.4.6       promises_1.0.1     scales_1.0.0      
+[34] backports_1.1.2    jsonlite_1.6       fs_1.3.1          
+[37] hms_0.4.2          digest_0.6.18      stringi_1.2.4     
+[40] grid_3.5.1         rprojroot_1.3-2    cli_1.1.0         
+[43] tools_3.5.1        lazyeval_0.2.1     crayon_1.3.4      
+[46] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
+[49] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[52] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[55] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
