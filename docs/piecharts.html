@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-27
+<strong>Last updated:</strong> 2020-05-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree79c7bd8fc7983bd46158e0d07e76b246e6e5bdb6targetblank79c7bd8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/79c7bd8fc7983bd46158e0d07e76b246e6e5bdb6" target="_blank">79c7bd8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/033290cd8cbbc95cd609066fbddecfbfb4e7f3d7" target="_blank">033290c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree79c7bd8fc7983bd46158e0d07e76b246e6e5bdb6targetblank79c7bd8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1305,9 +1305,22 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/DEandAPA.txt
+    Untracked:  output/DEandAPA_sig.txt
     Untracked:  output/DEandTEeffectsize
+    Untracked:  output/DEandTEeffectsize.pdf
     Untracked:  output/DEeffectsize
+    Untracked:  output/DEeffectsize.pdf
+    Untracked:  output/FigureDF/
+    Untracked:  output/PropSamesdom
+    Untracked:  output/PropSamesdom.pdf
     Untracked:  output/TEeffectsize
+    Untracked:  output/TEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsize
+    Untracked:  output/Total_DEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_TEeffectsize
+    Untracked:  output/Total_TEeffectsize.pdf
     Untracked:  output/Ubiqplot
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
@@ -1315,17 +1328,20 @@ Untracked files:
     Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
     Untracked:  output/exandte
+    Untracked:  output/fig1.pdf
+    Untracked:  output/fig2.pdf
+    Untracked:  output/fig3.pdf
+    Untracked:  output/fig4.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/simpson.pdf
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
-    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
-    Modified:   analysis/EffectSizeRelationshipFixDir.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
@@ -1385,6 +1401,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/033290cd8cbbc95cd609066fbddecfbfb4e7f3d7/analysis/piecharts.Rmd" target="_blank">033290c</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+<td>
+add main figures 1-4
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/piecharts.html" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1550,12 +1600,12 @@ add pie charts
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(UpSetR)
@@ -1611,6 +1661,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-4-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-4-1.png" target="_blank">a9de4a1</a>
 </td>
 <td>
@@ -1657,6 +1718,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-5-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-5-1.png" target="_blank">a9de4a1</a>
@@ -1706,6 +1778,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-6-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a9de4a1a15e3207f1e37b60044832b00561c8908/docs/figure/piecharts.Rmd/unnamed-chunk-6-1.png" target="_blank">a9de4a1</a>
 </td>
 <td>
@@ -1750,6 +1833,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-7-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/piecharts.Rmd/unnamed-chunk-7-1.png" target="_blank">3fe9930</a>
@@ -1868,6 +1962,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-9-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/piecharts.Rmd/unnamed-chunk-9-1.png" target="_blank">3fe9930</a>
 </td>
 <td>
@@ -1892,74 +1997,60 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>dAPAPASGrouped</code></pre>
+<pre><code># A tibble: 3 x 4
+  SigPAU2       n genes   prop
+  &lt;chr&gt;     &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+1 No        40695 44432 0.916 
+2 notTested  1395 44432 0.0314
+3 Yes        2342 44432 0.0527</code></pre>
+<pre class="r"><code>dAPATestedGenes</code></pre>
+<pre><code># A tibble: 3 x 4
+  dAPA          n genes  prop
+  &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+1 No         6717  9518 0.706
+2 NotTested  1096  9518 0.115
+3 Yes        1705  9518 0.179</code></pre>
+<pre class="r"><code>dICdata5_wnot</code></pre>
+<pre><code># A tibble: 3 x 4
+  sIC           n genes   prop
+  &lt;chr&gt;     &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+1 No         7570  9518 0.795 
+2 notTested  1067  9518 0.112 
+3 Yes         881  9518 0.0926</code></pre>
+<pre class="r"><code>BothRes_40wNo</code></pre>
+<pre><code># A tibble: 3 x 4
+  Set            n genes   prop
+  &lt;fct&gt;      &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+1 Different    182  9518 0.0191
+2 NoDominant  6790  9518 0.713 
+3 Same        2546  9518 0.267 </code></pre>
+<pre class="r"><code>write.table(dAPAPASGrouped, &quot;../output/FigureDF/PASlevelDiff.txt&quot;, col.names = T, row.names = F, quote = F)
+
+write.table(dAPATestedGenes, &quot;../output/FigureDF/GenelevelDiff.txt&quot;, col.names = T, row.names = F, quote = F)
+
+write.table(dICdata5_wnot, &quot;../output/FigureDF/IsoformlevelDiff.txt&quot;, col.names = T, row.names = F, quote = F)</code></pre>
 <pre class="r"><code>pdf(&quot;../output/piecharts.pdf&quot;, height=8, width=11)
 plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
+<p>Write out dataframes</p>
 <pre class="r"><code>plot_grid(pasplot, genesplot)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e252b072eb9d101c0e0d9d4b38ecab8f7b13aa3a/docs/figure/piecharts.Rmd/unnamed-chunk-11-1.png" target="_blank">e252b07</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3fe9930656f058c2fc70003e5d2164c4073e774f/docs/figure/piecharts.Rmd/unnamed-chunk-11-1.png" target="_blank">3fe9930</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Use upsetter to compare all of these:</p>
 <pre class="r"><code>BothRes_40_diff= BothRes_40 %&gt;% filter(Set==&quot;Different&quot;)
 dICdata_sig= dICdata5 %&gt;% filter(sIC==&quot;Yes&quot;)
 listInput &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene, dDom=BothRes_40_diff$gene)
 
 upset(fromList(listInput), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div id="fig-unnamed-chunk-15-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1978,7 +2069,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/e252b072eb9d101c0e0d9d4b38ecab8f7b13aa3a/docs/figure/piecharts.Rmd/unnamed-chunk-12-1.png" target="_blank">e252b07</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-15-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/e252b072eb9d101c0e0d9d4b38ecab8f7b13aa3a/docs/figure/piecharts.Rmd/unnamed-chunk-15-1.png" target="_blank">e252b07</a>
 </td>
 <td>
 brimittleman
@@ -1994,7 +2096,44 @@ brimittleman
 <pre class="r"><code>listInputNoDD &lt;- list(dIC=dICdata_sig$gene, DAPA=dAPAGenes$gene )
 
 upset(fromList(listInputNoDD), order.by = &quot;freq&quot;, keep.order = T,empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/12ba643d36afe7db541c6aa786f6fd9811ff3b91/docs/figure/piecharts.Rmd/unnamed-chunk-16-1.png" target="_blank">12ba643</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>How many genes in none:</p>
 <pre class="r"><code>DiffAny= dICdata_sig %&gt;% select(gene) %&gt;% bind_rows(dAPAGenes %&gt;% select(gene)) %&gt;% bind_rows(BothRes_40_diff %&gt;% select(gene)) %&gt;% unique()</code></pre>
 <p>all tested:</p>
@@ -2016,7 +2155,7 @@ dAPAPASYes</code></pre>
 
 
 pasLocplot</code></pre>
-<p><img src="figure/piecharts.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/piecharts.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>are these enriched:</p>
 <pre class="r"><code>dAPAPASallwithloc=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T, stringsAsFactors = F) %&gt;% inner_join(Meta, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;)) %&gt;% select(SigPAU2, PAS, loc)</code></pre>
 <pre class="r"><code>enrich=c()
