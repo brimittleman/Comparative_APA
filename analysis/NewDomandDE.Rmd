@@ -470,3 +470,10 @@ dev.off()
 plot_grid(DEdomPlot,pvals, nrow = 2)
 ```
 
+
+Write out dataframes for main figures:  
+
+```{r}
+write.table(ResDFfix_both,"../output/FigureDF/SameDiffDomEnrichinDE.txt", col.names = T, row.names = F, quote = F)
+```
+

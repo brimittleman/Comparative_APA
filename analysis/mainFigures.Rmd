@@ -180,13 +180,13 @@ figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichme
 figure4a
 
 
-figure4b=ggplot(fig4Data,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ labs(x="")+ scale_fill_manual(values=useCOl,labels=c("Both", "PAS Level", "Isoform Diversity"), name="")+ theme_classic()+ theme(legend.position = "bottom",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+figure4b=ggplot(fig4Data,aes(x=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ labs(x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ scale_fill_manual(values=useCOl,labels=c("Both", "PAS Level", "Isoform Diversity"), name="")+facet_wrap(~Pheno)+ theme_classic()+ theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 
 figure4b
 ```
 
 ```{r}
-row2fig4=plot_grid(NULL, figure4b,NULL, rel_widths=c(0.15,1), nrow = 1 )
+row2fig4=plot_grid(NULL, figure4b,NULL, rel_widths=c(0.12,1,.1), nrow = 1 )
 fig4=plot_grid(figure4a,row2fig4,nrow =2, scale = c(.9,.9),labels = c("a","b"))
 fig4
 
@@ -202,3 +202,94 @@ dev.off()
 
 ##figure 5  
 
+```{r}
+fig5data=read.table("../output/FigureDF/SameDiffDomEnrichinDE.txt",header = T, stringsAsFactors = F)
+fig5data$set=as.factor(fig5data$set)
+
+fig5a=ggplot(fig5data,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette="RdYlBu")+geom_text(col="black",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichment",title="Enrichment for differentially expressed genes in genes\n with the same and different dominant PAS") + theme_classic()+ theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+fig5a
+
+
+fig5b=ggplot(fig5data,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103) + facet_grid(~type)+ theme_classic()+ theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig5b
+```
+
+```{r}
+fig5=plot_grid(fig5a,fig5b,nrow = 2,scale = c(.9,.9),labels = c("a","b"), rel_heights = c(1,.8))
+
+fig5
+```
+
+```{r}
+
+pdf("../output/fig5.pdf", height=7, width=7,useKerning=F)
+fig5
+dev.off()
+```
+
+###fig 6  
+
+```{r}
+fig6topdata=read.table("../output/FigureDF/DPnotDE.txt",header = T, stringsAsFactors = F)
+fig6middata=read.table("../output/FigureDF/DPnotDE_trans.txt",header = T, stringsAsFactors = F)
+
+fig6dapa=read.table("../output/FigureDF/PinteractiondAPA.txt",header = T, stringsAsFactors = F)
+fig6both=read.table("../output/FigureDF/Pinteractionboth.txt",header = T, stringsAsFactors = F)
+fib6ic=read.table("../output/FigureDF/PinteractiondIC.txt",header = T, stringsAsFactors = F)
+```
+
+
+```{r}
+fig6a=ggplot(fig6topdata,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)+geom_text(aes(label=Number), position=position_dodge(width=0.9), vjust=2)+ labs(title="Number of genes differentially expressed\n in protein but not mRNA", y="Number of Genes",x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlydIC= "ID"))+ theme_classic()+theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+fig6a
+
+
+fig6b=ggplot(fig6topdata,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl) + labs(title="Proportions of genes differentially expressed\n in protein but not mRNA", y="Proportion of Genes",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlydIC= "ID"))+ theme_classic()+theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig6b
+```
+
+```{r}
+fig6c= ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "dodge") + labs(title="", y="Number of Genes",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1),name="Differentially translated") + geom_text(aes(label=ndTE), position=position_dodge(width=0.9), vjust=1)+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+theme_classic()+ theme(legend.position = "top", legend.justification = "center", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) 
+fig6c
+
+
+fig6d=ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="", y="Proportion of Genes",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1),name="Differentially translated") + guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme(legend.position = "top",legend.justification = "center", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig6d
+```
+
+```{r}
+
+
+fig6e=ggplot(fig6both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#d73027"))+ labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig6e
+
+fig6f=ggplot(fig6dapa,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#4575b4")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="")  + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig6f
+
+
+fig6g=ggplot(fib6ic,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#fee090")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig6g
+```
+
+
+```{r}
+fig6top=plot_grid(fig6a,fig6b, labels = c("a","b"), scale = c(.9,.9),nrow = 1)
+fig6mid=plot_grid(fig6c,fig6d, labels = c("c","d"), scale = c(.9,.9),nrow = 1)
+fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c("e","f","g"), scale = c(.9,.9,.9),nrow = 1)
+
+fig6=plot_grid(fig6top,fig6mid,fig6botom,nrow = 3, rel_heights = c(1,1,.8))
+fig6
+```
+```{r}
+
+pdf("../output/fig6.pdf", height=9, width=8,useKerning=F)
+fig6
+dev.off()
+```

@@ -247,3 +247,17 @@ fullplot
 ```
 
 
+write data for main figures: 
+
+```{r}
+write.table(DFres_prop, "../output/FigureDF/DPnotDE.txt", col.names = T, row.names = F, quote = F)
+
+write.table(AllTenum, "../output/FigureDF/DPnotDE_trans.txt", col.names = T, row.names = F, quote = F)
+
+write.table(dAPAandDic_wP_dAPA, "../output/FigureDF/PinteractiondAPA.txt", col.names = T, row.names = F, quote = F)
+write.table(dAPAandDic_wP_both, "../output/FigureDF/Pinteractionboth.txt", col.names = T, row.names = F, quote = F)
+write.table(dAPAandDic_wP_IC, "../output/FigureDF/PinteractiondIC.txt", col.names = T, row.names = F, quote = F)
+
+
+```
+
