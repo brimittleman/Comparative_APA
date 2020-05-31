@@ -232,6 +232,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Genes that are dIC and dP but not DE](DICNotDEDP.html)
 
 
+###Main figures  
+
+* [Main figures](mainFigures.html)
+
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)
 

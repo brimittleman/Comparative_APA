@@ -116,7 +116,7 @@ plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
 
 
 ```{r,include=FALSE, eval=F}
-pdf("../output/DEeffectsize", height=8, width=12)
+pdf("../output/DEeffectsize.pdf", height=8, width=12)
 plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
 dev.off()
 ```
@@ -125,6 +125,12 @@ dev.off()
 plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
 ```
 
+Write out data for figures:
+
+```{r}
+write.table(DeandAPA, "../output/DEandAPA.txt", col.names = T, row.names = F, quote = F)
+write.table(DeandAPASig, "../output/DEandAPA_sig.txt", col.names = T, row.names = F, quote = F)
+```
 
 
 ###APA and translation  
@@ -187,7 +193,7 @@ plot together:
 plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
 ```
 ```{r,include=FALSE, eval=F}
-pdf("../output/TEeffectsize", height=8, width=10)
+pdf("../output/TEeffectsize.pdf", height=8, width=10)
 plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
 dev.off()
 ```
@@ -203,7 +209,7 @@ plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
 plot_grid(DE_sig_all,TE_sig_all,DE_sig_split, TE_sig_split)
 ```
 ```{r,include=FALSE, eval=F}
-pdf("../output/DEandTEeffectsize", height=8, width=11)
+pdf("../output/DEandTEeffectsize.pdf", height=8, width=11)
 plot_grid(DE_sig_all,TE_sig_all,DE_sig_split, TE_sig_split)
 dev.off()
 ```
@@ -213,3 +219,16 @@ dev.off()
 ```{r DETE, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
 plot_grid(DE_sig_all,TE_sig_all,DE_sig_split, TE_sig_split)
 ```
+
+
+Plot with logef rather than deltaPAU 
+
+```{r}
+ggplot(DeandAPASig,aes(y=logef, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+```
+
+```{r}
+ggplot(DeandAPASig,aes(y=logef, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in APA and expression", x="DE log effect size", y="APA log effect size") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,0),label.y = -10) +theme_classic(base_size = 12)
+```
+
+consistent sign.  

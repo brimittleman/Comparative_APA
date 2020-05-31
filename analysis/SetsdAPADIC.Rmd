@@ -384,6 +384,11 @@ dev.off()
 exandte
 ```
 
+Write out data for figures  
+```{r}
+write.table(DETEDF, "../output/FigureDF/DEandTEenrich.txt",col.names = T,row.names = F, quote = F)
+```
+
 
 Examples:  
 

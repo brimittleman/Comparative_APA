@@ -210,7 +210,10 @@ numberDom
 dev.off()
 
 ```
-
+Write data for figures
+```{r}
+write.table(BothResAll_g, "../output/FigureDF/DominantPAS.txt", col.names = T, row.names = F, quote = F)
+```
 
 ```{r PropSamesdom, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
 numberDom

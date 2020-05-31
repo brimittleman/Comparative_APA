@@ -252,6 +252,10 @@ ggplot(BothAll,aes(x="",y=prop, fill=loc)) + geom_bar(stat="identity",width=1, c
 ```{r}
 BothAll
 ```
+Write out BothAll for plot. 
+```{r}
+write.table(BothAll, "../output/FigureDF/nPAS_figure1.txt", col.names = T, row.names = F, quote = F)
+```
  
  
  

@@ -116,6 +116,23 @@ plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 ```
 
 ```{r}
+dAPAPASGrouped
+dAPATestedGenes
+dICdata5_wnot
+BothRes_40wNo
+```
+
+```{r}
+write.table(dAPAPASGrouped, "../output/FigureDF/PASlevelDiff.txt", col.names = T, row.names = F, quote = F)
+
+write.table(dAPATestedGenes, "../output/FigureDF/GenelevelDiff.txt", col.names = T, row.names = F, quote = F)
+
+write.table(dICdata5_wnot, "../output/FigureDF/IsoformlevelDiff.txt", col.names = T, row.names = F, quote = F)
+
+```
+
+
+```{r}
 
 pdf("../output/piecharts.pdf", height=8, width=11)
 plot_grid(pasplot, genesplot, dIC5plot, Domplot)
@@ -126,6 +143,13 @@ dev.off()
 ```{r piecharts, include=FALSE, dev="pdf", fig.height=8, fig.width=11, crop=FALSE}
 plot_grid(pasplot, genesplot, dIC5plot, Domplot)
 ```
+
+Write out dataframes  
+
+```{r}
+
+```
+
 
 
 ```{r}

@@ -351,6 +351,12 @@ ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_b
 ggplot(ResUpdownAll_gather2, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic()
 ```
 
+write out:  
+
+```{r}
+write.table(ResUpdownAll_gather2, "../output/FigureDF/SeqConservation.txt", col.names=T, row.names=T, quote=F)
+```
+
 
 
 try this plot seperated by location.  
