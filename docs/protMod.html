@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-22
+<strong>Last updated:</strong> 2020-06-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec5cb2cc3820538c645bc11f894cf4e1b3346f28btargetblankc5cb2cca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c5cb2cc3820538c645bc11f894cf4e1b3346f28b" target="_blank">c5cb2cc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec4db3307d3d95031fe4d2da1740380ad955f1bf0targetblankc4db330a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c4db3307d3d95031fe4d2da1740380ad955f1bf0" target="_blank">c4db330</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec5cb2cc3820538c645bc11f894cf4e1b3346f28btargetblankc5cb2cca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec4db3307d3d95031fe4d2da1740380ad955f1bf0targetblankc4db330a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -472,7 +472,6 @@ Untracked files:
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
-    Untracked:  analysis/incorporateQTLsAncestral.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -975,8 +974,11 @@ Untracked files:
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftVCF.out
+    Untracked:  code/liftVCF.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/lliftVCF.err
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeDIC.err
@@ -1271,6 +1273,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
     Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
@@ -1303,24 +1306,46 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/DEandAPA.txt
+    Untracked:  output/DEandAPA_sig.txt
     Untracked:  output/DEandTEeffectsize
+    Untracked:  output/DEandTEeffectsize.pdf
     Untracked:  output/DEeffectsize
+    Untracked:  output/DEeffectsize.pdf
+    Untracked:  output/FigureDF/
+    Untracked:  output/PropSamesdom
+    Untracked:  output/PropSamesdom.pdf
     Untracked:  output/TEeffectsize
+    Untracked:  output/TEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsize
+    Untracked:  output/Total_DEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_TEeffectsize
+    Untracked:  output/Total_TEeffectsize.pdf
     Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dediffdom.pdf
     Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
     Untracked:  output/exandte
+    Untracked:  output/fig1.pdf
+    Untracked:  output/fig2.pdf
+    Untracked:  output/fig3.pdf
+    Untracked:  output/fig4.pdf
+    Untracked:  output/fig5.pdf
+    Untracked:  output/fig6.pdf
+    Untracked:  output/piecharts
+    Untracked:  output/piecharts.pdf
+    Untracked:  output/simpson.pdf
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
-    Modified:   analysis/DiffTop2SecondDom.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
-    Modified:   analysis/EffectSizeRelationshipFixDir.Rmd
     Modified:   analysis/ExploredAPA.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
@@ -1334,13 +1359,13 @@ Unstaged changes:
     Modified:   analysis/dInforContent.Rmd
     Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/incorporateQTLsAncestral.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/miRNAanalysis.Rmd
     Modified:   analysis/multiMap.Rmd
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
-    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1385,6 +1410,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c4db3307d3d95031fe4d2da1740380ad955f1bf0/analysis/protMod.Rmd" target="_blank">c4db330</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-01
+</td>
+<td>
+change to stand
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/protMod.html" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c5cb2cc3820538c645bc11f894cf4e1b3346f28b/analysis/protMod.Rmd" target="_blank">c5cb2cc</a>
 </td>
 <td>
@@ -1415,12 +1474,12 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter()   masks stats::filter()
 ✖ cowplot::ggsave() masks ggplot2::ggsave()
 ✖ dplyr::lag()      masks stats::lag()</code></pre>
@@ -1523,13 +1582,161 @@ AllGenestest= dAPAandDic_wP %&gt;%  mutate(AnyAPA=ifelse(gene %in% anyAPA, &quot
 <p>Plot:</p>
 <pre class="r"><code>ggplot(TogetherWP, aes(x=set, y=nUBNorm, by=dPnotDE,fill=dPnotDE)) + geom_boxplot() + stat_compare_means()</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-6-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(TogetherWP, aes(x=set, y=nUBNorm, by=dpnoTE,fill=dpnoTE)) + geom_boxplot() + stat_compare_means()</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-7-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Any apa and protein</p>
 <pre class="r"><code>ggplot(AllGenestest, aes(x=dP,by=AnyAPA, y=nUBNorm,fill=AnyAPA)) +geom_boxplot() +stat_compare_means()</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-8-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(AllGenestest, aes(x=dPnotDE,by=AnyAPA, y=nUBNorm,fill=AnyAPA)) +geom_boxplot() +stat_compare_means()</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-9-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>What about just any difference in APA</p>
 <pre class="r"><code>Meta_genes= Meta %&gt;% select(gene) %&gt;% unique()
 
@@ -1557,6 +1764,43 @@ nrow(CharacterizeAllGenes)</code></pre>
 <pre><code>[1] 7022</code></pre>
 <pre class="r"><code>ggplot(CharacterizeAllGenes, aes(x=OverAllCons, y=nUBNorm, fill=OverAllCons)) + geom_boxplot() + stat_compare_means()  +scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(x=&quot;Differences in P and APA&quot;, y=&quot;Ubiquitnation&quot;, title=&quot;genes with site level differences&quot;)</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-11-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Nothing super interesting here..</p>
 <p>correlation between the nUBNorm and effect size…</p>
 <p>Look at the UTR dAPA PAS</p>
@@ -1569,17 +1813,165 @@ DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;
 DiffIsoSig= DiffIso %&gt;%filter(SigPAU2==&quot;Yes&quot;)
 DiffIsoIntronSig=DiffIsoIntron %&gt;% filter(SigPAU2==&quot;Yes&quot;)
 DiffIsoUTRsig= DiffIsoUTR %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
-<pre class="r"><code>UTR=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;red&quot;, label.x=.5) +geom_smooth(col=&quot;red&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Ubiquitination&quot;, title=&quot;Genes with differences in 3&#39; UTR APA sites \n correlated with mark signalling protein decay&quot;)+theme_classic()
+<pre class="r"><code>UTR=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;red&quot;, label.x=.5) +geom_smooth(col=&quot;red&quot;, method=&quot;lm&quot;)+labs(y=&quot;Standardized Ubiquitination&quot;, title=&quot;Genes with differences in 3&#39; UTR APA sites \n correlated with mark signalling protein decay&quot;)+theme_classic()
 UTR</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>Intronic=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;blue&quot;, label.x=.5) +geom_smooth(col=&quot;blue&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Ubiquitination&quot;, title=&quot;Genes with differences in intronic APA site \n are not correlated with mark signalling protein decay&quot;) +theme_classic()
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-13-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>Intronic=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;blue&quot;, label.x=.5) +geom_smooth(col=&quot;blue&quot;, method=&quot;lm&quot;)+labs(y=&quot;Standardized Ubiquitination&quot;, title=&quot;Genes with differences in intronic APA site \n are not correlated with mark signalling protein decay&quot;) +theme_classic()
 Intronic</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>all=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;purple&quot;, label.x=.5) +geom_smooth(col=&quot;purple&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Ubiquitination&quot;, title=&quot;Genes with differences in APA sites\n correlated with mark signalling protein decay&quot;)+theme_classic()
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-2">
+Past versions of unnamed-chunk-13-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-13-2.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>all=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;purple&quot;, label.x=.5) +geom_smooth(col=&quot;purple&quot;, method=&quot;lm&quot;)+labs(y=&quot;Standardized Ubiquitination&quot;, title=&quot;Genes with differences in APA sites\n correlated with mark signalling protein decay&quot;)+theme_classic()
 all</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-3">
+Past versions of unnamed-chunk-13-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-13-3.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_grid(UTR,Intronic )</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-14-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>subset to those that also have protien diff:</p>
 <pre class="r"><code>DiffIsosigP= DiffIsoSig %&gt;%  inner_join(Prot, by=&quot;gene&quot;)
 dAPAandDic_wPnotE= dAPAandDic_wP %&gt;% select(gene, dPnotDE, dte)
@@ -1589,8 +1981,82 @@ DiffIsosigPnotE= DiffIsoSig %&gt;%  inner_join(dAPAandDic_wPnotE, by=&quot;gene&
 
 ggplot(DiffIsosigP,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;red&quot;, label.x=.5) +geom_smooth(col=&quot;red&quot;, method=&quot;lm&quot;) +facet_grid(~dP)</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-16-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(DiffIsosigPnotE,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col=&quot;red&quot;, label.x=.5) +geom_smooth(col=&quot;red&quot;, method=&quot;lm&quot;) +facet_grid(dPnotDE~dte ) +labs(title=&quot;rows=dPnotDE, col=dTE&quot;)</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-2">
+Past versions of unnamed-chunk-16-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-16-2.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Check location results with a second mark tested in translation paper</p>
 <p>Acytelation</p>
 <p>PhosphoSitePlus(R) (PSP) was created by Cell Signaling Technology Inc. It is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. When using PSP data or analyses in printed publications or in online resources, the following acknowledgements must be included: (a) the words “PhosphoSitePlus(R), www.phosphosite.org” must be included at appropriate places in the text or webpage, and (b) the following citation must be included in the bibliography: “Hornbeck PV, Zhang B, Murray B, Kornhauser JM, Latham V, Skrzypek E PhosphoSitePlus, 2014: mutations, PTMs and recalibrations. Nucleic Acids Res. 2015 43:D512-20. PMID: 25514926.”</p>
@@ -1612,12 +2078,123 @@ DiffIsoUTRsig= DiffIsoUTR %&gt;% filter(SigPAU2==&quot;Yes&quot;)</code></pre>
 <pre class="r"><code>UTRAC=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col=&quot;red&quot;, label.x=.5) +geom_smooth(col=&quot;red&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Acytelation&quot;)+theme_classic()
 UTRAC</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-19-1.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>IntronicAC=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col=&quot;blue&quot;, label.x=.5) +geom_smooth(col=&quot;blue&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Acytelation&quot; ) +theme_classic()
 IntronicAC</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-2">
+Past versions of unnamed-chunk-19-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-19-2.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>allAC=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nAcNorm) ) + geom_point() + stat_cor(col=&quot;purple&quot;, label.x=.5) +geom_smooth(col=&quot;purple&quot;, method=&quot;lm&quot;)+labs(y=&quot;Normalized Acytelation&quot;)+theme_classic()
 allAC</code></pre>
 <p><img src="figure/protMod.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-3">
+Past versions of unnamed-chunk-19-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/2d7073711db0b2c268cfcc014f8764c4ff3e3cae/docs/figure/protMod.Rmd/unnamed-chunk-19-3.png" target="_blank">2d70737</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
