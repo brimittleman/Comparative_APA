@@ -195,12 +195,13 @@ DiffIsoUTRsig= DiffIsoUTR %>% filter(SigPAU2=="Yes")
 
 ```{r}
 
-UTR=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in 3' UTR APA sites \n correlated with mark signalling protein decay")+theme_classic()
+UTR=ggplot(DiffIsoUTRsig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="red", label.x=.5) +geom_smooth(col="red", method="lm")+labs(y="Standardized Ubiquitination", title="Genes with differences in 3' UTR APA sites \n correlated with mark signalling protein decay")+theme_classic()
 UTR
 
-Intronic=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="blue", label.x=.5) +geom_smooth(col="blue", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in intronic APA site \n are not correlated with mark signalling protein decay") +theme_classic()
+
+Intronic=ggplot(DiffIsoIntronSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="blue", label.x=.5) +geom_smooth(col="blue", method="lm")+labs(y="Standardized Ubiquitination", title="Genes with differences in intronic APA site \n are not correlated with mark signalling protein decay") +theme_classic()
 Intronic
-all=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="purple", label.x=.5) +geom_smooth(col="purple", method="lm")+labs(y="Normalized Ubiquitination", title="Genes with differences in APA sites\n correlated with mark signalling protein decay")+theme_classic()
+all=ggplot(DiffIsoSig,aes(x=abs(deltaPAU), y=nUBNorm) ) + geom_point() + stat_cor(col="purple", label.x=.5) +geom_smooth(col="purple", method="lm")+labs(y="Standardized Ubiquitination", title="Genes with differences in APA sites\n correlated with mark signalling protein decay")+theme_classic()
 all
 ```
 
@@ -210,7 +211,7 @@ plot_grid(UTR,Intronic )
 ```
 
 ```{r,include=FALSE, eval=F}
-pdf("../output/Ubiqplot", height=6, width=10)
+pdf("../output/Ubiqplot.pdf", height=6, width=10)
 plot_grid(UTR,Intronic )
 dev.off()
 ```
