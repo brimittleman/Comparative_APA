@@ -1,0 +1,202 @@
+---
+title: "Unlifted sites"
+author: "Briana Mittleman"
+date: "6/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Test if the non-lifted sites would effect the analysis. I will assign the unlifted human sites to genes with the lifted sites and filter for those that would pass the cutoff. 
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+
+```{bash,eval=F}
+mkdir ../data/UnliftedSites
+```
+
+First concatenate the unlifted human sites with the final lifted sties. This is important because I need to compare the final sites with those not lifted. I cannot just use the original sites.  
+
+final sites: 
+../data/cleanPeaks_lifted/AllPAS_postLift.bed
+
+Unlifted primary:  
+../data/primaryLift/human_APApeaks_primarylift2Chimp_UNLIFTED.bed
+../data/reverseLift/human_APApeaks_primarylift2Human_rev2Human_UNLIFTED.bed
+
+ 
+
+```{r}
+PrimUnlifted=read.table("../data/primaryLift/human_APApeaks_primarylift2Chimp_UNLIFTED.bed", header = F, col.names = c("chr", 'start','end','PAS','score', 'strand'),stringsAsFactors = F)
+SecUnlift=read.table("../data/reverseLift/human_APApeaks_primarylift2Human_rev2Human_UNLIFTED.bed", header = F, col.names = c("chr", 'start','end','PAS','score', 'strand'),stringsAsFactors = F)
+
+AllUnlift=PrimUnlifted %>% bind_rows(SecUnlift) %>% mutate(name=paste("unlif", PAS, sep=":")) %>% select(chr, start,end, name,score, strand)
+
+
+Passing=read.table("../data/cleanPeaks_lifted/AllPAS_postLift.bed",header = F, col.names = c("chr",'start','end','name','score','strand'),stringsAsFactors = F) 
+
+
+LiftandNot=AllUnlift %>% bind_rows(Passing)
+```
+
+
+First compare scores:  (is is even before usage)
+
+```{r}
+AllUnliftSet=AllUnlift %>% mutate(set='Unlifted')
+PassingSet= Passing %>% mutate(set='lifted')
+
+LiftandNotSet= AllUnliftSet %>% bind_rows(PassingSet)
+
+LiftandNotSet %>% group_by(set) %>% summarise(mean=mean(score))
+
+ggplot(LiftandNotSet, aes(y=log10(score),x=set)) + geom_boxplot() + stat_compare_means()
+```
+
+
+```{r}
+LiftandNotSet %>% group_by(set) %>% summarise(n())
+```
+
+Write these out so I can assign to genes:  
+
+```{r}
+write.table(LiftandNot, "../data/UnliftedSites/PAS_liftedandNonLiftedHuman.bed", col.names = F, row.names = F, quote = F, sep = "\t")
+```
+
+
+Sort: 
+
+```{bash,eval=F}
+sort -k1,1 -k2,2n ../data/UnliftedSites/PAS_liftedandNonLiftedHuman.bed > ../data/UnliftedSites/PAS_liftedandNonLiftedHuman.sort.bed
+
+bedtools map -a ../data/UnliftedSites/PAS_liftedandNonLiftedHuman.sort.bed -b  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed -c 4 -S -o distinct > ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnno.bed 
+
+python chooseAnno2Bed.py ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnno.bed  ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed.bed
+```
+
+Look at how many of the unlifted are lost due to no gene annotation: 
+
+```{r}
+GeneLoc=read.table("../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed.bed", header=F, col.names=c("chr",'start','end','id', 'score', 'strand'),stringsAsFactors = F) %>% separate(id, into=c("set", "PAS", "chr2",'start2','end2','strand2','geneloc' ),sep=":") %>% separate(geneloc, into=c("gene", "loc"),sep="_") %>% select(set, PAS, gene, loc)
+
+GeneLoc %>% group_by(set) %>% summarise(n())
+```
+
+3813 of the 10K lost due to no overlap.  
+
+make SAF for FC 
+```{bash,eval=F}
+python bed2SAF_gen.py ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed.bed ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed.SAF
+
+featureCounts -O -a ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed.SAF -F SAF -o  ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human ../Human/data/sort_clean/*.bam -s 1
+
+python fixFChead_bothfrac.py  ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human  ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_fixed.fc 
+
+
+
+python makePheno.py  ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_fixed.fc  ../Human/data/CleanLiftedPeaks_FC/HumanFileID.txt ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno.txt
+
+Rscript pheno2countonly.R -I ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno.txt -O ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno_countOnly.txt
+
+python convertNumeric.py ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno_countOnly.txt ../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno_countOnlyNumeric.txt
+
+
+```
+
+
+```{r}
+HumanAnno=read.table("../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno.txt", header = T, stringsAsFactors = F) %>%  separate(chrom, sep = ":", into = c("chr", "start", "end", "id")) %>% separate(id, sep="_", into=c("gene", "strand", "peak"))  %>% separate(peak,into=c("loc", "disc","PAS"), sep="-")
+IndH=colnames(HumanAnno)[9:ncol(HumanAnno)]
+HumanUsage=read.table("../data/UnliftedSites/PAS_liftedandNonLiftedHuman_LocAnnoParsed_Human_Pheno_countOnlyNumeric.txt", col.names = IndH)
+
+HumanUsage_nuclear= HumanUsage %>% select(contains("_N"))
+
+HumanMean=as.data.frame(cbind(HumanAnno[,1:8], Human=rowMeans(HumanUsage_nuclear)))
+
+HumanUsage_anno=as.data.frame(cbind(HumanAnno[,1:8],HumanUsage ))
+```
+
+Filter 5% then i can filter the low expressed genes:   
+
+```{r}
+HumanMean_5= HumanMean %>% filter(Human >=0.05)
+
+HumanMean_5 %>% group_by(disc) %>% summarise(n())
+```
+
+Now there are only 1K unlifted. Are any of these in the set of genes that pass the expression cutoff.  
+
+```{r}
+PassingGenes=read.table("../data/OverlapBenchmark/genesPassingCuttoff.txt", header = T, stringsAsFactors = F)
+
+HumanMean_5_passing=HumanMean_5 %>% filter(gene %in% PassingGenes$genes)
+
+
+HumanMean_5_passing%>% group_by(disc) %>% summarise(n())
+```
+Only 386 PAS. 
+
+```{r}
+HumanMean_5_passing_unlif= HumanMean_5_passing %>% filter(disc=="unlif")
+
+HumanMean_5_passing_unlif %>% group_by(gene) %>% summarise(n()) %>% nrow()
+```
+
+353 genes.  
+
+```{r}
+ggplot(HumanMean_5_passing_unlif,aes(x=Human))+ stat_ecdf()
+```
+
+Usage by loc: 
+
+```{r}
+ulifloc=ggplot(HumanMean_5_passing_unlif,aes(x=loc))+ geom_bar(stat="count") +geom_text(stat='count', aes(label=..count..), vjust=1, col="white") + labs(x="genic loc", y="Number of PAS", title="Location of Unlifted PAS")
+```
+Plot usage: 
+
+```{r}
+HumanMean_5_passing= HumanMean_5_passing %>% mutate(Lifted=ifelse(disc=="unlif", "No", "Yes"))
+
+uselift=ggplot(HumanMean_5_passing, aes(y=Human,x=loc, fill=Lifted))+ geom_boxplot() + scale_fill_brewer(palette = "Set1") + labs(y="Human Usage",x="", title="PAS usage by gene location" )
+
+useliftloc=ggplot(HumanMean_5_passing, aes(y=Human,x=Lifted, fill=Lifted))+ geom_boxplot() + scale_fill_brewer(palette = "Set1") + labs(y="Human Usage",x="", title="PAS usage" )
+
+```
+
+
+
+Unlifted origial: 10077
+After Anno: 6264
+5%: 1069
+passing genes:386 
+
+
+
+```{r}
+liftStats=c(3813, 5195,683, 386)
+val=c("Not Annotated","Low Usage", "Not in Gene filter","PassedFilters")
+
+
+
+statDF=as.data.frame(cbind(val, liftStats)) 
+statDF$liftStats=as.numeric(as.character(statDF$liftStats))
+statDF$val=as.character(statDF$val)
+
+statDF=statDF%>% mutate(sum=sum(liftStats), Prop=liftStats/sum)
+
+
+propplot=ggplot(statDF,aes(by=val, y=Prop, x="", fill=val)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_brewer(palette = "Set1",name="") +labs(title="Of the 10,077 Unlifted PAS") + theme(legend.position = "bottom")
+propplot
+```
+
+```{r}
+plot_grid(propplot,ulifloc,uselift, useliftloc)
+```
