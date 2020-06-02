@@ -200,3 +200,55 @@ propplot
 ```{r}
 plot_grid(propplot,ulifloc,uselift, useliftloc)
 ```
+
+
+Test if these sites are in differential APA genes 
+
+```{r}
+PASlevel=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+IsoDiv=read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F) %>% filter(sIC=="Yes")
+```
+
+Genes with unlifted sites:
+
+```{r}
+HumanMean_5_passing_unlif_g= HumanMean_5_passing_unlif %>% select(gene) %>% unique()
+
+nrow(HumanMean_5_passing_unlif_g)
+PASdiffUnlif=PASlevel %>% inner_join(HumanMean_5_passing_unlif_g, by="gene")
+nrow(PASdiffUnlif)/nrow(PASlevel)
+nrow(PASdiffUnlif)
+IsoDivUnif=IsoDiv%>% inner_join(HumanMean_5_passing_unlif_g, by="gene")
+nrow(IsoDivUnif)/nrow(PASlevel)
+nrow(IsoDivUnif)
+```
+
+Are these enriched: 
+
+```{r}
+IsoDivUn=read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F) %>% mutate(Unif=ifelse(gene %in%HumanMean_5_passing_unlif_g$gene, "Yes", "No" ))
+
+x=nrow(IsoDivUn %>% filter(Unif=="Yes", sIC=="Yes"))
+m=nrow(IsoDivUn %>% filter( sIC=="Yes"))
+n=nrow(IsoDivUn %>% filter( sIC=="No"))
+k=nrow(IsoDivUn %>% filter(Unif=="Yes"))
+N=nrow(IsoDivUn)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
+Not a significant enrichment.  
+
+```{r}
+PASleveltest=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% select(gene) %>% unique() %>% mutate(sigAPA=ifelse(gene %in% PASlevel$gene, "Yes", "No"),Unif=ifelse(gene %in%HumanMean_5_passing_unlif_g$gene, "Yes", "No" ))
+
+
+x=nrow(PASleveltest %>% filter(Unif=="Yes", sigAPA=="Yes"))
+m=nrow(PASleveltest %>% filter( sigAPA=="Yes"))
+n=nrow(PASleveltest %>% filter( sigAPA=="No"))
+k=nrow(PASleveltest %>% filter(Unif=="Yes"))
+N=nrow(PASleveltest)
+phyper(x,m,n,k,lower.tail=F)
+(x/k)/(m/N)
+```
+
