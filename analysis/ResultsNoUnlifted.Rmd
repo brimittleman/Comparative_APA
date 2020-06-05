@@ -1,0 +1,437 @@
+---
+title: "Remove genes with unlisted sites- check robustness"
+author: "Briana Mittleman"
+date: "6/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In a previous analysis I found 300 genes that may be affected by unlifted PAS. I will use this analysis to check if my results are consistent if we are conservative and remove these genes.  
+
+```{r}
+library(ggpubr)
+library(workflowr)
+library(tidyverse)
+library(cowplot)
+```
+
+```{r}
+UnfliftGenes=read.table("../data/UnliftedSites/GeneswUnliftedandPassingPAS.txt", header = T,stringsAsFactors = F)
+```
+
+
+-Effect size relationships
+
+-enrichment for DE/TE
+
+-same diff dominant 
+
+- p not e 
+
+##Effect size relationships  
+
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)  %>% dplyr::select(PAS, chr, start,end, loc)
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(Meta, by=c("chr", 'start','end')) %>% filter(loc %in% c("intron","utr3"))
+DiffIsoTop=DiffIso %>% mutate(AvgUsageBoth=(Human+Chimp)/2) %>% group_by(gene) %>% arrange(p.adjust,desc(AvgUsageBoth)) %>% slice(1) %>% ungroup()
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DE=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(CorrectedlogFC=-1*logFC)
+
+```
+
+
+```{r}
+DeandAPA= DiffIsoTop %>% inner_join(DE, by="gene") %>%anti_join(UnfliftGenes,by="gene")
+```
+
+
+```{r}
+DE_all=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v DE \n Remove 353 unlifted", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_all
+```
+
+```{r}
+DE_split=ggplot(DeandAPA,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="APA v DE \n Remove 353 unlifted", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,0),label.y = -1) +theme_classic(base_size = 12)
+
+DE_split
+```
+
+```{r}
+DeandAPASig= DeandAPA %>% filter(SigPAU2=="Yes", adj.P.Val<=0.05)
+
+nrow(DeandAPASig)
+```
+
+```{r}
+DE_sig_all=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in APA and expression\n Remove 353 unlifted", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_all
+```
+
+```{r}
+DE_sig_split=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in APA and expression\n Remove 353 unlifted", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,0),label.y = -1) +theme_classic(base_size = 12)
+
+DE_sig_split
+```
+
+###DE v TE  
+
+```{r}
+
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE)
+```
+
+
+
+
+Join DE:  
+
+```{r}
+DEandAPA=DiffExp %>% inner_join(dAPAandDic,by="gene") %>% anti_join(UnfliftGenes,by="gene") 
+
+
+```
+
+Expression enrichments:  
+```{r}
+sets=c("OnlyAPA", "OnlyIC", "Both")
+DE_pval=c()
+DE_enrich=c()
+
+x=nrow(DEandAPA %>% filter(OnlyAPA=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(OnlyAPA=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+
+x=nrow(DEandAPA %>% filter(OnlyIC=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(OnlyIC=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+
+
+x=nrow(DEandAPA %>% filter(Both=="Yes", DE=="Yes"))
+m=nrow(DEandAPA %>% filter(DE=="Yes"))
+n=nrow(DEandAPA %>% filter(DE=="No"))
+k=nrow(DEandAPA %>% filter(Both=="Yes"))
+N=nrow(DEandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DE_pval=c(DE_pval, phyper(x-1,m,n,k,lower.tail=F))
+DE_enrich=c(DE_enrich, (x/k)/(m/N))
+
+
+DEdf=as.data.frame(cbind(sets,DE_pval, DE_enrich)) %>% rename(Pval=DE_pval, Enrichment=DE_enrich) %>% mutate(Pheno="Expression")
+DEdf
+```
+
+
+
+
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No"))
+RiboSmall= Ribo %>% select(gene,dTE)
+
+DTandAPA=Ribo %>% inner_join(dAPAandDic,by="gene")  %>% anti_join(UnfliftGenes,by="gene") 
+```
+
+```{r}
+DT_pval=c()
+DT_enrich=c()
+
+x=nrow(DTandAPA %>% filter(OnlyAPA=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(OnlyAPA=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+
+
+x=nrow(DTandAPA %>% filter(OnlyIC=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(OnlyIC=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+
+x=nrow(DTandAPA %>% filter(Both=="Yes", dTE=="Yes"))
+m=nrow(DTandAPA %>% filter(dTE=="Yes"))
+n=nrow(DTandAPA %>% filter(dTE=="No"))
+k=nrow(DTandAPA %>% filter(Both=="Yes"))
+N=nrow(DTandAPA)
+phyper(x-1,m,n,k,lower.tail=F)
+DT_pval=c(DT_pval, phyper(x-1,m,n,k,lower.tail=F))
+DT_enrich=c(DT_enrich, (x/k)/(m/N))
+DTdf=as.data.frame(cbind(sets,DT_pval, DT_enrich)) %>% rename(Pval=DT_pval, Enrichment=DT_enrich) %>% mutate(Pheno="Translation")
+DTdf
+
+
+
+AllDF= DEdf %>% bind_rows(DTdf)
+```
+```{r}
+AllDF$Pval=as.numeric(AllDF$Pval)
+AllDF$Enrichment=as.numeric(AllDF$Enrichment)
+AllDF$Pheno=factor(AllDF$Pheno, levels=c("Expression", "Translation", "Protein"))
+useCOl <- c("#d73027", "#4575b4","#fee090")
+
+enrichpoint=ggplot(AllDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=AllDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title="Enrichment for APA phenotype differences in other regulatory phenotypes \n Remove 353 unlifted",x="Set", y="Enrichment")+geom_text(color = "black", size = 3) + theme(legend.position = "none")
+pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = "bottom")
+
+plot_grid(enrichpoint,pvalplot, nrow=2)
+```
+
+###dominant PAS 
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")%>% anti_join(UnfliftGenes,by="gene") 
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90) 
+
+Pval=c()
+Enrich=c()
+set=c(10,20,30,40,50,60,70,80,90)
+expected=c()
+actual=c()
+
+
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name) %>% mutate(DE=ifelse(adj.P.Val<=.05, "Yes","No")) %>% select(gene,DE)
+DE_yes= DE %>% filter(DE=="Yes")
+All4= BothResAll  %>% select(gene,cut,Set) %>% inner_join(DE, by="gene")
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Different", DE=="Yes"))
+  actual=c(actual, x)
+  m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, DE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Different"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  Pval= c(Pval, val)
+  en=(x/k)/(m/N)
+  Enrich=c(Enrich, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  expected=c(expected,ex)
+}
+
+ResDF=as.data.frame(cbind(set,Pval,Enrich, actual, expected))
+ResDF$set=as.factor(ResDF$set)
+ResDF$Pval=as.numeric(as.character(ResDF$Pval))
+ResDF$Enrich=as.numeric(as.character(ResDF$Enrich))
+
+diffP=ggplot(ResDF,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and different dominant \n Remove 353 unlifted",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+diffE=ggplot(ResDF,aes(x=set, y=Enrich,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and different dominant \n Remove 353 unlifted",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+
+PvalSame=c()
+EnrichSame=c()
+expectedSame=c()
+actualSame=c()
+
+
+
+for (i in set){
+  x=nrow(All4 %>% filter(cut==i, Set=="Same", DE=="Yes"))
+  actualSame=c(actualSame, x)
+  m=nrow(All4 %>% filter(cut==i, DE=="Yes"))
+  n=nrow(All4 %>% filter(cut==i, DE=="No"))
+  k=nrow(All4 %>% filter(cut==i, Set=="Same"))
+  N=nrow(All4 %>% filter(cut==i))
+  val=phyper(x-1,m,n,k,lower.tail=F)
+  PvalSame= c(PvalSame, val)
+  en=(x/k)/(m/N)
+  EnrichSame=c(EnrichSame, en)
+  #ex=which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+  ex=k*(m/N)
+  expectedSame=c(expectedSame,ex)
+}
+
+ResDFSame=as.data.frame(cbind(set,PvalSame,EnrichSame, actualSame,expectedSame))
+ResDFSame$set=as.factor(ResDFSame$set)
+ResDFSame$PvalSame=as.numeric(as.character(ResDFSame$PvalSame))
+ResDFSame$EnrichSame=as.numeric(as.character(ResDFSame$EnrichSame))
+
+Samep=ggplot(ResDFSame,aes(x=set, y=-log10(PvalSame),fill=set)) + geom_bar(stat="identity") +labs(title="Enrichment pvalues for DE and same dominant  \n Remove 353 unlifted",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103)
+SameE=ggplot(ResDFSame,aes(x=set, y=EnrichSame,fill=set)) + geom_bar(stat="identity") + geom_hline(yintercept = 1)+labs(title="Enrichment for DE and same dominant \n Remove 353 unlifted",x="Dominance Cutoff")+ scale_fill_brewer(palette = "RdYlBu") + theme(legend.position = "none")
+
+plot_grid(diffE, SameE, diffP, Samep)
+
+plot_grid( diffP, Samep)
+```
+
+##p not e  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+
+
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F) %>% anti_join(UnfliftGenes,by="gene") 
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) %>% anti_join(UnfliftGenes,by="gene") 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)%>% anti_join(UnfliftGenes,by="gene") 
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+dIConly=dAPAandDic %>%filter(OnlyIC=="Yes") 
+
+Both=dAPAandDic %>%filter(Both=="Yes")
+dAPAonly=dAPAandDic %>%filter(OnlyAPA=="Yes")
+```
+
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE) %>% filter(DE=="Yes")
+
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No")) %>% filter(dP=="Yes")
+
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) %>% filter(dTE=="Yes")
+
+
+RiboAll=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No")) 
+
+
+Set=c("OnlydIC", "Both", "OnlyAPA")
+Number=c(40, 33,76)
+SetSize=c(nrow(dIConly),nrow(Both),nrow(dAPAonly) )
+
+useCOl <- c("#d73027", "#4575b4","#fee090")
+DFres=data.frame(cbind(Set,Number,SetSize)) 
+DFres$Number=as.numeric(as.character(DFres$Number))
+DFres$SetSize=as.numeric(as.character(DFres$SetSize))
+
+DFres_prop=DFres %>% mutate(Prop=Number/SetSize)
+
+numberPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)+geom_text(aes(label=Number), position=position_dodge(width=0.9), vjust=2)+ theme(legend.position = "none") + labs(title="Number of dP not DE genes", y="Number of Genes",x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlydIC= "Isoform\n Diversity"))
+
+propPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are dP not DE", y="Proportion of APA set",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlydIC= "Isoform\n Diversity"))
+```
+
+```{r}
+numberprop=plot_grid(numberPlot,propPlot)
+numberprop
+```
+```{r}
+ProtInfo=read.table("../data/PTM/ProtLength.txt", sep = "\t",stringsAsFactors = F,header = T,col.names = c("entry","organism", "nAA", "gene")) %>% select(nAA, gene)
+
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) %>% inner_join(ProtInfo, by="gene")%>% mutate(NormInter=nInt/nAA)
+
+#DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
+
+dAPAandDic_wP=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(Interactions, by="gene")
+
+dAPAandDic_wP_dAPA= dAPAandDic_wP %>% filter(dAPA=="Yes")
+
+dAPAandDic_wP_both= dAPAandDic_wP %>% filter(Both=="Yes")
+
+
+dAPAandDic_wP_IC= dAPAandDic_wP %>% filter(OnlyIC=="Yes")
+```
+
+```{r}
+dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \ngenes with site level differences") 
+
+
+bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n with difference in both levles")
+
+dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n genes with isoform diversity differences")
+
+interactionplots=plot_grid(bothProt,dapaProt,dicProt, nrow=1)
+```
+
+
+```{r}
+dAPAandDic_wP_trans= dAPAandDic_wP %>% inner_join(RiboAll,by="gene")
+
+
+
+dAPAandDic_wP_trans_dpnote= dAPAandDic_wP_trans %>% filter(dPnotDE=="Yes") %>% select(gene,Both, OnlyIC, OnlyAPA,dTE)
+
+
+dAPAandDic_wP_trans_dpnoteOnlyAPA=dAPAandDic_wP_trans_dpnote  %>% filter(OnlyAPA=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="OnlyAPA")
+
+dAPAandDic_wP_trans_dpnoteBoth=dAPAandDic_wP_trans_dpnote  %>% filter(Both=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="Both")
+
+dAPAandDic_wP_trans_dpnoteIC=dAPAandDic_wP_trans_dpnote  %>% filter(OnlyIC=="Yes") %>%  group_by(dTE) %>% summarise(ndTE=n()) %>% mutate(set="OnlyIC")
+
+
+AllTenum= dAPAandDic_wP_trans_dpnoteOnlyAPA %>% bind_rows(dAPAandDic_wP_trans_dpnoteBoth) %>% bind_rows(dAPAandDic_wP_trans_dpnoteIC)
+```
+
+```{r}
+numTE=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "dodge") + labs(title="Most dP not dE genes are not dTE", y="Number of Genes",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1)) + theme(legend.position = "bottom") + geom_text(aes(label=ndTE), position=position_dodge(width=0.9), vjust=1)+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlyIC= "Isoform\n Diversity"))
+numTE
+```
+
+```{r}
+propTe=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="Most dP not dE genes are not dTE", y="Proportion",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.4, 1)) + theme(legend.position = "bottom")+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlyIC= "Isoform\n Diversity"))
+propTe
+
+teplots=plot_grid(numTE, propTe, nrow =1)
+teplots
+```
+```{r}
+fullplot=plot_grid(numberprop, teplots,interactionplots, nrow = 3)
+fullplot
+```
+
