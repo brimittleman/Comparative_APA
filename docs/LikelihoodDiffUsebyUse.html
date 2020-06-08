@@ -12,7 +12,7 @@
 <meta name="author" content="Briana Mittleman" />
 
 
-<title>Classify PAS in ortho UTRs</title>
+<title>Differential usage by mean usage</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,9 +316,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Classify PAS in ortho UTRs</h1>
+<h1 class="title toc-ignore">Differential usage by mean usage</h1>
 <h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>5/13/2020</em></h4>
+<h4 class="date"><em>6/8/2020</em></h4>
 
 </div>
 
@@ -1412,7 +1412,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/f5a6b76258de8423a79863d55f9e1066b553852d/analysis/WhichPASinOrtho.Rmd" target="_blank">f5a6b76</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f5a6b76258de8423a79863d55f9e1066b553852d/analysis/LikelihoodDiffUsebyUse.Rmd" target="_blank">f5a6b76</a>
 </td>
 <td>
 brimittleman
@@ -1424,74 +1424,6 @@ brimittleman
 add analysis of usage and significance and which site
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/afecfdb133365625f1a2adf87b12371fcf909be0/docs/WhichPASinOrtho.html" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3cd8e7cd2e73adb106fc5990396f908d848a15de/analysis/WhichPASinOrtho.Rmd" target="_blank">3cd8e7c</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-<td>
-update figures for new levels
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/ab6b356c740823039f556e699e2a406b2b08679b/docs/WhichPASinOrtho.html" target="_blank">ab6b356</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3c192336939903a265cb3938f33c72a8f1fa4ba9/analysis/WhichPASinOrtho.Rmd" target="_blank">3c19233</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-<td>
-add which PAS and seq between
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1499,7 +1431,9 @@ add which PAS and seq between
 </div>
 </div>
 </div>
-<p>Previously I mapped PAS to ortho exons. I want genes where the only PAS are those in the ortho UTRs:</p>
+<p>Answer question: likelihood of being differential based on usage proportion?</p>
+<p>Start with plotting cumulative distribution of usage by differential usage, both in human and chimp.</p>
+<p>I need the mean usage in both species and if the site is differentially used:</p>
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.0
 Run ?workflowr for help getting started</code></pre>
@@ -1512,12 +1446,6 @@ Run ?workflowr for help getting started</code></pre>
 <pre><code>── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(cowplot)</code></pre>
-<pre><code>
-Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
-
-    ggsave</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
 <pre><code>Loading required package: magrittr</code></pre>
 <pre><code>
@@ -1528,480 +1456,50 @@ Attaching package: &#39;magrittr&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
     extract</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
 <pre><code>
-Attaching package: &#39;ggpubr&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:cowplot&#39;:
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
 
     get_legend</code></pre>
-<pre class="r"><code>OverlapOrtho=read.table(&quot;../data/orthoUTR/FilteredPASOverlapOrthoUTR.text&quot;, header = T,stringsAsFactors = F) 
-PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header = T,stringsAsFactors = F) 
-OverlapOrtho_nper=  OverlapOrtho %&gt;% group_by(gene) %&gt;% summarise(nPASOrtho=n())
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
 
+    ggsave</code></pre>
+<pre class="r"><code>PASmeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F)
 
-PASperGene= PASMeta %&gt;% group_by(gene) %&gt;% summarise(nPAS=n())</code></pre>
-<p>First inner join genes. Then those with the same nunmber of PAS:</p>
-<pre class="r"><code>PASperGene_inortho=PASperGene %&gt;% inner_join(OverlapOrtho_nper,by=&quot;gene&quot;) %&gt;% filter(nPAS==nPASOrtho)</code></pre>
-<p>Now i will grab these genes from the meta data:</p>
-<p>use if else to get the first, middle, last..</p>
-<pre class="r"><code>Meta_allOrtho=PASMeta %&gt;% filter(gene %in% PASperGene_inortho$gene) %&gt;% group_by(gene) %&gt;% arrange(start) %&gt;% mutate(NumPAS=ifelse(strandFix==&quot;+&quot;, 1:n(), n():1),number=n()) %&gt;% mutate(WhichSite=ifelse(number==NumPAS, ifelse(NumPAS==1, &quot;single&quot;, &quot;last&quot;), ifelse(NumPAS==1, &quot;first&quot;, &quot;middle&quot;)))</code></pre>
-<pre class="r"><code>max(Meta_allOrtho$NumPAS)</code></pre>
-<pre><code>[1] 8</code></pre>
-<pre class="r"><code>Meta_allOrtho %&gt;% ungroup() %&gt;% group_by(WhichSite) %&gt;% summarise(n())</code></pre>
-<pre><code># A tibble: 4 x 2
-  WhichSite `n()`
-  &lt;chr&gt;     &lt;int&gt;
-1 first       480
-2 last        480
-3 middle      294
-4 single      836</code></pre>
-<p>this means 836 have 1, 480 have more than one</p>
-<p>Start to ask about which ones are dominant?, dAPA ect. filter diff used to ony those in the ortho exon only gene set.</p>
-<pre class="r"><code>PASGene=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% select(PAS, chr, start, end,loc)
-DiffUsed=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;,header = T,stringsAsFactors = F) %&gt;% inner_join(PASGene, by=c(&quot;chr&quot;,&#39;start&#39;,&#39;end&#39;)) %&gt;% filter(gene %in% PASperGene_inortho$gene) %&gt;% select(PAS, SigPAU2)</code></pre>
+PASmetaSmall=PASmeta %&gt;% select(PAS, chr, start, end, gene)</code></pre>
+<p>Diff used sites:</p>
+<pre class="r"><code>DiffIso= read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;, header = T,stringsAsFactors = F) %&gt;% inner_join(PASmetaSmall, by=c(&quot;chr&quot;, &#39;start&#39;,&#39;end&#39;, &quot;gene&quot;)) %&gt;% select(PAS,SigPAU2)</code></pre>
+<p>Usage:</p>
+<pre class="r"><code>PASMetaDiff= PASmeta %&gt;% select(PAS,Chimp,Human)  %&gt;% inner_join(DiffIso, by=&quot;PAS&quot;) %&gt;% gather(Species, Usage, -PAS, -SigPAU2)</code></pre>
+<pre class="r"><code>ggplot(PASMetaDiff, aes(x=Usage, col=SigPAU2)) + stat_ecdf()+ scale_color_brewer(palette = &quot;Set1&quot;) + facet_grid(~Species)</code></pre>
+<p><img src="figure/LikelihoodDiffUsebyUse.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at usage by which PAS for those in ortho UTR</p>
+<p>1252 PA</p>
+<pre class="r"><code>OrthoUTR=read.table(&quot;../data/orthoUTR/OrthoPASwithLocandSig.txt&quot;, header =T, stringsAsFactors = F)</code></pre>
+<p>First look at usage vs first, middle, last:</p>
+<pre class="r"><code>OrthoUTRspecusage=OrthoUTR %&gt;% select(PAS,Chimp,Human, WhichSite,SigPAU2) %&gt;% gather(&quot;Species&quot;,&quot;Usage&quot;, -WhichSite, -SigPAU2, -PAS)</code></pre>
 <pre class="r"><code>useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
-Meta_allOrtho_SIG= Meta_allOrtho %&gt;% inner_join(DiffUsed, by=&quot;PAS&quot;)
-
-Meta_allOrtho_SIG$WhichSite=factor(Meta_allOrtho_SIG$WhichSite, levels=c(&quot;last&quot;, &quot;middle&quot;, &quot;first&quot;))
-
-whichSiteplot=ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;, position = &quot;fill&quot;) + labs(x=&quot;Differentially used PAS&quot;,y=&quot;Proportion of sites&quot;, title=&quot;Differentially used PAS are more likely to be the \nfirst site in orthologous 3&#39; UTRs&quot;) + scale_fill_manual(values=useCOl, name=&quot;&quot;) + theme(legend.position = &quot;bottom&quot;)
-
-whichSiteplot</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-8-1.png" target="_blank">ab6b356</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>write out ortho utr PAS for use in another analysis:</p>
-<pre class="r"><code>write.table(Meta_allOrtho_SIG, &quot;../data/orthoUTR/OrthoPASwithLocandSig.txt&quot;,col.names = T,row.names = F, quote = F)</code></pre>
-<p>pdf of figures</p>
-<pre class="r"><code>PropdAPA=Meta_allOrtho_SIG %&gt;% group_by(SigPAU2, WhichSite) %&gt;% summarise(n=n()) %&gt;% ungroup() %&gt;% group_by(SigPAU2) %&gt;% mutate(nDapa=sum(n), prop=n/nDapa,dAPA=ifelse(SigPAU2==&quot;Yes&quot;,1,0))
-
-PropdAPA_no=as.vector(PropdAPA[1:3,5])
-
-PropdAPA_yes=unlist(as.vector(PropdAPA[4:6,5]))
-
-wilcox.test(PropdAPA$prop, PropdAPA$dAPA)</code></pre>
-<pre><code>Warning in wilcox.test.default(PropdAPA$prop, PropdAPA$dAPA): cannot
-compute exact p-value with ties</code></pre>
-<pre><code>
-    Wilcoxon rank sum test with continuity correction
-
-data:  PropdAPA$prop and PropdAPA$dAPA
-W = 18, p-value = 1
-alternative hypothesis: true location shift is not equal to 0</code></pre>
-<pre class="r"><code>prop.test(x=c(47,442), n=c(84,1168))</code></pre>
-<pre><code>
-    2-sample test for equality of proportions with continuity
-    correction
-
-data:  c(47, 442) out of c(84, 1168)
-X-squared = 10.05, df = 1, p-value = 0.001523
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.06497125 0.29722705
-sample estimates:
-   prop 1    prop 2 
-0.5595238 0.3784247 </code></pre>
-<p>Test dominant:</p>
-<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
-
-ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
-
-BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
-
-BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
-BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
-BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
-BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
-BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
-BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
-BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
-BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
-BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)
-
-BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) %&gt;% bind_rows(BothRes_40) %&gt;% bind_rows(BothRes_50) %&gt;% bind_rows(BothRes_60) %&gt;% bind_rows(BothRes_70) %&gt;% bind_rows(BothRes_80) %&gt;% bind_rows(BothRes_90)</code></pre>
-<p>Filter the genes in the utr only set:</p>
-<pre class="r"><code>BothRes_40_filt= BothRes_40 %&gt;% filter(gene %in% PASperGene_inortho$gene )
-
-nrow(BothRes_40_filt)</code></pre>
-<pre><code>[1] 238</code></pre>
-<pre class="r"><code>BothRes_40_filt %&gt;% group_by(Set) %&gt;% summarise(n())</code></pre>
-<pre><code># A tibble: 2 x 2
-  Set       `n()`
-  &lt;chr&gt;     &lt;int&gt;
-1 Different    10
-2 Same        228</code></pre>
-<p>Same:</p>
-<pre class="r"><code>Meta_allOrthoSm= Meta_allOrtho %&gt;% ungroup() %&gt;% select(PAS, WhichSite)
-
-BothRes_40_filt_same= BothRes_40_filt %&gt;% filter(Set==&quot;Same&quot;) %&gt;% dplyr::rename(&quot;PAS&quot; = Human_PAS) %&gt;% inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;)
-
-BothRes_40_filt_same$WhichSite= factor(BothRes_40_filt_same$WhichSite, levels=c(&quot;last&quot;, &quot;middle&quot;,&quot;first&quot;))
-ggplot(BothRes_40_filt_same, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot; ) + scale_fill_manual(values=useCOl)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-14-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Diff dominant:</p>
-<pre class="r"><code>BothRes_40_filt_diff= BothRes_40_filt%&gt;% filter(Set==&quot;Different&quot;) %&gt;% select(gene, Human_PAS, Chimp_PAS) %&gt;% gather(&quot;Species&quot;,&quot;PAS&quot;, -gene) %&gt;%   inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;)
-
-ggplot(BothRes_40_filt_diff, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
-Past versions of unnamed-chunk-15-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-15-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-15-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-15-1.png" target="_blank">ab6b356</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This may be due to the low numbers: try different cutoffs:</p>
-<pre class="r"><code>number=seq(1,9,1)
-#BothResAll
-plotlist=list()
-for (i in number){
-  val=i *10
-  df=BothResAll %&gt;% filter(Set==&quot;Same&quot;, cut==val) %&gt;% dplyr::rename(&quot;PAS&quot; = Human_PAS) %&gt;% inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;)
-  df$WhichSite= factor(df$WhichSite, levels=c(&quot;first&quot;, &quot;middle&quot;,&quot;last&quot;))
-  plotlist[[i]]=ggplot(df, aes(x=WhichSite, fill=WhichSite)) + geom_bar(stat=&quot;count&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Same Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;)
-}</code></pre>
-<pre class="r"><code>plot_grid(plotlist[[1]], plotlist[[2]], plotlist[[3]], plotlist[[4]], plotlist[[5]], plotlist[[6]], plotlist[[7]], plotlist[[8]], plotlist[[9]]) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
-Past versions of unnamed-chunk-17-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-17-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-17-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-17-1.png" target="_blank">ab6b356</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>#BothResAll
-plotlistdiff=list()
-for (i in number){
-  val=i *10
-  df=BothResAll %&gt;% filter(Set==&quot;Different&quot;, cut==val) %&gt;% select(gene, Human_PAS, Chimp_PAS) %&gt;% gather(&quot;Species&quot;,&quot;PAS&quot;, -gene) %&gt;%   inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;)
-  df$WhichSite= factor(df$WhichSite, levels=c(&quot;first&quot;, &quot;middle&quot;,&quot;last&quot;))
-  plotlistdiff[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Different Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;)
-}</code></pre>
-<pre class="r"><code>plot_grid(plotlistdiff[[1]], plotlistdiff[[2]], plotlistdiff[[3]], plotlistdiff[[4]], plotlistdiff[[5]], plotlistdiff[[6]], plotlistdiff[[7]], plotlistdiff[[8]], plotlistdiff[[9]])</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
-Past versions of unnamed-chunk-19-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-19-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-19-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/ab6b356c740823039f556e699e2a406b2b08679b/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-19-1.png" target="_blank">ab6b356</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-14
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Seperate by DE:</p>
-<pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F)
-DE= read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,header=F, stringsAsFactors = F,col.names = c(&#39;Gene_stable_ID&#39;, &#39;logFC&#39; ,&#39;AveExpr&#39;, &#39;t&#39;, &#39;P.Value&#39;, &#39;adj.P.Val&#39;, &#39;B&#39;)) %&gt;% inner_join(nameID, by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %&gt;% dplyr::rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(DE=ifelse(adj.P.Val&lt;=.05, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% select(gene,DE)
-DE_yes= DE %&gt;% filter(DE==&quot;Yes&quot;)
-
-numbersmall=seq(1,4)
-#BothResAll
-plotlistdiffDE=list()
-for (i in numbersmall){
-  val=i *10
-  df=BothResAll %&gt;% filter(Set==&quot;Different&quot;, cut==val) %&gt;% select(gene, Human_PAS, Chimp_PAS) %&gt;% gather(&quot;Species&quot;,&quot;PAS&quot;, -gene) %&gt;%   inner_join(Meta_allOrthoSm, by=&quot;PAS&quot;) %&gt;% mutate(DEgenes=ifelse(gene %in%DE_yes$gene, &quot;DE&quot;, &quot;Not&quot;))
-  df$WhichSite= factor(df$WhichSite, levels=c(&quot;first&quot;, &quot;middle&quot;,&quot;last&quot;))
-  plotlistdiffDE[[i]]=ggplot(df, aes(x=Species,by=Species, fill=WhichSite)) + geom_bar(stat=&quot;count&quot;,position = &quot;dodge&quot; ) + scale_fill_manual(values=useCOl) + labs(title=paste(val, &quot;Different Dominant&quot; , nrow(df), sep=&quot;_&quot;)) +theme(legend.position = &quot;bottom&quot;) + facet_grid(~DEgenes)
-}</code></pre>
-<pre class="r"><code>plot_grid(plotlistdiffDE[[1]], plotlistdiffDE[[2]], plotlistdiffDE[[3]], plotlistdiffDE[[4]])</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
-Past versions of unnamed-chunk-21-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-21-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/WhichPASinOrtho.Rmd/unnamed-chunk-21-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>metaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,stringsAsFactors = F, header = T) %&gt;% mutate(midpoint=start+100)
-metaPAS_sm= metaPAS %&gt;% select(PAS, gene, midpoint)
-BothResallDiff= BothResAll %&gt;%
-  filter(Set==&quot;Different&quot;) %&gt;% 
-  select(gene, Chimp_PAS, Human_PAS, cut) %&gt;% 
-  gather(&quot;species&quot;, &quot;PAS&quot;, -gene, -cut) %&gt;% 
-  inner_join(metaPAS_sm, by=c(&quot;gene&quot;, &quot;PAS&quot;)) %&gt;% 
-  mutate(extra=&quot;PAS&quot;) %&gt;% 
-  spread(extra,midpoint) %&gt;% 
-  group_by(cut, gene) %&gt;% 
-  summarise(minPAS=min(PAS), maxPAS=max(PAS)) %&gt;% 
-  mutate(length= maxPAS-minPAS) %&gt;% 
-  filter(gene %in% PASperGene_inortho$gene)
-BothResallDiff$cut=factor(BothResallDiff$cut)
-
-
-ggplot(BothResallDiff, aes(x=cut, y=length,fill=cut)) +geom_boxplot() + theme(legend.position = &quot;none&quot;)+ scale_fill_brewer(palette = &quot;Set1&quot;)  + geom_jitter() + labs(title=&quot;Distance between center of different Dominant PAS&quot;,y=&quot;basepairs&quot;,x=&quot;cutoff&quot;)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>BothResallDiff %&gt;% group_by(cut) %&gt;% summarise(n())</code></pre>
-<pre><code># A tibble: 8 x 2
-  cut   `n()`
-  &lt;fct&gt; &lt;int&gt;
-1 10       37
-2 20       24
-3 30       17
-4 40       10
-5 50        8
-6 60        5
-7 70        2
-8 80        2</code></pre>
-<p>Run nuc for these:</p>
-<pre class="r"><code>metaPAS_bed= metaPAS %&gt;% select(chr, gene, strandFix) %&gt;% unique()
-BothResallDiff_Bed= BothResallDiff%&gt;% inner_join(metaPAS_bed, by=&quot;gene&quot;) %&gt;% select(chr, minPAS, maxPAS, gene, cut, strandFix ) %&gt;% arrange(chr, minPAS)
-
-write.table(BothResallDiff_Bed, &quot;../data/DistTwoDom/SeqBetweenDom_Allcutt.bed&quot;, quote = F, col.names = F, row.names = F, sep=&quot;\t&quot;)</code></pre>
-<pre class="bash"><code>
-bedtools nuc -s -seq -fi /project2/gilad/kenneth/References/human/genome/hg38.fa -bed ../data/DistTwoDom/SeqBetweenDom_Allcutt.bed &gt; ../data/DistTwoDom/SeqBetweenDom_Allcutt_nuc.bed</code></pre>
-<pre class="r"><code>SeqBetween=read.table(&quot;../data/DistTwoDom/SeqBetweenDom_Allcutt_nuc.bed&quot;, col.names = c(colnames(BothResallDiff_Bed),&quot;AT&quot;, &quot;GC&quot;, &quot;A&quot;, &quot;C&quot;, &quot;G&quot;, &quot;T&quot;,&quot;N&quot;, &quot;other&quot;, &quot;len&quot;, &quot;seq&quot; )) %&gt;% mutate(DEgenes=ifelse(gene %in%DE_yes$gene, &quot;DE&quot;, &quot;Not&quot;)) 
-
-SeqBetween %&gt;% group_by(cut) %&gt;% summarise(n())</code></pre>
-<pre><code># A tibble: 8 x 2
-    cut `n()`
-  &lt;int&gt; &lt;int&gt;
-1    10    37
-2    20    24
-3    30    17
-4    40    10
-5    50     8
-6    60     5
-7    70     2
-8    80     2</code></pre>
-<pre class="r"><code>SeqBetween$cut=as.factor(SeqBetween$cut)
-ggplot(SeqBetween, aes(y=len, by=DEgenes,fill=DEgenes, x=cut))+geom_boxplot() + geom_jitter()+scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(y=&quot;Nucleotides&quot;, title=&quot;Distance between Dominant PAS&quot;)+ theme(legend.position = &quot;bottom&quot;) </code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>atplot=ggplot(SeqBetween, aes(by=DEgenes, y=AT, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(y=&quot;AT proportion&quot;, title=&quot;AT proportion for Seq between dominat&quot;)+ theme(legend.position = &quot;bottom&quot;) </code></pre>
-<pre class="r"><code>gcplot=ggplot(SeqBetween, aes(by=DEgenes, y=GC, x=cut,fill=DEgenes)) +geom_boxplot()+geom_jitter() +scale_fill_brewer(palette = &quot;Set1&quot;)+ theme(legend.position = &quot;bottom&quot;) +labs(y=&quot;GC proportion&quot;, title=&quot;GC proportion for Seq between dominat&quot;)</code></pre>
-<pre class="r"><code>plot_grid(atplot,gcplot)</code></pre>
-<p><img src="figure/WhichPASinOrtho.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+ggplot(OrthoUTRspecusage, aes(x=Usage, col=WhichSite)) + stat_ecdf()+ scale_color_manual(values = useCOl) + facet_grid(~Species)</code></pre>
+<p><img src="figure/LikelihoodDiffUsebyUse.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> This shows that last actually has highest usage</p>
+<p>Now for just these look at usage</p>
+<pre class="r"><code>ggplot(OrthoUTRspecusage, aes(x=Usage, col=SigPAU2)) + stat_ecdf()+ scale_color_brewer(palette = &quot;Set1&quot;) + facet_grid(~Species)</code></pre>
+<p><img src="figure/LikelihoodDiffUsebyUse.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Still an effect but smaller.</p>
+<p>Now plot all of theses together:</p>
+<pre class="r"><code>ggplot(OrthoUTRspecusage, aes(x=Usage, col=WhichSite)) + stat_ecdf()+ scale_color_manual(values = useCOl) + facet_grid(SigPAU2~Species)</code></pre>
+<p><img src="figure/LikelihoodDiffUsebyUse.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /> NUmber in sets:</p>
+<pre class="r"><code>OrthoUTRspecusage %&gt;% group_by(Species,SigPAU2, WhichSite) %&gt;% summarise(n=n()) %&gt;% filter(Species==&quot;Human&quot;) %&gt;% ungroup()%&gt;% select(SigPAU2, WhichSite, n)</code></pre>
+<pre><code># A tibble: 6 x 3
+  SigPAU2 WhichSite     n
+  &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;
+1 No      first       442
+2 No      last        447
+3 No      middle      279
+4 Yes     first        37
+5 Yes     last         32
+6 Yes     middle       15</code></pre>
+<p>With so few it is difficult to say much. But it does look like that the last site i usually higher used. The differentially used PAS are also the higher used. This means it is even more striking that the first sites are more often different.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2029,7 +1527,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggpubr_0.2      magrittr_1.5    cowplot_0.9.4   forcats_0.3.0  
+ [1] cowplot_0.9.4   ggpubr_0.2      magrittr_1.5    forcats_0.3.0  
  [5] stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1    
  [9] tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
 [13] workflowr_1.6.0
