@@ -1,0 +1,93 @@
+---
+title: "Differential usage by mean usage"
+author: "Briana Mittleman"
+date: "6/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Answer question: likelihood of being differential based on usage proportion?
+
+Start with plotting cumulative distribution of usage by differential usage, both in human and chimp. 
+
+I need the mean usage in both species and if the site is differentially used: 
+
+```{r}
+library(workflowr)
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+```
+
+
+```{r}
+PASmeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+
+PASmetaSmall=PASmeta %>% select(PAS, chr, start, end, gene)
+```
+
+
+Diff used sites:  
+
+```{r}
+DiffIso= read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T,stringsAsFactors = F) %>% inner_join(PASmetaSmall, by=c("chr", 'start','end', "gene")) %>% select(PAS,SigPAU2)
+
+```
+
+
+Usage: 
+
+```{r}
+PASMetaDiff= PASmeta %>% select(PAS,Chimp,Human)  %>% inner_join(DiffIso, by="PAS") %>% gather(Species, Usage, -PAS, -SigPAU2)
+```
+
+
+```{r}
+ggplot(PASMetaDiff, aes(x=Usage, col=SigPAU2)) + stat_ecdf()+ scale_color_brewer(palette = "Set1") + facet_grid(~Species)
+```
+
+
+Look at usage by which PAS for those in ortho UTR  
+
+1252 PA
+
+```{r}
+OrthoUTR=read.table("../data/orthoUTR/OrthoPASwithLocandSig.txt", header =T, stringsAsFactors = F)
+
+
+```
+
+First look at usage vs first, middle, last:  
+
+```{r}
+OrthoUTRspecusage=OrthoUTR %>% select(PAS,Chimp,Human, WhichSite,SigPAU2) %>% gather("Species","Usage", -WhichSite, -SigPAU2, -PAS)
+```
+
+```{r}
+useCOl <- c("#d73027", "#4575b4","#fee090")
+ggplot(OrthoUTRspecusage, aes(x=Usage, col=WhichSite)) + stat_ecdf()+ scale_color_manual(values = useCOl) + facet_grid(~Species)
+```
+This shows that last actually has highest usage  
+
+Now for just these look at usage
+```{r}
+ggplot(OrthoUTRspecusage, aes(x=Usage, col=SigPAU2)) + stat_ecdf()+ scale_color_brewer(palette = "Set1") + facet_grid(~Species)
+```
+
+Still an effect but smaller.  
+
+Now plot all of theses together: 
+
+```{r}
+ggplot(OrthoUTRspecusage, aes(x=Usage, col=WhichSite)) + stat_ecdf()+ scale_color_manual(values = useCOl) + facet_grid(SigPAU2~Species)
+```
+NUmber in sets: 
+
+```{r}
+OrthoUTRspecusage %>% group_by(Species,SigPAU2, WhichSite) %>% summarise(n=n()) %>% filter(Species=="Human") %>% ungroup()%>% select(SigPAU2, WhichSite, n)
+```
+
+With so few it is difficult to say much. But it does look like that the last site i usually higher used. The differentially used PAS are also the higher used. This means it is even more striking that the first sites are more often different.  

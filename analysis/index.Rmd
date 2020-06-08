@@ -119,6 +119,10 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [U rich up stream and downstream of site](UrichElements.html)
 
+* [Which PAS within Ortho UTRs and seq between for these](WhichPASinOrtho.html)
+
+* [Differntial usage, usage of site, and location in UTR](LikelihoodDiffUsebyUse.html)
+
 
 ##Quantify Phenotypes with RNA:   
 
@@ -203,8 +207,6 @@ I am interesting in understanding differential APA between human and chimpanzees
 * [Test for destabilization](ARE_element.html)
 
 * [Test differences in mRNA decay](mRNADecay.html)
-
-* [Which PAS within Ortho UTRs and seq between for these](WhichPASinOrtho.html)
 
 
 ##Verify effect sizes in total  

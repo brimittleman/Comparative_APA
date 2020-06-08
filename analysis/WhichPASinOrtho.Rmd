@@ -76,6 +76,13 @@ whichSiteplot=ggplot(Meta_allOrtho_SIG, aes(x=SigPAU2, by=WhichSite, fill=WhichS
 whichSiteplot
 ```
 
+write out ortho utr PAS for use in another analysis: 
+
+```{r}
+write.table(Meta_allOrtho_SIG, "../data/orthoUTR/OrthoPASwithLocandSig.txt",col.names = T,row.names = F, quote = F)
+```
+
+
 ```{r,include=FALSE, eval=F}
 pdf("../output/whichSiteplot.pdf", height=6, width=6)
 whichSiteplot
