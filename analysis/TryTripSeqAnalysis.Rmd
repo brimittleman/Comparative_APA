@@ -1,0 +1,181 @@
+---
+title: "TripSeq annotation"
+author: "Briana Mittleman"
+date: "6/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+```
+
+THe trip seq paper has a method to explore 3' UTR characteristics from a bed file 
+
+
+https://github.com/stephenfloor/tripseq-analysis
+Test transcriptome_properties.py
+
+I need the name of the genome and a bed file. I can start by testing on the ortho 3' UTRs  
+
+clone code/tripseq-analysis
+python 2
+```{bash,eval=F}
+source ~/activate_anaconda_python2.sh
+#in trip
+python transcriptome_properties.py -i ../../data/orthoUTR/HumanDistal3UTR.sort.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements 
+
+```
+
+This gets the au rich element %. 
+
+
+can do this with human and chimp:  
+```{bash,eval=F}
+python transcriptome_properties.py -i ../../data/orthoUTR/HumanDistal3UTR.sort.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements  -o ../../data/orthoUTR/HumanOrthoUTR_AUrich
+
+python transcriptome_properties.py -i ../../data/orthoUTR/ChimpDistal3UTR.sort.bed -g /project2/gilad/briana/genome_anotation_data/Chimp_genome/panTro6.fa --au-elements  -o ../../data/orthoUTR/ChimpOrthoUTR_AUrich
+```
+
+
+```{r}
+HumanOrthUTR_au=read.csv("../data/orthoUTR/HumanOrthoUTR_AUrich_au_elements.csv",header = T, stringsAsFactors = F) 
+ChimpOrthoUTR_au=read.csv("../data/orthoUTR/ChimpOrthoUTR_AUrich_au_elements.csv",header = T, stringsAsFactors = F)
+```
+
+Corr: 
+
+```{r}
+HumanOrthUTR_au_sm=HumanOrthUTR_au %>% select(transcriptID, au_element_frac) %>% rename(HumanAU=au_element_frac)
+ChimpOrthUTR_au_sm=ChimpOrthoUTR_au %>% select(transcriptID, au_element_frac) %>% rename(ChimpAU=au_element_frac)
+
+BothAU=HumanOrthUTR_au_sm %>% inner_join(ChimpOrthUTR_au_sm, by="transcriptID")
+
+cor.test(BothAU$ChimpAU, BothAU$HumanAU)
+
+```
+```{r}
+ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1)
+```
+
+
+Color by dAPA and diff iso diversity.
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+Meta_genes= Meta %>% select(gene) %>% unique()
+
+Meta_PAS=Meta %>%  select(PAS,gene)
+
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 ) 
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No")) 
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+dICdata_sig= dICdata %>% filter(sIC=="Yes")
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(Both=ifelse(sIC=="Yes" & dAPA=="Yes", "Yes","No"),OnlyIC=ifelse(sIC=="Yes" & dAPA=="No", "Yes","No"),OnlyAPA=ifelse(sIC=="No" & dAPA=="Yes", "Yes","No"))
+
+dAPAonly=dAPAandDic %>% filter(dAPA=="Yes") %>% select(gene) %>% mutate(set="dAPA")
+both=dAPAandDic %>% filter(Both=="Yes") %>% select(gene)%>% mutate(set="Both")
+IDonly=dAPAandDic %>% filter(OnlyIC=="Yes") %>% select(gene)%>% mutate(set="ID")
+
+
+
+Allset=dAPAonly %>% bind_rows(both) %>% bind_rows(IDonly)
+Nonegenes= Meta_PAS %>% select(gene) %>% unique()%>% anti_join(Allset, by="gene") %>% mutate(set="None")
+#no diff:  
+Allset_andnon=Allset %>% bind_rows(Nonegenes)
+
+```
+
+
+```{r}
+
+
+BothAU_fix= BothAU %>% separate(transcriptID, into=c("gene", "strand"), sep="\\(") %>% inner_join(Allset_andnon, by="gene") %>% mutate(anyDiff=ifelse(set=="None", "No", "Yes"))
+
+BothAU_fix %>% group_by(set) %>% summarise(n())
+```
+
+Do dAPA genes have higher AU 
+```{r}
+
+BothAU_fix_g= BothAU_fix %>% gather("Species", "AU", -gene, -strand, -set,-anyDiff)
+
+
+ggplot(BothAU_fix_g, aes(x=AU,col=set)) +stat_ecdf() + facet_grid(~Species)
+
+
+```
+ 
+ 
+box plots: 
+
+```{r}
+ggplot(BothAU_fix_g, aes(y=AU,x=set,fill=set)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()
+
+ggplot(BothAU_fix_g, aes(y=AU,x=anyDiff,fill=anyDiff)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means(method.args = list(alternative = "greater"))
+
+```
+```{r}
+BothAU_fix_g %>% group_by(Species,anyDiff) %>% summarise(mean(AU))
+```
+```{r}
+BothAU_fix_g %>% group_by(Species,set) %>% summarise(mean(AU))
+```
+
+
+dAPA are the higher genes:  
+
+genes with expression diff: 
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE)
+
+BothAU_fix_g_DE= BothAU_fix_g %>% inner_join(DiffExp,by="gene")
+
+```
+
+```{r}
+ggplot(BothAU_fix_g_DE, aes(y=AU,x=DE,fill=DE)) +geom_boxplot() + facet_grid(anyDiff~Species) + stat_compare_means()
+```
+
+ genes with differential translation:  
+ 
+```{r}
+Ribo=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",header = T, stringsAsFactors = F) %>% rename("Gene_stable_ID"= ENSG) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %>% rename("gene"=Gene.name) %>% mutate(dTE=ifelse(HvC.FDR <0.05, "Yes","No"))
+RiboSmall= Ribo %>% select(gene,dTE)
+
+BothAU_fix_g_TE= BothAU_fix_g %>% inner_join(RiboSmall,by="gene")
+
+
+ggplot(BothAU_fix_g_TE, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_grid(anyDiff~Species) + stat_compare_means()
+```
+ 
+ AU for the ortho UTRs are not different based on DE or translation status.  
+ 
+ 
+ filter to dAPA genes and see if they are different in expression and translation: 
+ 
+```{r}
+BothAU_fix_g_DE_dAPA= BothAU_fix_g_DE %>% filter(set=="dAPA")
+ggplot(BothAU_fix_g_DE_dAPA, aes(y=AU,x=DE,fill=DE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()
+
+
+BothAU_fix_g_TE_dAPA= BothAU_fix_g_TE %>% filter(set=="dAPA")
+ggplot(BothAU_fix_g_TE_dAPA, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()
+```
+
+
+**ok so only significant relationship here is higher AU proportion in ortho 3' UTRs for dAPA genes. **
+

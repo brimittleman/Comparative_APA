@@ -113,7 +113,7 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Look at miRNA density](miRNAanalysis.html)  
 
-* [3' UTR biology- length and AU](AT_richUTRs.html)  
+* [3' UTR biology- length and AU](AT_richUTRs.html)
 
 * [Expression levels](ExpressionLevelsdAPA.html)  
 
@@ -123,6 +123,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Differntial usage, usage of site, and location in UTR](LikelihoodDiffUsebyUse.html)
 
+
+* [AU rich elements with TrpSeq method](TryTripSeqAnalysis.html)
 
 ##Quantify Phenotypes with RNA:   
 
