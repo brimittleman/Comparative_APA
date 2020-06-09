@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-08
+<strong>Last updated:</strong> 2020-06-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree16a604bd8cd95e829ad998909703fbdd24e07864targetblank16a604ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/16a604bd8cd95e829ad998909703fbdd24e07864" target="_blank">16a604b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree108ee52f6623297fc58bee937d5bc1ecdf0353d7targetblank108ee52a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/108ee52f6623297fc58bee937d5bc1ecdf0353d7" target="_blank">108ee52</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree16a604bd8cd95e829ad998909703fbdd24e07864targetblank16a604ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree108ee52f6623297fc58bee937d5bc1ecdf0353d7targetblank108ee52a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1414,6 +1414,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/108ee52f6623297fc58bee937d5bc1ecdf0353d7/analysis/TryTripSeqAnalysis.Rmd" target="_blank">108ee52</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-09
+</td>
+<td>
+add dAPA utr
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/TryTripSeqAnalysis.html" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/16a604bd8cd95e829ad998909703fbdd24e07864/analysis/TryTripSeqAnalysis.Rmd" target="_blank">16a604b</a>
 </td>
 <td>
@@ -1468,12 +1502,12 @@ add trpseq analysis
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1541,6 +1575,43 @@ sample estimates:
 <p>same high correlation…</p>
 <pre class="r"><code>ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1) + geom_density_2d()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-7-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Color by dAPA and diff iso diversity.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
 Meta_genes= Meta %&gt;% select(gene) %&gt;% unique()
@@ -1609,6 +1680,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-1.png" target="_blank">4ff1c53</a>
 </td>
 <td>
@@ -1625,8 +1707,82 @@ brimittleman
 <p>box plots:</p>
 <pre class="r"><code>ggplot(BothAU_fix_g, aes(y=AU,x=set,fill=set)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(BothAU_fix_g, aes(y=AU,x=anyDiff,fill=anyDiff)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means(method.args = list(alternative = &quot;greater&quot;))</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-2">
+Past versions of unnamed-chunk-11-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-2.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothAU_fix_g %&gt;% group_by(Species,anyDiff) %&gt;% summarise(mean(AU))</code></pre>
 <pre><code># A tibble: 4 x 3
 # Groups:   Species [2]
@@ -1681,6 +1837,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-15-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-15-1.png" target="_blank">4ff1c53</a>
 </td>
 <td>
@@ -1727,6 +1894,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-1.png" target="_blank">4ff1c53</a>
 </td>
 <td>
@@ -1745,9 +1923,83 @@ brimittleman
 <pre class="r"><code>BothAU_fix_g_DE_dAPA= BothAU_fix_g_DE %&gt;% filter(set==&quot;dAPA&quot;)
 ggplot(BothAU_fix_g_DE_dAPA, aes(y=AU,x=DE,fill=DE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>BothAU_fix_g_TE_dAPA= BothAU_fix_g_TE %&gt;% filter(set==&quot;dAPA&quot;)
 ggplot(BothAU_fix_g_TE_dAPA, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-2">
+Past versions of unnamed-chunk-17-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-2.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><strong>ok so only significant relationship here is higher AU proportion in ortho 3’ UTRs for dAPA genes. </strong></p>
 <p>difference in dominance:</p>
 <pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
@@ -1772,6 +2024,43 @@ BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) 
 BothResAll_au$cut=as.factor(BothResAll_au$cut)
 ggplot(BothResAll_au,aes(x=cut, by=Set, y=HumanAU,fill=Set)) + geom_boxplot() + stat_compare_means(aes(label = ..p.signif..))</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-19-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>DP not DE:</p>
 <pre class="r"><code>ProtInfo=read.table(&quot;../data/PTM/ProtLength.txt&quot;, sep = &quot;\t&quot;,stringsAsFactors = F,header = T,col.names = c(&quot;entry&quot;,&quot;organism&quot;, &quot;nAA&quot;, &quot;gene&quot;)) %&gt;% select(nAA, gene)
 Prot= read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;,header = T,stringsAsFactors = F)  %&gt;% mutate(dP=ifelse(pval&lt;0.05, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% filter(dP==&quot;Yes&quot;)
@@ -1781,7 +2070,45 @@ Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,strin
 
 dAPAandDic_wP=dAPAandDic %&gt;% mutate(dE=ifelse(gene %in%DiffExp$gene, &quot;Yes&quot;, &quot;No&quot; ), dP=ifelse(gene %in%Prot$gene,&quot;Yes&quot;,&quot;No&quot; ), dPnotDE=ifelse(dE==&quot;No&quot;&amp;dP==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;) %&gt;% inner_join(BothAU_fix,by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>ggplot(dAPAandDic_wP, aes(x=dPnotDE, y=HumanAU)) + geom_boxplot()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /> only one gene with the pattern and an ortho 3’ UTR.</p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-21-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>only one gene with the pattern and an ortho 3’ UTR.</p>
 <p>Human 3’ UTRs:</p>
 <p>Merge from refseq anno:</p>
 <pre class="bash"><code>mkdir ../data/HumanUTR
@@ -1811,6 +2138,43 @@ write.table(humanDistalboth, &quot;../data/HumanUTR/HumanDistal3UTR.bed&quot;, c
 dAPAandDic_wPAU$au_element_frac= as.numeric(as.character(dAPAandDic_wPAU$au_element_frac))</code></pre>
 <pre class="r"><code>ggplot(dAPAandDic_wPAU, aes(x=dPnotDE, y=au_element_frac)) + geom_boxplot()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-27-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dAPAandDic_wPAU %&gt;% group_by(dPnotDE) %&gt;% summarise(n())</code></pre>
 <pre><code># A tibble: 2 x 2
   dPnotDE `n()`
@@ -1824,6 +2188,43 @@ Allset_andnon_au$au_element_frac= as.numeric(as.character(Allset_andnon_au$au_el
 
 ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_frac)) + geom_boxplot() + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-29-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Allset_andnon_au %&gt;% group_by(set ) %&gt;% summarise(mean(au_element_frac))</code></pre>
 <pre><code># A tibble: 4 x 2
   set   `mean(au_element_frac)`
@@ -1836,10 +2237,84 @@ ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_frac)) + geom_boxplot()
 
 ggplot(Allset_andnon_aude, aes(x=set,fill=set,y=au_element_frac,by=DE)) + geom_boxplot() + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
+Past versions of unnamed-chunk-30-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-30-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-30-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Allset_andnon_auTE=Allset_andnon_au  %&gt;% inner_join(RiboSmall,by=&quot;gene&quot;)
 
 ggplot(Allset_andnon_auTE, aes(x=set,fill=set,y=au_element_frac,by=dTE)) + geom_boxplot() + stat_compare_means()</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
+Past versions of unnamed-chunk-31-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-31-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>ok there are no interesting relationships with this… I would have to proportion the UTRs probably…</p>
 <p>number:</p>
 <pre class="r"><code>Allset_andnon_au$au_element_count=as.numeric(Allset_andnon_au$au_element_count)
@@ -1848,18 +2323,206 @@ ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_count)) + geom_boxplot(
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_compare_means).</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-32-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Allset_andnon_auany= Allset_andnon_au %&gt;% mutate(AnyAPA=ifelse(set==&quot;None&quot;,&quot;No&quot;, &quot;Yes&quot;))
 
 ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
 <pre><code>Warning: Removed 1 rows containing non-finite values (stat_compare_means).</code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
+Past versions of unnamed-chunk-33-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_frac)) + geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;less&quot;)) </code></pre>
 <p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-2">
+Past versions of unnamed-chunk-33-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-33-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-2.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Allset_andnon_auany_de= Allset_andnon_auany %&gt;% inner_join(DiffExp,by=&quot;gene&quot;)
 
 ggplot(Allset_andnon_auany_de, aes(x=DE,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /> dAPA have more AU elements but the other relationships dont make much sense. nothing is strong.. on hold for now.</p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/63f3e703f17ff4a9acd33e7fad8cb91e8c9e4d4d/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-34-1.png" target="_blank">63f3e70</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>dAPA have more AU elements but the other relationships dont make much sense. nothing is strong.. on hold for now.</p>
+<p>genes with 3’ UTR difference:</p>
+<pre class="r"><code>MetaSm=Meta %&gt;% select(PAS, chr, start, end, loc)
+DiffIso=read.table(&quot;../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt&quot;,header = T, stringsAsFactors = F)  %&gt;% inner_join(MetaSm, by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;)) 
+DiffIsoSitUTR= DiffIso %&gt;% filter(loc==&quot;utr3&quot;, SigPAU2==&quot;Yes&quot;)
+
+DiffIsoSitUTRGenes=DiffIsoSitUTR %&gt;% select(gene) %&gt;% unique()
+
+
+HumanALLUTR_au_UTRdiff= HumanALLUTR_au %&gt;% mutate(dAPA=ifelse(gene %in%DiffIsoSitUTRGenes$gene, &quot;Yes&quot;, &quot;No&quot; ))
+
+HumanALLUTR_au_UTRdiff$au_element_frac=as.numeric(HumanALLUTR_au_UTRdiff$au_element_frac)
+HumanALLUTR_au_UTRdiff$au_element_count=as.numeric(HumanALLUTR_au_UTRdiff$au_element_count)</code></pre>
+<pre class="r"><code>ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;) + labs(title=&quot;Genes with 3&#39; UTR differences have higher AU element %&quot;) + theme_classic() + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanALLUTR_au_UTRdiff %&gt;% group_by(dAPA) %&gt;% summarise(mean(au_element_frac))</code></pre>
+<pre><code># A tibble: 2 x 2
+  dAPA  `mean(au_element_frac)`
+  &lt;chr&gt;                   &lt;dbl&gt;
+1 No                     0.0148
+2 Yes                    0.0153</code></pre>
+<p>Seperate by DE:</p>
+<pre class="r"><code>HumanALLUTR_au_UTRdiff_de= HumanALLUTR_au_UTRdiff %&gt;% inner_join(DiffExp,by=&quot;gene&quot;)
+
+ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(title=&quot;AU % not associated with expression variation&quot;) + theme_classic() </code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + ylim(c(0, 100)) + scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(title=&quot;Genes with 3&#39; UTR differences have more AU elements&quot;) + theme_classic() + theme(legend.position = &quot;none&quot;)</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_compare_means).</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(title=&quot;Genes with 3&#39; UTR differences have more AU elements&quot;) + theme_classic() + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>HumanALLUTR_au_UTRdiff %&gt;% group_by(dAPA) %&gt;% summarise(mean(au_element_count))</code></pre>
+<pre><code># A tibble: 2 x 2
+  dAPA  `mean(au_element_count)`
+  &lt;chr&gt;                    &lt;dbl&gt;
+1 No                        3.71
+2 Yes                       5.55</code></pre>
+<pre class="r"><code>ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+ labs(title=&quot;AU elements not associated with expression variation&quot;) + theme_classic() </code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1892,20 +2555,25 @@ other attached packages:
  [9] tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 reshape2_1.4.3   haven_1.1.2      lattice_0.20-38 
- [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
- [9] utf8_1.1.4       rlang_0.4.0      later_0.7.5      pillar_1.3.1    
-[13] glue_1.3.0       withr_2.1.2      modelr_0.1.2     readxl_1.1.0    
-[17] plyr_1.8.4       munsell_0.5.0    gtable_0.2.0     workflowr_1.6.0 
-[21] cellranger_1.1.0 rvest_0.3.2      evaluate_0.12    labeling_0.3    
-[25] knitr_1.20       httpuv_1.4.5     fansi_0.4.0      broom_0.5.1     
-[29] Rcpp_1.0.4.6     promises_1.0.1   scales_1.0.0     backports_1.1.2 
-[33] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
-[37] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
-[41] tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2   
-[45] pkgconfig_2.0.2  MASS_7.3-51.1    xml2_1.2.0       lubridate_1.7.4 
-[49] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
-[53] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+ [1] tidyselect_0.2.5   reshape2_1.4.3     haven_1.1.2       
+ [4] lattice_0.20-38    colorspace_1.3-2   generics_0.0.2    
+ [7] htmltools_0.3.6    yaml_2.2.0         utf8_1.1.4        
+[10] rlang_0.4.0        later_0.7.5        pillar_1.3.1      
+[13] glue_1.3.0         withr_2.1.2        RColorBrewer_1.1-2
+[16] modelr_0.1.2       readxl_1.1.0       plyr_1.8.4        
+[19] munsell_0.5.0      gtable_0.2.0       workflowr_1.6.0   
+[22] cellranger_1.1.0   rvest_0.3.2        evaluate_0.12     
+[25] labeling_0.3       knitr_1.20         httpuv_1.4.5      
+[28] fansi_0.4.0        broom_0.5.1        Rcpp_1.0.4.6      
+[31] promises_1.0.1     scales_1.0.0       backports_1.1.2   
+[34] jsonlite_1.6       fs_1.3.1           hms_0.4.2         
+[37] digest_0.6.18      stringi_1.2.4      grid_3.5.1        
+[40] rprojroot_1.3-2    cli_1.1.0          tools_3.5.1       
+[43] lazyeval_0.2.1     crayon_1.3.4       whisker_0.3-2     
+[46] pkgconfig_2.0.2    MASS_7.3-51.1      xml2_1.2.0        
+[49] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
+[52] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
+[55] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
 </div>
 
 
