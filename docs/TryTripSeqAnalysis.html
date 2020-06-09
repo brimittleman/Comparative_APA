@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree085794d0c3f73fd5e513734c341f2f7913274f84targetblank085794da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/085794d0c3f73fd5e513734c341f2f7913274f84" target="_blank">085794d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree16a604bd8cd95e829ad998909703fbdd24e07864targetblank16a604ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/16a604bd8cd95e829ad998909703fbdd24e07864" target="_blank">16a604b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree085794d0c3f73fd5e513734c341f2f7913274f84targetblank085794da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree16a604bd8cd95e829ad998909703fbdd24e07864targetblank16a604ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1223,6 +1223,7 @@ Untracked files:
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
     Untracked:  data/IndInfoContent/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
@@ -1413,6 +1414,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/16a604bd8cd95e829ad998909703fbdd24e07864/analysis/TryTripSeqAnalysis.Rmd" target="_blank">16a604b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+add all utr analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/TryTripSeqAnalysis.html" target="_blank">4ff1c53</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/085794d0c3f73fd5e513734c341f2f7913274f84/analysis/TryTripSeqAnalysis.Rmd" target="_blank">085794d</a>
 </td>
 <td>
@@ -1433,12 +1468,12 @@ add trpseq analysis
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1456,6 +1491,7 @@ Attaching package: &#39;magrittr&#39;</code></pre>
 <p>I need the name of the genome and a bed file. I can start by testing on the ortho 3’ UTRs</p>
 <p>clone code/tripseq-analysis python 2</p>
 <pre class="bash"><code>source ~/activate_anaconda_python2.sh
+module load bedtools
 #in trip
 python transcriptome_properties.py -i ../../data/orthoUTR/HumanDistal3UTR.sort.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements 
 </code></pre>
@@ -1484,8 +1520,27 @@ alternative hypothesis: true correlation is not equal to 0
 sample estimates:
       cor 
 0.9777308 </code></pre>
-<pre class="r"><code>ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1)</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>AU number:</p>
+<pre class="r"><code>HumanOrthUTR_au_Numsm=HumanOrthUTR_au %&gt;% select(transcriptID, au_element_count) %&gt;% rename(HumanAU=au_element_count)
+ChimpOrthUTR_au_Numsm=ChimpOrthoUTR_au %&gt;% select(transcriptID, au_element_count) %&gt;% rename(ChimpAU=au_element_count)
+
+BothAUNum=HumanOrthUTR_au_Numsm %&gt;% inner_join(ChimpOrthUTR_au_Numsm, by=&quot;transcriptID&quot;)
+
+cor.test(BothAU$ChimpAU, BothAU$HumanAU)</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  BothAU$ChimpAU and BothAU$HumanAU
+t = 584.48, df = 15739, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9770321 0.9784085
+sample estimates:
+      cor 
+0.9777308 </code></pre>
+<p>same high correlation…</p>
+<pre class="r"><code>ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1) + geom_density_2d()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Color by dAPA and diff iso diversity.</p>
 <pre class="r"><code>Meta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) 
 Meta_genes= Meta %&gt;% select(gene) %&gt;% unique()
@@ -1529,12 +1584,49 @@ BothAU_fix %&gt;% group_by(set) %&gt;% summarise(n())</code></pre>
 
 
 ggplot(BothAU_fix_g, aes(x=AU,col=set)) +stat_ecdf() + facet_grid(~Species)</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-1.png" target="_blank">4ff1c53</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>box plots:</p>
 <pre class="r"><code>ggplot(BothAU_fix_g, aes(y=AU,x=set,fill=set)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(BothAU_fix_g, aes(y=AU,x=anyDiff,fill=anyDiff)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means(method.args = list(alternative = &quot;greater&quot;))</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>BothAU_fix_g %&gt;% group_by(Species,anyDiff) %&gt;% summarise(mean(AU))</code></pre>
 <pre><code># A tibble: 4 x 3
 # Groups:   Species [2]
@@ -1564,7 +1656,44 @@ DiffExp=read.table(&quot;../data/DiffExpression/DEtested_allres.txt&quot;,string
 
 BothAU_fix_g_DE= BothAU_fix_g %&gt;% inner_join(DiffExp,by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>ggplot(BothAU_fix_g_DE, aes(y=AU,x=DE,fill=DE)) +geom_boxplot() + facet_grid(anyDiff~Species) + stat_compare_means()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-15-1.png" target="_blank">4ff1c53</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>genes with differential translation:</p>
 <pre class="r"><code>Ribo=read.table(&quot;../data/Wang_ribo/Additionaltable5_translationComparisons.txt&quot;,header = T, stringsAsFactors = F) %&gt;% rename(&quot;Gene_stable_ID&quot;= ENSG) %&gt;% inner_join(nameID,by=&quot;Gene_stable_ID&quot;) %&gt;% dplyr::select(Gene.name, HvC.beta, HvC.pvalue, HvC.FDR) %&gt;% rename(&quot;gene&quot;=Gene.name) %&gt;% mutate(dTE=ifelse(HvC.FDR &lt;0.05, &quot;Yes&quot;,&quot;No&quot;))
 RiboSmall= Ribo %&gt;% select(gene,dTE)
@@ -1573,16 +1702,164 @@ BothAU_fix_g_TE= BothAU_fix_g %&gt;% inner_join(RiboSmall,by=&quot;gene&quot;)
 
 
 ggplot(BothAU_fix_g_TE, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_grid(anyDiff~Species) + stat_compare_means()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/4ff1c539a4d5dca1df9a55125a54f15be74ac5e9/docs/figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-1.png" target="_blank">4ff1c53</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>AU for the ortho UTRs are not different based on DE or translation status.</p>
 <p>filter to dAPA genes and see if they are different in expression and translation:</p>
 <pre class="r"><code>BothAU_fix_g_DE_dAPA= BothAU_fix_g_DE %&gt;% filter(set==&quot;dAPA&quot;)
 ggplot(BothAU_fix_g_DE_dAPA, aes(y=AU,x=DE,fill=DE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>BothAU_fix_g_TE_dAPA= BothAU_fix_g_TE %&gt;% filter(set==&quot;dAPA&quot;)
 ggplot(BothAU_fix_g_TE_dAPA, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_grid(~Species) + stat_compare_means()</code></pre>
-<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p><strong>ok so only significant relationship here is higher AU proportion in ortho 3’ UTRs for dAPA genes. </strong></p>
+<p>difference in dominance:</p>
+<pre class="r"><code>HumanRes=read.table(&quot;../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Human_PAS&quot;, &quot;gene&quot;,&quot;Human_DiffDom&quot;),stringsAsFactors = F)
+
+ChimpRes=read.table(&quot;../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt&quot;, col.names = c(&quot;Chimp_PAS&quot;, &quot;gene&quot;,&quot;Chimp_DiffDom&quot;),stringsAsFactors = F)
+
+BothRes=HumanRes %&gt;% inner_join(ChimpRes,by=&quot;gene&quot;)
+
+BothRes_10=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.1 | Human_DiffDom&gt;=0.1) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=10) 
+BothRes_20=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.2 | Human_DiffDom&gt;=0.2) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=20)
+BothRes_30=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.3 | Human_DiffDom&gt;=0.3) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=30)
+BothRes_40=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.4 | Human_DiffDom&gt;=0.4) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=40)
+BothRes_50=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.5 | Human_DiffDom&gt;=0.5) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=50)
+BothRes_60=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.6 | Human_DiffDom&gt;=0.6) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=60)
+BothRes_70=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.7 | Human_DiffDom&gt;=0.7) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=70)
+BothRes_80=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.8 | Human_DiffDom&gt;=0.8) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=80)
+BothRes_90=BothRes %&gt;% filter(Chimp_DiffDom &gt;=0.9 | Human_DiffDom&gt;=0.9) %&gt;% mutate(Set= ifelse(Human_PAS==Chimp_PAS,&quot;Same&quot;, &quot;Different&quot;),cut=90)
+
+BothResAll=BothRes_10 %&gt;% bind_rows(BothRes_20) %&gt;% bind_rows(BothRes_30) %&gt;% bind_rows(BothRes_40) %&gt;% bind_rows(BothRes_50) %&gt;% bind_rows(BothRes_60) %&gt;% bind_rows(BothRes_70) %&gt;% bind_rows(BothRes_80) %&gt;% bind_rows(BothRes_90) </code></pre>
+<p>plotting au in human for each:</p>
+<pre class="r"><code>BothResAll_au= BothResAll %&gt;% inner_join(BothAU_fix,by=&quot;gene&quot;)
+BothResAll_au$cut=as.factor(BothResAll_au$cut)
+ggplot(BothResAll_au,aes(x=cut, by=Set, y=HumanAU,fill=Set)) + geom_boxplot() + stat_compare_means(aes(label = ..p.signif..))</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>DP not DE:</p>
+<pre class="r"><code>ProtInfo=read.table(&quot;../data/PTM/ProtLength.txt&quot;, sep = &quot;\t&quot;,stringsAsFactors = F,header = T,col.names = c(&quot;entry&quot;,&quot;organism&quot;, &quot;nAA&quot;, &quot;gene&quot;)) %&gt;% select(nAA, gene)
+Prot= read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;,header = T,stringsAsFactors = F)  %&gt;% mutate(dP=ifelse(pval&lt;0.05, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% filter(dP==&quot;Yes&quot;)
+Interactions=read.table(&quot;../data/bioGRID/GeneswInteractions.txt&quot;,stringsAsFactors = F, header = T) %&gt;% inner_join(ProtInfo, by=&quot;gene&quot;)%&gt;% mutate(NormInter=nInt/nAA)
+
+#DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
+
+dAPAandDic_wP=dAPAandDic %&gt;% mutate(dE=ifelse(gene %in%DiffExp$gene, &quot;Yes&quot;, &quot;No&quot; ), dP=ifelse(gene %in%Prot$gene,&quot;Yes&quot;,&quot;No&quot; ), dPnotDE=ifelse(dE==&quot;No&quot;&amp;dP==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;) %&gt;% inner_join(BothAU_fix,by=&quot;gene&quot;)</code></pre>
+<pre class="r"><code>ggplot(dAPAandDic_wP, aes(x=dPnotDE, y=HumanAU)) + geom_boxplot()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /> only one gene with the pattern and an ortho 3’ UTR.</p>
+<p>Human 3’ UTRs:</p>
+<p>Merge from refseq anno:</p>
+<pre class="bash"><code>mkdir ../data/HumanUTR
+bedtools merge -s -i ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed -c 4,5,6 -o distinct,mean,distinct &gt; ../data/HumanUTR/Human3UTR.merged.bed</code></pre>
+<p>still multiple per genes. take most 3’ ?</p>
+<pre class="r"><code>humanMergeutr= read.table(&quot;../data/HumanUTR/Human3UTR.merged.bed&quot;, col.names = c(&#39;chr&#39;,&#39;start&#39;,&#39;end&#39;,&#39;gene&#39;,&#39;score&#39;,&#39;strand&#39;), stringsAsFactors = F) %&gt;% group_by(gene)
+
+humanMergeutrpos= humanMergeutr %&gt;% filter(strand==&quot;+&quot;) %&gt;% group_by(gene) %&gt;% top_n(1,start)
+
+humanMergeutrneg= humanMergeutr %&gt;% filter(strand==&quot;-&quot;) %&gt;% group_by(gene) %&gt;% top_n(-1,start)
+
+humanDistalboth=humanMergeutrpos %&gt;% bind_rows(humanMergeutrneg)
+
+write.table(humanDistalboth, &quot;../data/HumanUTR/HumanDistal3UTR.bed&quot;, col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+<p>Run these through AU:</p>
+<pre class="bash"><code>python transcriptome_properties.py -i../../data/HumanUTR/HumanDistal3UTR.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements  -o ../../data/HumanUTR/HumanAllUTR_AUrich</code></pre>
+<pre class="r"><code>HumanALLUTR_au=read.csv(&quot;../data/HumanUTR/HumanAllUTR_AUrich_au_elements.csv&quot;,header = T, stringsAsFactors = F) %&gt;%  separate(transcriptID, into=c(&quot;geneloc&quot;, &quot;strand&quot;), sep=&quot;\\(&quot;) %&gt;% separate(geneloc, into=c(&quot;loc&quot;,&quot;gene&quot;),sep=&quot;:&quot;) %&gt;% na.omit()</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 611 rows
+[63, 64, 65, 66, 135, 136, 409, 410, 463, 464, 611, 612, 691, 692, 974,
+975, 1074, 1075, 1466, 1467, ...].</code></pre>
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 302 rows
+[64, 66, 136, 410, 464, 612, 692, 975, 1075, 1467, 1747, 1955, 2461, 2566,
+2620, 2688, 2801, 2970, 3002, 3029, ...].</code></pre>
+<p>missing pieces were overlapping.</p>
+<pre class="r"><code>dAPAandDic_wPAU=dAPAandDic %&gt;% mutate(dE=ifelse(gene %in%DiffExp$gene, &quot;Yes&quot;, &quot;No&quot; ), dP=ifelse(gene %in%Prot$gene,&quot;Yes&quot;,&quot;No&quot; ), dPnotDE=ifelse(dE==&quot;No&quot;&amp;dP==&quot;Yes&quot;, &quot;Yes&quot;,&quot;No&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;) %&gt;% inner_join(HumanALLUTR_au, by=&quot;gene&quot;)
+
+dAPAandDic_wPAU$au_element_frac= as.numeric(as.character(dAPAandDic_wPAU$au_element_frac))</code></pre>
+<pre class="r"><code>ggplot(dAPAandDic_wPAU, aes(x=dPnotDE, y=au_element_frac)) + geom_boxplot()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dAPAandDic_wPAU %&gt;% group_by(dPnotDE) %&gt;% summarise(n())</code></pre>
+<pre><code># A tibble: 2 x 2
+  dPnotDE `n()`
+  &lt;chr&gt;   &lt;int&gt;
+1 No       7132
+2 Yes         2</code></pre>
+<p>only 2…</p>
+<pre class="r"><code>Allset_andnon_au= Allset_andnon %&gt;% inner_join(HumanALLUTR_au, by=&quot;gene&quot;)
+Allset_andnon_au$au_element_frac= as.numeric(as.character(Allset_andnon_au$au_element_frac))
+
+
+ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_frac)) + geom_boxplot() + stat_compare_means()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Allset_andnon_au %&gt;% group_by(set ) %&gt;% summarise(mean(au_element_frac))</code></pre>
+<pre><code># A tibble: 4 x 2
+  set   `mean(au_element_frac)`
+  &lt;chr&gt;                   &lt;dbl&gt;
+1 Both                   0.0150
+2 dAPA                   0.0161
+3 ID                     0.0162
+4 None                   0.0154</code></pre>
+<pre class="r"><code>Allset_andnon_aude=Allset_andnon_au %&gt;% inner_join(DiffExp,by=&quot;gene&quot;)
+
+ggplot(Allset_andnon_aude, aes(x=set,fill=set,y=au_element_frac,by=DE)) + geom_boxplot() + stat_compare_means()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Allset_andnon_auTE=Allset_andnon_au  %&gt;% inner_join(RiboSmall,by=&quot;gene&quot;)
+
+ggplot(Allset_andnon_auTE, aes(x=set,fill=set,y=au_element_frac,by=dTE)) + geom_boxplot() + stat_compare_means()</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>ok there are no interesting relationships with this… I would have to proportion the UTRs probably…</p>
+<p>number:</p>
+<pre class="r"><code>Allset_andnon_au$au_element_count=as.numeric(Allset_andnon_au$au_element_count)
+
+ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_compare_means).</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Allset_andnon_auany= Allset_andnon_au %&gt;% mutate(AnyAPA=ifelse(set==&quot;None&quot;,&quot;No&quot;, &quot;Yes&quot;))
+
+ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_compare_means).</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_frac)) + geom_boxplot() + stat_compare_means(method.args = list(alternative = &quot;less&quot;)) </code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-33-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Allset_andnon_auany_de= Allset_andnon_auany %&gt;% inner_join(DiffExp,by=&quot;gene&quot;)
+
+ggplot(Allset_andnon_auany_de, aes(x=DE,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))</code></pre>
+<p><img src="figure/TryTripSeqAnalysis.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /> dAPA have more AU elements but the other relationships dont make much sense. nothing is strong.. on hold for now.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1626,9 +1903,9 @@ loaded via a namespace (and not attached):
 [33] jsonlite_1.6     fs_1.3.1         hms_0.4.2        digest_0.6.18   
 [37] stringi_1.2.4    grid_3.5.1       rprojroot_1.3-2  cli_1.1.0       
 [41] tools_3.5.1      lazyeval_0.2.1   crayon_1.3.4     whisker_0.3-2   
-[45] pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
-[49] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10  R6_2.3.0        
-[53] nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
+[45] pkgconfig_2.0.2  MASS_7.3-51.1    xml2_1.2.0       lubridate_1.7.4 
+[49] assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1       rstudioapi_0.10 
+[53] R6_2.3.0         nlme_3.1-137     git2r_0.26.1     compiler_3.5.1  </code></pre>
 </div>
 
 
