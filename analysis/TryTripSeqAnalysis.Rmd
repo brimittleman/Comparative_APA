@@ -27,6 +27,7 @@ clone code/tripseq-analysis
 python 2
 ```{bash,eval=F}
 source ~/activate_anaconda_python2.sh
+module load bedtools
 #in trip
 python transcriptome_properties.py -i ../../data/orthoUTR/HumanDistal3UTR.sort.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements 
 
@@ -59,8 +60,21 @@ BothAU=HumanOrthUTR_au_sm %>% inner_join(ChimpOrthUTR_au_sm, by="transcriptID")
 cor.test(BothAU$ChimpAU, BothAU$HumanAU)
 
 ```
+AU number:
+
 ```{r}
-ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1)
+HumanOrthUTR_au_Numsm=HumanOrthUTR_au %>% select(transcriptID, au_element_count) %>% rename(HumanAU=au_element_count)
+ChimpOrthUTR_au_Numsm=ChimpOrthoUTR_au %>% select(transcriptID, au_element_count) %>% rename(ChimpAU=au_element_count)
+
+BothAUNum=HumanOrthUTR_au_Numsm %>% inner_join(ChimpOrthUTR_au_Numsm, by="transcriptID")
+
+cor.test(BothAU$ChimpAU, BothAU$HumanAU)
+```
+same high correlation... 
+
+
+```{r}
+ggplot(BothAU, aes(x=HumanAU, y=ChimpAU)) + geom_point() + geom_abline(slope=1) + geom_density_2d()
 ```
 
 
@@ -179,3 +193,155 @@ ggplot(BothAU_fix_g_TE_dAPA, aes(y=AU,x=dTE,fill=dTE)) +geom_boxplot() + facet_g
 
 **ok so only significant relationship here is higher AU proportion in ortho 3' UTRs for dAPA genes. **
 
+
+difference in dominance:  
+
+```{r}
+HumanRes=read.table("../data/DomDefGreaterX/Human_AllGenes_DiffTop.txt", col.names = c("Human_PAS", "gene","Human_DiffDom"),stringsAsFactors = F)
+
+ChimpRes=read.table("../data/DomDefGreaterX/Chimp_AllGenes_DiffTop.txt", col.names = c("Chimp_PAS", "gene","Chimp_DiffDom"),stringsAsFactors = F)
+
+BothRes=HumanRes %>% inner_join(ChimpRes,by="gene")
+
+BothRes_10=BothRes %>% filter(Chimp_DiffDom >=0.1 | Human_DiffDom>=0.1) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=10) 
+BothRes_20=BothRes %>% filter(Chimp_DiffDom >=0.2 | Human_DiffDom>=0.2) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=20)
+BothRes_30=BothRes %>% filter(Chimp_DiffDom >=0.3 | Human_DiffDom>=0.3) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=30)
+BothRes_40=BothRes %>% filter(Chimp_DiffDom >=0.4 | Human_DiffDom>=0.4) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=40)
+BothRes_50=BothRes %>% filter(Chimp_DiffDom >=0.5 | Human_DiffDom>=0.5) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=50)
+BothRes_60=BothRes %>% filter(Chimp_DiffDom >=0.6 | Human_DiffDom>=0.6) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=60)
+BothRes_70=BothRes %>% filter(Chimp_DiffDom >=0.7 | Human_DiffDom>=0.7) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=70)
+BothRes_80=BothRes %>% filter(Chimp_DiffDom >=0.8 | Human_DiffDom>=0.8) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=80)
+BothRes_90=BothRes %>% filter(Chimp_DiffDom >=0.9 | Human_DiffDom>=0.9) %>% mutate(Set= ifelse(Human_PAS==Chimp_PAS,"Same", "Different"),cut=90)
+
+BothResAll=BothRes_10 %>% bind_rows(BothRes_20) %>% bind_rows(BothRes_30) %>% bind_rows(BothRes_40) %>% bind_rows(BothRes_50) %>% bind_rows(BothRes_60) %>% bind_rows(BothRes_70) %>% bind_rows(BothRes_80) %>% bind_rows(BothRes_90) 
+
+```
+
+
+plotting au in human for each: 
+
+```{r}
+BothResAll_au= BothResAll %>% inner_join(BothAU_fix,by="gene")
+BothResAll_au$cut=as.factor(BothResAll_au$cut)
+ggplot(BothResAll_au,aes(x=cut, by=Set, y=HumanAU,fill=Set)) + geom_boxplot() + stat_compare_means(aes(label = ..p.signif..))
+```
+
+
+DP not DE:  
+
+```{r}
+ProtInfo=read.table("../data/PTM/ProtLength.txt", sep = "\t",stringsAsFactors = F,header = T,col.names = c("entry","organism", "nAA", "gene")) %>% select(nAA, gene)
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No")) %>% filter(dP=="Yes")
+Interactions=read.table("../data/bioGRID/GeneswInteractions.txt",stringsAsFactors = F, header = T) %>% inner_join(ProtInfo, by="gene")%>% mutate(NormInter=nInt/nAA)
+
+#DiffExp$gene, DT=Ribo$gene, DP=Prot$gene
+
+dAPAandDic_wP=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(Interactions, by="gene") %>% inner_join(BothAU_fix,by="gene")
+```
+
+
+```{r}
+ggplot(dAPAandDic_wP, aes(x=dPnotDE, y=HumanAU)) + geom_boxplot()
+```
+only one gene with the pattern and an ortho 3' UTR. 
+
+Human 3' UTRs:  
+
+Merge from refseq anno: 
+```{bash,eval=F}
+mkdir ../data/HumanUTR
+bedtools merge -s -i ../data/orthoUTR/g38_ncbiRefseq_Formatted_Allannotation_UTR3.bed -c 4,5,6 -o distinct,mean,distinct > ../data/HumanUTR/Human3UTR.merged.bed
+```
+
+still multiple per genes.  take most 3' ? 
+
+```{r}
+humanMergeutr= read.table("../data/HumanUTR/Human3UTR.merged.bed", col.names = c('chr','start','end','gene','score','strand'), stringsAsFactors = F) %>% group_by(gene)
+
+humanMergeutrpos= humanMergeutr %>% filter(strand=="+") %>% group_by(gene) %>% top_n(1,start)
+
+humanMergeutrneg= humanMergeutr %>% filter(strand=="-") %>% group_by(gene) %>% top_n(-1,start)
+
+humanDistalboth=humanMergeutrpos %>% bind_rows(humanMergeutrneg)
+
+write.table(humanDistalboth, "../data/HumanUTR/HumanDistal3UTR.bed", col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+
+Run these through AU:  
+
+```{bash,eval=F}
+python transcriptome_properties.py -i../../data/HumanUTR/HumanDistal3UTR.bed -g /project2/gilad/kenneth/References/human/genome/hg38.fa   --au-elements  -o ../../data/HumanUTR/HumanAllUTR_AUrich
+```
+
+```{r}
+
+HumanALLUTR_au=read.csv("../data/HumanUTR/HumanAllUTR_AUrich_au_elements.csv",header = T, stringsAsFactors = F) %>%  separate(transcriptID, into=c("geneloc", "strand"), sep="\\(") %>% separate(geneloc, into=c("loc","gene"),sep=":") %>% na.omit()
+
+```
+missing pieces were overlapping.  
+
+```{r}
+dAPAandDic_wPAU=dAPAandDic %>% mutate(dE=ifelse(gene %in%DiffExp$gene, "Yes", "No" ), dP=ifelse(gene %in%Prot$gene,"Yes","No" ), dPnotDE=ifelse(dE=="No"&dP=="Yes", "Yes","No")) %>% inner_join(Interactions, by="gene") %>% inner_join(HumanALLUTR_au, by="gene")
+
+dAPAandDic_wPAU$au_element_frac= as.numeric(as.character(dAPAandDic_wPAU$au_element_frac))
+```
+
+```{r}
+ggplot(dAPAandDic_wPAU, aes(x=dPnotDE, y=au_element_frac)) + geom_boxplot()
+```
+```{r}
+dAPAandDic_wPAU %>% group_by(dPnotDE) %>% summarise(n())
+```
+
+only 2...
+
+
+```{r}
+Allset_andnon_au= Allset_andnon %>% inner_join(HumanALLUTR_au, by="gene")
+Allset_andnon_au$au_element_frac= as.numeric(as.character(Allset_andnon_au$au_element_frac))
+
+
+ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_frac)) + geom_boxplot() + stat_compare_means()
+
+
+Allset_andnon_au %>% group_by(set ) %>% summarise(mean(au_element_frac))
+```
+
+```{r}
+Allset_andnon_aude=Allset_andnon_au %>% inner_join(DiffExp,by="gene")
+
+ggplot(Allset_andnon_aude, aes(x=set,fill=set,y=au_element_frac,by=DE)) + geom_boxplot() + stat_compare_means()
+```
+```{r}
+Allset_andnon_auTE=Allset_andnon_au  %>% inner_join(RiboSmall,by="gene")
+
+ggplot(Allset_andnon_auTE, aes(x=set,fill=set,y=au_element_frac,by=dTE)) + geom_boxplot() + stat_compare_means()
+```
+
+
+ok there are no interesting relationships with this... I would have to proportion the UTRs probably... 
+
+
+number:  
+```{r}
+Allset_andnon_au$au_element_count=as.numeric(Allset_andnon_au$au_element_count)
+
+ggplot(Allset_andnon_au, aes(x=set,fill=set,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))
+```
+```{r}
+Allset_andnon_auany= Allset_andnon_au %>% mutate(AnyAPA=ifelse(set=="None","No", "Yes"))
+
+ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))
+
+ggplot(Allset_andnon_auany, aes(x=AnyAPA,fill=AnyAPA,y=au_element_frac)) + geom_boxplot() + stat_compare_means(method.args = list(alternative = "less")) 
+```
+
+
+
+```{r}
+Allset_andnon_auany_de= Allset_andnon_auany %>% inner_join(DiffExp,by="gene")
+
+ggplot(Allset_andnon_auany_de, aes(x=DE,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))
+```
+dAPA have more AU elements but the other relationships dont make much sense. nothing is strong.. on hold for now.
