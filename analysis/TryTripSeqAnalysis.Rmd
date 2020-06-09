@@ -345,3 +345,53 @@ Allset_andnon_auany_de= Allset_andnon_auany %>% inner_join(DiffExp,by="gene")
 ggplot(Allset_andnon_auany_de, aes(x=DE,fill=AnyAPA,y=au_element_count)) + geom_boxplot() + stat_compare_means() +ylim(c(0,100))
 ```
 dAPA have more AU elements but the other relationships dont make much sense. nothing is strong.. on hold for now.
+
+
+
+genes with 3' UTR difference: 
+
+```{r}
+
+MetaSm=Meta %>% select(PAS, chr, start, end, loc)
+DiffIso=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F)  %>% inner_join(MetaSm, by=c("chr","start", "end")) 
+DiffIsoSitUTR= DiffIso %>% filter(loc=="utr3", SigPAU2=="Yes")
+
+DiffIsoSitUTRGenes=DiffIsoSitUTR %>% select(gene) %>% unique()
+
+
+HumanALLUTR_au_UTRdiff= HumanALLUTR_au %>% mutate(dAPA=ifelse(gene %in%DiffIsoSitUTRGenes$gene, "Yes", "No" ))
+
+HumanALLUTR_au_UTRdiff$au_element_frac=as.numeric(HumanALLUTR_au_UTRdiff$au_element_frac)
+HumanALLUTR_au_UTRdiff$au_element_count=as.numeric(HumanALLUTR_au_UTRdiff$au_element_count)
+```
+
+
+```{r}
+ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(title="Genes with 3' UTR differences have higher AU element %") + theme_classic() + theme(legend.position = "none")
+
+HumanALLUTR_au_UTRdiff %>% group_by(dAPA) %>% summarise(mean(au_element_frac))
+```
+
+Seperate by DE: 
+
+```{r}
+HumanALLUTR_au_UTRdiff_de= HumanALLUTR_au_UTRdiff %>% inner_join(DiffExp,by="gene")
+
+ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="AU % not associated with expression variation") + theme_classic() 
+```
+
+
+```{r}
+ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + ylim(c(0, 100)) + scale_fill_brewer(palette = "Set1")+ labs(title="Genes with 3' UTR differences have more AU elements") + theme_classic() + theme(legend.position = "none")
+
+ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="Genes with 3' UTR differences have more AU elements") + theme_classic() + theme(legend.position = "none")
+
+
+HumanALLUTR_au_UTRdiff %>% group_by(dAPA) %>% summarise(mean(au_element_count))
+```
+
+
+```{r}
+ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="AU elements not associated with expression variation") + theme_classic() 
+```
+
