@@ -76,13 +76,13 @@ DeandAPASig %>% group_by(loc) %>% summarise(n())
 ```
 
 ```{r}
-DE_sig_all=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="TotalSignificant differences in Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
+DE_sig_all=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="TotalSignificant differences\n in Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic(base_size = 12)
 
 DE_sig_all
 ```
 
 ```{r}
-DE_sig_split=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
+DE_sig_split=ggplot(DeandAPASig,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n Total APA and expression", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = c(-8,-1),label.y = -1) +theme_classic(base_size = 12)
 
 DE_sig_split
 ```
@@ -91,6 +91,13 @@ DE_sig_split
 ```{r}
 plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
 ```
+```{r}
+
+pdf("../output/Total_DErelationship.pdf", height=8, width=12)
+plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
+dev.off()
+```
+
 
 ```{r}
 RiboandAPA= DiffIsoTop %>% inner_join(Ribo, by="gene")
@@ -134,14 +141,14 @@ plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
 
 
 ```{r,include=FALSE, eval=F}
-pdf("../output/Total_TEeffectsize.pdf", height=8, width=10)
+pdf("../output/Total_TEeffectsize.pdf", height=10, width=10)
 plot_grid(TE_all, TE_split,TE_sig_all,TE_sig_split)
 dev.off()
 ```
 
 
 ```{r,include=FALSE, eval=F}
-pdf("../output/Total_DEeffectsize.pdf", height=8, width=10)
+pdf("../output/Total_DEeffectsize.pdf", height=10, width=12)
 plot_grid(DE_all, DE_split,DE_sig_all,DE_sig_split)
 dev.off()
 ```

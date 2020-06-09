@@ -91,3 +91,25 @@ OrthoUTRspecusage %>% group_by(Species,SigPAU2, WhichSite) %>% summarise(n=n()) 
 ```
 
 With so few it is difficult to say much. But it does look like that the last site i usually higher used. The differentially used PAS are also the higher used. This means it is even more striking that the first sites are more often different.  
+
+
+within first. are higher used more oftern dAPA.
+
+
+```{r}
+OrthoUTR_first= OrthoUTR %>% filter(WhichSite=="first") %>% select(PAS, WhichSite, SigPAU2) %>% inner_join(PASmeta, by="PAS") %>% select(PAS, WhichSite, SigPAU2, Chimp,Human) %>% gather("Species", "Usage", -PAS, -WhichSite, -SigPAU2)
+
+
+OrthoUTR_firstmean= OrthoUTR %>% filter(WhichSite=="first") %>% select(PAS, WhichSite, SigPAU2) %>% inner_join(PASmeta, by="PAS") %>% select(PAS, WhichSite, SigPAU2, Chimp,Human) %>% mutate(meanUsage=(Chimp + Human) /2 )
+
+ggplot(OrthoUTR_first, aes(x=Usage, col=SigPAU2)) + stat_ecdf()+ scale_color_manual(values = useCOl) + facet_grid(~Species) + labs(title="PAS usage in first 3' UTR site")
+
+ggplot(OrthoUTR_first, aes(y=Usage, by=SigPAU2, x=Species, fill=SigPAU2)) + geom_boxplot()+ scale_fill_manual(values = useCOl) + labs(title="PAS usage in first 3' UTR site")+ stat_compare_means()
+
+
+ggplot(OrthoUTR_firstmean, aes(y=meanUsage, x=SigPAU2, fill=SigPAU2)) + geom_boxplot()+ scale_fill_manual(values = useCOl) + labs(title="PAS usage in first 3' UTR site") + stat_compare_means()
+
+
+OrthoUTR_firstmean %>% group_by(SigPAU2) %>% summarise(n())
+```
+
