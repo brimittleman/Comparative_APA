@@ -364,7 +364,7 @@ DFres_prop=DFres %>% mutate(Prop=Number/SetSize)
 
 numberPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl)+geom_text(aes(label=Number), position=position_dodge(width=0.9), vjust=2)+ theme(legend.position = "none") + labs(title="Number of dP not DE genes", y="Number of Genes",x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlydIC= "Isoform\n Diversity"))
 
-propPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are dP not DE", y="Proportion of APA set",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlydIC= "Isoform\n Diversity"))
+propPlot=ggplot(DFres_prop,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=useCOl) + labs(title="Proportion of APA set that are\n dP not DE", y="Proportion of APA set",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) + theme(legend.position = "none")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlydIC= "Isoform\n Diversity"))
 ```
 
 ```{r}
@@ -389,12 +389,12 @@ dAPAandDic_wP_IC= dAPAandDic_wP %>% filter(OnlyIC=="Yes")
 ```
 
 ```{r}
-dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \ngenes with site level differences") 
+dapaProt=ggplot(dAPAandDic_wP_dAPA,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#4575b4"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="") 
 
 
-bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n with difference in both levles")
+bothProt=ggplot(dAPAandDic_wP_both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#d73027"))+ theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="")
 
-dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="Protein Interactions \n genes with isoform diversity differences")
+dicProt=ggplot(dAPAandDic_wP_IC,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_manual(values = c("grey", "#fee090"))+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=10), legend.position = "false") + labs(x="Expression independent set", y="log10(Normalized Interaction)", title="")
 
 interactionplots=plot_grid(bothProt,dapaProt,dicProt, nrow=1)
 ```
@@ -424,7 +424,7 @@ numTE
 ```
 
 ```{r}
-propTe=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="Most dP not dE genes are not dTE", y="Proportion",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.4, 1)) + theme(legend.position = "bottom")+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlyIC= "Isoform\n Diversity"))
+propTe=ggplot(AllTenum, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="Most dP not dE genes \nare not dTE", y="Proportion",x="") + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.4, 1)) + theme(legend.position = "bottom")+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS\nLevel",OnlyIC= "Isoform\n Diversity"))
 propTe
 
 teplots=plot_grid(numTE, propTe, nrow =1)
@@ -433,5 +433,43 @@ teplots
 ```{r}
 fullplot=plot_grid(numberprop, teplots,interactionplots, nrow = 3)
 fullplot
+```
+
+
+Plots:
+
+fig3: 
+```{r}
+plot_grid(DE_all,DE_split,DE_sig_all,DE_sig_split, scale = c(.9,.9,.9,.9), labels=c("a","b","c","d"),rel_widths=c(1,1.3,1,1.3))
+```
+```{r}
+pdf("../output/removeUnlift_fig3.pdf", height=8, width=12)
+plot_grid(DE_all,DE_split,DE_sig_all,DE_sig_split, scale = c(.9,.9,.9,.9), labels=c("a","b","c","d"),rel_widths=c(1,1.3,1,1.3))
+dev.off()
+```
+
+fig4 
+```{r}
+
+pdf("../output/removeUnlift_fig4.pdf", height=6, width=8,useKerning=F)
+plot_grid(enrichpoint,pvalplot, nrow=2)
+dev.off()
+```
+fig 5:  
+
+```{r}
+
+pdf("../output/removeUnlift_fig5.pdf", height=6, width=10,useKerning=F)
+plot_grid(diffE, SameE, diffP, Samep)
+
+dev.off()
+```
+
+fig 6:  
+
+```{r}
+pdf("../output/removeUnilift_fig6.pdf", height=9, width=12,useKerning=F)
+fullplot
+dev.off()
 ```
 
