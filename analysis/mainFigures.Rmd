@@ -102,7 +102,7 @@ Dominance plots
 fig2cd_data=read.table("../output/FigureDF/DominantPAS.txt", header = T, stringsAsFactors = F)
 fig2cd_data$cut=as.factor(fig2cd_data$cut)
 
-fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Most genes with a domiant PAS\n share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff") 
+fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Most genes with a dominant PAS\n share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff") 
 fig2d
 
 
@@ -176,7 +176,7 @@ fig4Data$Pheno=factor(fig4Data$Pheno, levels=c("Expression", "Translation", "Pro
 ```
 
 ```{r}
-figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title="Genes with differences in APA are enriched\n in differencial expression and differentailly translated genes",x="", y="Enrichment")+geom_text(color = "black", size = 3) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme_classic()+theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title="Genes with differences in APA are enriched\n in differentially expression and differentially translated genes",x="", y="Enrichment")+geom_text(color = "black", size = 3) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme_classic()+theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 figure4a
 
 
