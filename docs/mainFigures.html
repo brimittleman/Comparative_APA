@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-31
+<strong>Last updated:</strong> 2020-06-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2c88fe0dd67f4763ae372c02162ddc16185fb0bbtargetblank2c88fe0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/2c88fe0dd67f4763ae372c02162ddc16185fb0bb" target="_blank">2c88fe0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefaf89021589f8f045a073572e4cb44104e08d050targetblankfaf8902a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/faf89021589f8f045a073572e4cb44104e08d050" target="_blank">faf8902</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree2c88fe0dd67f4763ae372c02162ddc16185fb0bbtargetblank2c88fe0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreefaf89021589f8f045a073572e4cb44104e08d050targetblankfaf8902a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -469,6 +469,7 @@ Untracked files:
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/ResultsNoUnlifted.md
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
@@ -1151,6 +1152,7 @@ Untracked files:
     Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/tripseq-analysis/
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
@@ -1221,6 +1223,7 @@ Untracked files:
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
     Untracked:  data/IndInfoContent/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
@@ -1273,6 +1276,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
     Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
@@ -1319,9 +1323,11 @@ Untracked files:
     Untracked:  output/Total_DEeffectsize
     Untracked:  output/Total_DEeffectsize.pdf
     Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_DErelationship.pdf
     Untracked:  output/Total_TEeffectsize
     Untracked:  output/Total_TEeffectsize.pdf
     Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dediffdom.pdf
@@ -1336,6 +1342,10 @@ Untracked files:
     Untracked:  output/fig6.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6.pdf
+    Untracked:  output/removeUnlift_fig3.pdf
+    Untracked:  output/removeUnlift_fig4.pdf
+    Untracked:  output/removeUnlift_fig5.pdf
     Untracked:  output/simpson.pdf
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
@@ -1348,6 +1358,7 @@ Unstaged changes:
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/SetsdAPADIC.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -1365,6 +1376,7 @@ Unstaged changes:
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/unliftedsites.Rmd
 
 </code></pre>
 <p>
@@ -1403,6 +1415,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/faf89021589f8f045a073572e4cb44104e08d050/analysis/mainFigures.Rmd" target="_blank">faf8902</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-11
+</td>
+<td>
+fix typos
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/mainFigures.html" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1470,12 +1516,12 @@ Attaching package: &#39;cowplot&#39;</code></pre>
 
     ggsave</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
 ✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
 ✔ readr   1.3.1       ✔ stringr 1.3.1  
 ✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter()   masks stats::filter()
 ✖ cowplot::ggsave() masks ggplot2::ggsave()
 ✖ dplyr::lag()      masks stats::lag()</code></pre>
@@ -1658,7 +1704,7 @@ fig2aplot=ggplot(fig2a,aes(by=test, y=prop, x=&quot;&quot;, fill=test)) + geom_b
 <pre class="r"><code>fig2cd_data=read.table(&quot;../output/FigureDF/DominantPAS.txt&quot;, header = T, stringsAsFactors = F)
 fig2cd_data$cut=as.factor(fig2cd_data$cut)
 
-fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat=&quot;identity&quot;) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme_classic()+theme(legend.position = &quot;none&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;)) + labs(title=&quot;Most genes with a domiant PAS\n share the same dominant PAS&quot;, y=&quot;Proportion of Genes in Set&quot;, x=&quot;Domianance Cutoff&quot;) 
+fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat=&quot;identity&quot;) +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme_classic()+theme(legend.position = &quot;none&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;)) + labs(title=&quot;Most genes with a dominant PAS\n share the same dominant PAS&quot;, y=&quot;Proportion of Genes in Set&quot;, x=&quot;Domianance Cutoff&quot;) 
 fig2d</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2007,7 +2053,7 @@ dev.off()</code></pre>
 fig4Data$Pval=as.numeric(fig4Data$Pval)
 fig4Data$Enrichment=as.numeric(fig4Data$Enrichment)
 fig4Data$Pheno=factor(fig4Data$Pheno, levels=c(&quot;Expression&quot;, &quot;Translation&quot;, &quot;Protein&quot;))</code></pre>
-<pre class="r"><code>figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Genes with differences in APA are enriched\n in differencial expression and differentailly translated genes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) +scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+ theme_classic()+theme(legend.position = &quot;none&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Genes with differences in APA are enriched\n in differentially expression and differentially translated genes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) +scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+ theme_classic()+theme(legend.position = &quot;none&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 figure4a</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2075,6 +2121,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-17-2.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/mainFigures.Rmd/unnamed-chunk-17-2.png" target="_blank">c1c2047</a>
 </td>
 <td>
@@ -2116,6 +2173,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-18-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/mainFigures.Rmd/unnamed-chunk-18-1.png" target="_blank">c1c2047</a>
 </td>
 <td>
@@ -2145,14 +2213,125 @@ fig5a=ggplot(fig5data,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat=&qu
 
 fig5a</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-20-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig5b=ggplot(fig5data,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat=&quot;identity&quot;) +labs(title=&quot;&quot;,x=&quot;Dominance Cutoff&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;) + theme(legend.position = &quot;none&quot;)+ geom_hline(yintercept = 1.30103) + facet_grid(~type)+ theme_classic()+ theme(legend.position = &quot;none&quot;,  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 
 fig5b</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-2">
+Past versions of unnamed-chunk-20-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-20-2.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig5=plot_grid(fig5a,fig5b,nrow = 2,scale = c(.9,.9),labels = c(&quot;a&quot;,&quot;b&quot;), rel_heights = c(1,.8))
 
 fig5</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-21-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pdf(&quot;../output/fig5.pdf&quot;, height=7, width=7,useKerning=F)
 fig5
 dev.off()</code></pre>
@@ -2171,26 +2350,285 @@ fib6ic=read.table(&quot;../output/FigureDF/PinteractiondIC.txt&quot;,header = T,
 
 fig6a</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-24-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6b=ggplot(fig6topdata,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat=&quot;identity&quot;)+ scale_fill_manual(values=useCOl) + labs(title=&quot;Proportions of genes differentially expressed\n in protein but not mRNA&quot;, y=&quot;Proportion of Genes&quot;,x=&quot;&quot;)+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2) +scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlydIC= &quot;ID&quot;))+ theme_classic()+theme(legend.position = &quot;none&quot;,  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 
 fig6b</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
+Past versions of unnamed-chunk-24-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-24-2.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6c= ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat=&quot;identity&quot;, position = &quot;dodge&quot;) + labs(title=&quot;&quot;, y=&quot;Number of Genes&quot;,x=&quot;&quot;) + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1),name=&quot;Differentially translated&quot;) + geom_text(aes(label=ndTE), position=position_dodge(width=0.9), vjust=1)+guides(fill = FALSE)+scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+theme_classic()+ theme(legend.position = &quot;top&quot;, legend.justification = &quot;center&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;)) 
 fig6c</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-25-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6d=ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat=&quot;identity&quot;, position = &quot;fill&quot;) + labs(title=&quot;&quot;, y=&quot;Proportion of Genes&quot;,x=&quot;&quot;) + scale_fill_manual(values = useCOl ) + scale_alpha_manual(values=c(.6, 1),name=&quot;Differentially translated&quot;) + guides(fill = FALSE)+scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+ theme(legend.position = &quot;top&quot;,legend.justification = &quot;center&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig6d</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-25-2.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6e=ggplot(fig6both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#d73027&quot;))+ labs(x=&quot;Differentally expressed in protein \n not in mRNA&quot;, y=&quot;log10(Interaction)&quot;, title=&quot;&quot;) + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = &quot;none&quot;,plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig6e</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-26-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6f=ggplot(fig6dapa,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#4575b4&quot;)) + labs(x=&quot;Differentally expressed in protein \n not in mRNA&quot;, y=&quot;log10(Interaction)&quot;, title=&quot;&quot;)  + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = &quot;none&quot;,plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig6f</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
+Past versions of unnamed-chunk-26-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-26-2.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6g=ggplot(fib6ic,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c(&quot;grey&quot;, &quot;#fee090&quot;)) + labs(x=&quot;Differentally expressed in protein \n not in mRNA&quot;, y=&quot;log10(Interaction)&quot;, title=&quot;&quot;) + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = &quot;none&quot;,plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 
 fig6g</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-3">
+Past versions of unnamed-chunk-26-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-26-3.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>fig6top=plot_grid(fig6a,fig6b, labels = c(&quot;a&quot;,&quot;b&quot;), scale = c(.9,.9),nrow = 1)
 fig6mid=plot_grid(fig6c,fig6d, labels = c(&quot;c&quot;,&quot;d&quot;), scale = c(.9,.9),nrow = 1)
 fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c(&quot;e&quot;,&quot;f&quot;,&quot;g&quot;), scale = c(.9,.9,.9),nrow = 1)
@@ -2198,6 +2636,43 @@ fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c(&quot;e&quot;,&quot;f&quot;,&
 fig6=plot_grid(fig6top,fig6mid,fig6botom,nrow = 3, rel_heights = c(1,1,.8))
 fig6</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a438fc1f8ea7690c6d9eddb2c435c2cf3f30c902/docs/figure/mainFigures.Rmd/unnamed-chunk-27-1.png" target="_blank">a438fc1</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pdf(&quot;../output/fig6.pdf&quot;, height=9, width=8,useKerning=F)
 fig6
 dev.off()</code></pre>
