@@ -1,0 +1,68 @@
+---
+title: "Hypoxia Response Genes"
+author: "Briana Mittleman"
+date: "6/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I want to check if any of the APA factors are differentially responsive in hypoxia conditions. The data comes from Michelles paper, supplemental table 3. (https://elifesciences.org/articles/42374/figures#supp3)
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+library(workflowr)
+```
+
+```{bash,eval=F}
+mkdir ../data/hypoxia
+```
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% rename("genes"=Gene.name) %>% select(-Source_of_gene_name)
+
+Cons=read.table("../data/hypoxia/ConsvResp_elife-42374.txt", col.names = "Gene_stable_ID", stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% mutate(Response="Conserved")
+
+NonRes=read.table("../data/hypoxia/NonResp_elife-42374.txt", col.names = "Gene_stable_ID", stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% mutate(Response="NoResponse")
+
+
+HumanRes= read.table("../data/hypoxia/HumanResp_elife-42374.txt", col.names = "Gene_stable_ID", stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% mutate(Response="Human")
+
+ChimpRes=read.table("../data/hypoxia/ChimpResp_elife-42374.txt", col.names = "Gene_stable_ID", stringsAsFactors = F) %>% inner_join(nameID, by="Gene_stable_ID") %>% mutate(Response="Chimp")
+
+
+ResponseGenes=Cons %>% bind_rows(NonRes) %>% bind_rows(HumanRes) %>% bind_rows(ChimpRes) %>% select(genes, Response)
+
+```
+
+
+I want to check the response genes implicated in APA and stress response, Sadek et al.  
+
+```{r}
+APAFactors=read.table("../data/hypoxia/APAandStressfactors.txt", col.names = "genes", stringsAsFactors = F)
+```
+
+
+Ask if any of these are in the response:  
+
+```{r}
+ResponseAPA=ResponseGenes %>% inner_join(APAFactors, by="genes")
+
+APAFactors_anti=APAFactors %>% anti_join(ResponseGenes, by="genes") %>% mutate(Response="NotReported")
+
+ResponseAPAall=ResponseAPA %>% bind_rows(APAFactors_anti)
+
+
+```
+```{r}
+ggplot(ResponseAPAall, aes(x=Response, fill=Response)) + geom_bar(stat="count") + theme(legend.position = "none", axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "RdYlBu") + labs(x="",y="genes", title="Hypoxia response for APA factors")
+```
+```{r}
+ResponseAPAall %>% filter(Response %in% c("Chimp", "Conserved"))
+```
+
