@@ -1,3 +1,3 @@
 # Data
 
-Save raw data files here.
+Raw data available on GEO
