@@ -266,30 +266,30 @@ fig6d
 ```{r}
 
 
-fig6e=ggplot(fig6both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#d73027"))+ labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
-fig6e
+#fig6e=ggplot(fig6both,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#d73027"))+ labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+#fig6e
 
-fig6f=ggplot(fig6dapa,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#4575b4")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="")  + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
-fig6f
+#fig6f=ggplot(fig6dapa,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#4575b4")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="")  + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+#fig6f
 
 
-fig6g=ggplot(fib6ic,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#fee090")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+#fig6g=ggplot(fib6ic,aes(x=dPnotDE, y=log10(NormInter),fill=dPnotDE)) + geom_boxplot(notch = T) + stat_compare_means( label.x = 1.25, label.y = 1.5) + scale_fill_manual(values = c("grey", "#fee090")) + labs(x="Differentally expressed in protein \n not in mRNA", y="log10(Interaction)", title="") + theme_classic() + theme(axis.text.x=element_text(angle=90, hjust=0, size = 10), text= element_text(size=10), legend.position = "none",plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 
-fig6g
+#fig6g
 ```
 
 
 ```{r}
 fig6top=plot_grid(fig6a,fig6b, labels = c("a","b"), scale = c(.9,.9),nrow = 1)
 fig6mid=plot_grid(fig6c,fig6d, labels = c("c","d"), scale = c(.9,.9),nrow = 1)
-fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c("e","f","g"), scale = c(.9,.9,.9),nrow = 1)
+#fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c("e","f","g"), scale = c(.9,.9,.9),nrow = 1)
 
-fig6=plot_grid(fig6top,fig6mid,fig6botom,nrow = 3, rel_heights = c(1,1,.8))
+fig6=plot_grid(fig6top,fig6mid,nrow = 2, rel_heights = c(1,1))
 fig6
 ```
 ```{r}
 
-pdf("../output/fig6.pdf", height=9, width=8,useKerning=F)
+pdf("../output/fig6.pdf", height=8, width=8,useKerning=F)
 fig6
 dev.off()
 ```
