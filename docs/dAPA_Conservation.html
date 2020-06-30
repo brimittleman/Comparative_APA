@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-31
+<strong>Last updated:</strong> 2020-06-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/033290cd8cbbc95cd609066fbddecfbfb4e7f3d7" target="_blank">033290c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec9af660c0c5f32dd40aeada16d7efb04df07e7d9targetblankc9af660a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c9af660c0c5f32dd40aeada16d7efb04df07e7d9" target="_blank">c9af660</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec9af660c0c5f32dd40aeada16d7efb04df07e7d9targetblankc9af660a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -459,6 +459,7 @@ Ignored files:
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
+    Untracked:  GEO/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/AllLoc_effectSizeCor.Rmd
@@ -469,6 +470,7 @@ Untracked files:
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/ResultsNoUnlifted.md
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
@@ -914,7 +916,6 @@ Untracked files:
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
-    Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
@@ -1151,6 +1152,7 @@ Untracked files:
     Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/tripseq-analysis/
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
@@ -1221,6 +1223,7 @@ Untracked files:
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
     Untracked:  data/IndInfoContent/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
@@ -1273,6 +1276,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
     Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
@@ -1284,6 +1288,7 @@ Untracked files:
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/gviz/
+    Untracked:  data/hypoxia/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1319,9 +1324,11 @@ Untracked files:
     Untracked:  output/Total_DEeffectsize
     Untracked:  output/Total_DEeffectsize.pdf
     Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_DErelationship.pdf
     Untracked:  output/Total_TEeffectsize
     Untracked:  output/Total_TEeffectsize.pdf
     Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dediffdom.pdf
@@ -1332,9 +1339,16 @@ Untracked files:
     Untracked:  output/fig2.pdf
     Untracked:  output/fig3.pdf
     Untracked:  output/fig4.pdf
+    Untracked:  output/fig5.pdf
+    Untracked:  output/fig6.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6.pdf
+    Untracked:  output/removeUnlift_fig3.pdf
+    Untracked:  output/removeUnlift_fig4.pdf
+    Untracked:  output/removeUnlift_fig5.pdf
     Untracked:  output/simpson.pdf
+    Untracked:  output/supplement/
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
@@ -1346,6 +1360,7 @@ Unstaged changes:
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/SetsdAPADIC.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -1363,6 +1378,7 @@ Unstaged changes:
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/unliftedsites.Rmd
 
 </code></pre>
 <p>
@@ -1401,6 +1417,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c9af660c0c5f32dd40aeada16d7efb04df07e7d9/analysis/dAPA_Conservation.Rmd" target="_blank">c9af660</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-29
+</td>
+<td>
+add sup fig write out
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/dAPA_Conservation.html" target="_blank">c1c2047</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1801,12 +1851,12 @@ add upstream control
 </div>
 <p>In my initial exploration of dAPA PAS I saw they are enriched for negative phylop scores. I will explore this trend further here. I will see if intron location explain the differences.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
@@ -1825,6 +1875,15 @@ Attaching package: &#39;reshape2&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:tidyr&#39;:
 
     smiths</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    get_legend</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    ggsave</code></pre>
 <pre class="r"><code>DiffUsage=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt&quot;, header = T, stringsAsFactors = F)
 
 PASMeta=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(PAS, chr, start,end, gene, loc)
@@ -2735,7 +2794,7 @@ brimittleman
 <pre class="r"><code>PASMetaSm=PASMeta %&gt;% select(PAS,loc)
 ResUpdownAll_gather2_loc=ResUpdownAll_gather2 %&gt;% inner_join(PASMetaSm,by=&quot;PAS&quot;)
 
-ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)</code></pre>
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs from PAS&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)</code></pre>
 <p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-33-1">
@@ -2761,6 +2820,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-33-1.png" target="_blank">c1c2047</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5a9d38782e286c7532b1b73274a6bc322015281b/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-33-1.png" target="_blank">5a9d387</a>
 </td>
 <td>
@@ -2774,52 +2844,22 @@ brimittleman
 </table>
 </div>
 </div>
+<p>supplemental figure:</p>
+<pre class="r"><code>supp.labs &lt;- c(&quot;Coding&quot;, &quot;5kb downstream&quot;, &quot;Intronic&quot;, &quot;3&#39; UTR&quot;, &quot;5&#39; UTR&quot;)
+names(supp.labs) &lt;- c(&quot;cds&quot;, &quot;end&quot;, &#39;intron&#39;, &#39;utr3&#39;, &#39;utr5&#39;)</code></pre>
+<pre class="r"><code>pdf(&quot;../output/supplement/Fig1_figSup7.pdf&quot;, height=4, width=8)
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs from PAS&quot;, title=&quot;PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic() + facet_grid(~loc,labeller = labeller(loc = supp.labs)) + theme(axis.text.x = element_text(size=10, angle=90),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = &quot;top&quot;,plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
 <pre class="r"><code>ResUpdownAll_gather2_loc_noCoding=ResUpdownAll_gather2_loc %&gt;% filter(loc != &quot;cds&quot;)
 
 ggplot(ResUpdownAll_gather2_loc_noCoding, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved than surrounding regions after removing coding sites&quot;) + guides(fill = FALSE) + theme_classic()</code></pre>
-<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
-Past versions of unnamed-chunk-34-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-34-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5a9d38782e286c7532b1b73274a6bc322015281b/docs/figure/dAPA_Conservation.Rmd/unnamed-chunk-34-1.png" target="_blank">5a9d387</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Only 3’ UTR:</p>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /> Only 3’ UTR:</p>
 <pre class="r"><code>ResUpdownAll_gather2_loc_utr=ResUpdownAll_gather2_loc %&gt;% filter(loc == &quot;utr3&quot;)
 
 ggplot(ResUpdownAll_gather2_loc_utr, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;3&#39; UTR PAS are more conserved than surrounding regions&quot;) + guides(fill = FALSE) + theme_classic()</code></pre>
-<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>kruskal wallis is like a anova, diff in groups,</p>
 <p>wilcox test the true to sourounding regions:</p>
 <pre class="r"><code>#ResUpdownAll_gather2
@@ -2906,7 +2946,7 @@ alternative hypothesis: true location shift is less than 0</code></pre>
 
 
 ggplot(ResUpdownAll_gather2_loc_sig, aes(x=loc, by=SigPAU2, y=PhyloP, fill=SigPAU2)) +geom_boxplot()+ scale_fill_brewer(palette = &quot;Dark2&quot;)  + stat_compare_means()</code></pre>
-<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPA_Conservation.Rmd/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2934,9 +2974,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] reshape2_1.4.3  ggpubr_0.2      magrittr_1.5    forcats_0.3.0  
- [5] stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1    
- [9] tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1   tidyverse_1.2.1
+ [1] cowplot_0.9.4   reshape2_1.4.3  ggpubr_0.2      magrittr_1.5   
+ [5] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.3.2    
+ [9] readr_1.3.1     tidyr_0.8.3     tibble_2.1.1    ggplot2_3.1.1  
+[13] tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5   haven_1.1.2        lattice_0.20-38   
