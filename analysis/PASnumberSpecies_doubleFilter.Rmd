@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+library(cowplot)
 library(tidyverse)
 library(reshape2)
 library(workflowr)
@@ -54,8 +55,20 @@ nrow(PAS_spread)
 
 
 ```{r}
+
 ggplot(PAS_spread, aes(x=DiffPAS)) + geom_bar(stat="count") +geom_vline(xintercept = mean(PAS_spread$DiffPAS),col="red") + labs(title="Difference in number of PAS at 5% Human vs Chimp", y="Genes", x="N Human PAS - N Chimp PAS")
+
 ```
+
+```{r}
+pdf("../output/supplement/Fig1_figSup6.pdf", height=4, width=4)
+ggplot(PAS_spread, aes(x=DiffPAS)) + geom_bar(stat="count") +geom_vline(xintercept = mean(PAS_spread$DiffPAS),col="red") + labs(title="Difference in number of PAS at 5% \nHuman vs Chimpanzee", y="Genes", x="N Human PAS - N Chimpanzee PAS")+ theme_classic()+theme(axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm"))
+dev.off()
+
+
+```
+
+
 
 Plot distribution of N pas by species:  
 

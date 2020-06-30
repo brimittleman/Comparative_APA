@@ -16,6 +16,7 @@ In this analysis I will look at the signal site distributions for the human and 
 ```{r}
 library(ggpubr)
 library(workflowr)
+library(cowplot)
 library(tidyverse)
 ```
 
@@ -411,6 +412,17 @@ MetaPASwSSBoth=MetaPASwSS_groupC %>% bind_rows(MetaPASwSS_groupH)
 
 ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme(axis.text.x = element_text(angle = 90)) + scale_fill_brewer(palette = "Set1") + labs(title="Usage distribution by Signal and species")
 ```
+for supplement: 
+
+```{r}
+pdf("../output/supplement/Fig1_figSup8.pdf", height=4, width=6)
+
+ggplot(MetaPASwSSBoth, aes(x=Signal, y=Usage, by=Species, fill=Species)) + geom_boxplot()+ theme_classic() + scale_fill_brewer(palette = "Set1", labels=c("Chimpanzee", "Human")) + labs(title="Usage distribution by Signal and species", y="PAS Usage")+theme(axis.text.x = element_text(size=10, angle=90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "bottom",plot.margin = unit(c(0,0,0,0), "cm"))
+dev.off()
+```
+
+
+
 
 I want to see if the usage is different when the PAS is same vs different  
 

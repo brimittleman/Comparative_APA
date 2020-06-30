@@ -45,6 +45,22 @@ humanPAS=ggplot(AllInfo,aes(x=HumanNPAS, y=Human)) +geom_point()+ stat_cor() +ge
 plot_grid(chimppas,humanPAS)
 ```
 
+for supplement
+```{r}
+fig1_sup5a=ggplot(AllInfo,aes(x=ChimpNPAS, y=Chimp)) +geom_point()+ stat_cor() +geom_smooth(method="lm") +labs(x="Chimpanzee number of PAS",y="Normalized Expression Chimpanzee", title="Negative correlation between \nexpression and PAS number")+ theme_classic()+theme(axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig1_sup5b=ggplot(AllInfo,aes(x=HumanNPAS, y=Human)) +geom_point()+ stat_cor() +geom_smooth(method="lm") +labs(x="Human number of PAS",y="Normalized Expression Human", title="Negative correlation between \nexpression and PAS number")+ theme_classic()+theme(axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+```
+
+
+```{r}
+pdf("../output/supplement/Fig1_figSup5.pdf", height=5, width=8)
+plot_grid(fig1_sup5a,fig1_sup5b,scale = c(.9,.9), labels = c("A","B"))
+dev.off()
+```
+
 Second I will run PCA and look at variation in the filtered phenotypes.  
 
 ```{r}
@@ -181,5 +197,27 @@ heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Blues"), trace=
 ```
 ```{r}
 metaData %>% select(Line, Collection_person,Extraction_date)
+```
+
+
+supplemental figures:  
+
+
+
+```{r}
+pdf("../output/supplement/Fig1_figSup4A.pdf", height=4, width=4)
+for (n in 1:1){
+  col.v <- pal[as.integer(metaData$species)]
+  plot_scores(pca_Pheno, scores, n, n+1, col.v)
+}
+dev.off()
+```
+
+```{r}
+pdf("../output/supplement/Fig1_figSup4B.pdf", height=6, width=6)
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Blues"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
+dev.off()
 ```
 

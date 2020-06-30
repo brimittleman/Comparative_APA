@@ -15,6 +15,7 @@ In my initial exploration of dAPA PAS I saw they are enriched for negative phylo
 library(tidyverse)
 library(ggpubr)
 library(reshape2)
+library(cowplot)
 ```
 
 ```{r}
@@ -366,7 +367,21 @@ try this plot seperated by location.
 PASMetaSm=PASMeta %>% select(PAS,loc)
 ResUpdownAll_gather2_loc=ResUpdownAll_gather2 %>% inner_join(PASMetaSm,by="PAS")
 
-ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs from PAS", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+```
+supplemental figure:
+
+```{r}
+
+supp.labs <- c("Coding", "5kb downstream", "Intronic", "3' UTR", "5' UTR")
+names(supp.labs) <- c("cds", "end", 'intron', 'utr3', 'utr5')
+
+```
+
+```{r}
+pdf("../output/supplement/Fig1_figSup7.pdf", height=4, width=8)
+ggplot(ResUpdownAll_gather2_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs from PAS", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc,labeller = labeller(loc = supp.labs)) + theme(axis.text.x = element_text(size=10, angle=90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm"))
+dev.off()
 ```
 
 

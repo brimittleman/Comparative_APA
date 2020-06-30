@@ -105,5 +105,23 @@ ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) +
 
 
 
+Plot for supplement: 
 
+```{r}
+
+sup1.3a=ggplot(PASmeta,aes(x=Human, y=Chimp)) + geom_point(alpha=.3)+stat_cor(col="blue", label.x = .15, label.y=.9) + geom_smooth(method="lm") + labs(title="Usage correlation for All PAS", y="Chimpanzee") + geom_abline(intercept = 0, slope =1, col="red") + theme_classic()+theme(axis.text.x = element_text(size=10,angle = 90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm"))
+
+sup1.3b=ggplot(data = Count_corr_melt, aes(x=Var1, y=Var2, fill=value)) + labs(x="", y="", title="Pairwise usage correlation ", fill="Correlation")+geom_tile()+ geom_text(aes(label = value)) +theme_classic() +theme(axis.text.x = element_text(angle = 90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "bottom",plot.margin = unit(c(0,0,0,0), "cm"))+ scale_fill_distiller(palette = "Blues", direction=1)
+
+
+sup1.3=plot_grid(sup1.3a,sup1.3b,scale = c(.9,.9), labels = c("A","B"))
+
+```
+
+```{r}
+pdf("../output/supplement/Fig1_figSup3.pdf", height=8, width=12)
+sup1.3
+dev.off()
+
+```
 

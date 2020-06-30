@@ -54,6 +54,15 @@ Question 2: Where are the differentially used PAS?
 ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") +  theme(text= element_text(size=16), legend.position = "none") + scale_fill_brewer(palette = "Dark2") + labs(x="Genic Region", y="Number of dAPA PAS", title="Location of dAPA PAS") 
 
 ```
+for supplement
+```{r}
+pdf("../output/supplement/Fig2_figSup1.pdf", height=4, width=4)
+ggplot(DiffUsagePAS,aes(x=loc, fill=loc)) + geom_bar(stat="count") + scale_fill_brewer(palette = "RdYlBu") + labs(x="Genic Region", y="Number of PAS", title="Location of differentially used PAS") + theme_classic() + theme(axis.text.x = element_text(size=10, angle=90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "none",plot.margin = unit(c(0,0,0,0), "cm"))+scale_x_discrete(labels=c("Coding","5'kb downstream","Intronic", "3' UTR", "5' UTR"))
+dev.off()
+
+```
+
+
 
 Seperate by location:  
 
