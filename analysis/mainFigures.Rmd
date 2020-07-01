@@ -102,12 +102,12 @@ Dominance plots
 fig2cd_data=read.table("../output/FigureDF/DominantPAS.txt", header = T, stringsAsFactors = F)
 fig2cd_data$cut=as.factor(fig2cd_data$cut)
 
-fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Most genes with a dominant PAS\n share the same dominant PAS", y="Proportion of Genes in Set", x="Domianance Cutoff") 
+fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3)+ scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Most genes with a dominant PAS\n share the same dominant PAS", y="Proportion of Genes in Set", x="Dominance Cutoff") 
 fig2d
 
 
 
-fig2c=ggplot(fig2cd_data,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1, size=3) + scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Proportion of Tested Genes \nwith a Dominant PAS", y="Proportion of Tested Genes", x="Domianance Cutoff")
+fig2c=ggplot(fig2cd_data,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1, size=3) + scale_fill_brewer(palette = "RdYlBu")+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Proportion of tested Genes \nwith a dominant PAS", y="Proportion of Tested Genes", x="Dominance Cutoff")
 
 fig2c
 ```
