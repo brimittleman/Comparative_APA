@@ -62,15 +62,25 @@ nrow(dAPAandDic)
 
 Make an upsetter plot first:  
 
-```{r}
+```{upset, dev="pdf", fig.height=6, fig.width=6, crop=FALSE}
 #useCOl <- c("#d73027", "#4575b4","#fee090")
 
 
 listInput <- list(SiteLevel=dAPAGenes$gene, IsoformDiversity=dICdata_sig$gene)
 
 upset(fromList(listInput), order.by = "freq", empty.intersections = "on")
-      
+
+
 ```
+
+
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig2-figSup7.pdf")
+upset(fromList(listInput), order.by = "freq", empty.intersections = "on")
+dev.off()
+```
+
+
 Ven diagram:
 
 ```{r}
@@ -492,6 +502,9 @@ for (i in seq(1:6)){
 
 EnrichmentRNA_both
 PvalueRNA_both
+
+ nrow(KhanWithapa %>% filter(Both=="Yes", Model==1))
+  nrow(KhanWithapa %>% filter(Both=="Yes", Model==2))
 ```
 
 Prot:  

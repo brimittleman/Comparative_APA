@@ -425,7 +425,7 @@ ggplot(BothResBothInfoDomEH,aes(x=human_EH,y= chimp_EH, col=numPAS )) + geom_poi
 plot simpson h/c colors:  
 
 ```{r}
-simpsonind=ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Simpson Index to measure isoform diversity", x="Simpson Index")+ theme_classic2()
+simpsonind=ggplot(BothOppSimp_g, aes(x=SimpsonOpp, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Simpson Index\n to measure isoform diversity", x="Simpson Index")+ theme_classic2()+ theme(legend.position = "bottom", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 
 simpsonind
 ```
@@ -469,7 +469,7 @@ ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + sca
 
 
 ```{r}
-shannonPlot=ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index to measure isoform diversity", x="Shannon Index")+ theme_classic2()
+shannonPlot=ggplot(BothResInfo_2, aes(x=base2, fill=species)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2",labels=c("Chimp", "Human"))+labs(title="Shannon Index\n to measure isoform diversity", x="Shannon Index")+ theme_classic2() +  theme(legend.position = "bottom", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 shannonPlot
 ```
 
@@ -519,5 +519,16 @@ simpnum
 
 ```{r}
 plot_grid(shanoNum,simpnum, nrow=2)
+```
+
+
+Plot densities together: 
+
+```{r, eval=F, include=F}
+
+pdf("../output/supplement/Fig2-figSup4.pdf", height=4, width=6)
+plot_grid(shannonPlot,simpsonind, labels=c("A","B"), scale=c(.9,.9) )
+dev.off()
+
 ```
 
