@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-23
+<strong>Last updated:</strong> 2020-07-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/c1bc4966c75d6590a43f38c7a5090ef7358d0d02" target="_blank">c1bc496</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f3e622226c1c59830364f16cd13c6e0f1f0821ctargetblank8f3e622a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8f3e622226c1c59830364f16cd13c6e0f1f0821c" target="_blank">8f3e622</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreec1bc4966c75d6590a43f38c7a5090ef7358d0d02targetblankc1bc496a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f3e622226c1c59830364f16cd13c6e0f1f0821ctargetblank8f3e622a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -459,14 +459,18 @@ Ignored files:
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
+    Untracked:  GEO/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
+    Untracked:  analysis/AllLoc_effectSizeCor.Rmd
+    Untracked:  analysis/Conservation_bydAPAset.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/ResultsNoUnlifted.md
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
@@ -682,6 +686,12 @@ Untracked files:
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -711,8 +721,32 @@ Untracked files:
     Untracked:  code/GetMAPQscore.py
     Untracked:  code/GetSecondaryMap.py
     Untracked:  code/GetTopminus2Usage.py
+    Untracked:  code/H3K36me3DTplot.err
+    Untracked:  code/H3K36me3DTplot.out
+    Untracked:  code/H3K36me3DTplot.sh
+    Untracked:  code/H3K36me3DTplot_DiffIso.err
+    Untracked:  code/H3K36me3DTplot_DiffIso.out
+    Untracked:  code/H3K36me3DTplot_DiffIso.sh
+    Untracked:  code/H3K36me3DTplot_Specific.err
+    Untracked:  code/H3K36me3DTplot_Specific.out
+    Untracked:  code/H3K36me3DTplot_Specific.sh
+    Untracked:  code/H3K36me3DTplot_distalPAS.err
+    Untracked:  code/H3K36me3DTplot_distalPAS.out
+    Untracked:  code/H3K36me3DTplot_distalPAS.sh
+    Untracked:  code/H3K36me3DTplot_transcript.err
+    Untracked:  code/H3K36me3DTplot_transcript.out
+    Untracked:  code/H3K36me3DTplot_transcript.sh
+    Untracked:  code/H3K36me3DTplotwide.err
+    Untracked:  code/H3K36me3DTplotwide.out
+    Untracked:  code/H3K36me3DTplotwide.sh
+    Untracked:  code/H3K9me3DTplot_transcript.err
+    Untracked:  code/H3K9me3DTplot_transcript.out
+    Untracked:  code/H3K9me3DTplot_transcript.sh
+    Untracked:  code/H3K9me3_processandDT.sh
     Untracked:  code/HchromOrder.err
     Untracked:  code/HchromOrder.out
+    Untracked:  code/InfoContentShannon.py
+    Untracked:  code/InfoContentbyInd.py
     Untracked:  code/IntersectMMandOrtho.err
     Untracked:  code/IntersectMMandOrtho.out
     Untracked:  code/IntersectPASandOrtho.err
@@ -771,6 +805,7 @@ Untracked files:
     Untracked:  code/PASsequences_DF.sh
     Untracked:  code/PlotNuclearUsagebySpecies.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF.R
+    Untracked:  code/PlotNuclearUsagebySpecies_DF_4DIC.R
     Untracked:  code/PlotNuclearUsagebySpecies_DF_DEout.R
     Untracked:  code/QuantMergeClusters
     Untracked:  code/QuantMergeClusters.err
@@ -779,6 +814,12 @@ Untracked files:
     Untracked:  code/RNATranscriptDTplot.err
     Untracked:  code/RNATranscriptDTplot.out
     Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -875,8 +916,8 @@ Untracked files:
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
-    Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -925,6 +966,7 @@ Untracked files:
     Untracked:  code/humanMultiCovInclusive.err
     Untracked:  code/humanMultiCovInclusive.out
     Untracked:  code/humanMultiCov_inclusive.sh
+    Untracked:  code/infoContentSimpson.py
     Untracked:  code/intersectAnno.err
     Untracked:  code/intersectAnno.out
     Untracked:  code/intersectAnnoExt.err
@@ -933,10 +975,15 @@ Untracked files:
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftVCF.out
+    Untracked:  code/liftVCF.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/lliftVCF.err
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
+    Untracked:  code/makeDIC.err
+    Untracked:  code/makeDIC.out
     Untracked:  code/makeFileID.py
     Untracked:  code/makeNuclearDapaplots.sh
     Untracked:  code/makeNuclearDapaplots_DF.sh
@@ -947,6 +994,7 @@ Untracked files:
     Untracked:  code/makePheno.py
     Untracked:  code/makeSamplyGroupsChimp_TvN.py
     Untracked:  code/makeSamplyGroupsHuman_TvN.py
+    Untracked:  code/makedICPlots_DF.sh
     Untracked:  code/mapRNAseqhg19.sh
     Untracked:  code/mapRNAseqhg19_newPipeline.sh
     Untracked:  code/maphg19.err
@@ -965,6 +1013,9 @@ Untracked files:
     Untracked:  code/mergeandBWRNAseq.sh
     Untracked:  code/mergeandsort_ChimpinHuman.err
     Untracked:  code/mergeandsort_ChimpinHuman.out
+    Untracked:  code/mergeandsort_H3K9me3
+    Untracked:  code/mergeandsort_h3k36me3
+    Untracked:  code/mergeandsorth3k36me3.sh
     Untracked:  code/mergedBam2BW.sh
     Untracked:  code/mergedbam2bw.err
     Untracked:  code/mergedbam2bw.out
@@ -1101,6 +1152,7 @@ Untracked files:
     Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/tripseq-analysis/
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
@@ -1149,6 +1201,7 @@ Untracked files:
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
     Untracked:  data/CompapaQTLpas/
+    Untracked:  data/DIC_Viz/
     Untracked:  data/DNDS/
     Untracked:  data/DTmatrix/
     Untracked:  data/DiffDomandDE_example/
@@ -1159,13 +1212,20 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
     Untracked:  data/DominantPAS_DF/
+    Untracked:  data/DoubleFilterUsageNumeric/
     Untracked:  data/EvalPantro5/
+    Untracked:  data/H3K36me3/
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
+    Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
+    Untracked:  data/IndInfoContent/
+    Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
     Untracked:  data/Li_eqtls/
     Untracked:  data/MapPantro6_meta.txt
@@ -1182,7 +1242,9 @@ Untracked files:
     Untracked:  data/PAS/
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
+    Untracked:  data/PTM/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1190,6 +1252,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
     Untracked:  data/Pol2Chip/
+    Untracked:  data/QTLPASoverlap/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1213,6 +1276,8 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
+    Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
     Untracked:  data/bioGRID/
@@ -1223,6 +1288,7 @@ Untracked files:
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/gviz/
+    Untracked:  data/hypoxia/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1235,37 +1301,83 @@ Untracked files:
     Untracked:  data/miRNA/
     Untracked:  data/multimap/
     Untracked:  data/orthoUTR/
+    Untracked:  data/paiDecay/
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
+    Untracked:  data/utrDB/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/DEandAPA.txt
+    Untracked:  output/DEandAPA_sig.txt
+    Untracked:  output/DEandTEeffectsize
+    Untracked:  output/DEandTEeffectsize.pdf
+    Untracked:  output/DEeffectsize
+    Untracked:  output/DEeffectsize.pdf
+    Untracked:  output/FigureDF/
+    Untracked:  output/PropSamesdom
+    Untracked:  output/PropSamesdom.pdf
+    Untracked:  output/TEeffectsize
+    Untracked:  output/TEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsize
+    Untracked:  output/Total_DEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_DErelationship.pdf
+    Untracked:  output/Total_TEeffectsize
+    Untracked:  output/Total_TEeffectsize.pdf
+    Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dediffdom.pdf
+    Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
+    Untracked:  output/exandte
+    Untracked:  output/fig1.pdf
+    Untracked:  output/fig2.pdf
+    Untracked:  output/fig3.pdf
+    Untracked:  output/fig4.pdf
+    Untracked:  output/fig5.pdf
+    Untracked:  output/fig6.pdf
+    Untracked:  output/piecharts
+    Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6 copy.pdf
+    Untracked:  output/removeUnilift_fig6.pdf
+    Untracked:  output/removeUnlift_fig3.pdf
+    Untracked:  output/removeUnlift_fig4.pdf
+    Untracked:  output/removeUnlift_fig5.pdf
+    Untracked:  output/simpson.pdf
+    Untracked:  output/supplement/
+    Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DiffTop2SecondDom.Rmd
+    Modified:   analysis/DeandNumPAS.Rmd
+    Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
-    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/ResultsNoUnlifted.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/df_QC.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/incorporateQTLsAncestral.Rmd
     Modified:   analysis/investigatePantro5.Rmd
+    Modified:   analysis/mRNADecay.Rmd
+    Modified:   analysis/miRNAanalysis.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
-    Modified:   analysis/signalsites_doublefilter.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
 </code></pre>
@@ -1305,6 +1417,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8f3e622226c1c59830364f16cd13c6e0f1f0821c/analysis/dAPAdPnotE.Rmd" target="_blank">8f3e622</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+<td>
+export supp plots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/dAPAdPnotE.html" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1602,12 +1748,12 @@ add expression indep
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(UpSetR)
@@ -1983,7 +2129,8 @@ enrich</code></pre>
 <pre class="r"><code>NucAPAres_DPLocEnrich=NucAPAres_DP %&gt;% group_by(loc) %&gt;% summarise(n=n()) %&gt;% bind_cols(enrichment=enrich, pvalue=pval)
 
 
-ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,3), sep=&quot;&quot;), vjust=2))</code></pre>
+locplot=ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat=&quot;identity&quot;) + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;&quot;, y=&quot;Number of PAS&quot;, title=&quot;Expression independent PAS locations&quot;)+ geom_text(aes(label=paste(&quot;Enrichment=&quot;,round(enrichment,2), &quot;X&quot;, sep=&quot;&quot;), vjust=0)) +geom_text(aes(label=paste(&quot;Pval=&quot;,round(pvalue,3), sep=&quot;&quot;), vjust=2))+ theme_classic() +  theme(legend.position = &quot;none&quot;, axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+locplot</code></pre>
 <p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -2007,6 +2154,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-12-1.png" target="_blank">5d82297</a>
@@ -2066,13 +2224,13 @@ InteractionsAPA=Interactions %&gt;%filter(gene %in% NucAPAresSig$gene) %&gt;% mu
 
 
 ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(nInt+1),fill=dPnotE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(Number of Protein Interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div id="fig-unnamed-chunk-14-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2091,7 +2249,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/3790efa6842b4564ad18aefed223ab5c7608b89e/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">3790efa</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-14-1.png" target="_blank">961b808</a>
 </td>
 <td>
 brimittleman
@@ -2100,57 +2258,13 @@ brimittleman
 2020-04-23
 </td>
 </tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5d82297b62f71ba1248c73087c1bf2e1090d1afc/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">5d82297</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">6d8725a</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">c2a0778</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-04-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/25a479024019e85622f53af5b0feb82c735785b3/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-13-1.png" target="_blank">25a4790</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-03-07
-</td>
-</tr>
 </tbody>
 </table>
 </div>
 </div>
 <p>Plot density?</p>
 <pre class="r"><code>ggplot(InteractionsAPA,aes(x=dPnotE, y=log10(density),fill=dPnotE)) + geom_boxplot(notch = T) + stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;Gene in Expression independent set&quot;, y=&quot;log10(UTR density of interactions)&quot;, title=&quot;Protein Interactions for Expression \nindependent dAPA genes&quot;)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>More likly to have one:</p>
 <pre class="r"><code>InteractionsAPA %&gt;% mutate(HasInteraction=ifelse(nInt&gt;0, &quot;Yes&quot;, &quot;No&quot;)) %&gt;% group_by(dPnotE, HasInteraction) %&gt;% summarise(nWithSet=n())</code></pre>
 <pre><code># A tibble: 2 x 3
@@ -2166,7 +2280,77 @@ geneAPAPnotEG=APAandPnotE %&gt;% dplyr::select(gene)
 
 GenesMatter= Alldiff %&gt;% bind_rows(geneAPAPnotEG) %&gt;% mutate(Ex=ifelse(gene %in% geneAPAPnotEG$gene, &quot;No&quot;, &quot;Yes&quot;)) %&gt;% inner_join(Interactions, by=&quot;gene&quot;)</code></pre>
 <pre class="r"><code>ggplot(GenesMatter, aes(x=Ex, y=nInt, fill=Ex))+ geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = &quot;RdYlBu&quot;)+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = &quot;false&quot;) + labs(x=&quot;DE gene&quot;, y=&quot;Number of protein protein interactions&quot;, title=&quot;dAPA, DP, and DE&quot;)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/961b808c7e75bdfb2870e317b6668ecab46999ca/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">961b808</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-23
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/6d8725aecddb2906d7108710ceb5cf8318e60ca1/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">6d8725a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c2a07789889eddb977de30d8a838db0ef57758fb/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">c2a0778</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-04-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f33ef5a2d2aebb30a9abe9171ad0dbcf97edd96d/docs/figure/dAPAdPnotE.Rmd/unnamed-chunk-18-1.png" target="_blank">f33ef5a</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-03-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Effect sizes :</p>
 <p>Look at the PAS effect sizes here and in protien, translation, and expression.</p>
 <pre class="r"><code>NucAPAres_sig_dpnotE = NucAPAres_sig %&gt;% filter(dPnotE ==&quot;Yes&quot;)
@@ -2181,18 +2365,18 @@ Prot=read.table(&quot;../data/Khan_prot/ProtData_effectSize.txt&quot;, header = 
 <pre class="r"><code>APAandE=NucAPAres_sig_dpnotE %&gt;% inner_join(DE, by=&quot;gene&quot;)
 
 ggplot(APAandE, aes(x=logFC, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(APAandE, aes(x=logFC, y=deltaPAU, col=loc)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;)  +stat_cor(label.x = 1)</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>APAandRibo=NucAPAres_sig_dpnotE %&gt;% inner_join(Ribo, by=&quot;gene&quot;)
 ggplot(APAandRibo, aes(x=HvC.beta, y=deltaPAU)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor()</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-20-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>APAandprot=NucAPAres_sig_dpnotE %&gt;% inner_join(Prot, by=&quot;gene&quot;)
 
 ggplot(APAandprot, aes(x=logEf, y=deltaPAU))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-20-4.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(APAandprot, aes(x=logEf, y=deltaPAU, col=loc))+ geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) +stat_cor( )</code></pre>
-<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-19-5.png" width="672" style="display: block; margin: auto;" /> None of these are significant.</p>
+<p><img src="figure/dAPAdPnotE.Rmd/unnamed-chunk-20-5.png" width="672" style="display: block; margin: auto;" /> None of these are significant.</p>
 <p>Check if any of these are genes with QTLs.</p>
 <p>I will pull in the genes with nuclear apaQTLs first.</p>
 <pre class="r"><code>apaQTLs=read.table(&quot;../../apaQTL/data/apaQTLs/Nuclear_apaQTLs4pc_5fdr.sort.bed&quot;,col.names = c(&#39;chr&#39;,&#39;start&#39;,&#39;end&#39;, &#39;PASid&#39;,&#39;score&#39;, &#39;strand&#39;)) %&gt;% separate(PASid, into=c(&quot;gene&quot;, &quot;PAS&quot;, &quot;loc&quot;),sep=&quot;:&quot;)
@@ -2344,7 +2528,7 @@ loaded via a namespace (and not attached):
 [19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
 [22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
 [25] knitr_1.20         httpuv_1.4.5       fansi_0.4.0       
-[28] broom_0.5.1        Rcpp_1.0.2         promises_1.0.1    
+[28] broom_0.5.1        Rcpp_1.0.4.6       promises_1.0.1    
 [31] scales_1.0.0       backports_1.1.2    jsonlite_1.6      
 [34] fs_1.3.1           gridExtra_2.3      hms_0.4.2         
 [37] digest_0.6.18      stringi_1.2.4      grid_3.5.1        

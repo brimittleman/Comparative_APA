@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-07-02
+<strong>Last updated:</strong> 2020-07-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ac7dbeed3fa895a1f414e5326705ebac091c147targetblank9ac7dbea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9ac7dbeed3fa895a1f414e5326705ebac091c147" target="_blank">9ac7dbe</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f3e622226c1c59830364f16cd13c6e0f1f0821ctargetblank8f3e622a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8f3e622226c1c59830364f16cd13c6e0f1f0821c" target="_blank">8f3e622</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ac7dbeed3fa895a1f414e5326705ebac091c147targetblank9ac7dbea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8f3e622226c1c59830364f16cd13c6e0f1f0821ctargetblank8f3e622a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1343,6 +1343,7 @@ Untracked files:
     Untracked:  output/fig6.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6 copy.pdf
     Untracked:  output/removeUnilift_fig6.pdf
     Untracked:  output/removeUnlift_fig3.pdf
     Untracked:  output/removeUnlift_fig4.pdf
@@ -1360,6 +1361,7 @@ Unstaged changes:
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
+    Modified:   analysis/ResultsNoUnlifted.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
     Modified:   analysis/annotationInfo.Rmd
@@ -1368,7 +1370,6 @@ Unstaged changes:
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/dInforContent.Rmd
     Modified:   analysis/df_QC.Rmd
-    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/incorporateQTLsAncestral.Rmd
     Modified:   analysis/investigatePantro5.Rmd
@@ -1378,7 +1379,6 @@ Unstaged changes:
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/unliftedsites.Rmd
 
 </code></pre>
 <p>
@@ -1417,6 +1417,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/SetsdAPADIC.html" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1687,12 +1704,12 @@ library(VennDiagram)</code></pre>
 <pre><code>Loading required package: grid</code></pre>
 <pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1747,6 +1764,43 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(dAPAGenes$gene),
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-7-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="expression" class="section level2">
 <h2>Expression</h2>
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
@@ -1981,6 +2035,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" target="_blank">afecfdb</a>
 </td>
 <td>
@@ -2021,10 +2086,84 @@ brimittleman
 
 enrichpoint</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-2">
+Past versions of unnamed-chunk-29-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-29-2.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
 
 pvalplot</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-3">
+Past versions of unnamed-chunk-29-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-29-3.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>plot together:</p>
 <pre class="r"><code>plot_grid(enrichpoint,pvalplot, nrow=2)</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2050,6 +2189,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-30-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-30-1.png" target="_blank">afecfdb</a>
@@ -2124,6 +2274,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-31-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-31-1.png" target="_blank">afecfdb</a>
 </td>
 <td>
@@ -2153,9 +2314,83 @@ brimittleman
 
 pvalplotnoP</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-2">
+Past versions of unnamed-chunk-31-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-31-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-31-2.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>exandte=plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)
 exandte</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-32-1">
+Past versions of unnamed-chunk-32-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-32-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-32-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Write out data for figures</p>
 <pre class="r"><code>write.table(DETEDF, &quot;../output/FigureDF/DEandTEenrich.txt&quot;,col.names = T,row.names = F, quote = F)</code></pre>
 <p>Examples:</p>
@@ -2481,6 +2716,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" target="_blank">c1c2047</a>
 </td>
 <td>
@@ -2583,6 +2829,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-54-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-54-1.png" target="_blank">c1c2047</a>
 </td>
 <td>
@@ -2621,6 +2878,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" target="_blank">afecfdb</a>
@@ -2693,6 +2961,43 @@ enrichEitherDfTE</code></pre>
 <pre class="r"><code>enrichEitherDfTE$Enrichment=as.numeric(as.character(enrichEitherDfTE$Enrichment))
 ggplot(enrichEitherDfTE, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + geom_hline(yintercept = 1)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in dT genes&quot;)</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-58-1">
+Past versions of unnamed-chunk-58-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-58-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9937c4baeedb292d7bc4d571f9e414e3c0881e60/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-58-1.png" target="_blank">9937c4b</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
