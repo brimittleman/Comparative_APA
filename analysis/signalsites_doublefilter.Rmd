@@ -129,7 +129,16 @@ chimp_both_loc= chimp_both %>% group_by(loc, anySS) %>% summarise(count=n()) %>%
 bothSpeciesLoc=chimp_both_loc %>% inner_join(human_both_loc,by=c("loc", "anySS")) %>% gather(key="species", value="propSS", -loc, -anySS) %>% filter(anySS=="yes")
 
 
-ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Set1") + labs(title="Presence of top 2 signal sites by location", x="Proportion with signal site", x="location")
+topplot=ggplot(bothSpeciesLoc, aes(x=loc, fill=species,y=propSS)) + geom_bar(stat="identity",position = "dodge") +  scale_fill_brewer(palette = "Set1", labels=c("Chimpanzee", "Human"), name="") + labs(title="Presence of top 2 signal sites by location", y="Proportion with signal site", x="")+ theme_classic() + scale_x_discrete(labels=c("Coding", "5kb downstream", "Intronic", "3' UTR", "5' UTR"))+ theme(legend.position = "bottom", axis.text.x = element_text(size=10,angle=90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+topplot
+```
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig1-figSup11.pdf", height=6, width=8,useKerning=F)
+topplot
+dev.off()
+
 ```
 
 

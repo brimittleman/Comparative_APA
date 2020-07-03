@@ -14,6 +14,7 @@ In this analysis, I will look to see if our RNA seq meta data segregate by speci
 ```{r}
 library(tidyverse)
 library(ggpubr)
+library(cowplot)
 ```
 
 ```{r}
@@ -25,24 +26,43 @@ metaData$Collection=as.factor(metaData$Collection)
 
 
 ```{r}
-ggplot(metaData,aes(y=AverageAlive, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="Average Percent alive at collection", title="Percent alive by Species")
+percalive=ggplot(metaData,aes(y=AverageAlive, x=Species,fill=Species)) + geom_boxplot() +scale_fill_brewer(palette="Dark2", labels=c("Chimpanzee", "Human"))+ stat_compare_means(method = "t.test")+ labs(y="Average Percent alive at collection", title="Percent alive by Species")+ theme_classic() + theme(legend.position = "none", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) +scale_x_discrete(labels=c("Chimpanzee", "Human"))
+
+percalive
 ```
 
 ```{r}
-ggplot(metaData,aes(y=Rin, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA RIN", title="RIN by Species")
-```
-
-
-```{r}
-ggplot(metaData,aes(y=BioAConc, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA Concentration", title="RNA concentration by Species")
+rin=ggplot(metaData,aes(y=Rin, x=Species,fill=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA RIN", title="RIN by Species")+scale_fill_brewer(palette="Dark2", labels=c("Chimpanzee", "Human"))+ theme_classic() + theme(legend.position = "none", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))+scale_x_discrete(labels=c("Chimpanzee", "Human"))
+rin
 ```
 
 
 ```{r}
-ggplot(metaData,aes(y=UndilutedAverage, x=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="Cell concentration at collection", title="Cell concentration at collection by Species")
+rnaconc=ggplot(metaData,aes(y=BioAConc, x=Species,fill=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="RNA Concentration", title="RNA concentration by Species")+scale_fill_brewer(palette="Dark2", labels=c("Chimpanzee", "Human"))+ theme_classic() + theme(legend.position = "none", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))+scale_x_discrete(labels=c("Chimpanzee", "Human"))
+
+rnaconc
+```
+
+
+```{r}
+conc=ggplot(metaData,aes(y=UndilutedAverage, x=Species,fill=Species)) + geom_boxplot() + stat_compare_means(method = "t.test")+ labs(y="Cell concentration at collection", title="Cell concentration at collection by Species")+scale_fill_brewer(palette="Dark2", labels=c("Chimpanzee", "Human"))+ theme_classic() + theme(legend.position = "none", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))+scale_x_discrete(labels=c("Chimpanzee", "Human"))
+
+conc
 ```
 
 
 None of these metadata factors segragate by species.
 
 
+```{r}
+fullplot=plot_grid(percalive, rin, rnaconc,conc, scale=c(.8,.8,.8,.8), labels=c("C", "D", "E", "F"))
+
+fullplot
+```
+
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig3-figSup4.pdf", height=8, width=8,useKerning=F)
+fullplot
+dev.off()
+
+```

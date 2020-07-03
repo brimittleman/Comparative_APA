@@ -155,8 +155,16 @@ pval
 NucAPAres_DPLocEnrich=NucAPAres_DP %>% group_by(loc) %>% summarise(n=n()) %>% bind_cols(enrichment=enrich, pvalue=pval)
 
 
-ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "RdYlBu")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="", y="Number of PAS", title="Expression independent PAS locations")+ geom_text(aes(label=paste("Enrichment=",round(enrichment,2), "X", sep=""), vjust=0)) +geom_text(aes(label=paste("Pval=",round(pvalue,3), sep=""), vjust=2))
+locplot=ggplot(NucAPAres_DPLocEnrich, aes(x=loc, y=n, fill=loc)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "RdYlBu")+theme(axis.text.x=element_text(angle=90, hjust=0), text= element_text(size=16), legend.position = "false") + labs(x="", y="Number of PAS", title="Expression independent PAS locations")+ geom_text(aes(label=paste("Enrichment=",round(enrichment,2), "X", sep=""), vjust=0)) +geom_text(aes(label=paste("Pval=",round(pvalue,3), sep=""), vjust=2))+ theme_classic() +  theme(legend.position = "none", axis.text.x = element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+locplot
 ```
+```{r, eval=F, include=F}
+pdf("../output/supplement/Fig6-figSup1.pdf", height=6, width=6,useKerning=F)
+locplot
+dev.off()
+```
+
+
 
 Interactions:
 

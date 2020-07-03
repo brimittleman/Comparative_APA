@@ -197,6 +197,14 @@ propplot=ggplot(statDF,aes(by=val, y=Prop, x="", fill=val)) + geom_bar(stat="ide
 propplot
 ```
 
+
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig2-figSup8.pdf", height=6, width=6,useKerning=F)
+propplot
+dev.off()
+```
+
+
 ```{r}
 plot_grid(propplot,ulifloc,uselift, useliftloc)
 ```
@@ -250,5 +258,11 @@ k=nrow(PASleveltest %>% filter(Unif=="Yes"))
 N=nrow(PASleveltest)
 phyper(x,m,n,k,lower.tail=F)
 (x/k)/(m/N)
+```
+
+Genes with unlifted sites:  
+
+```{r}
+write.table(HumanMean_5_passing_unlif_g,"../data/UnliftedSites/GeneswUnliftedandPassingPAS.txt", col.names = T, row.names = F, quote = F)
 ```
 

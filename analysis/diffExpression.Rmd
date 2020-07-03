@@ -52,7 +52,9 @@ Proportion of reads.
 ```{r}
 readProp=metaData %>% mutate(Aunmapped=1-percentMapped, MappednotOrtho=percentMapped-percentOrtho) %>% dplyr::select(Line,Species, percentOrtho, MappednotOrtho, Aunmapped) %>%  gather(key="Category", value="Proportion", -Line, -Species)
 
-ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat="identity") + scale_fill_brewer(palette = "Dark2", name="", labels = c("Unmapped", "Mapped not ortho", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 6, angle = 90)) + labs(y="Reads", title="Human and chimp read proportions") 
+useCOl <- c("#d73027", "#4575b4","#fee090")
+ggplot(readProp, aes(x=Line,y=Proportion, fill=Category)) + geom_bar(stat="identity") + scale_fill_manual(values = useCOl, name="", labels = c("Unmapped", "Not assigned to Ortho Exon", "Assigned Ortho Exon"))+theme(axis.text.x = element_text( hjust = 0,vjust = 1, size = 12, angle = 90),legend.position ="bottom",panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"),axis.text.y = element_text(size=12),plot.title = element_text(hjust = 0.5)) + labs(y="Reads", title="Human and chimp read proportions") 
 
 
 ```
@@ -321,6 +323,13 @@ for (n in 1:2){
 ```
 
 
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig3-figSup4A.pdf", height=4, width=4,useKerning=F)
+  plot_scores(pca_genes, scores, 1, 1+1, col.v)
+dev.off()
+```
+
+
 ```{r}
 #Clustering (original code from Julien Roux)
 cors <- cor(cpm.voom$E, method="spearman", use="pairwise.complete.obs")
@@ -442,6 +451,13 @@ heatmap.2(as.matrix(log10_pc_cov_pval[Tech_fac,PCs]), col=brewer.pal(9, "Greens"
           Rowv=FALSE, Colv=FALSE, key=T, main="-log10 pval of cor. PCs & tech factors", dendrogram="none",
           key.title=NA, cexRow=0.9, cexCol=0.9)
 ```
+```{r,include=F, eval=F}
+pdf("../output/supplement/Fig3-figSup4B.pdf", height=8, width=8,useKerning=F)
+heatmap.2(as.matrix(pc_cov_cor[Tech_fac,PCs]),col=brewer.pal(4, "Greens"), trace="none",
+          Rowv=FALSE, Colv=FALSE, key=T, main="Cor. PCs & tech factors", dendrogram="none",
+          key.title=NA, cexRow=0.9, cexCol=0.9)
+dev.off()
+```
 
 
 Plot PVE by each PC:
@@ -489,13 +505,14 @@ Make a table to plot:
 
 -log10(bh adjusted pval) vs logFC (log3 fold change)
 ```{r}
-top.table2=top.table %>% mutate(Species=ifelse(logFC > 1 & adj.P.Val<.05, "Chimp", ifelse(logFC < -1 & adj.P.Val< .05, "Human", "Neither")))
+top.table2=top.table %>% mutate(Species=ifelse(logFC >0 & adj.P.Val<.05, "Chimp", ifelse(logFC < 0 & adj.P.Val< .05, "Human", "Neither")))
   
   
 ```
 
 ```{r, DEplot}
-ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3) + scale_color_brewer(palette = "Dark2") + labs(title="LCL differential Expression")
+ggplot(top.table2, aes(x=logFC, y= -log10(adj.P.Val))) + geom_point(aes(col=Species), alpha=.3) + scale_color_brewer(palette = "Dark2") + labs(title="Differential Expression") +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
 ```{r}
