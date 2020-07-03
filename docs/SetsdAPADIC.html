@@ -343,7 +343,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-31
+<strong>Last updated:</strong> 2020-07-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -434,10 +434,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/033290cd8cbbc95cd609066fbddecfbfb4e7f3d7" target="_blank">033290c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ac7dbeed3fa895a1f414e5326705ebac091c147targetblank9ac7dbea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/9ac7dbeed3fa895a1f414e5326705ebac091c147" target="_blank">9ac7dbe</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree033290cd8cbbc95cd609066fbddecfbfb4e7f3d7targetblank033290ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree9ac7dbeed3fa895a1f414e5326705ebac091c147targetblank9ac7dbea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -459,6 +459,7 @@ Ignored files:
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
+    Untracked:  GEO/
     Untracked:  Human/
     Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/AllLoc_effectSizeCor.Rmd
@@ -469,6 +470,7 @@ Untracked files:
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/ResultsNoUnlifted.md
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
@@ -914,7 +916,6 @@ Untracked files:
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
-    Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
     Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
@@ -1151,6 +1152,7 @@ Untracked files:
     Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/tripseq-analysis/
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
@@ -1221,6 +1223,7 @@ Untracked files:
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
     Untracked:  data/IndInfoContent/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
@@ -1273,6 +1276,7 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
     Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
@@ -1284,6 +1288,7 @@ Untracked files:
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
     Untracked:  data/gviz/
+    Untracked:  data/hypoxia/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1319,9 +1324,11 @@ Untracked files:
     Untracked:  output/Total_DEeffectsize
     Untracked:  output/Total_DEeffectsize.pdf
     Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_DErelationship.pdf
     Untracked:  output/Total_TEeffectsize
     Untracked:  output/Total_TEeffectsize.pdf
     Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
     Untracked:  output/dediffdom.pdf
@@ -1332,9 +1339,16 @@ Untracked files:
     Untracked:  output/fig2.pdf
     Untracked:  output/fig3.pdf
     Untracked:  output/fig4.pdf
+    Untracked:  output/fig5.pdf
+    Untracked:  output/fig6.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6.pdf
+    Untracked:  output/removeUnlift_fig3.pdf
+    Untracked:  output/removeUnlift_fig4.pdf
+    Untracked:  output/removeUnlift_fig5.pdf
     Untracked:  output/simpson.pdf
+    Untracked:  output/supplement/
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
@@ -1353,6 +1367,7 @@ Unstaged changes:
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/df_QC.Rmd
     Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/incorporateQTLsAncestral.Rmd
@@ -1363,6 +1378,7 @@ Unstaged changes:
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
+    Modified:   analysis/unliftedsites.Rmd
 
 </code></pre>
 <p>
@@ -1401,6 +1417,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/9ac7dbeed3fa895a1f414e5326705ebac091c147/analysis/SetsdAPADIC.Rmd" target="_blank">9ac7dbe</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-02
+</td>
+<td>
+add sup pdfs
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/SetsdAPADIC.html" target="_blank">c1c2047</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1637,12 +1687,12 @@ library(VennDiagram)</code></pre>
 <pre><code>Loading required package: grid</code></pre>
 <pre><code>Loading required package: futile.logger</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.3       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(cowplot)</code></pre>
@@ -1676,61 +1726,13 @@ dICdata_sig= dICdata %&gt;% filter(sIC==&quot;Yes&quot;)</code></pre>
 nrow(dAPAandDic)</code></pre>
 <pre><code>[1] 8422</code></pre>
 <p>Make an upsetter plot first:</p>
-<pre class="r"><code>#useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
+<pre class="upset"><code>#useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
 
 
 listInput &lt;- list(SiteLevel=dAPAGenes$gene, IsoformDiversity=dICdata_sig$gene)
 
-upset(fromList(listInput), order.by = &quot;freq&quot;, empty.intersections = &quot;on&quot;)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-5-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-5-1.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+upset(fromList(listInput), order.by = &quot;freq&quot;, empty.intersections = &quot;on&quot;)
+</code></pre>
 <p>Ven diagram:</p>
 <pre class="r"><code>overlap=intersect(dAPAGenes$gene,dICdata_sig$gene)
 
@@ -1744,55 +1746,7 @@ venn.plot &lt;- draw.pairwise.venn(area1 = length(dAPAGenes$gene),
                            cat.cex = 1.5,
                            cat.pos = c(320, 25),
                            cat.dist = .05) </code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-6-1.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-6-1.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="expression" class="section level2">
 <h2>Expression</h2>
 <pre class="r"><code>nameID=read.table(&quot;../../genome_anotation_data/ensemble_to_genename.txt&quot;,sep=&quot;\t&quot;, header = T, stringsAsFactors = F) %&gt;% dplyr::select(Gene_stable_ID, Gene.name)
@@ -2002,162 +1956,6 @@ useCOl &lt;- c(&quot;#d73027&quot;, &quot;#4575b4&quot;,&quot;#fee090&quot;)
 enrichplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=Enrichment,fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1) + scale_fill_manual(values=useCOl)
 
 enrichplot</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
-Past versions of unnamed-chunk-28-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-28-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-1.png" target="_blank">747e064</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>enrichpoint=ggplot(AllDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=AllDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title=&quot;Enrichment for APA phenotype differences in other regulatory phenotypes&quot;,x=&quot;Set&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;none&quot;)
-
-
-enrichpoint</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-2">
-Past versions of unnamed-chunk-28-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-28-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/747e064758b5a2ab9fc9a9a95b6c5dafb14eadd3/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-2.png" target="_blank">747e064</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
-
-pvalplot</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-28-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-3">
-Past versions of unnamed-chunk-28-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-28-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-28-3.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>plot together:</p>
-<pre class="r"><code>plot_grid(enrichpoint,pvalplot, nrow=2)</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
@@ -2218,29 +2016,17 @@ brimittleman
 </table>
 </div>
 </div>
-<p>Plot without protien:</p>
-<pre class="r"><code>DETEDF= DEdf %&gt;% bind_rows(DTdf)</code></pre>
-<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
-<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
-coercing into character vector
-
-Warning in bind_rows_(x, .id): binding character and factor vector,
-coercing into character vector</code></pre>
-<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
-<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
-coercing into character vector
-
-Warning in bind_rows_(x, .id): binding character and factor vector,
-coercing into character vector</code></pre>
-<pre class="r"><code>DETEDF$Pval=as.numeric(DETEDF$Pval)
-DETEDF$Enrichment=as.numeric(DETEDF$Enrichment)
-DETEDF$Pheno=factor(DETEDF$Pheno, levels=c(&quot;Expression&quot;, &quot;Translation&quot;, &quot;Protein&quot;))
+<pre class="r"><code>enrichpoint=ggplot(AllDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=AllDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl)+ labs( title=&quot;Enrichment for APA phenotype differences in other regulatory phenotypes&quot;,x=&quot;Set&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;none&quot;)
 
 
-enrichpointnoP=ggplot(DETEDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=DETEDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Enrichment for APA phenotype \nin other regulatory phenotypes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;none&quot;)+scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS Level&quot;,OnlyIC= &quot;Isoform Diversity&quot;))
+enrichpoint</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pvalplot=ggplot(AllDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl)+  theme(legend.position = &quot;bottom&quot;)
 
-
-enrichpointnoP</code></pre>
+pvalplot</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-29-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>plot together:</p>
+<pre class="r"><code>plot_grid(enrichpoint,pvalplot, nrow=2)</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-1">
@@ -2290,61 +2076,29 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>pvalplotnoP=ggplot(DETEDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl,labels=c(&quot;Both&quot;, &quot;PAS Level&quot;, &quot;Isoform Diversity&quot;), name=&quot;&quot;)+  theme(legend.position = &quot;bottom&quot;)
+<p>Plot without protien:</p>
+<pre class="r"><code>DETEDF= DEdf %&gt;% bind_rows(DTdf)</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</code></pre>
+<pre><code>Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector</code></pre>
+<pre class="r"><code>DETEDF$Pval=as.numeric(DETEDF$Pval)
+DETEDF$Enrichment=as.numeric(DETEDF$Enrichment)
+DETEDF$Pheno=factor(DETEDF$Pheno, levels=c(&quot;Expression&quot;, &quot;Translation&quot;, &quot;Protein&quot;))
 
 
-pvalplotnoP</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-30-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-30-2">
-Past versions of unnamed-chunk-30-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-30-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-30-2.png" target="_blank">afecfdb</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/1c7e23772deae81aa61bd599979529e7b8e67d07/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-30-2.png" target="_blank">1c7e237</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>exandte=plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)
-exandte</code></pre>
+enrichpointnoP=ggplot(DETEDF,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=DETEDF$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Enrichment for APA phenotype \nin other regulatory phenotypes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) + theme(legend.position = &quot;none&quot;)+scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS Level&quot;,OnlyIC= &quot;Isoform Diversity&quot;))
+
+
+enrichpointnoP</code></pre>
 <p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-31-1">
@@ -2394,6 +2148,14 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>pvalplotnoP=ggplot(DETEDF,aes(x=Pheno, by=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = &quot;identity&quot;,position = &quot;dodge&quot;) +geom_hline(yintercept =1.3)+ scale_fill_manual(values=useCOl,labels=c(&quot;Both&quot;, &quot;PAS Level&quot;, &quot;Isoform Diversity&quot;), name=&quot;&quot;)+  theme(legend.position = &quot;bottom&quot;)
+
+
+pvalplotnoP</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-31-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>exandte=plot_grid(enrichpointnoP,pvalplotnoP, nrow=2)
+exandte</code></pre>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Write out data for figures</p>
 <pre class="r"><code>write.table(DETEDF, &quot;../output/FigureDF/DEandTEenrich.txt&quot;,col.names = T,row.names = F, quote = F)</code></pre>
 <p>Examples:</p>
@@ -2478,6 +2240,10 @@ EnrichmentRNA_both</code></pre>
 <pre><code>[1] 0.8269255 1.6039159 0.9402736 0.9207978 1.5819068 2.2357616</code></pre>
 <pre class="r"><code>PvalueRNA_both</code></pre>
 <pre><code>[1] 0.84650091 0.01547134 0.78485772 0.75903782 0.20603443 0.22400482</code></pre>
+<pre class="r"><code> nrow(KhanWithapa %&gt;% filter(Both==&quot;Yes&quot;, Model==1))</code></pre>
+<pre><code>[1] 18</code></pre>
+<pre class="r"><code>  nrow(KhanWithapa %&gt;% filter(Both==&quot;Yes&quot;, Model==2))</code></pre>
+<pre><code>[1] 22</code></pre>
 <p>Prot:</p>
 <pre class="r"><code>KhanPWithapa=dAPAandDic %&gt;% inner_join(KhanData_g_Prot, by=&quot;gene&quot;)</code></pre>
 <p>Only APA</p>
@@ -2690,13 +2456,13 @@ coercing into character vector</code></pre>
 <pre class="r"><code>#ggplot(ResDFfix_both,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x=&quot;Dominance Cutoff&quot;, y=&quot;Enrichment&quot;,title=&quot;Enrichment for DE by Domianance&quot;) + theme(legend.position = &quot;none&quot;)
 deLocALl$Enrichment=as.numeric(deLocALl$Enrichment)
 ggplot(deLocALl, aes(x=loc, col=loc, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2)))+ facet_grid(~set)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-51-1">
-Past versions of unnamed-chunk-51-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-52-1">
+Past versions of unnamed-chunk-52-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-51-1" class="collapse">
+<div id="fig-unnamed-chunk-52-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2715,7 +2481,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-51-1.png" target="_blank">afecfdb</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" target="_blank">c1c2047</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" target="_blank">afecfdb</a>
 </td>
 <td>
 brimittleman
@@ -2726,7 +2503,7 @@ brimittleman
 </tr>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/38c4a7f44c841ed4cb9ca390cb72e185f7f19f1b/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-51-1.png" target="_blank">38c4a7f</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c4a7f44c841ed4cb9ca390cb72e185f7f19f1b/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-52-1.png" target="_blank">38c4a7f</a>
 </td>
 <td>
 brimittleman
@@ -2781,13 +2558,13 @@ enrichEitherDf</code></pre>
 <p>Plot:</p>
 <pre class="r"><code>enrichEitherDf$Enrichment=as.numeric(as.character(enrichEitherDf$Enrichment))
 ggplot(enrichEitherDf, aes(x=Location, col=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;,col=&quot;grey&quot;,alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_brewer(palette=&quot;RdYlBu&quot;)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2))) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in DE genes&quot;)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-53-1">
-Past versions of unnamed-chunk-53-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-54-1">
+Past versions of unnamed-chunk-54-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-53-1" class="collapse">
+<div id="fig-unnamed-chunk-54-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2806,13 +2583,13 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-53-1.png" target="_blank">afecfdb</a>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/c1c20472d43032f6e00b9bd4b1afd7970fe62e36/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-54-1.png" target="_blank">c1c2047</a>
 </td>
 <td>
 brimittleman
 </td>
 <td>
-2020-05-20
+2020-05-31
 </td>
 </tr>
 </tbody>
@@ -2821,7 +2598,55 @@ brimittleman
 </div>
 <p>Barplot:</p>
 <pre class="r"><code>ggplot(enrichEitherDf, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + geom_hline(yintercept = 1)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in DE genes&quot;)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-55-1">
+Past versions of unnamed-chunk-55-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-55-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/afecfdb133365625f1a2adf87b12371fcf909be0/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" target="_blank">afecfdb</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-20
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/38c4a7f44c841ed4cb9ca390cb72e185f7f19f1b/docs/figure/SetsdAPADIC.Rmd/unnamed-chunk-55-1.png" target="_blank">38c4a7f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Either dIC and TE:</p>
 <pre class="r"><code>RiboSmallSig= RiboSmall %&gt;% filter(dTE==&#39;Yes&#39;)
 BothgeneTE= dAPAandDic %&gt;% filter(Both==&quot;Yes&quot;) %&gt;% inner_join(RiboSmallSig, by=&quot;gene&quot;)
@@ -2867,7 +2692,7 @@ enrichEitherDfTE</code></pre>
 5  0.313553277553297 Both    5&#39;UTR</code></pre>
 <pre class="r"><code>enrichEitherDfTE$Enrichment=as.numeric(as.character(enrichEitherDfTE$Enrichment))
 ggplot(enrichEitherDfTE, aes(x=Location, fill=Location, y=Enrichment)) + geom_bar(stat=&quot;identity&quot;) +scale_fill_brewer(palette=&quot;RdYlBu&quot;) + geom_hline(yintercept = 1)+geom_text(col=&quot;black&quot;,aes(label = round(Enrichment,2), vjust=2)) + theme(legend.position = &quot;none&quot;) +labs(title=&quot;Genic location enrichment for dAPA PAS in dT genes&quot;)</code></pre>
-<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/SetsdAPADIC.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
