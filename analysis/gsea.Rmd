@@ -1,0 +1,157 @@
+---
+title: "Gene set enrichments"
+author: "Briana Mittleman"
+date: "7/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("fgsea")
+library(tidyverse)
+library(data.table)
+library(cowplot)
+```
+
+```{bash,eval=F}
+mkdir ../data/gsea
+```
+
+example data:
+
+```{r}
+data(examplePathways)
+data(exampleRanks)
+fgseaRes <- fgsea(pathways = examplePathways, 
+                  stats    = exampleRanks,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+head(fgseaRes[order(pval), ])
+```
+
+```{r}
+Hset=gmtPathways("../data/gsea/h.all.v7.1.symbols.gmt")
+```
+
+I need a ranked list of dAPA genes:  
+Do this with nuclear differentially used:  
+
+```{r}
+DiffUsed=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T) %>% filter(SigPAU2=="Yes")
+sig=read.table("../data/DiffIso_Nuclear_DF/TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chr", "gene"), sep=":")
+
+DiffUsedGenes=sig %>% filter(gene %in% DiffUsed$gene)  %>% select(gene,loglr) %>% arrange(desc(loglr))
+
+DiffUsedGenes$loglr=as.numeric(DiffUsedGenes$loglr)
+
+DiffUsedGenes_vec= deframe(DiffUsedGenes)
+```
+
+Run fgsea: 
+
+
+```{r}
+fgseaResDiffUsed <- fgsea(pathways = Hset, 
+                  stats    = DiffUsedGenes_vec,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+
+
+fgseaResTidy <- fgseaResDiffUsed %>%
+  as_tibble() %>%
+  arrange(desc(NES)) %>% 
+  select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+  arrange(padj) 
+
+
+
+```
+
+Plot:  
+
+```{r}
+ggplot(fgseaResTidy, aes(reorder(pathway, NES), NES)) +
+  geom_col(aes(fill=padj<0.05)) +
+  coord_flip() +
+  labs(x="Pathway", y="Normalized Enrichment Score",
+       title="Hallmark pathways NES from GSEA") + 
+  theme_minimal()
+```
+
+
+Test other sets:  
+
+```{r}
+allReg=gmtPathways("../data/gsea/c3.all.v7.1.symbols.gmt")
+miBing=gmtPathways("../data/gsea/c3.mir.v7.1.symbols.gmt")
+```
+
+
+All reg:  
+
+```{r}
+fgseaResReg <- fgsea(pathways = allReg, 
+                  stats    = DiffUsedGenes_vec,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+fgseaResRegsTidy <- fgseaResReg %>%
+  as_tibble() %>%
+  arrange(desc(NES)) %>% 
+  select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+  arrange(padj) 
+
+
+head(fgseaResRegsTidy)
+
+```
+
+```{r}
+fgseaResmiRNA <- fgsea(pathways = miBing, 
+                  stats    = DiffUsedGenes_vec,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+fgseaResmiRNATidy <- fgseaResmiRNA %>%
+  as_tibble() %>%
+  arrange(desc(NES)) %>% 
+  select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+  arrange(padj) 
+
+
+head(fgseaResmiRNATidy)
+
+```
+
+go sets:  
+
+
+```{r}
+GO=gmtPathways("../data/gsea/c5.all.v7.1.symbols.gmt")
+```
+
+
+```{r}
+fgseaResGO <- fgsea(pathways = GO, 
+                  stats    = DiffUsedGenes_vec,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+
+fgseaResGOTidy <- fgseaResGO %>%
+  as_tibble() %>%
+  arrange(desc(NES)) %>% 
+  select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+  arrange(padj) 
+
+
+```
+
+None of these are significant.  
+
+

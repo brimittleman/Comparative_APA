@@ -102,6 +102,8 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [pie charts for 3 levels of dAPA](piecharts.html)
 
+* [Test enrichment in gene sets](gsea.html)
+
 
 ###Use annotations to understand mechanisms
 
