@@ -1,0 +1,334 @@
+---
+title: "Presentation colors"
+author: "Briana Mittleman"
+date: "7/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Color palletes for thesis pres:  
+
+
+2 colors for figure 3
+```{r}
+pal_fig3 <- c("#ED1C24", "#21409A")
+```
+
+
+3 colors for fig
+
+pie charts ect  
+
+```{r}
+piechartcol <- c( "#5f0f40","#eb825b", "#1e75bc")
+```
+
+5 colors for locations:  
+
+```{r}
+locplots=c("#eb2329", "#eb825b", "#f6b619", "#1e75bc", "#5f0f40")
+```
+
+9 colors:  
+
+```{r}
+domcut=c("#eb2329","#f05323", "#eb825b", "#f6b619","#f4da3f", "#66b3e3", "#1e75bc", "#5f0f40","#44223a")
+```
+
+
+```{r}
+library(cowplot)
+library(tidyverse)
+library(ggpubr)
+```
+
+```{bash,eval=F}
+mkdir ../output/FigurePresColors
+```
+
+```{r}
+fig1A_data=read.table("../output/FigureDF/nPAS_figure1.txt", header = T, stringsAsFactors = F) 
+
+fig1A_data$species <- factor(fig1A_data$species, labels = c("Chimpanzee~PAS", "Human~PAS"))
+
+fig1A=ggplot(fig1A_data,aes(x="",y=prop, fill=loc)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + facet_wrap(~species,labeller = label_parsed,strip.position = "left") + scale_fill_manual(values = locplots, name="Genic Location", labels=c("Coding", "5KB downstream", "Intronic","3' UTR", "5' UTR")) + theme(legend.position = "bottom",strip.text = element_text(size = 10, face = "italic",angle=270), text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold"),plot.margin = unit(c(0,0,0,0), "cm")) +labs(title="PAS genic locations are conserved between species", x="", y="")
+
+
+fig1A
+```
+```{r}
+fig1B_data=read.table("../output/FigureDF/SeqConservation.txt",header = T,stringsAsFactors = F)
+ 
+fig1B=ggplot(fig1B_data, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_manual(values = c("#f6b619", "#eb825b")) + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved \nthan surrounding regions") + guides(fill = FALSE) + theme_classic()+ theme(plot.title = element_text(hjust = 0.5, face="bold"), axis.text.x = element_text(size=10),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig1B
+```
+
+```{r}
+fig1c_data=read.table("../output/FigureDF/SignalSizeFigure.txt", header = T, stringsAsFactors = F)
+
+fic1c=ggplot(fig1c_data, aes(y=propSS,by=Species,fill=Species,x=reorder(SS, -propSS))) + geom_bar(stat="identity", position = "dodge") +  theme_classic() +theme(axis.text.x = element_text(size=10,angle = 90),plot.title = element_text(hjust = 0.5, face="bold"),axis.text.y = element_text(size=10),text=element_text(size=10), legend.position = "top",plot.margin = unit(c(0,0,0,0), "cm")) + scale_fill_brewer(palette = "Dark2", label=c("Chimp", "Human"))  + labs(y="Proportion of PAS",title="Proportion of PAS with a signal site", x="")
+```
+
+```{r}
+
+row2=plot_grid(fig1B,fic1c, labels=c("",""), scale = c(.9,.9), nrow = 1)
+
+fig1all=plot_grid(fig1A,row2, labels = c("", ""),nrow = 2,rel_heights=c(.75,1 ),hjust=-12)
+fig1all
+```
+
+```{r}
+
+pdf("../output/FigurePresColors/fig1.pdf", height=6, width=8)
+fig1all
+dev.off()
+```
+
+##Figure 2: 
+
+Pie charts for differences 
+
+```{r}
+PASlevel= read.table("../output/FigureDF/PASlevelDiff.txt", stringsAsFactors = F, header=T,col.names =c("sig", "n","gene","prop")) %>% mutate(set="PAS", test=c("Conserved", "Not Tested", "Divergent"))
+genelevel= read.table("../output/FigureDF/GenelevelDiff.txt", stringsAsFactors = F, header = T, col.names =c("sig", "n","gene","prop")) %>% mutate(set="gene", test=c("Conserved", "Not Tested", "Divergent"))
+isoformlevel= read.table("../output/FigureDF/IsoformlevelDiff.txt", stringsAsFactors = F, header = T, col.names =c("sig", "n","gene","prop")) %>% mutate(set="isoform",test=c("Conserved", "Not Tested", "Divergent"))
+
+fig2a=PASlevel %>% bind_rows(genelevel) %>% bind_rows(isoformlevel)
+fig2a$set=factor(fig2a$set, levels=c("PAS", "gene", "isoform"),labels = c("PAS~Differences", "Genes~with~PAS~Differneces", "Differences~isoform~diversity"))
+fig2a$test=factor(fig2a$test,levels= c("Conserved", "Divergent","Not Tested"))
+
+useCOl <- c("#d73027", "#4575b4","#fee090")
+
+fig2aplot=ggplot(fig2a,aes(by=test, y=prop, x="", fill=test)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=piechartcol,name="") + facet_wrap(~set,labeller = label_parsed,strip.position = "left") + theme(legend.position = "bottom",strip.text = element_text(size = 10, angle=270), text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12)) + labs(title="APA is functionally conserved at PAS and isoform diversity levels")
+
+fig2aplot
+```
+```{r}
+fig2cd_data=read.table("../output/FigureDF/DominantPAS.txt", header = T, stringsAsFactors = F)
+fig2cd_data$cut=as.factor(fig2cd_data$cut)
+
+fig2d=ggplot(fig2cd_data,aes(x=cut,y=PropSame,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom), position=position_dodge(width=0.9), vjust=1,size=3,col="grey76")+ scale_fill_manual(values = domcut)+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Most genes with a dominant PAS\n share the same dominant PAS", y="Proportion of Genes in Set", x="Dominance Cutoff") 
+fig2d
+
+
+
+fig2c=ggplot(fig2cd_data,aes(x=cut,y=PropDom,fill=cut)) + geom_bar(stat="identity") +geom_text(aes(label=nDom),col="grey76", position=position_dodge(width=0.9), vjust=1, size=3) + scale_fill_manual(values = domcut)+theme_classic()+theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) + labs(title="Proportion of tested Genes \nwith a dominant PAS", y="Proportion of Tested Genes", x="Dominance Cutoff")
+
+fig2c
+```
+```{r}
+fig2row2=plot_grid(fig2c,fig2d,  scale = c(.9,.9), nrow = 1)
+
+fig2=plot_grid(fig2aplot,fig2row2, nrow = 2,rel_heights=c(.8,1 ),hjust=-5)
+
+fig2
+```
+
+```{r}
+pdf("../output/FigurePresColors/fig2.pdf", height=6, width=8)
+fig2
+dev.off()
+```
+
+
+##figure 3  
+
+```{r}
+fig3_data=read.table("../output/DEandAPA.txt", header = T, stringsAsFactors = F)
+fig3_data2=read.table("../output/DEandAPA_sig.txt", header = T, stringsAsFactors = F)
+```
+
+```{r}
+fig3a=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_manual(values = pal_fig3,name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic() + theme(text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+
+fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_manual(values = pal_fig3,name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in \nAPA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_manual(values = pal_fig3,name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1)+ theme(legend.position = "top",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+
+fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n APA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_manual(values = pal_fig3,name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+ theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm") )
+
+
+
+```
+
+
+
+```{r}
+fig3=plot_grid(fig3a, fig3b,fig3c,fig3d, scale = c(.9,.9,.9,.9),rel_widths=c(1,1.3,1,1.3))
+
+fig3
+
+
+```
+
+```{r}
+
+pdf("../output/FigurePresColors/fig3.pdf", height=8, width=8)
+fig3
+dev.off()
+```
+
+
+##figure 4  
+
+```{r}
+fig4Data=read.table("../output/FigureDF/DEandTEenrich.txt", header = T, stringsAsFactors = F)
+
+fig4Data$Pval=as.numeric(fig4Data$Pval)
+fig4Data$Enrichment=as.numeric(fig4Data$Enrichment)
+fig4Data$Pheno=factor(fig4Data$Pheno, levels=c("Expression", "Translation", "Protein"))
+```
+
+```{r}
+figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey76",aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=piechartcol) + labs( title="Genes with differences in APA are enriched\n in differentially expression and differentially translated genes",x="", y="Enrichment")+geom_text(color = "white", size = 3) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme_classic()+theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+figure4a
+
+
+figure4b=ggplot(fig4Data,aes(x=sets, y=-log10(Pval),fill=sets)) +geom_bar(stat = "identity",position = "dodge") +geom_hline(yintercept =1.3)+ labs(x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ scale_fill_manual(values=piechartcol,labels=c("Both", "PAS Level", "Isoform Diversity"), name="")+facet_wrap(~Pheno)+ theme_classic()+ theme(legend.position = "none",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+figure4b
+```
+
+
+```{r}
+pdf("../output/FigurePresColors/fig4a.pdf", height=3, width=5,useKerning=T)
+figure4a
+dev.off()
+```
+
+```{r}
+row2fig4=plot_grid(NULL, figure4b,NULL, rel_widths=c(0.12,1,.1), nrow = 1 )
+fig4=plot_grid(figure4a,row2fig4,nrow =2, scale = c(.9,.9))
+fig4
+
+```
+
+```{r}
+
+pdf("../output/FigurePresColors/fig4.pdf", height=6, width=8,useKerning=F)
+fig4
+dev.off()
+```
+
+##figure 5  
+
+```{r}
+fig5data=read.table("../output/FigureDF/SameDiffDomEnrichinDE.txt",header = T, stringsAsFactors = F)
+fig5data$set=as.factor(fig5data$set)
+
+fig5a=ggplot(fig5data,aes(x=set,group=type,col=set,y=Enrich))+ geom_bar(stat="identity",col="grey76",alpha=.3,width=.01)+geom_point(size=10) + coord_flip()+ geom_hline(yintercept = 1) +scale_color_manual(values = domcut)+geom_text(col="white",aes(label = round(Enrich,2)))+ facet_grid(~type)+labs(x="Dominance Cutoff", y="Enrichment",title="Enrichment for differentially expressed genes in genes\n with the same and different dominant PAS") + theme_classic()+ theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+fig5a
+
+
+fig5b=ggplot(fig5data,aes(x=set, y=-log10(Pval),fill=set)) + geom_bar(stat="identity") +labs(title="",x="Dominance Cutoff")+scale_fill_manual(values = domcut) + theme(legend.position = "none")+ geom_hline(yintercept = 1.30103) + facet_grid(~type)+ theme_classic()+ theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig5b
+```
+
+
+```{r}
+fig5a
+```
+
+```{r}
+
+pdf("../output/FigurePresColors/fig5a.pdf", height=4, width=5,useKerning=F)
+fig5a
+dev.off()
+```
+
+
+
+```{r}
+fig5=plot_grid(fig5a,fig5b,nrow = 2,scale = c(.9,.9), rel_heights = c(1,.8))
+
+fig5
+```
+
+
+```{r}
+
+pdf("../output/FigurePresColors/fig5.pdf", height=7, width=7,useKerning=F)
+fig5
+dev.off()
+```
+
+
+###fig 6  
+
+```{r}
+fig6topdata=read.table("../output/FigureDF/DPnotDE.txt",header = T, stringsAsFactors = F)
+fig6middata=read.table("../output/FigureDF/DPnotDE_trans.txt",header = T, stringsAsFactors = F)
+
+fig6dapa=read.table("../output/FigureDF/PinteractiondAPA.txt",header = T, stringsAsFactors = F)
+fig6both=read.table("../output/FigureDF/Pinteractionboth.txt",header = T, stringsAsFactors = F)
+fib6ic=read.table("../output/FigureDF/PinteractiondIC.txt",header = T, stringsAsFactors = F)
+```
+
+
+```{r}
+fig6a=ggplot(fig6topdata,aes(x=Set, fill=Set, y=Number))+ geom_bar(stat="identity")+ scale_fill_manual(values=piechartcol)+geom_text(aes(label=Number), position=position_dodge(width=0.9), color="white",vjust=2)+ labs(title="Number of genes differentially expressed\n in protein but not mRNA", y="Number of Genes",x="")+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlydIC= "ID"))+ theme_classic()+theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+
+fig6a
+
+
+fig6b=ggplot(fig6topdata,aes(x=Set, fill=Set, y=Prop))+ geom_bar(stat="identity")+ scale_fill_manual(values=piechartcol) + labs(title="Proportions of genes differentially expressed\n in protein but not mRNA", y="Proportion of Genes",x="")+geom_text(aes(label=round(Prop,3)), position=position_dodge(width=0.9), vjust=2,color="white") +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlydIC= "ID"))+ theme_classic()+theme(legend.position = "none",  text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+
+fig6b
+```
+
+```{r}
+fig6c= ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "dodge") + labs(title="", y="Number of Genes",x="") + scale_fill_manual(values = piechartcol ) + scale_alpha_manual(values=c(.6, 1),name="Differentially translated") + geom_text(aes(label=ndTE),col="grey76", position=position_dodge(width=0.9), vjust=1)+guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+theme_classic()+ theme(legend.position = "top", legend.justification = "center", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm")) 
+fig6c
+
+
+fig6d=ggplot(fig6middata, aes(x=set,by=dTE, y=ndTE,fill=set, alpha=dTE)) +geom_bar(stat="identity", position = "fill") + labs(title="", y="Proportion of Genes",x="") + scale_fill_manual(values = piechartcol ) + scale_alpha_manual(values=c(.6, 1),name="Differentially translated") + guides(fill = FALSE)+scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme(legend.position = "top",legend.justification = "center", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=10),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig6d
+```
+
+
+```{r}
+fig6top=plot_grid(fig6a,fig6b, scale = c(.9,.9),nrow = 1)
+fig6mid=plot_grid(fig6c,fig6d, scale = c(.9,.9),nrow = 1)
+#fig6botom=plot_grid(fig6e,fig6f, fig6g, labels = c("e","f","g"), scale = c(.9,.9,.9),nrow = 1)
+
+fig6=plot_grid(fig6top,fig6mid,nrow = 2, rel_heights = c(1,1))
+fig6
+```
+
+```{r}
+
+pdf("../output/FigurePresColors/fig6.pdf", height=8, width=8,useKerning=F)
+fig6
+dev.off()
+```
+
+
+6c as pie charts
+
+```{r}
+fig6middata_prop=fig6middata %>% group_by(set) %>%  mutate(tot=sum(ndTE)) %>% ungroup() %>% mutate(prop=ndTE/tot)
+blackgrey=c("grey", "black")
+
+dt_pie=ggplot(fig6middata_prop,aes(by=dTE, y=prop, x="", fill=dTE)) + geom_bar(stat="identity",width=1, color="white")+  coord_polar("y", start=0) +theme_void() + scale_fill_manual(values=blackgrey,name="Differentially translated") + facet_wrap(~set,strip.position = "top") + theme(legend.position = "bottom",strip.text = element_text(size = 16), text=element_text(size=16),plot.title = element_text(hjust = 0.5, face="bold",size=12)) + labs(title="")
+```
+```{r}
+
+pdf("../output/FigurePresColors/fig6_piechart.pdf", height=8, width=10,useKerning=F)
+dt_pie
+dev.off()
+```
+
+
