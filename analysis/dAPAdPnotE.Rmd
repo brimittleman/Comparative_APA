@@ -26,8 +26,18 @@ NucAPA=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt
 
 I will do this first with these then I can start to look at it by significance.  
 
+```{r}
+apatested=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T) %>% select(gene) %>% unique()
+```
+
 
 ```{r}
+pnotE=Protein %>% anti_join(DEgenes,by="gene") 
+nrow(pnotE)
+nrow(Protein)
+nrow(DEgenes)
+apatested %>% inner_join(pnotE,by="gene") %>% nrow()
+
 APAandPnotE= NucAPA %>% inner_join(Protein, by="gene") %>% anti_join(DEgenes,by="gene")
 ```
 
