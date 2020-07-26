@@ -141,11 +141,11 @@ fig3a
 fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 fig3b
 
-fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in \nAPA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1)+ theme(legend.position = "top",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in \nAPA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = "top",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 fig3c
 
 
-fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n APA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+ theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm") )
+fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n APA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm") )
 
 fig3d
 
@@ -165,7 +165,7 @@ dev.off()
 ```
 
 
-##figure 4  
+##figure 5  
 
 ```{r}
 fig4Data=read.table("../output/FigureDF/DEandTEenrich.txt", header = T, stringsAsFactors = F)
@@ -194,7 +194,7 @@ fig4
 
 ```{r}
 
-pdf("../output/fig4.pdf", height=6, width=8,useKerning=F)
+pdf("../output/fig5.pdf", height=6, width=8,useKerning=F)
 fig4
 dev.off()
 ```
@@ -225,7 +225,7 @@ fig5
 
 ```{r}
 
-pdf("../output/fig5.pdf", height=7, width=7,useKerning=F)
+pdf("../output/fig4.pdf", height=7, width=7,useKerning=F)
 fig5
 dev.off()
 ```
@@ -293,3 +293,6 @@ pdf("../output/fig6.pdf", height=8, width=8,useKerning=F)
 fig6
 dev.off()
 ```
+
+
+Draft July 25 switch figure 4 and 5 

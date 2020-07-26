@@ -30,11 +30,24 @@ DiffUsed=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.t
 ```
 
 
+
+
+
 Join this by chr, start,end, gene  
 
 ```{r}
 DiffUsed_anno=DiffUsed %>% inner_join(MetaPAS,by=c("chr","start", "end","gene"))
 ```
+
+Diff used in only one: 
+
+```{r}
+DiffUsed_anno %>% filter(ChimpTopSS=="Yes", HumanTopSS=="No") %>% nrow()
+DiffUsed_anno %>% filter(ChimpTopSS=="No", HumanTopSS=="Yes") %>% nrow()
+
+46+36
+```
+
 
 Ask how many of the effect size either way are those with SS in one species  
 
