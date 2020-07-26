@@ -26,9 +26,16 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -76,9 +83,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,6 +108,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -117,7 +125,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -137,6 +144,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +202,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -247,8 +348,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -257,6 +356,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -305,20 +414,13 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Can signal site explain differential usage</h1>
-<h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>1/23/2020</em></h4>
+<h4 class="author">Briana Mittleman</h4>
+<h4 class="date">1/23/2020</h4>
 
 </div>
 
@@ -343,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-05-08
+<strong>Last updated:</strong> 2020-07-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -353,7 +455,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -434,13 +536,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8c3efc8e5a70b9804b3dd80bdffd9711523545aftargetblank8c3efc8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/8c3efc8e5a70b9804b3dd80bdffd9711523545af" target="_blank">8c3efc8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree8c3efc8e5a70b9804b3dd80bdffd9711523545aftargetblank8c3efc8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -459,18 +567,24 @@ Ignored files:
 Untracked files:
     Untracked:  ._.DS_Store
     Untracked:  Chimp/
+    Untracked:  GEO/
     Untracked:  Human/
+    Untracked:  analysis/ALUelements.Rmd
     Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/AllLoc_effectSizeCor.Rmd
+    Untracked:  analysis/Conservation_bydAPAset.Rmd
     Untracked:  analysis/CrossChimpThreePrime.Rmd
     Untracked:  analysis/DiffTransProtvsExpression.Rmd
     Untracked:  analysis/DiffUsedUTR.Rmd
     Untracked:  analysis/GvizPlots.Rmd
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
+    Untracked:  analysis/ResultsNoUnlifted.md
+    Untracked:  analysis/SuppTables.Rmd
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  analysis/isoformdivandexp.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -683,6 +797,12 @@ Untracked files:
     Untracked:  code/CrossmapChimpRNA.err
     Untracked:  code/CrossmapChimpRNA.out
     Untracked:  code/DTUTR.sh
+    Untracked:  code/DiffDom_RNAmotif_4.err
+    Untracked:  code/DiffDom_RNAmotif_4.out
+    Untracked:  code/DiffDom_RNAmotif_4.sh
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.err
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.out
+    Untracked:  code/DiffDom_RNAmotif_4_splitDE.sh
     Untracked:  code/DiffSplice.err
     Untracked:  code/DiffSplice.out
     Untracked:  code/DiffSplice.sh
@@ -805,6 +925,12 @@ Untracked files:
     Untracked:  code/RNATranscriptDTplot.err
     Untracked:  code/RNATranscriptDTplot.out
     Untracked:  code/RNATranscriptDTplot.sh
+    Untracked:  code/RNAmotif_PAS.err
+    Untracked:  code/RNAmotif_PAS.out
+    Untracked:  code/RNAmotif_PAS.sh
+    Untracked:  code/RNAmotif_PAS_chimp.err
+    Untracked:  code/RNAmotif_PAS_chimp.out
+    Untracked:  code/RNAmotif_PAS_chimp.sh
     Untracked:  code/Rev_liftoverPAShg19to38.err
     Untracked:  code/Rev_liftoverPAShg19to38.out
     Untracked:  code/ReverseLiftFilter.R
@@ -901,8 +1027,8 @@ Untracked files:
     Untracked:  code/converBam2Junc.sh
     Untracked:  code/converBam2Junc_removeBad.sh
     Untracked:  code/convertNumeric.py
-    Untracked:  code/environment.yaml
     Untracked:  code/extraSnakefiltpas
+    Untracked:  code/extractPhaastConGeneral.py
     Untracked:  code/extractPhyloReg.py
     Untracked:  code/extractPhyloRegGene.py
     Untracked:  code/extractPhylopGeneral.py
@@ -960,8 +1086,11 @@ Untracked files:
     Untracked:  code/leafcutter_merge_regtools_redo.py
     Untracked:  code/liftJunctionFiles.sh
     Untracked:  code/liftPAS19to38.sh
+    Untracked:  code/liftVCF.out
+    Untracked:  code/liftVCF.sh
     Untracked:  code/liftoverPAShg19to38.err
     Untracked:  code/liftoverPAShg19to38.out
+    Untracked:  code/lliftVCF.err
     Untracked:  code/log/
     Untracked:  code/make5percPeakbed.py
     Untracked:  code/makeDIC.err
@@ -1134,6 +1263,7 @@ Untracked files:
     Untracked:  code/threeprimeOrthoFCcd.err
     Untracked:  code/transcriptDTplotsNuclear.sh
     Untracked:  code/transcriptDTplotsTotal.sh
+    Untracked:  code/tripseq-analysis/
     Untracked:  code/verifyBam4973.sh
     Untracked:  code/verifyBam4973inHuman.sh
     Untracked:  code/verifybam4973.err
@@ -1178,6 +1308,7 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/ALU/
     Untracked:  data/AREelements/
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
@@ -1193,6 +1324,8 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DifferentialPASUsageResults.txt
+    Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
     Untracked:  data/DominantPAS/
@@ -1203,6 +1336,7 @@ Untracked files:
     Untracked:  data/HC_filenames.txt
     Untracked:  data/HC_filenames.xlsx
     Untracked:  data/HumanMolPheno/
+    Untracked:  data/HumanUTR/
     Untracked:  data/IndInfoContent/
     Untracked:  data/InfoContent/
     Untracked:  data/Khan_prot/
@@ -1221,7 +1355,9 @@ Untracked files:
     Untracked:  data/PAS/
     Untracked:  data/PAS_SAF/
     Untracked:  data/PAS_doubleFilter/
+    Untracked:  data/PTM/
     Untracked:  data/Peaks_5perc/
+    Untracked:  data/PhastCon/
     Untracked:  data/Pheno_5perc/
     Untracked:  data/Pheno_5perc_DF_nuclear/
     Untracked:  data/Pheno_5perc_nuclear/
@@ -1229,6 +1365,7 @@ Untracked files:
     Untracked:  data/Pheno_5perc_total/
     Untracked:  data/PhyloP/
     Untracked:  data/Pol2Chip/
+    Untracked:  data/QTLPASoverlap/
     Untracked:  data/RNASEQ_metadata.txt
     Untracked:  data/RNASEQ_metadata_2Removed.txt
     Untracked:  data/RNASEQ_metadata_2Removed.xlsx
@@ -1252,6 +1389,8 @@ Untracked files:
     Untracked:  data/TotalHvC/
     Untracked:  data/TrialFiltersMeta.txt
     Untracked:  data/TwoBadSampleAnalysis/
+    Untracked:  data/UnliftedSites/
+    Untracked:  data/UrichElements/
     Untracked:  data/Wang_ribo/
     Untracked:  data/apaQTLGenes/
     Untracked:  data/bioGRID/
@@ -1261,7 +1400,9 @@ Untracked files:
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gsea/
     Untracked:  data/gviz/
+    Untracked:  data/hypoxia/
     Untracked:  data/leafviz/
     Untracked:  data/liftover_files/
     Untracked:  data/mediation/
@@ -1278,35 +1419,88 @@ Untracked files:
     Untracked:  data/primaryLift/
     Untracked:  data/reverseLift/
     Untracked:  data/testQuant/
+    Untracked:  data/utrDB/
     Untracked:  data/~$RNASEQ_metadata.xlsx
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/AUcount_density.pdf
+    Untracked:  output/AUcount_density_sm.pdf
+    Untracked:  output/DEandAPA.txt
+    Untracked:  output/DEandAPA_sig.txt
+    Untracked:  output/DEandTEeffectsize
+    Untracked:  output/DEandTEeffectsize.pdf
+    Untracked:  output/DEeffectsize
+    Untracked:  output/DEeffectsize.pdf
+    Untracked:  output/FigureDF/
+    Untracked:  output/FigurePresColors/
+    Untracked:  output/PropSamesdom
+    Untracked:  output/PropSamesdom.pdf
+    Untracked:  output/SupplementaryTable/
+    Untracked:  output/TEeffectsize
+    Untracked:  output/TEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsize
+    Untracked:  output/Total_DEeffectsize.pdf
+    Untracked:  output/Total_DEeffectsizeNotJusttop.pdf
+    Untracked:  output/Total_DErelationship.pdf
+    Untracked:  output/Total_TEeffectsize
+    Untracked:  output/Total_TEeffectsize.pdf
+    Untracked:  output/Ubiqplot
+    Untracked:  output/Ubiqplot.pdf
     Untracked:  output/dAPAandDomEnrich.png
     Untracked:  output/dEandDomEnrich.png
+    Untracked:  output/dediffdom.pdf
+    Untracked:  output/dpnotDE
     Untracked:  output/dtPlots/
+    Untracked:  output/exandte
+    Untracked:  output/fig1.pdf
+    Untracked:  output/fig2.pdf
+    Untracked:  output/fig3.pdf
+    Untracked:  output/fig4.pdf
+    Untracked:  output/fig5.pdf
+    Untracked:  output/fig6.pdf
+    Untracked:  output/piecharts
+    Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6 copy.pdf
+    Untracked:  output/removeUnilift_fig6.pdf
+    Untracked:  output/removeUnlift_fig3.pdf
+    Untracked:  output/removeUnlift_fig4.pdf
+    Untracked:  output/removeUnlift_fig5.pdf
+    Untracked:  output/simpson.pdf
+    Untracked:  output/simpson_alTogether.pdf
+    Untracked:  output/supplement/
+    Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DICNotDEDP.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
-    Modified:   analysis/SetsdAPADIC.Rmd
+    Modified:   analysis/ResultsNoUnlifted.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/TryTripSeqAnalysis.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
+    Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/df_QC.Rmd
+    Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
+    Modified:   analysis/incorporateQTLsAncestral.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/infoContent.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
+    Modified:   analysis/miRNAanalysis.Rmd
     Modified:   analysis/multiMap.Rmd
+    Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
 
@@ -1323,7 +1517,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SS_diffUsage.Rmd</code>) and HTML (<code>docs/SS_diffUsage.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -1347,6 +1541,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/dc22f1753a71f616779ab7e2ec7c5d40787ae600/analysis/SS_diffUsage.Rmd" target="_blank">dc22f17</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+<td>
+edits for manuscrit updates 7.25
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/c1be50fb5fa4e3662d2642995c53e9193ccd3d17/docs/SS_diffUsage.html" target="_blank">c1be50f</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-05-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1611,29 +1839,33 @@ add diff usgage and ss
 </div>
 <p>In this analysis, I will ask if presence or absense of a signal site in either species can explain the diffentially used PAS. I can do overlaps and look at correlations.</p>
 <pre class="r"><code>library(workflowr)</code></pre>
-<pre><code>This is workflowr version 1.6.0
+<pre><code>This is workflowr version 1.6.2
 Run ?workflowr for help getting started</code></pre>
 <pre class="r"><code>library(RColorBrewer)
 library(ggpubr)</code></pre>
 <pre><code>Loading required package: ggplot2</code></pre>
-<pre><code>Loading required package: magrittr</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ tidyr::extract()   masks magrittr::extract()
-✖ dplyr::filter()    masks stats::filter()
-✖ dplyr::lag()       masks stats::lag()
-✖ purrr::set_names() masks magrittr::set_names()</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>✔ tibble  2.1.3     ✔ dplyr   0.8.3
+✔ tidyr   1.1.0     ✔ stringr 1.4.0
+✔ readr   1.3.1     ✔ forcats 0.4.0
+✔ purrr   0.3.4     </code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>topSS=c(&quot;AATAAA&quot;, &quot;ATTAAA&quot;)
 MetaPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt&quot;, header = T, stringsAsFactors = F) %&gt;% mutate(ChimpTopSS=ifelse(ChimpPAS %in% topSS, &quot;Yes&quot;, &quot;No&quot;),HumanTopSS=ifelse(HumanPAS %in% topSS, &quot;Yes&quot;, &quot;No&quot;) )</code></pre>
 <p>Pull in the differentiall used PAS:</p>
 <pre class="r"><code>DiffUsed=read.table(&quot;../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt&quot;, header = T, stringsAsFactors = F) %&gt;% rename(&quot;Human_NormUse&quot;=Human, &quot;Chimp_NormUse&quot;=Chimp)</code></pre>
 <p>Join this by chr, start,end, gene</p>
 <pre class="r"><code>DiffUsed_anno=DiffUsed %&gt;% inner_join(MetaPAS,by=c(&quot;chr&quot;,&quot;start&quot;, &quot;end&quot;,&quot;gene&quot;))</code></pre>
+<p>Diff used in only one:</p>
+<pre class="r"><code>DiffUsed_anno %&gt;% filter(ChimpTopSS==&quot;Yes&quot;, HumanTopSS==&quot;No&quot;) %&gt;% nrow()</code></pre>
+<pre><code>[1] 46</code></pre>
+<pre class="r"><code>DiffUsed_anno %&gt;% filter(ChimpTopSS==&quot;No&quot;, HumanTopSS==&quot;Yes&quot;) %&gt;% nrow()</code></pre>
+<pre><code>[1] 36</code></pre>
+<pre class="r"><code>46+36</code></pre>
+<pre><code>[1] 82</code></pre>
 <p>Ask how many of the effect size either way are those with SS in one species</p>
 <ul>
 <li>upreg in human</li>
@@ -1756,46 +1988,6 @@ X-squared = 25.695, df = 1, p-value = 3.998e-07</code></pre>
 
 DiffUsed_annoPatternAssign$ExpectedPattern= as.factor(DiffUsed_annoPatternAssign$ExpectedPattern)
 ggplot(DiffUsed_annoPatternAssign, aes(x=ExpectedPattern, y=abs(deltaPAU), fill=ExpectedPattern))+ geom_boxplot()+ geom_jitter(alpha=.1)+stat_compare_means() + scale_fill_brewer(palette = &quot;Set1&quot;) + labs(title=&quot;delta PAU by signal site in expected direction&quot;) + theme(legend.position = &quot;none&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5bdd8c76dab53bdf8c9c2868563536e71da13bd5/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-13-1.png" target="_blank">5bdd8c7</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Plot dPAU by presence and absense:</p>
-<pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title=&quot;Human upregualted PAS by presence of Signal&quot;)</code></pre>
 <p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -1834,46 +2026,8 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Human upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Human Signal Site Detected&quot;)</code></pre>
-<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-2">
-Past versions of unnamed-chunk-14-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/brimittleman/Comparative_APA/blob/5bdd8c76dab53bdf8c9c2868563536e71da13bd5/docs/figure/SS_diffUsage.Rmd/unnamed-chunk-14-2.png" target="_blank">5bdd8c7</a>
-</td>
-<td>
-brimittleman
-</td>
-<td>
-2020-05-05
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;)</code></pre>
+<p>Plot dPAU by presence and absense:</p>
+<pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(y=abs(deltaPAU), x=HumanTopSS))+ geom_boxplot()+ stat_compare_means() + labs(title=&quot;Human upregualted PAS by presence of Signal&quot;)</code></pre>
 <p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
@@ -1912,7 +2066,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Chimp Signal Site Detected&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxon, p=0.035&quot;,x=.8,y=7.5)</code></pre>
+<pre class="r"><code>ggplot(DiffUsed_anno_humanup,aes(x=abs(deltaPAU), by=HumanTopSS, fill=HumanTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Human upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Human Signal Site Detected&quot;)</code></pre>
 <p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
@@ -1951,6 +2105,10 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=ChimpTopSS, y=abs(deltaPAU))) + geom_boxplot() + stat_compare_means() + labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;)</code></pre>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(DiffUsed_anno_chimpup,aes(x=abs(deltaPAU), by=ChimpTopSS, fill=ChimpTopSS))+ geom_density(alpha=.5)+  labs(title=&quot;Chimp upregualted PAS by presence of Signal&quot;) + scale_fill_discrete(name=&quot;Chimp Signal Site Detected&quot;) + annotate(&quot;text&quot;,label=&quot;Wilcoxon, p=0.035&quot;,x=.8,y=7.5)</code></pre>
+<p><img src="figure/SS_diffUsage.Rmd/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It does not look like presence of a signal within the upregulated matters.</p>
 <p>I choose these is the original SS analysis. I used the chooseSignalSite.py it was a hierarchical model</p>
 <pre class="r"><code>MetaAllSS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter_withSS.txt&quot;,stringsAsFactors = F,header = T)
@@ -2343,7 +2501,7 @@ phyper(x-1,m,n,k,lower.tail=F)</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.1 (2018-07-02)
+<pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Scientific Linux 7.4 (Nitrogen)
 
@@ -2362,27 +2520,36 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.3.0      stringr_1.3.1      dplyr_0.8.0.1     
- [4] purrr_0.3.2        readr_1.3.1        tidyr_0.8.3       
- [7] tibble_2.1.1       tidyverse_1.2.1    ggpubr_0.2        
-[10] magrittr_1.5       ggplot2_3.1.1      RColorBrewer_1.1-2
-[13] workflowr_1.6.0   
+ [1] forcats_0.4.0      stringr_1.4.0      dplyr_0.8.3       
+ [4] purrr_0.3.4        readr_1.3.1        tidyr_1.1.0       
+ [7] tibble_2.1.3       tidyverse_1.3.0    ggpubr_0.3.0      
+[10] ggplot2_3.2.1      RColorBrewer_1.1-2 workflowr_1.6.2   
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5 haven_1.1.2      lattice_0.20-38  colorspace_1.3-2
- [5] generics_0.0.2   htmltools_0.3.6  yaml_2.2.0       utf8_1.1.4      
- [9] rlang_0.4.0      later_0.7.5      pillar_1.3.1     glue_1.3.0      
-[13] withr_2.1.2      modelr_0.1.2     readxl_1.1.0     plyr_1.8.4      
-[17] munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2     
-[21] evaluate_0.12    labeling_0.3     knitr_1.20       httpuv_1.4.5    
-[25] fansi_0.4.0      broom_0.5.1      Rcpp_1.0.4.6     promises_1.0.1  
-[29] scales_1.0.0     backports_1.1.2  jsonlite_1.6     fs_1.3.1        
-[33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    grid_3.5.1      
-[37] rprojroot_1.3-2  cli_1.1.0        tools_3.5.1      lazyeval_0.2.1  
-[41] crayon_1.3.4     whisker_0.3-2    pkgconfig_2.0.2  xml2_1.2.0      
-[45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.10   httr_1.3.1      
-[49] rstudioapi_0.10  R6_2.3.0         nlme_3.1-137     git2r_0.26.1    
-[53] compiler_3.5.1  </code></pre>
+ [1] Rcpp_1.0.3        lubridate_1.7.4   lattice_0.20-38  
+ [4] utf8_1.1.4        assertthat_0.2.1  rprojroot_1.3-2  
+ [7] digest_0.6.20     R6_2.4.0          cellranger_1.1.0 
+[10] backports_1.1.4   reprex_0.3.0      evaluate_0.14    
+[13] httr_1.4.1        pillar_1.4.2      rlang_0.4.6      
+[16] lazyeval_0.2.2    curl_3.3          readxl_1.3.1     
+[19] rstudioapi_0.10   data.table_1.12.8 car_3.0-5        
+[22] whisker_0.3-2     rmarkdown_1.13    labeling_0.3     
+[25] foreign_0.8-71    munsell_0.5.0     broom_0.5.2      
+[28] compiler_3.6.1    httpuv_1.5.1      modelr_0.1.8     
+[31] xfun_0.8          pkgconfig_2.0.2   htmltools_0.3.6  
+[34] tidyselect_1.1.0  rio_0.5.16        fansi_0.4.0      
+[37] crayon_1.3.4      dbplyr_1.4.2      withr_2.1.2      
+[40] later_0.8.0       grid_3.6.1        nlme_3.1-140     
+[43] jsonlite_1.6      gtable_0.3.0      lifecycle_0.1.0  
+[46] DBI_1.1.0         git2r_0.26.1      magrittr_1.5     
+[49] scales_1.1.0      zip_2.0.3         cli_1.1.0        
+[52] stringi_1.4.3     carData_3.0-2     farver_2.0.1     
+[55] ggsignif_0.5.0    fs_1.3.1          promises_1.0.1   
+[58] xml2_1.3.2        ellipsis_0.2.0.1  vctrs_0.3.0      
+[61] generics_0.0.2    openxlsx_4.1.0.1  tools_3.6.1      
+[64] glue_1.3.1        hms_0.5.3         abind_1.4-5      
+[67] yaml_2.2.0        colorspace_1.4-1  rstatix_0.5.0    
+[70] rvest_0.3.5       knitr_1.23        haven_2.3.1      </code></pre>
 </div>
 
 

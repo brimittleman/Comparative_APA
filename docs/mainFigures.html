@@ -26,9 +26,16 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -76,9 +83,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,6 +108,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -117,7 +125,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -137,6 +144,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -158,18 +202,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -247,8 +348,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -257,6 +356,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -305,20 +414,13 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Main figures</h1>
-<h4 class="author"><em>Briana Mittleman</em></h4>
-<h4 class="date"><em>5/30/2020</em></h4>
+<h4 class="author">Briana Mittleman</h4>
+<h4 class="date">5/30/2020</h4>
 
 </div>
 
@@ -343,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-06-30
+<strong>Last updated:</strong> 2020-07-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -353,7 +455,7 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -434,13 +536,19 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree40aae53b39e4f647de4f36a48bd374bf0d2cc943targetblank40aae53a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/40aae53b39e4f647de4f36a48bd374bf0d2cc943" target="_blank">40aae53</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree40aae53b39e4f647de4f36a48bd374bf0d2cc943targetblank40aae53a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -461,6 +569,7 @@ Untracked files:
     Untracked:  Chimp/
     Untracked:  GEO/
     Untracked:  Human/
+    Untracked:  analysis/ALUelements.Rmd
     Untracked:  analysis/AREstabilityScores.Rmd
     Untracked:  analysis/AllLoc_effectSizeCor.Rmd
     Untracked:  analysis/Conservation_bydAPAset.Rmd
@@ -471,9 +580,11 @@ Untracked files:
     Untracked:  analysis/HandC.TvN
     Untracked:  analysis/PhenotypeOverlap10.Rmd
     Untracked:  analysis/ResultsNoUnlifted.md
+    Untracked:  analysis/SuppTables.Rmd
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
+    Untracked:  analysis/isoformdivandexp.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -1197,6 +1308,7 @@ Untracked files:
     Untracked:  data/._~$RNASEQ_metadata.xlsx
     Untracked:  data/._~$metadata_HCpanel.xlsx
     Untracked:  data/._.xlsx
+    Untracked:  data/ALU/
     Untracked:  data/AREelements/
     Untracked:  data/BaseComp/
     Untracked:  data/CleanLiftedPeaks_FC_primary/
@@ -1212,6 +1324,7 @@ Untracked files:
     Untracked:  data/DiffSplice/
     Untracked:  data/DiffSplice_liftedJunc/
     Untracked:  data/DiffSplice_removeBad/
+    Untracked:  data/DifferentialPASUsageResults.txt
     Untracked:  data/DistTwoDom/
     Untracked:  data/DomDefGreaterX/
     Untracked:  data/DomStructure_4/
@@ -1287,6 +1400,7 @@ Untracked files:
     Untracked:  data/cleanPeaks_lifted/
     Untracked:  data/files4viz_nuclear/
     Untracked:  data/files4viz_nuclear_DF/
+    Untracked:  data/gsea/
     Untracked:  data/gviz/
     Untracked:  data/hypoxia/
     Untracked:  data/leafviz/
@@ -1310,6 +1424,8 @@ Untracked files:
     Untracked:  data/~$metadata_HCpanel.xlsx
     Untracked:  data/.xlsx
     Untracked:  output/._.DS_Store
+    Untracked:  output/AUcount_density.pdf
+    Untracked:  output/AUcount_density_sm.pdf
     Untracked:  output/DEandAPA.txt
     Untracked:  output/DEandAPA_sig.txt
     Untracked:  output/DEandTEeffectsize
@@ -1317,8 +1433,10 @@ Untracked files:
     Untracked:  output/DEeffectsize
     Untracked:  output/DEeffectsize.pdf
     Untracked:  output/FigureDF/
+    Untracked:  output/FigurePresColors/
     Untracked:  output/PropSamesdom
     Untracked:  output/PropSamesdom.pdf
+    Untracked:  output/SupplementaryTable/
     Untracked:  output/TEeffectsize
     Untracked:  output/TEeffectsize.pdf
     Untracked:  output/Total_DEeffectsize
@@ -1343,11 +1461,13 @@ Untracked files:
     Untracked:  output/fig6.pdf
     Untracked:  output/piecharts
     Untracked:  output/piecharts.pdf
+    Untracked:  output/removeUnilift_fig6 copy.pdf
     Untracked:  output/removeUnilift_fig6.pdf
     Untracked:  output/removeUnlift_fig3.pdf
     Untracked:  output/removeUnlift_fig4.pdf
     Untracked:  output/removeUnlift_fig5.pdf
     Untracked:  output/simpson.pdf
+    Untracked:  output/simpson_alTogether.pdf
     Untracked:  output/supplement/
     Untracked:  output/whichSiteplot.pdf
     Untracked:  projectNotes.Rmd
@@ -1357,20 +1477,25 @@ Unstaged changes:
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
+    Modified:   analysis/ExploredAPA_DF.Rmd
     Modified:   analysis/MMExpreiment.Rmd
     Modified:   analysis/OppositeMap.Rmd
     Modified:   analysis/PTM_analysis.Rmd
-    Modified:   analysis/SetsdAPADIC.Rmd
+    Modified:   analysis/ResultsNoUnlifted.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/TryTripSeqAnalysis.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
     Modified:   analysis/correlationPhenos.Rmd
     Modified:   analysis/dInforContent.Rmd
+    Modified:   analysis/df_QC.Rmd
     Modified:   analysis/diffExpression.Rmd
     Modified:   analysis/establishCutoffs.Rmd
     Modified:   analysis/incorporateQTLsAncestral.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/infoContent.Rmd
     Modified:   analysis/investigatePantro5.Rmd
     Modified:   analysis/mRNADecay.Rmd
     Modified:   analysis/miRNAanalysis.Rmd
@@ -1378,7 +1503,6 @@ Unstaged changes:
     Modified:   analysis/phastCon.Rmd
     Modified:   analysis/pol2.Rmd
     Modified:   analysis/speciesSpecific.Rmd
-    Modified:   analysis/unliftedsites.Rmd
 
 </code></pre>
 <p>
@@ -1393,7 +1517,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/mainFigures.Rmd</code>) and HTML (<code>docs/mainFigures.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -1417,6 +1541,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/dc22f1753a71f616779ab7e2ec7c5d40787ae600/analysis/mainFigures.Rmd" target="_blank">dc22f17</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+<td>
+edits for manuscrit updates 7.25
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/8cf811694aca24690632de4a92cef9efaa8078ec/docs/mainFigures.html" target="_blank">8cf8116</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1579,32 +1737,23 @@ add main figures 1-4
 </div>
 <p>I would like to plot all of the main figures in one R markdown with cowplot. I will save the data frames in the other files as rds objects then load them here.</p>
 <pre class="r"><code>library(cowplot)</code></pre>
-<pre><code>Loading required package: ggplot2</code></pre>
 <pre><code>
-Attaching package: &#39;cowplot&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
-
-    ggsave</code></pre>
+********************************************************</code></pre>
+<pre><code>Note: As of version 1.0.0, cowplot does not change the</code></pre>
+<pre><code>  default ggplot2 theme anymore. To recover the previous</code></pre>
+<pre><code>  behavior, execute:
+  theme_set(theme_cowplot())</code></pre>
+<pre><code>********************************************************</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ tibble  2.1.1       ✔ purrr   0.3.2  
-✔ tidyr   0.8.3       ✔ dplyr   0.8.0.1
-✔ readr   1.3.1       ✔ stringr 1.3.1  
-✔ tibble  2.1.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter()   masks stats::filter()
-✖ cowplot::ggsave() masks ggplot2::ggsave()
-✖ dplyr::lag()      masks stats::lag()</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>✔ ggplot2 3.2.1     ✔ purrr   0.3.4
+✔ tibble  2.1.3     ✔ dplyr   0.8.3
+✔ tidyr   1.1.0     ✔ stringr 1.4.0
+✔ readr   1.3.1     ✔ forcats 0.4.0</code></pre>
+<pre><code>── Conflicts ──────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggpubr)</code></pre>
-<pre><code>Loading required package: magrittr</code></pre>
-<pre><code>
-Attaching package: &#39;magrittr&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
-
-    set_names</code></pre>
-<pre><code>The following object is masked from &#39;package:tidyr&#39;:
-
-    extract</code></pre>
 <pre><code>
 Attaching package: &#39;ggpubr&#39;</code></pre>
 <pre><code>The following object is masked from &#39;package:cowplot&#39;:
@@ -1834,6 +1983,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-9-1.png" target="_blank">8cf8116</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-30
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-9-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -1897,6 +2057,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-9-2.png" target="_blank">8cf8116</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-30
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-9-2.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -1949,6 +2120,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-10-1.png" target="_blank">8cf8116</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-06-30
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-10-1.png" target="_blank">f31a5a0</a>
@@ -2098,7 +2280,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant differences in \nAPA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1)+ theme(legend.position = &quot;top&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant differences in \nAPA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = &quot;top&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig3c</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2149,7 +2331,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in\n APA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+ theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;) )
+<pre class="r"><code>fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in\n APA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;) )
 
 fig3d</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2259,8 +2441,8 @@ dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
 </div>
-<div id="figure-4" class="section level2">
-<h2>figure 4</h2>
+<div id="figure-5" class="section level2">
+<h2>figure 5</h2>
 <pre class="r"><code>fig4Data=read.table(&quot;../output/FigureDF/DEandTEenrich.txt&quot;, header = T, stringsAsFactors = F)
 
 fig4Data$Pval=as.numeric(fig4Data$Pval)
@@ -2465,13 +2647,13 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>pdf(&quot;../output/fig4.pdf&quot;, height=6, width=8,useKerning=F)
+<pre class="r"><code>pdf(&quot;../output/fig5.pdf&quot;, height=6, width=8,useKerning=F)
 fig4
 dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
 </div>
-<div id="figure-5" class="section level2">
+<div id="figure-5-1" class="section level2">
 <h2>figure 5</h2>
 <pre class="r"><code>fig5data=read.table(&quot;../output/FigureDF/SameDiffDomEnrichinDE.txt&quot;,header = T, stringsAsFactors = F)
 fig5data$set=as.factor(fig5data$set)
@@ -2633,7 +2815,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>pdf(&quot;../output/fig5.pdf&quot;, height=7, width=7,useKerning=F)
+<pre class="r"><code>pdf(&quot;../output/fig4.pdf&quot;, height=7, width=7,useKerning=F)
 fig5
 dev.off()</code></pre>
 <pre><code>png 
@@ -2923,6 +3105,7 @@ fig6
 dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
+<p>Draft July 25 switch figure 4 and 5</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2931,7 +3114,7 @@ dev.off()</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.1 (2018-07-02)
+<pre><code>R version 3.6.1 (2019-07-05)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Scientific Linux 7.4 (Nitrogen)
 
@@ -2950,29 +3133,36 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggpubr_0.2      magrittr_1.5    forcats_0.3.0   stringr_1.3.1  
- [5] dplyr_0.8.0.1   purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
- [9] tibble_2.1.1    tidyverse_1.2.1 cowplot_0.9.4   ggplot2_3.1.1  
+ [1] ggpubr_0.3.0    forcats_0.4.0   stringr_1.4.0   dplyr_0.8.3    
+ [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.0     tibble_2.1.3   
+ [9] ggplot2_3.2.1   tidyverse_1.3.0 cowplot_1.0.0  
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5   reshape2_1.4.3     haven_1.1.2       
- [4] lattice_0.20-38    colorspace_1.3-2   generics_0.0.2    
- [7] htmltools_0.3.6    yaml_2.2.0         rlang_0.4.0       
-[10] later_0.7.5        pillar_1.3.1       glue_1.3.0        
-[13] withr_2.1.2        RColorBrewer_1.1-2 modelr_0.1.2      
-[16] readxl_1.1.0       plyr_1.8.4         munsell_0.5.0     
-[19] gtable_0.2.0       workflowr_1.6.0    cellranger_1.1.0  
-[22] rvest_0.3.2        evaluate_0.12      labeling_0.3      
-[25] knitr_1.20         httpuv_1.4.5       broom_0.5.1       
-[28] Rcpp_1.0.4.6       promises_1.0.1     scales_1.0.0      
-[31] backports_1.1.2    jsonlite_1.6       fs_1.3.1          
-[34] hms_0.4.2          digest_0.6.18      stringi_1.2.4     
-[37] grid_3.5.1         rprojroot_1.3-2    cli_1.1.0         
-[40] tools_3.5.1        lazyeval_0.2.1     crayon_1.3.4      
-[43] whisker_0.3-2      pkgconfig_2.0.2    xml2_1.2.0        
-[46] lubridate_1.7.4    assertthat_0.2.0   rmarkdown_1.10    
-[49] httr_1.3.1         rstudioapi_0.10    R6_2.3.0          
-[52] nlme_3.1-137       git2r_0.26.1       compiler_3.5.1    </code></pre>
+ [1] Rcpp_1.0.3         lubridate_1.7.4    lattice_0.20-38   
+ [4] assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.20     
+ [7] plyr_1.8.4         R6_2.4.0           cellranger_1.1.0  
+[10] backports_1.1.4    reprex_0.3.0       evaluate_0.14     
+[13] httr_1.4.1         pillar_1.4.2       rlang_0.4.6       
+[16] lazyeval_0.2.2     curl_3.3           readxl_1.3.1      
+[19] data.table_1.12.8  rstudioapi_0.10    whisker_0.3-2     
+[22] car_3.0-5          rmarkdown_1.13     labeling_0.3      
+[25] foreign_0.8-71     munsell_0.5.0      broom_0.5.2       
+[28] compiler_3.6.1     httpuv_1.5.1       modelr_0.1.8      
+[31] xfun_0.8           pkgconfig_2.0.2    htmltools_0.3.6   
+[34] tidyselect_1.1.0   workflowr_1.6.2    rio_0.5.16        
+[37] crayon_1.3.4       dbplyr_1.4.2       withr_2.1.2       
+[40] later_0.8.0        grid_3.6.1         nlme_3.1-140      
+[43] jsonlite_1.6       gtable_0.3.0       lifecycle_0.1.0   
+[46] DBI_1.1.0          git2r_0.26.1       magrittr_1.5      
+[49] scales_1.1.0       zip_2.0.3          carData_3.0-2     
+[52] cli_1.1.0          stringi_1.4.3      reshape2_1.4.3    
+[55] farver_2.0.1       ggsignif_0.5.0     fs_1.3.1          
+[58] promises_1.0.1     xml2_1.3.2         vctrs_0.3.0       
+[61] generics_0.0.2     openxlsx_4.1.0.1   RColorBrewer_1.1-2
+[64] tools_3.6.1        glue_1.3.1         hms_0.5.3         
+[67] abind_1.4-5        yaml_2.2.0         colorspace_1.4-1  
+[70] rstatix_0.5.0      rvest_0.3.5        knitr_1.23        
+[73] haven_2.3.1       </code></pre>
 </div>
 </div>
 </div>
