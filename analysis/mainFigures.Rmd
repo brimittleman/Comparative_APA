@@ -44,7 +44,7 @@ fig1A
 ```{r}
 fig1B_data=read.table("../output/FigureDF/SeqConservation.txt",header = T,stringsAsFactors = F)
  
-fig1B=ggplot(fig1B_data, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved \nthan surrounding regions") + guides(fill = FALSE) + theme_classic()+ theme(plot.title = element_text(hjust = 0.5, face="bold"), axis.text.x = element_text(size=10),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig1B=ggplot(fig1B_data, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="base pairs", title="PAS are more conserved \nthan surrounding regions") + guides(fill = FALSE) + theme_classic()+ theme(plot.title = element_text(hjust = 0.5, face="bold"), axis.text.x = element_text(size=10),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 
 fig1B
 ```
@@ -134,18 +134,18 @@ fig3_data2=read.table("../output/DEandAPA_sig.txt", header = T, stringsAsFactors
 ```
 
 ```{r}
-fig3a=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic() + theme(text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig3a=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="APA v DE", x="DE log2 effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1) +theme_classic() + theme(text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 fig3a
 
 
-fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="APA v DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="APA v DE", x="DE log2 effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 fig3b
 
-fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in \nAPA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = "top",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method="lm") + labs(title="Significant differences in \nAPA and DE", x="DE log2 effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = "top",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 fig3c
 
 
-fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n APA and DE", x="DE log effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm") )
+fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method="lm") + labs(title="Significant differences in\n APA and DE", x="DE log2 effect size", y="Difference in PAS Usage") + scale_color_brewer(palette = "Set1",name="", labels=c("Intronic", "3' UTR"))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = "right",text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm") )
 
 fig3d
 
@@ -176,7 +176,7 @@ fig4Data$Pheno=factor(fig4Data$Pheno, levels=c("Expression", "Translation", "Pro
 ```
 
 ```{r}
-figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title="Genes with differences in APA are enriched\n in differentially expression and differentially translated genes",x="", y="Enrichment")+geom_text(color = "black", size = 3) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme_classic()+theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat="identity",color="grey",aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title="Genes with differences in APA are enriched\n in differentially expressed and differentially translated genes",x="", y="Enrichment")+geom_text(color = "black", size = 3) +scale_x_discrete(labels=c(Both="Both", OnlyAPA="PAS",OnlyIC= "ID"))+ theme_classic()+theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
 figure4a
 
 
