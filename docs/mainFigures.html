@@ -445,7 +445,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-07-25
+<strong>Last updated:</strong> 2020-07-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,16 +536,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7f8f707de500b30d94ec44288a14e95f137ddddctargetblank7f8f707a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/7f8f707de500b30d94ec44288a14e95f137ddddc" target="_blank">7f8f707</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreedc22f1753a71f616779ab7e2ec7c5d40787ae600targetblankdc22f17a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtree7f8f707de500b30d94ec44288a14e95f137ddddctargetblank7f8f707a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/dc22f1753a71f616779ab7e2ec7c5d40787ae600" target="_blank">dc22f17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/7f8f707de500b30d94ec44288a14e95f137ddddc" target="_blank">7f8f707</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -1546,6 +1546,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/7f8f707de500b30d94ec44288a14e95f137ddddc/analysis/mainFigures.Rmd" target="_blank">7f8f707</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-28
+</td>
+<td>
+fix typos, add log2
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/mainFigures.html" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/dc22f1753a71f616779ab7e2ec7c5d40787ae600/analysis/mainFigures.Rmd" target="_blank">dc22f17</a>
 </td>
 <td>
@@ -1796,6 +1830,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-3-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-3-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -1822,7 +1867,7 @@ brimittleman
 </div>
 <pre class="r"><code>fig1B_data=read.table(&quot;../output/FigureDF/SeqConservation.txt&quot;,header = T,stringsAsFactors = F)
  
-fig1B=ggplot(fig1B_data, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;Basepairs&quot;, title=&quot;PAS are more conserved \nthan surrounding regions&quot;) + guides(fill = FALSE) + theme_classic()+ theme(plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;), axis.text.x = element_text(size=10),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+fig1B=ggplot(fig1B_data, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = &quot;RdYlBu&quot;) + scale_x_discrete(labels=c(&quot;-600&quot;, &quot;-400&quot;, &quot;-200&quot;, &#39;0&#39;,&#39;200&#39;,&#39;400&#39;,&#39;600&#39;)) + labs(x=&quot;base pairs&quot;, title=&quot;PAS are more conserved \nthan surrounding regions&quot;) + guides(fill = FALSE) + theme_classic()+ theme(plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;), axis.text.x = element_text(size=10),axis.text.y = element_text(size=10),text=element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 
 fig1B</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1848,6 +1893,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-4-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-4-1.png" target="_blank">f31a5a0</a>
@@ -1906,6 +1962,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-6-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-6-1.png" target="_blank">f31a5a0</a>
@@ -1983,6 +2050,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-9-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-9-1.png" target="_blank">8cf8116</a>
 </td>
 <td>
@@ -2057,6 +2135,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-9-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-9-2.png" target="_blank">8cf8116</a>
 </td>
 <td>
@@ -2122,6 +2211,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-10-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/8cf811694aca24690632de4a92cef9efaa8078ec/docs/figure/mainFigures.Rmd/unnamed-chunk-10-1.png" target="_blank">8cf8116</a>
 </td>
 <td>
@@ -2178,7 +2278,7 @@ dev.off()</code></pre>
 <h2>figure 3</h2>
 <pre class="r"><code>fig3_data=read.table(&quot;../output/DEandAPA.txt&quot;, header = T, stringsAsFactors = F)
 fig3_data2=read.table(&quot;../output/DEandAPA_sig.txt&quot;, header = T, stringsAsFactors = F)</code></pre>
-<pre class="r"><code>fig3a=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic() + theme(text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>fig3a=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;APA v DE&quot;, x=&quot;DE log2 effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1) +theme_classic() + theme(text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig3a</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2205,6 +2305,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-13-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-13-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2229,7 +2340,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;APA v DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>fig3b=ggplot(fig3_data,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;APA v DE&quot;, x=&quot;DE log2 effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1)) +theme_classic() + theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig3b</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2256,6 +2367,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-13-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-13-2.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2280,7 +2402,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant differences in \nAPA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = &quot;top&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>fig3c=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC)) + geom_point(alpha=.3) + geom_smooth(method=&quot;lm&quot;) + labs(title=&quot;Significant differences in \nAPA and DE&quot;, x=&quot;DE log2 effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(label.x = -8,label.y = -1)+theme_classic()+ theme(legend.position = &quot;top&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 fig3c</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2307,6 +2429,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-13-3.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-13-3.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2331,7 +2464,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in\n APA and DE&quot;, x=&quot;DE log effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;) )
+<pre class="r"><code>fig3d=ggplot(fig3_data2,aes(y=deltaPAU, x=CorrectedlogFC, col=loc)) + geom_point(alpha=.3) + geom_smooth(aes(col=loc),method=&quot;lm&quot;) + labs(title=&quot;Significant differences in\n APA and DE&quot;, x=&quot;DE log2 effect size&quot;, y=&quot;Difference in PAS Usage&quot;) + scale_color_brewer(palette = &quot;Set1&quot;,name=&quot;&quot;, labels=c(&quot;Intronic&quot;, &quot;3&#39; UTR&quot;))+ stat_cor(aes(col=loc),label.x = -8,label.y = c(-1,1))+theme_classic()+ theme(legend.position = &quot;right&quot;,text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;) )
 
 fig3d</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
@@ -2357,6 +2490,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-13-4.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-13-4.png" target="_blank">f31a5a0</a>
@@ -2411,6 +2555,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-14-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-14-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2448,7 +2603,7 @@ dev.off()</code></pre>
 fig4Data$Pval=as.numeric(fig4Data$Pval)
 fig4Data$Enrichment=as.numeric(fig4Data$Enrichment)
 fig4Data$Pheno=factor(fig4Data$Pheno, levels=c(&quot;Expression&quot;, &quot;Translation&quot;, &quot;Protein&quot;))</code></pre>
-<pre class="r"><code>figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Genes with differences in APA are enriched\n in differentially expression and differentially translated genes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) +scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+ theme_classic()+theme(legend.position = &quot;none&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
+<pre class="r"><code>figure4a=ggplot(fig4Data,aes(x=sets,col=sets,y=Enrichment,label = round(Enrichment,3)))+ geom_bar(stat=&quot;identity&quot;,color=&quot;grey&quot;,aes(y=fig4Data$Enrichment),width=.01)+geom_point(size=10) + coord_flip() + geom_hline(yintercept = 1) + facet_grid(~Pheno)+scale_color_manual(values=useCOl) + labs( title=&quot;Genes with differences in APA are enriched\n in differentially expressed and differentially translated genes&quot;,x=&quot;&quot;, y=&quot;Enrichment&quot;)+geom_text(color = &quot;black&quot;, size = 3) +scale_x_discrete(labels=c(Both=&quot;Both&quot;, OnlyAPA=&quot;PAS&quot;,OnlyIC= &quot;ID&quot;))+ theme_classic()+theme(legend.position = &quot;none&quot;, text=element_text(size=10),plot.title = element_text(hjust = 0.5, face=&quot;bold&quot;,size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), &quot;cm&quot;))
 figure4a</code></pre>
 <p><img src="figure/mainFigures.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -2473,6 +2628,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-17-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-17-1.png" target="_blank">f31a5a0</a>
@@ -2538,6 +2704,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-17-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-17-2.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2599,6 +2776,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-18-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-18-1.png" target="_blank">f31a5a0</a>
@@ -2687,6 +2875,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-20-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-20-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2739,6 +2938,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-20-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-20-2.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2789,6 +2999,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-21-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-21-1.png" target="_blank">f31a5a0</a>
@@ -2857,6 +3078,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-24-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-24-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -2907,6 +3139,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-24-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-24-2.png" target="_blank">f31a5a0</a>
@@ -2960,6 +3203,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-25-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-25-1.png" target="_blank">f31a5a0</a>
 </td>
 <td>
@@ -3009,6 +3263,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-25-2.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-25-2.png" target="_blank">f31a5a0</a>
@@ -3074,6 +3339,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f9e1b3474097cd3754eb5afbef75a3dddca7222c/docs/figure/mainFigures.Rmd/unnamed-chunk-27-1.png" target="_blank">f9e1b34</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/f31a5a05402e620290d200c0f7d6278c78d8cc05/docs/figure/mainFigures.Rmd/unnamed-chunk-27-1.png" target="_blank">f31a5a0</a>
