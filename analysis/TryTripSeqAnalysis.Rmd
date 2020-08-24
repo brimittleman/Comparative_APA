@@ -367,15 +367,30 @@ HumanALLUTR_au_UTRdiff$au_element_count=as.numeric(HumanALLUTR_au_UTRdiff$au_ele
 
 
 ```{r}
-ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(title="Genes with 3' UTR differences have higher AU element %") + theme_classic() + theme(legend.position = "none")
+elementprop=ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(title="Genes with 3' UTR differences \n have higher AU element %", y="Proportion of UTR in AU element", x="Gene with differentially used PAS") + theme_classic() + theme(legend.position = "none")
 
+elementprop
 HumanALLUTR_au_UTRdiff %>% group_by(dAPA) %>% summarise(mean(au_element_frac))
 ```
+with density: 
+
+```{r}
+
+col=c("#eb825b", "#1e75bc")
+
+ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1") + labs(title="Genes with 3' UTR differences have higher AU element %") + theme_classic() + theme(legend.position = "none")
+ggplot(HumanALLUTR_au_UTRdiff, aes( fill=dAPA, x=au_element_frac)) + geom_density() + scale_fill_manual(values =col) + labs(title="Genes with 3' UTR differences have higher AU element %") + theme_classic() + theme(legend.position = "none")
+```
+
+
+
 
 Seperate by DE: 
 
 ```{r}
 HumanALLUTR_au_UTRdiff_de= HumanALLUTR_au_UTRdiff %>% inner_join(DiffExp,by="gene")
+
+
 
 ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_frac)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="AU % not associated with expression variation") + theme_classic() 
 ```
@@ -384,14 +399,44 @@ ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_fra
 ```{r}
 ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + ylim(c(0, 100)) + scale_fill_brewer(palette = "Set1")+ labs(title="Genes with 3' UTR differences have more AU elements") + theme_classic() + theme(legend.position = "none")
 
-ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="Genes with 3' UTR differences have more AU elements") + theme_classic() + theme(legend.position = "none")
+meanDensity=ggplot(HumanALLUTR_au_UTRdiff, aes(x=dAPA, fill=dAPA, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="Genes with 3' UTR differences have\n more AU elements", y="Number of 3' UTR AU elements", x="Gene with differentially used PAS") + theme_classic() + theme(legend.position = "none") 
 
+col=c("#eb825b", "#1e75bc")
 
+density_sm=ggplot(HumanALLUTR_au_UTRdiff, aes(fill=dAPA, x=au_element_count)) + geom_density(alpha=.5)  + scale_fill_manual(values =col )+ labs(title="") + theme_classic()+xlim(c(0, 50)) +theme(legend.position = "none", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+density_sm
+
+density=ggplot(HumanALLUTR_au_UTRdiff, aes(fill=dAPA, x=au_element_count)) + geom_density(alpha=.5)  + scale_fill_manual(values = col )+ labs(title="Genes with 3' UTR differences have more AU elements") + theme_classic() + theme(legend.position = "bottom", text=element_text(size=10),plot.title = element_text(hjust = 0.5, face="bold",size=12),axis.text.y = element_text(size=10),axis.text.x = element_text(size=10),plot.margin = unit(c(0,0,0,0), "cm"))
+density
 HumanALLUTR_au_UTRdiff %>% group_by(dAPA) %>% summarise(mean(au_element_count))
 ```
 
+
+
+```{r}
+pdf("../output/AUcount_density_sm.pdf",width = 4, height = 4)
+density_sm
+dev.off()
+```
+
+```{r}
+pdf("../output/AUcount_density.pdf",width = 6, height = 6)
+density
+dev.off()
+```
 
 ```{r}
 ggplot(HumanALLUTR_au_UTRdiff_de, aes(by=dAPA, fill=dAPA, x=DE, y=au_element_count)) + geom_boxplot() + stat_compare_means() + scale_fill_brewer(palette = "Set1")+ labs(title="AU elements not associated with expression variation") + theme_classic() 
 ```
 
+Supp. figure: 
+
+```{r}
+supplotAU=plot_grid(meanDensity,elementprop, labels = c("A","B"), scale = .9)
+```
+
+```{r}
+pdf("../output/supplement/Fig3-figsup2-AU_new.pdf",width = 10, height = 6)
+supplotAU
+dev.off()
+```
