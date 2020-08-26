@@ -60,14 +60,11 @@ n=nrow(NucReswPhy %>% filter(phyloP>=0))
 k=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
 
 
-#expected
-which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
-
 #actual:
 x
 
 #pval
-phyper(x,m,n,k,lower.tail=F)
+phyper(x-1,m,n,k,lower.tail=F)
 ```
 
 ```{r}
@@ -75,7 +72,7 @@ b=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
 n=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
 B=nrow(NucReswPhy %>% filter(phyloP<0))
 N=nrow(NucReswPhy)
-
+k*(m/N)
 (b/n)/(B/N)
 ```
 
@@ -459,4 +456,71 @@ ResUpdownAll_gather2_loc_sig= ResUpdownAll_gather2_loc %>% filter(Set=="phyloP")
 ggplot(ResUpdownAll_gather2_loc_sig, aes(x=loc, by=SigPAU2, y=PhyloP, fill=SigPAU2)) +geom_boxplot()+ scale_fill_brewer(palette = "Dark2")  + stat_compare_means()
 
 ```
+
+
+
+Compare intronic to random introns:  
+
+merge first
+Are PAS regions more conserved than random set of introns?  
+
+bedtools makewindows -b (input bed) -w 200 > output
+
+```{bash,eval=F}
+mkdir ../data/randomIntronCons
+
+bedtools merge -i /project2/gilad/briana/genome_anotation_data/hg38_refseq_anno/hg38_refSeq_intron_sorted.bed -s -c 4,5,6 -o count,mean,distinct > ../data/randomIntronCons/mergedIntrons_hg38.bed
+
+bedtools makewindows -b ../data/randomIntronCons/mergedIntrons_hg38.bed -w 200 > ../data/randomIntronCons/IntronWindows_hg38.bed
+
+#only do the base chromosomes 
+
+python extractPhylopGeneral_noName.py ../data/randomIntronCons/IntronWindows_hg38.bed ../data/randomIntronCons/IntronWindows_hg38_phylop.txt
+
+```
+
+
+Randomly choose the same number of windows from the introns 1000 times to make a distribution: 
+
+```{r}
+phylores_meta_intron=phylores %>% inner_join(PASMeta, by=c("chr", "start", "end")) %>% select(PAS, phyloP, loc) %>% filter(loc=="intron")
+
+
+mean(phylores_meta_intron$phyloP)
+
+```
+
+```{r}
+permuteGenes <- function(Input, nSelect, nTests){
+  
+  introns=Input$phyloP
+  MeanPhylop=c()
+  for (n in 1:nTests){
+    intTest=sample(introns, nSelect)
+    intTest
+    MeanPhyloptest=mean(intTest)
+    #print(MeanPhyloptest)
+    MeanPhylop= c(MeanPhylop,MeanPhyloptest)
+  }
+  return(MeanPhylop)
+}
+```
+
+```{r}
+AllIntrons=read.table("../data/randomIntronCons/IntronWindows_hg38_phylop.txt",col.names = c("chr", "start", "end", "phyloP"),stringsAsFactors = F) %>% drop_na()
+
+RandomPhlop=permuteGenes(AllIntrons, nrow(phylores_meta_intron), 10000)
+
+
+#empricalpval=length(RandomPhlop <= mean(phylores_meta_intron$phyloP)) / 10000
+#empricalpval
+```
+
+```{r}
+hist(RandomPhlop,xlab="Phylop for random Intronic regions", main="Histogram of 10,000 tests for random intronic regions")
+abline(v=mean(phylores_meta_intron$phyloP),col="red")
+```
+
+
+
 

@@ -114,6 +114,27 @@ wilcox.test(PropdAPA$prop, PropdAPA$dAPA)
 prop.test(x=c(47,442), n=c(84,1168))
 ```
 
+Conservation of these with phylop: 
+
+```{r}
+PASMeta_sm= PASMeta %>% select(PAS, chr, start, end)
+
+phylores=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP"), stringsAsFactors = F) %>% drop_na() %>% inner_join(PASMeta_sm, by=c("chr", "start", "end")) %>% select(PAS, phyloP)
+
+Meta_allOrtho_SIG_phylop=Meta_allOrtho_SIG %>% inner_join(phylores, by="PAS")
+
+
+allsites=ggplot(Meta_allOrtho_SIG_phylop,aes(x= WhichSite, y=phyloP)) + geom_boxplot() + stat_compare_means() +theme_classic()
+
+diffUsedPhylop=ggplot(Meta_allOrtho_SIG_phylop,aes(x= WhichSite, y=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_boxplot() + scale_fill_brewer(palette = "Set1", name="Differentially used") + theme_classic() + theme(legend.position = "bottom")+ stat_compare_means()
+
+
+plot_grid(allsites,diffUsedPhylop, nrow=2)
+```
+
+
+
+
 Test dominant:  
 
 ```{r}
