@@ -246,9 +246,16 @@ I am interesting in understanding differential APA between human and chimpanzees
 
 * [Main figures](mainFigures.html)
 
+* [Supplemental Tables](SuppTables.html)
+
 Test for robustness to unlifted sites: 
 
 * [Figures without 353 unlifted genes](ResultsNoUnlifted.html)
+
+
+###Analysis for Revisions  
+
+* [Which Chromosomes are the dAPA sites on](chromosomes.html)
 
 
 ##Evaluate Reasons for inconsistant dominance structure (not rerun after annotation change 4/20)

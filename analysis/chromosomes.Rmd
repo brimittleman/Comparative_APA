@@ -1,0 +1,135 @@
+---
+title: "Chromosomes for dAPA"
+author: "Briana Mittleman"
+date: "12/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this analysis I will ask if there is a specific genomic distribution for differentially used PAS. I will do this both with all PAS then with only 1 per gene because I do not want to inflate the analysis for genes that have many PAS. 
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+##All PAS
+
+I will work off the PAS that I was able to test. 
+```{r}
+#PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T,stringsAsFactors = F)
+PAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt",header = T, stringsAsFactors = F)
+dAPA=PAS %>% filter(SigPAU2=="Yes")
+
+ggplot(dAPA, aes(x=chr,fill=chr)) + geom_bar(stat="count") 
+``` 
+
+I need to normalize by then number of PAS on each chr: 
+
+```{r}
+PAS_num=PAS %>% group_by(chr) %>% summarise(nChr=n())
+
+dAPA_num=dAPA %>% group_by(chr) %>% summarise(SigN=n())
+
+PAS_dAPA_num= PAS_num %>% inner_join(dAPA_num, by="chr") %>% mutate(PropSig=SigN/nChr)
+
+
+ggplot(PAS_dAPA_num, aes(x=chr,fill=chr, y=PropSig)) + geom_bar(stat="identity") +theme_classic()+ theme(axis.text.x = element_text(angle = 90))
+```
+Ask about significance: 
+
+```{r}
+Chroms=PAS_num$chr
+
+enrichdAPA=c()
+pvaldAPA=c()
+pvalDepdAPA=c()
+actualAPA=c()
+expectdAPA=c()
+
+for (i in Chroms){
+  x=nrow(PAS %>% filter(SigPAU2=="Yes", chr==i))
+  m=nrow(PAS %>% filter(chr==i))
+  n=nrow(PAS %>% filter(chr!=i))
+  k=nrow(PAS %>% filter(SigPAU2=="Yes"))
+  N=nrow(PAS)
+  actualAPA=c(actualAPA,x)
+  exp=k*(m/N)
+  expectdAPA=c(expectdAPA, exp)
+  pvaldAPA=c(pvaldAPA, phyper(x-1,m,n,k,lower.tail=F))
+  pvalDepdAPA=c(pvalDepdAPA, phyper(x,m,n,k,lower.tail=T))
+  enrichval=(x/k)/(m/N)
+  enrichdAPA=c(enrichdAPA,enrichval)
+}
+
+EnrichmentChrom=as.data.frame(cbind(Chroms, Actual=actualAPA, Expected=expectdAPA, Enrichment=enrichdAPA, Pval=enrichdAPA, DepP=pvalDepdAPA))
+
+EnrichmentChrom$Enrichment=as.numeric(as.character(EnrichmentChrom$Enrichment))
+```
+
+
+```{r}
+ggplot(EnrichmentChrom,aes(x=Chroms, y=Enrichment,fill=Chroms)) + geom_bar(stat="identity")+ theme_classic()+theme(axis.text.x = element_text(angle = 90), legend.position = "none") + geom_hline(yintercept = 1)
+```
+
+Depletion on chr 3 and 4.  
+
+##1 per gene  
+
+```{r}
+PAS_1per= PAS %>% group_by(gene, SigPAU2,chr) %>% summarise(nPer=n())
+PAS_1per_sig= PAS_1per %>% filter(SigPAU2=="Yes")
+PAS_1per_Nosig= PAS_1per %>% filter(SigPAU2=="No")
+
+PAS_1perparse=PAS_1per_sig %>% rbind(PAS_1per_Nosig)
+
+
+PAS_1perparse_chr=PAS_1perparse %>% group_by(chr,SigPAU2) %>% summarise(nPAS=n()) %>% spread(SigPAU2,nPAS) %>% mutate(PropSig=Yes/(Yes+No))
+
+ggplot(PAS_1perparse_chr, aes(x=chr,fill=chr, y=PropSig)) + geom_bar(stat="identity") +theme_classic()+ theme(axis.text.x = element_text(angle = 90), legend.position = "none")
+```
+
+Significance: 
+
+```{r}
+PAS_1perparse_chr_g= PAS_1perparse_chr %>% select(-PropSig) %>% gather(key="Sig", value="nPAS",-chr) %>% ungroup()
+
+enrichdAPA_gene=c()
+pvaldAPA_gene=c()
+pvalDepdAPA_gene=c()
+actualAPA_gene=c()
+expectdAPA_gene=c()
+
+for (i in Chroms){
+  x=PAS_1perparse_chr_g %>% filter(Sig=="Yes", chr==i) %>% summarise(n=sum(nPAS))
+  x=x$n[1]
+  m=PAS_1perparse_chr_g %>% filter(chr==i)%>% summarise(n=sum(nPAS))
+  m=m$n[1]
+  n=PAS_1perparse_chr_g %>% filter(chr!=i)%>% summarise(n=sum(nPAS))
+  n=n$n[1]
+  k=PAS_1perparse_chr_g %>% filter(Sig=="Yes")%>% summarise(n=sum(nPAS))
+  k=k$n[1]
+  N=sum(PAS_1perparse_chr_g$nPAS)
+  actualAPA_gene=c(actualAPA_gene,x)
+  exp=k*(m/N)
+  expectdAPA_gene=c(expectdAPA_gene, exp)
+  pvaldAPA_gene=c(pvaldAPA_gene, phyper(x-1,m,n,k,lower.tail=F))
+  pvalDepdAPA_gene=c(pvalDepdAPA_gene, phyper(x,m,n,k,lower.tail=T))
+  enrichval=(x/k)/(m/N)
+  enrichdAPA_gene=c(enrichdAPA_gene,enrichval)
+}
+
+EnrichmentChromGene=as.data.frame(cbind(Chroms, Actual=actualAPA_gene, Expected=expectdAPA_gene, Enrichment=enrichdAPA_gene, Pval=pvaldAPA_gene, DepP=pvalDepdAPA_gene))
+
+EnrichmentChromGene$Enrichment=as.numeric(as.character(EnrichmentChromGene$Enrichment))
+```
+
+```{r}
+ggplot(EnrichmentChromGene,aes(x=Chroms, y=Enrichment,fill=Chroms)) + geom_bar(stat="identity")+ theme_classic()+theme(axis.text.x = element_text(angle = 90), legend.position = "none") + geom_hline(yintercept = 1)
+```
+
+No chromosome is enriched or depleted for the numer of genes with significant PAS.  
