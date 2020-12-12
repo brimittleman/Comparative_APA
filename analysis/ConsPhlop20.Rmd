@@ -1,0 +1,116 @@
+---
+title: "Conservation with PhyloP 20"
+author: "Briana Mittleman"
+date: "12/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(workflowr)
+```
+
+Copy and edit extractPhylopGeneral.py for phylop 20 way.  
+```{bash,eval=F}
+#extractPhylopGeneral_20way.py
+
+python extractPhylopGeneral_20way.py  ../data/PhyloP/PAS_200downpregions2.bed ../data/PhyloP/PAS_phyloP20_200downstream2.txt 
+
+python extractPhylopGeneral_20way.py ../data/PhyloP/PAS_200downpregions3.bed ../data/PhyloP/PAS_phyloP20_200downstream3.txt 
+python extractPhylopGeneral_20way.py  ../data/PhyloP/PAS_200downpregions.bed ../data/PhyloP/PAS_phyloP20_200downstream.txt 
+
+python extractPhylopGeneral_20way.py  ../data/PAS_doubleFilter/PAS_doublefilter_either_HumanCoordHummanUsage.sort.bed ../data/PhyloP/PAS_Phylop20.txt
+
+python extractPhylopGeneral_20way.py ../data/PhyloP/PAS_200upregions.bed ../data/PhyloP/PAS_phyloP20_200upstream.txt
+python extractPhylopGeneral_20way.py ../data/PhyloP/PAS_200upregions2.bed ../data/PhyloP/PAS_phyloP20_200upstream2.txt
+python extractPhylopGeneral_20way.py ../data/PhyloP/PAS_200upregions3.bed ../data/PhyloP/PAS_phyloP20_200upstream3.txt
+```
+
+
+```{r}
+PASMeta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) %>% dplyr::select(PAS, chr, start,end, gene, loc)
+
+phylores=read.table("../data/PhyloP/PAS_Phylop20.txt", col.names = c("chr","start","end","PAS", "phyloP"), stringsAsFactors = F) %>% drop_na()
+
+
+Down=read.table("../data/PhyloP/PAS_phyloP20_200downstream.txt",col.names = c("chr", "start", "end", "PAS", "Down"),stringsAsFactors = F) %>% select(PAS, Down)%>% drop_na()
+Down2=read.table("../data/PhyloP/PAS_phyloP20_200downstream2.txt",col.names = c("chr", "start", "end", "PAS", "Down2"),stringsAsFactors = F) %>% select(PAS, Down2)%>% drop_na()
+Down3=read.table("../data/PhyloP/PAS_phyloP20_200downstream3.txt",col.names = c("chr", "start", "end", "PAS", "Down3"),stringsAsFactors = F) %>% select(PAS, Down3)%>% drop_na()
+
+
+Up=read.table("../data/PhyloP/PAS_phyloP_200upstream.txt",col.names = c("chr", "start", "end", "PAS", "Up"),stringsAsFactors = F) %>% select(PAS, Up)%>% drop_na()
+Up2=read.table("../data/PhyloP/PAS_phyloP_200upstream2.txt",col.names = c("chr", "start", "end", "PAS", "Up2"),stringsAsFactors = F) %>% select(PAS, Up2)%>% drop_na()
+Up3=read.table("../data/PhyloP/PAS_phyloP_200upstream3.txt",col.names = c("chr", "start", "end", "PAS", "Up3"),stringsAsFactors = F) %>% select(PAS, Up3)%>% drop_na()
+
+ResUpdownAll= phylores %>% inner_join(Down, by="PAS")%>% inner_join(Down2, by="PAS") %>% inner_join(Down3, by="PAS") %>% inner_join(Up, by="PAS") %>% inner_join(Up3, by="PAS")%>% inner_join(Up2, by="PAS") %>% select(-chr, -start,-end)
+
+
+ResUpdownAll_gather= ResUpdownAll %>% gather("Set", "PhyloP", -PAS)
+
+ResUpdownAll_gather$Set=factor(ResUpdownAll_gather$Set, levels=c("Up3", "Up2","Up", "phyloP","Down", "Down2", "Down3" ))
+```
+
+
+```{r}
+ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "Dark2") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions") +theme_classic()+ theme(legend.position = "none")
+```
+
+```{r}
+PASMetaSm=PASMeta %>% select(PAS,loc)
+ResUpdownAll_loc=ResUpdownAll_gather %>% inner_join(PASMetaSm,by="PAS") %>% mutate(region=ifelse(Set=="phyloP", "Yes", "No"))
+ggplot(ResUpdownAll_loc, aes(x=Set, by=Set,fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs from PAS", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+```
+
+
+Compare significant and non significant PAS:  
+
+```{r}
+DiffUsage=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherPAS_2_Nuclear.txt", header = T, stringsAsFactors = F)
+DiffUsagePAS=DiffUsage %>% inner_join(PASMeta, by=c("gene","chr", "start", "end"))
+
+
+
+NucReswPhy=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(phylores, by=c("chr","start","end"))
+
+
+```
+
+```{r}
+
+ggplot(NucReswPhy,aes(y=phyloP, x=SigPAU2,fill=SigPAU2)) + geom_boxplot() + stat_compare_means()+ scale_fill_brewer(palette = "Dark2", name="Signficant")
+
+ggplot(NucReswPhy,aes(x=phyloP, by=SigPAU2, fill=SigPAU2)) + geom_density(alpha=.5) + scale_fill_brewer(palette = "Dark2", name="Signficant PAS") + labs(title="Mean PhyloP scores for tested PAS") + annotate("text",label="Wilcoxan, p=0.0016",x=0,y=.75)
+
+```
+
+more <0 than expected:
+
+```{r}
+x=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
+m= nrow(NucReswPhy %>% filter(phyloP<0))
+n=nrow(NucReswPhy %>% filter(phyloP>=0))
+k=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
+
+
+#expected
+which(grepl(max(dhyper(1:x, m, n, k)), dhyper(1:x, m, n, k)))
+#actual:
+x
+#pval
+phyper(x-1,m,n,k,lower.tail=F)
+
+
+b=nrow(NucReswPhy %>% filter(SigPAU2=="Yes", phyloP<0))
+n=nrow(NucReswPhy %>% filter(SigPAU2=="Yes"))
+B=nrow(NucReswPhy %>% filter(phyloP<0))
+N=nrow(NucReswPhy)
+
+(b/n)/(B/N)
+```
+ This is even more enriched than the 100 way phyloP. 
