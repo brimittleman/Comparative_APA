@@ -1,0 +1,135 @@
+---
+title: "Additional Enrichments for revisions"
+author: "Briana Mittleman"
+date: "12/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this analysis I will look for gene set enrichments for categories requested by reviewers.
+
+```{r}
+library(tidyverse)
+library(workflowr)
+library(fgsea)
+```
+
+Gene sets:
+
+```{r}
+Hset=gmtPathways("../data/gsea/h.all.v7.1.symbols.gmt")
+C3=gmtPathways("../data/gsea/c3.all.v7.1.symbols.gmt")
+C5=gmtPathways("../data/gsea/c5.all.v7.1.symbols.gmt")
+               
+```
+
+##DE genes withing dAPA 
+
+First I will look at the differential APA genes that are differentially expressed. I will ask the question if DE genes are enriched within dAPA genes. 
+
+
+
+```{r}
+#load DE genes
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F)
+DE= read.table("../data/DiffExpression/DEtested_allres.txt",header=F, stringsAsFactors = F,col.names = c('Gene_stable_ID', 'logFC' ,'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B')) %>% inner_join(nameID, by="Gene_stable_ID") %>% dplyr::select(-Gene_stable_ID, -Source_of_gene_name) %>% rename("gene"=Gene.name)
+
+#loaddAPA
+
+dAPA=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% filter(SigPAU2=='Yes') %>% select(gene) %>% unique()
+
+
+DEwithdAPA=DE %>% inner_join(dAPA, by="gene") %>% arrange(t)
+
+DEwithdAPAVec=  setNames(DEwithdAPA$t, DEwithdAPA$gene)
+
+```
+
+
+Run FGSEA
+
+```{r}
+
+FGSEA_Funtion=function(path,stat){
+  fgseaResDiffUsed <- fgsea(pathways = path, 
+                  stats    = stat,
+                  minSize  = 15,
+                  maxSize = 500,
+                  nperm = 100000)
+  fgseaResTidy <- fgseaResDiffUsed %>%
+    as_tibble() %>%
+    arrange(desc(NES)) %>% 
+    select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+    arrange(padj) 
+  return(fgseaResTidy)
+}
+
+
+DE_halmark=FGSEA_Funtion(Hset,DEwithdAPAVec)
+
+ggplot(DE_halmark, aes(reorder(pathway, NES), NES)) +
+  geom_col(aes(fill=padj<0.05)) +
+  coord_flip() +
+  labs(x="Pathway", y="Normalized Enrichment Score",
+       title="Hallmark pathways NES from GSEA") + 
+  theme_minimal()
+```
+
+```{r}
+DE_C3=FGSEA_Funtion(C3,DEwithdAPAVec)
+
+head(DE_C3)
+```
+
+```{r}
+
+DE_C5=FGSEA_Funtion(C5,DEwithdAPAVec)
+
+DE_C5_sig <- DE_C5 %>%
+  filter(padj < 0.05) %>% 
+  select(pathway, padj, NES)
+
+DE_C5
+
+```
+
+##dAPA and TE
+For this I will have to use GOrilla because I only have FDRs.
+I will run the same analysis but with the differentially translated: 
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) 
+colnames(nameID)=c("ENSG", "gene", "source")
+translation=read.table("../data/Wang_ribo/Additionaltable5_translationComparisons.txt",stringsAsFactors = F, header = T) %>% inner_join(nameID,by="ENSG") %>% select(gene,HvC.pvalue, HvC.FDR) 
+
+translationandAPA=translation %>% inner_join(dAPA,by="gene") %>% arrange(HvC.FDR)
+
+```
+
+
+
+##dAPA and DP  
+
+```{r}
+ProtComp=read.csv("../data/Khan_prot/Khan_TableS4.csv", stringsAsFactors = F, header = T)%>% inner_join(nameID,by="ENSG") %>% select(gene.symbol ,HC.qvalues.protein)  %>% rename("gene"=gene.symbol)
+
+
+protandAPA=ProtComp %>% inner_join(dAPA,by="gene") %>% arrange(HC.qvalues.protein)
+
+```
+
+
+##dAPA, DP not DE  
+
+I will use the two set analysis in GORilla. I will compare the DP not DE genes with all of the dAPA genes.  
+
+```{r}
+DE_sig=DE %>% filter(adj.P.Val <0.05)
+
+protandAPA_notDE= protandAPA %>% anti_join(DE_sig,by="gene") %>% filter(HC.qvalues.protein<0.05)
+```
+
+
