@@ -107,8 +107,18 @@ translation=read.table("../data/Wang_ribo/Additionaltable5_translationComparison
 
 translationandAPA=translation %>% inner_join(dAPA,by="gene") %>% arrange(HvC.FDR)
 
+TEgenes=as.vector(translationandAPA$gene)
+
+write.table(TEgenes, "../data/gsea/TEgenes.txt", quote = F, sep="/n",row.names = F, col.names = F)
 ```
 
+Results:
+
+```{r}
+TE_GO=read.table("../data/gsea/GO_termsTE.txt", sep="\t", header = T) %>% arrange(FDR.q.value)
+TE_GO_sig=TE_GO %>% filter(FDR.q.value<=0.05)
+TE_GO_sig
+```
 
 
 ##dAPA and DP  
@@ -119,6 +129,19 @@ ProtComp=read.csv("../data/Khan_prot/Khan_TableS4.csv", stringsAsFactors = F, he
 
 protandAPA=ProtComp %>% inner_join(dAPA,by="gene") %>% arrange(HC.qvalues.protein)
 
+
+PEgenes=as.vector(protandAPA$gene)
+
+
+write.table(PEgenes, "../data/gsea/Pgenes.txt", quote = F, sep="/n",row.names = F, col.names = F)
+```
+
+Results:
+
+```{r}
+dP_GO=read.table("../data/gsea/Goterms_dP.txt", sep="\t", header = T) %>% arrange(FDR.q.value)
+dP_GO_sig=dP_GO %>% filter(FDR.q.value<=0.05)
+dP_GO_sig
 ```
 
 
@@ -130,6 +153,22 @@ I will use the two set analysis in GORilla. I will compare the DP not DE genes w
 DE_sig=DE %>% filter(adj.P.Val <0.05)
 
 protandAPA_notDE= protandAPA %>% anti_join(DE_sig,by="gene") %>% filter(HC.qvalues.protein<0.05)
+
+PnotDEgenes=as.vector(protandAPA$gene)
+write.table(PnotDEgenes, "../data/gsea/PnotEgenes.txt", quote = F, sep="/n", row.names = F, col.names = F)
+
+#write dAPA genes as background  
+
+dAPAgeness=as.vector(dAPA$gene)
+write.table(dAPAgeness, "../data/gsea/dAPAgenes.txt", quote = F, sep="/n", row.names = F, col.names = F)
+
+
 ```
 
+Results:
 
+```{r}
+dPnotDE_GO=read.table("../data/gsea/GO_termsDPnotDE.txt", sep="\t", header = T) %>% arrange(FDR.q.value)
+dPnotDE_GO_sig=dPnotDE_GO %>% filter(FDR.q.value<=0.05)
+dPnotDE_GO_sig
+```
