@@ -172,3 +172,36 @@ dPnotDE_GO=read.table("../data/gsea/GO_termsDPnotDE.txt", sep="\t", header = T) 
 dPnotDE_GO_sig=dPnotDE_GO %>% filter(FDR.q.value<=0.05)
 dPnotDE_GO_sig
 ```
+
+##Genes with a species specific site vs all genes  
+
+I will also use GOrilla for this.
+
+```{r}
+PAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F)
+HumanSpec= PAS %>% filter(Chimp==0) %>% select(PAS, gene, Human) %>% rename("other"=Human)
+ChimpSpec= PAS %>% filter(Human==0)  %>% select(PAS, gene, Chimp) %>% rename("other"=Chimp)
+
+SpecEither= HumanSpec %>% bind_rows(ChimpSpec) %>% arrange(desc(other)) %>% select(gene) %>% unique()
+
+
+SpecGenes=as.vector(SpecEither$gene)
+write.table(SpecGenes, "../data/gsea/SpeciesSpecificgenes.txt", quote = F, sep="/n", row.names = F, col.names = F)
+
+
+
+AllGenes=PAS %>% select(gene) %>% unique()
+genes=as.vector(AllGenes$gene)
+write.table(genes, "../data/gsea/Allgenes.txt", quote = F, sep="/n", row.names = F, col.names = F)
+
+
+```
+
+Results:
+
+```{r}
+SpeciesSpec_GO=read.table("../data/gsea/GO_SpeciesSpecific.txt", sep="\t", header = T) %>% arrange(FDR.q.value)
+SpeciesSpec_GO_sig=SpeciesSpec_GO %>% filter(FDR.q.value<=0.05)
+SpeciesSpec_GO
+```
+
