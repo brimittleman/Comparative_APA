@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(ggpubr)
+library(cowplot)
 library(workflowr)
 ```
 
@@ -64,9 +65,23 @@ ggplot(ResUpdownAll_gather, aes(x=Set, by=Set, fill=Set, y=PhyloP)) + geom_boxpl
 ```{r}
 PASMetaSm=PASMeta %>% select(PAS,loc)
 ResUpdownAll_loc=ResUpdownAll_gather %>% inner_join(PASMetaSm,by="PAS") %>% mutate(region=ifelse(Set=="phyloP", "Yes", "No"))
-ggplot(ResUpdownAll_loc, aes(x=Set, by=Set,fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs from PAS", title="PAS are more conserved than surrounding regions") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc)
+cons20loc=ggplot(ResUpdownAll_loc, aes(x=Set, by=Set,fill=region, y=PhyloP)) + geom_boxplot(notch = T) + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs from PAS", title="PAS are more conserved than surrounding regions", y= "Phylop 20") + guides(fill = FALSE) + theme_classic() + facet_grid(~loc) + theme(axis.text.x =element_text(angle = 90))
+```
+```{r}
+cons20=ggplot(ResUpdownAll_loc, aes(x=Set, by=Set, fill=region, y=PhyloP)) + geom_boxplot() + scale_fill_brewer(palette = "RdYlBu") + scale_x_discrete(labels=c("-600", "-400", "-200", '0','200','400','600')) + labs(x="Basepairs", title="PAS are more conserved than surrounding regions", y="Phylop 20") +theme_classic()+ theme(legend.position = "none")
 ```
 
+```{r}
+phylop20both=plot_grid(cons20,cons20loc, nrow = 2,scale = c(.9,.9), labels=c("a","b"))
+phylop20both
+```
+
+```{r}
+
+pdf("../output/revisions/phylop20.pdf", height=8, width=6)
+phylop20both
+dev.off()
+```
 
 Compare significant and non significant PAS:  
 

@@ -1,0 +1,62 @@
+---
+title: "apaQTL enrichment"
+author: "Briana Mittleman"
+date: "12/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(tidyverse)
+```
+
+
+
+```{r}
+#apaQTl genes
+
+QTL_genes=read.table("../data/apaQTLGenes/NuclearapaQTLGenes.txt", header = F, stringsAsFactors = F, col.names = "gene")
+
+##apaQTL tested genes 
+QTL_tested=read.table("../data/TestedNuclearapaQTLGenes.txt", header = F, stringsAsFactors = F, col.names = "gene")
+
+#dAPA genes 
+sigNuclear_genes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", stringsAsFactors = F, col.names = "gene")
+
+#dAPA tested
+NuclearAPAtested=read.table("../data/DiffIso_Nuclear_DF//TN_diff_isoform_allChrom.txt_significance.txt",sep="\t" ,col.names = c('status','loglr','df','p','cluster','p.adjust'),stringsAsFactors = F) %>% filter(status=="Success") %>% separate(cluster, into=c("chrom", "gene"), sep=":") %>% dplyr::select(gene)
+```
+
+Put all together and add columns for each set.
+
+```{r}
+AllGenes=QTL_genes %>% bind_rows(QTL_tested) %>% bind_rows(sigNuclear_genes) %>% bind_rows(NuclearAPAtested) %>% unique() %>% 
+ mutate(apaQTLTested=ifelse(gene %in% QTL_tested$gene,"Yes", "No")) %>% 
+ mutate(apaQTL=ifelse(gene %in% QTL_genes$gene,"Yes", "No")) %>% 
+ mutate(dAPAtested=ifelse(gene %in% NuclearAPAtested$gene,"Yes", "No")) %>% 
+ mutate(dAPA=ifelse(gene %in% sigNuclear_genes$gene,"Yes", "No"))  %>% 
+  filter(dAPAtested=="Yes")
+```
+
+
+Enrichment: 
+
+```{r}
+x=nrow(AllGenes %>% filter(dAPA=="Yes", apaQTL=="Yes"))
+m=nrow(AllGenes %>% filter(apaQTL=="Yes"))
+n=nrow(AllGenes %>% filter(apaQTL=="No"))
+k=nrow(AllGenes %>% filter(dAPA=="Yes"))
+N=nrow(AllGenes)
+x
+(x/k)/(m/N)
+k*(m/N)
+phyper(x-1,m,n,k,lower.tail=F)
+```
+
+1.28 enrichment, p=0.0086. This is similar to the results in the paper but I can add the enrichment. 
+
+Look to see if there are chimp SNPs at these locations as well. Use the Great Ape diversity project. 

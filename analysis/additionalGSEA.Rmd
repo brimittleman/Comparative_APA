@@ -92,7 +92,7 @@ DE_C5_sig <- DE_C5 %>%
   filter(padj < 0.05) %>% 
   select(pathway, padj, NES)
 
-DE_C5
+DE_C5_sig
 
 ```
 
@@ -202,6 +202,6 @@ Results:
 ```{r}
 SpeciesSpec_GO=read.table("../data/gsea/GO_SpeciesSpecific.txt", sep="\t", header = T) %>% arrange(FDR.q.value)
 SpeciesSpec_GO_sig=SpeciesSpec_GO %>% filter(FDR.q.value<=0.05)
-SpeciesSpec_GO
+SpeciesSpec_GO_sig
 ```
 
