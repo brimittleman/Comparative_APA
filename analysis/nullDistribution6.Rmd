@@ -1,0 +1,75 @@
+---
+title: "Null distribution for figure 6"
+author: "Briana Mittleman"
+date: "12/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(workflowr)
+```
+
+Create a null distribution for figure 6. I will pull together all of the tested genes and sample the number that were differentially used at any APA level (subset by genes we have expression and protein data for too). I will test how many of the genes are differentially expressed in protien but not RNA. 
+
+First put together the gene set.  
+
+```{r}
+Meta=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt", header = T, stringsAsFactors = F) 
+dAPAGenes=read.table("../data/DiffIso_Nuclear_DF/SignifianceEitherGENES_Nuclear.txt", header = T, stringsAsFactors = F)
+dAPAPAS=read.table("../data/DiffIso_Nuclear_DF/AllPAS_withGeneSig.txt", header = T, stringsAsFactors = F) %>% inner_join(Meta, by=c("chr","start", "end","gene")) %>% select(PAS,gene,SigPAU2 )
+
+dAPAPAS_genes= dAPAPAS %>% select(gene) %>% unique()
+
+dAPATestedGenes= dAPAPAS  %>% select(gene) %>% unique() %>% mutate(dAPA=ifelse(gene %in% dAPAGenes$gene,"Yes", "No"))
+
+dICdata= read.table("../data/IndInfoContent/SimpsonMedianSignificance.txt", header = T, stringsAsFactors = F)%>% select(sIC,gene)
+
+dAPAandDic= dICdata %>% inner_join(dAPATestedGenes,by="gene") %>% mutate(either=ifelse(sIC=="Yes" | dAPA=="Yes", "Yes", "No"))
+  
+
+
+```
+
+Expression and protein:  
+
+```{r}
+nameID=read.table("../../genome_anotation_data/ensemble_to_genename.txt",sep="\t", header = T, stringsAsFactors = F) %>% dplyr::select(Gene_stable_ID, Gene.name)
+
+DiffExp=read.table("../data/DiffExpression/DEtested_allres.txt",stringsAsFactors = F,header = F, col.names = c("Gene_stable_ID" ,"logFC" ,"AveExpr" , "t" ,  "P.Value" ,  "adj.P.Val", "B"  )) %>% inner_join(nameID,by="Gene_stable_ID") %>% dplyr::rename('gene'=Gene.name) %>% dplyr::select(-Gene_stable_ID) %>% mutate(DE=ifelse(adj.P.Val<.05, "Yes", "No")) %>% select(gene,DE)
+
+Prot= read.table("../data/Khan_prot/ProtData_effectSize.txt",header = T,stringsAsFactors = F)  %>% mutate(dP=ifelse(pval<0.05, "Yes", "No"))  %>% select(gene, dP)
+```
+
+
+All together: 
+
+```{r}
+dAPAandDic_expP=dAPAandDic %>% inner_join(Prot, by="gene") %>% inner_join(DiffExp,by="gene") %>% mutate(DPnoDE=ifelse(dP=="Yes" & DE=="No", "Yes", "No")) %>% select(-sIC, -dAPA)
+
+ndAPA=dAPAandDic_expP %>% filter(either=="Yes") %>% nrow()
+actual=dAPAandDic_expP %>% filter(either=="Yes",DPnoDE=="Yes" ) %>% nrow()
+```
+
+I will sample the number of dAPA genes from this and record the number DPnoDE.  
+
+```{r}
+nulldist=c()
+for (n in 1:10000){
+    genesTest=sample(dAPAandDic_expP$gene, ndAPA)
+    overlap=dAPAandDic_expP %>% filter(DPnoDE=="Yes", gene %in% genesTest) %>% nrow()
+    nulldist= c(nulldist, overlap)
+}
+
+```
+```{r}
+
+hist(nulldist, main="Random sample of differentially \nexpressed in protein but not mRNA ", xlab="Number of genes")
+abline(v=actual)
+```
+
