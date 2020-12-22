@@ -259,6 +259,8 @@ Test for robustness to unlifted sites:
 
 * [Conservation analysis with PhyloP 20 ways](ConsPhlop20.html)
 
+* [Conservation compared to other regulatory elements](phylopRegElements.html)
+
 * [Additional Gene set enrichments](additionalGSEA.html)
 
 * [Null distribution for figure 6](nullDistribution6.html)

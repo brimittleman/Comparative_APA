@@ -1,0 +1,104 @@
+---
+title: "PhyloP regulatory elements"
+author: "Briana Mittleman"
+date: "12/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(workflowr)
+library(cowplot)
+library(tidyverse)
+```
+
+I will download regulatory elements and compare them to the PAS regions. I will run this for phylop20 and phlylop100
+
+/project2/gilad/briana/Comparative_APA/data/RegElements
+
+Download from table browser:
+
+* refseq elements 
+* sno and miRNAs 
+
+
+
+```{bash,eval=F}
+
+
+python extractPhylopGeneral_20way.py   ../data/RegElements/hg38_RefSeqElements.bed ../data/RegElements/hg38_RefSeqElements.phyloP20.txt
+
+python extractPhylopGeneral_20way.py  ../data/RegElements/hg38_snomiRNA.bed ../data/RegElements/hg38_snomiRNAphyloP20.txt 
+
+
+
+python extractPhylopGeneral.py   ../data/RegElements/hg38_RefSeqElements.bed ../data/RegElements/hg38_RefSeqElements.phyloP100.txt
+
+python extractPhylopGeneral.py  ../data/RegElements/hg38_snomiRNA.bed ../data/RegElements/hg38_snomiRNAphyloP100.txt 
+
+
+
+```
+
+
+```{r}
+PAS_20=read.table("../data/PhyloP/PAS_Phylop20.txt", col.names = c("chr","start","end","PAS", "phyloP20"), stringsAsFactors = F) %>% drop_na() %>% mutate(element="PAS") %>% select(element,phyloP20)
+
+PAS_100=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP100"), stringsAsFactors = F) %>% drop_na()  %>%  mutate(element="PAS") %>% select(element,phyloP100)
+```
+
+Reg elements:
+
+```{r}
+Reg_20= read.table("../data/RegElements/hg38_RefSeqElements.phyloP20.txt", col.names = c('chr', 'start', 'end', 'element', 'phyloP20' ), header = F, stringsAsFactors = F) %>% drop_na()%>% select(element, phyloP20)
+
+RNAs_20=read.table("../data/RegElements/hg38_snomiRNAphyloP20.txt", col.names = c('chr', 'start', 'end', 'elementName', 'phyloP20' ), header = F, stringsAsFactors = F)%>% mutate(element="smallRNA") %>% drop_na()%>% select(element, phyloP20)
+
+Reg_100= read.table("../data/RegElements/hg38_RefSeqElements.phyloP100.txt", col.names = c('chr', 'start', 'end', 'element', 'phyloP100' ), header = F, stringsAsFactors = F) %>% drop_na()%>% select(element, phyloP100)
+
+RNAs_100=read.table("../data/RegElements/hg38_snomiRNAphyloP100.txt", col.names = c('chr', 'start', 'end', 'element_name', 'phyloP100' ), header = F, stringsAsFactors = F) %>% mutate(element="smallRNA") %>% drop_na() %>% select(element, phyloP100)
+```
+
+
+Look at the elements in the reg and decide which to include: 
+
+```{r}
+elementcount=Reg_20 %>% group_by(element) %>% summarise(nele=n()) %>% arrange(desc(nele))
+
+regs_use=c("conserved_region", "enhancer", "CpG_island", "promoter", "silencer", "repeat_instability_region")
+```
+Will include: 
+conserved_region, enhancer,CpG_island, promoter, silencer, repeat_instability_region
+
+```{r}
+Reg_20_sm=Reg_20 %>% filter(element %in% regs_use)
+Reg_100_sm=Reg_100 %>% filter(element %in% regs_use)
+
+
+RegandRNA_20=Reg_20_sm %>% bind_rows(RNAs_20) %>% bind_rows(PAS_20) %>% mutate(fillcol=ifelse(element=="PAS", "yes", "no"))
+
+RegandRNA_100=Reg_100_sm %>% bind_rows(RNAs_100) %>% bind_rows(PAS_100)%>% mutate(fillcol=ifelse(element=="PAS", "yes", "no"))
+```
+
+
+Plot: 
+
+```{r}
+phylop20plot=ggplot(RegandRNA_20, aes(x=element, y=phyloP20,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title="Regulatory element conservation", y="PhyloP 20 ways", x="")+ theme(axis.text.x = element_text(angle = 90), legend.position ="none")+ scale_fill_brewer(palette = "RdYlBu")
+phylop20plot
+```
+
+```{r}
+phylop100plot= ggplot(RegandRNA_100, aes(x=element, y=phyloP100,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title="Regulatory element conservation", y="PhyloP 100 ways", x="")+ theme(axis.text.x = element_text(angle = 90), legend.position ="none")+ scale_fill_brewer(palette = "RdYlBu")
+phylop100plot
+```
+
+
+```{r}
+both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2)
+both_together
+```
+
