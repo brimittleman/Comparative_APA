@@ -102,3 +102,83 @@ both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2)
 both_together
 ```
 
+Add introns and exon:
+
+get chr 1-22 from intron and exon file
+
+subsetChr.py
+```{python,eval=F}
+
+main(fin, fout):
+  small=open(fout, "w")
+  chrkeep=["chr1", "chr2", 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr20', 'chr21','chr22']
+  for ln in open(fin,"r"):
+    chrom=ln.split()[0]
+    if chrom in chrkeep:
+        small.write(ln)
+  small.close()
+
+
+if __name__ == "__main__":
+    import sys
+    infile = sys.argv[1]
+    Outfile =sys.argv[2]
+    main(infile, Outfile)
+```
+
+```{bash,eval=F}
+python subsetChr.py ../data/RegElements/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed ../data/RegElements/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.1.22.bed
+
+
+
+python extractPhylopGeneral_20way.py  ../data/RegElements/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.1.22.bed ../data/RegElements/phylop20_ncbi.txt
+
+```
+
+```{r}
+Allloc_20=read.table("../data/RegElements/phylop20_ncbi.txt", stringsAsFactors = F, header = F, col.names = c("chr", "start","end", "name", "phyloP20")) %>% separate(name, into=c("element", "gene"),sep=":") %>% drop_na() 
+
+ggplot(Allloc_20, aes(x=element, y=phyloP20)) + geom_boxplot() + theme_classic()
+```
+
+```{r}
+Intron_20=Allloc_20 %>% filter(element=="intron") %>% select(element, phyloP20)
+
+RegandRNAintron_20=Reg_20_sm %>% bind_rows(RNAs_20) %>% bind_rows(PAS_20) %>% bind_rows(Intron_20) %>%  mutate(fillcol=ifelse(element=="PAS", "yes", "no"))
+
+ggplot(RegandRNAintron_20, aes(x=element, y=phyloP20,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title="Regulatory element conservation", y="PhyloP 20 ways", x="")+ theme(axis.text.x = element_text(angle = 90), legend.position ="none")+ scale_fill_brewer(palette = "RdYlBu")
+```
+
+```{r}
+promoter20= RegandRNAintron_20 %>% filter(element=="promoter")
+enhan20= RegandRNAintron_20 %>% filter(element=="enhancer")
+wilcox.test(PAS_20$phyloP20,Intron_20$phyloP20, alternative = "greater")
+
+wilcox.test(PAS_20$phyloP20,promoter20$phyloP20, alternative = "greater")
+
+wilcox.test(PAS_20$phyloP20,enhan20$phyloP20, alternative = "greater")
+```
+
+
+```{r}
+Allloc_100=read.table("../data/RegElements/phylop100_ncbi.txt", stringsAsFactors = F, header = F, col.names = c("chr", "start","end", "name", "phyloP100")) %>% separate(name, into=c("element", "gene"),sep=":") %>% drop_na()
+
+
+Intron_100=Allloc_100 %>% filter(element=="intron") %>% select(element, phyloP100)
+
+RegandRNAintron_100=Reg_100_sm %>% bind_rows(RNAs_100) %>% bind_rows(PAS_100) %>% bind_rows(Intron_100) %>%  mutate(fillcol=ifelse(element=="PAS", "yes", "no"))
+
+ggplot(RegandRNAintron_100, aes(x=element, y=phyloP100,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title="Regulatory element conservation", y="PhyloP 100 ways", x="")+ theme(axis.text.x = element_text(angle = 90), legend.position ="none")+ scale_fill_brewer(palette = "RdYlBu")
+```
+
+```{r}
+promoter100= RegandRNAintron_100 %>% filter(element=="promoter")
+enhan100= RegandRNAintron_100 %>% filter(element=="enhancer")
+wilcox.test(PAS_100$phyloP100,Intron_100$phyloP100, alternative = "greater")
+
+wilcox.test(PAS_100$phyloP100,promoter100$phyloP100, alternative = "greater")
+
+wilcox.test(PAS_100$phyloP100,enhan100$phyloP100, alternative = "greater")
+```
+
+
