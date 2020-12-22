@@ -164,6 +164,28 @@ fig3
 dev.off()
 ```
 
+Spearman correlations for these:
+
+```{r}
+cor(fig3_data$CorrectedlogFC, fig3_data$deltaPAU, method = "spearman")
+
+fig3_data_utr=fig3_data %>% filter(loc=="utr3")
+cor(fig3_data_utr$CorrectedlogFC, fig3_data_utr$deltaPAU, method = "spearman")
+
+fig3_data_intron=fig3_data %>% filter(loc=="intron")
+cor(fig3_data_intron$CorrectedlogFC, fig3_data_intron$deltaPAU, method = "spearman")
+```
+
+```{r}
+cor(fig3_data2$CorrectedlogFC, fig3_data2$deltaPAU, method = "spearman")
+
+fig3_data2_utr=fig3_data2 %>% filter(loc=="utr3")
+cor(fig3_data2_utr$CorrectedlogFC, fig3_data2_utr$deltaPAU, method = "spearman")
+
+fig3_data2_intron=fig3_data2 %>% filter(loc=="intron")
+cor(fig3_data2_intron$CorrectedlogFC, fig3_data2_intron$deltaPAU, method = "spearman")
+```
+
 
 ##figure 5  
 
