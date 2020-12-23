@@ -98,9 +98,16 @@ phylop100plot
 
 
 ```{r}
-both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2)
+both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c("a", "b"))
 both_together
 ```
+
+```{r}
+pdf("../output/supplement/Revision-phylopRed.pdf", height=8, width=6,useKerning=F)
+both_together
+dev.off()
+```
+
 
 Add introns and exon:
 
@@ -148,15 +155,26 @@ RegandRNAintron_20=Reg_20_sm %>% bind_rows(RNAs_20) %>% bind_rows(PAS_20) %>% bi
 
 ggplot(RegandRNAintron_20, aes(x=element, y=phyloP20,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title="Regulatory element conservation", y="PhyloP 20 ways", x="")+ theme(axis.text.x = element_text(angle = 90), legend.position ="none")+ scale_fill_brewer(palette = "RdYlBu")
 ```
-
+Significance: 
 ```{r}
-promoter20= RegandRNAintron_20 %>% filter(element=="promoter")
-enhan20= RegandRNAintron_20 %>% filter(element=="enhancer")
-wilcox.test(PAS_20$phyloP20,Intron_20$phyloP20, alternative = "greater")
+promoter20= RegandRNA_20 %>% filter(element=="promoter")
+enhan20= RegandRNA_20 %>% filter(element=="enhancer")
+consv20= RegandRNA_20 %>% filter(element=="conserved_region")
+cpg20= RegandRNA_20 %>% filter(element=="CpG_island")
+repeate20= RegandRNA_20 %>% filter(element=="repeat_instability_region")
+silencer20= RegandRNA_20 %>% filter(element=="silencer")
+smallRNA20= RegandRNA_20 %>% filter(element=="smallRNA")
+
 
 wilcox.test(PAS_20$phyloP20,promoter20$phyloP20, alternative = "greater")
-
 wilcox.test(PAS_20$phyloP20,enhan20$phyloP20, alternative = "greater")
+wilcox.test(PAS_20$phyloP20,consv20$phyloP20, alternative = "greater")
+wilcox.test(PAS_20$phyloP20,cpg20$phyloP20, alternative = "greater")
+wilcox.test(PAS_20$phyloP20,repeate20$phyloP20, alternative = "greater")
+wilcox.test(PAS_20$phyloP20,silencer20$phyloP20, alternative = "greater")
+wilcox.test(PAS_20$phyloP20,smallRNA20$phyloP20, alternative = "greater")
+
+
 ```
 
 
@@ -172,13 +190,26 @@ ggplot(RegandRNAintron_100, aes(x=element, y=phyloP100,fill=fillcol)) + geom_box
 ```
 
 ```{r}
-promoter100= RegandRNAintron_100 %>% filter(element=="promoter")
-enhan100= RegandRNAintron_100 %>% filter(element=="enhancer")
-wilcox.test(PAS_100$phyloP100,Intron_100$phyloP100, alternative = "greater")
+
+promoter100= RegandRNA_100 %>% filter(element=="promoter")
+enhan100= RegandRNA_100 %>% filter(element=="enhancer")
+consv100= RegandRNA_100 %>% filter(element=="conserved_region")
+cpg100= RegandRNA_100 %>% filter(element=="CpG_island")
+repeate100= RegandRNA_100 %>% filter(element=="repeat_instability_region")
+silencer100= RegandRNA_100 %>% filter(element=="silencer")
+smallRNA100= RegandRNA_100 %>% filter(element=="smallRNA")
+
 
 wilcox.test(PAS_100$phyloP100,promoter100$phyloP100, alternative = "greater")
-
 wilcox.test(PAS_100$phyloP100,enhan100$phyloP100, alternative = "greater")
+wilcox.test(PAS_100$phyloP100,consv100$phyloP100, alternative = "greater")
+wilcox.test(PAS_100$phyloP100,cpg100$phyloP100, alternative = "greater")
+wilcox.test(PAS_100$phyloP100,repeate100$phyloP100, alternative = "greater")
+wilcox.test(PAS_100$phyloP100,silencer100$phyloP100, alternative = "greater")
+wilcox.test(PAS_100$phyloP100,smallRNA100$phyloP100, alternative = "greater")
+
+
+
 ```
 
 
