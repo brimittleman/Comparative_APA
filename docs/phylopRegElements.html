@@ -446,7 +446,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-12-21
+<strong>Last updated:</strong> 2020-12-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -537,16 +537,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed1e428dc4cbfcd3dff99760f328515934079c616targetblankd1e428da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/d1e428dc4cbfcd3dff99760f328515934079c616" target="_blank">d1e428d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea8cf9283e678e01934fd9d59ffb1eb68adb9d353targetblanka8cf928a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a8cf9283e678e01934fd9d59ffb1eb68adb9d353" target="_blank">a8cf928</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreed1e428dc4cbfcd3dff99760f328515934079c616targetblankd1e428da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea8cf9283e678e01934fd9d59ffb1eb68adb9d353targetblanka8cf928a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/d1e428dc4cbfcd3dff99760f328515934079c616" target="_blank">d1e428d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/a8cf9283e678e01934fd9d59ffb1eb68adb9d353" target="_blank">a8cf928</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -585,6 +585,7 @@ Untracked files:
     Untracked:  analysis/SuppTables.Rmd
     Untracked:  analysis/annotationBias.Rmd
     Untracked:  analysis/assessReadQual.Rmd
+    Untracked:  analysis/dUsed_humanchimp.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/isoformdivandexp.Rmd
     Untracked:  code/._AlignmentScores.sh
@@ -1484,6 +1485,7 @@ Untracked files:
     Untracked:  proteinModelSet.Rmd
 
 Unstaged changes:
+    Modified:   analysis/ConsPhlop20.Rmd
     Modified:   analysis/DeandNumPAS.Rmd
     Modified:   analysis/DirSelectionKhan.Rmd
     Modified:   analysis/ExploredAPA.Rmd
@@ -1495,6 +1497,7 @@ Unstaged changes:
     Modified:   analysis/SetsdAPADIC.Rmd
     Modified:   analysis/TotalDomStructure.Rmd
     Modified:   analysis/TotalVNuclearBothSpecies.Rmd
+    Modified:   analysis/additionalGSEA.Rmd
     Modified:   analysis/annotationInfo.Rmd
     Modified:   analysis/changeMisprimcut.Rmd
     Modified:   analysis/comp2apaQTLPAS.Rmd
@@ -1551,6 +1554,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/a8cf9283e678e01934fd9d59ffb1eb68adb9d353/analysis/phylopRegElements.Rmd" target="_blank">a8cf928</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-23
+</td>
+<td>
+add sig tests
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/d5febd57d018c01439de0c6b1c9093f8e9052793/docs/phylopRegElements.html" target="_blank">d5febd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1752,7 +1789,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2)
+<pre class="r"><code>both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c(&quot;a&quot;, &quot;b&quot;))
 both_together</code></pre>
 <p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1792,6 +1829,11 @@ brimittleman
 </table>
 </div>
 </div>
+<pre class="r"><code>pdf(&quot;../output/supplement/Revision-phylopRed.pdf&quot;, height=8, width=6,useKerning=F)
+both_together
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
 <p>Add introns and exon:</p>
 <p>get chr 1-22 from intron and exon file</p>
 <p>subsetChr.py</p>
@@ -1819,23 +1861,60 @@ python extractPhylopGeneral_20way.py  ../data/RegElements/hg38_ncbiRefseq_Format
 <pre class="r"><code>Allloc_20=read.table(&quot;../data/RegElements/phylop20_ncbi.txt&quot;, stringsAsFactors = F, header = F, col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;phyloP20&quot;)) %&gt;% separate(name, into=c(&quot;element&quot;, &quot;gene&quot;),sep=&quot;:&quot;) %&gt;% drop_na() 
 
 ggplot(Allloc_20, aes(x=element, y=phyloP20)) + geom_boxplot() + theme_classic()</code></pre>
-<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/d5febd57d018c01439de0c6b1c9093f8e9052793/docs/figure/phylopRegElements.Rmd/unnamed-chunk-13-1.png" target="_blank">d5febd5</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>Intron_20=Allloc_20 %&gt;% filter(element==&quot;intron&quot;) %&gt;% select(element, phyloP20)
 
 RegandRNAintron_20=Reg_20_sm %&gt;% bind_rows(RNAs_20) %&gt;% bind_rows(PAS_20) %&gt;% bind_rows(Intron_20) %&gt;%  mutate(fillcol=ifelse(element==&quot;PAS&quot;, &quot;yes&quot;, &quot;no&quot;))
 
 ggplot(RegandRNAintron_20, aes(x=element, y=phyloP20,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title=&quot;Regulatory element conservation&quot;, y=&quot;PhyloP 20 ways&quot;, x=&quot;&quot;)+ theme(axis.text.x = element_text(angle = 90), legend.position =&quot;none&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)</code></pre>
-<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>promoter20= RegandRNAintron_20 %&gt;% filter(element==&quot;promoter&quot;)
-enhan20= RegandRNAintron_20 %&gt;% filter(element==&quot;enhancer&quot;)
-wilcox.test(PAS_20$phyloP20,Intron_20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
-<pre><code>
-    Wilcoxon rank sum test with continuity correction
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /> Significance:</p>
+<pre class="r"><code>promoter20= RegandRNA_20 %&gt;% filter(element==&quot;promoter&quot;)
+enhan20= RegandRNA_20 %&gt;% filter(element==&quot;enhancer&quot;)
+consv20= RegandRNA_20 %&gt;% filter(element==&quot;conserved_region&quot;)
+cpg20= RegandRNA_20 %&gt;% filter(element==&quot;CpG_island&quot;)
+repeate20= RegandRNA_20 %&gt;% filter(element==&quot;repeat_instability_region&quot;)
+silencer20= RegandRNA_20 %&gt;% filter(element==&quot;silencer&quot;)
+smallRNA20= RegandRNA_20 %&gt;% filter(element==&quot;smallRNA&quot;)
 
-data:  PAS_20$phyloP20 and Intron_20$phyloP20
-W = 5.0723e+10, p-value &lt; 2.2e-16
-alternative hypothesis: true location shift is greater than 0</code></pre>
-<pre class="r"><code>wilcox.test(PAS_20$phyloP20,promoter20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+
+wilcox.test(PAS_20$phyloP20,promoter20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
@@ -1849,6 +1928,41 @@ alternative hypothesis: true location shift is greater than 0</code></pre>
 data:  PAS_20$phyloP20 and enhan20$phyloP20
 W = 26069436, p-value = 1
 alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_20$phyloP20,consv20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_20$phyloP20 and consv20$phyloP20
+W = 2078060, p-value = 1
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_20$phyloP20,cpg20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_20$phyloP20 and cpg20$phyloP20
+W = 1952657, p-value = 1
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_20$phyloP20,repeate20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_20$phyloP20 and repeate20$phyloP20
+W = 1352876, p-value = 2.014e-05
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_20$phyloP20,silencer20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_20$phyloP20 and silencer20$phyloP20
+W = 1374908, p-value = 0.0002568
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_20$phyloP20,smallRNA20$phyloP20, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_20$phyloP20 and smallRNA20$phyloP20
+W = 56585046, p-value &lt; 2.2e-16
+alternative hypothesis: true location shift is greater than 0</code></pre>
 <pre class="r"><code>Allloc_100=read.table(&quot;../data/RegElements/phylop100_ncbi.txt&quot;, stringsAsFactors = F, header = F, col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;phyloP100&quot;)) %&gt;% separate(name, into=c(&quot;element&quot;, &quot;gene&quot;),sep=&quot;:&quot;) %&gt;% drop_na()
 
 
@@ -1857,17 +1971,17 @@ Intron_100=Allloc_100 %&gt;% filter(element==&quot;intron&quot;) %&gt;% select(e
 RegandRNAintron_100=Reg_100_sm %&gt;% bind_rows(RNAs_100) %&gt;% bind_rows(PAS_100) %&gt;% bind_rows(Intron_100) %&gt;%  mutate(fillcol=ifelse(element==&quot;PAS&quot;, &quot;yes&quot;, &quot;no&quot;))
 
 ggplot(RegandRNAintron_100, aes(x=element, y=phyloP100,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title=&quot;Regulatory element conservation&quot;, y=&quot;PhyloP 100 ways&quot;, x=&quot;&quot;)+ theme(axis.text.x = element_text(angle = 90), legend.position =&quot;none&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)</code></pre>
-<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>promoter100= RegandRNAintron_100 %&gt;% filter(element==&quot;promoter&quot;)
-enhan100= RegandRNAintron_100 %&gt;% filter(element==&quot;enhancer&quot;)
-wilcox.test(PAS_100$phyloP100,Intron_100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
-<pre><code>
-    Wilcoxon rank sum test with continuity correction
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>promoter100= RegandRNA_100 %&gt;% filter(element==&quot;promoter&quot;)
+enhan100= RegandRNA_100 %&gt;% filter(element==&quot;enhancer&quot;)
+consv100= RegandRNA_100 %&gt;% filter(element==&quot;conserved_region&quot;)
+cpg100= RegandRNA_100 %&gt;% filter(element==&quot;CpG_island&quot;)
+repeate100= RegandRNA_100 %&gt;% filter(element==&quot;repeat_instability_region&quot;)
+silencer100= RegandRNA_100 %&gt;% filter(element==&quot;silencer&quot;)
+smallRNA100= RegandRNA_100 %&gt;% filter(element==&quot;smallRNA&quot;)
 
-data:  PAS_100$phyloP100 and Intron_100$phyloP100
-W = 4.7743e+10, p-value &lt; 2.2e-16
-alternative hypothesis: true location shift is greater than 0</code></pre>
-<pre class="r"><code>wilcox.test(PAS_100$phyloP100,promoter100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+
+wilcox.test(PAS_100$phyloP100,promoter100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
 <pre><code>
     Wilcoxon rank sum test with continuity correction
 
@@ -1880,6 +1994,41 @@ alternative hypothesis: true location shift is greater than 0</code></pre>
 
 data:  PAS_100$phyloP100 and enhan100$phyloP100
 W = 22820110, p-value = 1
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_100$phyloP100,consv100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_100$phyloP100 and consv100$phyloP100
+W = 1046316, p-value = 1
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_100$phyloP100,cpg100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_100$phyloP100 and cpg100$phyloP100
+W = 2135792, p-value = 0.9998
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_100$phyloP100,repeate100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_100$phyloP100 and repeate100$phyloP100
+W = 1138733, p-value = 0.0201
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_100$phyloP100,silencer100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_100$phyloP100 and silencer100$phyloP100
+W = 1407416, p-value = 6.544e-06
+alternative hypothesis: true location shift is greater than 0</code></pre>
+<pre class="r"><code>wilcox.test(PAS_100$phyloP100,smallRNA100$phyloP100, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  PAS_100$phyloP100 and smallRNA100$phyloP100
+W = 54968724, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <br>
 <p>
