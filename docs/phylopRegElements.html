@@ -446,7 +446,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-12-24
+<strong>Last updated:</strong> 2021-01-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -537,16 +537,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea8cf9283e678e01934fd9d59ffb1eb68adb9d353targetblanka8cf928a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/a8cf9283e678e01934fd9d59ffb1eb68adb9d353" target="_blank">a8cf928</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb769a1769a125cd4d9b10be7b47415e54704be63targetblankb769a17a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/brimittleman/Comparative_APA/tree/b769a1769a125cd4d9b10be7b47415e54704be63" target="_blank">b769a17</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreea8cf9283e678e01934fd9d59ffb1eb68adb9d353targetblanka8cf928a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombrimittlemanComparativeAPAtreeb769a1769a125cd4d9b10be7b47415e54704be63targetblankb769a17a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/a8cf9283e678e01934fd9d59ffb1eb68adb9d353" target="_blank">a8cf928</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/brimittleman/Comparative_APA/tree/b769a1769a125cd4d9b10be7b47415e54704be63" target="_blank">b769a17</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -588,6 +588,7 @@ Untracked files:
     Untracked:  analysis/dUsed_humanchimp.Rmd
     Untracked:  analysis/diffExpressionPantro6.Rmd
     Untracked:  analysis/isoformdivandexp.Rmd
+    Untracked:  analysis/nDom.Rmd
     Untracked:  code/._AlignmentScores.sh
     Untracked:  code/._BothFCMM.sh
     Untracked:  code/._BothFCMMPrim.sh
@@ -1559,6 +1560,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/b769a1769a125cd4d9b10be7b47415e54704be63/analysis/phylopRegElements.Rmd" target="_blank">b769a17</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2021-01-18
+</td>
+<td>
+add 200 up analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/brimittleman/Comparative_APA/f2e7ead7c986b29a29c677a322082dea27613587/docs/phylopRegElements.html" target="_blank">f2e7ead</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/a8cf9283e678e01934fd9d59ffb1eb68adb9d353/analysis/phylopRegElements.Rmd" target="_blank">a8cf928</a>
 </td>
 <td>
@@ -1649,7 +1684,8 @@ add phylop reg element analysis
 <pre class="r"><code>library(workflowr)</code></pre>
 <pre><code>This is workflowr version 1.6.2
 Run ?workflowr for help getting started</code></pre>
-<pre class="r"><code>library(cowplot)</code></pre>
+<pre class="r"><code>library()
+library(cowplot)</code></pre>
 <pre><code>
 ********************************************************</code></pre>
 <pre><code>Note: As of version 1.0.0, cowplot does not change the</code></pre>
@@ -1789,7 +1825,7 @@ brimittleman
 </table>
 </div>
 </div>
-<pre class="r"><code>both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c(&quot;a&quot;, &quot;b&quot;))
+<pre class="r"><code>both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c(&quot;A&quot;, &quot;B&quot;))
 both_together</code></pre>
 <p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1814,6 +1850,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f2e7ead7c986b29a29c677a322082dea27613587/docs/figure/phylopRegElements.Rmd/unnamed-chunk-9-1.png" target="_blank">f2e7ead</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/0f749916d831b4f36222699fbe4db80cd7937b50/docs/figure/phylopRegElements.Rmd/unnamed-chunk-9-1.png" target="_blank">0f74991</a>
@@ -1886,6 +1933,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f2e7ead7c986b29a29c677a322082dea27613587/docs/figure/phylopRegElements.Rmd/unnamed-chunk-13-1.png" target="_blank">f2e7ead</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/brimittleman/Comparative_APA/blob/d5febd57d018c01439de0c6b1c9093f8e9052793/docs/figure/phylopRegElements.Rmd/unnamed-chunk-13-1.png" target="_blank">d5febd5</a>
 </td>
 <td>
@@ -1904,7 +1962,45 @@ brimittleman
 RegandRNAintron_20=Reg_20_sm %&gt;% bind_rows(RNAs_20) %&gt;% bind_rows(PAS_20) %&gt;% bind_rows(Intron_20) %&gt;%  mutate(fillcol=ifelse(element==&quot;PAS&quot;, &quot;yes&quot;, &quot;no&quot;))
 
 ggplot(RegandRNAintron_20, aes(x=element, y=phyloP20,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title=&quot;Regulatory element conservation&quot;, y=&quot;PhyloP 20 ways&quot;, x=&quot;&quot;)+ theme(axis.text.x = element_text(angle = 90), legend.position =&quot;none&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)</code></pre>
-<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /> Significance:</p>
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f2e7ead7c986b29a29c677a322082dea27613587/docs/figure/phylopRegElements.Rmd/unnamed-chunk-14-1.png" target="_blank">f2e7ead</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Significance:</p>
 <pre class="r"><code>promoter20= RegandRNA_20 %&gt;% filter(element==&quot;promoter&quot;)
 enhan20= RegandRNA_20 %&gt;% filter(element==&quot;enhancer&quot;)
 consv20= RegandRNA_20 %&gt;% filter(element==&quot;conserved_region&quot;)
@@ -1961,7 +2057,7 @@ alternative hypothesis: true location shift is greater than 0</code></pre>
     Wilcoxon rank sum test with continuity correction
 
 data:  PAS_20$phyloP20 and smallRNA20$phyloP20
-W = 56585046, p-value &lt; 2.2e-16
+W = 250749904, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
 <pre class="r"><code>Allloc_100=read.table(&quot;../data/RegElements/phylop100_ncbi.txt&quot;, stringsAsFactors = F, header = F, col.names = c(&quot;chr&quot;, &quot;start&quot;,&quot;end&quot;, &quot;name&quot;, &quot;phyloP100&quot;)) %&gt;% separate(name, into=c(&quot;element&quot;, &quot;gene&quot;),sep=&quot;:&quot;) %&gt;% drop_na()
 
@@ -1972,6 +2068,43 @@ RegandRNAintron_100=Reg_100_sm %&gt;% bind_rows(RNAs_100) %&gt;% bind_rows(PAS_1
 
 ggplot(RegandRNAintron_100, aes(x=element, y=phyloP100,fill=fillcol)) + geom_boxplot() + theme_classic() + labs(title=&quot;Regulatory element conservation&quot;, y=&quot;PhyloP 100 ways&quot;, x=&quot;&quot;)+ theme(axis.text.x = element_text(angle = 90), legend.position =&quot;none&quot;)+ scale_fill_brewer(palette = &quot;RdYlBu&quot;)</code></pre>
 <p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/brimittleman/Comparative_APA/blob/f2e7ead7c986b29a29c677a322082dea27613587/docs/figure/phylopRegElements.Rmd/unnamed-chunk-16-1.png" target="_blank">f2e7ead</a>
+</td>
+<td>
+brimittleman
+</td>
+<td>
+2020-12-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>promoter100= RegandRNA_100 %&gt;% filter(element==&quot;promoter&quot;)
 enhan100= RegandRNA_100 %&gt;% filter(element==&quot;enhancer&quot;)
 consv100= RegandRNA_100 %&gt;% filter(element==&quot;conserved_region&quot;)
@@ -2030,6 +2163,47 @@ alternative hypothesis: true location shift is greater than 0</code></pre>
 data:  PAS_100$phyloP100 and smallRNA100$phyloP100
 W = 54968724, p-value &lt; 2.2e-16
 alternative hypothesis: true location shift is greater than 0</code></pre>
+<p>Map the promoters to genes and subset to genes we have APA in.</p>
+<p>The regulatory elements is a really small set…</p>
+<pre class="r"><code>regelements=read.table(&quot;../data/RegElements/hg38_RefSeqElements.bed&quot;, stringsAsFactors = F, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;type&quot;, &quot;score&quot;, &quot;strand&quot;,&quot;hardsoft&quot;, &quot;hardend&quot;,&quot;color&quot; ))
+
+promoters=regelements %&gt;% filter(type==&quot;promoter&quot;, chr !=&quot;chrX&quot;, chr!=&quot;chrY&quot;) %&gt;% select(-hardsoft, -hardend, -color) 
+nrow(promoters)</code></pre>
+<pre><code>[1] 230</code></pre>
+<pre class="r"><code>write.table(promoters, &quot;../data/RegElements/hg38_promoters.bed&quot;, col.names = F, row.names = F, quote = F,sep=&quot;\t&quot;)</code></pre>
+<p>Map these to genes:</p>
+<pre class="bash"><code>#bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed -c 4 -S -o distinct &gt; ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+
+sort -k1,1 -k2,2n ../data/RegElements/hg38_promoters.bed &gt; ../data/RegElements/hg38_promoters_sort.bed
+
+sort -k1,1 -k2,2n  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed.bed &gt; ../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed
+
+bedtools map -a ../data/RegElements/hg38_promoters_sort.bed -b ../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed -c 4 -s -o distinct &gt; ../data/RegElements/hg38_promoters_genes.bed</code></pre>
+<p>Promoters with genes:</p>
+<pre class="r"><code>promgene=read.table(&quot;../data/RegElements/hg38_promoters_genes.bed&quot;,col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;element&quot;, &quot;score&quot;, &quot;strand&quot;,&quot;gene&quot;),stringsAsFactors = F)</code></pre>
+<p>assign to genes and filter to genes in the PAS set</p>
+<pre class="r"><code>genesPAS=read.table(&quot;../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt&quot;,header=T,stringsAsFactors = F) %&gt;% select(gene) %&gt;% unique()
+
+Reg_20Promotergene= read.table(&quot;../data/RegElements/hg38_RefSeqElements.phyloP20.txt&quot;, col.names = c(&#39;chr&#39;, &#39;start&#39;, &#39;end&#39;, &#39;element&#39;, &#39;phyloP20&#39; ), header = F, stringsAsFactors = F) %&gt;% inner_join(promgene,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;element&quot;)) %&gt;% filter(gene %in% genesPAS$gene)
+
+Reg_100Promotergene= read.table(&quot;../data/RegElements/hg38_RefSeqElements.phyloP100.txt&quot;, col.names = c(&#39;chr&#39;, &#39;start&#39;, &#39;end&#39;, &#39;element&#39;, &#39;phyloP20&#39; ), header = F, stringsAsFactors = F) %&gt;% inner_join(promgene,by=c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;element&quot;))%&gt;% filter(gene %in% genesPAS$gene)</code></pre>
+<p>Too few to use.</p>
+<p>Define promoter region at 250 upstream of the PAS.</p>
+<pre class="r"><code>AllgeneProm=read.table(&quot;../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed&quot;, col.names = c(&quot;chr&quot;, &quot;start&quot;, &quot;end&quot;, &quot;gene&quot;,&quot;score&quot;, &quot;strand&quot;)) %&gt;% filter(gene %in% genesPAS$gene) %&gt;% mutate(PromStart=ifelse(strand==&quot;+&quot;, start-200, end), PromEnd=ifelse(strand==&quot;+&quot;, start, end+200)) %&gt;% select(chr, PromStart, PromEnd, gene, score, strand)
+
+PromAPAgenes=write.table(AllgeneProm, &quot;../data/RegElements/PromGenes.bed&quot;,col.names = F, row.names = F, quote = F, sep=&quot;\t&quot;)</code></pre>
+<pre class="bash"><code>python extractPhylopGeneral_20way.py  ../data/RegElements/PromGenes.bed ../data/RegElements/hg38_PromGenes.P20.txt 
+
+
+
+python extractPhylopGeneral.py  ../data/RegElements/PromGenes.bed ../data/RegElements/hg38_PromGenes.P100.txt</code></pre>
+<pre class="r"><code>Prom_wPAS_20=read.table(&quot;../data/RegElements/hg38_PromGenes.P20.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;,&quot;PAS&quot;, &quot;phyloP20&quot;), stringsAsFactors = F) %&gt;% drop_na() %&gt;% mutate(element=&quot;Promoter&quot;) %&gt;% select(element,phyloP20) %&gt;% bind_rows(PAS_20)
+
+Prom_wPAS_100=read.table(&quot;../data/PhyloP/PAS_phyloP.txt&quot;, col.names = c(&quot;chr&quot;,&quot;start&quot;,&quot;end&quot;, &quot;phyloP100&quot;), stringsAsFactors = F) %&gt;% drop_na()  %&gt;%  mutate(element=&quot;Promoter&quot;) %&gt;% select(element,phyloP100) %&gt;% bind_rows(PAS_100)</code></pre>
+<pre class="r"><code>ggplot(Prom_wPAS_100,aes(x=element,y=phyloP100)) + geom_boxplot() + labs(title=&quot;PAS vs. promoters for 100 way Phylop&quot;)</code></pre>
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(Prom_wPAS_20,aes(x=element,y=phyloP20)) + geom_boxplot() + labs(title=&quot;PAS vs. promoters for 20 way Phylop&quot;)</code></pre>
+<p><img src="figure/phylopRegElements.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
