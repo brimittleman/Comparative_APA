@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(workflowr)
+library()
 library(cowplot)
 library(tidyverse)
 ```
@@ -98,7 +99,7 @@ phylop100plot
 
 
 ```{r}
-both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c("a", "b"))
+both_together=plot_grid(phylop20plot,phylop100plot, nrow = 2, labels=c("A", "B"))
 both_together
 ```
 
@@ -212,4 +213,79 @@ wilcox.test(PAS_100$phyloP100,smallRNA100$phyloP100, alternative = "greater")
 
 ```
 
+Map the promoters to genes and subset to genes we have APA in.
+
+The regulatory elements is a really small set... 
+```{r}
+regelements=read.table("../data/RegElements/hg38_RefSeqElements.bed", stringsAsFactors = F, col.names = c("chr","start","end", "type", "score", "strand","hardsoft", "hardend","color" ))
+
+promoters=regelements %>% filter(type=="promoter", chr !="chrX", chr!="chrY") %>% select(-hardsoft, -hardend, -color) 
+nrow(promoters)
+
+write.table(promoters, "../data/RegElements/hg38_promoters.bed", col.names = F, row.names = F, quote = F,sep="\t")
+``` 
+
+Map these to genes:
+
+
+
+```{bash,eval=F}
+#bedtools map -a ../data/cleanPeaks_lifted/AllPAS_postLift.sort.bed -b  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_Formatted_Allannotation_noSNO.Resort.bed -c 4 -S -o distinct > ../data/cleanPeaks_anno/AllPAS_postLift.sort_LocAnno.bed 
+
+sort -k1,1 -k2,2n ../data/RegElements/hg38_promoters.bed > ../data/RegElements/hg38_promoters_sort.bed
+
+sort -k1,1 -k2,2n  ../../genome_anotation_data/hg38_refseq_anno/hg38_ncbiRefseq_GenesParsed.bed > ../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed
+
+bedtools map -a ../data/RegElements/hg38_promoters_sort.bed -b ../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed -c 4 -s -o distinct > ../data/RegElements/hg38_promoters_genes.bed
+```
+
+Promoters with genes:
+```{r}
+promgene=read.table("../data/RegElements/hg38_promoters_genes.bed",col.names = c("chr", "start", "end", "element", "score", "strand","gene"),stringsAsFactors = F)
+```
+
+assign to genes and filter to genes in the PAS set
+```{r}
+genesPAS=read.table("../data/PAS_doubleFilter/PAS_5perc_either_HumanCoord_BothUsage_meta_doubleFilter.txt",header=T,stringsAsFactors = F) %>% select(gene) %>% unique()
+
+Reg_20Promotergene= read.table("../data/RegElements/hg38_RefSeqElements.phyloP20.txt", col.names = c('chr', 'start', 'end', 'element', 'phyloP20' ), header = F, stringsAsFactors = F) %>% inner_join(promgene,by=c("chr", "start", "end", "element")) %>% filter(gene %in% genesPAS$gene)
+
+Reg_100Promotergene= read.table("../data/RegElements/hg38_RefSeqElements.phyloP100.txt", col.names = c('chr', 'start', 'end', 'element', 'phyloP20' ), header = F, stringsAsFactors = F) %>% inner_join(promgene,by=c("chr", "start", "end", "element"))%>% filter(gene %in% genesPAS$gene)
+
+
+```
+Too few to use. 
+
+
+Define promoter region at 250 upstream of the PAS.
+
+```{r}
+AllgeneProm=read.table("../data/RegElements/hg38_ncbiRefseq_GenesParsed_sort.bed", col.names = c("chr", "start", "end", "gene","score", "strand")) %>% filter(gene %in% genesPAS$gene) %>% mutate(PromStart=ifelse(strand=="+", start-200, end), PromEnd=ifelse(strand=="+", start, end+200)) %>% select(chr, PromStart, PromEnd, gene, score, strand)
+
+PromAPAgenes=write.table(AllgeneProm, "../data/RegElements/PromGenes.bed",col.names = F, row.names = F, quote = F, sep="\t")
+```
+
+
+```{bash,eval=F}
+python extractPhylopGeneral_20way.py  ../data/RegElements/PromGenes.bed ../data/RegElements/hg38_PromGenes.P20.txt 
+
+
+
+python extractPhylopGeneral.py  ../data/RegElements/PromGenes.bed ../data/RegElements/hg38_PromGenes.P100.txt
+```
+
+
+```{r}
+Prom_wPAS_20=read.table("../data/RegElements/hg38_PromGenes.P20.txt", col.names = c("chr","start","end","PAS", "phyloP20"), stringsAsFactors = F) %>% drop_na() %>% mutate(element="Promoter") %>% select(element,phyloP20) %>% bind_rows(PAS_20)
+
+Prom_wPAS_100=read.table("../data/PhyloP/PAS_phyloP.txt", col.names = c("chr","start","end", "phyloP100"), stringsAsFactors = F) %>% drop_na()  %>%  mutate(element="Promoter") %>% select(element,phyloP100) %>% bind_rows(PAS_100)
+```
+
+
+```{r}
+
+ggplot(Prom_wPAS_100,aes(x=element,y=phyloP100)) + geom_boxplot() + labs(title="PAS vs. promoters for 100 way Phylop")
+
+ggplot(Prom_wPAS_20,aes(x=element,y=phyloP20)) + geom_boxplot() + labs(title="PAS vs. promoters for 20 way Phylop")
+```
 
